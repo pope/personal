@@ -1,0 +1,48 @@
+set nocompatible
+set backspace=indent,eol,start
+set autoindent
+set history=100
+set ruler
+set mouse=a
+set ttymouse=xterm2
+"set spell
+set expandtab
+set tabstop=2
+set shiftwidth=2
+"set si
+set incsearch
+syntax on
+set foldmethod=marker
+"set nofoldenable
+set hlsearch
+set lbr
+set vb
+
+map \p i(<Esc>ea)<Esc>
+map \c i{<Esc>ea}<Esc>
+map <C-T> :tabnew<CR>
+
+map <Leader>vs :set spell!<CR>
+map <Leader>va :set ai!<CR>
+map <Leader>vw :set wrap!<CR>
+map <Leader>vr :set lbr!<CR>
+map <Leader>vn :set nu!<CR>
+map <Leader>vl :set list!<CR>
+map <Leader>vx :set tw=
+
+filetype plugin on
+filetype indent on
+
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType c,cpp set omnifunc=ccomplete#Complete
+autocmd FileType ruby set omnifunc=rubycomplete#Complete
+au FileType c,cpp,java set shiftwidth=4
+au FileType c,cpp,java set tabstop=4
+
+au! BufRead,BufNewFile *.haml         setfiletype haml 
+au! BufRead,BufNewFile *.sass         setfiletype sass 

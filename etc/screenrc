@@ -1,0 +1,24 @@
+vbell off
+autodetach on
+
+caption always
+caption string '%{wk}%?%F%?%4n %t%? [ %h ]%=[ %l ][ %Y.%m.%d %c %A ]'
+
+#change the hardstatus settings to give an window list at the bottom of the                                                                        
+#screen, with the time and date and with the current window highlighted                                                                            
+hardstatus alwayslastline
+hardstatus string '%{wK}%-Lw%{= wk}%50>%n%f* %t%{-}%+Lw %='
+
+# Scroll bar to work with screen
+termcapinfo xterm ti@:te@
+
+# No longer use C-a, use backtick.  In order to use a regular backtick, hit
+# ~ twice
+escape ``
+ 
+# Support alternate screens so that, for example, when you quit out of vi, 
+# the display is redrawn as it was before vi redrew the full screen.
+altscreen on
+
+defscrollback 1000
+deflogin on
