@@ -46,3 +46,4 @@ au FileType c,cpp,java set tabstop=4
 
 au! BufRead,BufNewFile *.haml         setfiletype haml 
 au! BufRead,BufNewFile *.sass         setfiletype sass 
+autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
