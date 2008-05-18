@@ -1,2 +1,5 @@
 colo ir_black
-set gfn=Monaco:h12
+"set gfn=Monaco:h12
+set guifont=Inconsolata:h11:cANSI
+set vb t_vb=
+set guioptions=egmrLtTb
