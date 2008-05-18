@@ -1,8 +1,11 @@
+syn include @gitcommitDiff syntax/diff.vim
+syn region gitcommitDiff start=/\%(^diff --git \)\@=/ end=/^$\|^#\@=/ contains=@gitcommitDiff
+
 syn region gitLine start=/^#/ end=/$/
-syn region gitCommit start=/^# Changes to be committed:$/ end=/^#$/ contains=gitHead,gitCommitFile
+syn region gitCommit start=/^# Changes to be committed:$/ end=/^#$/ contains=gitHead,gitCommitFile,gitcommitDiff
 syn region gitHead contained start=/^#   (.*)/ end=/^#$/
-syn region gitChanged start=/^# Changed but not updated:/ end=/^#$/ contains=gitHead,gitChangedFile
-syn region gitUntracked start=/^# Untracked files:/ end=/^#$/ contains=gitHead,gitUntrackedFile
+syn region gitChanged start=/^# Changed but not updated:/ end=/^#$/ contains=gitHead,gitChangedFile,gitcommitDiff
+syn region gitUntracked start=/^# Untracked files:/ end=/^#$/ contains=gitHead,gitUntrackedFile,gitcommitDiff
 
 syn match gitCommitFile contained /^#\t.*/hs=s+2
 syn match gitChangedFile contained /^#\t.*/hs=s+2
