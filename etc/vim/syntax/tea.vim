@@ -25,7 +25,7 @@ syn case match
 
 syn keyword teaStorageClasses template
 syn keyword teaSupportFunctions isNotEmptyOrNull isEmptyOrNull call dynamicTemplateCall
-syn keyword teaControlKeywords if else foreach in break
+syn keyword teaControlKeywords if else foreach in break define import
 syn keyword teaLogicalOperatorKeywords and or isa not
 syn keyword teaLanguageConstants true false null
 syn match teaNumericaConstants /\b(0[xX]\h(?>_?\h)*|\d(?>_?\d)*(\.(?![^[:space:][:digit:]])(?>_?\d)*)?([eE][-+]?\d(?>_?\d)*)?|0[bB][01]+)\b/
