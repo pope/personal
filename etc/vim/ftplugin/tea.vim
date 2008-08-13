@@ -4,3 +4,5 @@ setlocal expandtab
 
 setlocal path+=$PWD/**
 setlocal includeexpr='Templates/'.substitute(v:fname,'\\.','/','g').'.tea'
+
+compiler tea

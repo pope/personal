@@ -77,4 +77,5 @@ hi LineNr               guifg=#AAAAAA guibg=#eaeaea
 hi ModeMsg              gui=bold
 hi Normal               guifg=#000000 guibg=#F8F8FF
 hi StatusLine           guifg=#666666 guibg=#eaeaea
-hi Visual               guifg=NONE guibg=#ffffcc
+hi Visual               guifg=NONE    guibg=#ffffcc
+hi NonText              guifg=NONE    guibg=#ffffff gui=NONE
