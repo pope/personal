@@ -1,6 +1,6 @@
-colo ir_black
+colo github
 if has("mac")
-  set gfn=Monaco:h12
+  set gfn=Courier:h12
 else
   set guifont=Inconsolata:h11:cANSI
 endif

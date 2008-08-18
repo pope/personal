@@ -30,6 +30,11 @@ map <Leader>vn :set nu!<CR>
 map <Leader>vl :set list!<CR>
 map <Leader>vx :set tw=
 
+map <S-Left>   :bp<CR>
+map <S-Right>  :bn<CR>
+
+map <Leader>b :NERDTreeToggle<CR>
+
 filetype plugin on
 filetype indent on
 
@@ -47,3 +52,6 @@ au FileType c,cpp,java set tabstop=4
 au! BufRead,BufNewFile *.haml         setfiletype haml 
 au! BufRead,BufNewFile *.sass         setfiletype sass 
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
+
+au BufRead,BufNewFile *         match Error     /[ \t]\+$/
+au BufRead,BufNewFile *         match ErrorMsg  /\%>80v.\+/
