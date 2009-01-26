@@ -7,16 +7,24 @@ set mouse=a
 set ttymouse=xterm2
 "set spell
 set expandtab
-set tabstop=2
-set shiftwidth=2
-"set si
+set tabstop=8
+set softtabstop=4
+set shiftwidth=4
+"set smartindent
+set smarttab
 set incsearch
-syntax on
 set foldmethod=marker
 "set nofoldenable
 set hlsearch
 set lbr
 set vb
+set paste
+set textwidth=0
+set clipboard+=unnamed
+set ignorecase
+set encoding=utf8
+set wildmenu
+syntax on
 
 map \p i(<Esc>ea)<Esc>
 map \c i{<Esc>ea}<Esc>
@@ -47,8 +55,8 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType c,cpp set omnifunc=ccomplete#Complete
 autocmd FileType ruby set omnifunc=rubycomplete#Complete
-au FileType c,cpp,java set shiftwidth=4
-au FileType c,cpp,java set tabstop=4
+au FileType ruby set shiftwidth=2
+au FileType ruby set softtabstop=2
 
 au! BufRead,BufNewFile *.haml         setfiletype haml 
 au! BufRead,BufNewFile *.sass         setfiletype sass 
