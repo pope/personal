@@ -1,8 +1,11 @@
-colo github
+set background=light
+colo macvim
+
 if has("mac")
   set gfn=Courier:h12
 else
   set guifont=Inconsolata:h11:cANSI
 endif
+
 set vb t_vb=
 set guioptions=egmrLtTb
