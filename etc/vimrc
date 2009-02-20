@@ -29,7 +29,7 @@ syntax on
 
 map \p i(<Esc>ea)<Esc>
 map \c i{<Esc>ea}<Esc>
-map <C-T> :tabnew<CR>
+" map <C-T> :tabnew<CR>
 
 map <Leader>vs :set spell!<CR>
 map <Leader>va :set ai!<CR>
@@ -39,8 +39,10 @@ map <Leader>vn :set nu!<CR>
 map <Leader>vl :set list!<CR>
 map <Leader>vx :set tw=
 
-map <S-Left>   :bp<CR>
-map <S-Right>  :bn<CR>
+map <S-Left>    :bp<CR>
+map <S-Right>   :bn<CR>
+map <C-S-Left>  :tabp<CR>
+map <C-S-Right> :tabn<CR>
 
 map <Leader>b :NERDTreeToggle<CR>
 map <Leader>t :FuzzyFinderTextMate<CR>
