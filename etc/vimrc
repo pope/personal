@@ -16,9 +16,9 @@ set incsearch
 set foldmethod=marker
 "set nofoldenable
 set hlsearch
-set lbr
-set vb
-set nu
+set linebreak
+set visualbell
+set number
 set paste
 set textwidth=0
 set clipboard+=unnamed
