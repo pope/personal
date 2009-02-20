@@ -25,6 +25,7 @@ set clipboard+=unnamed
 set ignorecase
 set encoding=utf8
 set wildmenu
+set hidden
 syntax on
 
 map \p i(<Esc>ea)<Esc>
@@ -70,3 +71,12 @@ au BufRead,BufNewFile *         match Error     /[ \t]\+$/
 
 set t_Co=16
 colo ir_black
+
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+let g:miniBufExplUseSingleClick = 1
+let g:miniBufExplModSelTarget = 1
+let g:miniBufExplSplitBelow = 1
+
