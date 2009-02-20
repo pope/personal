@@ -1,3 +1,5 @@
+startup_message off
+
 vbell off
 autodetach on
 
@@ -22,3 +24,5 @@ altscreen on
 
 defscrollback 1000
 deflogin on
+
+screen bash --login
