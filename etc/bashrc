@@ -1,8 +1,13 @@
 # .bashrc
 
+# Source the real profile
+if [ -f ~/.bashenv ]; then
+    source ~/.bashenv
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+    source /etc/bashrc
 fi
 
 # Make bash check it's window size after a process completes
