@@ -17,7 +17,7 @@ set foldmethod=marker
 "set nofoldenable
 set hlsearch
 set linebreak
-set visualbell
+set visualbell t_vb=
 set number
 set paste
 set textwidth=0
