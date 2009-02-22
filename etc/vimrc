@@ -69,8 +69,13 @@ autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 au BufRead,BufNewFile *         match Error     /[ \t]\+$/
 " au BufRead,BufNewFile *         match ErrorMsg  /\%>80v.\+/
 
-set t_Co=16
-colo ir_black
+if has("xterm_clipboard")
+    set t_Co=256
+    colorscheme github256
+else
+    set t_Co=16
+    colo ir_black
+endif
 
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
