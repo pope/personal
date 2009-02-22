@@ -33,4 +33,4 @@ altscreen on
 defscrollback 1000
 deflogin on
 
-screen bash --login
+multiuser on
