@@ -70,6 +70,7 @@ au BufRead,BufNewFile *         match Error     /[ \t]\+$/
 " au BufRead,BufNewFile *         match ErrorMsg  /\%>80v.\+/
 
 if has("xterm_clipboard")
+    behave xterm
     set t_Co=256
     colorscheme github256
 else
@@ -83,5 +84,5 @@ let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 let g:miniBufExplUseSingleClick = 1
 let g:miniBufExplModSelTarget = 1
-let g:miniBufExplSplitBelow = 1
+" let g:miniBufExplSplitBelow = 1
 
