@@ -19,9 +19,7 @@ set hlsearch
 set linebreak
 set visualbell t_vb=
 set number
-set paste
 set textwidth=0
-set clipboard+=unnamed
 set ignorecase
 set encoding=utf8
 set wildmenu
@@ -69,6 +67,7 @@ autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 au BufRead,BufNewFile *         match Error     /[ \t]\+$/
 " au BufRead,BufNewFile *         match ErrorMsg  /\%>80v.\+/
 
+" Things to think about when using xterm
 if has("xterm_clipboard")
     behave xterm
     set t_Co=256
@@ -76,6 +75,8 @@ if has("xterm_clipboard")
 else
     set t_Co=16
     colo ir_black
+    set paste
+    set clipboard+=unnamed
 endif
 
 let g:miniBufExplMapWindowNavVim = 1
