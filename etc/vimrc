@@ -43,8 +43,9 @@ map <S-Right>   :bn<CR>
 map <C-S-Left>  :tabp<CR>
 map <C-S-Right> :tabn<CR>
 
-map <Leader>b :NERDTreeToggle<CR>
-map <Leader>t :FuzzyFinderTextMate<CR>
+map <Leader>nt :NERDTreeToggle<CR>
+map <Leader>ft :FuzzyFinderTextMate<CR>
+map <Leader>fb :FuzzyFinderBuffer<CR>
 
 filetype plugin on
 filetype indent on
