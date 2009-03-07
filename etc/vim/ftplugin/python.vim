@@ -1,4 +1,4 @@
-" helps locate python files
+" helps locate python files"{{{
 python << EOF
 import os
 import sys
@@ -7,22 +7,24 @@ for p in sys.path:
     if os.path.isdir(p):
         vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
 EOF
+"}}}
 
 set omnifunc=pythoncomplete#Complete
 
-set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
-set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+compiler pycompile
 
 set tags+=$HOME/.python.ctags
 
+" Evaluate Current Range"{{{
 python << EOL
 import vim
 def EvaluateCurrentRange():
     eval(compile('\n'.join(vim.current.range),'','exec'),globals())
 EOL
 map <C-h> :py EvaluateCurrentRange()
+"}}}
 
-" Debugging
+" Debugging"{{{
 python << EOF
 def SetBreakpoint():
     import re
@@ -68,3 +70,4 @@ def RemoveBreakpoints():
 
 vim.command( 'map <s-f7> :py RemoveBreakpoints()<cr>')
 EOF
+"}}}
