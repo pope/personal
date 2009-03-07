@@ -88,3 +88,4 @@ let g:miniBufExplUseSingleClick = 1
 let g:miniBufExplModSelTarget = 1
 " let g:miniBufExplSplitBelow = 1
 
+let g:fuzzy_ignore = "*.class,*.pyc"
