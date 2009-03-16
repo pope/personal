@@ -20,7 +20,7 @@ set linebreak
 set visualbell t_vb=
 set number
 set textwidth=0
-set ignorecase
+set smartcase
 set encoding=utf8
 set wildmenu
 set hidden
