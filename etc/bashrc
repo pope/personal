@@ -39,3 +39,7 @@ export white="[37m"
 
 export reset="[0m"
 export bold="[1m"
+
+function setPythonPath {
+    export PYTHONPATH=`python -c 'import sys; print ":".join(sys.path)'`
+}
