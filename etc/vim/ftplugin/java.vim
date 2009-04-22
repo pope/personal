@@ -16,6 +16,7 @@ def update_classpath_from_maven():
     libs.append("target/test-classes")
 
     vim.command("let g:vjde_lib_path=\"%s\"" % ":".join(libs))
+    vim.command("let g:vjde_java_cfu={}")
 
 EOF
 map <Leader>jup :py update_classpath_from_maven()<CR>
