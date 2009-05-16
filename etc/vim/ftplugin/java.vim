@@ -15,7 +15,11 @@ def update_classpath_from_maven():
     libs.append("target/classes")
     libs.append("target/test-classes")
 
-    vim.command("let g:vjde_lib_path=\"%s\"" % ":".join(libs))
+    vim.command("let g:vjde_lib_path='%s'" % ":".join(libs))
+    vim.command("let g:vjde_src_path='src/main/java'")
+    vim.command("let g:vjde_web_app='src/main/webapp'")
+    vim.command("let g:vjde_out_path='target/classes'")
+    vim.command("let g:vjde_test_path='src/test/java'")
     vim.command("let g:vjde_java_cfu={}")
 
 EOF
