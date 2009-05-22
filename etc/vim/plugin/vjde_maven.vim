@@ -1,8 +1,10 @@
 python << EOF
 import vim
+import os.path
 from subprocess import Popen, PIPE
 
 def update_classpath_from_maven():
+    print "Updating class path stuff..."
     p1 = Popen(["mvn",
                 "dependency:list",
                 "-DoutputAbsoluteArtifactFilename=true"], stdout=PIPE)
@@ -21,6 +23,5 @@ def update_classpath_from_maven():
     vim.command("let g:vjde_out_path='target/classes'")
     vim.command("let g:vjde_test_path='src/test/java'")
     vim.command("let g:vjde_java_cfu={}")
-
 EOF
 map <Leader>jup :py update_classpath_from_maven()<CR>
