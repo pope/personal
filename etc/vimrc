@@ -20,10 +20,12 @@ set linebreak
 set visualbell t_vb=
 set number
 set textwidth=0
+set ignorecase
 set smartcase
 set encoding=utf8
 set wildmenu
 set hidden
+set laststatus=2
 syntax on
 
 map \p i(<Esc>ea)<Esc>
@@ -75,7 +77,6 @@ if has("xterm_clipboard")
     colorscheme github256
 else
     set t_Co=16
-    colo ir_black
     set paste
     set clipboard+=unnamed
 endif
