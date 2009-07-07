@@ -4,7 +4,7 @@ PortSystem          1.0
 
 name                cmockery
 version             0.1.2
-revision            1
+revision            0
 categories          devel
 maintainers         shifteleven.com:pope
 description         unit testing and mocking library for C
