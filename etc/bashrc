@@ -43,3 +43,12 @@ export bold="[1m"
 function setPythonPath {
     export PYTHONPATH=`python -c 'import sys; print ":".join(sys.path)'`
 }
+
+function setGAEPath {
+    unset PYTHONPATH
+    PYTHON="python"
+    if [ -n "$1" ]; then
+        PYTHON=$1
+    fi
+    export PYTHONPATH=`$PYTHON -c 'import sys, site, os.path; site.addsitedir(os.path.expanduser("~/.gae")); print ":".join(sys.path)'`
+}
