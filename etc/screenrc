@@ -30,7 +30,7 @@ escape ``
 # the display is redrawn as it was before vi redrew the full screen.
 altscreen on
 
-defscrollback 1000
+defscrollback 5000
 deflogin on
 
 multiuser on
