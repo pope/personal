@@ -4,13 +4,13 @@ PortSystem          1.0
 
 name                segmenter
 version             r49
-revision            1
+revision            2
 categories          multimedia
 maintainers         shifteleven.com:pope
 description         CLI to make HTTP Streaming files
 homepage            http://www.assembla.com/spaces/legend
 platforms           darwin
-depends_lib         port:ffmpeg
+depends_lib         port:ffmpeg-devel
 
 fetch.type          git
 git.url             git://github.com/pope/segmenter.git
