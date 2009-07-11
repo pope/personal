@@ -4,20 +4,15 @@ PortSystem          1.0
 
 name                segmenter
 version             r49
-revision            0
+revision            1
 categories          multimedia
 maintainers         shifteleven.com:pope
 description         CLI to make HTTP Streaming files
-homepage            http://svn.assembla.com/svn/legend/segmenter
+homepage            http://www.assembla.com/spaces/legend
 platforms           darwin
 depends_lib         port:ffmpeg
 
-fetch.type          svn
-svn.url             http://svn.assembla.com/svn/legend/segmenter
-svn.tag             49
-
-patchfiles          patch-Makefile.diff
-worksrcdir          ${name}
-configure           {}
+fetch.type          git
+git.url             git://github.com/pope/segmenter.git
 
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
