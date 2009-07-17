@@ -1,16 +1,14 @@
 python << EOF
+import os
 import vim
 import os.path
-from subprocess import Popen, PIPE
 
 def update_classpath_from_maven():
     print "Updating class path stuff..."
-    p1 = Popen(["mvn",
-                "dependency:list",
-                "-DoutputAbsoluteArtifactFilename=true"], stdout=PIPE)
+    p1 = os.popen2("mvn dependency:list -DoutputAbsoluteArtifactFilename=true")
     libs = []
-    output = p1.communicate()[0]
-    for line in output.split("\n"):
+    lines = p1[1].readlines()
+    for line in map(lambda x: x.strip(), lines):
         pieces = line.split(":")
         if len(pieces) == 6:
             libs.append(pieces[5])
