@@ -40,15 +40,20 @@ export white="[37m"
 export reset="[0m"
 export bold="[1m"
 
-function setPythonPath {
-    export PYTHONPATH=`python -c 'import sys; print ":".join(sys.path)'`
-}
-
-function setGAEPath {
-    unset PYTHONPATH
+function getPythonPath {
     PYTHON="python"
     if [ -n "$1" ]; then
         PYTHON=$1
     fi
-    export PYTHONPATH=`$PYTHON -c 'import sys, site, os.path; site.addsitedir(os.path.expanduser("~/.gae")); print ":".join(sys.path)'`
+    echo `$PYTHON -c 'import sys; print ":".join(sys.path)'`
+    unset PYTHON
+}
+
+function getGAEPath {
+    PYTHON="python"
+    if [ -n "$1" ]; then
+        PYTHON=$1
+    fi
+    echo `$PYTHON -c 'import sys, site, os.path; site.addsitedir(os.path.expanduser("~/.gae")); print ":".join(sys.path)'`
+    unset PYTHON
 }
