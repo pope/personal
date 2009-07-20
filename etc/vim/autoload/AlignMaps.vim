@@ -165,7 +165,7 @@ fun! AlignMaps#Equals() range
   'a,'zs/==/\="\<Char-0x0f>\<Char-0x0f>"/ge
   'a,'zs/\([!<>:]\)=/\=submatch(1)."\<Char-0x0f>"/ge
   norm g'zk
-  AlignCtrl mIp1P1=l =
+  AlignCtrl WmIp1P1=l =
   AlignCtrl g =
   'a,'z-1Align
   'a,'z-1s@\([*/+\-%|&\~^!=]\)\( \+\)=@\2\1=@ge
