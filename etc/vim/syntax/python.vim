@@ -69,6 +69,8 @@ elseif exists("b:current_syntax")
   finish
 endif
 
+let python_highlight_all = 1
+
 if exists("python_highlight_all") && python_highlight_all != 0
   " Not override previously set options
   if !exists("python_highlight_builtins")
@@ -98,6 +100,7 @@ if exists("python_highlight_all") && python_highlight_all != 0
 endif
 
 " Keywords
+syn keyword pythonStatement	self cls
 syn keyword pythonStatement	break continue del
 syn keyword pythonStatement	exec return
 syn keyword pythonStatement	pass raise
@@ -343,7 +346,6 @@ if version >= 508 || !exists("did_python_syn_inits")
 
   HiLink pythonBuiltinObj	Structure
   HiLink pythonBuiltinFunc	Function
-
   HiLink pythonExClass	Structure
 
   delcommand HiLink
