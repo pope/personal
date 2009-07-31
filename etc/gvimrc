@@ -3,6 +3,8 @@ colo macvim
 
 if has("mac")
   set gfn=Courier:h12
+elseif has("unix")
+  set gfn=Inconsolata\ Medium\ 12
 else
   set guifont=Inconsolata:h11:cANSI
 endif
