@@ -109,7 +109,8 @@ endif
 
 " Syntax highlighting
 hi Comment          guifg=#7C7C7C     guibg=NONE        gui=NONE      ctermfg=darkgray    ctermbg=NONE        cterm=NONE
-hi String           guifg=#A8FF60     guibg=NONE        gui=NONE      ctermfg=green       ctermbg=NONE        cterm=NONE
+"hi String           guifg=#A8FF60     guibg=NONE        gui=NONE      ctermfg=green       ctermbg=NONE        cterm=NONE
+hi String           guifg=#A8FF60     guibg=#001A00     gui=NONE      ctermfg=green       ctermbg=NONE        cterm=NONE
 hi Number           guifg=#FF73FD     guibg=NONE        gui=NONE      ctermfg=magenta     ctermbg=NONE        cterm=NONE
 
 hi Keyword          guifg=#96CBFE     guibg=NONE        gui=NONE      ctermfg=blue        ctermbg=NONE        cterm=NONE
@@ -126,7 +127,8 @@ hi Statement        guifg=#6699CC     guibg=NONE        gui=NONE      ctermfg=li
 
 hi Special          guifg=#E18964     guibg=NONE        gui=NONE      ctermfg=white       ctermbg=NONE        cterm=NONE
 hi Delimiter        guifg=#00A0A0     guibg=NONE        gui=NONE      ctermfg=cyan        ctermbg=NONE        cterm=NONE
-hi Operator         guifg=white       guibg=NONE        gui=NONE      ctermfg=white       ctermbg=NONE        cterm=NONE
+"hi Operator         guifg=white       guibg=NONE        gui=NONE      ctermfg=white       ctermbg=NONE        cterm=NONE
+hi Operator         guifg=#FFFFB6     guibg=NONE        gui=NONE      ctermfg=white       ctermbg=NONE        cterm=NONE
 
 hi link Character       Constant
 hi link Boolean         Constant
