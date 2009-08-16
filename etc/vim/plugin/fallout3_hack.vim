@@ -44,6 +44,9 @@ def fallout3_hack_guess():
         for x in xrange(0, valid_words_len):
             cb[x] = valid_words[x]
         del cb[valid_words_len:cb_len]
+
+    #Always resort the list when we're done
+    fallout3_hack_sort()
 EOF
 
 map <Leader>fo3s :python fallout3_hack_sort()<CR>
