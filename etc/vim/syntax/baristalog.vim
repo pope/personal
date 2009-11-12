@@ -1,7 +1,7 @@
-syn match baristalogWarn /^*W[^>]*>/
-syn match baristalogError /^*E[^>]*>/
-syn match baristalogDebug /^ D[^>]*>/
-syn match baristalogInfo /^ I[^>]*>/
+syn match baristalogWarn /^\(.*barista.log:\)\?\*W[^>]*>/
+syn match baristalogError /^\(.*barista.log:\)\?\*E[^>]*>/
+syn match baristalogDebug /^\(.*barista.log:\)\? D[^>]*>/
+syn match baristalogInfo /^\(.*barista.log:\)\? I[^>]*>/
 
 syn match baristalogBizRuleInput /\[Input Rule:.*\];/
 syn match baristalogBizRuleOutput /\[Ouput Rule:.*\];/
