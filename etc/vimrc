@@ -26,7 +26,7 @@ set encoding=utf8
 set wildmenu
 set hidden
 set laststatus=2
-set flp=^\\s*[0-9*+\\-]\\+[\\]:.)}\\t\ ]\\s*
+"set flp=^\\s*[0-9*+\\-]\\+[\\]:.)}\\t\ ]\\s*
 set fo+=n
 syntax on
 
@@ -92,4 +92,8 @@ let g:miniBufExplUseSingleClick = 1
 let g:miniBufExplModSelTarget = 1
 " let g:miniBufExplSplitBelow = 1
 
-let g:fuzzy_ignore = "*.class,*.pyc"
+let g:fuzzy_ignore = "*.class,*.pyc,target/**/*,compressed/**/*"
+
+" Some commands that I use
+map <Leader>tcc1 :%s/\v(.{-})\t(.{-})\t(.*(\d+)-Day.*)$/ticketCodes.add(new TicketCode("\1", "\2", "\3", \4));
+map <Leader>tcc2 :%s/\v(.{-})\t(.{-})\t(.*(\d+)-Day.*)$/ticketCodes.add(new TicketCode("\2", "\1", "\3", \4));
