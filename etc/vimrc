@@ -103,3 +103,5 @@ let g:fuzzy_ignore = "*.class,*.pyc,target/**/*,compressed/**/*"
 " Some commands that I use
 map <Leader>tcc1 :%s/\v(.{-})\t(.{-})\t(.*(\d+)-Day.*)$/ticketCodes.add(new TicketCode("\1", "\2", "\3", \4));
 map <Leader>tcc2 :%s/\v(.{-})\t(.{-})\t(.*(\d+)-Day.*)$/ticketCodes.add(new TicketCode("\2", "\1", "\3", \4));
+
+command! -bar -nargs=0 SudoW   :silent exe "write !sudo tee % >/dev/null"|silent edit!
