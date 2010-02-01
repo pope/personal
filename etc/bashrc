@@ -57,3 +57,7 @@ function getGAEPath {
     echo `$PYTHON -c 'import sys, site, os.path; site.addsitedir(os.path.expanduser("~/.gae")); print ":".join(sys.path)'`
     unset PYTHON
 }
+
+function tabtitle {
+    echo -n -e "\033]0;$@\007"
+}
