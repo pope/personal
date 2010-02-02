@@ -98,6 +98,9 @@ let g:miniBufExplUseSingleClick = 1
 let g:miniBufExplModSelTarget = 1
 " let g:miniBufExplSplitBelow = 1
 
+let g:debuggerMaxDepth = 5
+let g:debuggerMiniBufExpl = 1
+
 let g:fuzzy_ignore = "*.class,*.pyc,target/**/*,compressed/**/*"
 
 " Some commands that I use
