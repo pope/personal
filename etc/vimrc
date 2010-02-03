@@ -70,8 +70,8 @@ au! BufRead,BufNewFile *.sass         setfiletype sass
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
 
-au BufRead,BufNewFile *         match Error     /[ \t]\+$/
-" au BufRead,BufNewFile *         match ErrorMsg  /\%>80v.\+/
+au BufRead,BufNewFile * match ErrorMsg  /[ \t]\+$/
+"au BufRead,BufNewFile * match ErrorMsg   /\%>80v.\+/
 
 " Things to think about when using xterm
 if has("xterm_clipboard")
