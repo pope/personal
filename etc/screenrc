@@ -24,7 +24,7 @@ defbce "on"
 
 # No longer use C-a, use backtick.  In order to use a regular backtick, hit
 # ~ twice
-escape ``
+#escape ``
 
 # Support alternate screens so that, for example, when you quit out of vi,
 # the display is redrawn as it was before vi redrew the full screen.
