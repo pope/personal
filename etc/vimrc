@@ -48,8 +48,8 @@ map <C-S-Left>  :tabp<CR>
 map <C-S-Right> :tabn<CR>
 
 map <Leader>nt :NERDTreeToggle<CR>
-map <Leader>ft :FuzzyFinderTextMate<CR>
-map <Leader>fb :FuzzyFinderBuffer<CR>
+map <Leader>ft :FufFile<CR>
+map <Leader>fb :FufBuffer<CR>
 
 filetype plugin on
 filetype indent on
