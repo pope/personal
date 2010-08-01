@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                segmenter
-version             r49
+version             r50
 revision            2
 categories          multimedia
 maintainers         shifteleven.com:pope
