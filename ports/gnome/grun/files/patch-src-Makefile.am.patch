@@ -1,0 +1,10 @@
+--- Makefile.am.orig	2010-10-04 18:37:02.000000000 -0400
++++ Makefile.am	2010-10-04 18:37:25.000000000 -0400
+@@ -4,7 +4,6 @@
+ localedir=$(datadir)/locale
+ 
+ AM_CFLAGS = -DLOCALEDIR=\""$(localedir)"\" -DSYSCONFDIR=\""$(sysconfdir)"\" $(GTK_CFLAGS)
+-AM_LDFLAGS= -Wl,--as-needed -Wl,-z -Wl,defs
+ 
+ bin_PROGRAMS = grun
+ grun_SOURCES = grun.c 

@@ -1,0 +1,10 @@
+--- Makefile.in.orig	2010-10-04 18:37:08.000000000 -0400
++++ Makefile.in	2010-10-04 18:37:19.000000000 -0400
+@@ -265,7 +265,6 @@
+ AUTOMAKE_OPTIONS = no-dependencies
+ SUBDIRS = po intl
+ AM_CFLAGS = -DLOCALEDIR=\""$(localedir)"\" -DSYSCONFDIR=\""$(sysconfdir)"\" $(GTK_CFLAGS)
+-AM_LDFLAGS = -Wl,--as-needed -Wl,-z -Wl,defs
+ grun_SOURCES = grun.c 
+ grun_LDADD = $(INTLLIBS) $(GTK_LIBS)
+ dist_man_MANS = grun.1x
