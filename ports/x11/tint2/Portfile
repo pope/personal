@@ -6,7 +6,6 @@ PortGroup               cmake 1.0
 
 name                    tint2
 version                 0.11
-revision                0
 categories              x11
 maintainers             shifteleven.com:pope
 description             a simple panel/taskbar
@@ -22,9 +21,10 @@ use_bzip2               yes
 checksums               md5     6fc5731e7425125fa84a2add5cef4bff \
                         sha1    9752255529673dabf13e7437afd1cd0b39d9c92b
 patchfiles              patch-src-util-timer.c.diff
-depends_lib             port:cairo \
-                        port:pango \
-                        port:glib2 \
+depends_build           port:pkgconfig
+depends_lib             path:lib/pkgconfig/cairo.pc:cairo \
+                        path:lib/pkgconfig/pango.pc:pango \
+                        path:lib/pkgconfig/glib-2.0.pc:glib2 \
                         port:imlib2 \
                         port:xorg-libXinerama \
                         port:xrender \
