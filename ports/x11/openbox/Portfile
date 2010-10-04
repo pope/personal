@@ -1,0 +1,30 @@
+# $Id: Portfile 50980 2009-05-14 19:41:55Z and.damore@macports.org $
+
+PortSystem 1.0
+
+name		openbox
+version		3.4.11.2
+revision	1
+categories	x11
+maintainers	afb openmaintainer
+platforms	darwin freebsd linux
+
+description	A highly configurable and standards-compliant window manager
+long_description	Openbox is a minimalistic, highly configurable, next \
+			generation window manager with extensive standards support.
+
+homepage	http://openbox.org
+master_sites	http://openbox.org/dist/openbox/
+checksums	md5 30e669134fa81df810fe7d1dc59cd931
+
+depends_build \
+	port:pkgconfig
+
+depends_lib \
+	port:xorg-libsm \
+	port:xorg-libXcursor \
+	port:xorg-libXinerama \
+	port:xorg-libXrandr \
+	path:lib/pkgconfig/pango.pc:pango \
+	port:libxml2 \
+	port:startup-notification

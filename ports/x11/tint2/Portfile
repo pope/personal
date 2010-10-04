@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $ID:$
+
+PortSystem              1.0
+PortGroup               cmake 1.0
+
+name                    tint2
+version                 0.11
+revision                0
+categories              x11
+maintainers             shifteleven.com:pope
+description             a simple panel/taskbar
+long_description        tint2is a simple panel/taksbar unintrusive and light \
+                        (memory / cpu / aestetic).  We try to get 'virtual \
+                        desktop' and 'multi-monitor' easier to use.  We \
+                        follow freedesktop specifications.
+platforms               darwin
+license                 GPLv2
+homepage                http://code.google.com/p/tint2/
+master_sites            http://tint2.googlecode.com/files/
+use_bzip2               yes
+checksums               md5     6fc5731e7425125fa84a2add5cef4bff \
+                        sha1    9752255529673dabf13e7437afd1cd0b39d9c92b
+patchfiles              patch-src-util-timer.c.diff
+depends_lib             port:cairo \
+                        port:pango \
+                        port:glib2 \
+                        port:imlib2 \
+                        port:xorg-libXinerama \
+                        port:xrender \
+                        port:xorg-libXcomposite \
+                        port:xorg-libXdamage \
+                        port:xorg-libX11 \
+                        port:xorg-libXrandr
+configure.pre_args-append \
+                        -DSYSCONFDIR=${prefix}/etc
