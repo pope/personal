@@ -1,7 +1,6 @@
 cmockery 0
-gtest 388
-grun 1055
-segmenter 1776
-rb-rubygems 2111
-openbox 2489
-tint2 3116
+gtest 404
+grun 1087
+segmenter 1808
+rb-rubygems 2159
+tint2 2553
