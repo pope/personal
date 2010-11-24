@@ -26,7 +26,9 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-export PS1='\n*=====================================================*\n\[\033[0;34m\] `hostname`: \d \t\[\033[0m\]\n-------------------------------------------------------\n\u@\h\n\[\033[0;34m\]\w\[\033[0;35m\]`__git_ps1`\[\033[0m\] >'
+#export PS1='\n*=====================================================*\n\[\033[1;34m\] `hostname`: \d \t\[\033[0m\]\n-------------------------------------------------------\n\u@\h\n\[\033[1;34m\]\w\[\033[1;35m\]`__git_ps1`\[\033[0m\] >'
+PS1='\n\[\e[1m\]┌[\[\e[0;34m\]\u@\h\[\e[0m\]\[\e[1m\]][\[\e[0;34m\]\w`__git_ps1 " \[\e[0;35m\]%s"`\[\e[0m\]\[\e[1m\]]\n└╼ \[\e[0m\]'
+PS2="└┈ "
 
 export black="[30m"
 export red="[31m"
@@ -39,6 +41,10 @@ export white="[37m"
 
 export reset="[0m"
 export bold="[1m"
+
+export HISTIGNORE="&"
+export HISTSIZE=1000
+export HISTCONTROL="erasedups"
 
 function getPythonPath {
     PYTHON="python"
