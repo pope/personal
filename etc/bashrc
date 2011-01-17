@@ -13,14 +13,14 @@ fi
 # Make bash check it's window size after a process completes
 shopt -s checkwinsize
 
-#alias ls='ls -F --color'
-#alias ll='ls -l'
-#alias la='ls -a'
-#alias dir='ls -la'
-alias ls='ls -FG'
-alias ll='ls -lG'
-alias la='ls -aG'
-alias dir='ls -laG'
+alias ls='gls -F --color'
+alias ll='ls -l'
+alias la='ls -a'
+alias dir='ls -la'
+#alias ls='ls -FG'
+#alias ll='ls -lG'
+#alias la='ls -aG'
+#alias dir='ls -laG'
 
 alias rm='rm -i'
 alias cp='cp -i'
@@ -67,3 +67,5 @@ function getGAEPath {
 function tabtitle {
     echo -n -e "\033]0;$@\007"
 }
+
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH

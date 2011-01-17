@@ -1,3 +1,4 @@
+if has("python")
 python << EOF
 import vim
 def _fallout3_hack_score(word, guess):
@@ -84,3 +85,5 @@ EOF
 
 map <Leader>fo3s :python fallout3_hack_sort()<CR>
 map <Leader>fo3g :python fallout3_hack_guess()<CR>
+
+endif

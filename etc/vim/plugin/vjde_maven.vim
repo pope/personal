@@ -1,3 +1,4 @@
+if has("python")
 python << EOF
 import os
 import vim
@@ -41,3 +42,4 @@ def update_classpath_from_maven():
 EOF
 map <Leader>jup :py update_classpath_from_maven()<CR>
 map <Leader>jbup :py update_classpath_from_maven()<CR>
+endif

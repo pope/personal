@@ -4,7 +4,7 @@ set autoindent
 set history=100
 set ruler
 set mouse=a
-set ttymouse=xterm2
+set ttymouse=xterm
 "set spell
 set expandtab
 set tabstop=4
