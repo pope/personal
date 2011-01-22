@@ -628,6 +628,7 @@ vimoutliner	vo_readme.txt	/*vimoutliner*
 vjde	vjde.txt	/*vjde*
 vjde-auto-comp	vjde.txt	/*vjde-auto-comp*
 vjde-code	vjde.txt	/*vjde-code*
+vjde-command	vjde.txt	/*vjde-command*
 vjde-define	vjde.txt	/*vjde-define*
 vjde-desc	vjde.txt	/*vjde-desc*
 vjde-doc	vjde.txt	/*vjde-doc*
@@ -638,6 +639,7 @@ vjde-fix-tools	vjde.txt	/*vjde-fix-tools*
 vjde-goto	vjde.txt	/*vjde-goto*
 vjde-html	vjde.txt	/*vjde-html*
 vjde-iabbr	vjde.txt	/*vjde-iabbr*
+vjde-impl-inner	vjde.txt	/*vjde-impl-inner*
 vjde-implements	vjde.txt	/*vjde-implements*
 vjde-import-extract	vjde.txt	/*vjde-import-extract*
 vjde-import-sort	vjde.txt	/*vjde-import-sort*
@@ -678,6 +680,7 @@ vjde_out_path	vjde.txt	/*vjde_out_path*
 vjde_show_paras	vjde.txt	/*vjde_show_paras*
 vjde_show_preview	vjde.txt	/*vjde_show_preview*
 vjde_src_path	vjde.txt	/*vjde_src_path*
+vjde_use_window	vjde.txt	/*vjde_use_window*
 vjde_web_app	vjde.txt	/*vjde_web_app*
 vjde_xml_advance	vjde.txt	/*vjde_xml_advance*
 vo	vo_readme.txt	/*vo*

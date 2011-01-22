@@ -8,14 +8,25 @@ endif
 if !exists('g:vjde_cs_cmd')
 	let g:vjde_cs_cmd='mono.exe '.g:vjde_install_path.'/vjde/CSParser.exe'
 endif
+if !exists('g:vjde_cs_using')
+	let g:vjde_cs_using=g:vjde_install_path.'\vjde\UsingFinder.exe'
+endif
+if !exists('g:vjde_cs_find')
+	let g:vjde_cs_find=g:vjde_install_path.'\vjde\TypeFinder.exe'
+endif
 let g:vjde_cs_cfu={}
-
+let s:vjde_cs_default_types={'context' : 'System.Web.HttpContext' , 'Request' : ' System.Web.HttpRequest' , 'Response' : 'System.Web.HttpResponse'}
 let s:types=[]
 let s:type=''
 let s:success=1
 let s:last_start = 0
 
 func! s:VjdeCSGetTypeName(var) 
+	if ( 'cs' != expand('%:e'))
+		if  has_key(s:vjde_cs_default_types,a:var)
+			return s:vjde_cs_default_types[a:var]
+		endif
+	endif
 	let tname = VjdeGetTypeName(a:var)
 	if tname=='string'
 		return "String"
@@ -45,7 +56,13 @@ func! VjdeCSCompletion(findstart,base)
 		let s:last_start=VjdeFindStart(getline('.'),a:base,col('.'),'[.@ \t]')
 		return s:last_start
 	endif
-	let usingstr = VjdeCSGetUsing()
+	let lline = getline('.')
+	let l:cend = matchend(lline,'^\s*using\s\+')
+	if l:cend != -1
+		let lline = matchstr(lline,".*$",l:cend)
+		return s:VjdeCsCompletionUsing(lline,a:base)
+	endif
+	let usingstr = VjdeCSGetUsing().';System.Data;System.Text;System.Web'
 	let lline = getline('.')
 	let lcol = col('.')
 	let s:types = VjdeObejectSplit(VjdeFormatLine(strpart(lline,0,s:last_start)))
@@ -62,6 +79,53 @@ func! VjdeCSCompletion(findstart,base)
 		return s:VjdeGeneratePerviewMenu(a:base)
 	endif
 	return ""
+endf
+func! s:VjdeCsCompletionUsing(l,b)
+	let lidx = stridx(a:l,'.')
+	let l:ln=''
+	"if ( strlen(a:l) > 0)
+	"	let l:ln = a:l
+	"endif
+	"if lidx>0
+	"	let l:ln = strpart(a:l,0,lidx)
+	"endif
+	let cmd = g:vjde_cs_using. ' "'.l:ln.'" "'.g:vjde_cs_libs.'" '
+	let str = system(cmd)
+	exec 'let arr = '.str
+	let res=[]
+	for a1 in arr
+		if strlen(a1) > lidx
+			call add(res,strpart(a1,lidx+1))
+		endif
+	endfor
+	return res
+endf
+func! VjdeCsFindUsing()
+	let l:v_v = expand('<cword>')
+        let l:line_imp = search('^\s*using\s\+.*\s*;','nb')
+	if  l:line_imp<0
+		let l:line_imp=1
+	endif
+	let cmd = g:vjde_cs_find. ' "'.l:v_v.'" "'.g:vjde_cs_libs.'" '
+	let str = system(cmd)
+	exec 'let arr = '.str
+	if len(arr)==1
+		call append(l:line_imp,'using '.arr[0].';')
+		return
+	endif
+	if len(arr) ==0
+		return
+	end
+	let l:i = 0
+	while l:i < len(arr)
+		echo l:i.'	'.arr[l:i]
+		let l:i = l:i + 1
+	endwhile
+	let sel = inputdialog('select one to using')
+	if strlen(sel)>0
+		call append(l:line_imp,'using '.arr[sel].';')
+		return
+	endif
 endf
 func! s:VjdeGeneratePerviewMenu(base)
     let lval= []
@@ -136,6 +200,9 @@ func! VjdeCSCompletion_New(cmd,path)
 endf
  if v:version>=700
     au BufNewFile,BufRead,BufEnter *.cs set cfu=VjdeCSCompletion
+    au BufNewFile,BufRead,BufEnter *.aspx set cfu=VjdeCSCompletion
+    au BufNewFile,BufRead,BufEnter *.ashx set cfu=VjdeCSCompletion
+    au BufNewFile,BufRead,BufEnter *.cs nmap <leader>ai :call VjdeCsFindUsing()<cr>
  endif
 "let cscompletion = VjdeCSCompletion_New('mono.exe '.g:vjde_install_path.'/vjde/CSParser.exe','d:\Mono-1.1.13.4\lib\mono\2.0\mscorlib.dll')
 "let cscompletion = VjdeCSCompletion_New('mono.exe e:/temp/CSParser.exe','d:\Mono-1.1.13.4\lib\mono\2.0\mscorlib.dll')
