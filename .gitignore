@@ -1,1 +1,8 @@
 etc/vim/.netrwhist
+etc/emacs.d/el-get
+etc/emacs.d/*elc
+etc/emacs.d/backups
+etc/emacs.d/places
+etc/emacs.d/custom.el
+etc/emacs.d/auto-save-list
+etc/emacs.d/ac-comphist.dat
