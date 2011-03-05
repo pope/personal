@@ -10,14 +10,14 @@ Xft.hintstyle: hintmedium
 !-- rxvt-unicode settings ---------------------------------------------------
 URxvt*termName: rxvt
 URxvt.buffered:         true
-URxvt.background:       black
-URxvt.foreground:       white
-URxvt.cursorColor:      green
-URxvt.underlineColor:   yellow
-URxvt.font:             xft:DejaVu Sans Mono:pixelsize=14:antialias=true:hinting=true:autohint=true
-URxvt.boldFont:         xft:DejaVu Sans Mono:bold:pixelsize=14:antialias=true:hinting=true:autohint=true
-URxvt.italicFont:       xft:DejaVu Sans Mono:italic:pixelsize=14:antialias=true:hinting=true:autohint=true
-URxvt.bolditalicFont:   xft:DejaVu Sans Mono:italic:bold:pixelsize=14:antialias=true:hinting=true:autohint=true
+URxvt.background:       #2e3436
+URxvt.foreground:       #eeeeec
+URxvt.cursorColor:      #4e9a06
+URxvt.underlineColor:   #fce94f
+URxvt.font:             xft:DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true:autohint=true
+URxvt.boldFont:         xft:DejaVu Sans Mono:bold:pixelsize=12:antialias=true:hinting=true:autohint=true
+URxvt.italicFont:       xft:DejaVu Sans Mono:italic:pixelsize=12:antialias=true:hinting=true:autohint=true
+URxvt.bolditalicFont:   xft:DejaVu Sans Mono:italic:bold:pixelsize=12:antialias=true:hinting=true:autohint=true
 URxvt.scrollstyle:      plain
 URxvt.scrollBar_right:  true
 URxvt.perl-ext-common:  default,tabbed
