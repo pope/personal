@@ -50,6 +50,7 @@ map <C-S-Right> :tabn<CR>
 map <Leader>nt :NERDTreeToggle<CR>
 map <Leader>ft :FufFile<CR>
 map <Leader>fb :FufBuffer<CR>
+map <Leader>fp :PeepOpen<CR>
 
 filetype plugin on
 filetype indent on
@@ -59,6 +60,8 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+let php_sql_query=1
+let php_htmlInStrings=1
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType c,cpp,ragel set omnifunc=ccomplete#Complete
 autocmd FileType ruby set omnifunc=rubycomplete#Complete
