@@ -43,7 +43,9 @@
       inhibit-startup-message t
       mouse-yank-at-point t
       truncate-partial-width-windows nil
-      debug-on-error t)
+      debug-on-error t
+      generated-autoload-file autoload-file)
+(setq-default indent-tabs-mode nil)
 
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
@@ -75,7 +77,10 @@
 	(:name paredit :features ())
 	naquadah-theme
 	nxhtml
-	auto-complete
+	(:name auto-complete
+               :after (lambda ()
+                        ;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+                        (ac-set-trigger-key "TAB")))
 	auto-complete-etags
 	(:name zencoding-mode :features ())
 	switch-window
@@ -104,8 +109,7 @@
 	       :url "http://shifteleven.com/mirrors/cedet-1.0.tar.gz"
 	       :build `(,(concat "make EAMCS=" el-get-emacs))
 	       :load-path ("./common")
-	       :after (lambda ()
-			(load-file "~/.emacs.d/el-get/cedet/common/cedet.el")))
+	       :load "common/cedet.el")
 	(:name ecb
 	       :type http-tar
 	       :options ("xzf")
@@ -220,7 +224,7 @@ Symbols matching the text at point are put first in the completion list."
 	  (set-buffer-modified-p nil))))))
 
 (defun turn-on-paredit ()
-  (paredit-mode t))
+  (if (fboundp 'paredit-mode) (paredit-mode t)))
 
 (defun turn-on-idle-highlight ()
   (idle-highlight t))
@@ -231,14 +235,14 @@ Symbols matching the text at point are put first in the completion list."
 (defun add-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
-          1 font-lock-warning-face t))))
+	  1 font-lock-warning-face t))))
 
 (defun pretty-lambdas ()
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
-          (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                    ,(make-char 'greek-iso8859-7 107))
-                    nil))))))
+	  (0 (progn (compose-region (match-beginning 1) (match-end 1)
+				    ,(make-char 'greek-iso8859-7 107))
+		    nil))))))
 
 
 ;;
@@ -307,9 +311,9 @@ Symbols matching the text at point are put first in the completion list."
   "If you're saving an elisp file, likely the .elc is no longer valid."
   (make-local-variable 'after-save-hook)
   (add-hook 'after-save-hook
-            (lambda ()
-              (if (file-exists-p (concat buffer-file-name "c"))
-                  (delete-file (concat buffer-file-name "c"))))))
+	    (lambda ()
+	      (if (file-exists-p (concat buffer-file-name "c"))
+		  (delete-file (concat buffer-file-name "c"))))))
 
 (dolist (x '(scheme emacs-lisp lisp clojure))
   (add-hook
@@ -447,5 +451,18 @@ Symbols matching the text at point are put first in the completion list."
 
 ;; no weird mumamo colors
 (setq mumamo-background-colors nil)
+
+;; Better Cursor Support
+(defun djcb-set-cursor-according-to-mode ()
+  "change cursor color and type according to some minor modes."
+  (cond
+   (buffer-read-only
+    (setq cursor-type 'hbar))
+   (overwrite-mode
+    (setq cursor-type 'box))
+   (t
+    (setq cursor-type 'bar))))
+
+(add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
 
 (message "init.el: My .emacs loaded in %.1fs" (- (float-time) *emacs-load-start*))
