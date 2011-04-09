@@ -28,8 +28,6 @@
 (delete-selection-mode t)
 (global-auto-revert-mode)
 (global-hl-line-mode)
-(set-face-attribute 'hl-line nil
-		    :background "honeydew1")
 
 (winner-mode)
 
@@ -75,7 +73,7 @@
       '(el-get
 	(:name google-maps :features ())
 	(:name paredit :features ())
-	naquadah-theme
+	(:name naquadah-theme :after (lambda () (when (featurep 'ns) (load-theme 'naquadah))))
 	nxhtml
 	(:name auto-complete
                :after (lambda ()
@@ -135,7 +133,9 @@
 	(:name eproject
 	       :type git
 	       :features (eproject eproject-extras)
-	       :url "https://github.com/jrockway/eproject.git")
+	       :url "https://github.com/jrockway/eproject.git"
+               :after (lambda ()
+                        (define-project-type generic-maven (generic) (look-for "pom.xml"))))
 	emacs-w3m
 	(:name geben
 	       :type svn
@@ -341,6 +341,7 @@ Symbols matching the text at point are put first in the completion list."
   '(progn
      (require 'php-flymake)
      (require 'zf-mode)
+     (add-hook 'php-mode-hook 'php-mode-settings)
      (add-hook 'php-mode-hook 'turn-on-zf)))
 
 (eval-after-load "geben"
