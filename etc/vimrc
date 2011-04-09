@@ -30,6 +30,9 @@ set laststatus=2
 set fo+=n
 syntax on
 
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
+
 map \p i(<Esc>ea)<Esc>
 map \c i{<Esc>ea}<Esc>
 " map <C-T> :tabnew<CR>
@@ -105,6 +108,8 @@ let g:debuggerMaxDepth = 5
 let g:debuggerMiniBufExpl = 1
 
 let g:fuzzy_ignore = "*.class,*.pyc,target/**/*,compressed/**/*"
+
+" let s:molokai_original = 1
 
 " Some commands that I use
 map <Leader>tcc1 :%s/\v(.{-})\t(.{-})\t(.*(\d+)-Day.*)$/ticketCodes.add(new TicketCode("\1", "\2", "\3", \4));
