@@ -1,6 +1,9 @@
 etc/vim/.netrwhist
 etc/emacs.d/el-get
 etc/emacs.d/*elc
+etc/emacs.d/url
+etc/emacs.d/geben
+etc/emacs.d/tramp
 etc/emacs.d/backups
 etc/emacs.d/places
 etc/emacs.d/custom.el
