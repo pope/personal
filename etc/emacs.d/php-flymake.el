@@ -13,7 +13,9 @@
 
 ;;;###autoload
 (defun php/flymake-enable ()
-  (if (string-match-p *php-file-regex* (buffer-file-name))
+  (if (and
+       (string-match-p *php-file-regex* (buffer-file-name))
+       (file-writable-p (buffer-file-name)))
       (progn
         (require 'flymake)
         (flymake-mode 1))))
