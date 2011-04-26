@@ -11,13 +11,13 @@
 (if (and
      (fboundp 'menu-bar-mode)
      (not (or (featurep 'aquamacs) ;; Aquamacs
-	      (featurep 'ns))))    ;; Emacs.app
+              (featurep 'ns))))    ;; Emacs.app
     (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 (setq dotfiles-dir (file-name-directory
-		    (or (buffer-file-name) load-file-name)))
+                    (or (buffer-file-name) load-file-name)))
 (add-to-list 'load-path dotfiles-dir)
 
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
@@ -47,7 +47,7 @@
 
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
-					(concat dotfiles-dir "backups")))))
+                                        (concat dotfiles-dir "backups")))))
 
 (load custom-file 'noerror)
 
@@ -71,79 +71,79 @@
 
 (setq el-get-sources
       '(el-get
-	(:name google-maps :features ())
-	(:name paredit :features ())
-	(:name naquadah-theme :after (lambda () (when (featurep 'ns) (load-theme 'naquadah))))
-	nxhtml
-	(:name auto-complete
+        (:name google-maps :features ())
+        (:name paredit :features ())
+        (:name naquadah-theme :after (lambda () (when (featurep 'ns) (load-theme 'naquadah))))
+        nxhtml
+        (:name auto-complete
                :after (lambda ()
                         ;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
                         (ac-set-trigger-key "TAB")))
-	auto-complete-etags
+        auto-complete-etags
         (:name auto-complete-clang
                :type git
                :url "https://github.com/mikeandmore/auto-complete-clang.git")
-	(:name zencoding-mode :features ())
-	switch-window
-	(:name buffer-move
-	       :type emacswiki
-	       :after (lambda ()
-			(global-set-key (kbd "<C-S-up>")     'buf-move-up)
-			(global-set-key (kbd "<C-S-down>")   'buf-move-down)
-			(global-set-key (kbd "<C-S-left>")   'buf-move-left)
-			(global-set-key (kbd "<C-S-right>")  'buf-move-right)))
-	java-mode-indent-annotations
-	(:name vkill
-	       :features ()
-	       :after (lambda ()
-			(autoload 'vkill "vkill" nil t)
-			(autoload 'list-unix-processes "vkill" nil t)))
-	(:name rainbow-mode :features ())
-	(:name google-weather :features ())
-	(:name magit :features ())
-	;;yasnippet
-	org-mode
-	(:name org-contacts :features ())
-	(:name cedet
-	       :type http-tar
-	       :options ("xzf")
-	       :url "http://shifteleven.com/mirrors/cedet-1.0.tar.gz"
-	       :build `(,(concat "make EAMCS=" el-get-emacs))
-	       :load-path ("./common")
-	       :load "common/cedet.el")
-	(:name ecb
-	       :type http-tar
-	       :options ("xzf")
-	       :url "http://shifteleven.com/mirrors/ecb-2.40.tar.gz"
-	       :build `(,(concat "make CEDET=~/.emacs.d/el-get/cedet EMACS=" el-get-emacs))
-	       :after (lambda ()
-			(setq ecb-primary-secondary-mouse-buttons 'mouse-1--mouse-2)))
-	(:name textmate
-	       :type git
-	       :features textmate
-	       :url "https://github.com/defunkt/textmate.el.git"
-	       :after (lambda ()
-			(textmate-mode)
-			(add-to-list '*textmate-project-roots* "pom.xml")
-			(setq *textmate-gf-exclude* (concat *textmate-gf-exclude* "|target"))))
-	(:name gnus
-	       :type git
-	       :url "http://git.gnus.org/gnus.git"
-	       :features (gnus-load)
-	       :build `(,(concat "./configure --with-emacs=" el-get-emacs) "make")
-	       :load-path ("./lisp"))
-	(:name offlineimap :features ())
-	(:name eproject
-	       :type git
-	       :features (eproject eproject-extras)
-	       :url "https://github.com/jrockway/eproject.git"
+        (:name zencoding-mode :features ())
+        switch-window
+        (:name buffer-move
+               :type emacswiki
+               :after (lambda ()
+                        (global-set-key (kbd "<C-S-up>")     'buf-move-up)
+                        (global-set-key (kbd "<C-S-down>")   'buf-move-down)
+                        (global-set-key (kbd "<C-S-left>")   'buf-move-left)
+                        (global-set-key (kbd "<C-S-right>")  'buf-move-right)))
+        java-mode-indent-annotations
+        (:name vkill
+               :features ()
+               :after (lambda ()
+                        (autoload 'vkill "vkill" nil t)
+                        (autoload 'list-unix-processes "vkill" nil t)))
+        (:name rainbow-mode :features ())
+        (:name google-weather :features ())
+        (:name magit :features ())
+        ;;yasnippet
+        org-mode
+        (:name org-contacts :features ())
+        (:name cedet
+               :type http-tar
+               :options ("xzf")
+               :url "http://shifteleven.com/mirrors/cedet-1.0.tar.gz"
+               :build `(,(concat "make EAMCS=" el-get-emacs))
+               :load-path ("./common")
+               :load "common/cedet.el")
+        (:name ecb
+               :type http-tar
+               :options ("xzf")
+               :url "http://shifteleven.com/mirrors/ecb-2.40.tar.gz"
+               :build `(,(concat "make CEDET=~/.emacs.d/el-get/cedet EMACS=" el-get-emacs))
+               :after (lambda ()
+                        (setq ecb-primary-secondary-mouse-buttons 'mouse-1--mouse-2)))
+        (:name textmate
+               :type git
+               :features textmate
+               :url "https://github.com/defunkt/textmate.el.git"
+               :after (lambda ()
+                        (textmate-mode)
+                        (add-to-list '*textmate-project-roots* "pom.xml")
+                        (setq *textmate-gf-exclude* (concat *textmate-gf-exclude* "|target"))))
+        (:name gnus
+               :type git
+               :url "http://git.gnus.org/gnus.git"
+               :features (gnus-load)
+               :build `(,(concat "./configure --with-emacs=" el-get-emacs) "make")
+               :load-path ("./lisp"))
+        (:name offlineimap :features ())
+        (:name eproject
+               :type git
+               :features (eproject eproject-extras)
+               :url "https://github.com/jrockway/eproject.git"
                :after (lambda ()
                         (define-project-type generic-maven (generic) (look-for "pom.xml"))))
-	emacs-w3m
-	(:name geben
-	       :type svn
-	       :url "http://geben-on-emacs.googlecode.com/svn/trunk/"
-	       :build `(,(concat "make EMACS=" el-get-emacs)))))
+        emacs-w3m
+        (:name geben
+               :type svn
+               :url "http://geben-on-emacs.googlecode.com/svn/trunk/"
+               :build `(,(concat "make EMACS=" el-get-emacs)))))
 (el-get)
 (message "init.el: el-get loaded after %.1fs" (- (float-time) *emacs-load-start*))
 
@@ -161,40 +161,40 @@ Symbols matching the text at point are put first in the completion list."
   (interactive)
   (imenu--make-index-alist)
   (let ((name-and-pos '())
-	(symbol-names '()))
+        (symbol-names '()))
     (let ((addsymbols (symbol-list)
-		      (when (listp symbol-list)
-			(dolist (symbol symbol-list)
-			  (let ((name nil) (position nil))
-			    (cond
-			     ((and (listp symbol) (imenu--subalist-p symbol))
-			      (addsymbols symbol))
+                      (when (listp symbol-list)
+                        (dolist (symbol symbol-list)
+                          (let ((name nil) (position nil))
+                            (cond
+                             ((and (listp symbol) (imenu--subalist-p symbol))
+                              (addsymbols symbol))
 
-			     ((listp symbol)
-			      (setq name (car symbol))
-			      (setq position (cdr symbol)))
+                             ((listp symbol)
+                              (setq name (car symbol))
+                              (setq position (cdr symbol)))
 
-			     ((stringp symbol)
-			      (setq name symbol)
-			      (setq position (get-text-property 1 'org-imenu-marker symbol))))
+                             ((stringp symbol)
+                              (setq name symbol)
+                              (setq position (get-text-property 1 'org-imenu-marker symbol))))
 
-			    (unless (or (null position) (null name))
-			      (add-to-list 'symbol-names name)
-			      (add-to-list 'name-and-pos (cons name position))))))))
+                            (unless (or (null position) (null name))
+                              (add-to-list 'symbol-names name)
+                              (add-to-list 'name-and-pos (cons name position))))))))
       (addsymbols imenu--index-alist))
     ;; If there are matching symbols at point, put them at the beginning of `symbol-names'.
     (let ((symbol-at-point (thing-at-point 'symbol)))
       (when symbol-at-point
-	(let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
-	       (matching-symbols (delq nil (mapcar (lambda (symbol)
-						     (if (string-match regexp symbol) symbol))
-						   symbol-names))))
-	  (when matching-symbols
-	    (sort matching-symbols (lambda (a b) (> (length a) (length b))))
-	    (mapc (lambda (symbol) (setq symbol-names (cons symbol (delete symbol symbol-names))))
-		  matching-symbols)))))
+        (let* ((regexp (concat (regexp-quote symbol-at-point) "$"))
+               (matching-symbols (delq nil (mapcar (lambda (symbol)
+                                                     (if (string-match regexp symbol) symbol))
+                                                   symbol-names))))
+          (when matching-symbols
+            (sort matching-symbols (lambda (a b) (> (length a) (length b))))
+            (mapc (lambda (symbol) (setq symbol-names (cons symbol (delete symbol symbol-names))))
+                  matching-symbols)))))
     (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
-	   (position (cdr (assoc selected-symbol name-and-pos))))
+           (position (cdr (assoc selected-symbol name-and-pos))))
       (goto-char position))))
 
 (defun recentf-ido-find-file ()
@@ -215,16 +215,16 @@ Symbols matching the text at point are put first in the completion list."
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
   (let ((name (buffer-name))
-	(filename (buffer-file-name)))
+        (filename (buffer-file-name)))
     (if (not filename)
-	(message "Buffer '%s' is not visiting a file!" name)
+        (message "Buffer '%s' is not visiting a file!" name)
       (if (get-buffer new-name)
-	  (message "A buffer named '%s' already exists!" new-name)
-	(progn
-	  (rename-file name new-name 1)
-	  (rename-buffer new-name)
-	  (set-visited-file-name new-name)
-	  (set-buffer-modified-p nil))))))
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file name new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
 
 (defun turn-on-paredit ()
   (if (fboundp 'paredit-mode) (paredit-mode t)))
@@ -238,14 +238,14 @@ Symbols matching the text at point are put first in the completion list."
 (defun add-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
-	  1 font-lock-warning-face t))))
+          1 font-lock-warning-face t))))
 
 (defun pretty-lambdas ()
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
-	  (0 (progn (compose-region (match-beginning 1) (match-end 1)
-				    ,(make-char 'greek-iso8859-7 107))
-		    nil))))))
+          (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                    ,(make-char 'greek-iso8859-7 107))
+                    nil))))))
 
 
 ;;
@@ -273,19 +273,19 @@ Symbols matching the text at point are put first in the completion list."
      (setenv "PAGER" "cat")
      (set-face-attribute 'eshell-prompt nil :foreground "turquoise1")
      (add-hook 'eshell-mode-hook ;; for some reason this needs to be a hook
-	       '(lambda () (eshell/export "TERM" "dumb")))
+               '(lambda () (eshell/export "TERM" "dumb")))
      (when (< emacs-major-version 23)
        (add-hook 'eshell-mode-hook ;; for some reason this needs to be a hook
-		 '(lambda () (define-key eshell-mode-map "\C-a" 'eshell-bol)))
+                 '(lambda () (define-key eshell-mode-map "\C-a" 'eshell-bol)))
        (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color))
 
      ;; TODO: submit these via M-x report-emacs-bug
      (add-to-list 'eshell-visual-commands "ssh")
      (add-to-list 'eshell-visual-commands "tail")
      (add-to-list 'eshell-command-completions-alist
-		  '("gunzip" "gz\\'"))
+                  '("gunzip" "gz\\'"))
      (add-to-list 'eshell-command-completions-alist
-		  '("tar" "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'"))))
+                  '("tar" "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'"))))
 
 (defun eshell/find (dir &rest opts)
   (find-dired dir (mapconcat 'identity opts " ")))
@@ -314,9 +314,9 @@ Symbols matching the text at point are put first in the completion list."
   "If you're saving an elisp file, likely the .elc is no longer valid."
   (make-local-variable 'after-save-hook)
   (add-hook 'after-save-hook
-	    (lambda ()
-	      (if (file-exists-p (concat buffer-file-name "c"))
-		  (delete-file (concat buffer-file-name "c"))))))
+            (lambda ()
+              (if (file-exists-p (concat buffer-file-name "c"))
+                  (delete-file (concat buffer-file-name "c"))))))
 
 (dolist (x '(scheme emacs-lisp lisp clojure))
   (add-hook
@@ -461,8 +461,8 @@ Symbols matching the text at point are put first in the completion list."
 
 (eval-after-load 'grep
   '(when (boundp 'grep-find-ignored-files)
-    (add-to-list 'grep-find-ignored-files "target")
-    (add-to-list 'grep-find-ignored-files "*.class")))
+     (add-to-list 'grep-find-ignored-files "target")
+     (add-to-list 'grep-find-ignored-files "*.class")))
 
 ;; Default to unified diffs
 (setq diff-switches "-u -w")
