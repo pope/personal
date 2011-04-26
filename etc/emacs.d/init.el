@@ -103,7 +103,6 @@
         (:name magit :features ())
         ;;yasnippet
         org-mode
-        (:name org-contacts :features ())
         (:name cedet
                :type http-tar
                :options ("xzf")
