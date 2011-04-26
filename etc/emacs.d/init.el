@@ -80,6 +80,9 @@
                         ;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
                         (ac-set-trigger-key "TAB")))
 	auto-complete-etags
+        (:name auto-complete-clang
+               :type git
+               :url "https://github.com/mikeandmore/auto-complete-clang.git")
 	(:name zencoding-mode :features ())
 	switch-window
 	(:name buffer-move
@@ -346,6 +349,24 @@ Symbols matching the text at point are put first in the completion list."
 
 (eval-after-load "geben"
   (setenv "XDEBUG_CONFIG" "idekey=geben_session"))
+
+
+;;
+;; C
+;;
+
+;; http://mike.struct.cn/blogs/entry/15/
+
+(require 'auto-complete-clang)
+(setq clang-completion-suppress-error 't)
+
+(defun my-c-mode-common-hook()
+  (setq ac-auto-start nil)
+  (setq ac-expand-on-auto-complete nil)
+  (setq ac-quick-help-delay 0.3)
+  (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 
 ;;
