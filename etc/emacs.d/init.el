@@ -465,8 +465,7 @@ Symbols matching the text at point are put first in the completion list."
     (add-to-list 'grep-find-ignored-files "*.class")))
 
 ;; Default to unified diffs
-(setq diff-switches "-u -w"
-      magit-diff-options "-w")
+(setq diff-switches "-u -w")
 
 ;; make emacs use the clipboard
 (setq x-select-enable-clipboard t)
