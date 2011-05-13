@@ -113,7 +113,7 @@
                :type http-tar
                :options ("xzf")
                :url "http://shifteleven.com/mirrors/cedet-1.0.tar.gz"
-               :build `(,(concat "make EAMCS=" el-get-emacs))
+               :build `(,(concat "make EMACS=" el-get-emacs))
                :load-path ("./common")
                :load "common/cedet.el")
         (:name ecb
