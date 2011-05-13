@@ -51,13 +51,6 @@
 
 (load custom-file 'noerror)
 
-;; load in a host specific file if it's there
-(setq system-specific-config (concat dotfiles-dir system-name ".el"))
-(if (file-exists-p system-specific-config)
-    (progn
-      (load system-specific-config)
-      (message "init.el: %s loaded after %.1fs" (concat system-name ".el") (- (float-time) *emacs-load-start*))))
-
 
 ;;
 ;; el-get
@@ -495,3 +488,10 @@ Symbols matching the text at point are put first in the completion list."
 (add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
 
 (message "init.el: My .emacs loaded in %.1fs" (- (float-time) *emacs-load-start*))
+
+;; load in a host specific file if it's there
+(setq system-specific-config (concat dotfiles-dir system-name ".el"))
+(if (file-exists-p system-specific-config)
+    (progn
+      (load system-specific-config)
+      (message "init.el: %s loaded after %.1fs" (concat system-name ".el") (- (float-time) *emacs-load-start*))))
