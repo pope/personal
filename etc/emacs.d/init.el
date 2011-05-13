@@ -79,7 +79,7 @@
       '(el-get
         (:name google-maps :features ())
         (:name paredit :features ())
-        (:name naquadah-theme :after (lambda () (when (featurep 'ns) (load-theme 'naquadah))))
+        (:name naquadah-theme :after (lambda () (unless (featurep 'aquamacs) (load-theme 'naquadah))))
         nxhtml
         (:name auto-complete
                :after (lambda ()
