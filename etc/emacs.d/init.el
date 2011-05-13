@@ -8,11 +8,6 @@
 ;; The Basics
 ;;
 
-(if (and
-     (fboundp 'menu-bar-mode)
-     (not (or (featurep 'aquamacs) ;; Aquamacs
-              (featurep 'ns))))    ;; Emacs.app
-    (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
