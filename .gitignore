@@ -9,3 +9,4 @@ etc/emacs.d/places
 etc/emacs.d/custom.el
 etc/emacs.d/auto-save-list
 etc/emacs.d/ac-comphist.dat
+etc/emacs.d/server
