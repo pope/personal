@@ -95,7 +95,7 @@
         (:name rainbow-mode :features ())
         (:name google-weather :features ())
         (:name magit :features ())
-        ;;yasnippet
+        yasnippet
         org-mode
         (:name cedet
                :type http-tar
