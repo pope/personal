@@ -469,9 +469,6 @@ Symbols matching the text at point are put first in the completion list."
 ;; I can use the "a" key in dired mode...I'm cool with that
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; Use TCP so that different SSH sessions can work together
-(setq server-use-tcp t)
-
 ;; Better Cursor Support
 (defun djcb-set-cursor-according-to-mode ()
   "change cursor color and type according to some minor modes."
