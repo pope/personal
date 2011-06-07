@@ -36,7 +36,6 @@
       inhibit-startup-message t
       mouse-yank-at-point t
       truncate-partial-width-windows nil
-      debug-on-error t
       generated-autoload-file autoload-file)
 (setq-default indent-tabs-mode nil)
 
