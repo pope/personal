@@ -359,7 +359,7 @@ Symbols matching the text at point are put first in the completion list."
   (setq ac-quick-help-delay 0.3)
   (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang))
 
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+(add-hook 'c-mode-hook 'my-c-mode-common-hook)
 
 
 ;;
