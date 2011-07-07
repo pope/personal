@@ -1,6 +1,13 @@
 (deftheme pope
   "A light theme.")
 
+(custom-theme-set-variables
+ 'pope
+ '(ibuffer-filter-group-name-face (quote org-level-2))
+ '(ibuffer-deletion-face (quote font-lock-warning-face))
+ '(ibuffer-marked-face (quote font-lock-warning-face))
+ )
+
 (custom-theme-set-faces
  'pope
  '(bold ((t (:weight bold))))
@@ -14,6 +21,7 @@
  '(diff-header ((t (:slant italic))))
  '(diff-hunk-header ((t (:weight bold))))
  '(diff-removed ((t (:foreground "red1"))))
+ '(dired-header ((t (:inherit (org-level-2)))))
  '(eshell-prompt ((t (:inherit (font-lock-constant-face)))))
  '(fixed-pitch ((t :family "DejaVu Sans Mono")))
  '(font-lock-builtin-face ((t (:weight bold :foreground "SlateBlue1"))))
@@ -30,7 +38,7 @@
  '(font-lock-string-face ((t (:foreground "green4"))))
  '(font-lock-type-face ((t (:underline t))))
  '(font-lock-variable-name-face ((t (:foreground "red1"))))
- '(font-lock-warning-face ((t (:inverse-video t))))
+ '(font-lock-warning-face ((t (:background "#FFFFFF" :foreground "orange1" :inverse-video t))))
  '(fringe ((t (:background "gainsboro"))))
  '(header-line ((t (:inherit (mode-line)))))
  '(highlight ((t (:slant italic :underline "DodgerBlue1"))))
