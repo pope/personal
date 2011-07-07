@@ -66,7 +66,7 @@
       '(el-get
         (:name google-maps :features ())
         (:name paredit :features ())
-        (:name naquadah-theme :after (lambda () (unless (featurep 'aquamacs) (load-theme 'naquadah))))
+        ;;(:name naquadah-theme :after (lambda () (unless (featurep 'aquamacs) (load-theme 'naquadah))))
         nxhtml
         (:name auto-complete
                :after (lambda ()
@@ -483,6 +483,9 @@ Symbols matching the text at point are put first in the completion list."
     (setq cursor-type 'bar))))
 
 (add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
+
+(unless (featurep 'aquamacs)
+  (load-theme 'pope))
 
 (message "init.el: My .emacs loaded in %.1fs" (- (float-time) *emacs-load-start*))
 
