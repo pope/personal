@@ -122,7 +122,7 @@
                  (:weight bold))))
  '(org-meta-line ((t (:foreground "grey56" :inherit (font-lock-comment-face)))))
  '(org-table ((t (:foreground "DodgerBlue4"))))
- '(org-tag ((t (:height 0.8 :weight bold :foreground "CadetBlue4"))))
+ '(org-tag ((t (:height 0.8 :weight bold :foreground "grey56"))))
  '(org-todo ((t (:foreground "red1"))))
  '(region ((t (:background "LightSkyBlue1"))))
  '(shadow ((t (:foreground "grey32"))))
