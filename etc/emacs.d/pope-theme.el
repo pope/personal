@@ -3,8 +3,8 @@
 
 (custom-theme-set-variables
  'pope
- '(ibuffer-filter-group-name-face (quote org-level-2))
  '(ibuffer-deletion-face (quote font-lock-warning-face))
+ '(ibuffer-filter-group-name-face (quote org-level-2))
  '(ibuffer-marked-face (quote font-lock-warning-face))
  )
 
@@ -43,11 +43,11 @@
  '(header-line ((t (:inherit (mode-line)))))
  '(highlight ((t (:slant italic :underline "DodgerBlue1"))))
  '(hl-line ((t (:background "grey98"))))
+ '(info-menu-header ((t (:inherit (org-level-5)))))
  '(info-title-1 ((t (:inherit (org-level-1)))))
  '(info-title-2 ((t (:inherit (org-level-2)))))
  '(info-title-3 ((t (:inherit (org-level-3)))))
  '(info-title-4 ((t (:inherit (org-level-4)))))
- '(info-menu-header ((t (:inherit (org-level-5)))))
  '(isearch ((t (:inherit (region)))))
  '(isearch-fail ((t (:foreground "red1"))))
  '(italic ((t (:slant italic))))
