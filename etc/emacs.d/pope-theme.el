@@ -41,7 +41,10 @@
  '(font-lock-preprocessor-face ((t (:foreground "ForestGreen" :inherit (font-lock-builtin-face)))))
  '(font-lock-regexp-grouping-backslash ((t (:foreground "LimeGreen" :inherit (bold)))))
  '(font-lock-regexp-grouping-construct ((t (:inherit (font-lock-regexp-grouping-backslash)))))
- '(font-lock-string-face ((t (:foreground "green4"))))
+ '(font-lock-string-face ((((class color) (min-colors 65535))
+                           (:foreground "green4" :background "mint cream"))
+                          (t
+                           (:foreground "green4"))))
  '(font-lock-type-face ((t (:underline t))))
  '(font-lock-variable-name-face ((t (:foreground "red1"))))
  '(font-lock-warning-face ((t (:background "#FFFFFF" :foreground "orange1" :inverse-video t))))
