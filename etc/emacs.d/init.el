@@ -257,13 +257,36 @@ Symbols matching the text at point are put first in the completion list."
       eshell-history-size 512
       eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
 
+(defun eshell/find (dir &rest opts)
+  (find-dired dir (mapconcat 'identity opts " ")))
+
+(defun eshell/clear ()
+  "04Dec2001 - sailor, to clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
+
+(defalias 'eshell/vim 'find-file-other-window)
+
+(defun eshell/which-git-branch ()
+  (shell-command-to-string "git branch --no-color 2> /dev/null | grep \"*\" | awk '{print $2}'"))
+
+(defun my-eshell-prompt-function ()
+  (let ((branch (replace-regexp-in-string
+                 "\\(^[[:space:]\n]*\\|[[:space:]\n]*$\\)"
+                 ""
+                 (eshell/which-git-branch))))
+    (concat (abbreviate-file-name (eshell/pwd))
+            (if (not (eq branch "")) (concat " (" branch ")") "")
+            (if (= (user-uid) 0) " # " " $ "))))
+
 (eval-after-load 'esh-opt
   '(progn
      (require 'em-prompt)
      (require 'em-term)
      (require 'em-cmpl)
      (setenv "PAGER" "cat")
-     (set-face-attribute 'eshell-prompt nil :foreground "turquoise1")
+     ;;(set-face-attribute 'eshell-prompt nil :foreground "turquoise1")
      (add-hook 'eshell-mode-hook ;; for some reason this needs to be a hook
                '(lambda () (eshell/export "TERM" "dumb")))
      (when (< emacs-major-version 23)
@@ -279,14 +302,10 @@ Symbols matching the text at point are put first in the completion list."
      (add-to-list 'eshell-command-completions-alist
                   '("tar" "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'"))))
 
-(defun eshell/find (dir &rest opts)
-  (find-dired dir (mapconcat 'identity opts " ")))
+(eval-after-load 'em-prompt
+  '(progn
+     (setq eshell-prompt-function 'my-eshell-prompt-function)))
 
-(defun eshell/clear ()
-  "04Dec2001 - sailor, to clear the eshell buffer."
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)))
 
 
 ;;
