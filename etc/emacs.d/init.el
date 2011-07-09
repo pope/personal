@@ -277,7 +277,7 @@ Symbols matching the text at point are put first in the completion list."
                  ""
                  (eshell/which-git-branch))))
     (concat (abbreviate-file-name (eshell/pwd))
-            (if (not (eq branch "")) (concat " (" branch ")") "")
+            (if (not (equal "" branch)) (concat " (" branch ")") "")
             (if (= (user-uid) 0) " # " " $ "))))
 
 (eval-after-load 'esh-opt
