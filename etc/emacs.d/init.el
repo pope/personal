@@ -490,6 +490,10 @@ Symbols matching the text at point are put first in the completion list."
 ;; Save the minibuffer history
 (savehist-mode 1)
 
+;; I hate the auto window splitting.  I'll control that thank you.
+(setq split-width-threshold most-positive-fixnum    ;; was 160
+      split-height-threshold most-positive-fixnum)  ;; was 80
+
 ;; Better Cursor Support
 (defun djcb-set-cursor-according-to-mode ()
   "change cursor color and type according to some minor modes."
