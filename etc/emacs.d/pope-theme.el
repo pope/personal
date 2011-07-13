@@ -125,11 +125,11 @@
                 (t
                  (:weight bold))))
  '(org-level-2 ((((class color) (min-colors 65535))
-                 (:height 1.6 :slant italic :inherit (variable-pitch)))
+                 (:height 1.4 :slant italic :inherit (variable-pitch)))
                 (t
                  (:weight bold))))
  '(org-level-3 ((((class color) (min-colors 65535))
-                 (:height 1.4 :slant italic :inherit (variable-pitch)))
+                 (:height 1.3 :slant italic :inherit (variable-pitch)))
                 (t
                  (:weight bold))))
  '(org-level-4 ((((class color) (min-colors 65535))
