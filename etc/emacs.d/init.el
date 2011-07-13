@@ -266,8 +266,6 @@ Symbols matching the text at point are put first in the completion list."
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
-(defalias 'eshell/vim 'find-file-other-window)
-
 (defun eshell/which-git-branch ()
   (shell-command-to-string "git branch --no-color 2> /dev/null | grep \"*\" | awk '{print $2}'"))
 
@@ -297,6 +295,7 @@ Symbols matching the text at point are put first in the completion list."
      ;; TODO: submit these via M-x report-emacs-bug
      (add-to-list 'eshell-visual-commands "ssh")
      (add-to-list 'eshell-visual-commands "tail")
+     (add-to-list 'eshell-visual-commands "vim")
      (add-to-list 'eshell-command-completions-alist
                   '("gunzip" "gz\\'"))
      (add-to-list 'eshell-command-completions-alist
