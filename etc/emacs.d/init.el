@@ -509,6 +509,10 @@ Symbols matching the text at point are put first in the completion list."
 (unless (featurep 'aquamacs)
   (load-theme 'pope))
 
+;; Some disabled warnings.
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+
 (message "init.el: My .emacs loaded in %.1fs" (- (float-time) *emacs-load-start*))
 
 ;; load in a host specific file if it's there
