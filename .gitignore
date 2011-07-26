@@ -10,4 +10,5 @@ etc/emacs.d/custom.el
 etc/emacs.d/auto-save-list
 etc/emacs.d/ac-comphist.dat
 etc/emacs.d/server
-/etc/emacs.d/history
+etc/emacs.d/history
+etc/emacs.d/rnc
