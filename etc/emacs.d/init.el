@@ -140,7 +140,9 @@
                :type svn
                :url "http://geben-on-emacs.googlecode.com/svn/trunk/"
                :build `(,(concat "make EMACS=" el-get-emacs)))))
-(el-get)
+(setq el-get-packages
+      (mapcar 'el-get-source-name el-get-sources))
+(el-get 'sync el-get-packages)
 (message "init.el: el-get loaded after %.1fs" (- (float-time) *emacs-load-start*))
 
 
