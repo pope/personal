@@ -342,6 +342,14 @@ Symbols matching the text at point are put first in the completion list."
 
 
 ;;
+;; HTML
+;;
+
+(setq nxml-bind-meta-tab-to-complete-flag t
+      nxml-slash-auto-complete-flag t)
+
+
+;;
 ;; PHP
 ;;
 
