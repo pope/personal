@@ -125,10 +125,6 @@
                :build `(,(concat "./configure --with-emacs=" el-get-emacs) "make")
                :load-path ("./lisp"))
         (:name offlineimap :features ())
-        (:name loccur
-               :type svn
-               :url "https://loccur.svn.sourceforge.net/svnroot/loccur"
-               :features loccur)
         (:name eproject
                :type git
                :features (eproject eproject-extras)
