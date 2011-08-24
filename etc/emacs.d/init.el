@@ -85,6 +85,13 @@
                         (global-set-key (kbd "<C-S-down>")   'buf-move-down)
                         (global-set-key (kbd "<C-S-left>")   'buf-move-left)
                         (global-set-key (kbd "<C-S-right>")  'buf-move-right)))
+        (:name sticky-windows
+               :type emacswiki
+               :features (sticky-windows)
+               :after (lambda ()
+                        (global-set-key [(control x) (?0)] 'sticky-window-delete-window)
+                        (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
+                        (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
         java-mode-indent-annotations
         (:name vkill
                :features ()
