@@ -92,6 +92,9 @@
                         (global-set-key [(control x) (?0)] 'sticky-window-delete-window)
                         (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
                         (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
+        (:name nyan-mode
+               :type git
+               :url "https://github.com/TeMPOraL/nyan-mode.git")
         java-mode-indent-annotations
         (:name vkill
                :features ()
