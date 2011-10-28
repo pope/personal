@@ -409,6 +409,19 @@ Symbols matching the text at point are put first in the completion list."
 
 
 ;;
+;; Octave
+;;
+
+(add-hook 'inferior-octave-mode-hook
+          (lambda ()
+            (turn-on-font-lock)
+            (define-key inferior-octave-mode-map [up]
+              'comint-previous-input)
+            (define-key inferior-octave-mode-map [down]
+              'comint-next-input)))
+
+
+;;
 ;; Key Bindings
 ;;
 
