@@ -96,6 +96,15 @@
                :type git
                :url "https://github.com/TeMPOraL/nyan-mode.git")
         java-mode-indent-annotations
+        (:name actionscript-mode
+               :type http
+               :url "https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el"
+               :post-init (lambda ()
+                            (add-to-list 'auto-mode-alist
+                                         '("\\.as$" . actionscript-mode)))
+               :after (lambda ()
+                        (font-lock-add-keywords 'actionscript-mode
+                                                '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face)))))
         (:name vkill
                :features ()
                :after (lambda ()
