@@ -32,7 +32,8 @@ URxvt*metaSendsEscape:  true
 
 !-- xterm settings ----------------------------------------------------------
 xterm*faceName: Monaco
-xterm*faceSize: 12
+xterm*termName: xterm-256color
+xterm*faceSize: 10
 xterm*loginShell: true
 xterm*locale: false
 xterm*utf8: 2

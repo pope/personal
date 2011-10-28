@@ -63,8 +63,7 @@
 (setq package-user-dir "~/.emacs.d/elpa")
 
 (setq el-get-sources
-      '(el-get
-        (:name google-maps :features ())
+      '((:name google-maps :features ())
         (:name paredit :features ())
         ;;(:name naquadah-theme :after (lambda () (unless (featurep 'aquamacs) (load-theme 'naquadah))))
         nxhtml
@@ -73,18 +72,10 @@
                         ;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
                         (ac-set-trigger-key "TAB")))
         auto-complete-etags
-        (:name auto-complete-clang
-               :type git
-               :url "https://github.com/mikeandmore/auto-complete-clang.git")
+        auto-complete-clang
         (:name zencoding-mode :features ())
         switch-window
-        (:name buffer-move
-               :type emacswiki
-               :after (lambda ()
-                        (global-set-key (kbd "<C-S-up>")     'buf-move-up)
-                        (global-set-key (kbd "<C-S-down>")   'buf-move-down)
-                        (global-set-key (kbd "<C-S-left>")   'buf-move-left)
-                        (global-set-key (kbd "<C-S-right>")  'buf-move-right)))
+        buffer-move
         (:name sticky-windows
                :type emacswiki
                :features (sticky-windows)
@@ -92,10 +83,17 @@
                         (global-set-key [(control x) (?0)] 'sticky-window-delete-window)
                         (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
                         (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
-        (:name nyan-mode
-               :type git
-               :url "https://github.com/TeMPOraL/nyan-mode.git")
+        nyan-mode
         java-mode-indent-annotations
+        (:name actionscript-mode
+               :type http
+               :url "https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el"
+               :post-init (lambda ()
+                            (add-to-list 'auto-mode-alist
+                                         '("\\.as$" . actionscript-mode)))
+               :after (lambda ()
+                        (font-lock-add-keywords 'actionscript-mode
+                                                '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face)))))
         (:name vkill
                :features ()
                :after (lambda ()
@@ -121,19 +119,10 @@
                :after (lambda ()
                         (setq ecb-primary-secondary-mouse-buttons 'mouse-1--mouse-2)))
         (:name textmate
-               :type git
-               :features textmate
-               :url "https://github.com/defunkt/textmate.el.git"
                :after (lambda ()
-                        (textmate-mode)
                         (add-to-list '*textmate-project-roots* "pom.xml")
                         (setq *textmate-gf-exclude* (concat *textmate-gf-exclude* "|target"))))
-        (:name gnus
-               :type git
-               :url "http://git.gnus.org/gnus.git"
-               :features (gnus-load)
-               :build `(,(concat "./configure --with-emacs=" el-get-emacs) "make")
-               :load-path ("./lisp"))
+        nognus
         (:name offlineimap :features ())
         (:name eproject
                :type git
@@ -148,7 +137,7 @@
                :build `(,(concat "make EMACS=" el-get-emacs)))))
 (setq el-get-packages
       (mapcar 'el-get-source-name el-get-sources))
-(el-get 'wait el-get-packages)
+(el-get 'sync el-get-packages)
 (message "init.el: el-get loaded after %.1fs" (- (float-time) *emacs-load-start*))
 
 
@@ -397,6 +386,19 @@ Symbols matching the text at point are put first in the completion list."
   (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang))
 
 (add-hook 'c-mode-hook 'my-c-mode-common-hook)
+
+
+;;
+;; Octave
+;;
+
+(add-hook 'inferior-octave-mode-hook
+          (lambda ()
+            (turn-on-font-lock)
+            (define-key inferior-octave-mode-map [up]
+              'comint-previous-input)
+            (define-key inferior-octave-mode-map [down]
+              'comint-next-input)))
 
 
 ;;
