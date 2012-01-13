@@ -85,6 +85,12 @@
                         (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
         nyan-mode
         java-mode-indent-annotations
+        (:name soy-mode
+               :type git
+               :url "https://github.com/toomore-such/soy-mode.git"
+               :post-init (lambda ()
+                            (add-to-list 'auto-mode-alist
+                                         '("\\.soy$" . soy-mode))))
         (:name actionscript-mode
                :type http
                :url "https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el"
