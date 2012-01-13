@@ -240,10 +240,16 @@ Symbols matching the text at point are put first in the completion list."
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
+(defun json-pretty-print-buffer ()
+  (interactive)
+  (shell-command-on-region (point-min) (point-max) "python -mjson.tool" t)
+  (js-mode))
+
 
 ;;
 ;; Coding Basics
 ;;
+
 
 ;; TODO: Add the coding hooks
 
