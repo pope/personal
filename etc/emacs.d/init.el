@@ -58,8 +58,6 @@
      (end-of-buffer)
      (eval-print-last-sexp))))
 
-(require 'inversion) ;; needed by cedet
-
 (setq package-user-dir "~/.emacs.d/elpa")
 
 (setq el-get-sources
@@ -110,20 +108,6 @@
         (:name magit :features ())
         yasnippet
         org-mode
-        (:name cedet
-               :type http-tar
-               :options ("xzf")
-               :url "http://shifteleven.com/mirrors/cedet-1.0.tar.gz"
-               :build `(,(concat "make EMACS=" el-get-emacs))
-               :load-path ("./common")
-               :load "common/cedet.el")
-        (:name ecb
-               :type http-tar
-               :options ("xzf")
-               :url "http://shifteleven.com/mirrors/ecb-2.40.tar.gz"
-               :build `(,(concat "make CEDET=~/.emacs.d/el-get/cedet EMACS=" el-get-emacs))
-               :after (lambda ()
-                        (setq ecb-primary-secondary-mouse-buttons 'mouse-1--mouse-2)))
         (:name textmate
                :after (lambda ()
                         (add-to-list '*textmate-project-roots* "pom.xml")
