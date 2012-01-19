@@ -235,6 +235,7 @@ Symbols matching the text at point are put first in the completion list."
   (shell-command-on-region (point-min) (point-max) "python -mjson.tool" t)
   (js-mode))
 
+
 
 ;;
 ;; Coding Basics
@@ -395,6 +396,25 @@ Symbols matching the text at point are put first in the completion list."
               'comint-previous-input)
             (define-key inferior-octave-mode-map [down]
               'comint-next-input)))
+
+
+;;
+;; JavaScript
+;;
+
+(defun js-sort-goog-requires ()
+  (interactive)
+  (with-current-buffer (buffer-name)
+      (save-excursion
+        (goto-char (point-min))
+        (re-search-forward "^goog.require")
+        (beginning-of-line)
+        (sort-lines nil
+                    (point)
+                    (save-excursion
+                      (while (looking-at-p "^goog.require")
+                        (next-line))
+                      (line-end-position))))))
 
 
 ;;
