@@ -105,7 +105,9 @@
                         (autoload 'list-unix-processes "vkill" nil t)))
         (:name google-weather :features ())
         (:name magit :features ())
-        yasnippet
+        (:name yasnippet
+               :type git
+               :url "https://github.com/capitaomorte/yasnippet.git")
         org-mode
         (:name textmate
                :after (lambda ()
