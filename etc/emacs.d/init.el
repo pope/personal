@@ -103,10 +103,11 @@
                :after (lambda ()
                         (autoload 'vkill "vkill" nil t)
                         (autoload 'list-unix-processes "vkill" nil t)))
-        (:name rainbow-mode :features ())
         (:name google-weather :features ())
         (:name magit :features ())
-        yasnippet
+        (:name yasnippet
+               :type git
+               :url "https://github.com/capitaomorte/yasnippet.git")
         org-mode
         (:name textmate
                :after (lambda ()
@@ -546,9 +547,6 @@ Symbols matching the text at point are put first in the completion list."
     (setq cursor-type 'bar))))
 
 (add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
-
-(unless (featurep 'aquamacs)
-  (load-theme 'pope))
 
 ;; Some disabled warnings.
 (put 'narrow-to-region 'disabled nil)
