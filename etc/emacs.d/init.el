@@ -103,7 +103,6 @@
                :after (lambda ()
                         (autoload 'vkill "vkill" nil t)
                         (autoload 'list-unix-processes "vkill" nil t)))
-        (:name rainbow-mode :features ())
         (:name google-weather :features ())
         (:name magit :features ())
         yasnippet
