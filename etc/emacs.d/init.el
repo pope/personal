@@ -528,9 +528,6 @@ Symbols matching the text at point are put first in the completion list."
 
 (add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
 
-(unless (featurep 'aquamacs)
-  (load-theme 'pope))
-
 ;; Some disabled warnings.
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
