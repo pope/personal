@@ -88,6 +88,7 @@
                         (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
                         (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
         nyan-mode
+        android-mode
         java-mode-indent-annotations
         (:name soy-mode
                :type git
