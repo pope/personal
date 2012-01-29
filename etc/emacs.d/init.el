@@ -58,6 +58,9 @@
      (end-of-buffer)
      (eval-print-last-sexp))))
 
+;; For ECB.
+(setq stack-trace-on-error t)
+
 (setq package-user-dir "~/.emacs.d/elpa")
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
@@ -101,6 +104,9 @@
                :after (lambda ()
                         (font-lock-add-keywords 'actionscript-mode
                                                 '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face)))))
+        (:name ecb-dev
+               :type git
+               :url "https://github.com/emacsmirror/ecb.git")
         (:name vkill
                :features ()
                :after (lambda ()
