@@ -69,7 +69,8 @@
 (setq el-get-sources
       '((:name google-maps :features ())
         (:name paredit :features ())
-        ;;(:name naquadah-theme :after (lambda () (unless (featurep 'aquamacs) (load-theme 'naquadah))))
+        (:name naquadah-theme
+               :url "https://github.com/pope/naquadah-theme.git")
         nxhtml
         (:name auto-complete
                :after (progn
