@@ -72,7 +72,7 @@
         ;;(:name naquadah-theme :after (lambda () (unless (featurep 'aquamacs) (load-theme 'naquadah))))
         nxhtml
         (:name auto-complete
-               :after (lambda ()
+               :after (progn
                         ;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
                         (ac-set-trigger-key "TAB")))
         auto-complete-etags
@@ -83,7 +83,7 @@
         (:name sticky-windows
                :type emacswiki
                :features (sticky-windows)
-               :after (lambda ()
+               :after (progn
                         (global-set-key [(control x) (?0)] 'sticky-window-delete-window)
                         (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
                         (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
@@ -93,16 +93,16 @@
         (:name soy-mode
                :type git
                :url "https://github.com/toomore-such/soy-mode.git"
-               :post-init (lambda ()
+               :post-init (progn
                             (add-to-list 'auto-mode-alist
                                          '("\\.soy$" . soy-mode))))
         (:name actionscript-mode
                :type http
                :url "https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el"
-               :post-init (lambda ()
+               :post-init (progn
                             (add-to-list 'auto-mode-alist
                                          '("\\.as$" . actionscript-mode)))
-               :after (lambda ()
+               :after (progn
                         (font-lock-add-keywords 'actionscript-mode
                                                 '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face)))))
         (:name ecb-dev
@@ -110,7 +110,7 @@
                :url "https://github.com/emacsmirror/ecb.git")
         (:name vkill
                :features ()
-               :after (lambda ()
+               :after (progn
                         (autoload 'vkill "vkill" nil t)
                         (autoload 'list-unix-processes "vkill" nil t)))
         (:name google-weather :features ())
@@ -120,7 +120,7 @@
                :url "https://github.com/capitaomorte/yasnippet.git")
         org-mode
         (:name textmate
-               :after (lambda ()
+               :after (progn
                         (add-to-list '*textmate-project-roots* "pom.xml")
                         (setq *textmate-gf-exclude* (concat *textmate-gf-exclude* "|target"))))
         nognus
@@ -129,7 +129,7 @@
                :type git
                :features (eproject eproject-extras)
                :url "https://github.com/jrockway/eproject.git"
-               :after (lambda ()
+               :after (progn
                         (define-project-type generic-maven (generic) (look-for "pom.xml"))))
         emacs-w3m
         (:name geben
