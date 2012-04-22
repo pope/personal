@@ -70,8 +70,7 @@
       '((:name google-maps :features ())
         (:name google-weather :features ())
         (:name paredit :features ())
-        (:name naquadah-theme
-               :url "https://github.com/pope/naquadah-theme.git")
+        naquadah-theme
         nxhtml
         (:name auto-complete
                :after (progn
