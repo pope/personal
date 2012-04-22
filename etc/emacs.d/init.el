@@ -68,6 +68,7 @@
 
 (setq el-get-sources
       '((:name google-maps :features ())
+        (:name google-weather :features ())
         (:name paredit :features ())
         (:name naquadah-theme
                :url "https://github.com/pope/naquadah-theme.git")
@@ -114,7 +115,6 @@
                :after (progn
                         (autoload 'vkill "vkill" nil t)
                         (autoload 'list-unix-processes "vkill" nil t)))
-        (:name google-weather :features ())
         (:name magit :features ())
         (:name yasnippet
                :type git
