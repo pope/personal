@@ -92,6 +92,7 @@
         nyan-mode
         android-mode
         lua-mode
+        go-mode
         java-mode-indent-annotations
         (:name soy-mode
                :type git
