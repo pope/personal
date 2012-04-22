@@ -91,6 +91,7 @@
                         (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
         nyan-mode
         android-mode
+        lua-mode
         java-mode-indent-annotations
         (:name soy-mode
                :type git
