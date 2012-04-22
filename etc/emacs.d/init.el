@@ -120,6 +120,10 @@
         (:name yasnippet
                :type git
                :url "https://github.com/capitaomorte/yasnippet.git")
+        (:name sauron
+              :type git
+              :url "https://github.com/djcb/sauron.git"
+              :build `(,(concat "make EMACS=" el-get-emacs)))
         org-mode
         (:name textmate
                :after (progn
