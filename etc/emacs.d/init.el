@@ -492,6 +492,22 @@
 
 
 ;;
+;; Tramp
+;;
+
+(require 'tramp)
+
+;; Disable vc over tramp.
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
+
+(defun tramp-set-auto-save ()
+  (auto-save-mode -1))
+
+
+;;
 ;; Misc
 ;;
 
