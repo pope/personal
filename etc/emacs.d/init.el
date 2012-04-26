@@ -441,6 +441,44 @@
 
 
 ;;
+;; Org-mode
+;;
+
+(defun org-toggle-iimage-in-org ()
+  "display images in your org file"
+  (interactive)
+  (if (face-underline-p 'org-link)
+      (set-face-underline-p 'org-link nil)
+    (set-face-underline-p 'org-link t))
+  (iimage-mode))
+
+(eval-after-load 'org-mode
+  (progn
+    (add-to-list 'iimage-mode-image-regex-alist
+                 (cons (concat "\\[\\[file:\\(~?"
+                               iimage-mode-image-filename-regex
+                               "\\)\\]")  1))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((C . t)
+       (css . t)
+       (ditaa . t)
+       (dot . t)
+       (emacs-lisp . t)
+       (gnuplot . t)
+       (java . t)
+       (js . t)
+       (lisp . t)
+       (octave . t)
+       (plantuml . t)
+       (python . t)
+       (ruby . t)
+       (sh . t)
+       (sql . t)
+       (sqlite . t)))))
+
+
+;;
 ;; Key Bindings
 ;;
 
