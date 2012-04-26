@@ -70,8 +70,7 @@
       '((:name google-maps :features ())
         (:name google-weather :features ())
         (:name paredit :features ())
-        (:name naquadah-theme
-               :url "https://github.com/pope/naquadah-theme.git")
+        naquadah-theme
         nxhtml
         (:name auto-complete
                :after (progn
@@ -92,6 +91,7 @@
         nyan-mode
         android-mode
         lua-mode
+        go-mode
         java-mode-indent-annotations
         (:name soy-mode
                :type git
@@ -546,8 +546,7 @@
               vc-ignore-dir-regexp
               tramp-file-name-regexp))
 
-(defun tramp-set-auto-save ()
-  (auto-save-mode -1))
+(setq tramp-auto-save-directory temporary-file-directory)
 
 
 ;;
