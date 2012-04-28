@@ -93,6 +93,15 @@
         lua-mode
         go-mode
         java-mode-indent-annotations
+        (:name js2-mode
+               :type git
+               :url "https://github.com/dgutov/js2-mode.git"
+               :branch "emacs24"
+               :description "An improved JavaScript editing mode"
+               :compile "js2-mode.el"
+               :post-init (lambda ()
+                            (autoload 'js2-mode "js2-mode" nil t)
+                            (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
         (:name soy-mode
                :type git
                :url "https://github.com/toomore-such/soy-mode.git"
