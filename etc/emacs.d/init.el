@@ -134,6 +134,9 @@
               :url "https://github.com/djcb/sauron.git"
               :build `(,(concat "make EMACS=" el-get-emacs)))
         org-mode
+        (:name ob-go
+               :type git
+               :url "https://github.com/pope/ob-go.git")
         (:name textmate
                :after (progn
                         (add-to-list '*textmate-project-roots* "pom.xml")
@@ -456,13 +459,7 @@
 (defun my-org-redisplace-inline-images ()
   (org-display-inline-images))
 
-(eval-after-load 'iimage
-  '(progn
-     (add-to-list 'iimage-mode-image-regex-alist
-                  (cons (concat "\\[\\[file:\\(~?"
-                                iimage-mode-image-filename-regex
-                                "\\)\\]")  1))
-     (add-hook 'org-babel-after-execute-hook 'my-org-redisplace-inline-images)))
+(add-hook 'org-babel-after-execute-hook 'my-org-redisplace-inline-images)
 
 (eval-after-load 'ob
   '(progn
@@ -474,6 +471,7 @@
         (dot . t)
         (emacs-lisp . t)
         (gnuplot . t)
+        (go . t)
         (java . t)
         (js . t)
         (lisp . t)
