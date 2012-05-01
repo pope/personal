@@ -98,7 +98,7 @@
                :url "https://github.com/dgutov/js2-mode.git"
                :branch "emacs24"
                :description "An improved JavaScript editing mode"
-               :compile "js2-mode.el"
+               :build (list (concat el-get-emacs " -batch -f batch-byte-compile js2-mode.el"))
                :post-init (lambda ()
                             (autoload 'js2-mode "js2-mode" nil t)
                             (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
