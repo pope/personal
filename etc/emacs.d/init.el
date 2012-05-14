@@ -93,6 +93,8 @@
                :features ()
                :url nil)
         nyan-mode
+        (:name minimap
+               :features ())
         android-mode
         lua-mode
         go-mode
