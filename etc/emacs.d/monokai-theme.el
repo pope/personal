@@ -24,108 +24,164 @@
 (deftheme monokai
   "Monokai color theme")
 
-(let ((mt-black "#000000")
-      (mt-sel-border "#222218")
-      (mt-bg "#272822")
-      (mt-fg "#F8F8F2")
-      (mt-invis "#3B3A32")
-      (mt-hi "#3E3D32")
-      (mt-sel "#49483E")
-      (mt-ag "#9D550F")
-      (mt-blue "#66D9EF")
-      (mt-mud "#75715E")
-      (mt-green "#A6E22E")
-      (mt-purple "#AE81FF")
-      (mt-beige "#CFCFC2")
-      (mt-gold "#E6DB74")
-      (mt-white "#F8F8F0")
-      (mt-red "#F92672")
-      (mt-orange "#FD971F")
-      (mt-yellow "#FFE792"))
-  (custom-theme-set-faces
-   'monokai
-   ;; Frame
-   `(default ((t (:foreground ,mt-fg :background ,mt-bg))))
-   `(cursor ((t (:foreground ,mt-fg))))
-   `(highlight ((t (:background ,mt-sel-border))))
-   `(minibuffer-prompt ((t (:foreground ,mt-red))))
-   `(mode-line ((t (:background ,mt-bg :foreground ,mt-white))))
-   `(mode-line-inactive ((t (:background ,mt-hi :foreground ,mt-fg))))
-   `(region ((t (:background ,mt-hi))))
-   `(fringe ((t (:background ,mt-bg :foreground ,mt-invis))))
-   `(vertical-border ((t (:foreground ,mt-black))))
+(defvar monokai-colors
+  '((((class color) (min-colors 65535))
+     (mt-black . "#000000")
+     (mt-sel-border . "#222218")
+     (mt-bg . "#272822")
+     (mt-fg . "#F8F8F2")
+     (mt-invis . "#3B3A32")
+     (mt-hi . "#3E3D32")
+     (mt-sel . "#49483E")
+     (mt-ag . "#9D550F")
+     (mt-blue . "#66D9EF")
+     (mt-mud . "#75715E")
+     (mt-green . "#A6E22E")
+     (mt-purple . "#AE81FF")
+     (mt-beige . "#CFCFC2")
+     (mt-gold . "#E6DB74")
+     (mt-white . "#F8F8F0")
+     (mt-red . "#F92672")
+     (mt-orange . "#FD971F")
+     (mt-yellow . "#FFE792"))
+    (t
+     ;; TODO(pope): Come up with term-friendly colors.
+     (mt-black . "color-0")
+     (mt-sel-border . "#222218")
+     (mt-bg . "#272822")
+     (mt-fg . "#F8F8F2")
+     (mt-invis . "#3B3A32")
+     (mt-hi . "#3E3D32")
+     (mt-sel . "#49483E")
+     (mt-ag . "#9D550F")
+     (mt-blue . "#66D9EF")
+     (mt-mud . "#75715E")
+     (mt-green . "#A6E22E")
+     (mt-purple . "#AE81FF")
+     (mt-beige . "#CFCFC2")
+     (mt-gold . "#E6DB74")
+     (mt-white . "#F8F8F0")
+     (mt-red . "#F92672")
+     (mt-orange . "#FD971F")
+     (mt-yellow . "#FFE792")))
+  "The color values for each color name for a given
+      condition. The format is: ((condition) (key . value) (key
+      . value) ...)")
 
-   ;; Main
-   '(variable-pitch ((t (:family "Arial"))))
-   `(show-paren-match-face ((t (:foreground ,mt-fg :underline t :background ,mt-hi))))
-   `(escape-glyph ((t (:foreground ,mt-invis))))
-   `(font-lock-builtin-face ((t (:foreground ,mt-blue))))
-   `(font-lock-comment-face ((t (:foreground ,mt-mud))))
-   `(font-lock-constant-face ((t (:foreground ,mt-purple))))
-   `(font-lock-doc-string-face ((t (:foreground ,mt-mud))))
-   `(font-lock-doc-face ((t (:foreground ,mt-mud))))
-   `(font-lock-function-name-face ((t (:foreground ,mt-green))))
-   `(font-lock-keyword-face ((t (:foreground ,mt-red))))
-   `(font-lock-string-face ((t (:foreground ,mt-yellow))))
-   `(font-lock-type-face ((t (:foreground ,mt-blue))))
-   `(font-lock-variable-name-face ((t (:foreground ,mt-blue))))
-   `(font-lock-warning-face ((t (:bold t :foreground ,mt-red))))
+(defun monokai-expand-face (face)
+  "Expands the simple face declaration with the color
+  conditions."
+  (let ((spec (car face))
+        (props (cadr face)))
+    (list spec (mapcar
+                '(lambda (entry)
+                   (let ((color-condition (car entry)))
+                     (list color-condition
+                           (monokai-expand-colors (cdr entry) props))))
+                monokai-colors))))
 
-   ;; isearch
-   `(isearch ((t (:background ,mt-yellow :foreground ,mt-bg))))
-   `(isearch-fail ((t (:background ,mt-orange :foreground ,mt-bg))))
-   `(lazy-highlight ((t (:background ,mt-sel :foreground nil))))
+(defun monokai-expand-colors (color-alist props)
+  (let ((result '()))
+    (while (car props)
+      (let ((key (car props))
+            (val (cadr props)))
+        (if (memq key '(:foreground :background :color))
+            (setq val (or (cdr (assq val color-alist)) val)))
+        (if (listp val)
+            (setq val (monokai-expand-colors entry val)))
+        (setq result (append result `(,key ,val))))
+      (setq props (cddr props)))
+    result))
 
-   ;; Minimap
-   `(minimap-active-region-background ((t (:background ,mt-hi))))
+(defun monokai-theme-set-faces (theme &rest faces)
+  (apply 'custom-theme-set-faces
+         (append (list theme)
+                 (mapcar 'monokai-expand-face faces))))
 
-   ;; js2-mode
-   `(js2-jsdoc-tag ((t (:italic t :foreground ,mt-mud))))
-   `(js2-jsdoc-type ((t (:italic t :foreground ,mt-mud))))
-   `(js2-jsdoc-value ((t (:bold t :italic t :foreground ,mt-mud))))
-   `(js2-function-param ((t (:foreground ,mt-orange))))
+(monokai-theme-set-faces
+ 'monokai
+ ;; Frame
+ '(default (:foreground mt-fg :background mt-bg))
+ '(cursor (:foreground mt-fg))
+ '(highlight (:background mt-sel-border))
+ '(minibuffer-prompt (:foreground mt-red))
+ '(mode-line (:background mt-bg :foreground mt-white))
+ '(mode-line-inactive (:background mt-hi :foreground mt-fg))
+ '(region (:background mt-hi))
+ '(fringe (:background mt-bg :foreground mt-invis))
+ '(vertical-border (:foreground mt-black))
 
-   ;; Dired
-   `(dired-directory ((t (:foreground ,mt-purple))))
-   `(dired-symlink ((t (:foreground ,mt-blue))))
-   `(dired-mark ((t (:foreground ,mt-green))))
-   `(dired-flagged ((t (:foreground ,mt-orange))))
-   `(dired-marked ((t (:foreground ,mt-yellow))))
-   `(dired-header ((t (:foreground ,mt-fg :height 1.4 :underline t :inherit 'variable-pitch))))
+ ;; Main
+ '(variable-pitch (:family "Arial"))
+ '(show-paren-match-face (:foreground mt-fg :underline t :background mt-hi))
+ '(escape-glyph (:foreground mt-invis))
+ '(font-lock-builtin-face (:foreground mt-blue))
+ '(font-lock-comment-face (:foreground mt-mud))
+ '(font-lock-constant-face (:foreground mt-purple))
+ '(font-lock-doc-string-face (:foreground mt-mud))
+ '(font-lock-doc-face (:foreground mt-mud))
+ '(font-lock-function-name-face (:foreground mt-green))
+ '(font-lock-keyword-face (:foreground mt-red))
+ '(font-lock-string-face (:foreground mt-yellow))
+ '(font-lock-type-face (:foreground mt-blue))
+ '(font-lock-variable-name-face (:foreground mt-blue))
+ '(font-lock-warning-face (:bold t :foreground mt-red))
 
-   ;; Org
-   `(org-done ((t (:foreground ,mt-green))))
-   `(org-todo ((t (:foreground ,mt-red))))
-   `(org-document-info ((t (:foreground ,mt-yellow))))
-   `(org-document-title ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 2.0))))
-   `(outline-1 ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 1.8))))
-   `(outline-2 ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 1.6))))
-   `(outline-3 ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 1.4))))
-   `(outline-4 ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 1.2))))
-   `(outline-5 ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 1.1))))
-   `(outline-6 ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 1.1))))
-   `(outline-7 ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 1.1))))
-   `(outline-8 ((t (:foreground ,mt-fg :inherit 'variable-pitch :slant italic :height 1.1))))
+ ;; isearch
+ '(isearch (:background mt-yellow :foreground mt-bg))
+ '(isearch-fail (:background mt-orange :foreground mt-bg))
+ '(lazy-highlight (:background mt-sel :foreground nil))
 
-   ;; Magit
-   `(magit-diff-add ((t (:foreground ,mt-green))))
-   `(magit-diff-del ((t (:foreground ,mt-red))))
-   `(magit-log-sha1 ((t (:foreground ,mt-orange))))
+ ;; Minimap
+ '(minimap-active-region-background (:background mt-hi))
 
-   ;; UI
-   `(link ((t (:foreground ,mt-blue))))
-   `(link-visited ((t (:foreground ,mt-purple))))
-   `(button ((t (:foreground ,mt-blue))))
+ ;; js2-mode
+ '(js2-jsdoc-tag (:italic t :foreground mt-mud))
+ '(js2-jsdoc-type (:italic t :foreground mt-mud))
+ '(js2-jsdoc-value (:bold t :italic t :foreground mt-mud))
+ '(js2-function-param (:foreground mt-orange))
 
-   ;; Ido
-   `(ido-subdir ((t (:foreground ,mt-purple))))
-   `(ido-only-match ((t (:foreground ,mt-green))))
-   `(ido-virtual ((t (:foreground ,mt-blue))))
+ ;; Dired
+ '(dired-directory (:foreground mt-purple))
+ '(dired-symlink (:foreground mt-blue))
+ '(dired-mark (:foreground mt-green))
+ '(dired-flagged (:foreground mt-orange))
+ '(dired-marked (:foreground mt-yellow))
+ '(dired-header (:foreground mt-fg :height 1.4 :underline t :inherit 'variable-pitch))
 
-   ;; Whitespace
-   `(whitespace-tab ((t (:foreground ,mt-invis :background nil))))
-   `(whitespace-space ((t (:foreground ,mt-invis :background nil))))
-   `(whitespace-newline ((t (:foreground ,mt-invis :background nil))))
-   ))
+ ;; Org
+ '(org-done (:foreground mt-green))
+ '(org-todo (:foreground mt-red))
+ '(org-document-info (:foreground mt-yellow))
+ '(org-document-title (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 2.0))
+ '(outline-1 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.8))
+ '(outline-2 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.6))
+ '(outline-3 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.4))
+ '(outline-4 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.2))
+ '(outline-5 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
+ '(outline-6 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
+ '(outline-7 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
+ '(outline-8 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
+
+ ;; Magit
+ '(magit-diff-add (:foreground mt-green))
+ '(magit-diff-del (:foreground mt-red))
+ '(magit-log-sha1 (:foreground mt-orange))
+
+ ;; UI
+ '(link (:foreground mt-blue))
+ '(link-visited (:foreground mt-purple))
+ '(button (:foreground mt-blue))
+
+ ;; Ido
+ '(ido-subdir (:foreground mt-purple))
+ '(ido-only-match (:foreground mt-green))
+ '(ido-virtual (:foreground mt-blue))
+
+ ;; Whitespace
+ '(whitespace-tab (:foreground mt-invis :background nil))
+ '(whitespace-space (:foreground mt-invis :background nil))
+ '(whitespace-newline (:foreground mt-invis :background nil))
+ )
 
 (provide-theme 'monokai)
