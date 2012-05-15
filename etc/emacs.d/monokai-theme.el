@@ -172,6 +172,16 @@
  '(link-visited (:foreground mt-purple))
  '(button (:foreground mt-blue))
 
+ ;; erc
+ '(erc-prompt-face (:foreground mt-gold :background nil))
+ '(erc-input-face (:foreground mt-yellow))
+ '(erc-timestamp-face (:foreground mt-green))
+ '(erc-notice-face (:foreground mt-mud))
+ '(erc-current-nick-face (:foreground mt-blue))
+ '(erc-my-nick-face (:foreground mt-blue))
+ '(erc-nick-msg-face (:foreground mt-purple))
+ '(erc-nick-default-face (:foreground mt-purple))
+
  ;; Ido
  '(ido-subdir (:foreground mt-purple))
  '(ido-only-match (:foreground mt-green))
