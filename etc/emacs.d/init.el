@@ -123,6 +123,11 @@
                :after (progn
                         (font-lock-add-keywords 'actionscript-mode
                                                 '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face)))))
+        (:name protobuf-mode
+               :type http
+               :url "http://protobuf.googlecode.com/svn/trunk/editors/protobuf-mode.el"
+               :after (progn
+                        (add-to-list 'auto-mode-alist '("\\.proto$" . protobuf-mode))))
         (:name ecb-dev
                :type git
                :url "https://github.com/emacsmirror/ecb.git")
