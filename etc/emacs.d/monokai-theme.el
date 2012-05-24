@@ -109,6 +109,7 @@
  '(region (:background mt-hi))
  '(fringe (:background mt-bg :foreground mt-invis))
  '(vertical-border (:foreground mt-black))
+ '(linum (:foreground mt-hi))
 
  ;; Main
  '(variable-pitch (:family "Arial"))
@@ -135,8 +136,10 @@
  '(minimap-active-region-background (:background mt-hi))
 
  ;; js2-mode
- '(js2-jsdoc-tag (:italic t :foreground mt-mud))
- '(js2-jsdoc-type (:italic t :foreground mt-mud))
+ '(js2-jsdoc-tag (:italic t :foreground mt-mud :bold t))
+ '(js2-jsdoc-html-tag-name (:italic t :foreground mt-mud :bold t))
+ '(js2-jsdoc-html-tag-delimiter (:italic t :foreground mt-mud :bold t))
+ '(js2-jsdoc-type (:italic t :foreground mt-mud :bold t))
  '(js2-jsdoc-value (:bold t :italic t :foreground mt-mud))
  '(js2-function-param (:foreground mt-orange))
 
@@ -181,6 +184,7 @@
  '(erc-my-nick-face (:foreground mt-blue))
  '(erc-nick-msg-face (:foreground mt-purple))
  '(erc-nick-default-face (:foreground mt-purple))
+ '(erc-button (:foreground mt-blue :underline t :bold nil))
 
  ;; Ido
  '(ido-subdir (:foreground mt-purple))
