@@ -432,6 +432,23 @@
 
 
 ;;
+;; go
+;;
+
+(add-to-list 'ac-modes 'go-mode)
+
+(defun my-go-mode-hook ()
+  (setq fill-column 78)
+  (setq tab-width 2)
+  (auto-complete-mode 1))
+
+(eval-after-load "go-mode"
+  '(progn
+     (add-hook 'go-mode-hook #'my-go-mode-hook)))
+(add-hook 'before-save-hook #'gofmt-before-save)
+
+
+;;
 ;; Octave
 ;;
 
