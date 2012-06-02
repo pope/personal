@@ -606,6 +606,7 @@
 
 ;; Save a list of recent files visited.
 (require 'recentf)
+(setq recentf-keep '(file-remote-p file-readable-p))
 (recentf-mode 1)
 
 ;; Transparently open compressed files
