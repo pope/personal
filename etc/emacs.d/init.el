@@ -73,7 +73,7 @@
         naquadah-theme
         nxhtml
         (:name auto-complete
-               :after (progn
+               :after (lambda ()
                         ;;(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
                         (ac-set-trigger-key "TAB")))
         auto-complete-etags
@@ -86,7 +86,7 @@
         (:name sticky-windows
                :type emacswiki
                :features (sticky-windows)
-               :after (progn
+               :after (lambda ()
                         (global-set-key [(control x) (?0)] 'sticky-window-delete-window)
                         (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
                         (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
@@ -113,29 +113,29 @@
         (:name soy-mode
                :type git
                :url "https://github.com/toomore-such/soy-mode.git"
-               :post-init (progn
+               :post-init (lambda ()
                             (add-to-list 'auto-mode-alist
                                          '("\\.soy$" . soy-mode))))
         (:name actionscript-mode
                :type http
                :url "https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el"
-               :post-init (progn
+               :post-init (lambda ()
                             (add-to-list 'auto-mode-alist
                                          '("\\.as$" . actionscript-mode)))
-               :after (progn
+               :after (lambda ()
                         (font-lock-add-keywords 'actionscript-mode
                                                 '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face)))))
         (:name protobuf-mode
                :type http
                :url "http://protobuf.googlecode.com/svn/trunk/editors/protobuf-mode.el"
-               :after (progn
+               :after (lambda ()
                         (add-to-list 'auto-mode-alist '("\\.proto$" . protobuf-mode))))
         (:name ecb-dev
                :type git
                :url "https://github.com/emacsmirror/ecb.git")
         (:name vkill
                :features ()
-               :after (progn
+               :after (lambda ()
                         (autoload 'vkill "vkill" nil t)
                         (autoload 'list-unix-processes "vkill" nil t)))
         (:name magit :features ())
@@ -151,7 +151,7 @@
                :type git
                :url "https://github.com/pope/ob-go.git")
         (:name textmate
-               :after (progn
+               :after (lambda ()
                         (add-to-list '*textmate-project-roots* "pom.xml")
                         (setq *textmate-gf-exclude* (concat *textmate-gf-exclude* "|target"))))
         nognus
@@ -160,7 +160,7 @@
                :type git
                :features (eproject eproject-extras)
                :url "https://github.com/jrockway/eproject.git"
-               :after (progn
+               :after (lambda ()
                         (define-project-type generic-maven (generic) (look-for "pom.xml"))))
         emacs-w3m
         (:name geben
