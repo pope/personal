@@ -177,6 +177,14 @@
  '(outline-7 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
  '(outline-8 (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
 
+ ;; rst
+ '(rst-level-1-face (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.8))
+ '(rst-level-2-face (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.6))
+ '(rst-level-3-face (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.4))
+ '(rst-level-4-face (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.2))
+ '(rst-level-5-face (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
+ '(rst-level-6-face (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
+
  ;; Magit
  '(magit-diff-add (:foreground mt-green))
  '(magit-diff-del (:foreground mt-red))
