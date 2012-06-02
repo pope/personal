@@ -67,6 +67,18 @@
       condition. The format is: ((condition) (key . value) (key
       . value) ...)")
 
+;; Set the colors for the ansi terminal.
+(flet ((get-color (name) (cdr (assoc name (car monokai-colors)))))
+  (setq ansi-term-color-vector
+        `[unspecified ,(get-color 'mt-black)
+                      ,(get-color 'mt-red)
+                      ,(get-color 'mt-green)
+                      ,(get-color 'mt-yellow)
+                      ,(get-color 'mt-blue)
+                      ,(get-color 'mt-purple)
+                      ,(get-color 'mt-orange)
+                      ,(get-color 'mt-white)]))
+
 (defun monokai-expand-face (face)
   "Expands the simple face declaration with the color
   conditions."
