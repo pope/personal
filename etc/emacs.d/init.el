@@ -78,6 +78,8 @@
                         (ac-set-trigger-key "TAB")))
         auto-complete-etags
         auto-complete-clang
+        auto-complete-css
+        auto-complete-yasnippet
         (:name zencoding-mode :features ())
         switch-window
         buffer-move
