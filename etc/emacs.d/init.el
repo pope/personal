@@ -94,6 +94,7 @@
                :type elpa
                :features ()
                :url nil)
+        rect-mark
         nyan-mode
         (:name minimap
                :features ())
