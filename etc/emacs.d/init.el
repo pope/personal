@@ -668,6 +668,9 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
 
+;; Make sure that $PATH matches the exec-path that I have already specified.
+(setenv "PATH" (mapconcat 'identity exec-path ":"))
+
 (message "init.el: My .emacs loaded in %.1fs" (- (float-time) *emacs-load-start*))
 
 ;; load in a host specific file if it's there
