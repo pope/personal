@@ -1,7 +1,10 @@
-xft.antialias: true
+Xft.antialias: 1
+Xft.autohint: 0
 Xft.dpi: 96
 Xft.hinting: 1
 Xft.hintstyle: hintmedium
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
 
 *charClass:	33:48,37:48,61:48,63:48,58:48,45-47:48,38:48,126:48
 *cutchars: !"$%'()*+,;<>[\]^`
