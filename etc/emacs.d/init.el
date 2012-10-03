@@ -570,6 +570,9 @@
 ;; Should be able to eval-and-replace anywhere.
 (global-set-key (kbd "C-c e") 'eval-and-replace)
 
+(if (string-equal system-type "darwin")
+    (setq x-alt-keysym 'meta))
+
 
 ;;
 ;; Tramp
