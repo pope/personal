@@ -239,8 +239,17 @@
 ;; Coding Basics
 ;;
 
+(defvar pope-buffer-remove-trailing-whitespace nil
+  "If non-nil, remove trailing whitespace in this buffer when saving.")
+(make-variable-buffer-local 'pope-buffer-remove-trailing-whitespace)
+
+(defun pope-maybe-delete-trailing-whitespace ()
+  (and pope-buffer-remove-trailing-whitespace
+       (fboundp 'delete-trailing-whitespace)
+       (delete-trailing-whitespace)))
 
 ;; TODO: Add the coding hooks
+(add-hook 'before-save-hook #'pope-maybe-delete-trailing-whitespace)
 
 
 ;;
@@ -378,6 +387,7 @@
   (setq ac-auto-start nil)
   (setq ac-expand-on-auto-complete nil)
   (setq ac-quick-help-delay 0.3)
+  (setq pope-buffer-remove-trailing-whitespace t)
   (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang))
 
 (add-hook 'c-mode-hook 'my-c-mode-common-hook)
@@ -430,6 +440,15 @@
                       (while (looking-at-p "^goog.require")
                         (next-line))
                       (line-end-position))))))
+
+(defun my-js2-mode-hook ()
+  (setq pope-buffer-remove-trailing-whitespace t))
+
+(eval-after-load "js2-mode"
+  (add-hook 'js2-mode-hook #'my-js2-mode-hook))
+
+(eval-after-load "js-mode"
+  (add-hook 'js-mode-hook #'my-js2-mode-hook))
 
 
 ;;
