@@ -69,7 +69,11 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes/")
 
 (setq el-get-sources
-      '((:name sticky-windows
+      '((:name auto-complete
+               :after (progn
+                        (global-auto-complete-mode)
+                        (ac-set-trigger-key "TAB")))
+        (:name sticky-windows
                :after (progn
                         (global-set-key [(control x) (?0)] 'sticky-window-delete-window)
                         (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
@@ -85,7 +89,6 @@
       (append
        '(naquadah-theme
          paredit
-         auto-complete
          auto-complete-etags
          auto-complete-clang
          auto-complete-css
