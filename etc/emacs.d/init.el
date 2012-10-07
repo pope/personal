@@ -66,111 +66,57 @@
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")))
+(add-to-list 'el-get-recipe-path "~/.emacs.d/recipes/")
 
 (setq el-get-sources
-      '((:name google-maps :features ())
-        (:name google-weather :features ())
-        (:name paredit :features ())
-        naquadah-theme
-        nxhtml
-        (:name auto-complete
-               :type github
-               :pkgname "auto-complete/auto-complete"
-               :depends (popup fuzzy))
-        (:name popup
-               :type github
-               :pkgname "auto-complete/popup-el")
-        (:name fuzzy
-               :type github
-               :pkgname "auto-complete/fuzzy-el")
-        auto-complete-etags
-        auto-complete-clang
-        auto-complete-css
-        auto-complete-yasnippet
-        (:name zencoding-mode :features ())
-        switch-window
-        buffer-move
-        (:name sticky-windows
-               :type emacswiki
-               :features (sticky-windows)
+      '((:name sticky-windows
                :after (progn
                         (global-set-key [(control x) (?0)] 'sticky-window-delete-window)
                         (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
                         (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
-        rainbow-mode
-        rect-mark
-        nyan-mode
-        (:name minimap
-               :features ())
-        android-mode
-        lua-mode
-        go-mode
-        java-mode-indent-annotations
-        (:name js2-mode
-               :type github
-               :pkgname "mooz/js2-mode"
-               :branch "emacs24"
-               :description "An improved JavaScript editing mode"
-               :build (list (concat el-get-emacs " -batch -f batch-byte-compile js2-mode.el"))
-               :post-init (progn
-                            (autoload 'js2-mode "js2-mode" nil t)
-                            (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
-        (:name soy-mode
-               :type github
-               :pkgname "toomore-such/soy-mode"
-               :post-init (progn
-                            (add-to-list 'auto-mode-alist
-                                         '("\\.soy$" . soy-mode))))
-        (:name actionscript-mode
-               :type http
-               :url "https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el"
-               :post-init (progn
-                            (add-to-list 'auto-mode-alist
-                                         '("\\.as$" . actionscript-mode)))
-               :after (progn
-                        (font-lock-add-keywords 'actionscript-mode
-                                                '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face)))))
-        (:name protobuf-mode
-               :type http
-               :url "http://protobuf.googlecode.com/svn/trunk/editors/protobuf-mode.el"
-               :after (progn
-                        (add-to-list 'auto-mode-alist '("\\.proto$" . protobuf-mode))))
-        (:name ecb-dev
-               :type github
-               :pkgname "emacsmirror/ecb")
-        (:name vkill
-               :features ()
-               :after (progn
-                        (autoload 'vkill "vkill" nil t)
-                        (autoload 'list-unix-processes "vkill" nil t)))
-        (:name magit :features ())
-        (:name yasnippet
-               :type github
-               :pkgname "capitaomorte/yasnippet")
-        org-mode
-        (:name ob-go
-               :type github
-               :pkgname "pope/ob-go")
         (:name textmate
                :after (progn
                         (add-to-list '*textmate-project-roots* "pom.xml")
                         (setq *textmate-gf-exclude* (concat *textmate-gf-exclude* "|target"))))
-        nognus
-        (:name offlineimap :features ())
         (:name eproject
-               :type github
-               :features (eproject eproject-extras)
-               :pkgname "jrockway/eproject"
                :after (progn
-                        (define-project-type generic-maven (generic) (look-for "pom.xml"))))
-        emacs-w3m
-        (:name geben
-               :type svn
-               :url "http://geben-on-emacs.googlecode.com/svn/trunk/"
-               :build `(,(concat "make EMACS=" el-get-emacs)))))
-(setq el-get-packages
-      (mapcar 'el-get-source-name el-get-sources))
-(el-get 'sync el-get-packages)
+                        (define-project-type generic-maven (generic) (look-for "pom.xml"))))))
+(setq my-el-get-packages
+      (append
+       '(naquadah-theme
+         paredit
+         auto-complete
+         auto-complete-etags
+         auto-complete-clang
+         auto-complete-css
+         auto-complete-yasnippet
+         yasnippet
+         switch-window
+         buffer-move
+         rect-mark
+         rainbow-mode
+         nyan-mode
+         minimap
+         vkill
+         magit
+         nxhtml
+         zencoding-mode
+         android-mode
+         lua-mode
+         go-mode
+         java-mode-indent-annotations
+         js2-mode
+         soy-mode
+         actionscript-mode
+         protobuf-mode
+         geben
+         org-mode
+         ob-go
+         nognus
+         offlineimap
+         emacs-w3m)
+       (mapcar 'el-get-source-name el-get-sources)))
+(el-get 'sync my-el-get-packages)
 (message "init.el: el-get loaded after %.1fs" (- (float-time) *emacs-load-start*))
 
 
