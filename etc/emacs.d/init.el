@@ -8,8 +8,8 @@
 ;; The Basics
 ;;
 
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
@@ -460,27 +460,32 @@
 
 (add-hook 'org-babel-after-execute-hook 'my-org-redisplace-inline-images)
 
-(eval-after-load 'ob
-  '(progn
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((C . t)
-        (css . t)
-        (ditaa . t)
-        (dot . t)
-        (emacs-lisp . t)
-        (gnuplot . t)
-        (go . t)
-        (java . t)
-        (js . t)
-        (lisp . t)
-        (octave . t)
-        (plantuml . t)
-        (python . t)
-        (ruby . t)
-        (sh . t)
-        (sql . t)
-        (sqlite . t)))))
+(defun my-setup-ob-langs ()
+  (eval-after-load 'ob
+    '(progn
+       (org-babel-do-load-languages
+        'org-babel-load-languages
+        '((C . t)
+          (css . t)
+          (ditaa . t)
+          (dot . t)
+          (emacs-lisp . t)
+          (gnuplot . t)
+          (go . t)
+          (java . t)
+          (js . t)
+          (lisp . t)
+          (octave . t)
+          (plantuml . t)
+          (python . t)
+          (ruby . t)
+          (sh . t)
+          (sql . t)
+          (sqlite . t))))))
+(require 'timer)
+;; Since 'ob is probably loaded, set up the languages when emacs is idle. This
+;; shaves off a little bit of time, and that doesn't suck.
+(run-with-idle-timer 1.0 nil #'my-setup-ob-langs)
 
 
 ;;
@@ -560,8 +565,6 @@
 ;;
 ;; Misc
 ;;
-
-(require 'sync-mode)
 
 (require 'saveplace)
 (setq save-place-file (concat dotfiles-dir "places"))
