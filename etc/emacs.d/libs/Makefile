@@ -49,7 +49,7 @@ LIBS := actionscript-mode \
 
 
 define byte-compile
-	$(EMACS) $(foreach DEP,$^,-L $(DEP)) -L $@ -batch -Q -f batch-byte-compile $@/*.el
+	$(EMACS) $(addprefix -L ,$(LIBS)) -L $@ -batch -Q -f batch-byte-compile $@/*.el
 endef
 
 define httpget
@@ -66,33 +66,22 @@ endef
 all: init.elc loaddefs.el
 
 gitignore:
-	echo -n '' > .$@
-	for lib in $(LIBS); do echo $$lib >> .$@; done;
+	echo 'init.el'                        > .$@
+	echo 'loaddefs.el'                   >> .$@
+	echo '*.elc'                         >> .$@
+	for lib in $(LIBS); do echo "$$lib/" >> .$@; done;
 
 loaddefs.el: $(LIBS)
-	cd $(CURDIR) &&								\
-	$(EMACS) -batch -Q -l autoload						\
-	    -L $(CURDIR)							\
-	    --eval '(setq find-file-hooks nil					\
-	                  backup-inhibited t					\
-                          generated-autoload-file "$(CURDIR)/loaddefs.el")'	\
-            -f batch-update-autoloads						\
+	cd $(CURDIR) &&													\
+	$(EMACS) -batch -Q -l autoload											\
+	    -L $(CURDIR)												\
+	    --eval '(setq find-file-hooks nil backup-inhibited t generated-autoload-file "$(CURDIR)/loaddefs.el")'	\
+	    -f batch-update-autoloads											\
 	    $^ org-mode/lisp org-mode/contrib/lisp gnus/lisp eproject/lang eproject/contrib
 
-init.el: init.el.tmpl $(LIBS)
-	$(EMACS) -batch -Q										\
-	    --eval '(progn										\
-	              (setq find-file-hooks nil								\
-	                    backup-inhibited t)								\
-	              (with-temp-buffer									\
-	                (insert-file "$<")								\
-	                (goto-char (point-min))								\
-	                (dolist (lib (list "$(CURDIR)" $(foreach LIB,$(LIBS),"$(CURDIR)/$(LIB)")))	\
-	                  (insert "(add-to-list (quote load-path) \"" lib "\")")			\
-	                  (newline))									\
-	                (while (search-forward "%LIBDIR%" nil t)					\
-	                  (replace-match "$(CURDIR)" t))						\
-	                (write-file "$@")))'
+init.el: scripts/init.el.tmpl scripts/create-init.el $(LIBS)
+	$(EMACS) -L $(CURDIR)/scripts -batch -Q -l create-init \
+	    --eval '(create-init "$(CURDIR)" $(foreach LIB,$(LIBS),"$(CURDIR)/$(LIB)"))'
 
 init.elc: init.el
 	$(EMACS) -L . $(addprefix -L ,$(LIBS)) -batch -Q -f batch-byte-compile $<
