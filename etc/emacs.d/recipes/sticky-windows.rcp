@@ -1,4 +1,0 @@
-(:name sticky-windows
-       :description "Makes an Emacs Window Sticky"
-       :type emacswiki
-       :features sticky-windows)

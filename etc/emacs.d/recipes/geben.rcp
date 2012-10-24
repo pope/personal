@@ -1,5 +1,0 @@
-(:name geben
-       :description "PHP debugger."
-       :type svn
-       :url "http://geben-on-emacs.googlecode.com/svn/trunk/"
-       :build `(("make" ,(concat "EMACS=" (shell-quote-argument el-get-emacs)))))

@@ -1,9 +1,0 @@
-(:name actionscript-mode
-       :description "Major mode for editing ActionScript files."
-       :type http
-       :url "https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el"
-       :prepare (add-to-list 'auto-mode-alist
-                             '("\\.as$" . actionscript-mode))
-       :post-init (font-lock-add-keywords
-                   'actionscript-mode
-                   '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face))))

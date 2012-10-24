@@ -47,80 +47,17 @@
 
 
 ;;
-;; el-get
+;; libs
 ;;
-
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s)
-     (goto-char (point-max))
-     (eval-print-last-sexp))))
 
 ;; For ECB.
 (setq stack-trace-on-error t)
-
 (setq package-user-dir "~/.emacs.d/elpa")
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")))
-(add-to-list 'el-get-recipe-path "~/.emacs.d/recipes/")
-
-(setq el-get-sources
-      '((:name auto-complete
-               :after (progn
-                        (global-auto-complete-mode)
-                        (ac-set-trigger-key "TAB")))
-        (:name sticky-windows
-               :after (progn
-                        (global-set-key [(control x) (?0)] 'sticky-window-delete-window)
-                        (global-set-key [(control x) (?1)] 'sticky-window-delete-other-windows)
-                        (global-set-key [(control x) (?9)] 'sticky-window-keep-window-visible)))
-        (:name textmate
-               :after (progn
-                        (add-to-list '*textmate-project-roots* "pom.xml")
-                        (setq *textmate-gf-exclude* (concat *textmate-gf-exclude* "|target"))))
-        (:name eproject
-               :after (progn
-                        (define-project-type generic-maven (generic) (look-for "pom.xml"))))))
-(setq my-el-get-packages
-      (append
-       '(naquadah-theme
-         paredit
-         auto-complete-etags
-         auto-complete-clang
-         auto-complete-css
-         auto-complete-yasnippet
-         yasnippet
-         switch-window
-         buffer-move
-         rect-mark
-         rainbow-mode
-         nyan-mode
-         minimap
-         vkill
-         magit
-         nxhtml
-         zencoding-mode
-         android-mode
-         lua-mode
-         go-mode
-         java-mode-indent-annotations
-         js2-mode
-         soy-mode
-         actionscript-mode
-         protobuf-mode
-         geben
-         org-mode
-         ob-go
-         nognus
-         offlineimap
-         emacs-w3m)
-       (mapcar 'el-get-source-name el-get-sources)))
-(el-get 'sync my-el-get-packages)
-(message "init.el: el-get loaded after %.1fs" (- (float-time) *emacs-load-start*))
+(load (concat dotfiles-dir "libs/init"))
+(message "init.el: libs loaded after %.1fs" (- (float-time) *emacs-load-start*))
 
 
 ;;
@@ -391,6 +328,48 @@
   (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang))
 
 (add-hook 'c-mode-hook 'my-c-mode-common-hook)
+
+
+;;
+;; Objective-C
+;;
+
+(defun my-objc-defun-block-intro (langelem)
+  (when (derived-mode-p 'objc-mode)
+    (save-excursion
+      (let ((parent (save-excursion
+                      (goto-char (c-langelem-pos langelem))
+                      (c-guess-basic-syntax))))
+        (cond ((assq 'objc-method-intro parent) c-basic-offset)
+              (t (back-to-indentation)
+                 ;; Go to beginning of *previous* line:
+                 (c-backward-syntactic-ws)
+                 (back-to-indentation)
+                 (vector (+ (* 2 (if (integerp c-basic-offset) c-basic-offset 2))
+                            (current-column)))))))))
+
+(defun my-objc-defun-close (langelem)
+  (when (derived-mode-p 'objc-mode)
+    (save-excursion
+      (back-to-indentation)
+      (c-go-up-list-backward)
+      (back-to-indentation)
+      (when (assq 'objc-method-call-cont (c-guess-basic-syntax))
+        (vector (current-column))))))
+
+(defun my-objc-mode-hook ()
+  (setq c-basic-offset 2)
+  (setq pope-buffer-remove-trailing-whitespace t)
+  (c-set-offset 'access-label '/)
+  (c-set-offset 'defun-block-intro #'my-objc-defun-block-intro '++)
+  (c-set-offset 'defun-close #'my-objc-defun-close)
+  (c-set-offset 'statement-cont '++))
+
+(eval-after-load "cc-mode"
+  '(progn
+     (font-lock-add-keywords 'objc-mode
+                             '(("\\<@\\(synthesize\\|property\\|required\\|optional\\)\\>" . font-lock-keyword-face)))
+     (add-hook 'objc-mode-hook #'my-objc-mode-hook)))
 
 
 ;;

@@ -1,4 +1,0 @@
-(:name ecb
-       :description "Emacs Code Browser"
-       :type github
-       :pkgname "emacsmirror/ecb")

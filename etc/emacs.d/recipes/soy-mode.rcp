@@ -1,6 +1,0 @@
-(:name soy-mode
-       :website "https://github.com/toomore-such/soy-mode#readme"
-       :description "Major mode for Closure Templates (.soy)."
-       :type github
-       :pkgname "toomore-such/soy-mode"
-       :post-init (add-to-list 'auto-mode-alist '("\\.soy$" . soy-mode)))

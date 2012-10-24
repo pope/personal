@@ -1,0 +1,65 @@
+
+(load "%LIBDIR%/loaddefs")
+
+;; actionscript-mode
+
+(add-to-list 'auto-mode-alist '("\\.as$" . actionscript-mode))
+(eval-after-load 'actionscript-mode
+  '(font-lock-add-keywords 'actionscript-mode
+                           '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face))))
+
+;; cedet
+
+(when (not (featurep 'cedet-devel-load))
+  (load "%LIBDIR%/cedet/cedet-devel-load"))
+
+;; gnus
+
+(add-to-list 'Info-default-directory-list "%LIBDIR%/gnus/info/")
+(add-to-list 'load-path "%LIBDIR%/gnus/lisp/")
+
+;; go-mode
+
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+
+;; eproject
+
+(add-to-list 'load-path "%LIBDIR%/eproject/contrib/")
+(add-to-list 'load-path "%LIBDIR%/eproject/lang/")
+(require 'eproject)
+
+;; java-mode-indent-annotations
+
+(autoload 'java-mode-indent-annotations "java-mode-indent-annotations/java-mode-indent-annotations" "\
+Set up java mode indent function to handle java 1.5 annotations.
+This function should be called from a java or jde mode hook,
+after any calls to `c-set-style'.
+
+\(fn)" nil nil)
+(add-hook 'java-mode-hook #'java-mode-indent-annotations-setup)
+
+;; naquadah-theme
+
+(add-to-list 'custom-theme-load-path "%LIBDIR%/naquadah-theme/")
+
+;; nxhtml
+
+(load "%LIBDIR%/nxhtml/autostart")
+
+;; org-mode
+
+(add-to-list 'load-path "%LIBDIR%/org-mode/lisp/")
+(add-to-list 'load-path "%LIBDIR%/org-mode/contrib/lisp/")
+
+;; vkill
+
+(autoload 'vkill "vkill/vkill" nil t)
+(autoload 'list-unix-processes "vkill/vkill" nil t)
+
+;; w3m
+
+(add-to-list 'Info-default-directory-list "%LIBDIR%/w3m/doc/")
+
+;; yasnippet
+
+(yas-global-mode 1)
