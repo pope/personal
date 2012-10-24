@@ -1,0 +1,18 @@
+(defun create-init (dir &rest args)
+  (interactive)
+  (let ((find-file-hooks nil)
+	(backup-inhibited t)
+	(libs (or args '())))
+    (with-temp-buffer
+      (insert-file (concat dir "/scripts/init.el.tmpl"))
+      (goto-char (point-min))
+      (insert "(add-to-list 'load-path \"" dir "\")")
+      (newline)
+      (dolist (lib libs)
+	(insert "(add-to-list 'load-path \"" lib "\")")
+	(newline))
+      (while (search-forward "%LIBDIR%" nil t)
+	(replace-match dir t))
+      (write-file (concat dir "/init.el")))))
+
+(provide 'create-init)
