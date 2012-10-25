@@ -19,6 +19,7 @@ LIBS := actionscript-mode \
 	buffer-move \
 	cedet \
 	ecb \
+	emacs-minimap \
 	eproject \
 	fuzzy-el \
 	geben \
@@ -28,7 +29,6 @@ LIBS := actionscript-mode \
 	js2-mode \
 	lua-mode \
 	magit \
-	minimap \
 	naquadah-theme \
 	nxhtml \
 	nyan-mode \
@@ -52,16 +52,27 @@ define byte-compile
 	$(EMACS) $(addprefix -L ,$(LIBS)) -L $@ -batch -Q -f batch-byte-compile $@/*.el
 endef
 
-define httpget
+define http-get
 	$(WGET) -O $@.el $1
 	mkdir $@
 	mv $@.el $@
 	$(call byte-compile)
 endef
 
-define wikiget
-	$(call httpget,"http://www.emacswiki.org/emacs/download/$@.el")
+define wiki-get
+	$(call http-get,"http://www.emacswiki.org/emacs/download/$@.el")
 endef
+
+define tar-get
+	mkdir $@
+	$(WGET) -O - $1 | tar -xzvf - --strip-components=1 -C $@
+endef
+
+define github-get
+	$(call tar-get,https://github.com/$1/$@/tarball/$2)
+endef
+
+.DELETE_ON_ERROR:
 
 all: init.elc loaddefs.el
 
@@ -87,47 +98,51 @@ init.elc: init.el
 	$(EMACS) -L . $(addprefix -L ,$(LIBS)) -batch -Q -f batch-byte-compile $<
 
 actionscript-mode:
-	$(call httpget,"https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el")
+	$(call http-get,"https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el")
 
 android-mode:
-	$(GIT) clone https://github.com/remvee/android-mode.git
+	$(call github-get,remvee,master)
 	$(call byte-compile)
 
 auto-complete: popup-el
-	$(GIT) clone https://github.com/auto-complete/auto-complete.git
+	$(call github-get,auto-complete,master)
 	cd $@ && $(MAKE) EMACS="$(EMACS) -L $(CURDIR)/popup-el"
 
 auto-complete-clang: auto-complete popup-el
-	$(GIT) clone https://github.com/brianjcj/auto-complete-clang.git
+	$(call github-get,brianjcj,master)
 	$(call byte-compile)
 
 auto-complete-css: auto-complete popup-el
-	$(call httpget,"http://www.cx4a.org/pub/auto-complete-css.el")
+	$(call http-get,"http://www.cx4a.org/pub/auto-complete-css.el")
 
 auto-complete-etags: auto-complete popup-el
-	$(call wikiget)
+	$(call wiki-get)
 
 auto-complete-yasnippet: auto-complete popup-el yasnippet
-	$(call httpget,"http://www.cx4a.org/pub/auto-complete-yasnippet.el")
+	$(call http-get,"http://www.cx4a.org/pub/auto-complete-yasnippet.el")
 
 buffer-move:
-	$(call wikiget,buffer-move)
+	$(call wiki-get,buffer-move)
 
 cedet:
-	$(GIT) clone https://github.com/emacsmirror/cedet.git
+	$(call github-get,emacsmirror,master)
 	cd $@ && $(MAKE) EMACS=$(EMACS)
 
 ecb: cedet
-	$(GIT) clone https://github.com/emacsmirror/ecb.git
+	$(call github-get,emacsmirror,master)
 	cd $@ && $(MAKE) EMACS=$(EMACS) CEDET=
 
+emacs-minimap:
+	$(call github-get,dustinlacewell,master)
+	$(call byte-compile)
+
 eproject:
-	$(GIT) clone https://github.com/jrockway/eproject.git
+	$(call github-get,jrockway,master)
 	$(call byte-compile)
 	$(EMACS) -L $@ -L $@/lang -batch -Q -f batch-byte-compile $@/lang/*.el
 
 fuzzy-el:
-	git clone https://github.com/auto-complete/fuzzy-el.git
+	$(call github-get,auto-complete,master)
 	$(call byte-compile)
 
 geben:
@@ -135,57 +150,53 @@ geben:
 	cd $@ && $(MAKE) EMACS=$(EMACS)
 
 gnus:
-	$(GIT) clone http://git.gnus.org/gnus.git
+	$(call tar-get,"http://git.gnus.org/cgit/gnus.git/snapshot/gnus-master.tar.gz")
 	cd $@ && ./configure --with-emacs=$(EMACS) && $(MAKE)
 
 go-mode:
-	$(call httpget,"http://go.googlecode.com/hg/misc/emacs/go-mode.el?r=tip")
+	$(call http-get,"http://go.googlecode.com/hg/misc/emacs/go-mode.el?r=tip")
 
 java-mode-indent-annotations:
-	$(call wikiget)
+	$(call wiki-get)
 
 js2-mode:
-	$(GIT) clone -b emacs24 https://github.com/mooz/js2-mode.git
+	$(call github-get,mooz,emacs24)
 	$(call byte-compile)
 
 lua-mode:
-	$(GIT) clone https://github.com/immerrr/lua-mode.git
+	$(call github-get,immerrr,master)
 	cd $@ && $(MAKE) EMACS=$(EMACS) compile
 
 magit:
-	$(GIT) clone https://github.com/magit/magit.git
+	$(call github-get,magit,master)
 	cd $@ && $(MAKE) EMACS=$(EMACS)
 
-minimap:
-	$(GIT) clone git://randomsample.de/minimap.git
-	$(call byte-compile)
-
 naquadah-theme:
-	$(GIT) clone git://git.naquadah.org/naquadah-theme.git
+	$(call tar-get,"http://git.naquadah.org/?p=naquadah-theme.git;a=snapshot;h=master;sf=tgz")
 	$(call byte-compile)
 
 nxhtml:
-	$(GIT) clone https://github.com/emacsmirror/nxhtml.git
+	$(call github-get,emacsmirror,master)
 	cd $@ && $(EMACS) -batch -Q -L . -l nxhtmlmaint.el -f nxhtmlmaint-start-byte-compilation
 
 nyan-mode:
-	$(GIT) clone https://github.com/TeMPOraL/nyan-mode.git
+	$(call github-get,TeMPOraL,master)
 	$(call byte-compile)
 
 ob-go: org-mode go-mode
-	$(GIT) clone https://github.com/pope/ob-go.git
+	$(call github-get,pope,master)
 	$(call byte-compile)
 
 offlineimap-el: gnus
-	$(GIT) clone git://git.naquadah.org/offlineimap-el.git
+	$(call tar-get,"http://git.naquadah.org/?p=offlineimap-el.git;a=snapshot;h=master;sf=tgz")
 	$(call byte-compile)
 
 org-mode:
-	$(GIT) clone git://orgmode.org/org-mode.git
-	cd $@ && $(MAKE) EMACS=$(EMACS) oldorg
+	$(call tar-get,"http://orgmode.org/org-latest.tar.gz")
+	cd $@ && $(MAKE) EMACS=$(EMACS) all
 
 paredit:
-	$(call httpget,"http://mumble.net/~campbell/emacs/paredit.el")
+	$(call http-get,"http://mumble.net/~campbell/emacs/paredit.el")
 
 popup-el:
 	$(GIT) clone https://github.com/auto-complete/popup-el.git
@@ -193,35 +204,35 @@ popup-el:
 	$(call byte-compile)
 
 protobuf-mode:
-	$(call httpget,"http://protobuf.googlecode.com/svn-history/trunk/editors/protobuf-mode.el")
+	$(call http-get,"http://protobuf.googlecode.com/svn-history/trunk/editors/protobuf-mode.el")
 
 rect-mark:
-	$(call wikiget,rect-mark)
+	$(call wiki-get,rect-mark)
 
 soy-mode:
-	$(GIT) clone https://github.com/toomore-such/soy-mode.git
+	$(call github-get,toomore-such,master)
 	$(call byte-compile)
 
 sticky-windows:
-	$(call wikiget)
+	$(call wiki-get)
 
 textmate.el:
-	$(GIT) clone https://github.com/defunkt/textmate.el.git
+	$(call github-get,defunkt,master)
 	$(call byte-compile)
 
 vkill:
-	$(call httpget,"http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el")
+	$(call http-get,"http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el")
 
 w3m:
-	$(GIT) clone https://github.com/emacsmirror/w3m.git
+	$(call github-get,emacsmirror,master)
 	cd $@ && autoconf && ./configure --with-emacs=$(EMACS) && make
 
 yasnippet:
-	$(GIT) clone https://github.com/capitaomorte/yasnippet.git
+	$(call github-get,capitaomorte,master)
 	$(call byte-compile)
 
 zencoding:
-	$(GIT) clone https://github.com/rooney/zencoding.git
+	$(call github-get,rooney,master)
 	cd $@ && $(MAKE)
 	$(call byte-compile)
 
