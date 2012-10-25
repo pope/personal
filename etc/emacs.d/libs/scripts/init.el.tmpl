@@ -11,6 +11,17 @@
   '(font-lock-add-keywords 'actionscript-mode
                            '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face))))
 
+;; auto-complete-mode
+
+(require 'auto-complete)
+(global-auto-complete-mode)
+(ac-set-trigger-key "TAB")
+
+;; auto-complete-clang
+
+(require 'auto-complete-clang)
+(setq clang-completion-suppress-error 't)
+
 ;; cedet
 
 (when (not (featurep 'cedet-devel-load))
@@ -53,6 +64,10 @@ after any calls to `c-set-style'.
 
 (add-to-list 'load-path "%LIBDIR%/org-mode/lisp/")
 (add-to-list 'load-path "%LIBDIR%/org-mode/contrib/lisp/")
+
+;; textmate
+
+(textmate-mode)
 
 ;; vkill
 

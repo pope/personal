@@ -52,11 +52,15 @@
 
 ;; For ECB.
 (setq stack-trace-on-error t)
+
 (setq package-user-dir "~/.emacs.d/elpa")
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")))
-(load (concat dotfiles-dir "libs/init"))
+
+(when (file-exists-p (concat dotfiles-dir "libs/init.el"))
+  (load (concat dotfiles-dir "libs/init")))
+
 (message "init.el: libs loaded after %.1fs" (- (float-time) *emacs-load-start*))
 
 
@@ -247,7 +251,6 @@
   '(progn
      (setq eshell-prompt-function 'my-eshell-prompt-function)))
 
-
 
 ;;
 ;; Lisp
@@ -317,17 +320,15 @@
 
 ;; http://mike.struct.cn/blogs/entry/15/
 
-(require 'auto-complete-clang)
-(setq clang-completion-suppress-error 't)
-
 (defun my-c-mode-common-hook()
-  (setq ac-auto-start nil)
-  (setq ac-expand-on-auto-complete nil)
-  (setq ac-quick-help-delay 0.3)
   (setq pope-buffer-remove-trailing-whitespace t)
-  (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang))
+  (when (featurep 'auto-complete)
+    (setq ac-auto-start nil)
+    (setq ac-expand-on-auto-complete nil)
+    (setq ac-quick-help-delay 0.3)
+    (define-key c-mode-base-map (kbd "M-/") #'ac-complete-clang)))
 
-(add-hook 'c-mode-hook 'my-c-mode-common-hook)
+(add-hook 'c-mode-hook #'my-c-mode-common-hook)
 
 
 ;;
@@ -376,7 +377,8 @@
 ;; go
 ;;
 
-(add-to-list 'ac-modes 'go-mode)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'go-mode))
 
 (defun my-go-mode-hook ()
   (setq fill-column 78)
@@ -385,8 +387,8 @@
 
 (eval-after-load "go-mode"
   '(progn
-     (add-hook 'go-mode-hook #'my-go-mode-hook)))
-(add-hook 'before-save-hook #'gofmt-before-save)
+     (add-hook 'go-mode-hook #'my-go-mode-hook)
+     (add-hook 'before-save-hook #'gofmt-before-save)))
 
 
 ;;
