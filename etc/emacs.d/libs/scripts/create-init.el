@@ -6,6 +6,9 @@
     (with-temp-buffer
       (insert-file (concat dir "/scripts/init.el.tmpl"))
       (goto-char (point-min))
+      (search-forward ";; %PATHS%")
+      (beginning-of-line)
+      (kill-whole-line)
       (insert "(add-to-list 'load-path \"" dir "\")")
       (newline)
       (dolist (lib libs)
