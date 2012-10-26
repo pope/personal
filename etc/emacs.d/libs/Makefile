@@ -51,9 +51,9 @@ define byte-compile
 endef
 
 define http-get
-	$(WGET) -O $@.el $1
+	-rm -rf $@
 	mkdir $@
-	mv $@.el $@
+	$(WGET) -O $@/$@.el $1
 	$(call byte-compile)
 endef
 
@@ -62,6 +62,7 @@ define wiki-get
 endef
 
 define tar-get
+	-rm -rf $@
 	mkdir $@
 	$(WGET) -O - $1 | tar -xzvf - --strip-components=1 -C $@
 endef
@@ -138,6 +139,7 @@ fuzzy-el:
 	$(call byte-compile)
 
 geben:
+	-rm -rf $@
 	$(SVN) co "http://geben-on-emacs.googlecode.com/svn/trunk/" geben
 	cd $@ && $(MAKE) EMACS=$(EMACS)
 
@@ -191,6 +193,7 @@ paredit:
 	$(call http-get,"http://mumble.net/~campbell/emacs/paredit.el")
 
 popup-el:
+	-rm -rf $@
 	$(GIT) clone https://github.com/auto-complete/popup-el.git
 	cd $@ && $(GIT) submodule init && $(GIT) submodule update
 	$(call byte-compile)
