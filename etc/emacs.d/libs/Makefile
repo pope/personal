@@ -13,9 +13,7 @@ LIBS := actionscript-mode \
 	android-mode \
 	auto-complete \
 	auto-complete-clang \
-	auto-complete-css \
 	auto-complete-etags \
-	auto-complete-yasnippet \
 	buffer-move \
 	cedet \
 	ecb \
@@ -112,14 +110,8 @@ auto-complete-clang: auto-complete popup-el
 	$(call github-get,brianjcj,master)
 	$(call byte-compile)
 
-auto-complete-css: auto-complete popup-el
-	$(call http-get,"http://www.cx4a.org/pub/auto-complete-css.el")
-
 auto-complete-etags: auto-complete popup-el
 	$(call wiki-get)
-
-auto-complete-yasnippet: auto-complete popup-el yasnippet
-	$(call http-get,"http://www.cx4a.org/pub/auto-complete-yasnippet.el")
 
 buffer-move:
 	$(call wiki-get,buffer-move)
