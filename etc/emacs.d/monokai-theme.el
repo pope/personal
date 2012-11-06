@@ -116,7 +116,7 @@
  '(cursor (:foreground mt-fg))
  '(highlight (:background mt-sel-border))
  '(minibuffer-prompt (:foreground mt-red))
- '(mode-line (:background mt-bg :foreground mt-white))
+ '(mode-line (:background mt-sel-border :foreground mt-white))
  '(mode-line-inactive (:background mt-hi :foreground mt-fg))
  '(region (:background mt-hi))
  '(fringe (:background mt-bg :foreground mt-invis))
