@@ -1,6 +1,11 @@
 # Notes:
 #
-# zencoding requires `noweb'.
+# Required tools:
+#
+# make (obviously)
+# autoconf
+# texinfo
+# noweb.
 
 
 SHELL := /bin/bash
