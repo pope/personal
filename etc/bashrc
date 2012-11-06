@@ -116,6 +116,12 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 elif [ -f /opt/local/etc/bash_completion ]; then
     . /opt/local/etc/bash_completion
+elif [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
+    . /opt/local/share/git-core/git-prompt.sh
 fi
 
 # Local Variables:
