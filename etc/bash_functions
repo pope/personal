@@ -1,0 +1,25 @@
+function getPythonPath {
+    PYTHON="python"
+    if [ -n "$1" ]; then
+        PYTHON=$1
+    fi
+    echo `$PYTHON -c 'import sys; print ":".join(sys.path)'`
+    unset PYTHON
+}
+
+function getGAEPath {
+    PYTHON="python"
+    if [ -n "$1" ]; then
+        PYTHON=$1
+    fi
+    echo `$PYTHON -c 'import sys, site, os.path; site.addsitedir(os.path.expanduser("~/.gae")); print ":".join(sys.path)'`
+    unset PYTHON
+}
+
+function tabtitle {
+    echo -n -e "\033]0;$@\007"
+}
+
+# Local Variables:
+# mode: sh
+# End:
