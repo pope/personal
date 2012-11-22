@@ -185,6 +185,10 @@
  '(rst-level-5-face (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
  '(rst-level-6-face (:foreground mt-fg :inherit 'variable-pitch :slant italic :height 1.1))
 
+ ;; Diff
+ '(diff-added (:foreground mt-green))
+ '(diff-removed (:foreground mt-red))
+
  ;; Magit
  '(magit-diff-add (:foreground mt-green))
  '(magit-diff-del (:foreground mt-red))
