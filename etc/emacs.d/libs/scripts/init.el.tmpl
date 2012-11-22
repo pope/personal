@@ -53,6 +53,10 @@ after any calls to `c-set-style'.
 \(fn)" nil nil)
 (add-hook 'java-mode-hook #'java-mode-indent-annotations-setup)
 
+;; js2-mode
+
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
 ;; naquadah-theme
 
 (add-to-list 'custom-theme-load-path "%LIBDIR%/naquadah-theme/")
