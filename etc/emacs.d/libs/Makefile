@@ -3,9 +3,13 @@
 # Required tools:
 #
 # make (obviously)
+# emacs (duh)
+# wget
 # autoconf
 # texinfo
-# noweb.
+# noweb
+# git
+# svn
 
 
 SHELL := /bin/bash
@@ -108,9 +112,9 @@ android-mode:
 	$(call github-get,remvee,master)
 	$(call byte-compile)
 
-auto-complete: popup-el
-	$(call github-get,auto-complete,master)
-	cd $@ && $(MAKE) EMACS="$(EMACS) -L $(CURDIR)/popup-el"
+auto-complete:
+	$(GIT) clone https://github.com/auto-complete/auto-complete.git
+	cd $@ && $(GIT) submodule init && $(GIT) submodule update && $(MAKE) EMACS="$(EMACS)"
 
 auto-complete-clang: auto-complete popup-el
 	$(call github-get,brianjcj,master)
@@ -159,7 +163,7 @@ java-mode-indent-annotations:
 	$(call wiki-get)
 
 js2-mode:
-	$(call github-get,mooz,emacs24)
+	$(call github-get,mooz,master)
 	$(call byte-compile)
 
 lua-mode:
@@ -210,7 +214,7 @@ rect-mark:
 	$(call wiki-get,rect-mark)
 
 soy-mode:
-	$(call github-get,toomore-such,master)
+	$(call github-get,toomoresuch,master)
 	$(call byte-compile)
 
 sticky-windows:
@@ -225,7 +229,7 @@ vkill:
 
 w3m:
 	$(call github-get,emacsmirror,master)
-	cd $@ && autoconf && ./configure --with-emacs=$(EMACS) && make
+	cd $@ && autoconf && ./configure --with-emacs=$(EMACS) && $(MAKE)
 
 yasnippet:
 	$(call github-get,capitaomorte,master)
