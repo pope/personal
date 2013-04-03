@@ -59,14 +59,15 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='\[\e[s\e[$((COLUMNS-20))C\e[0m\e[0;90m\]\d \t\[\e[u\]\n\[\e[0m\e[1m\]┌[\[\e[0;34m\]\u@\h\[\e[0m\e[1m\e[0;34m\]\w`__git_ps1 " \[\e[0;35m\]%s"`\[\e[0m\e[1m\]]\n└╼ \[\e[0m\]'
-    PS2="└┈ "
+    PS1='\[\e[s\e[$((COLUMNS-20))C\e[0m\e[0;90m\]\d \t\[\e[u\]\n\[\e[0m\e[1m\]┌─$([ "$?" -ne "0" ] && echo "(\[\e[0;31m\]✗\[\e[0m\e[1m\])─")(\[\e[0;34m\]\u@\h\[\e[0m\e[1m\])─(\[\e[0m\e[1m\e[0;34m\]\w`__git_ps1 " \[\e[0;35m\]%s"`\[\e[0m\e[1m\])\n└──╼ \[\e[0m\]'
+    PS2="└┈┈┈ "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 unset color_prompt force_color_prompt
+
+# TODO(pope): Change this to use PROMPT_COMMAND?
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
