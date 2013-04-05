@@ -23,16 +23,6 @@
 (require 'auto-complete-clang)
 (setq clang-completion-suppress-error 't)
 
-;; cedet
-
-(when (not (featurep 'cedet-devel-load))
-  (load "%LIBDIR%/cedet/cedet-devel-load"))
-
-;; gnus
-
-(add-to-list 'Info-default-directory-list "%LIBDIR%/gnus/info/")
-(add-to-list 'load-path "%LIBDIR%/gnus/lisp/")
-
 ;; go-mode
 
 (require 'go-mode-load)
@@ -79,10 +69,7 @@ after any calls to `c-set-style'.
 (autoload 'vkill "vkill/vkill" nil t)
 (autoload 'list-unix-processes "vkill/vkill" nil t)
 
-;; w3m
-
-(add-to-list 'Info-default-directory-list "%LIBDIR%/w3m/doc/")
-
 ;; yasnippet
 
 (yas-global-mode 1)
+

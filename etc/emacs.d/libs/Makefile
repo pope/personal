@@ -24,13 +24,10 @@ LIBS := actionscript-mode \
 	auto-complete-clang \
 	auto-complete-etags \
 	buffer-move \
-	cedet \
-	ecb \
 	emacs-minimap \
 	eproject \
 	fuzzy-el \
 	geben \
-	gnus \
 	go-mode \
 	java-mode-indent-annotations \
 	js2-mode \
@@ -40,7 +37,6 @@ LIBS := actionscript-mode \
 	nxhtml \
 	nyan-mode \
 	ob-go \
-	offlineimap-el \
 	org-mode \
 	paredit \
 	popup-el \
@@ -50,7 +46,6 @@ LIBS := actionscript-mode \
 	sticky-windows \
 	textmate.el \
 	vkill \
-	w3m \
 	yasnippet \
 	zencoding
 
@@ -96,7 +91,7 @@ loaddefs.el: $(LIBS)
 	    -L $(CURDIR)												\
 	    --eval '(setq find-file-hooks nil backup-inhibited t generated-autoload-file "$(CURDIR)/loaddefs.el")'	\
 	    -f batch-update-autoloads											\
-	    $^ org-mode/lisp org-mode/contrib/lisp gnus/lisp eproject/lang eproject/contrib
+	    $^ org-mode/lisp org-mode/contrib/lisp eproject/lang eproject/contrib
 
 init.el: scripts/init.el.tmpl scripts/create-init.el $(LIBS)
 	$(EMACS) -L $(CURDIR)/scripts -batch -Q -l create-init \
@@ -126,14 +121,6 @@ auto-complete-etags: auto-complete popup-el
 buffer-move:
 	$(call wiki-get,buffer-move)
 
-cedet:
-	$(call github-get,emacsmirror,master)
-	cd $@ && $(MAKE) EMACS=$(EMACS)
-
-ecb: cedet
-	$(call github-get,emacsmirror,master)
-	cd $@ && $(MAKE) EMACS=$(EMACS) CEDET=
-
 emacs-minimap:
 	$(call github-get,dustinlacewell,master)
 	$(call byte-compile)
@@ -151,10 +138,6 @@ geben:
 	-rm -rf $@
 	$(SVN) co "http://geben-on-emacs.googlecode.com/svn/trunk/" geben
 	cd $@ && $(MAKE) EMACS=$(EMACS)
-
-gnus:
-	$(call tar-get,"http://git.gnus.org/cgit/gnus.git/snapshot/gnus-master.tar.gz")
-	cd $@ && ./configure --with-emacs=$(EMACS) && $(MAKE)
 
 go-mode:
 	-rm -rf $@
@@ -194,10 +177,6 @@ ob-go: org-mode go-mode
 	$(call github-get,pope,master)
 	$(call byte-compile)
 
-offlineimap-el: gnus
-	$(call tar-get,"http://git.naquadah.org/?p=offlineimap-el.git;a=snapshot;h=master;sf=tgz")
-	$(call byte-compile)
-
 org-mode:
 	$(call tar-get,"http://orgmode.org/org-latest.tar.gz")
 	cd $@ && $(MAKE) EMACS=$(EMACS) all
@@ -230,10 +209,6 @@ textmate.el:
 
 vkill:
 	$(call http-get,"http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el")
-
-w3m:
-	$(call github-get,emacsmirror,master)
-	cd $@ && autoconf && ./configure --with-emacs=$(EMACS) && $(MAKE)
 
 yasnippet:
 	$(call github-get,capitaomorte,master)
