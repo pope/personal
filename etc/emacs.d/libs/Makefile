@@ -157,7 +157,11 @@ gnus:
 	cd $@ && ./configure --with-emacs=$(EMACS) && $(MAKE)
 
 go-mode:
-	$(call http-get,"http://go.googlecode.com/hg/misc/emacs/go-mode.el?r=tip")
+	-rm -rf $@
+	mkdir $@
+	$(WGET) -O $@/$@.el "http://go.googlecode.com/hg/misc/emacs/go-mode.el?r=tip"
+	$(WGET) -O $@/$@-load.el "http://go.googlecode.com/hg/misc/emacs/go-mode-load.el?r=tip"
+	$(call byte-compile)
 
 java-mode-indent-annotations:
 	$(call wiki-get)
