@@ -34,6 +34,7 @@ LIBS := actionscript-mode \
 	lua-mode \
 	magit \
 	naquadah-theme \
+	nginx-mode \
 	nxhtml \
 	nyan-mode \
 	ob-go \
@@ -163,6 +164,10 @@ magit:
 
 naquadah-theme:
 	$(call tar-get,"http://git.naquadah.org/?p=naquadah-theme.git;a=snapshot;h=master;sf=tgz")
+	$(call byte-compile)
+
+nginx-mode:
+	$(call github-get,ajc,master)
 	$(call byte-compile)
 
 nxhtml:
