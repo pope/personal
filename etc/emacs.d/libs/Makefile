@@ -47,8 +47,7 @@ LIBS := actionscript-mode \
 	sticky-windows \
 	textmate.el \
 	vkill \
-	yasnippet \
-	zencoding
+	yasnippet
 
 
 define byte-compile
@@ -217,11 +216,6 @@ vkill:
 
 yasnippet:
 	$(call github-get,capitaomorte,master)
-	$(call byte-compile)
-
-zencoding:
-	$(call github-get,rooney,master)
-	cd $@ && $(MAKE)
 	$(call byte-compile)
 
 clean:
