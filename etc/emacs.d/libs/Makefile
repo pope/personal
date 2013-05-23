@@ -24,6 +24,7 @@ LIBS := actionscript-mode \
 	auto-complete-clang \
 	auto-complete-etags \
 	buffer-move \
+	dired-details \
 	emacs-minimap \
 	eproject \
 	fuzzy-el \
@@ -120,6 +121,10 @@ auto-complete-etags: auto-complete popup-el
 
 buffer-move:
 	$(call wiki-get,buffer-move)
+
+dired-details:
+	$(call github-get,emacsmirror,master)
+	$(call byte-compile)
 
 emacs-minimap:
 	$(call github-get,dustinlacewell,master)

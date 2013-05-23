@@ -10,6 +10,7 @@ auto-complete-etags/
 auto-complete-yasnippet/
 buffer-move/
 cedet/
+dired-details/
 ecb/
 emacs-minimap/
 eproject/

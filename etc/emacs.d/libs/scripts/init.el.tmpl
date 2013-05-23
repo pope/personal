@@ -23,6 +23,12 @@
 (require 'auto-complete-clang)
 (setq clang-completion-suppress-error 't)
 
+;; dired-details
+(eval-after-load "dired"
+  '(progn
+     (require 'dired-details)
+     (dired-details-install)))
+
 ;; go-mode
 
 (require 'go-mode-load)
@@ -72,4 +78,3 @@ after any calls to `c-set-style'.
 ;; yasnippet
 
 (yas-global-mode 1)
-
