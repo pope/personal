@@ -47,6 +47,7 @@ LIBS := actionscript-mode \
 	sticky-windows \
 	textmate.el \
 	vkill \
+	yaml-mode \
 	yasnippet
 
 
@@ -213,6 +214,10 @@ textmate.el:
 
 vkill:
 	$(call http-get,"http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el")
+
+yaml-mode:
+	$(call github-get,yoshiki,master)
+	$(call byte-compile)
 
 yasnippet:
 	$(call github-get,capitaomorte,master)
