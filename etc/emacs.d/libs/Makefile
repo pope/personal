@@ -10,6 +10,7 @@
 # noweb
 # git
 # svn
+# go
 
 
 SHELL := /bin/bash
@@ -17,6 +18,7 @@ EMACS := emacs
 GIT   := git
 WGET  := wget --no-check-certificate
 SVN   := svn
+GO    := go
 
 LIBS := actionscript-mode \
 	android-mode \
@@ -29,12 +31,14 @@ LIBS := actionscript-mode \
 	eproject \
 	fuzzy-el \
 	geben \
+	go-autocomplete \
 	go-mode \
 	java-mode-indent-annotations \
 	js2-mode \
 	lua-mode \
 	magit \
 	naquadah-theme \
+	nginx-mode \
 	nxhtml \
 	nyan-mode \
 	ob-go \
@@ -144,6 +148,10 @@ geben:
 	$(SVN) co "http://geben-on-emacs.googlecode.com/svn/trunk/" geben
 	cd $@ && $(MAKE) EMACS=$(EMACS)
 
+go-autocomplete: auto-complete
+	$(GO) get -u github.com/nsf/gocode
+	$(call http-get,"https://github.com/nsf/gocode/raw/master/emacs/go-autocomplete.el")
+
 go-mode:
 	-rm -rf $@
 	mkdir $@
@@ -168,6 +176,10 @@ magit:
 
 naquadah-theme:
 	$(call tar-get,"http://git.naquadah.org/?p=naquadah-theme.git;a=snapshot;h=master;sf=tgz")
+	$(call byte-compile)
+
+nginx-mode:
+	$(call github-get,ajc,master)
 	$(call byte-compile)
 
 nxhtml:

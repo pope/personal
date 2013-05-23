@@ -24,10 +24,15 @@
 (setq clang-completion-suppress-error 't)
 
 ;; dired-details
+
 (eval-after-load "dired"
   '(progn
      (require 'dired-details)
      (dired-details-install)))
+
+;; go-autocomplete
+
+(require 'go-autocomplete)
 
 ;; go-mode
 
