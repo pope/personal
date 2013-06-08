@@ -25,7 +25,6 @@ lua-mode/
 magit/
 naquadah-theme/
 nginx-mode/
-nxhtml/
 nyan-mode/
 ob-go/
 offlineimap-el/
@@ -38,6 +37,6 @@ soy-mode/
 sticky-windows/
 textmate.el/
 vkill/
-w3m/
+web-mode/
 yaml-mode/
 yasnippet/

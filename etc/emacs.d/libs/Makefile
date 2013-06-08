@@ -39,7 +39,6 @@ LIBS := actionscript-mode \
 	magit \
 	naquadah-theme \
 	nginx-mode \
-	nxhtml \
 	nyan-mode \
 	ob-go \
 	org-mode \
@@ -51,6 +50,7 @@ LIBS := actionscript-mode \
 	sticky-windows \
 	textmate.el \
 	vkill \
+	web-mode \
 	yaml-mode \
 	yasnippet
 
@@ -182,10 +182,6 @@ nginx-mode:
 	$(call github-get,ajc,master)
 	$(call byte-compile)
 
-nxhtml:
-	$(call github-get,emacsmirror,master)
-	cd $@ && $(EMACS) -batch -Q -L . -l nxhtmlmaint.el -f nxhtmlmaint-start-byte-compilation
-
 nyan-mode:
 	$(call github-get,TeMPOraL,master)
 	$(call byte-compile)
@@ -226,6 +222,10 @@ textmate.el:
 
 vkill:
 	$(call http-get,"http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el")
+
+web-mode:
+	$(call github-get,fxbois,master)
+	$(call byte-compile)
 
 yaml-mode:
 	$(call github-get,yoshiki,master)
