@@ -26,6 +26,7 @@ LIBS := actionscript-mode \
 	auto-complete-clang \
 	auto-complete-etags \
 	buffer-move \
+	cmake-mode \
 	dired-details \
 	emacs-minimap \
 	eproject \
@@ -125,6 +126,12 @@ auto-complete-etags: auto-complete popup-el
 
 buffer-move:
 	$(call wiki-get,buffer-move)
+
+cmake-mode:
+	-rm -rf $@
+	mkdir $@
+	$(WGET) -O $@/$@.el "http://www.cmake.org/CMakeDocs/cmake-mode.el"
+	$(call byte-compile)
 
 dired-details:
 	$(call github-get,emacsmirror,master)
