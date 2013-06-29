@@ -55,9 +55,10 @@ LIBS := actionscript-mode \
 	yaml-mode \
 	yasnippet
 
+EMACS_LFLAGS := $(addprefix -L ,$(LIBS))
 
 define byte-compile
-	$(EMACS) $(addprefix -L ,$(LIBS)) -L $@ -batch -Q -f batch-byte-compile $@/*.el
+	$(EMACS) $(EMACS_LFLAGS) -L $@ -batch -Q -f batch-byte-compile $@/*.el
 endef
 
 define http-get
@@ -81,10 +82,9 @@ define github-get
 	$(call tar-get,https://github.com/$1/$@/tarball/$2)
 endef
 
-.DELETE_ON_ERROR:
-
 all: init.elc loaddefs.el
 
+.PHONY: gitignore
 gitignore:
 	echo 'init.el'                        > .$@
 	echo 'loaddefs.el'                   >> .$@
@@ -104,7 +104,7 @@ init.el: scripts/init.el.tmpl scripts/create-init.el $(LIBS)
 	    --eval '(create-init "$(CURDIR)" $(foreach LIB,$(LIBS),"$(CURDIR)/$(LIB)"))'
 
 init.elc: init.el
-	$(EMACS) -L . $(addprefix -L ,$(LIBS)) -batch -Q -f batch-byte-compile $<
+	$(EMACS) -L . $(EMACS_LFLAGS) -batch -Q -f batch-byte-compile $<
 
 actionscript-mode:
 	$(call http-get,"https://bitbucket.org/vvangelovski/vasil-emacs/raw/fa68f9ab008e/actionscript-mode.el")
@@ -114,6 +114,7 @@ android-mode:
 	$(call byte-compile)
 
 auto-complete:
+	-rm -rf $@
 	$(GIT) clone https://github.com/auto-complete/auto-complete.git
 	cd $@ && $(GIT) submodule init && $(GIT) submodule update && $(MAKE) EMACS="$(EMACS)"
 
@@ -128,9 +129,7 @@ buffer-move:
 	$(call wiki-get,buffer-move)
 
 cmake-mode:
-	-rm -rf $@
-	mkdir $@
-	$(WGET) -O $@/$@.el "http://www.cmake.org/CMakeDocs/cmake-mode.el"
+	$(call http-get,"http://www.cmake.org/CMakeDocs/cmake-mode.el")
 	$(call byte-compile)
 
 dired-details:
@@ -151,8 +150,7 @@ fuzzy-el:
 	$(call byte-compile)
 
 geben:
-	-rm -rf $@
-	$(SVN) co "http://geben-on-emacs.googlecode.com/svn/trunk/" geben
+	$(call tar-get,"https://geben-on-emacs.googlecode.com/files/geben-0.26.tar.gz")
 	cd $@ && $(MAKE) EMACS=$(EMACS)
 
 go-autocomplete: auto-complete
@@ -160,10 +158,7 @@ go-autocomplete: auto-complete
 	$(call http-get,"https://github.com/nsf/gocode/raw/master/emacs/go-autocomplete.el")
 
 go-mode:
-	-rm -rf $@
-	mkdir $@
-	$(WGET) -O $@/$@.el "http://go.googlecode.com/hg/misc/emacs/go-mode.el?r=tip"
-	$(WGET) -O $@/$@-load.el "http://go.googlecode.com/hg/misc/emacs/go-mode-load.el?r=tip"
+	$(call http-get,"http://go.googlecode.com/hg/misc/emacs/go-mode.el?r=tip")
 	$(call byte-compile)
 
 java-mode-indent-annotations:
