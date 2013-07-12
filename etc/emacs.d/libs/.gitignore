@@ -1,13 +1,12 @@
 init.el
 loaddefs.el
 *.elc
+plantuml.jar
 actionscript-mode/
 android-mode/
 auto-complete/
 auto-complete-clang/
-auto-complete-css/
 auto-complete-etags/
-auto-complete-yasnippet/
 buffer-move/
 cmake-mode/
 dired-details/
@@ -25,7 +24,6 @@ naquadah-theme/
 nginx-mode/
 nyan-mode/
 ob-go/
-offlineimap-el/
 org-mode/
 paredit/
 popup-el/

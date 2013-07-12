@@ -91,13 +91,14 @@ endef
 .DELETE_ON_ERROR:
 .SUFFIXES:
 
-all: init.elc loaddefs.el
+all: init.elc loaddefs.el plantuml.jar
 
 .PHONY: gitignore
 gitignore:
 	echo 'init.el'                        > .$@
 	echo 'loaddefs.el'                   >> .$@
 	echo '*.elc'                         >> .$@
+	echo 'plantuml.jar'                  >> .$@
 	for lib in $(LIBS); do echo "$$lib/" >> .$@; done;
 
 loaddefs.el: $(LIBS)
@@ -109,7 +110,7 @@ loaddefs.el: $(LIBS)
 	    -f batch-update-autoloads											\
 	    $^ org-mode/lisp org-mode/contrib/lisp eproject/lang eproject/contrib
 
-init.el: scripts/init.el.tmpl scripts/create-init.el $(LIBS)
+init.el: scripts/init.el.tmpl scripts/create-init.el $(LIBS) plantuml.jar
 	$(progress)
 	$(EMACS) -L $(CURDIR)/scripts -batch -Q -l create-init \
 	    --eval '(create-init "$(CURDIR)" $(foreach LIB,$(LIBS),"$(CURDIR)/$(LIB)"))'
@@ -117,6 +118,10 @@ init.el: scripts/init.el.tmpl scripts/create-init.el $(LIBS)
 init.elc: init.el
 	$(progress)
 	$(EMACS) -L . $(EMACS_LFLAGS) -batch -Q -f batch-byte-compile $<
+
+plantuml.jar:
+	$(progress)
+	$(WGET) -O $@ "http://downloads.sourceforge.net/project/plantuml/plantuml.jar"
 
 actionscript-mode:
 	$(progress)
