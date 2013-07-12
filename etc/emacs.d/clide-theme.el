@@ -51,6 +51,7 @@
  '(font-lock-comment-face ((t (:slant italic :foreground "grey56"))))
  '(font-lock-constant-face ((t (:foreground "SlateBlue1"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
+ '(font-lock-doc-string-face ((t (:inherit font-lock-comment-face))))
  '(font-lock-function-name-face ((t (:bold t :foreground "DodgerBlue4"))))
  '(font-lock-keyword-face ((t (:foreground "red1"))))
  '(font-lock-negation-char-face ((t (:foreground "orange1"))))
