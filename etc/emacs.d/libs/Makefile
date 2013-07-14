@@ -30,6 +30,7 @@ LIBS := actionscript-mode \
 	dired-details \
 	emacs-minimap \
 	eproject \
+	flymake-cursor \
 	fuzzy-el \
 	geben \
 	go-autocomplete \
@@ -166,6 +167,10 @@ eproject:
 	$(call github-get,jrockway,master)
 	$(call byte-compile)
 	$(EMACS) -L $@ -L $@/lang -batch -Q -f batch-byte-compile $@/lang/*.el
+
+flymake-cursor:
+	$(progress)
+	$(call wiki-get)
 
 fuzzy-el:
 	$(progress)
