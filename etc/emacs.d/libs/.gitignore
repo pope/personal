@@ -1,6 +1,7 @@
 init.el
 loaddefs.el
 *.elc
+plantuml.jar
 actionscript-mode/
 android-mode/
 auto-complete/
