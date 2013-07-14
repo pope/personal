@@ -21,7 +21,7 @@
 ;; auto-complete-clang
 
 (require 'auto-complete-clang)
-(setq clang-completion-suppress-error 't)
+(defvar clang-completion-suppress-error 't)
 
 ;; cmake-mode
 
@@ -69,10 +69,11 @@ after any calls to `c-set-style'.
 (add-to-list 'load-path "%LIBDIR%/org-mode/lisp/")
 (add-to-list 'load-path "%LIBDIR%/org-mode/contrib/lisp/")
 
-(setq org-plantuml-jar-path "%LIBDIR%/plantuml.jar")
+(defvar org-plantuml-jar-path "%LIBDIR%/plantuml.jar")
 
 ;; textmate
 
+(require 'textmate)
 (textmate-mode)
 
 ;; vkill
@@ -82,4 +83,5 @@ after any calls to `c-set-style'.
 
 ;; yasnippet
 
+(require 'yasnippet)
 (yas-global-mode 1)
