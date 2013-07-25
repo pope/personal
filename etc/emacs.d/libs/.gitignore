@@ -10,6 +10,7 @@ auto-complete-etags/
 buffer-move/
 cmake-mode/
 dired-details/
+docsetutil-el/
 emacs-minimap/
 eproject/
 flymake-cursor/

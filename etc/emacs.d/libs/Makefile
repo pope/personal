@@ -28,6 +28,7 @@ LIBS := actionscript-mode \
 	buffer-move \
 	cmake-mode \
 	dired-details \
+	docsetutil-el \
 	emacs-minimap \
 	eproject \
 	flymake-cursor \
@@ -160,6 +161,11 @@ cmake-mode:
 dired-details:
 	$(progress)
 	$(call github-get,emacsmirror,master)
+	$(call byte-compile)
+
+docsetutil-el:
+	$(progress)
+	$(call github-get,leoliu,master)
 	$(call byte-compile)
 
 emacs-minimap:
