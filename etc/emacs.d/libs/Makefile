@@ -36,6 +36,7 @@ LIBS := actionscript-mode \
 	geben \
 	go-autocomplete \
 	go-mode \
+	google-c-style \
 	java-mode-indent-annotations \
 	js2-mode \
 	lua-mode \
@@ -201,6 +202,11 @@ go-autocomplete: auto-complete
 go-mode:
 	$(progress)
 	$(call http-get,"http://go.googlecode.com/hg/misc/emacs/go-mode.el?r=tip")
+	$(call byte-compile)
+
+google-c-style:
+	$(progress)
+	$(call http-get,"http://google-styleguide.googlecode.com/svn/trunk/google-c-style.el")
 	$(call byte-compile)
 
 java-mode-indent-annotations:
