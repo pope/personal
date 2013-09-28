@@ -10,6 +10,7 @@ auto-complete-etags/
 buffer-move/
 cmake-mode/
 dired-details/
+docsetutil-el/
 emacs-minimap/
 eproject/
 flymake-cursor/
@@ -17,6 +18,7 @@ fuzzy-el/
 geben/
 go-autocomplete/
 go-mode/
+google-c-style/
 java-mode-indent-annotations/
 js2-mode/
 lua-mode/

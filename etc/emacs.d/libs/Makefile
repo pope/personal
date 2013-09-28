@@ -28,6 +28,7 @@ LIBS := actionscript-mode \
 	buffer-move \
 	cmake-mode \
 	dired-details \
+	docsetutil-el \
 	emacs-minimap \
 	eproject \
 	flymake-cursor \
@@ -35,6 +36,7 @@ LIBS := actionscript-mode \
 	geben \
 	go-autocomplete \
 	go-mode \
+	google-c-style \
 	java-mode-indent-annotations \
 	js2-mode \
 	lua-mode \
@@ -162,6 +164,11 @@ dired-details:
 	$(call github-get,emacsmirror,master)
 	$(call byte-compile)
 
+docsetutil-el:
+	$(progress)
+	$(call github-get,leoliu,master)
+	$(call byte-compile)
+
 emacs-minimap:
 	$(progress)
 	$(call github-get,dustinlacewell,master)
@@ -195,6 +202,11 @@ go-autocomplete: auto-complete
 go-mode:
 	$(progress)
 	$(call http-get,"http://go.googlecode.com/hg/misc/emacs/go-mode.el?r=tip")
+	$(call byte-compile)
+
+google-c-style:
+	$(progress)
+	$(call http-get,"http://google-styleguide.googlecode.com/svn/trunk/google-c-style.el")
 	$(call byte-compile)
 
 java-mode-indent-annotations:

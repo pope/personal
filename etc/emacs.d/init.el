@@ -336,6 +336,9 @@
 ;; Objective-C
 ;;
 
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'objc-mode))
+
 (defun my-objc-defun-block-intro (langelem)
   (when (derived-mode-p 'objc-mode)
     (save-excursion
@@ -370,8 +373,22 @@
 (eval-after-load "cc-mode"
   '(progn
      (font-lock-add-keywords 'objc-mode
-                             '(("\\<@\\(synthesize\\|property\\|required\\|optional\\)\\>" . font-lock-keyword-face)))
+                             '(("\\<@\\(synthesize\\|property\\|required\\|optional\\|dynamic\\)\\>" . font-lock-keyword-face)))
      (add-hook 'objc-mode-hook #'my-objc-mode-hook)))
+
+(defun my-objc-match-function ()
+  (and (string= (file-name-extension buffer-file-name) "h")
+       (re-search-forward "@\\(implementation\\|interface\\|protocol\\)"
+                          magic-mode-regexp-match-limit
+                          t)))
+
+(add-to-list 'magic-mode-alist '(my-objc-match-function . objc-mode))
+
+(eval-after-load "find-file"
+  '(progn
+     (nconc (cadr (assoc "\\.h\\'" cc-other-file-alist)) '(".m" ".mm"))
+     (add-to-list 'cc-other-file-alist '("\\.m\\'" (".h")))
+     (add-to-list 'cc-other-file-alist '("\\.mm\\'" (".h")))))
 
 
 ;;
@@ -627,3 +644,4 @@
     (progn
       (load system-specific-config)
       (message "init.el: %s loaded after %.1fs" (concat system-name ".el") (- (float-time) *emacs-load-start*))))
+(put 'upcase-region 'disabled nil)
