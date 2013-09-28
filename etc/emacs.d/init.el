@@ -326,6 +326,7 @@
     (setq ac-auto-start nil)
     (setq ac-expand-on-auto-complete nil)
     (setq ac-quick-help-delay 0.3)
+    (setq ac-sources (append '(ac-source-clang) ac-sources))
     (define-key c-mode-base-map (kbd "M-/") #'ac-complete-clang)))
 
 (add-hook 'c-mode-hook #'my-c-mode-common-hook)
