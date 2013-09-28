@@ -16,6 +16,7 @@ eproject/
 flymake-cursor/
 fuzzy-el/
 geben/
+git-modes/
 go-autocomplete/
 go-mode/
 google-c-style/

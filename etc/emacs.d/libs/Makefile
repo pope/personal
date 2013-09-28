@@ -34,6 +34,7 @@ LIBS := actionscript-mode \
 	flymake-cursor \
 	fuzzy-el \
 	geben \
+	git-modes \
 	go-autocomplete \
 	go-mode \
 	google-c-style \
@@ -194,6 +195,11 @@ geben:
 	$(call tar-get,"https://geben-on-emacs.googlecode.com/files/geben-0.26.tar.gz")
 	cd $@ && $(MAKE) EMACS=$(EMACS)
 
+git-modes:
+	$(progress)
+	$(call github-get,magit,master)
+	$(call byte-compile)
+
 go-autocomplete: auto-complete
 	$(progress)
 	$(GO) get -u github.com/nsf/gocode
@@ -221,9 +227,9 @@ js2-mode:
 lua-mode:
 	$(progress)
 	$(call github-get,immerrr,master)
-	cd $@ && $(MAKE) EMACS=$(EMACS) compile
+	$(call byte-compile)
 
-magit:
+magit: git-modes
 	$(progress)
 	$(call github-get,magit,master)
 	cd $@ && $(MAKE) EMACS=$(EMACS)
