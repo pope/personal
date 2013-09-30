@@ -545,15 +545,14 @@
 ;; Tramp
 ;;
 
-(require 'tramp)
-
-;; Disable vc over tramp.
-(setq vc-ignore-dir-regexp
-      (format "\\(%s\\)\\|\\(%s\\)"
-              vc-ignore-dir-regexp
-              tramp-file-name-regexp))
-
-(setq tramp-auto-save-directory temporary-file-directory)
+(eval-after-load 'tramp
+  '(progn
+     ;; Disable vc over tramp.
+     (setq vc-ignore-dir-regexp
+           (format "\\(%s\\)\\|\\(%s\\)"
+                   vc-ignore-dir-regexp
+                   tramp-file-name-regexp))
+     (setq tramp-auto-save-directory temporary-file-directory)))
 
 
 ;;
@@ -563,8 +562,8 @@
 (require 'saveplace)
 (setq save-place-file (concat dotfiles-dir "places"))
 
-(require 'ffap)
-(setq ffap-machine-p-known 'reject)
+(eval-after-load 'ffap
+  '(setq ffap-machine-p-known 'reject))
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
