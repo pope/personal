@@ -312,4 +312,4 @@ yasnippet:
 	$(call byte-compile)
 
 clean:
-	rm -rf $(LIBS) init.el init.elc loaddefs.el
+	rm -rf $(LIBS) plantuml.jar init.el init.elc loaddefs.el
