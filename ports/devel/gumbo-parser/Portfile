@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $ID:$
+
+PortSystem      1.0
+
+name            gumbo-parser
+version         r20131016.0
+categories      devel
+maintainers     shifteleven.com:pope
+description     A pure-C HTML5 parser
+homepage        https://github.com/google/gumbo-parser
+platforms       darwin
+
+fetch.type      git
+git.url         https://github.com/google/gumbo-parser.git
+git.branch      d90ea2b2d01b27a7adf0501f644a7782e50362fe
+
+depends_build   port:pkgconfig \
+                port:intltool \
+                port:autoconf \
+                port:automake \
+                port:libtool
+
+use_autoconf    yes
+autoconf.cmd    ${worksrcpath}/autogen.sh
