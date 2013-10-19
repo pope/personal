@@ -1,5 +1,6 @@
-gtest 0
-gumbo-parser 683
-grun 1087
-segmenter 1808
-tint2 2159
+gflags 0
+gtest 266
+gumbo-parser 949
+grun 1353
+segmenter 2074
+tint2 2425
