@@ -43,6 +43,7 @@ LIBS := actionscript-mode \
 	lua-mode \
 	magit \
 	naquadah-theme \
+	ninja-mode \
 	nginx-mode \
 	nyan-mode \
 	ob-go \
@@ -238,6 +239,10 @@ naquadah-theme:
 	$(progress)
 	$(call tar-get,"http://git.naquadah.org/?p=naquadah-theme.git;a=snapshot;h=master;sf=tgz")
 	$(call byte-compile)
+
+ninja-mode:
+	$(progress)
+	$(call http-get,"https://raw.github.com/martine/ninja/master/misc/ninja-mode.el")
 
 nginx-mode:
 	$(progress)
