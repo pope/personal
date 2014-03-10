@@ -17,6 +17,23 @@ configure_env = dict((k, os.environ[k]) for k in os.environ if k in env_keys)
 buildfile = open('build.ninja', 'w')
 n = ninja_syntax.Writer(buildfile)
 
+def suppress_output(cmd):
+  """Supresses the output of a command unless it fails.
+
+  Upon failing, the full output of the command will be printed. This should be
+  used when the compiliation makes noise, like for libraries not under developer
+  control.
+
+  Arguments:
+    cmd: The command whose output is being suppressed.
+
+  """
+  return ('tmpfile=`mktemp`; '
+          '%s &> $$tmpfile; '
+          'status=$$?; '
+          '[ $$status -ne 0 ] && cat $$tmpfile; '
+          'exit $$status' % cmd)
+
 def elc(el_files, paths=None):
   """Creates build items to byte-compile a list of elisp files.
 
@@ -48,7 +65,9 @@ n.build('build.ninja', 'configure',
                   os.path.join('misc', 'ninja_syntax.pyc')])
 n.newline()
 
-n.rule('pyc', 'python -m compileall $in')
+n.rule('pyc',
+       suppress_output('python -m compileall $in'),
+       description='PYC $out')
 n.build(os.path.join('misc', 'ninja_syntax.pyc'), 'pyc',
         inputs=[os.path.join('misc', 'ninja_syntax.py')])
 n.build(os.path.join('misc', 'download.pyc'), 'pyc',
@@ -56,7 +75,9 @@ n.build(os.path.join('misc', 'download.pyc'), 'pyc',
 
 n.newline()
 n.rule('elc',
-       '$emacs $emacs_lflags -batch -Q -f batch-byte-compile $in')
+       suppress_output(
+         '$emacs $emacs_lflags -batch -Q -f batch-byte-compile $in'),
+       description='ELC $out')
 
 lisp_dirs = [
   'auto-complete',
@@ -116,12 +137,14 @@ n.newline()
 
 n.comment('loaddefs')
 n.rule('autoloads',
-       ('$emacs -batch -Q -l autoload -L . '
-        '--eval \'(setq find-file-hooks nil '
-        '               backup-inhibited t '
-        '               generated-autoload-file "%s"))\' '
-        '-f batch-update-autoloads $dirs' %
-        os.path.join('$curdir', '$loaddefs').replace('\\', '\\\\')))
+       suppress_output(
+         ('$emacs -batch -Q -l autoload -L . '
+          '--eval \'(setq find-file-hooks nil '
+          '               backup-inhibited t '
+          '               generated-autoload-file "%s"))\' '
+          '-f batch-update-autoloads $dirs' %
+          os.path.join('$curdir', '$loaddefs').replace('\\', '\\\\'))),
+       description='LOADDEFS $out')
 n.build(['loaddefs.el', os.path.join('org-mode', 'lisp', 'org-loaddefs.el')],
         'autoloads',
         variables={'dirs': ' '.join(['$curdir'] + lisp_dirs),
@@ -130,8 +153,10 @@ n.build(['loaddefs.el', os.path.join('org-mode', 'lisp', 'org-loaddefs.el')],
 n.newline()
 n.comment('init')
 n.rule('init',
-       ('$emacs -batch -Q -L misc -l create-init '
-        '--eval \'(create-init "$curdir" $dirs)\''))
+       suppress_output(
+         ('$emacs -batch -Q -L misc -l create-init '
+          '--eval \'(create-init "$curdir" $dirs)\'')),
+       description='CREATE-INIT $out')
 n.build('init.el', 'init',
         implicit=[os.path.join('misc', 'init.el.tmpl'),
                   os.path.join('misc', 'create-init.el')],
