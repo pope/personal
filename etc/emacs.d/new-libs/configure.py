@@ -78,8 +78,8 @@ lisp_dirs = [
 auto_completes = set(['auto-complete-clang.el', 'auto-complete-etags.el',
                       'go-autocomplete.el'])
 org_modes = set(['ob-go.el'])
-elc(set(glob.glob('*.el')) - auto_completes - org_modes |
-    set(glob.glob('nyan-mode/*.el')) - set(['naquadah-theme.el']),
+elc(set(glob.glob('*.el')) - auto_completes - org_modes -
+    set(['naquadah-theme.el']) | set(glob.glob('nyan-mode/*.el')),
     [])
 
 n.comment('auto-complete')
@@ -106,7 +106,8 @@ elc(glob.glob('js2-mode/*.el'), ['js2-mode'])
 
 n.comment('org-mode')
 elc(set(glob.glob('org-mode/lisp/*.el')) -
-    set(['org-mode/lisp/org-install.el']),
+    set(['org-mode/lisp/org-install.el',
+         'org-mode/lisp/org-version.el']),
     ['org-mode/lisp'])
 elc(org_modes, ['.', 'org-mode/lisp'])
 
