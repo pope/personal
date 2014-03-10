@@ -14,12 +14,16 @@ import threading
 import urllib2
 import urlparse
 
-GITHUB_FILE_FORMAT = 'https://github.com/%s/%s/raw/%s/%s'
-GITHUB_ARCHIVE_FORMAT = 'https://github.com/%s/%s/tarball/%s'
-WIKI_FILE_FORMAT = 'http://www.emacswiki.org/emacs/download/%s.el'
+_GITHUB_FILE_FORMAT = 'https://github.com/%s/%s/raw/%s/%s'
+_GITHUB_ARCHIVE_FORMAT = 'https://github.com/%s/%s/tarball/%s'
+_WIKI_FILE_FORMAT = 'http://www.emacswiki.org/emacs/download/%s.el'
 
 # Files that should be wiped away from the github repo downloads.
-FILES_TO_REMOVE = ['.gitignore', '.travis.yml']
+#
+# TODO(pope): Kind of cheating by including org-loaddefs.el in
+# here. See about a post-process cleanup that's a bit more generic.
+_FILES_TO_REMOVE = set(['.gitignore', '.travis.yml', 'org-loaddefs.el'])
+
 
 def download_file(url, filename=None, force=False):
   """Downloads the URL and saves it.
@@ -34,7 +38,7 @@ def download_file(url, filename=None, force=False):
     parts = urlparse.urlparse(url)
     filename = os.path.basename(parts.path)
   if os.path.isfile(filename) and not force:
-    logging.info('Skipping download. %s already exists.' % filename)
+    logging.debug('Skipping download. %s already exists.' % filename)
     return
   logging.info('Downloading %s and saving to %s' % (url, filename))
   resp = urllib2.urlopen(url)
@@ -56,7 +60,7 @@ def download_tar(url, base_dir, force=False):
     force: If set, will re-download the file even if it exists already.
   """
   if os.path.exists(base_dir) and not force:
-    logging.info('Skipping download. %s already exists.' % base_dir)
+    logging.debug('Skipping download. %s already exists.' % base_dir)
     return
   elif os.path.exists(base_dir):
     shutil.rmtree(base_dir)
@@ -81,6 +85,7 @@ def download_tar(url, base_dir, force=False):
           continue
         with open(newname, 'w') as f:
           f.write(tfile.extractfile(tarinfo).read())
+    os.path.walk(base_dir, _delete_removable_files, None)
   except:
     logging.error('Unable to extract archive.', exc_info=True)
     shutil.rmtree(base_dir)
@@ -89,25 +94,23 @@ def download_tar(url, base_dir, force=False):
 def github_download_file(repo, user, version, filename=None, force=False):
   if not filename:
     filename = '%s.el' % repo
-  download_file(GITHUB_FILE_FORMAT % (user, repo, version, filename),
+  download_file(_GITHUB_FILE_FORMAT % (user, repo, version, filename),
                 filename=filename, force=force)
 
 
 def wiki_download_file(name, force=False):
   """Downloads a file off of the Emacs Wiki."""
-  download_file(WIKI_FILE_FORMAT % name, force=force)
-
-
-def _delete_removable_files(unused_arg, dirname, unused_fnames):
-  for to_delete in ('%s/%s' % (dirname, x) for x in FILES_TO_REMOVE):
-    if os.path.exists(to_delete):
-      os.remove(to_delete)
+  download_file(_WIKI_FILE_FORMAT % name, force=force)
 
 
 def github_download_repo(repo, user, version, force=False):
-  url = GITHUB_ARCHIVE_FORMAT % (user, repo, version)
+  url = _GITHUB_ARCHIVE_FORMAT % (user, repo, version)
   download_tar(url, repo, force=force)
-  os.path.walk(repo, _delete_removable_files, None)
+
+
+def _delete_removable_files(unused_arg, dirname, fnames):
+  for fname in (set(fnames) & _FILES_TO_REMOVE):
+    os.remove(os.path.join(dirname, fname))
 
 
 class DownloadManager(object):
