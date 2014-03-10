@@ -17,20 +17,18 @@ configure_env = dict((k, os.environ[k]) for k in os.environ if k in env_keys)
 buildfile = open('build.ninja', 'w')
 n = ninja_syntax.Writer(buildfile)
 
-all_elc = set()
-def elc(el_files, paths):
+def elc(el_files, paths=None):
   """Creates build items to byte-compile a list of elisp files.
-
-  By using this to byte-compile the elisp files, it also updates `all_elc'.
 
   Arguments:
     el_files: A list of el files to byte-compile.
-    paths: A list of paths to include when looking to load a file.
+    paths: A list of optional paths to include when looking to load a file.
   """
+  if not paths:
+    paths = []
   lflags = ' '.join(('-L %s' % path for path in paths))
   for el in el_files:
     elc = os.path.splitext(el)[0] + '.elc'
-    all_elc.add(elc)
     n.build(elc, 'elc', inputs=[el],
             variables={'emacs_lflags': lflags})
 
@@ -47,72 +45,72 @@ n.rule('configure', 'python configure.py',
        generator=True)
 n.build('build.ninja', 'configure',
         implicit=['configure.py',
-                  'misc/ninja_syntax.pyc'])
+                  os.path.join('misc', 'ninja_syntax.pyc')])
 n.newline()
 
 n.rule('pyc', 'python -m compileall $in')
-n.build('misc/ninja_syntax.pyc', 'pyc',
-        inputs=['misc/ninja_syntax.py'])
-n.build('misc/download.pyc', 'pyc',
-        inputs=['misc/download.py'])
+n.build(os.path.join('misc', 'ninja_syntax.pyc'), 'pyc',
+        inputs=[os.path.join('misc', 'ninja_syntax.py')])
+n.build(os.path.join('misc', 'download.pyc'), 'pyc',
+        inputs=[os.path.join('misc', 'download.py')])
 
 n.newline()
 n.rule('elc',
        '$emacs $emacs_lflags -batch -Q -f batch-byte-compile $in')
 
 lisp_dirs = [
-  '$curdir',
   'auto-complete',
   'eproject',
-  'eproject/contrib',
-  'eproject/lang',
+  os.path.join('eproject', 'contrib'),
+  os.path.join('eproject', 'lang'),
   'geben',
   'git-modes',
   'js2-mode',
   'magit',
   'nyan-mode',
-  'org-mode/contrib/lisp',
-  'org-mode/lisp',
+  os.path.join('org-mode', 'contrib', 'lisp'),
+  os.path.join('org-mode', 'lisp'),
   'web-mode',
 ]
 auto_completes = set(['auto-complete-clang.el', 'auto-complete-etags.el',
                       'go-autocomplete.el'])
 org_modes = set(['ob-go.el'])
 elc(set(glob.glob('*.el')) - auto_completes - org_modes -
-    set(['naquadah-theme.el']) | set(glob.glob('nyan-mode/*.el')),
-    [])
+    set(['naquadah-theme.el', 'loaddefs.el', 'init.el']) |
+    set(glob.glob(os.path.join('nyan-mode', '*.el'))))
 
 n.comment('auto-complete')
-elc(set(glob.glob('auto-complete/*.el')) | auto_completes,
+elc(set(glob.glob(os.path.join('auto-complete', '*.el'))) | auto_completes,
     ['auto-complete'])
 
 n.comment('eproject')
-elc(set(glob.glob('eproject/*.el')) |
-    set(glob.glob('eproject/lang/*.el')) |
-    set(['eproject/contrib/eproject-compile.el']),
+elc(set(glob.glob(os.path.join('eproject', '*.el'))) |
+    set(glob.glob(os.path.join('eproject', 'lang', '*.el'))) |
+    set([os.path.join('eproject', 'contrib', 'eproject-compile.el')]),
     ['eproject'])
 
 n.comment('geben')
-elc(glob.glob('geben/*.el'), ['geben'])
+elc(glob.glob(os.path.join('geben', '*.el')), ['geben'])
 
 n.comment('magit')
-elc(glob.glob('git-modes/*.el'), ['git-modes'])
-elc(set(glob.glob('magit/*.el')) |
-    set(glob.glob('magit/contrib/*.el')),
+elc(glob.glob(os.path.join('git-modes', '*.el')), ['git-modes'])
+elc(set(glob.glob(os.path.join('magit', '*.el'))) |
+    set(glob.glob(os.path.join('magit', 'contrib', '*.el'))),
     ['git-modes', 'magit'])
 
 n.comment('js2-mode')
-elc(glob.glob('js2-mode/*.el'), ['js2-mode'])
+elc(glob.glob(os.path.join('js2-mode', '*.el')), ['js2-mode'])
 
 n.comment('org-mode')
-elc(set(glob.glob('org-mode/lisp/*.el')) -
-    set(['org-mode/lisp/org-install.el',
-         'org-mode/lisp/org-version.el']),
-    ['org-mode/lisp'])
-elc(org_modes, ['.', 'org-mode/lisp'])
+elc(set(glob.glob(os.path.join('org-mode', 'lisp', '*.el'))) -
+    set([os.path.join('org-mode', 'lisp', 'org-install.el'),
+         os.path.join('org-mode', 'lisp', 'org-version.el'),
+         os.path.join('org-mode', 'lisp', 'org-loaddefs.el')]),
+    [os.path.join('org-mode', 'lisp')])
+elc(org_modes, ['.', os.path.join('org-mode', 'lisp')])
 
 n.comment('web-mode')
-elc(glob.glob('web-mode/*.el'), ['web-mode'])
+elc(glob.glob(os.path.join('web-mode', '*.el')), ['web-mode'])
 
 n.newline()
 
@@ -124,10 +122,22 @@ n.rule('autoloads',
         '               generated-autoload-file "%s"))\' '
         '-f batch-update-autoloads $dirs' %
         os.path.join('$curdir', '$loaddefs').replace('\\', '\\\\')))
-n.build(['loaddefs.el', 'org-mode/lisp/org-loaddefs.el'], 'autoloads',
-        implicit=list(all_elc),
-        variables={'dirs': ' '.join(lisp_dirs),
+n.build(['loaddefs.el', os.path.join('org-mode', 'lisp', 'org-loaddefs.el')],
+        'autoloads',
+        variables={'dirs': ' '.join(['$curdir'] + lisp_dirs),
                    'loaddefs': 'loaddefs.el'})
+
+n.newline()
+n.comment('init')
+n.rule('init',
+       ('$emacs -batch -Q -L misc -l create-init '
+        '--eval \'(create-init "$curdir" $dirs)\''))
+n.build('init.el', 'init',
+        implicit=[os.path.join('misc', 'init.el.tmpl'),
+                  os.path.join('misc', 'create-init.el')],
+        variables={'dirs': ' '.join(('"%s"' % os.path.join('$curdir', x)
+                                     for x in lisp_dirs))})
+elc(['init.el'], ['$curdir'] + lisp_dirs)
 
 # Local Variables:
 # python-indent-offset: 2

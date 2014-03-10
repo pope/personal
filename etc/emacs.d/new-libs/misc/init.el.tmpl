@@ -1,0 +1,73 @@
+;; -*- mode: emacs-lisp; -*-
+
+;; %PATHS%
+
+(load "%LIBDIR%/loaddefs")
+
+;; actionscript-mode
+
+(add-to-list 'auto-mode-alist '("\\.as$" . actionscript-mode))
+(eval-after-load 'actionscript-mode
+  '(font-lock-add-keywords 'actionscript-mode
+                           '(("\\<\\(override\\|function\\|each\\)\\>" . font-lock-keyword-face))))
+
+;; auto-complete-mode
+
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
+(ac-set-trigger-key "TAB")
+
+;; auto-complete-clang
+
+(require 'auto-complete-clang)
+(defvar clang-completion-suppress-error 't)
+
+;; cmake-mode
+
+(autoload 'cmake-mode "cmake-mode" nil t)
+(add-to-list 'auto-mode-alist '("CMakeLists\\.txt$" . cmake-mode))
+(add-to-list 'auto-mode-alist '("\\.cmake$" . cmake-mode))
+
+;; dired-details
+
+(eval-after-load "dired"
+  '(progn
+     (require 'dired-details)
+     (dired-details-install)))
+
+;; go-autocomplete
+
+(require 'go-autocomplete)
+
+;; java-mode-indent-annotations
+
+(autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "\
+Set up java mode indent function to handle java 1.5 annotations.
+This function should be called from a java or jde mode hook,
+after any calls to `c-set-style'.
+
+\(fn)" nil nil)
+(add-hook 'java-mode-hook #'java-mode-indent-annotations-setup)
+
+;; js2-mode
+
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;; naquadah-theme
+
+(add-to-list 'custom-theme-load-path "%LIBDIR%/naquadah-theme/")
+
+;; org-mode
+
+(defvar org-plantuml-jar-path "%LIBDIR%/plantuml.jar")
+
+;; textmate
+
+(require 'textmate)
+(textmate-mode)
+
+;; vkill
+
+(autoload 'vkill "vkill" nil t)
+(autoload 'list-unix-processes "vkill" nil t)
