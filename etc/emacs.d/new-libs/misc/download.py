@@ -83,8 +83,11 @@ def download_tar(url, base_dir, force=False):
           os.makedirs(dirname)
         if tarinfo.isdir():
           continue
-        with open(newname, 'w') as f:
-          f.write(tfile.extractfile(tarinfo).read())
+        elif tarinfo.isfile():
+          with open(newname, 'w') as f:
+            f.write(tfile.extractfile(tarinfo).read())
+        else:
+          logging.warning('Unable to handle %s' % name)
     os.path.walk(base_dir, _delete_removable_files, None)
   except:
     logging.error('Unable to extract archive.', exc_info=True)
