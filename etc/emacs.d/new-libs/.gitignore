@@ -1,0 +1,7 @@
+*.elc
+*.pyc
+.ninja_deps
+.ninja_log
+build.ninja
+loaddefs.el
+org-mode/lisp/org-loaddefs.el
