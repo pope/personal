@@ -38,7 +38,6 @@ dm.github_download_file('go-mode.el', 'dominikh', 'master',
                         filename='go-mode.el')
 dm.download_file(('http://google-styleguide.googlecode.com/svn/trunk/'
                   'google-c-style.el'))
-dm.wiki_download_file('java-mode-indent-annotations')
 dm.github_download_repo('js2-mode', 'mooz', '20140114')
 dm.github_download_file('lua-mode', 'immerrr', 'rel-20130419')
 dm.github_download_repo('magit', 'magit', '1.2.0')

@@ -40,16 +40,6 @@
 
 (require 'go-autocomplete)
 
-;; java-mode-indent-annotations
-
-(autoload 'java-mode-indent-annotations-setup "java-mode-indent-annotations" "\
-Set up java mode indent function to handle java 1.5 annotations.
-This function should be called from a java or jde mode hook,
-after any calls to `c-set-style'.
-
-\(fn)" nil nil)
-(add-hook 'java-mode-hook #'java-mode-indent-annotations-setup)
-
 ;; js2-mode
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
