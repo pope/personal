@@ -2,6 +2,7 @@
 
 """Configure to generate the build file and download third-party files."""
 
+import fnmatch
 import functools
 import glob
 import os
@@ -17,6 +18,19 @@ configure_env = dict((k, os.environ[k]) for k in os.environ if k in env_keys)
 buildfile = open('build.ninja', 'w')
 n = ninja_syntax.Writer(buildfile)
 
+def all_lisp_lib_files():
+  """Returns all of the .el files required for autoloading.
+
+  Returns:
+    A list of files that should be included in the loaddefs file.
+  """
+  matches = []
+  for root, dirnames, filenames in os.walk('.'):
+    for filename in fnmatch.filter(filenames, '*.el'):
+      if not filename in ('init.el', 'org-loaddefs.el', 'loaddefs.el'):
+        matches.append(os.path.join(root, filename))
+  return matches
+
 def suppress_output(cmd):
   """Supresses the output of a command unless it fails.
 
@@ -24,7 +38,7 @@ def suppress_output(cmd):
   used when the compiliation makes noise, like for libraries not under developer
   control.
 
-  Arguments:
+  Args:
     cmd: The command whose output is being suppressed.
 
   """
@@ -37,7 +51,7 @@ def suppress_output(cmd):
 def elc(el_files, paths=None):
   """Creates build items to byte-compile a list of elisp files.
 
-  Arguments:
+  Args:
     el_files: A list of el files to byte-compile.
     paths: A list of optional paths to include when looking to load a file.
   """
@@ -145,8 +159,9 @@ n.rule('autoloads',
           '-f batch-update-autoloads $dirs' %
           os.path.join('$curdir', '$loaddefs').replace('\\', '\\\\'))),
        description='LOADDEFS $out')
-n.build(['loaddefs.el', os.path.join('org-mode', 'lisp', 'org-loaddefs.el')],
+n.build(['loaddefs.el'],
         'autoloads',
+        implicit=all_lisp_lib_files(),
         variables={'dirs': ' '.join(['$curdir'] + lisp_dirs),
                    'loaddefs': 'loaddefs.el'})
 
