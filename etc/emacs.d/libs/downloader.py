@@ -40,7 +40,7 @@ dm.download_file(('http://google-styleguide.googlecode.com/svn/trunk/'
                   'google-c-style.el'))
 dm.github_download_repo('js2-mode', 'mooz', '20140114')
 dm.github_download_file('lua-mode', 'immerrr', 'rel-20130419')
-dm.github_download_repo('magit', 'magit', '1.2.0')
+dm.github_download_repo('magit', 'magit', 'f528817facda42d4ce6a06c852bc2d3e2799f09e')
 dm.download_file(('http://git.naquadah.org/?p=naquadah-theme.git;a=blob_plain;'
                   'f=naquadah-theme.el;hb=HEAD'),
                  filename='naquadah-theme.el')
