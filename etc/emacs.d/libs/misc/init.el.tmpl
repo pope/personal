@@ -40,6 +40,11 @@
 
 (require 'go-autocomplete)
 
+;; Google C/C++ Style
+
+(autoload 'google-set-c-style "google-c-style" nil t)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+
 ;; js2-mode
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
