@@ -447,7 +447,7 @@
                     (point)
                     (save-excursion
                       (while (looking-at-p "^goog.require")
-                        (next-line))
+                        (forward-line))
                       (line-end-position))))))
 
 (defun my-js2-mode-hook ()
