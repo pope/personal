@@ -21,6 +21,8 @@
 (unless (>= 24 emacs-major-version)
   (error "monokai-theme requires Emacs 24 or later."))
 
+(require 'cl-lib)
+
 (deftheme monokai
   "Monokai color theme")
 
@@ -68,7 +70,7 @@
       . value) ...)")
 
 ;; Set the colors for the ansi terminal.
-(flet ((get-color (name) (cdr (assoc name (car monokai-colors)))))
+(cl-flet ((get-color (name) (cdr (assoc name (car monokai-colors)))))
   (setq ansi-term-color-vector
         `[unspecified ,(get-color 'mt-black)
                       ,(get-color 'mt-red)
@@ -85,10 +87,10 @@
   (let ((spec (car face))
         (props (cadr face)))
     (list spec (mapcar
-                '(lambda (entry)
-                   (let ((color-condition (car entry)))
-                     (list color-condition
-                           (monokai-expand-colors (cdr entry) props))))
+                #'(lambda (entry)
+                    (let ((color-condition (car entry)))
+                      (list color-condition
+                            (monokai-expand-colors (cdr entry) props))))
                 monokai-colors))))
 
 (defun monokai-expand-colors (color-alist props)
@@ -115,10 +117,11 @@
  '(default (:foreground mt-fg :background mt-bg))
  '(cursor (:foreground mt-fg))
  '(highlight (:background mt-sel-border))
- '(minibuffer-prompt (:foreground mt-red))
- '(mode-line (:background mt-sel-border :foreground mt-white))
- '(mode-line-inactive (:background mt-hi :foreground mt-fg))
+ '(minibuffer-prompt (:foreground mt-red :background nil))
+ '(mode-line (:background mt-hi :foreground mt-white :box (:line-width 1 :color mt-mud :style nil)))
+ '(mode-line-inactive (:background mt-hi :foreground mt-mud))
  '(region (:background mt-hi))
+ '(secondary-selection (:background mt-hi))
  '(fringe (:background mt-bg :foreground mt-invis))
  '(vertical-border (:foreground mt-black))
  '(linum (:foreground mt-hi))
