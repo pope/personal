@@ -464,10 +464,8 @@
 ;; Org-mode
 ;;
 
-(defun my-org-redisplace-inline-images ()
-  (org-display-inline-images))
-
-(add-hook 'org-babel-after-execute-hook 'my-org-redisplace-inline-images)
+(eval-after-load 'org
+  (add-hook 'org-babel-after-execute-hook #'org-display-inline-images))
 
 (eval-after-load 'ob
   '(progn
