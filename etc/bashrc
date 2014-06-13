@@ -119,8 +119,8 @@ elif [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
   . /opt/local/etc/profile.d/bash_completion.sh
 fi
 
-if [ -f /opt/local/share/git-core/git-prompt.sh ]; then
-    . /opt/local/share/git-core/git-prompt.sh
+if [ -f /opt/local/share/git/git-prompt.sh ]; then
+    . /opt/local/share/git/git-prompt.sh
 fi
 
 # Local Variables:
