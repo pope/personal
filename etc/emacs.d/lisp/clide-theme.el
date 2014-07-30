@@ -47,7 +47,7 @@
  '(show-paren-mismatch ((t (:foreground nil :background "red1"))))
  '(escape-glyph ((t (:foreground "orange1"))))
  '(font-lock-builtin-face ((t (:foreground "DodgerBlue1"))))
- '(font-lock-comment-delimiter-face ((t (:weight bold))))
+ '(font-lock-comment-delimiter-face ((t (:weight bold :inherit font-lock-comment-face))))
  '(font-lock-comment-face ((t (:slant italic :foreground "grey56"))))
  '(font-lock-constant-face ((t (:foreground "SlateBlue1"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
