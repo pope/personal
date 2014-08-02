@@ -111,7 +111,7 @@ auto_completes = set(['auto-complete-clang.el', 'auto-complete-etags.el',
                       'go-autocomplete.el'])
 org_modes = set(['ob-go.el'])
 elc(set(glob.glob('*.el')) - auto_completes - org_modes -
-    set(['naquadah-theme.el', 'loaddefs.el', 'init.el']) |
+    set(['dart-mode.el', 'naquadah-theme.el', 'loaddefs.el', 'init.el']) |
     set(glob.glob(os.path.join('nyan-mode', '*.el'))))
 
 n.comment('auto-complete')
