@@ -114,6 +114,7 @@
 
   ;; Magit
  '(magit-branch ((t (:foreground "DodgerBlue1" :background "LightCyan"))))
+ '(magit-item-highlight ((t (:background "LightYellow1"))))
  '(magit-log-graph ((t (:foreground nil :inherit shadow))))
  '(magit-log-head-label-local ((t (:inherit magit-branch :box nil :foreground nil :background nil))))
  '(magit-log-head-label-remote ((t (:inherit magit-branch :box nil :foreground "green4" :background nil))))
