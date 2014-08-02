@@ -65,6 +65,7 @@ dm.github_download_file('yaml-mode', 'yoshiki', 'release-0.0.9')
 dm.download_file(('http://jblevins.org/git/markdown-mode.git/plain/'
                   'markdown-mode.el'))
 dm.github_download_file('dart-mode', 'nex3', 'master')
+dm.github_download_file('plantuml-mode', 'skuro', 'master')
 
 # TODO(pope): Re-enable when I have a plan for the snippets submodule.
 ##dm.github_download_repo('yasnippet', 'capitaomorte', 'master')
