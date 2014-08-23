@@ -1,5 +1,5 @@
-gumbo-parser 387
-variants universal depends_build {port:pkgconfig port:intltool port:autoconf port:automake port:libtool} portdir devel/gumbo-parser description {A pure-C HTML5 parser} depends_fetch bin:git:git-core homepage https://github.com/google/gumbo-parser epoch 0 platforms darwin name gumbo-parser maintainers shifteleven.com:pope license unknown categories devel version r20131016.0 revision 0
+gumbo-parser 399
+variants universal depends_build {port:pkgconfig port:intltool port:autoconf port:automake port:libtool} portdir devel/gumbo-parser description {A pure-C HTML5 parser} depends_fetch bin:git:git homepage https://github.com/google/gumbo-parser epoch 0 platforms darwin name gumbo-parser maintainers {shifteleven.com:pope openmaintainer} license unknown categories devel version r20140806.0 revision 0
 grun 712
 variants universal depends_build port:pkgconfig portdir gnome/grun description {a GTK based Run dialog that closely resembles the Windows Run dialog} homepage http://code.google.com/p/grun/ epoch 0 platforms darwin depends_lib path:lib/pkgconfig/gtk+-2.0.pc:gtk2 name grun long_description {gRun is a GTK based Run dialog that closely resembles the Windows Run dialog, just like xexec. It has a intelligent history mechanism and a dual level fork() mechanism for launching the application in its own process. gRun also has support for launching console mode application in an XTerm as well as associations for file types.} maintainers shifteleven.com:pope license GPLv2 categories gnome version 0.9.3 revision 0
 segmenter 337

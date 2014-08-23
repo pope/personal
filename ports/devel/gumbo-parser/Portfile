@@ -4,16 +4,16 @@
 PortSystem      1.0
 
 name            gumbo-parser
-version         r20131016.0
+version         r20140806.0
 categories      devel
-maintainers     shifteleven.com:pope
+maintainers     shifteleven.com:pope openmaintainer
 description     A pure-C HTML5 parser
 homepage        https://github.com/google/gumbo-parser
 platforms       darwin
 
 fetch.type      git
 git.url         https://github.com/google/gumbo-parser.git
-git.branch      d90ea2b2d01b27a7adf0501f644a7782e50362fe
+git.branch      4d4c8e6907599b569faed5462671edce3b211b10
 
 depends_build   port:pkgconfig \
                 port:intltool \
