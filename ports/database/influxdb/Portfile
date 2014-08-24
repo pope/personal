@@ -1,0 +1,76 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                influxdb
+version             0.7.3
+categories          database net
+platforms           darwin
+license             MIT
+maintainers         shifteleven.com:pope openmaintainer
+description         Distributed time series database
+long_description    An open-source distributed time series database with no \
+                    external dependencies.
+homepage            http://influxdb.com/
+master_sites        http://get.influxdb.org/
+distfiles           influxdb-${version}.src.tar.gz
+
+checksums           rmd160 1fa809cb7b1815fe0aa63c171353debb1aa850aa \
+                    sha256 7e4e13269cfa16c19387243189b2efa9a2d4cfb91e64cc98b9180e32e5bd8ef4
+
+depends_lib         port:leveldb
+depends_build       port:flex port:bison port:protobuf-cpp port:go
+
+universal_variant   no
+
+worksrcdir          ${name}
+configure.args      --with-flex=${prefix}/bin/flex \
+                    --with-bison=${prefix}/bin/bison
+
+# TODO(pope): Download locked versions of the dependencies.
+build {
+    system -W ${worksrcpath} \
+        "GOPATH=${worksrcpath} make dependencies protobuf parser"
+    system -W ${worksrcpath} \
+        "GOPATH=${worksrcpath} \
+         CGO_CFLAGS=-I${prefix}/include \
+         CGO_LDFLAGS=-L${prefix}/lib \
+         go build daemon"
+}
+
+set datadir         ${prefix}/var/${name}/data
+set raftdir         ${prefix}/var/${name}/raft
+set waldir          ${prefix}/var/${name}/wal
+set influxdbuser    _influxdb
+add_users           ${influxdbuser} group=${influxdbuser} realname=InfluxDB\ Server
+
+destroot {
+    xinstall -m 755 ${worksrcpath}/daemon ${destroot}${prefix}/bin/${name}
+
+    reinplace "s|/tmp/influxdb/development/db|${datadir}|g"     ${worksrcpath}/config.sample.toml
+    reinplace "s|/tmp/influxdb/development/raft|${raftdir}|g"   ${worksrcpath}/config.sample.toml
+    reinplace "s|/tmp/influxdb/development/wal|${waldir}|g"     ${worksrcpath}/config.sample.toml
+    reinplace "s|./admin|${prefix}/share/${name}/admin|g"       ${worksrcpath}/config.sample.toml
+
+    xinstall -m 644 ${worksrcpath}/config.sample.toml ${destroot}${prefix}/etc/${name}.conf
+
+    xinstall -d -m 755 ${destroot}${prefix}/share/${name}
+    file copy ${worksrcpath}/admin ${destroot}${prefix}/share/${name}/admin
+
+    xinstall -m 755 -o ${influxdbuser} -g ${influxdbuser} -d \
+        ${destroot}${datadir} \
+        ${destroot}${raftdir} \
+        ${destroot}${waldir}
+    destroot.keepdirs-append \
+        ${destroot}${datadir} \
+        ${destroot}${raftdir} \
+        ${destroot}${waldir}
+}
+
+startupitem.create      yes
+startupitem.executable  sudo -u ${influxdbuser} ${prefix}/bin/${name} -config=${prefix}/etc/${name}.conf
+
+livecheck.type      regex
+livecheck.url       http://s3.amazonaws.com/influxdb
+livecheck.regex     {influxdb-(\d+\.\d+\.\d+)\.src\.tar\.gz}

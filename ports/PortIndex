@@ -1,3 +1,5 @@
+influxdb 441
+depends_build {port:flex port:bison port:protobuf-cpp port:go} portdir database/influxdb description {Distributed time series database} homepage http://influxdb.com/ epoch 0 platforms darwin name influxdb depends_lib port:leveldb license MIT maintainers {shifteleven.com:pope openmaintainer} long_description {An open-source distributed time series database with no external dependencies.} categories {database net} version 0.7.3 revision 0
 gumbo-parser 399
 variants universal depends_build {port:pkgconfig port:intltool port:autoconf port:automake port:libtool} portdir devel/gumbo-parser description {A pure-C HTML5 parser} depends_fetch bin:git:git homepage https://github.com/google/gumbo-parser epoch 0 platforms darwin name gumbo-parser maintainers {shifteleven.com:pope openmaintainer} license unknown categories devel version r20140806.0 revision 0
 grun 712
