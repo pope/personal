@@ -43,6 +43,11 @@ endif
 
 execute pathogen#infect()
 
+let s:host_vimrc = $HOME . '/.' . hostname() . '.vimrc'
+if filereadable(s:host_vimrc)
+    execute 'source ' . s:host_vimrc
+endif
+
 syntax on
 filetype plugin on
 filetype indent on
