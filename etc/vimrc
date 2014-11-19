@@ -1,80 +1,31 @@
 set nocompatible
-set backspace=indent,eol,start
+
 set autoindent
-set history=100
-set ruler
-set mouse=a
-set ttymouse=xterm
-"set spell
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-"set smartindent
-set smarttab
-set incsearch
-set foldmethod=marker
-"set nofoldenable
-set hlsearch
-set linebreak
-set visualbell t_vb=
-set number
-set textwidth=0
-set ignorecase
-set smartcase
+set backspace=indent,eol,start
 set encoding=utf8
-set wildmenu
+set expandtab
+set foldmethod=marker
 set hidden
+set history=100
+set hlsearch
+set ignorecase
+set incsearch
 set laststatus=2
-"set flp=^\\s*[0-9*+\\-]\\+[\\]:.)}\\t\ ]\\s*
-set fo+=n
-syntax on
-
-" Use the same symbols as TextMate for tabstops and EOLs
+set linebreak
 set listchars=tab:▸\ ,eol:¬
-
-map \p i(<Esc>ea)<Esc>
-map \c i{<Esc>ea}<Esc>
-" map <C-T> :tabnew<CR>
-
-map <Leader>vs :set spell!<CR>
-map <Leader>va :set ai!<CR>
-map <Leader>vw :set wrap!<CR>
-map <Leader>vr :set lbr!<CR>
-map <Leader>vn :set nu!<CR>
-map <Leader>vl :set list!<CR>
-map <Leader>vx :set tw=
-
-map <S-Left>    :bp<CR>
-map <S-Right>   :bn<CR>
-map <C-S-Left>  :tabp<CR>
-map <C-S-Right> :tabn<CR>
-
-map <Leader>nt :NERDTreeToggle<CR>
-map <Leader>ft :FufFile<CR>
-map <Leader>fb :FufBuffer<CR>
-map <Leader>fp :PeepOpen<CR>
-
-filetype plugin on
-filetype indent on
-
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-let php_sql_query=1
-let php_htmlInStrings=1
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType c,cpp,ragel set omnifunc=ccomplete#Complete
-autocmd FileType ruby set omnifunc=rubycomplete#Complete
-au FileType ruby set shiftwidth=2
-au FileType ruby set softtabstop=2
-
-au! BufRead,BufNewFile *.haml         setfiletype haml
-au! BufRead,BufNewFile *.sass         setfiletype sass
-autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
-
+set mouse=a
+set number
+set ruler
+set shiftwidth=4
+set smartcase
+set smartindent
+set smarttab
+set softtabstop=4
+set tabstop=4
+set textwidth=0
+set ttymouse=xterm
+set visualbell t_vb=
+set wildmenu
 
 au BufRead,BufNewFile * match ErrorMsg  /[ \t]\+$/
 "au BufRead,BufNewFile * match ErrorMsg   /\%>80v.\+/
@@ -90,29 +41,6 @@ else
     set clipboard+=unnamed
 endif
 
-function! GnuIndent()
-    setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
-    setlocal shiftwidth=2
-    setlocal tabstop=8
-endfunction
-
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-let g:miniBufExplUseSingleClick = 1
-let g:miniBufExplModSelTarget = 1
-" let g:miniBufExplSplitBelow = 1
-
-let g:debuggerMaxDepth = 5
-let g:debuggerMiniBufExpl = 1
-
-let g:fuzzy_ignore = "*.class,*.pyc,target/**/*,compressed/**/*"
-
-" let s:molokai_original = 1
-
-" Some commands that I use
-map <Leader>tcc1 :%s/\v(.{-})\t(.{-})\t(.*(\d+)-Day.*)$/ticketCodes.add(new TicketCode("\1", "\2", "\3", \4));
-map <Leader>tcc2 :%s/\v(.{-})\t(.{-})\t(.*(\d+)-Day.*)$/ticketCodes.add(new TicketCode("\2", "\1", "\3", \4));
-
-command! -bar -nargs=0 SudoW   :silent exe "write !sudo tee % >/dev/null"|silent edit!
+syntax on
+filetype plugin on
+filetype indent on
