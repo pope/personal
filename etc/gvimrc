@@ -1,14 +1,3 @@
 set background=light
-colo macvim
-"colorscheme ir_black
-
-if has("mac")
-  set gfn=Andale\ Mono:h14
-elseif has("unix")
-  set gfn=Inconsolata\ Medium\ 12
-else
-  set guifont=Inconsolata:h11:cANSI
-endif
-
 set vb t_vb=
 set guioptions=egmrLtTb
