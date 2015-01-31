@@ -24,7 +24,8 @@ set softtabstop=4
 set tabstop=4
 set textwidth=0
 set ttymouse=xterm
-set visualbell t_vb=
+set visualbell
+set t_vb=
 set wildmenu
 
 au BufRead,BufNewFile * match ErrorMsg  /[ \t]\+$/
@@ -34,11 +35,17 @@ au BufRead,BufNewFile * match ErrorMsg  /[ \t]\+$/
 if has("xterm_clipboard")
     behave xterm
     set t_Co=256
-    colorscheme github256
 else
     set t_Co=16
     set paste
     set clipboard+=unnamed
+endif
+
+" set vim to chdir for each file
+if exists('+autochdir')
+    set autochdir
+else
+    autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
 endif
 
 execute pathogen#infect()
