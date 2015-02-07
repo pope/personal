@@ -88,7 +88,7 @@ URxvt.depth:              32
 URxvt.background:       [94]#0e0e0e
 
 *background:            S_base03
-*foreground:            S_base00
+*foreground:            S_base0
 *fading:                40
 *fadeColor:             S_base03
 *cursorColor:           S_base1
