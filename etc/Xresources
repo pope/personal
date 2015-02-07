@@ -85,7 +85,7 @@ URxvt.depth:              32
 #define S_green         #5f8700
 
 !! This is set to a slightly darker value to ensure brblack colors can be seen
-URxvt.background:       [94]#0e0e0e
+URxvt.background:       [94]#080808
 
 *background:            S_base03
 *foreground:            S_base0
