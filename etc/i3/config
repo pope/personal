@@ -39,7 +39,7 @@ bindsym $mod+Shift+q kill
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop -dmenu='dmenu -fn "DejaVu Sans Mono for Powerline-8" -i -nb "#282b57" -nf "#eeeeff" -sb "#555a9e"'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop -dmenu='dmenu -fn "DejaVu Sans Mono for Powerline-8" -i -nb "#1c1c1c" -nf "#af8700" -sb "#af005f" -sf "#ffffd7"'
 
 # change focus
 bindsym $mod+j focus left
@@ -155,21 +155,22 @@ bar {
         position top
         tray_output primary
         colors {
-                background #000000
-                separator #666666
-                statusline #ffffff
-                focused_workspace #44bbff #3276E8 #ffffff
-                active_workspace #333333 #5f676a #ffffff
-                inactive_workspace #333333 #222222 #888888
-                urgent_workspace #2f343a #900000 #ffffff
+                background #0e0e0e
+                separator #262626
+                statusline #808080
+                # colors                border  backgr  text
+                focused_workspace       #5f5faf #5f5faf #ffffd7
+                active_workspace        #5f5faf #1c1c1c #ffffd7
+                inactive_workspace      #1c1c1c #1c1c1c #808080
+                urgent_workspace        #d75f00 #d75f00 #ffffd7
         }
 }
 
-# colors
-client.focused #44bbff #3276E8 #ffffff #cccccc
-client.focused_inactive #333333 #5f676a #ffffff #484e50
-client.unfocused #333333 #222222 #888888 #292d2e
-client.urgent #2f343a #900000 #ffffff #900000
+# colors                border  backgr  text    indicat
+client.focused          #5f5faf #5f5faf #ffffd7 #af005f
+client.focused_inactive #262626 #262626 #585858 #262626
+client.unfocused        #1c1c1c #1c1c1c #585858 #262626
+client.urgent           #d75f00 #d75f00 #ffffd7 #d70000
 
 # CHANGING BORDER STYLE
 bindsym $mod+t border normal
