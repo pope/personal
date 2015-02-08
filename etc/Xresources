@@ -32,6 +32,7 @@ xterm*loginShell:         true
 URxvt*termName:           xterm-256color
 URxvt*buffered:           true
 URxvt*font:               xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=9:antialias=true:hinting=true
+URxvt*scrollBar:          false
 URxvt.scrollstyle:        rxvt
 URxvt*scrollBar_right:    true
 URxvt*saveLines:          4096
@@ -40,8 +41,8 @@ URxvt*loginShell:         true
 URxvt*modifier:           alt
 URxvt*eightBitInput:      false
 URxvt*metaSendsEscape:    true
-URxvt*secondaryScreen:    1
-URxvt*secondaryScroll:    0
+URxvt*secondaryScreen:    true
+URxvt*secondaryScroll:    false
 !URxvt*transparent:       true
 !URxvt*shading:           12
 URxvt.depth:              32
