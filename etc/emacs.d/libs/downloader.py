@@ -60,7 +60,7 @@ dm.github_download_file('textmate.el', 'defunkt', 'master',
                         filename='textmate.el')
 dm.download_file(('http://www.splode.com/~friedman/software/emacs-lisp/src/'
                   'vkill.el'))
-dm.github_download_repo('web-mode', 'fxbois', 'master')
+dm.github_download_repo('web-mode', 'fxbois', 'v10.4')
 dm.github_download_file('yaml-mode', 'yoshiki', 'release-0.0.9')
 dm.download_file(('http://jblevins.org/git/markdown-mode.git/plain/'
                   'markdown-mode.el'))
