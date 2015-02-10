@@ -28,7 +28,7 @@ font pango:DejaVu Sans Mono for Powerline 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec ~/.i3/bin/sensible-terminal.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -178,7 +178,4 @@ bindsym $mod+y border 1pixel
 bindsym $mod+u border none
 new_window 1pixel
 
-exec --no-startup-id vmware-user
-exec --no-startup-id compton -CGb
-exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id sh ~/.fehbg
+exec --no-startup-id ~/.i3/bin/startup.sh
