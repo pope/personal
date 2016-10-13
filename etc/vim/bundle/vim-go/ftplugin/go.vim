@@ -5,13 +5,11 @@
 " go.vim: Vim filetype plugin for Go.
 
 if exists("b:did_ftplugin")
-    finish
+  finish
 endif
 let b:did_ftplugin = 1
 
-if !exists("g:go_auto_type_info")
-    let g:go_auto_type_info = 0
-endif
+let b:undo_ftplugin = "setl fo< com< cms<"
 
 setlocal formatoptions-=t
 
@@ -22,42 +20,44 @@ setlocal noexpandtab
 
 compiler go
 
-if !exists("g:go_doc_keywordprg_enabled")
-    let g:go_doc_keywordprg_enabled = 1
-endif
-if g:go_doc_keywordprg_enabled
-    " keywordprg doesn't allow to use vim commands, override it
-    nnoremap <buffer> <silent> K :GoDoc<cr> 
-endif
-
-
-if !exists("g:go_def_mapping_enabled")
-    let g:go_def_mapping_enabled = 1
-endif
-if g:go_def_mapping_enabled
-   nnoremap <buffer> <silent> gd :GoDef<cr>
-endif
-
-
-let b:undo_ftplugin = "setl fo< com< cms<"
-
 " Set gocode completion
 setlocal omnifunc=go#complete#Complete
 
-" GoInfo automatic update
-if g:go_auto_type_info != 0
-    setlocal updatetime=300
-    au! CursorHold *.go nested call go#complete#Info()
+if get(g:, "go_doc_keywordprg_enabled", 1)
+  " keywordprg doesn't allow to use vim commands, override it
+  nnoremap <buffer> <silent> K :GoDoc<cr>
 endif
 
-
-" autoload settings
-if !exists('g:go_fmt_autosave')
-    let g:go_fmt_autosave = 1
+if get(g:, "go_def_mapping_enabled", 1)
+  " these are default Vim mappings, we're overriding them to make them
+  " useful again for Go source code
+  nnoremap <buffer> <silent> gd :GoDef<cr>
+  nnoremap <buffer> <silent> <C-]> :GoDef<cr>
+  nnoremap <buffer> <silent> <C-w><C-]> :<C-u>call go#def#Jump("split")<CR>
+  nnoremap <buffer> <silent> <C-w>] :<C-u>call go#def#Jump("split")<CR>
+  nnoremap <buffer> <silent> <C-t> :<C-U>call go#def#StackPop(v:count1)<cr>
 endif
 
-if g:go_fmt_autosave
-    autocmd BufWritePre <buffer> call go#fmt#Format(-1)
+if get(g:, "go_textobj_enabled", 1)
+  onoremap <buffer> <silent> af :<c-u>call go#textobj#Function('a')<cr>
+  onoremap <buffer> <silent> if :<c-u>call go#textobj#Function('i')<cr>
+
+  xnoremap <buffer> <silent> af :<c-u>call go#textobj#Function('a')<cr>
+  xnoremap <buffer> <silent> if :<c-u>call go#textobj#Function('i')<cr>
+
+  " Remap ]] and [[ to jump betweeen functions as they are useless in Go
+  nnoremap <buffer> <silent> ]] :<c-u>call go#textobj#FunctionJump('n', 'next')<cr>
+  nnoremap <buffer> <silent> [[ :<c-u>call go#textobj#FunctionJump('n', 'prev')<cr>
+
+  onoremap <buffer> <silent> ]] :<c-u>call go#textobj#FunctionJump('o', 'next')<cr>
+  onoremap <buffer> <silent> [[ :<c-u>call go#textobj#FunctionJump('o', 'prev')<cr>
+
+  xnoremap <buffer> <silent> ]] :<c-u>call go#textobj#FunctionJump('v', 'next')<cr>
+  xnoremap <buffer> <silent> [[ :<c-u>call go#textobj#FunctionJump('v', 'prev')<cr>
 endif
 
-" vim:ts=4:sw=4:et
+if get(g:, "go_auto_type_info", 0) || get(g:, "go_auto_sameids", 0)
+  setlocal updatetime=800
+endif
+
+" vim: sw=2 ts=2 et
