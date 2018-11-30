@@ -18,8 +18,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs.
 
-(unless (>= 24 emacs-major-version)
-  (error "clide-theme requires Emacs 24 or later."))
+;;(unless (>= 24 emacs-major-version)
+;;  (error "clide-theme requires Emacs 24 or later."))
 
 (deftheme clide
   "A light theme.")

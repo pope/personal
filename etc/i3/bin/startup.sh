@@ -10,12 +10,13 @@ if command -v vmware-user > /dev/null 2>&1; then
 fi
 
 if command -v compton > /dev/null 2>&1; then
-  compton -CGb
+  compton -CGb --vsync opengl
 fi
 
 if command -v gnome-settings-daemon > /dev/null 2>&1; then
   gnome-settings-daemon &
 fi
+#cinnamon-settings-daemon &
 
 if command -v gnome-keyring-daemon > /dev/null 2>&1; then
   gnome-keyring-daemon
@@ -32,3 +33,4 @@ fi
 if [[ -f ~/.fehbg ]] ; then
   sh ~/.fehbg
 fi
+

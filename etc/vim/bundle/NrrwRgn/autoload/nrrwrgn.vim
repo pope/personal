@@ -800,11 +800,9 @@ fun! <sid>NrrwSettings(on) abort "{{{1
 		setl noswapfile buftype=acwrite foldcolumn=0
 		setl nobuflisted
 		let instn = matchstr(bufname(''), '_\zs\d\+$')+0
-		if has_key(s:nrrw_rgn_lines, 'instn')
+		if has_key(s:nrrw_rgn_lines, s:instn)
 			if  !&hidden && !has_key(s:nrrw_rgn_lines[instn], "single")
 				setl bufhidden=wipe
-			else
-				setl bufhidden=hide
 			endif
 		endif
 	else
@@ -822,10 +820,9 @@ fun! <sid>SetupBufLocalMaps(bang) abort "{{{1
 	if !hasmapto('<Plug>NrrwrgnWinIncr', 'n')
 		nmap <buffer> <Leader><Space> <Plug>NrrwrgnWinIncr
 	endif
-	if !hasmapto('NrrwRgnIncr')
-		nmap <buffer><unique> <Plug>NrrwrgnWinIncr NrrwRgnIncr
+	if !hasmapto('<sid>ToggleWindowSize')
+		nnoremap <buffer><unique><script><silent><expr> <Plug>NrrwrgnWinIncr <sid>ToggleWindowSize()
 	endif
-	nnoremap <buffer><silent><script><expr> NrrwRgnIncr <sid>ToggleWindowSize()
 	if a:bang && winnr('$') == 1
 		" Map away :q and :q! in single window mode, so that :q won't
 		" accidently quit vim.
@@ -1026,7 +1023,6 @@ fun! nrrwrgn#NrrwRgnDoMulti(...) abort "{{{1
 		return
 	endif
 	let o_lz = &lz
-	let s:o_s  = @/
 	set lz
 	let orig_buf=bufnr('')
 
@@ -1114,7 +1110,6 @@ fun! nrrwrgn#NrrwRgn(mode, ...) range  abort "{{{1
 	endif
 	let bang = (a:0 > 0 && !empty(a:1))
 	let o_lz = &lz
-	let s:o_s  = @/
 	set lz
 	call <sid>Init()
 	if visual
@@ -1149,7 +1144,7 @@ fun! nrrwrgn#NrrwRgn(mode, ...) range  abort "{{{1
 	call <sid>DeleteMatches(s:instn)
 	let local_options = <sid>GetOptions(s:opts)
 	let win=<sid>NrrwRgnWin(bang)
-	if bang
+	if bang && winnr('$') == 1
 		let s:nrrw_rgn_lines[s:instn].single = 1
 	else
 		" Set the highlighting
@@ -1385,7 +1380,6 @@ fun! nrrwrgn#WidenRegion(force)  abort "{{{1
 		"  become invalid, if CleanUp is executed)
 "	endif
 	call <sid>SaveRestoreRegister(_opts)
-	let  @/=s:o_s
 	" Execute "written" autocommands in the original buffer
 	if exists("b:nrrw_aucmd_written")
 		exe b:nrrw_aucmd_written
@@ -1393,6 +1387,9 @@ fun! nrrwrgn#WidenRegion(force)  abort "{{{1
 	call winrestview(wsv)
 	"if !close && has_key(s:nrrw_rgn_lines[instn], 'single')
 	if has_key(s:nrrw_rgn_lines[instn], 'single')
+		if &modified
+			noa w
+		endif
 		" move back to narrowed buffer
 		noa b #
 	"elseif close

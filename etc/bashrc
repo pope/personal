@@ -25,7 +25,7 @@ HISTSIZE=10000
 HISTFILESIZE=20000
 
 # add to the history after every command, not by the last guy to close
-export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 export HISTFILE=$HOME/.bash_history_real
 

@@ -1,4 +1,4 @@
-Xft.dpi: 192
+Xft.dpi: 96
 Xft.autohint: 0
 ft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
@@ -31,10 +31,14 @@ xterm*loginShell:         true
 
 URxvt*termName:           xterm-256color
 URxvt*buffered:           true
-URxvt*font:               xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=9:antialias=true:hinting=true
+!!URxvt*font:               xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=9:antialias=true:hinting=true
+URxvt*font:               xft:Go Mono for Powerline:style=Regular:size=10
 URxvt*scrollBar:          false
 URxvt.scrollstyle:        rxvt
 URxvt*scrollBar_right:    true
+URxvt*scrollTtyOutput:    false
+URxvt*scrollWithBuffer:   true
+URxvt*scrollTtyKeypress:  true
 URxvt*saveLines:          4096
 URxvt*letterSpace:        -1
 URxvt*loginShell:         true
@@ -47,8 +51,11 @@ URxvt*secondaryScroll:    false
 !URxvt*shading:           12
 URxvt.depth:              32
 
-#define SOLARIZED_DARK
-#define SOLARIZED_TERM
-#include ".Xresources.d/solarized_colors"
+!#define SOLARIZED_DARK
+!#define SOLARIZED_TERM
+!#include ".Xresources.d/solarized_colors"
+!
+!URxvt*background:         [94]S_base03
 
-URxvt*background:         [94]S_base03
+#include "/usr/local/google/home/pope/share/base16-xresources/base16-monokai.dark.xresources"
+URxvt*background:         [94]#222222

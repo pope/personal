@@ -5,6 +5,9 @@ scale=2
 if [[ $1 == "0" ]]; then
     dpi=96
     scale=1
+elif [[ $1 == "2" ]]; then
+    dpi=110
+    scale=1
 fi
 
 echo $dpi
