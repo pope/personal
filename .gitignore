@@ -1,4 +1,5 @@
 .DS_Store
+*.pyc
 etc/emacs.d/*elc
 etc/emacs.d/ac-comphist.dat
 etc/emacs.d/auto-save-list
@@ -14,4 +15,6 @@ etc/emacs.d/rnc
 etc/emacs.d/server
 etc/emacs.d/tramp
 etc/emacs.d/url
+etc/emacs.d/recentf
 etc/vim/.netrwhist
+etc/vim/cache/
