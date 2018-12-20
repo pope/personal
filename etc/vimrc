@@ -19,11 +19,10 @@ set ruler
 set shiftwidth=4
 set smartcase
 set smartindent
-set smarttab
 set softtabstop=4
 set tabstop=4
 set textwidth=0
-set ttymouse=xterm
+set ttymouse=xterm2
 set visualbell
 set t_vb=
 set wildmenu
@@ -41,12 +40,7 @@ else
     set clipboard+=unnamed
 endif
 
-" set vim to chdir for each file
-if exists('+autochdir')
-    set autochdir
-else
-    autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
-endif
+let g:ctrlp_working_path_mode='ra'
 
 execute pathogen#infect()
 
