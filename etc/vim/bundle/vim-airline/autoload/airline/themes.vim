@@ -38,6 +38,9 @@ endfunction
 
 function! airline#themes#patch(palette)
   for mode in keys(a:palette)
+    if mode == 'accents'
+      continue
+    endif
     if !has_key(a:palette[mode], 'airline_warning')
       let a:palette[mode]['airline_warning'] = [ '#000000', '#df5f00', 232, 166 ]
     endif
@@ -45,8 +48,7 @@ function! airline#themes#patch(palette)
       let a:palette[mode]['airline_error'] = [ '#000000', '#990000', 232, 160 ]
     endif
     if !has_key(a:palette[mode], 'airline_term')
-      "let a:palette[mode]['airline_term'] = [ '#9cffd3', '#202020', 85, 232]
-      let a:palette[mode]['airline_term'] = airline#highlighter#get_highlight('airline_c')
+      let a:palette[mode]['airline_term'] = [ '#9cffd3', '#202020', 85, 232]
     endif
   endfor
 

@@ -36,21 +36,27 @@ function! airline#init#bootstrap()
   call s:check_defined('g:airline_mode_map', {})
   call extend(g:airline_mode_map, {
         \ '__' : '------',
-        \ 'n'  : 'NORMAL',
-        \ 'i'  : 'INSERT',
-        \ 'R'  : 'REPLACE',
-        \ 'v'  : 'VISUAL',
-        \ 'V'  : 'V-LINE',
         \ 'c'  : 'COMMAND',
-        \ '' : 'V-BLOCK',
+        \ 'i'  : 'INSERT',
+        \ 'ic' : 'INSERT COMPL',
+        \ 'ix' : 'INSERT COMPL',
+        \ 'n'  : 'NORMAL',
+        \ 'ni' : '(INSERT)',
+        \ 'no' : 'OP PENDING',
+        \ 'R'  : 'REPLACE',
+        \ 'Rv' : 'V REPLACE',
         \ 's'  : 'SELECT',
         \ 'S'  : 'S-LINE',
         \ '' : 'S-BLOCK',
         \ 't'  : 'TERMINAL',
+        \ 'v'  : 'VISUAL',
+        \ 'V'  : 'V-LINE',
+        \ '' : 'V-BLOCK',
         \ }, 'keep')
 
   call s:check_defined('g:airline_theme_map', {})
   call extend(g:airline_theme_map, {
+        \ 'default': 'dark',
         \ '\CTomorrow': 'tomorrow',
         \ 'base16': 'base16',
         \ 'mo[l|n]okai': 'molokai',
@@ -70,7 +76,8 @@ function! airline#init#bootstrap()
           \ 'spell': 'SPELL',
           \ 'modified': '+',
           \ 'space': ' ',
-          \ 'keymap': 'Keymap:'
+          \ 'keymap': 'Keymap:',
+          \ 'ellipsis': '...'
           \  }, 'keep')
 
   if get(g:, 'airline_powerline_fonts', 0)
@@ -147,8 +154,11 @@ function! airline#init#bootstrap()
   call airline#parts#define_empty(['hunks', 'branch', 'obsession', 'tagbar',
         \ 'syntastic-warn', 'syntastic-err', 'eclim', 'whitespace','windowswap',
         \ 'ycm_error_count', 'ycm_warning_count', 'neomake_error_count',
-        \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count'])
+        \ 'neomake_warning_count', 'ale_error_count', 'ale_warning_count',
+        \ 'languageclient_error_count', 'languageclient_warning_count'])
   call airline#parts#define_text('capslock', '')
+  call airline#parts#define_text('gutentags', '')
+  call airline#parts#define_text('grepper', '')
   call airline#parts#define_text('xkblayout', '')
   call airline#parts#define_text('keymap', '')
 
@@ -156,9 +166,7 @@ function! airline#init#bootstrap()
 endfunction
 
 function! airline#init#gui_mode()
-  return ((has('nvim') && exists('$NVIM_TUI_ENABLE_TRUE_COLOR') && !exists("+termguicolors"))
-        \ || has('gui_running') || (has("termtruecolor") && &guicolors == 1) || (has("termguicolors") && &termguicolors == 1)) ?
-        \ 'gui' : 'cterm'
+  return has('gui_running') || (has("termguicolors") && &termguicolors == 1) ?  'gui' : 'cterm'
 endfunction
 
 function! airline#init#sections()
@@ -180,22 +188,22 @@ function! airline#init#sections()
     let g:airline_section_gutter = airline#section#create(['%='])
   endif
   if !exists('g:airline_section_x')
-    let g:airline_section_x = airline#section#create_right(['tagbar', 'filetype'])
+    let g:airline_section_x = airline#section#create_right(['tagbar', 'gutentags', 'grepper', 'filetype'])
   endif
   if !exists('g:airline_section_y')
     let g:airline_section_y = airline#section#create_right(['ffenc'])
   endif
   if !exists('g:airline_section_z')
-    if winwidth(0) > 80
+    if airline#util#winwidth() > 80
       let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%3p%%'.spc, 'linenr', 'maxlinenr', spc.':%3v'])
     else
       let g:airline_section_z = airline#section#create(['%3p%%'.spc, 'linenr',  ':%3v'])
     endif
   endif
   if !exists('g:airline_section_error')
-    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic-err', 'eclim', 'neomake_error_count', 'ale_error_count'])
+    let g:airline_section_error = airline#section#create(['ycm_error_count', 'syntastic-err', 'eclim', 'neomake_error_count', 'ale_error_count', 'languageclient_error_count'])
   endif
   if !exists('g:airline_section_warning')
-    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'whitespace'])
+    let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'languageclient_warning_count', 'whitespace'])
   endif
 endfunction

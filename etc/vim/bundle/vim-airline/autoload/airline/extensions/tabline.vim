@@ -33,6 +33,11 @@ function! s:toggle_off()
 endfunction
 
 function! s:toggle_on()
+  if get(g:, 'airline_statusline_ontop', 0)
+    call airline#extensions#tabline#enable()
+    let &tabline='%!airline#statusline('.winnr().')'
+    return
+  endif
   call airline#extensions#tabline#autoshow#on()
   call airline#extensions#tabline#tabs#on()
   call airline#extensions#tabline#buffers#on()
@@ -48,22 +53,36 @@ function! s:update_tabline()
     return
   endif
   let match = expand('<afile>')
-  let ignore_bufadd_pat = get(g:, 'airline#extensions#tabline#ignore_bufadd_pat',
-        \ '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree')
   if pumvisible()
     return
   elseif !get(g:, 'airline#extensions#tabline#enabled', 0)
     return
   " return, if buffer matches ignore pattern or is directory (netrw)
-  elseif empty(match)
-        \ || match(match, ignore_bufadd_pat) > -1
+  elseif empty(match) || airline#util#ignore_buf(match)
         \ || isdirectory(expand("<afile>"))
     return
   endif
-  doautocmd User BufMRUChange
+  call airline#util#doautocmd('BufMRUChange')
+  call airline#extensions#tabline#redraw()
+endfunction
+
+function! airline#extensions#tabline#redraw()
   " sometimes, the tabline is not correctly updated see #1580
   " so force redraw here
-  let &tabline = &tabline
+  if exists(":redrawtabline") == 2
+    redrawtabline
+  else
+  " Have to set a property equal to itself to get airline to re-eval.
+  " Setting `let &tabline=&tabline` destroys the cursor position so we
+  " need something less invasive.
+    let &ro = &ro
+  endif
+endfunction
+
+function! airline#extensions#tabline#enable()
+  if &lines > 3
+    set showtabline=2
+  endif
 endfunction
 
 function! airline#extensions#tabline#load_theme(palette)
@@ -181,7 +200,7 @@ function! airline#extensions#tabline#new_builder()
     let builder_context.left_alt_sep = get(g:, 'airline#extensions#tabline#left_alt_sep' , '|')
   endif
 
-  return airline#builder#new(builder_context)
+  return airline#extensions#tabline#builder#new(builder_context)
 endfunction
 
 function! airline#extensions#tabline#group_of_bufnr(tab_bufs, bufnr)
@@ -206,7 +225,7 @@ endfunction
 
 function! airline#extensions#tabline#add_label(dict, type)
   if get(g:, 'airline#extensions#tabline#show_tab_type', 1)
-    call a:dict.add_section_spaced('airline_tablabel', 
-          \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', '['.a:type.']'))
+    call a:dict.add_section_spaced('airline_tablabel',
+          \ get(g:, 'airline#extensions#tabline#'.a:type.'_label', a:type))
   endif
 endfunction
