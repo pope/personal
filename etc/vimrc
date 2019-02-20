@@ -46,6 +46,11 @@ let g:javascript_plugin_jsdoc = 1
 
 execute pathogen#infect()
 
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 let s:host_vimrc = $HOME . '/.' . hostname() . '.vimrc'
 if filereadable(s:host_vimrc)
     execute 'source ' . s:host_vimrc
