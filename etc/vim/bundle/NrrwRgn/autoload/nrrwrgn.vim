@@ -342,21 +342,35 @@ endfu
 fun! <sid>SetupBufWinLeave(instn) "{{{1
 	if !exists("#NrrwRgn".a:instn."#BufWinLeave#<buffer>") &&
 	\ exists("b:orig_buf") && bufloaded(b:orig_buf)
-		au BufWinLeave <buffer> :call s:NRBufWinLeave(b:nrrw_instn)
+		au BufWinLeave <buffer> :call s:NRBufWinLeave()
 	endif
 endfu
-fun! <sid>NRBufWinLeave(instn) "{{{1
+
+fun! <sid>SetupWinLeave(instn) "{{{1
+	if !exists("#NrrwRgn".a:instn."#WinLeave#<buffer>")
+		exe "au WinLeave <buffer> :call s:NRWinLeave(".a:instn.")"
+	endif
+endfu
+
+fun! <sid>NRWinLeave(instn) "{{{1
+	let orig_buf = s:nrrw_rgn_lines[a:instn].orig_buf
+	let orig_tab = tabpagenr()
+	call <sid>JumpToBufinTab(<sid>BufInTab(b:orig_buf), orig_buf, a:instn, s:window_type["source"])
+	:sil doautocmd <nomodeline> WinEnter
+endfu
+
+fun! <sid>NRBufWinLeave() "{{{1
+	let instn    = getbufvar(expand("<afile>"), 'nrrw_instn')
 	let nrw_buf  = bufnr('')
-	let orig_win = winnr()
-	let instn    = a:instn
-	let orig_buf = b:orig_buf
+	let orig_buf = getbufvar(expand("<afile>"), 'orig_buf')
 	let orig_tab = tabpagenr()
 	call <sid>JumpToBufinTab(<sid>BufInTab(orig_buf), orig_buf, instn, s:window_type["source"])
 	if !&modifiable
 		set modifiable
 	endif
 	call s:DeleteMatches(instn)
-	call <sid>JumpToBufinTab(orig_tab, nrw_buf, instn, s:window_type["target"])
+	" don't jump back to target window, it will be closed
+	"call <sid>JumpToBufinTab(orig_tab, nrw_buf, instn, s:window_type["target"])
 endfu
 
 fun! <sid>NrrwRgnAuCmd(instn) abort "{{{1
@@ -375,6 +389,7 @@ fun! <sid>NrrwRgnAuCmd(instn) abort "{{{1
 		" make sure the highlighting of the narrowed buffer will
 		" be removed"
 		call s:SetupBufWinLeave(b:nrrw_instn)
+		call s:SetupWinLeave(b:nrrw_instn)
 		call s:SetupBufWriteCmd(b:nrrw_instn)
 		aug end
 		au BufWinEnter <buffer> call s:SetupBufWriteCmd(b:nrrw_instn)
@@ -746,6 +761,10 @@ endfun
 
 fun! <sid>BufInTab(bufnr) abort "{{{1
 	" returns tabpage of buffer a:bufnr
+	if tabpagenr('$') == 1
+		" no tabpages present
+		return 1
+	endif
 	for tab in range(1,tabpagenr('$'))
 		if !empty(filter(tabpagebuflist(tab), 'v:val == a:bufnr'))
 			return tab
@@ -812,6 +831,7 @@ endfun
 
 fun! <sid>SetupBufLocalCommands() abort "{{{1
 	com! -buffer -bang WidenRegion :call nrrwrgn#WidenRegion(<bang>0)
+	com! -buffer -bang WR :WidenRegion<bang><cr>
 	com! -buffer NRSyncOnWrite  :call nrrwrgn#ToggleSyncWrite(1)
 	com! -buffer NRNoSyncOnWrite :call nrrwrgn#ToggleSyncWrite(0)
 endfun
@@ -1197,6 +1217,19 @@ fun! nrrwrgn#Prepare(bang) abort "{{{1
 	call add(s:nrrw_rgn_line[bufnr('%')], line('.'))
 endfun
 
+fun! nrrwrgn#Unprepare() abort "{{{1
+	if !exists("s:nrrw_rgn_line")
+		let s:nrrw_rgn_line={}
+	endif
+	if !has_key(s:nrrw_rgn_line, bufnr('%'))
+		let s:nrrw_rgn_line[bufnr('%')] = []
+	endif
+	let indx = index(s:nrrw_rgn_line[bufnr('%')], line('.'))
+	if indx > -1
+		call remove(s:nrrw_rgn_line[bufnr('%')], indx)
+	endif
+endfun
+
 fun! nrrwrgn#WidenRegion(force)  abort "{{{1
 	" a:force: original narrowed window is going to be closed
 	" so, clean up, don't renew highlighting, etc.
@@ -1409,39 +1442,57 @@ fun! nrrwrgn#WidenRegion(force)  abort "{{{1
 endfun
 
 fun! nrrwrgn#UnifiedDiff() abort "{{{1
+	" if the filetype is not of type diff, assume to create a diff for merge
+	" conflicts
+	let merge = &ft=~'diff' ? 0 : 1
+	let pat = merge ? ['^<\{7\}', '^=\{7\}', '^>\{7\}' ] : ['^@@','^@@']
 	let save_winposview=winsaveview()
 	let orig_win = winnr()
 	" close previous opened Narrowed buffers
 	silent! windo | if bufname('')=~'^NrrwRgn' &&
 			\ &diff |diffoff|q!|endif
+    " move back to original window (windo changes it)
+	if winnr() != orig_win
+		exe "noa" orig_win "wincmd w"
+	endif
 	" minimize Window
 	" this is disabled, because this might be useful, to see everything
 	"exe "vert resize -999999"
 	"setl winfixwidth
 	" move to current start of chunk of unified diff
-	if search('^@@', 'bcW') > 0
-		call search('^@@', 'bc')
+	if search(pat[0], 'bcW') > 0
+		call search(pat[0], 'bc')
 	else
-		call search('^@@', 'c')
+		call search(pat[0], 'c')
 	endif
 	let curpos=getpos('.')
 	for i in range(2)
-		if search('^@@', 'nW') > 0
-			.+,/@@/-NR
+		if merge
+			if i == 1
+				" move to start of other change below '=====' line
+				call search(pat[1], 'W')
+			endif
+			exe ".+,/".pat[i+1]."/-NR"
 		else
-			" Last chunk in file
-			.+,$NR
+			if search(pat[0], 'nW') > 0
+				exe ".+,/".pat[0]."/-NR"
+			else
+				" Last chunk in file
+				.+,$NR
+			endif
 		endif
 		" Split vertically
 		noa wincmd H
-		if i==0
-			silent! g/^-/d _
-		else
-			silent! g/^+/d _
+		if !merge
+			if i==0
+				silent! g/^-/d _
+			else
+				silent! g/^+/d _
+			endif
 		endif
 		diffthis
 		0
-		exe ":noa wincmd p"
+		noa wincmd p
 		call setpos('.', curpos)
 	endfor
 	call winrestview(save_winposview)

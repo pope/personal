@@ -1,11 +1,11 @@
-# vim-airline [![Build Status](https://travis-ci.org/vim-airline/vim-airline.png)](https://travis-ci.org/vim-airline/vim-airline)
+# vim-airline [![Build Status](https://travis-ci.org/vim-airline/vim-airline.svg?branch=master)](https://travis-ci.org/vim-airline/vim-airline) [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/cb%40256bit.org) [![reviewdog](https://github.com/vim-airline/vim-airline/workflows/reviewdog/badge.svg?branch=master&event=push)](https://github.com/vim-airline/vim-airline/actions?query=workflow%3Areviewdog+event%3Apush+branch%3Amaster)
 
-Lean &amp; mean status/tabline for vim that's light as air.
+Lean & mean status/tabline for vim that's light as air.
 
 ![img](https://github.com/vim-airline/vim-airline/wiki/screenshots/demo.gif)
 
-When the plugin is correctly loaded, Vim will draw a nice statusline at the
-bottom of each window.
+When the plugin is correctly loaded, there will be a nice statusline at the
+bottom of each vim window.
 
 That line consists of several sections, each one displaying some piece of
 information. By default (without configuration) this line will look like this:
@@ -16,7 +16,7 @@ information. By default (without configuration) this line will look like this:
 |~                                                                            |
 |~                     VIM - Vi IMproved                                      |
 |~                                                                            |
-|~                       version 8.0                                          |
+|~                       version 8.2                                          |
 |~                    by Bram Moolenaar et al.                                |
 |~           Vim is open source and freely distributable                      |
 |~                                                                            |
@@ -36,7 +36,7 @@ The statusline is the colored line at the bottom, which contains the sections
 section|meaning (example)
 -------|------------------
   A    | displays the mode + additional flags like crypt/spell/paste (INSERT)
-  B    | VCS information (branch, hunk summary) (master)
+  B    | VCS information - branch, hunk summary (master)
   C    | filename + read-only flag (~/.vim/vimrc RO)
   X    | filetype  (vim)
   Y    | file encoding[fileformat] (utf-8[unix])
@@ -68,9 +68,9 @@ For a better look, those sections can be colored differently, depending on vario
    [lawrencium][21], [virtualenv][31], [tmuxline][35], [taboo.vim][37],
    [ctrlspace][38], [vim-bufmru][47], [vimagit][50], [denite][51] and more.
 *  Looks good with regular fonts and provides configuration points so you can use unicode or powerline symbols.
-*  Optimized for speed; it loads in under a millisecond.
+*  Optimized for speed - loads in under a millisecond.
 *  Extensive suite of themes for popular color schemes including [solarized][23] (dark and light), [tomorrow][24] (all variants), [base16][32] (all variants), [molokai][25], [jellybeans][26] and others.
- Note these are now external to this plugin. See [below][46] for detail.
+ Note these are now external to this plugin. More details can be found in the [themes repository][46].
 *  Supports 7.2 as the minimum Vim version.
 *  The master branch tries to be as stable as possible, and new features are merged in only after they have gone through a [full regression test][33].
 *  Unit testing suite.
@@ -93,7 +93,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 ```
 
-See https://github.com/vim-airline/vim-airline-themes for more.
+See [vim-airline-themes][46] for more.
 
 ## Automatic truncation
 
@@ -158,7 +158,7 @@ vim-airline integrates with a variety of plugins out of the box.  These extensio
 #### [syntastic][5]
 ![image](https://f.cloud.github.com/assets/306502/962864/9824c484-04f7-11e3-9928-da94f8c7da5a.png)
 
-#### hunks ([vim-gitgutter][29] & [vim-signify][30])
+#### hunks ([vim-gitgutter][29] & [vim-signify][30] & [coc-git][59])
 ![image](https://f.cloud.github.com/assets/306502/995185/73fc7054-09b9-11e3-9d45-618406c6ed98.png)
 
 #### [vimagit][50]
@@ -247,7 +247,7 @@ This plugin follows the standard runtime path structure, and as such it can be i
 | [VAM][22] | `call vam#ActivateAddons([ 'vim-airline' ])` |
 | [Dein][52] | `call dein#add('vim-airline/vim-airline')` |
 | [minpac][55] | `call minpac#add('vim-airline/vim-airline')` |
-| pack feature (native Vim 8 package feature)| `git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline`<br/>Remember to run `:helptags` to generate help tags |
+| pack feature (native Vim 8 package feature)| `git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline`<br/>Remember to run `:helptags ~/.vim/pack/dist/start/vim-airline/doc` to generate help tags |
 | manual | copy all of the files into your `~/.vim` directory |
 
 # Documentation
@@ -266,7 +266,7 @@ Solutions to common problems can be found in the [Wiki][27].
 
 # Performance
 
-Whoa!  Everything got slow all of a sudden...
+Whoa! Everything got slow all of a sudden...
 
 vim-airline strives to make it easy to use out of the box, which means that by default it will look for all compatible plugins that you have installed and enable the relevant extension.
 
@@ -292,7 +292,7 @@ If you are interested in becoming a maintainer (we always welcome more maintaine
 
 # License
 
-MIT License. Copyright (c) 2013-2017 Bailey Ling & Contributors.
+[MIT License][58]. Copyright (c) 2013-2020 Bailey Ling & Contributors.
 
 [1]: https://github.com/Lokaltog/vim-powerline
 [2]: https://github.com/Lokaltog/powerline
@@ -311,7 +311,7 @@ MIT License. Copyright (c) 2013-2017 Bailey Ling & Contributors.
 [15]: https://github.com/techlivezheng/vim-plugin-minibufexpl
 [16]: https://github.com/sjl/gundo.vim
 [17]: https://github.com/mbbill/undotree
-[18]: https://github.com/scrooloose/nerdtree
+[18]: https://github.com/preservim/nerdtree
 [19]: https://github.com/majutsushi/tagbar
 [20]: https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
 [21]: https://bitbucket.org/ludovicchabant/vim-lawrencium
@@ -331,7 +331,7 @@ MIT License. Copyright (c) 2013-2017 Bailey Ling & Contributors.
 [35]: https://github.com/edkolev/tmuxline.vim
 [36]: https://github.com/edkolev/promptline.vim
 [37]: https://github.com/gcmt/taboo.vim
-[38]: https://github.com/szw/vim-ctrlspace
+[38]: https://github.com/vim-ctrlspace/vim-ctrlspace
 [39]: https://github.com/tomtom/quickfixsigns_vim
 [40]: https://github.com/junegunn/vim-plug
 [41]: https://github.com/bling
@@ -339,7 +339,7 @@ MIT License. Copyright (c) 2013-2017 Bailey Ling & Contributors.
 [43]: https://github.com/vim-airline/vim-airline/wiki/Becoming-a-Maintainer
 [44]: https://github.com/mhartington
 [45]: https://github.com/vim-airline/vim-airline/commit/d7fd8ca649e441b3865551a325b10504cdf0711b
-[46]: https://github.com/vim-airline/vim-airline#themes
+[46]: https://github.com/vim-airline/vim-airline-themes#vim-airline-themes--
 [47]: https://github.com/mildred/vim-bufmru
 [48]: https://github.com/ierton/xkb-switch
 [49]: https://github.com/vovkasm/input-source-switcher
@@ -351,3 +351,5 @@ MIT License. Copyright (c) 2013-2017 Bailey Ling & Contributors.
 [55]: https://github.com/k-takata/minpac/
 [56]: https://github.com/vim-airline/vim-airline-themes/blob/master/autoload/airline/themes/dark_minimal.vim
 [57]: https://github.com/autozimu/LanguageClient-neovim
+[58]: https://github.com/vim-airline/vim-airline/blob/master/LICENSE
+[59]: https://github.com/neoclide/coc-git
