@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 """Python module for downloading files."""
 
 import cStringIO as StringIO
@@ -31,16 +30,16 @@ def download_file(url, filename=None, force=False):
   Attributes:
     url: The string URL to download.
     filename: The name of the file to save. If not supplied, derived from the
-        URL.
+      URL.
     force: If set, will re-download the file even if it exists already.
   """
   if not filename:
     parts = urlparse.urlparse(url)
     filename = os.path.basename(parts.path)
   if os.path.isfile(filename) and not force:
-    logging.debug('Skipping download. %s already exists.' % filename)
+    logging.debug('Skipping download. %s already exists.', filename)
     return
-  logging.info('Downloading %s and saving to %s' % (url, filename))
+  logging.info('Downloading %s and saving to %s', url, filename)
   resp = urllib2.urlopen(url)
   with open(filename, 'w') as result:
     shutil.copyfileobj(resp, result)
@@ -60,11 +59,11 @@ def download_tar(url, base_dir, force=False):
     force: If set, will re-download the file even if it exists already.
   """
   if os.path.exists(base_dir) and not force:
-    logging.debug('Skipping download. %s already exists.' % base_dir)
+    logging.debug('Skipping download. %s already exists.', base_dir)
     return
   elif os.path.exists(base_dir):
     shutil.rmtree(base_dir)
-  logging.info('Downloading %s archive.' % url)
+  logging.info('Downloading %s archive.', url)
   resp = urllib2.urlopen(url)
   fp = StringIO.StringIO(resp.read())
   os.makedirs(base_dir)
@@ -87,7 +86,7 @@ def download_tar(url, base_dir, force=False):
           with open(newname, 'w') as f:
             f.write(tfile.extractfile(tarinfo).read())
         else:
-          logging.warning('Unable to handle %s' % name)
+          logging.warning('Unable to handle %s', name)
     os.path.walk(base_dir, _delete_removable_files, None)
   except:
     logging.error('Unable to extract archive.', exc_info=True)
@@ -97,8 +96,10 @@ def download_tar(url, base_dir, force=False):
 def github_download_file(repo, user, version, filename=None, force=False):
   if not filename:
     filename = '%s.el' % repo
-  download_file(_GITHUB_FILE_FORMAT % (user, repo, version, filename),
-                filename=filename, force=force)
+  download_file(
+      _GITHUB_FILE_FORMAT % (user, repo, version, filename),
+      filename=filename,
+      force=force)
 
 
 def wiki_download_file(name, force=False):
@@ -129,7 +130,10 @@ class DownloadManager(object):
       fn = self._q.get()
       if not fn:
         return
-      fn()
+      try:
+        fn()
+      except:
+        logging.error('Unable to process worker.', exc_info=True)
       self._q.task_done()
 
   def download(self):
@@ -160,6 +164,7 @@ class DownloadManager(object):
   def wiki_download_file(self, *args, **kwargs):
     kwargs['force'] = kwargs.get('force', self._force)
     self._q.put(functools.partial(wiki_download_file, *args, **kwargs))
+
 
 # Local Variables:
 # python-indent-offset: 2
