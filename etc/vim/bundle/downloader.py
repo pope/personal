@@ -4,7 +4,7 @@
 import logging
 import sys
 
-sys.path.insert(0, 'misc')
+sys.path.insert(0, '../../emacs.d/libs/misc')
 import download
 
 logging.basicConfig(
@@ -37,5 +37,6 @@ dm.github_download_repo('vim-javascript', 'pangloss', 'master')
 dm.github_download_repo('vim-jsx-pretty', 'MaxMEllon', 'v3.0.0')
 dm.github_download_repo('vim-markdown', 'plasticboy', 'master')
 dm.github_download_repo('vim-protobuf', 'uarun', 'master')
+dm.github_download_repo('vim-tmux-navigator', 'christoomey', 'master')
 dm.github_download_repo('yats.vim', 'HerringtonDarkholme', 'master')
 dm.download()
