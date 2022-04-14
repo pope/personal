@@ -1,17 +1,17 @@
 #!/usr/bin/python
 """Python module for downloading files."""
 
-import cStringIO as StringIO
+import io
 import functools
 import logging
 import os
 import os.path
-import Queue
+import queue
 import shutil
 import tarfile
 import threading
-import urllib2
-import urlparse
+import urllib.request, urllib.error, urllib.parse
+import urllib.parse
 
 _GITHUB_FILE_FORMAT = 'https://github.com/%s/%s/raw/%s/%s'
 _GITHUB_ARCHIVE_FORMAT = 'https://github.com/%s/%s/tarball/%s'
@@ -34,13 +34,13 @@ def download_file(url, filename=None, force=False):
     force: If set, will re-download the file even if it exists already.
   """
   if not filename:
-    parts = urlparse.urlparse(url)
+    parts = urllib.parse.urlparse(url)
     filename = os.path.basename(parts.path)
   if os.path.isfile(filename) and not force:
     logging.debug('Skipping download. %s already exists.', filename)
     return
   logging.info('Downloading %s and saving to %s', url, filename)
-  resp = urllib2.urlopen(url)
+  resp = urllib.request.urlopen(url)
   with open(filename, 'w') as result:
     shutil.copyfileobj(resp, result)
 
@@ -64,8 +64,8 @@ def download_tar(url, base_dir, force=False):
   elif os.path.exists(base_dir):
     shutil.rmtree(base_dir)
   logging.info('Downloading %s archive.', url)
-  resp = urllib2.urlopen(url)
-  fp = StringIO.StringIO(resp.read())
+  resp = urllib.request.urlopen(url)
+  fp = io.BytesIO(resp.read())
   os.makedirs(base_dir)
   try:
     with tarfile.open(fileobj=fp) as tfile:
@@ -83,11 +83,11 @@ def download_tar(url, base_dir, force=False):
         if tarinfo.isdir():
           continue
         elif tarinfo.isfile():
-          with open(newname, 'w') as f:
+          with open(newname, 'wb') as f:
             f.write(tfile.extractfile(tarinfo).read())
         else:
           logging.warning('Unable to handle %s', name)
-    os.path.walk(base_dir, _delete_removable_files, None)
+    os.walk(base_dir, _delete_removable_files, None)
   except:
     logging.error('Unable to extract archive.', exc_info=True)
     shutil.rmtree(base_dir)
@@ -121,7 +121,7 @@ class DownloadManager(object):
   """A manager to thread the downloads of the elisp files."""
 
   def __init__(self, num_threads, force=False):
-    self._q = Queue.Queue()
+    self._q = queue.Queue()
     self._num_threads = num_threads
     self._force = force
 
@@ -137,12 +137,12 @@ class DownloadManager(object):
       self._q.task_done()
 
   def download(self):
-    for i in xrange(self._num_threads):
+    for i in range(self._num_threads):
       t = threading.Thread(target=self._worker)
       t.start()
     self._q.join()
     # Send None as a shutdown sentinel.
-    for i in xrange(self._num_threads):
+    for i in range(self._num_threads):
       self._q.put(None)
 
   def download_file(self, *args, **kwargs):
