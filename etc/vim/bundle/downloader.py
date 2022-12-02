@@ -11,7 +11,6 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)s: %(message)s', level=logging.INFO)
 
 dm = download.DownloadManager(4, force=False)
-dm.github_download_repo('MatchTagAlways', 'Valloric', 'master')
 dm.github_download_repo('NrrwRgn', 'chrisbra', 'master')
 dm.github_download_repo('base16-vim', 'chriskempson', 'master')
 dm.github_download_repo('bufexplorer', 'jlanzarotta', 'v7.4.21')
