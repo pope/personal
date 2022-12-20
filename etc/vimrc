@@ -36,6 +36,12 @@ set splitbelow splitright
 au BufRead,BufNewFile * match ErrorMsg  /[ \t]\+$/
 "au BufRead,BufNewFile * match ErrorMsg   /\%>80v.\+/
 
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+
 " Things to think about when using xterm
 if has("xterm_clipboard")
     behave xterm
@@ -50,6 +56,12 @@ let g:ctrlp_working_path_mode='ra'
 let g:javascript_plugin_jsdoc = 1
 
 execute pathogen#infect()
+
+if exists('$BASE16_THEME')
+      \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+    let base16colorspace=256
+    colorscheme base16-$BASE16_THEME
+endif
 
 if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
