@@ -32,6 +32,12 @@ return require('packer').startup(function(use)
   })
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
 
   use {
     'VonHeikemen/lsp-zero.nvim',
