@@ -18,3 +18,4 @@ etc/emacs.d/url
 etc/emacs.d/recentf
 etc/vim/.netrwhist
 etc/vim/cache/
+etc/nvim/plugin
