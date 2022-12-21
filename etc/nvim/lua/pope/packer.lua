@@ -32,8 +32,18 @@ return require('packer').startup(function(use)
   }
 
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
-  use('nvim-treesitter/playground')
-  use('p00f/nvim-ts-rainbow')
+  use({
+    'nvim-treesitter/playground',
+    after = 'nvim-treesiter',
+  })
+  use({
+    'p00f/nvim-ts-rainbow',
+    after = 'nvim-treesitter',
+  })
+  use({
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    after = 'nvim-treesitter',
+  })
 
   use('mbbill/undotree')
 
