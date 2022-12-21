@@ -80,4 +80,9 @@ return require('packer').startup(function(use)
   use('edkolev/tmuxline.vim')
 
   use('gpanders/editorconfig.nvim')
+
+  use {
+    'akinsho/bufferline.nvim', tag = "v3.*",
+    requires = 'nvim-tree/nvim-web-devicons'
+  }
 end)
