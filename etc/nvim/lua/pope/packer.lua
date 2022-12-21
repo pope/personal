@@ -67,4 +67,8 @@ return require('packer').startup(function(use)
       {'rafamadriz/friendly-snippets'},
     }
   }
+
+  use('vim-airline/vim-airline')
+  use('vim-airline/vim-airline-themes')
+  use('edkolev/tmuxline.vim')
 end)
