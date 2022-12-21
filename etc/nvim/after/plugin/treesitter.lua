@@ -69,7 +69,7 @@ require('nvim-treesitter.configs').setup {
   },
 
   indent = { enable = true, disable = { 'python' } },
-  
+
   rainbow = {
     enable = true,
     extended_mode = true,
