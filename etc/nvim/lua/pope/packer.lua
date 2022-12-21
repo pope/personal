@@ -35,11 +35,6 @@ return require('packer').startup(function(use)
   use('nvim-treesitter/playground')
   use('p00f/nvim-ts-rainbow')
 
-  use({
-    'ThePrimeagen/harpoon',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  })
-
   use('mbbill/undotree')
 
   -- Git
