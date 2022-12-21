@@ -1,2 +1,4 @@
-vim.g.mapleader = "\\"
-vim.keymap.set("n", "<leader>pv", vim.cmd.NvimTreeToggle)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+vim.keymap.set('n', '<leader>pv', vim.cmd.NvimTreeToggle)
