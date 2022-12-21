@@ -33,11 +33,16 @@ return require('packer').startup(function(use)
 
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use('nvim-treesitter/playground')
+  use('p00f/nvim-ts-rainbow')
+
   use({
     'ThePrimeagen/harpoon',
     requires = { {'nvim-lua/plenary.nvim'} }
   })
+
   use('mbbill/undotree')
+
+  -- Git
   use('tpope/vim-fugitive')
   use {
     'lewis6991/gitsigns.nvim',
@@ -46,6 +51,7 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- LSP
   use {
     'VonHeikemen/lsp-zero.nvim',
     requires = {
@@ -68,7 +74,10 @@ return require('packer').startup(function(use)
     }
   }
 
+  -- Airline
   use('vim-airline/vim-airline')
   use('vim-airline/vim-airline-themes')
   use('edkolev/tmuxline.vim')
+
+  use('gpanders/editorconfig.nvim')
 end)

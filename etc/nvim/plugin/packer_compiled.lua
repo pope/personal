@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/Users/pope/.local/share/nvim/site/pack/packer/start/dracula.nvim",
     url = "https://github.com/Mofiqul/dracula.nvim"
   },
+  ["editorconfig.nvim"] = {
+    loaded = true,
+    path = "/Users/pope/.local/share/nvim/site/pack/packer/start/editorconfig.nvim",
+    url = "https://github.com/gpanders/editorconfig.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/Users/pope/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -159,6 +164,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/pope/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-ts-rainbow"] = {
+    loaded = true,
+    path = "/Users/pope/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
+    url = "https://github.com/p00f/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
