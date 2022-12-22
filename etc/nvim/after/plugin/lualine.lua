@@ -1,5 +1,5 @@
 require('lualine').setup({
-  extensions = { 'fugitive', 'nvim-tree' },
+  extensions = { 'fugitive', 'nvim-tree', 'toggleterm' },
   options = {
     --disabled_filetypes = {
     --  statusline = { 'NvimTree' },
