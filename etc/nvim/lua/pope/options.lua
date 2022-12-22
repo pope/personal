@@ -26,7 +26,7 @@ vim.opt.cursorline = true
 -- appearance
 vim.opt.termguicolors = true
 vim.opt.signcolumn = 'yes'
-vim.opt.colorcolumn = '80'
+vim.opt.colorcolumn = '80,100'
 
 -- input handling
 vim.opt.mouse = 'a'
