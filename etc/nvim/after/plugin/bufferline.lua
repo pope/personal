@@ -10,3 +10,4 @@ require("bufferline").setup({
     },
   },
 })
+

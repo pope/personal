@@ -90,10 +90,10 @@ return require('packer').startup(function(use)
     }
   }
 
-  -- Airline
-  use('vim-airline/vim-airline')
-  use('vim-airline/vim-airline-themes')
-  use('edkolev/tmuxline.vim')
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+  }
 
   use('gpanders/editorconfig.nvim')
 

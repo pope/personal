@@ -50,6 +50,3 @@ vim.opt.listchars:append({
 })
 vim.opt.list = false
 
--- Airline
-vim.g.airline_theme = 'hybrid'  -- sol
-
