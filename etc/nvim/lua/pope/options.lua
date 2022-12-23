@@ -7,7 +7,7 @@ local indendation_width = 2
 vim.opt.tabstop = indendation_width
 vim.opt.shiftwidth = indendation_width
 vim.opt.softtabstop = indendation_width
-vim.opt.expandtab = true
+vim.opt.expandtab = false
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
@@ -49,4 +49,3 @@ vim.opt.listchars:append({
   trail = '·',
 })
 vim.opt.list = false
-
