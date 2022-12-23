@@ -27,13 +27,12 @@ return require('packer').startup(function(use)
 	use({
 		'rose-pine/neovim',
 		as = 'rose-pine',
-		config = function()
-			vim.cmd('colorscheme rose-pine')
-		end
 	})
 	use 'Mofiqul/dracula.nvim'
 
 	use 'nvim-tree/nvim-web-devicons'
+
+	-- Windowing goodness
 	use {
 		'nvim-tree/nvim-tree.lua',
 		requires = {
@@ -41,7 +40,16 @@ return require('packer').startup(function(use)
 		},
 		tag = 'nightly' -- optional, updated every week. (see issue #1193)
 	}
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+	}
+	use {
+		'akinsho/bufferline.nvim', tag = "v3.*",
+		requires = 'nvim-tree/nvim-web-devicons'
+	}
 
+	-- Treesitter
 	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 	use({
 		'nvim-treesitter/playground',
@@ -55,8 +63,6 @@ return require('packer').startup(function(use)
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		after = 'nvim-treesitter',
 	})
-
-	use('mbbill/undotree')
 
 	-- Git
 	use('tpope/vim-fugitive')
@@ -90,17 +96,12 @@ return require('packer').startup(function(use)
 		}
 	}
 
-	use {
-		'nvim-lualine/lualine.nvim',
-		requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-	}
 
+	-- Automatic editor settings
+	use('tpope/vim-sleuth')
 	use('gpanders/editorconfig.nvim')
 
-	use {
-		'akinsho/bufferline.nvim', tag = "v3.*",
-		requires = 'nvim-tree/nvim-web-devicons'
-	}
+	use('mbbill/undotree')
 
 	use 'christoomey/vim-tmux-navigator'
 
