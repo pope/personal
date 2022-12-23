@@ -4,7 +4,7 @@ vim.keymap.set('n', '<leader><space>', builtin.oldfiles, { desc = '[?] Find rece
 vim.keymap.set('n', '<leader>/', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
 vim.keymap.set('n', '<leader>sG', function()
-  builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end, { desc = '[S]earch [G]rep' })
 
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })

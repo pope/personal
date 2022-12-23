@@ -41,11 +41,11 @@ vim.opt.splitright = true
 
 -- list chars
 vim.opt.listchars:append({
-  eol = '¬',
-  extends = '→',
-  nbsp = '+',
-  precedes = '←',
-  tab = '»·',
-  trail = '·',
+	eol = '¬',
+	extends = '→',
+	nbsp = '+',
+	precedes = '←',
+	tab = '»·',
+	trail = '·',
 })
 vim.opt.list = false
