@@ -102,6 +102,7 @@ return require('packer').startup(function(use)
 	use('gpanders/editorconfig.nvim')
 
 	use('mbbill/undotree')
+	use('numToStr/Comment.nvim')
 
 	use 'christoomey/vim-tmux-navigator'
 
