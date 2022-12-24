@@ -4,6 +4,12 @@ if not status_ok then
 	return
 end
 
+local status_ok, fidget = pcall(require, 'fidget')
+if not status_ok then
+	print('fidget not installed')
+	return
+end
+
 lsp.preset('recommended')
 
 lsp.ensure_installed({
@@ -20,6 +26,8 @@ capabilities.textDocument.foldingRange = {
 require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 lsp.nvim_workspace()
+
+fidget.setup()
 
 lsp.setup()
 

@@ -102,7 +102,7 @@ return require('packer').startup(function(use)
 			{ 'rafamadriz/friendly-snippets' },
 		}
 	}
-
+	use 'j-hui/fidget.nvim'
 
 	-- Automatic editor settings
 	use('tpope/vim-sleuth')
