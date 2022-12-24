@@ -52,6 +52,7 @@ return require('packer').startup(function(use)
 		'akinsho/bufferline.nvim', tag = "v3.*",
 		requires = 'nvim-tree/nvim-web-devicons'
 	}
+	use 'lukas-reineke/indent-blankline.nvim'
 
 	-- Treesitter
 	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })

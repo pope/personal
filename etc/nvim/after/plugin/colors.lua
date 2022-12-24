@@ -5,22 +5,26 @@ if not status_ok then
 end
 
 rose_pine.setup({
+	bold_vert_split = false,
 	dark_variant = 'main',
-	disable_background = true
+	dim_nc_background = false,
+	disable_background = true,
+	disable_float_background = false,
 })
 
 function ColorMyPencils(color)
 	color = color or 'rose-pine'
 	vim.cmd.colorscheme(color)
 
-	vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-	vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-
 	if color == 'rose-pine' then
-		if vim.g.rose_pine_variant == 'main' and vim.o.background == 'dark' then
-			vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#21202e' })
-			vim.api.nvim_set_hl(0, 'NonText', { fg = '#403d52', bg = 'none' })
-		end
+		local p = require('rose-pine.palette')
+		local blend = require('rose-pine.util').blend
+
+		vim.api.nvim_set_hl(0, 'ColorColumn', { bg = p.highlight_low })
+		vim.api.nvim_set_hl(0, 'NonText', {
+			fg = blend(p.highlight_med, p.highlight_low, .4),
+			bg = p.none,
+		})
 	end
 end
 
