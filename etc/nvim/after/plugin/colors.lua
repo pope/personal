@@ -4,12 +4,24 @@ if not status_ok then
 	return
 end
 
+local status_ok, nightfox = pcall(require, 'nightfox')
+if not status_ok then
+	print('nightfox not installed')
+	return
+end
+
 rose_pine.setup({
 	bold_vert_split = false,
 	dark_variant = 'main',
 	dim_nc_background = false,
 	disable_background = true,
 	disable_float_background = false,
+})
+
+nightfox.setup({
+	options = {
+		transparent = true,
+	},
 })
 
 function ColorMyPencils(color)

@@ -33,6 +33,7 @@ return require('packer').startup(function(use)
 		'hachy/eva01.vim',
 		branch = 'main'
 	}
+	use 'EdenEast/nightfox.nvim'
 
 	use 'nvim-tree/nvim-web-devicons'
 
