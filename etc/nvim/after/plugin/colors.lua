@@ -17,8 +17,10 @@ function ColorMyPencils(color)
 	vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 
 	if color == 'rose-pine' then
-		vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#21202e' })
-		vim.api.nvim_set_hl(0, 'NonText', { fg = '#403d52', bg = 'none' })
+		if vim.g.rose_pine_variant == 'main' and vim.o.background == 'dark' then
+			vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#21202e' })
+			vim.api.nvim_set_hl(0, 'NonText', { fg = '#403d52', bg = 'none' })
+		end
 	end
 end
 
