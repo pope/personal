@@ -55,6 +55,7 @@ return require('packer').startup(function(use)
 	}
 	use 'lukas-reineke/indent-blankline.nvim'
 	use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+	use 'folke/zen-mode.nvim'
 
 	-- Treesitter
 	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
