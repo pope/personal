@@ -33,7 +33,8 @@ treesitter_configs.setup {
 		'toml',
 		'tsx',
 		'typescript',
-		'yaml'
+		'vim',
+		'yaml',
 	},
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)
