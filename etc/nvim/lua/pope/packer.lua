@@ -53,6 +53,7 @@ return require('packer').startup(function(use)
 		requires = 'nvim-tree/nvim-web-devicons'
 	}
 	use 'lukas-reineke/indent-blankline.nvim'
+	use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
 
 	-- Treesitter
 	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
