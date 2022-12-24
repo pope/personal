@@ -29,6 +29,10 @@ return require('packer').startup(function(use)
 		as = 'rose-pine',
 	})
 	use 'Mofiqul/dracula.nvim'
+	use {
+		'hachy/eva01.vim',
+		branch = 'main'
+	}
 
 	use 'nvim-tree/nvim-web-devicons'
 
