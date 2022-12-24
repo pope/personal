@@ -1,5 +1,6 @@
 local status_ok, toggleterm = pcall(require, 'toggleterm')
 if not status_ok then
+	print('toggleterm not installed')
 	return
 end
 
