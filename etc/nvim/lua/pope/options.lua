@@ -11,7 +11,8 @@ vim.opt.expandtab = false
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
--- line wrapping
+-- word wrapping
+vim.opt.breakindent = true
 vim.opt.wrap = false
 
 -- search settings
@@ -20,17 +21,16 @@ vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- cursor
-vim.opt.cursorline = true
-
 -- appearance
 vim.opt.termguicolors = true
 vim.opt.signcolumn = 'yes'
 vim.opt.colorcolumn = '80,100'
+vim.opt.cursorline = true
 
 -- input handling
 vim.opt.mouse = 'a'
 vim.opt.backspace = 'indent,eol,start'
+vim.opt.scrolloff = 8
 
 -- clipboard
 vim.opt.clipboard:append('unnamedplus')
@@ -49,3 +49,6 @@ vim.opt.listchars:append({
 	trail = '·',
 })
 vim.opt.list = false
+
+-- responsiveness
+vim.opt.updatetime = 250

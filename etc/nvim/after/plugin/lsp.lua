@@ -1,11 +1,11 @@
-local status_ok, lsp = pcall(require, 'lsp-zero')
-if not status_ok then
+local lsp_status_ok, lsp = pcall(require, 'lsp-zero')
+if not lsp_status_ok then
 	print('lsp-zero not installed')
 	return
 end
 
-local status_ok, fidget = pcall(require, 'fidget')
-if not status_ok then
+local fidget_status_ok, fidget = pcall(require, 'fidget')
+if not fidget_status_ok then
 	print('fidget not installed')
 	return
 end
@@ -27,8 +27,30 @@ require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 lsp.nvim_workspace()
 
-fidget.setup()
+lsp.on_attach(function(client, bufnr)
+	local keymap_opts = { buffer = bufnr, remap = false }
 
+	-- Document formatting.
+	vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, keymap_opts)
+
+	-- Show the diagnostic message on hover.
+	vim.api.nvim_create_autocmd("CursorHold", {
+		buffer = bufnr,
+		callback = function()
+			vim.diagnostic.open_float(nil, {
+				focusable = false,
+				close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+				source = 'always',
+				scope = 'cursor',
+			})
+		end
+	})
+end)
+
+fidget.setup()
 lsp.setup()
 
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()]]
+vim.diagnostic.config({
+	-- Enable warnings inline.
+	virtual_text = true,
+})
