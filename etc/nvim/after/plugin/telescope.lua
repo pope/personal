@@ -4,8 +4,12 @@ if not status_ok then
 	return
 end
 
-vim.keymap.set('n', '<leader><space>', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader>/', builtin.buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader><space>', builtin.oldfiles, { desc = '[ ] Find recently opened files' })
+vim.keymap.set('n', '<leader>?', builtin.buffers, { desc = '[?] Find existing buffers' })
+vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, {
+	desc = '[/] Fuzzily search in current buffer]',
+})
+vim.keymap.set('n', '<leader>r', builtin.resume, { desc = '[R]esume find' })
 
 vim.keymap.set('n', '<leader>sG', function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
