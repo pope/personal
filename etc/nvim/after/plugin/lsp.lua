@@ -13,7 +13,7 @@ end
 lsp.preset('recommended')
 
 lsp.ensure_installed({
-	'sumneko_lua'
+	'sumneko_lua',
 })
 
 -- code folding
@@ -32,6 +32,10 @@ lsp.on_attach(function(client, bufnr)
 
 	-- Document formatting.
 	vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, keymap_opts)
+	vim.keymap.set('n', '<leader>F', function()
+		vim.lsp.buf.format()
+		vim.api.nvim_command('write')
+	end, keymap_opts)
 
 	-- Show the diagnostic message on hover.
 	vim.api.nvim_create_autocmd("CursorHold", {
