@@ -105,6 +105,8 @@ return require('packer').startup(function(use)
 	}
 	use 'j-hui/fidget.nvim'
 
+	use 'mfussenegger/nvim-lint'
+
 	-- Automatic editor settings
 	use('tpope/vim-sleuth')
 	use('gpanders/editorconfig.nvim')
