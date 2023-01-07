@@ -50,5 +50,10 @@ vim.opt.listchars:append({
 })
 vim.opt.list = false
 
+-- code complete
+vim.opt.completeopt:append('menu')
+vim.opt.completeopt:append('menuone')
+vim.opt.completeopt:append('noselect')
+
 -- responsiveness
 vim.opt.updatetime = 250
