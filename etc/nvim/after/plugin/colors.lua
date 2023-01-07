@@ -1,11 +1,11 @@
-local status_ok, rose_pine = pcall(require, 'rose-pine')
-if not status_ok then
+local rp_status_ok, rose_pine = pcall(require, 'rose-pine')
+if not rp_status_ok then
 	print('rose-pine not installed')
 	return
 end
 
-local status_ok, nightfox = pcall(require, 'nightfox')
-if not status_ok then
+local nf_status_ok, nightfox = pcall(require, 'nightfox')
+if not nf_status_ok then
 	print('nightfox not installed')
 	return
 end
