@@ -28,6 +28,7 @@ local modes = {
 	['r'] = auto.replace.a.bg,
 	['t'] = auto.command.a.bg,
 }
+vim.api.nvim_create_augroup('pope_lualine', {})
 vim.api.nvim_create_autocmd('ModeChanged', {
 	callback = function()
 		local mode = vim.api.nvim_get_mode().mode
@@ -37,4 +38,5 @@ vim.api.nvim_create_autocmd('ModeChanged', {
 		local opts = vim.tbl_extend('keep', { foreground = color }, base_highlight)
 		vim.api.nvim_set_hl(0, 'CursorLineNr', opts)
 	end,
+	group = 'pope_lualine',
 })
