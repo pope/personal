@@ -12,7 +12,8 @@ vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, {
 vim.keymap.set('n', '<leader>r', builtin.resume, { desc = '[R]esume find' })
 
 vim.keymap.set('n', '<leader>sG', function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	local search = vim.fn.input({ prompt = "Grep > " })
+	builtin.grep_string({ search = search })
 end, { desc = '[S]earch [G]rep' })
 
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
