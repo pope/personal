@@ -53,6 +53,12 @@ return require('packer').startup(function(use)
 	use 'lukas-reineke/indent-blankline.nvim'
 	use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
 	use 'folke/zen-mode.nvim'
+	use {
+		'karb94/neoscroll.nvim',
+		config = function()
+			require('neoscroll').setup()
+		end,
+	}
 
 	-- Treesitter
 	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
