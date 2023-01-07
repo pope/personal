@@ -30,7 +30,7 @@ vim.opt.cursorline = true
 -- input handling
 vim.opt.mouse = 'a'
 vim.opt.backspace = 'indent,eol,start'
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 4
 
 -- clipboard
 vim.opt.clipboard:append('unnamedplus')
