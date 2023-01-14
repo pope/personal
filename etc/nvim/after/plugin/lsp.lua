@@ -37,7 +37,7 @@ end
 
 local bbq_status_ok, barbecue = pcall(require, 'barbecue')
 if not bbq_status_ok then
-	print('nvim-navic not installed')
+	print('barbecue not installed')
 	return
 end
 
