@@ -10,35 +10,28 @@ if not nf_status_ok then
 	return
 end
 
+local p = require('rose-pine.palette')
+local blend = require('rose-pine.util').blend
+
 rose_pine.setup({
 	bold_vert_split = false,
 	dark_variant = 'main',
 	dim_nc_background = false,
 	disable_background = true,
 	disable_float_background = false,
+	highlight_groups = {
+		ColorColumn = { bg = p.highlight_low },
+		NonText = {
+			fg = blend(p.highlight_med, p.highlight_low, .4),
+			bg = p.none,
+		},
+	},
 })
 
 nightfox.setup({
 	options = {
-		transparent = true,
+		transparent = false,
 	},
 })
 
-function ColorMyPencils(color)
-	color = color or 'rose-pine'
-	vim.cmd.colorscheme(color)
-
-	if color == 'rose-pine' then
-		local p = require('rose-pine.palette')
-		local blend = require('rose-pine.util').blend
-
-		vim.api.nvim_set_hl(0, 'ColorColumn', { bg = p.highlight_low })
-		vim.api.nvim_set_hl(0, 'NonText', {
-			fg = blend(p.highlight_med, p.highlight_low, .4),
-			bg = p.none,
-		})
-	end
-end
-
---ColorMyPencils('dracula')
-ColorMyPencils()
+vim.cmd.colorscheme('rose-pine')
