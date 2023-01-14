@@ -104,6 +104,7 @@ return require('packer').startup(function(use)
 	use 'rafamadriz/friendly-snippets'
 	-- Support
 	use 'SmiteshP/nvim-navic'
+	use 'utilyre/barbecue.nvim'
 	use 'j-hui/fidget.nvim'
 	use 'onsails/lspkind.nvim'
 
