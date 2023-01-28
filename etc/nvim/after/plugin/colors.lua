@@ -9,6 +9,7 @@ if rp_status_ok then
 		dim_nc_background = false,
 		disable_background = true,
 		disable_float_background = false,
+		disable_italics = false,
 		highlight_groups = {
 			ColorColumn = { bg = p.highlight_low },
 			NonText = {
