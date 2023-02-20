@@ -156,24 +156,6 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_command('write')
 	end, '[F]ormat and save')
 
-	-- Show the diagnostic message on hover.
-	vim.api.nvim_create_autocmd('CursorHold', {
-		buffer = bufnr,
-		callback = function()
-			vim.diagnostic.open_float(nil, {
-				focusable = false,
-				close_events = {
-					'BufLeave',
-					'CursorMoved',
-					'InsertEnter',
-					'FocusLost',
-				},
-				source = 'always',
-				scope = 'cursor',
-			})
-		end
-	})
-
 	if client.server_capabilities['documentSymbolProvider'] then
 		navic.attach(client, bufnr)
 	end
