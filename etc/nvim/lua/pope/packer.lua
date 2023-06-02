@@ -69,7 +69,7 @@ return require('packer').startup(function(use)
 		after = 'nvim-treesitter',
 	})
 	use({
-		'p00f/nvim-ts-rainbow',
+		'mrjones2014/nvim-ts-rainbow',
 		after = 'nvim-treesitter',
 	})
 	use({
