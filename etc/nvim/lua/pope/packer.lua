@@ -105,7 +105,7 @@ return require('packer').startup(function(use)
 	-- Support
 	use 'SmiteshP/nvim-navic'
 	use 'utilyre/barbecue.nvim'
-	use 'j-hui/fidget.nvim'
+	use { 'j-hui/fidget.nvim', tag = 'legacy' }
 	use 'onsails/lspkind.nvim'
 
 	use 'mfussenegger/nvim-lint'
