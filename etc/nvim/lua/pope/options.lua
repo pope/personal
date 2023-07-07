@@ -48,7 +48,7 @@ vim.opt.listchars:append({
 	tab = '»·',
 	trail = '·',
 })
-vim.opt.list = false
+vim.opt.list = true
 
 -- code complete
 vim.opt.completeopt:append('menu')
