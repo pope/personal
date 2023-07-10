@@ -5,7 +5,7 @@ if not status_ok then
 end
 
 nvim_tree.setup({
-	open_on_setup = true,
+	--open_on_setup = true,
 	renderer = {
 		indent_markers = {
 			enable = true,
