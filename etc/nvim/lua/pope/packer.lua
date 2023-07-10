@@ -49,15 +49,11 @@ use {
 	requires = {
 		'nvim-tree/nvim-web-devicons', -- optional, for file icons
 	},
-	tag = 'nightly' -- optional, updated every week. (see issue #1193)
+	tag = 'nightly'              -- optional, updated every week. (see issue #1193)
 }
 use {
 	'nvim-lualine/lualine.nvim',
 	requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-}
-use {
-	'akinsho/bufferline.nvim', tag = "v3.*",
-	requires = 'nvim-tree/nvim-web-devicons'
 }
 use 'lukas-reineke/indent-blankline.nvim'
 use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
@@ -70,7 +66,10 @@ use {
 }
 
 -- Treesitter
-use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+use({
+	'nvim-treesitter/nvim-treesitter',
+	run = ':TSUpdate'
+})
 use({
 	'nvim-treesitter/playground',
 	after = 'nvim-treesitter',
