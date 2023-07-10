@@ -15,7 +15,6 @@ treesitter_configs.setup {
 		'dockerfile',
 		'fish',
 		'go',
-		'help',
 		'html',
 		'http',
 		'java',
