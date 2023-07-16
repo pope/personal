@@ -72,6 +72,13 @@ return {
 			'nvim-tree/nvim-web-devicons',
 		},
 		cmd = { 'NvimTreeToggle' },
+		keys = {
+			{
+				'<leader>pv',
+				'<cmd>NvimTreeToggle<cr>',
+				desc = '[p]roject tree [v]iew',
+			},
+		},
 		opts = {
 			renderer = {
 				indent_markers = {

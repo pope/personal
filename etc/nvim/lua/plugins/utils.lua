@@ -1,5 +1,15 @@
 return {
-	'mbbill/undotree',
+	{
+		'mbbill/undotree',
+		lazy = false,
+		keys = {
+			{
+				'<leader>u',
+				'<cmd>UndotreeToggle<cr>',
+				desc = 'open [u]ndotree',
+			},
+		},
+	},
 	{
 		'dstein64/vim-startuptime',
 		cmd = 'StartupTime',
