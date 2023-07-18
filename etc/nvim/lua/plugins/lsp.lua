@@ -171,11 +171,9 @@ return {
 			'hrsh7th/cmp-nvim-lua',
 			'hrsh7th/cmp-path',
 			'saadparwaiz1/cmp_luasnip',
-			"hrsh7th/cmp-vsnip",
 			-- Snippets
 			'L3MON4D3/LuaSnip',
 			'rafamadriz/friendly-snippets',
-			"hrsh7th/vim-vsnip",
 		},
 		event = { 'BufReadPre', 'BufNewFile' },
 		init = function()
@@ -186,6 +184,8 @@ return {
 			local luasnip = require('luasnip')
 			local lspkind = require('lspkind')
 			lspkind.init()
+
+			require('luasnip.loaders.from_vscode').lazy_load()
 
 			return vim.tbl_extend('keep', {
 				formatting = {
