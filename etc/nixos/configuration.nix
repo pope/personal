@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
     ];
 
+  # Enable Flakes and the new command-line tool
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
