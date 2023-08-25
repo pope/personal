@@ -100,6 +100,7 @@
     packages = with pkgs; [
       firefox
       # thunderbird
+      nil
 
       gnomeExtensions.app-icons-taskbar
       gnomeExtensions.appindicator
