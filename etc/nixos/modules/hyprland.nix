@@ -86,7 +86,7 @@
     hyprland = {
       enable = true;
       xwayland.enable = true;
-      nvidiaPatches = true;
+      enableNvidiaPatches = true;
     };
   };
 }

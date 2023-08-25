@@ -41,5 +41,4 @@
       "autovt@tty1".enable = false;
     };
   };
-
 }
