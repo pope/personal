@@ -7,6 +7,9 @@
 {
   imports =
     [ 
+      ../../modules/gnome.nix
+      ../../modules/hyprland.nix
+      ../../modules/sound.nix
       ../../modules/system.nix
 
       # Include the results of the hardware scan.
@@ -59,6 +62,7 @@
       powerManagement.enable = true;
     };
   };
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   networking = {
     hostName = "soundwave"; # Define your hostname.
@@ -89,79 +93,6 @@
     hardwareClockInLocalTime = true;
   };
 
-  systemd = {
-    services = {
-      # https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-      "getty@tty1".enable = false;
-      "autovt@tty1".enable = false;
-    };
-  };
-
-  services = {
-    xserver = {
-      # Enable the X11 windowing system.
-      enable = true;
-      videoDrivers = ["nvidia"];
-
-      # Enable the GNOME Desktop Environment.
-      displayManager = {
-        autoLogin = {
-          enable = true;
-          user = "pope";
-        };
-
-        gdm = {
-          enable = true;
-          wayland = true;
-        };
-
-        # defaultSession = "gnome";
-      };
-
-      desktopManager = {
-        gnome.enable = true;
-      };
-
-      # Configure keymap in X11
-      layout = "us";
-      xkbVariant = "";
-
-      # Enable touchpad support (enabled default in most desktopManager).
-      # libinput.enable = true;
-    };
-
-    udisks2.enable = true;
-
-    # Flatpak support
-    flatpak.enable = true;
-    dbus.enable = true;
-
-    # gvfs.enable = true;
-    # gnome = {
-    #   sushi.enable = true;
-    #   gnome-keyring.enable = true;
-    # };
-
-    # Enable the OpenSSH daemon.
-    # openssh.enable = true;
-  };
-
-  xdg = {
-    # autostart.enable = true;
-    portal = {
-      enable = true;
-      # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      # extraPortals = [
-      #   pkgs.xdg-desktop-portal
-      #   pkgs.xdg-desktop-portal-gtk
-      # ];
-    };
-  };
-
-  security = {
-    rtkit.enable = true;
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pope = {
     isNormalUser = true;
@@ -179,136 +110,6 @@
       gnomeExtensions.pop-shell
       gnomeExtensions.rounded-window-corners
     ];
-  };
-
-  environment.sessionVariables = {
-    # If your cursor becomes invisible
-    WLR_NO_HARDWARE_CURSORS = "1";
-    # Hint electron apps to use wayland
-    NIXOS_OZONE_WL = "1";
-
-    # https://www.reddit.com/r/NixOS/comments/137j18j/need_guide_on_installing_hyprland/
-    # CLUTTER_BACKEND = "wayland";
-    # GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
-    # GTK_USE_PORTAL = "1";
-    # NIXOS_XDG_OPEN_USE_PORTAL = "1";
-    # POLKIT_AUTH_AGENT = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-    # XDG_CURRENT_DESKTOP = "Hyprland";
-    # XDG_SESSION_DESKTOP = "Hyprland";
-
-    # WLR_RENDERER = "vulkan";
-    # _JAVA_AWT_WM_NONREPARENTING = "1";
-    # MOZ_ENABLE_WAYLAND = "1";
-
-    POPE_XDP = "${pkgs.xdg-desktop-portal}";
-    POPE_XDP_GTK = "${pkgs.xdg-desktop-portal-gtk}";
-    POPE_XDP_HYPR = "${pkgs.xdg-desktop-portal-hyprland}";
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    _1password 
-    _1password-gui 
-    android-studio
-    cmake
-    discord
-    gradle
-    flameshot
-    flatpak
-    fzf
-    gcc
-    gh
-    git
-    gnumake
-    go
-    goverlay
-    gparted
-    htop
-    kitty
-    kitty-themes
-    lf
-    lutris
-    mangohud
-    neofetch
-    ninja
-    nodejs
-    nvtop
-    obs-studio
-    python3Full
-    qemu
-    ripgrep
-    stdenv
-    tldr
-    tree
-    virt-manager
-    vkbasalt
-    wget
-
-    # steam-run
-    xdg-utils
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
-    # qt6.qtwayland libsForQt5.qt5.qtwayland
-    dunst
-    gnome.adwaita-icon-theme
-    gnome.gnome-themes-extra
-    grim
-    gsettings-desktop-schemas
-    hyprland-protocols
-    killall
-    libnotify
-    networkmanagerapplet
-    nvidia-vaapi-driver
-    pavucontrol
-    polkit_gnome
-    rofi-wayland
-    rose-pine-gtk-theme
-    rose-pine-icon-theme
-    slurp
-    swww
-    udiskie
-    wayland
-    wl-clipboard
-    wlr-randr
-    waybar
-    (waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-        postPatch = (oldAttrs.postPatch or "") + ''
-          sed -i 's/zext_workspace_handle_v1_activate(workspace_handle_);/const std::string command = "hyprctl dispatch workspace " + name_;\n\tsystem(command.c_str());/g' src/modules/wlr/workspace_manager.cpp
-        '';
-      })
-    )
-  ];
-
-  programs = {
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    # mtr.enable = true;
-    # gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
-
-    java.enable = true;
-
-    steam = {
-      enable = true;
-      # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    };
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
-
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-      nvidiaPatches = true;
-    };
   };
 
   # This value determines the NixOS release from which the default
