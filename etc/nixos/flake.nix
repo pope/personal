@@ -25,6 +25,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nix language server, used by vscode & neovim
+    nil.url = "github:oxalica/nil/2023-08-09";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: {

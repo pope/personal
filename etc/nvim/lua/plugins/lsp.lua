@@ -161,6 +161,10 @@ return {
 				capabilities = capabilities,
 				on_attach = on_attach,
 			})
+			require('lspconfig')['nil_ls'].setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
 			require('mason-lspconfig').setup(opts)
 			require('mason-lspconfig').setup_handlers({
 				function(server_name)
