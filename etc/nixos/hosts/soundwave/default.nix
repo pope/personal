@@ -8,7 +8,6 @@
   imports =
     [ 
       ../../modules/gnome.nix
-      ../../modules/hyprland.nix
       ../../modules/sound.nix
       ../../modules/system.nix
 
