@@ -24,29 +24,9 @@
     };
   };
 
-  sound.enable = true;
-
-  hardware = {
-    # Disable for pipewire
-    pulseaudio.enable = false;
-  };
-
   services = {
     # Enable CUPS to print documents.
     printing.enable = true;
-
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
-
-      # use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now)
-      #media-session.enable = true;
-    };
   };
 
   fonts.fonts = with pkgs; [
@@ -58,4 +38,74 @@
     (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
   ];
 
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    _1password 
+    _1password-gui 
+    android-studio
+    cmake
+    discord
+    gradle
+    flameshot
+    flatpak
+    fzf
+    gcc
+    gh
+    git
+    gnumake
+    go
+    goverlay
+    gparted
+    htop
+    kitty
+    kitty-themes
+    lf
+    lutris
+    mangohud
+    neofetch
+    ninja
+    nodejs
+    nvtop
+    obs-studio
+    python3Full
+    qemu
+    ripgrep
+    stdenv
+    tldr
+    tree
+    virt-manager
+    vkbasalt
+    wget
+  ];
+
+  programs = {
+    # Some programs need SUID wrappers, can be configured further or are
+    # started in user sessions.
+    # mtr.enable = true;
+    # gnupg.agent = {
+    #   enable = true;
+    #   enableSSHSupport = true;
+    # };
+
+    java.enable = true;
+
+    steam = {
+      enable = true;
+      # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
+  };
+
+  services = {
+    # Enable the OpenSSH daemon.
+    # openssh.enable = true;
+
+    flatpak.enable = true;
+  };
 }
