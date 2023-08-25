@@ -15,7 +15,7 @@
 
         gdm = {
           enable = true;
-          wayland = true;
+          # wayland = true;
         };
 
         # defaultSession = "gnome";
