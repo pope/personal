@@ -26,6 +26,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix language server, used by vscode & neovim
     nil.url = "github:oxalica/nil/2023-08-09";
   };
@@ -37,6 +42,20 @@
 
         modules = [
           ./hosts/soundwave
+
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.pope = import ./home;
+          }
+        ];
+      };
+      "nixos-testing" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        modules = [
+          ./hosts/nixos-testing
 
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
