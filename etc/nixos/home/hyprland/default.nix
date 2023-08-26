@@ -1,6 +1,20 @@
-{ config, pkgs, ...}:
+{ config, pkgs, hyprland, ...}:
 
 {
+  imports = [
+    hyprland.homeManagerModules.default
+    ./config.nix
+  ];
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    enableNvidiaPatches = true;
+    recommendedEnvironment = true;
+    xwayland.enable = true;
+    disableAutoreload = false;
+    systemdIntegration = true;
+  };
+
   # allow fontconfig to discover fonts and configurations installed through home.packages
   fonts.fontconfig.enable = true;
 

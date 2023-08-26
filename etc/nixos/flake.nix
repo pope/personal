@@ -40,6 +40,8 @@
 
     # nix language server, used by vscode & neovim
     nil.url = "github:oxalica/nil/2023-08-09";
+
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
@@ -55,6 +57,8 @@
             home-manager.useUserPackages = true;
 
             home-manager.users.pope = import ./home;
+
+            home-manager.extraSpecialArgs = inputs;
           }
         ];
       };
