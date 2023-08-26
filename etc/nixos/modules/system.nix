@@ -1,8 +1,19 @@
 { config, pkgs, ... }:
 
 {
-  # Enable Flakes and the new command-line tool
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-old-than 1w";
+    };
+    settings = {
+      auto-optimise-store = true;
+
+      # Enable Flakes and the new command-line tool
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
