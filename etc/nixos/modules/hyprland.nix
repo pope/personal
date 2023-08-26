@@ -2,23 +2,93 @@
 
 {
   services = {
+    dbus = {
+      enable = true;
+      packages = [ pkgs.gcr ];
+    };
+
+    geoclue2.enable = true;
+
+    gnome.gnome-keyring.enable = true;
+
+    gvfs.enable = true;
+
+    power-profiles-daemon.enable = true;
+
+    tumbler.enable = true;
+
+    upower.enable = true;
+
+    udev = {
+      packages = with pkgs; [
+        gnome.gnome-settings-daemon
+      ];
+    };
+
     udisks2.enable = true;
-    dbus.enable = true;
+
+    xserver = {
+      enable = true;
+
+      desktopManager = {
+        xterm.enable = false;
+      };
+
+      displayManager = {
+        defaultSession = "hyprland";
+        lightdm.enable = false;
+        gdm = {
+          enable = true;
+          wayland = true;
+        };
+      };
+    };
+  };
+
+  security = {
+    pam.services.greetd.enableGnomeKeyring = true;
+    polkit.enable = true;
   };
 
   xdg = {
     # autostart.enable = true;
     portal = {
       enable = true;
-      # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      # extraPortals = [
-      #   pkgs.xdg-desktop-portal
-      #   pkgs.xdg-desktop-portal-gtk
-      # ];
+      wlr.enable = true;
+      # Sets environment variable NIXOS_XDG_OPEN_USE_PORTAL to 1
+      # This will make xdg-open use the portal to open programs,
+      # which resolves bugs involving programs opening inside FHS envs or with unexpected env vars set from wrappers.
+      # xdg-open is used by almost all programs to open a unknown file/uri
+      # alacritty as an example, it use xdg-open as default, but you can also custom this behavior
+      # and vscode has open like `External Uri Openers`
+      xdgOpenUsePortal = false;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr  # for wlroots based compositors(hyprland/sway)
+        xdg-desktop-portal-gtk  # for gtk
+      ];
     };
   };
 
+  programs = {
+    dconf.enable = true;
+
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      # enableNvidiaPatches = true;
+    };
+
+    light.enable = true;
+
+    thunar.plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
+
   environment = {
+    pathsToLink = [ "/libexec" ];
+
     sessionVariables = {
       # If your cursor becomes invisible
       WLR_NO_HARDWARE_CURSORS = "1";
@@ -44,22 +114,20 @@
     };
 
     systemPackages = with pkgs; [
-      # steam-run
-      xdg-utils
-      xdg-desktop-portal
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
+      # xdg-utils
+      # xdg-desktop-portal
+      # xdg-desktop-portal-gtk
+      # xdg-desktop-portal-hyprland
       # qt6.qtwayland libsForQt5.qt5.qtwayland
       dunst
       gnome.adwaita-icon-theme
       gnome.gnome-themes-extra
       grim
       gsettings-desktop-schemas
-      hyprland-protocols
+      # hyprland-protocols
       killall
       libnotify
       networkmanagerapplet
-      nvidia-vaapi-driver
       pavucontrol
       polkit_gnome
       rofi-wayland
@@ -74,19 +142,8 @@
       waybar
       (waybar.overrideAttrs (oldAttrs: {
           mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-          postPatch = (oldAttrs.postPatch or "") + ''
-            sed -i 's/zext_workspace_handle_v1_activate(workspace_handle_);/const std::string command = "hyprctl dispatch workspace " + name_;\n\tsystem(command.c_str());/g' src/modules/wlr/workspace_manager.cpp
-          '';
         })
       )
     ];
-  };
-
-  programs = {
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-      enableNvidiaPatches = true;
-    };
   };
 }
