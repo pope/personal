@@ -75,15 +75,18 @@
     hyprland = {
       enable = true;
       xwayland.enable = true;
-      # enableNvidiaPatches = true;
+      enableNvidiaPatches = true;
     };
 
     light.enable = true;
 
-    thunar.plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
   };
 
   environment = {
@@ -118,27 +121,35 @@
       # xdg-desktop-portal
       # xdg-desktop-portal-gtk
       # xdg-desktop-portal-hyprland
-      # qt6.qtwayland libsForQt5.qt5.qtwayland
+      alsa-utils
       dunst
       gnome.adwaita-icon-theme
       gnome.gnome-themes-extra
       grim
       gsettings-desktop-schemas
       # hyprland-protocols
+      hyprpicker
       killall
       libnotify
       networkmanagerapplet
       pavucontrol
       polkit_gnome
+      libsForQt5.qt5.qtwayland
+      qt6.qtwayland
       rofi-wayland
       rose-pine-gtk-theme
       rose-pine-icon-theme
       slurp
       swww
+      # swayidle
+      # swaylock
       udiskie
       wayland
+      wf-recorder
       wl-clipboard
+      wlogout
       wlr-randr
+      xfce.thunar
       waybar
       (waybar.overrideAttrs (oldAttrs: {
           mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];

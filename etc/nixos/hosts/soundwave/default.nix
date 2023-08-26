@@ -7,7 +7,8 @@
 {
   imports =
     [ 
-      ../../modules/gnome.nix
+      ../../modules/bluetooth.nix
+      ../../modules/hyprland.nix
       ../../modules/sound.nix
       ../../modules/system.nix
       ../../modules/users.nix
