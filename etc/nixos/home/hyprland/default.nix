@@ -49,7 +49,7 @@
   };
 
   xdg = {
-    cacheHome = config.home.homeDirectory + "/.local/cache";
+    cacheHome = config.home.homeDirectory + "/.cache";
 
     userDirs = {
       enable = true;

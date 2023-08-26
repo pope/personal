@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  bg = "23.png";
+in
 {
   wayland.windowManager.hyprland.extraConfig = ''
 
@@ -24,10 +27,10 @@ monitor=DP-2,preferred,2560x0,auto
 
 exec-once = ${pkgs.dunst}/bin/dunst
 exec-once = ${pkgs.waybar}/bin/waybar
-exec-once = ${pkgs.swww}/bin/swww init
-exec = ${pkgs.swww}/bin/swww img ${config.xdg.userDirs.pictures}/23.png
+exec-once = ${pkgs.swww}/bin/swww init --no-daemon
+# Reload the background on edits.
+exec = sleep 3 && ${pkgs.swww}/bin/swww img ${config.xdg.userDirs.pictures}/${bg}
 exec-once = ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
-      
 exec-once = ${pkgs.udiskie}/bin/udiskie --appindicator --no-password-prompt
 
 # Source a file (multi-file configs)
@@ -114,6 +117,8 @@ master {
 
 misc {
   vrr = 1
+  disable_hyprland_logo = true
+  disable_splash_rendering = true
 }
 
 gestures {
@@ -165,28 +170,19 @@ bind = $mainMod ALT, up, resizeactive, 0 -50
 bind = $mainMod ALT, down, resizeactive, 0 50
 
 # Switch workspaces with mainMod + [0-9]
-bind = $mainMod, 1, workspace, 1
-bind = $mainMod, 2, workspace, 2
-bind = $mainMod, 3, workspace, 3
-bind = $mainMod, 4, workspace, 4
-bind = $mainMod, 5, workspace, 5
-bind = $mainMod, 6, workspace, 6
-bind = $mainMod, 7, workspace, 7
-bind = $mainMod, 8, workspace, 8
-bind = $mainMod, 9, workspace, 9
-bind = $mainMod, 0, workspace, 10
-
 # Move active window to a workspace with mainMod + SHIFT + [0-9]
-bind = $mainMod SHIFT, 1, movetoworkspace, 1
-bind = $mainMod SHIFT, 2, movetoworkspace, 2
-bind = $mainMod SHIFT, 3, movetoworkspace, 3
-bind = $mainMod SHIFT, 4, movetoworkspace, 4
-bind = $mainMod SHIFT, 5, movetoworkspace, 5
-bind = $mainMod SHIFT, 6, movetoworkspace, 6
-bind = $mainMod SHIFT, 7, movetoworkspace, 7
-bind = $mainMod SHIFT, 8, movetoworkspace, 8
-bind = $mainMod SHIFT, 9, movetoworkspace, 9
-bind = $mainMod SHIFT, 0, movetoworkspace, 10
+${builtins.concatStringsSep "\n" (builtins.genList (
+  x: let
+    ws = let
+      c = (x + 1) / 10;
+    in
+      builtins.toString (x + 1 - (c * 10));
+  in ''
+bind = $mainMod, ${ws}, workspace, ${toString (x + 1)}
+bind = $mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
+  ''
+)
+10)}
 
 # Scroll through existing workspaces with mainMod + scroll
 bind = $mainMod, mouse_down, workspace, e+1
@@ -195,6 +191,5 @@ bind = $mainMod, mouse_up, workspace, e-1
 # Move/resize windows with mainMod + LMB/RMB and dragging
 bindm = $mainMod, mouse:272, movewindow
 bindm = $mainMod, mouse:273, resizewindow
-
   '';
 }
