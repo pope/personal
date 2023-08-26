@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ hyprland, pkgs, ... }:
 
 {
   services = {
@@ -74,6 +74,7 @@
 
     hyprland = {
       enable = true;
+      package = hyprland.packages.${pkgs.system}.hyprland;
       xwayland.enable = true;
       enableNvidiaPatches = true;
     };
