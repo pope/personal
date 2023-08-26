@@ -10,6 +10,7 @@
       ../../modules/gnome.nix
       ../../modules/sound.nix
       ../../modules/system.nix
+      ../../modules/users.nix
 
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -94,9 +95,6 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pope = {
-    isNormalUser = true;
-    description = "K. Adam Christensen";
-    extraGroups = [ "networkmanager" "wheel" "audio" "video" "kvm" "input" "libvirtd" ];
     packages = with pkgs; [
       firefox
       # thunderbird
