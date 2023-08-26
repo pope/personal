@@ -75,6 +75,7 @@
     tldr
     tree
     virt-manager
+    virtiofsd
     vkbasalt
     wget
   ];
