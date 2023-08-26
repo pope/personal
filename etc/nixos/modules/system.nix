@@ -9,7 +9,7 @@
     };
     settings = {
       auto-optimise-store = true;
-
+      builders-use-substitutes = true;
       # Enable Flakes and the new command-line tool
       experimental-features = [ "nix-command" "flakes" ];
     };
@@ -33,11 +33,6 @@
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_US.UTF-8";
     };
-  };
-
-  services = {
-    # Enable CUPS to print documents.
-    printing.enable = true;
   };
 
   fonts.packages = with pkgs; [
@@ -117,6 +112,9 @@
   services = {
     # Enable the OpenSSH daemon.
     # openssh.enable = true;
+
+    # Enable CUPS to print documents.
+    printing.enable = true;
 
     flatpak.enable = true;
   };
