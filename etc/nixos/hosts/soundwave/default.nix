@@ -7,8 +7,7 @@
 {
   imports =
     [ 
-      ../../modules/bluetooth.nix
-      ../../modules/hyprland.nix
+      ../../modules/gnome.nix
       ../../modules/sound.nix
       ../../modules/system.nix
       ../../modules/users.nix
@@ -41,6 +40,8 @@
     # hardware config section will do the same. See that for why this is
     # commented out.
     # kernelParams = [ "nvidia_drm.modeset=1" ];
+    initrd.kernelModules = ["nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
+    initrd.availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
   };
 
   virtualisation.libvirtd.enable = true;
@@ -50,6 +51,12 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+      setLdLibraryPath = true;
     };
 
     nvidia = {
@@ -64,6 +71,10 @@
     };
   };
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  environment.systemPackages = with pkgs; [
+    nvidia-vaapi-driver
+  ];
 
   networking = {
     hostName = "soundwave"; # Define your hostname.
