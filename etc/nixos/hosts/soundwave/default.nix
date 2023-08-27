@@ -23,25 +23,23 @@
      efi.canTouchEfiVariables = true;
     };
 
-    # Setup keyfile
-    initrd.secrets = {
-      "/crypto_keyfile.bin" = null;
-    };
+    initrd = {
+      # Setup keyfile
+      secrets = {
+        "/crypto_keyfile.bin" = null;
+      };
 
-    # Enable swap on luks
-    initrd.luks.devices."luks-4ad17370-d029-41e6-9ef0-cf3fec50df26" = {
-      device = "/dev/disk/by-uuid/4ad17370-d029-41e6-9ef0-cf3fec50df26";
-      keyFile = "/crypto_keyfile.bin";
+      # Enable swap on luks
+      luks.devices."luks-4ad17370-d029-41e6-9ef0-cf3fec50df26" = {
+        device = "/dev/disk/by-uuid/4ad17370-d029-41e6-9ef0-cf3fec50df26";
+        keyFile = "/crypto_keyfile.bin";
+      };
+
+      kernelModules = ["nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
+      availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
     };
 
     supportedFilesystems = [ "ntfs" ];
-
-    # Using this will enable Wayland. I think the modesetting in the nvidia
-    # hardware config section will do the same. See that for why this is
-    # commented out.
-    # kernelParams = [ "nvidia_drm.modeset=1" ];
-    initrd.kernelModules = ["nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
-    initrd.availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
   };
 
   virtualisation.libvirtd.enable = true;
@@ -60,10 +58,6 @@
     };
 
     nvidia = {
-      # Enabling this feature will enable Wayland; however Steam games get
-      # pretty laggy, even though the FPS doesn't drop.
-      # Plus, Steam and Discord themselves become pretty janky.
-      modesetting.enable = true;
       nvidiaSettings = true;
       open = false;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
