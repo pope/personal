@@ -35,14 +35,17 @@
     };
   };
 
-  fonts.packages = with pkgs; [
-    # fira-code
-    # fira-code-symbols
-    iosevka
-    iosevka-comfy.comfy
-    jetbrains-mono
-    (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
-  ];
+  fonts = {
+    fontDir.enable = true;
+    packages = with pkgs; [
+      # fira-code
+      # fira-code-symbols
+      iosevka
+      iosevka-comfy.comfy
+      jetbrains-mono
+      (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
