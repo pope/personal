@@ -97,12 +97,6 @@
 
     java.enable = true;
 
-    steam = {
-      enable = true;
-      # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    };
-
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -117,5 +111,9 @@
     printing.enable = true;
 
     flatpak.enable = true;
+  };
+
+  hardware = {
+    steam-hardware.enable = true;
   };
 }
