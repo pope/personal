@@ -69,7 +69,6 @@
     htop
     kitty
     kitty-themes
-    lf
     lutris
     mangohud
     neofetch
