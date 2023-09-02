@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   nix = {
@@ -52,58 +52,22 @@
   environment.systemPackages = with pkgs; [
     _1password 
     _1password-gui 
-    android-studio
-    cmake
     discord
-    gradle
     flameshot
     flatpak
-    fzf
     gcc
-    gh
     git
-    gnumake
-    go
-    goverlay
     gparted
     htop
     kitty
     kitty-themes
-    lutris
-    mangohud
     neofetch
-    ninja
-    nodejs
     nvtop
-    obs-studio
-    python3Full
     qemu
-    ripgrep
-    stdenv
-    tldr
-    tree
     virt-manager
     virtiofsd
-    vkbasalt
     wget
   ];
-
-  programs = {
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    # mtr.enable = true;
-    # gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
-
-    java.enable = true;
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
-  };
 
   services = {
     # Enable the OpenSSH daemon.
@@ -113,9 +77,5 @@
     printing.enable = true;
 
     flatpak.enable = true;
-  };
-
-  hardware = {
-    steam-hardware.enable = true;
   };
 }
