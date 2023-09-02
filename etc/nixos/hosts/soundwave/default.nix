@@ -7,6 +7,8 @@
 {
   imports =
     [ 
+      ../../modules/development.nix
+      ../../modules/gaming.nix
       ../../modules/gnome.nix
       ../../modules/sound.nix
       ../../modules/system.nix
