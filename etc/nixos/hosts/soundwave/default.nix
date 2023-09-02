@@ -99,23 +99,6 @@
     hardwareClockInLocalTime = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.pope = {
-    packages = with pkgs; [
-      firefox
-      # thunderbird
-      nil
-
-      gnomeExtensions.app-icons-taskbar
-      gnomeExtensions.appindicator
-      gnomeExtensions.blur-my-shell
-      gnomeExtensions.caffeine
-      gnomeExtensions.forge
-      gnomeExtensions.pop-shell
-      gnomeExtensions.rounded-window-corners
-    ];
-  };
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

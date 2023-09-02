@@ -2,7 +2,9 @@
 
 {
   imports = [
+    ./gnome.nix
     ./lf
+    ./packages.nix
   ];
 
   home = {
