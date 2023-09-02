@@ -42,14 +42,18 @@
     nil.url = "github:oxalica/nil/2023-08-09";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    # Real-time audio
+    musnix  = { url = "github:musnix/musnix"; };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, musnix, ... }: {
     nixosConfigurations = {
       "soundwave" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = inputs;
         modules = [
+          musnix.nixosModules.musnix
           ./hosts/soundwave
 
           home-manager.nixosModules.home-manager {
@@ -58,7 +62,7 @@
 
             home-manager.users.pope = import ./home;
 
-            home-manager.extraSpecialArgs = inputs;
+            home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
       };

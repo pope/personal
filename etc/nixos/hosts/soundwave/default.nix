@@ -44,6 +44,14 @@
     supportedFilesystems = [ "ntfs" ];
   };
 
+  nixpkgs.overlays = [
+    (self: super: {
+      renoise343 = super.renoise.override {
+        releasePath = /home/pope/Documents/rns_343_linux_x86_64.tar.gz;
+      };
+    })
+  ];
+
   virtualisation.libvirtd.enable = true;
 
   hardware = {
@@ -70,6 +78,7 @@
 
   environment.systemPackages = with pkgs; [
     nvidia-vaapi-driver
+    renoise343
   ];
 
   networking = {
@@ -100,6 +109,8 @@
     timeZone = "America/Los_Angeles";
     hardwareClockInLocalTime = true;
   };
+
+  musnix.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
