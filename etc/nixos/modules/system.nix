@@ -55,7 +55,6 @@
     discord
     flameshot
     flatpak
-    gcc
     git
     gparted
     htop
