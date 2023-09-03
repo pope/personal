@@ -8,5 +8,9 @@
     obs-studio
     vkbasalt
   ];
+
+  hardware = {
+    steam-hardware.enable = true;
+  };
 }
 
