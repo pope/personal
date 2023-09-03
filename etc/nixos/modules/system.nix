@@ -12,6 +12,7 @@
       builders-use-substitutes = true;
       # Enable Flakes and the new command-line tool
       experimental-features = [ "nix-command" "flakes" ];
+      trusted-users = [ "pope" ];
     };
   };
 

@@ -45,9 +45,15 @@
   };
 
   services = {
-    xserver.videoDrivers = [ "qxl" ];
+    openssh.enable = true;
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;
+    xserver.videoDrivers = [ "qxl" ];
+  };
+
+  fileSystems."/home/pope/Code/personal" = {
+    device = "code_personal";
+    fsType = "virtiofs";
   };
 
   # This value determines the NixOS release from which the default
