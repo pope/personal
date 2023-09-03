@@ -50,8 +50,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    _1password 
-    _1password-gui 
     discord
     flameshot
     flatpak
@@ -67,6 +65,14 @@
     virtiofsd
     wget
   ];
+
+  programs = {
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "pope" ];
+    };
+  };
 
   services = {
     # Enable the OpenSSH daemon.
