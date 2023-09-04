@@ -2,9 +2,15 @@
 
 {
   imports =
-    [ 
+    [
       ../../modules/nix.nix
     ];
+
+  nix = {
+    settings = {
+      trusted-users = [ "pi" ];
+    };
+  };
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
@@ -35,41 +41,133 @@
     "/mnt/Backup" = {
       device = "/dev/disk/by-label/Backup";
       fsType = "ntfs-3g";
-      options = [ "rw" "uid=1001" ];
+      options = [ "rw" "uid=1002,gid=100" ];
+    };
+    "/export/ImageVault" = {
+      depends = [ "/mnt/Backup" ];
+      device = "/mnt/Backup/ImageVault";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+    "/export/Public" = {
+      depends = [ "/mnt/Backup" ];
+      device = "/mnt/Backup/Public";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+    "/export/Private" = {
+      depends = [ "/mnt/Backup" ];
+      device = "/mnt/Backup/Private";
+      fsType = "none";
+      options = [ "bind" ];
     };
   };
 
   networking = {
     hostName = "raspberrypi";
+
+    enableIPv6 = false;
+    firewall = {
+      enable = false;
+      allowPing = true;
+      allowedTCPPorts = [
+        22
+        111 2049 #nfs
+        5357 # wsdd
+      ];
+      allowedUDPPorts = [
+        22
+        111 2049 #nfs
+        3702 # wsdd
+      ];
+    };
   };
 
   environment.systemPackages = with pkgs; [
-    vim
+    bat
+    git
     ntfs3g
+    vim
   ];
 
-  services.openssh.enable = true;
-
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    publish = {
+  services = {
+    avahi = {
       enable = true;
-      addresses = true;
-      domain = true;
-      hinfo = true;
-      userServices = true;
-      workstation = true;
+      nssmdns = true;
+      publish = {
+        enable = true;
+        addresses = true;
+        domain = true;
+        hinfo = true;
+        userServices = true;
+        workstation = true;
+      };
+    };
+    nfs.server = {
+      enable = true;
+      exports = ''
+        /export            192.168.86.0/24(rw,fsid=0,no_subtree_check)
+        /export/ImageVault 192.168.86.0/24(rw,nohide,insecure,no_subtree_check)
+        /export/Public     192.168.86.0/24(rw,nohide,insecure,no_subtree_check)
+        /export/Private    192.168.86.0/24(rw,nohide,insecure,no_subtree_check)
+      '';
+    };
+    openssh.enable = true;
+    samba-wsdd.enable = true; # make shares visible for windows 10 clients
+    samba = {
+      enable = true;
+      openFirewall = true;
+      securityType = "user";
+      extraConfig = ''
+        browsable = yes
+        smb encrypt = required
+        security = user 
+
+        guest account = nobody
+        map to guest = bad user
+      '';
+      shares = {
+        ImageVault = {
+          path = "/mnt/Backup/ImageVault";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "pi";
+          "force group" = "users";
+        };
+        Public = {
+          path = "/mnt/Backup/Public";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "yes";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "pi";
+          "force group" = "users";
+        };
+        Private = {
+          path = "/mnt/Backup/Private";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "pi";
+          "force group" = "users";
+        };
+      };
     };
   };
 
   users = {
-    mutableUsers = false;
+    # mutableUsers = false;
     users.pi = {
       isNormalUser = true;
       initialPassword = "changeme";
       uid = 1002;
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" "networkmanager" "users" ];
       openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGg+9LMpvJUBVCndjopRX7Jm6veGyHkf1ZBI/434K2a4" ];
     };
   };
