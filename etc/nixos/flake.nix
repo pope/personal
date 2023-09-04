@@ -47,7 +47,7 @@
     musnix  = { url = "github:musnix/musnix"; };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, musnix, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, musnix, nixos-generators, ... }: {
     nixosConfigurations = {
       "soundwave" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -78,6 +78,17 @@
 
             home-manager.users.pope = import ./home;
           }
+        ];
+      };
+      "raspberrypi" = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+
+        modules = [
+          ./hosts/raspberrypi
+
+          # With this, we can build an SD card for the PI.
+          # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
+          nixos-generators.nixosModules.all-formats
         ];
       };
     };

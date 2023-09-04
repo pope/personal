@@ -10,6 +10,7 @@
       ../../modules/development.nix
       ../../modules/gaming.nix
       ../../modules/gnome.nix
+      ../../modules/nix.nix
       ../../modules/sound.nix
       ../../modules/system.nix
       ../../modules/users.nix
@@ -42,6 +43,8 @@
     };
 
     supportedFilesystems = [ "ntfs" ];
+
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   nixpkgs.overlays = [

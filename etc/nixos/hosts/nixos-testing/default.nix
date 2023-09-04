@@ -9,6 +9,7 @@
     [ 
       ../../modules/bluetooth.nix
       ../../modules/gnome.nix
+      ../../modules/nix.nix
       ../../modules/sound.nix
       ../../modules/system.nix
       ../../modules/users.nix
