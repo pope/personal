@@ -127,28 +127,8 @@
         map to guest = bad user
       '';
       shares = {
-        ImageVault = {
-          path = "/mnt/Backup/ImageVault";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "pi";
-          "force group" = "users";
-        };
-        Public = {
-          path = "/mnt/Backup/Public";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "yes";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "pi";
-          "force group" = "users";
-        };
-        Private = {
-          path = "/mnt/Backup/Private";
+        Cyberia = {
+          path = "/mnt/Backup";
           browseable = "yes";
           "read only" = "no";
           "guest ok" = "no";
