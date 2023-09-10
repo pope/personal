@@ -60,7 +60,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.pope = import ./home;
+            home-manager.users.pope = import ./hosts/soundwave/home.nix;
 
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
@@ -76,7 +76,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.pope = import ./home;
+            home-manager.users.pope = import ./hosts/nixos-testing/home.nix;
           }
         ];
       };
