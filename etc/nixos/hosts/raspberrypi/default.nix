@@ -38,28 +38,10 @@
       fsType = "ext4";
       options = [ "noatime" ];
     };
-    "/mnt/Backup" = {
-      device = "/dev/disk/by-label/Backup";
-      fsType = "ntfs-3g";
-      options = [ "rw" "uid=1002,gid=100" ];
-    };
-    "/export/ImageVault" = {
-      depends = [ "/mnt/Backup" ];
-      device = "/mnt/Backup/ImageVault";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-    "/export/Public" = {
-      depends = [ "/mnt/Backup" ];
-      device = "/mnt/Backup/Public";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-    "/export/Private" = {
-      depends = [ "/mnt/Backup" ];
-      device = "/mnt/Backup/Private";
-      fsType = "none";
-      options = [ "bind" ];
+    "/mnt/Cyberia" = {
+      device = "/dev/disk/by-label/Cyberia";
+      fsType = "ext4";
+      options = [ "rw" "users" "noatime" ];
     };
   };
 
@@ -106,10 +88,7 @@
     nfs.server = {
       enable = true;
       exports = ''
-        /export            192.168.86.0/24(rw,fsid=0,no_subtree_check)
-        /export/ImageVault 192.168.86.0/24(rw,nohide,insecure,no_subtree_check)
-        /export/Public     192.168.86.0/24(rw,nohide,insecure,no_subtree_check)
-        /export/Private    192.168.86.0/24(rw,nohide,insecure,no_subtree_check)
+        /mnt/Cyberia    192.168.86.0/24(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1002,anongid=100)
       '';
     };
     openssh.enable = true;
@@ -128,7 +107,7 @@
       '';
       shares = {
         Cyberia = {
-          path = "/mnt/Backup";
+          path = "/mnt/Cyberia";
           browseable = "yes";
           "read only" = "no";
           "guest ok" = "no";
