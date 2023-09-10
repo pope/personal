@@ -57,6 +57,24 @@
 
   virtualisation.libvirtd.enable = true;
 
+  fileSystems = {
+    "/media/win-cyberia" = {
+      device = "/dev/disk/by-label/Cyberia";
+      fsType = "ntfs-3g";
+      options = [ "rw" "noauto,uid=1000,gid=100" "noatime" ];
+    };
+    "/media/cyberia" = {
+      device = "raspberrypi.lan:/mnt/Cyberia";
+      fsType = "nfs";
+      options = [
+        "x-systemd.automount"
+        "noauto"
+        "x-systemd.after=network-online.target"
+        "x-systemd.idle-timeout=300"
+      ];
+    };
+  };
+
   hardware = {
     opengl = {
       enable = true;
