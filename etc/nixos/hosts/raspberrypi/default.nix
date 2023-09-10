@@ -50,17 +50,19 @@
 
     enableIPv6 = false;
     firewall = {
-      enable = false;
+      enable = true;
       allowPing = true;
       allowedTCPPorts = [
         22
         111 2049 #nfs
         5357 # wsdd
+        20048 # mountd
       ];
       allowedUDPPorts = [
         22
         111 2049 #nfs
         3702 # wsdd
+        20048 # mountd
       ];
     };
   };
