@@ -86,6 +86,13 @@
         modules = [
           ./hosts/raspberrypi
 
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.pi = import ./hosts/raspberrypi/home.nix;
+          }
+
           # With this, we can build an SD card for the PI.
           # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
           nixos-generators.nixosModules.all-formats
