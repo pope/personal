@@ -3,7 +3,9 @@
 {
   imports =
     [
+      ../../modules/firewall-nfs.nix
       ../../modules/nix.nix
+      ../../modules/samba.nix
     ];
 
   nix = {
@@ -54,15 +56,9 @@
       allowPing = true;
       allowedTCPPorts = [
         22
-        111 2049 #nfs
-        5357 # wsdd
-        20048 # mountd
       ];
       allowedUDPPorts = [
         22
-        111 2049 #nfs
-        3702 # wsdd
-        20048 # mountd
       ];
     };
   };
@@ -75,18 +71,6 @@
   ];
 
   services = {
-    avahi = {
-      enable = true;
-      nssmdns = true;
-      publish = {
-        enable = true;
-        addresses = true;
-        domain = true;
-        hinfo = true;
-        userServices = true;
-        workstation = true;
-      };
-    };
     nfs.server = {
       enable = true;
       exports = ''
@@ -94,19 +78,7 @@
       '';
     };
     openssh.enable = true;
-    samba-wsdd.enable = true; # make shares visible for windows 10 clients
     samba = {
-      enable = true;
-      openFirewall = true;
-      securityType = "user";
-      extraConfig = ''
-        browsable = yes
-        smb encrypt = required
-        security = user 
-
-        guest account = nobody
-        map to guest = bad user
-      '';
       shares = {
         Cyberia = {
           path = "/mnt/Cyberia";
