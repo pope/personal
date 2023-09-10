@@ -45,6 +45,7 @@
     kitty
     kitty-themes
     neofetch
+    ntfs3g
     nvtop
     qemu
     virt-manager
