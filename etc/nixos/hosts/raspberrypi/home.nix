@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../home/packages.nix
   ];
 
   home = {
@@ -12,14 +13,6 @@
   };
 
   programs = {
-    btop = {
-      enable = true;
-      settings = {
-        color_theme = "TTY";
-        theme_background = false;
-      };
-    };
-
     home-manager.enable = true;
   };
 }

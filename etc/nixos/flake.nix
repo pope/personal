@@ -99,5 +99,14 @@
         ];
       };
     };
+    homeConfigurations = {
+      "pope@galvatron" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."aarch64-darwin";
+
+        modules = [
+          ./hosts/galvatron/home.nix
+        ];
+      };
+    };
   };
 }
