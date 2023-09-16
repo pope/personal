@@ -1,0 +1,3 @@
+{
+  plow = import ./plow.nix;
+}
