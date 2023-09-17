@@ -63,8 +63,8 @@
       # and vscode has open like `External Uri Openers`
       xdgOpenUsePortal = false;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr  # for wlroots based compositors(hyprland/sway)
-        xdg-desktop-portal-gtk  # for gtk
+        xdg-desktop-portal-wlr # for wlroots based compositors(hyprland/sway)
+        xdg-desktop-portal-gtk # for gtk
       ];
     };
   };
@@ -153,8 +153,8 @@
       xfce.thunar
       waybar
       (waybar.overrideAttrs (oldAttrs: {
-          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-        })
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      })
       )
     ];
   };
