@@ -39,12 +39,27 @@
     };
 
     # nix language server, used by vscode & neovim
-    nil.url = "github:oxalica/nil/2023-08-09";
+    nil = {
+      url = "github:oxalica/nil/2023-08-09";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
 
     # Real-time audio
-    musnix  = { url = "github:musnix/musnix"; };
+    musnix  = {
+      url = "github:musnix/musnix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, musnix, nixos-generators, ... }: {
