@@ -100,6 +100,9 @@
   environment.systemPackages = with pkgs; [
     nvidia-vaapi-driver
     renoise343
+
+    maestral
+    maestral-gui
   ];
 
   networking = {
