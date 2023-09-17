@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 let
   previewer = pkgs.writeShellScript "lf_kitty_preview" ''
@@ -24,7 +24,8 @@ let
     kitty +kitten icat \
       --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
   '';
-in {
+in
+{
   home.packages = with pkgs; [
     file
     pistol

@@ -6,7 +6,7 @@
 
 {
   imports =
-    [ 
+    [
       ../../modules/bluetooth.nix
       ../../modules/gnome.nix
       ../../modules/nix.nix

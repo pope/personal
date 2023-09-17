@@ -6,7 +6,7 @@
 
 {
   imports =
-    [ 
+    [
       ../../modules/development.nix
       ../../modules/gaming.nix
       ../../modules/gnome.nix
@@ -22,8 +22,8 @@
   boot = {
     # Bootloader.
     loader = {
-     systemd-boot.enable = true;
-     efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
 
     initrd = {
@@ -38,7 +38,7 @@
         keyFile = "/crypto_keyfile.bin";
       };
 
-      kernelModules = ["nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
+      kernelModules = [ "nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
       availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
     };
 

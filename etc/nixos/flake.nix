@@ -54,7 +54,7 @@
     };
 
     # Real-time audio
-    musnix  = {
+    musnix = {
       url = "github:musnix/musnix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -71,7 +71,8 @@
           musnix.nixosModules.musnix
           ./hosts/soundwave
 
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
@@ -87,7 +88,8 @@
         modules = [
           ./hosts/nixos-testing
 
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
@@ -101,7 +103,8 @@
         modules = [
           ./hosts/raspberrypi
 
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
@@ -123,5 +126,7 @@
         ];
       };
     };
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+    formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixpkgs-fmt;
   };
 }
