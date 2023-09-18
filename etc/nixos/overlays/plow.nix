@@ -1,4 +1,4 @@
-final: prev:
+_final: prev:
 {
   plow = prev.buildGoModule {
     name = "plow";

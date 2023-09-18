@@ -38,95 +38,122 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
+
+    nix-formatter-pack = {
+      url = "github:Gerschtli/nix-formatter-pack";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix language server, used by vscode & neovim
     nil = {
       url = "github:oxalica/nil/2023-08-09";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
       };
     };
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Real-time audio
     musnix = {
       url = "github:musnix/musnix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, musnix, nixos-generators, ... }: {
-    nixosConfigurations = {
-      "soundwave" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = inputs;
-        modules = [
-          musnix.nixosModules.musnix
-          ./hosts/soundwave
+  outputs =
+    { nixpkgs
+    , home-manager
+    , musnix
+    , nixos-generators
+    , flake-utils
+    , nix-formatter-pack
+    , ...
+    } @ inputs:
+    let
+      all_fmts = flake-utils.lib.eachDefaultSystem (system: {
+        formatter = nix-formatter-pack.lib.mkFormatter {
+          pkgs = nixpkgs.legacyPackages.${system};
+          config.tools = {
+            deadnix.enable = true;
+            nixpkgs-fmt.enable = true;
+            statix.enable = true;
+          };
+        };
+      });
+    in
+    {
+      inherit (all_fmts) formatter;
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+      nixosConfigurations = {
+        "soundwave" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = inputs;
+          modules = [
+            musnix.nixosModules.musnix
+            ./hosts/soundwave
 
-            home-manager.users.pope = import ./hosts/soundwave/home.nix;
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
 
-            home-manager.extraSpecialArgs = { inherit inputs; };
-          }
-        ];
+              home-manager.users.pope = import ./hosts/soundwave/home.nix;
+
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
+          ];
+        };
+        "nixos-testing" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          modules = [
+            ./hosts/nixos-testing
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.pope = import ./hosts/nixos-testing/home.nix;
+            }
+          ];
+        };
+        "raspberrypi" = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+
+          modules = [
+            ./hosts/raspberrypi
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.pi = import ./hosts/raspberrypi/home.nix;
+            }
+
+            # With this, we can build an SD card for the PI.
+            # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
+            nixos-generators.nixosModules.all-formats
+          ];
+        };
       };
-      "nixos-testing" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+      homeConfigurations = {
+        "pope@galvatron" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."aarch64-darwin";
 
-        modules = [
-          ./hosts/nixos-testing
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.pope = import ./hosts/nixos-testing/home.nix;
-          }
-        ];
-      };
-      "raspberrypi" = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-
-        modules = [
-          ./hosts/raspberrypi
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.pi = import ./hosts/raspberrypi/home.nix;
-          }
-
-          # With this, we can build an SD card for the PI.
-          # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
-          nixos-generators.nixosModules.all-formats
-        ];
+          modules = [
+            ./hosts/galvatron/home.nix
+          ];
+        };
       };
     };
-    homeConfigurations = {
-      "pope@galvatron" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-
-        modules = [
-          ./hosts/galvatron/home.nix
-        ];
-      };
-    };
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-    formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixpkgs-fmt;
-  };
 }
