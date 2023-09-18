@@ -38,10 +38,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-    };
-
     nix-formatter-pack = {
       url = "github:Gerschtli/nix-formatter-pack";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,10 +46,7 @@
     # nix language server, used by vscode & neovim
     nil = {
       url = "github:oxalica/nil/2023-08-09";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland = {
@@ -69,29 +62,21 @@
   };
 
   outputs =
-    { nixpkgs
-    , home-manager
+    { home-manager
     , musnix
-    , nixos-generators
-    , flake-utils
     , nix-formatter-pack
+    , nixos-generators
+    , nixpkgs
     , ...
     } @ inputs:
     let
-      all_fmts = flake-utils.lib.eachDefaultSystem (system: {
-        formatter = nix-formatter-pack.lib.mkFormatter {
-          pkgs = nixpkgs.legacyPackages.${system};
-          config.tools = {
-            deadnix.enable = true;
-            nixpkgs-fmt.enable = true;
-            statix.enable = true;
-          };
-        };
-      });
+      eachSystem = nixpkgs.lib.genAttrs [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
     in
     {
-      inherit (all_fmts) formatter;
-
       nixosConfigurations = {
         "soundwave" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -155,5 +140,15 @@
           ];
         };
       };
+      formatter = eachSystem (system:
+        nix-formatter-pack.lib.mkFormatter {
+          pkgs = nixpkgs.legacyPackages.${system};
+          config.tools = {
+            deadnix.enable = true;
+            nixpkgs-fmt.enable = true;
+            statix.enable = true;
+          };
+        }
+      );
     };
 }
