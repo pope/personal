@@ -38,6 +38,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     nix-formatter-pack = {
       url = "github:Gerschtli/nix-formatter-pack";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,6 +68,7 @@
     , musnix
     , nix-formatter-pack
     , nixos-generators
+    , nixos-hardware
     , nixpkgs
     , ...
     } @ inputs:
@@ -83,6 +86,7 @@
           specialArgs = inputs;
           modules = [
             musnix.nixosModules.musnix
+
             ./hosts/soundwave
 
             home-manager.nixosModules.home-manager
@@ -100,6 +104,8 @@
           system = "x86_64-linux";
           specialArgs = inputs;
           modules = [
+            nixos-hardware.nixosModules.lenovo-thinkpad-t480
+
             ./hosts/ravage
 
             home-manager.nixosModules.home-manager
