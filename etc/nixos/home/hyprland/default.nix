@@ -1,18 +1,27 @@
-{ config, pkgs, hyprland, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
-    hyprland.homeManagerModules.default
+    inputs.hyprland.homeManagerModules.default
     ./config.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
-    recommendedEnvironment = true;
-    xwayland.enable = true;
     disableAutoreload = false;
+    recommendedEnvironment = true;
     systemdIntegration = true;
+    xwayland.enable = true;
+  };
+
+  programs = {
+    waybar = {
+      enable = true;
+      systemd = {
+        enable = false;
+        target = "graphical-session.target";
+      };
+    };
   };
 
   # allow fontconfig to discover fonts and configurations installed through home.packages
@@ -23,11 +32,7 @@
     "MOZ_ENABLE_WAYLAND" = "1"; # for firefox to run on wayland
     "MOZ_WEBRENDER" = "1";
 
-    # for hyprland with nvidia gpu, ref https://wiki.hyprland.org/Nvidia/
-    "LIBVA_DRIVER_NAME" = "nvidia";
     "XDG_SESSION_TYPE" = "wayland";
-    "GBM_BACKEND" = "nvidia-drm";
-    "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
     "WLR_NO_HARDWARE_CURSORS" = "1";
     "WLR_EGL_NO_MODIFIRES" = "1";
   };
@@ -59,4 +64,6 @@
       };
     };
   };
+
+  systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
 }

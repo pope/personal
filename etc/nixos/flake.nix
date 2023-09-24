@@ -83,7 +83,7 @@
       nixosConfigurations = {
         "soundwave" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = inputs;
+          specialArgs = { inherit inputs; };
           modules = [
             musnix.nixosModules.musnix
 
@@ -102,7 +102,7 @@
         };
         "ravage" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = inputs;
+          specialArgs = { inherit inputs; };
           modules = [
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
 
