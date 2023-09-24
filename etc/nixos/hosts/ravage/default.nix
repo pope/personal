@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -58,6 +58,16 @@
   time = {
     timeZone = "America/Los_Angeles";
     hardwareClockInLocalTime = true;
+  };
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
   };
 
   # This value determines the NixOS release from which the default

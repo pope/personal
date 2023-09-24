@@ -17,6 +17,7 @@
   home.packages = with pkgs; [
     # TODO(pope): Move this to maybe a browsers file.
     firefox
+    intel-gpu-tools
     stow
   ];
 
