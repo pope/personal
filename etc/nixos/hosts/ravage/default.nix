@@ -9,8 +9,8 @@
     [
       ../../modules/c.nix
       ../../modules/development.nix
+      ../../modules/gnome.nix
       ../../modules/nix.nix
-      ../../modules/pantheon.nix
       ../../modules/sound.nix
       ../../modules/system.nix
       ../../modules/users.nix
