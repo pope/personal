@@ -2,19 +2,12 @@
 
 {
   environment.systemPackages = with pkgs; [
-    android-studio
-    cmake
-    gradle
     fzf
-    gcc
     gh
-    gnumake
     go
-    ninja
     nodejs
     python3Full
     ripgrep
-    stdenv
     tldr
     tree
   ];
@@ -27,8 +20,6 @@
     #   enable = true;
     #   enableSSHSupport = true;
     # };
-
-    java.enable = true;
 
     neovim = {
       enable = true;

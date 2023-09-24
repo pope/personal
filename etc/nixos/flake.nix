@@ -96,6 +96,23 @@
             }
           ];
         };
+        "ravage" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = inputs;
+          modules = [
+            ./hosts/ravage
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.pope = import ./hosts/ravage/home.nix;
+
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
+          ];
+        };
         "nixos-testing" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 
