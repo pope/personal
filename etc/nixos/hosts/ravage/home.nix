@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
     ../../home/git.nix
-    ../../home/hyprland
+    # ../../home/hyprland
     ../../home/lf
     ../../home/packages.nix
   ];
@@ -21,6 +21,18 @@
     intel-gpu-tools
     stow
   ];
+
+  xdg = {
+    cacheHome = config.home.homeDirectory + "/.cache";
+
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      extraConfig = {
+        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
+      };
+    };
+  };
 
   programs = {
     home-manager.enable = true;

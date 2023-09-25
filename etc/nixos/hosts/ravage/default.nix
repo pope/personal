@@ -9,7 +9,8 @@
     [
       ../../modules/c.nix
       ../../modules/development.nix
-      ../../modules/hyprland.nix
+      ../../modules/gnome.nix
+      # ../../modules/hyprland.nix
       ../../modules/nix.nix
       ../../modules/sound.nix
       ../../modules/system.nix
