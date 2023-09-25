@@ -3,6 +3,7 @@
 {
   imports = [
     ../../home/git.nix
+    ../../home/gtk.nix
     # ../../home/hyprland
     ../../home/lf
     ../../home/packages.nix
