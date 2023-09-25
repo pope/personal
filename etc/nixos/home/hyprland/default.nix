@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -49,18 +49,6 @@
     #     source = config.lib.file.mkOutOfStoreSymlink "/home/pope/Code/hyprland";
     #   };
     # };
-  };
-
-  xdg = {
-    cacheHome = config.home.homeDirectory + "/.cache";
-
-    userDirs = {
-      enable = true;
-      createDirectories = true;
-      extraConfig = {
-        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
-      };
-    };
   };
 
   systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
