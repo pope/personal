@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 
 let
   overlays = import ../overlays;
@@ -20,7 +20,7 @@ in
 
     gvfs.enable = true;
 
-    power-profiles-daemon.enable = true;
+    power-profiles-daemon.enable = lib.mkDefault true;
 
     tumbler.enable = true;
 
@@ -41,14 +41,14 @@ in
         xterm.enable = false;
       };
 
-      displayManager = {
-        # defaultSession = "hyprland";
-        lightdm.enable = true;
-        # gdm = {
-        #   enable = true;
-        #   wayland = true;
-        # };
-      };
+      # displayManager = {
+      #   # defaultSession = "hyprland";
+      #   lightdm.enable = true;
+      #   # gdm = {
+      #   #   enable = true;
+      #   #   wayland = true;
+      #   # };
+      # };
     };
   };
 
@@ -78,16 +78,14 @@ in
       enable = true;
       wlr.enable = true;
 
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr # for wlroots based compositors(hyprland/sway)
-        xdg-desktop-portal-gtk # for gtk
-      ];
+      # extraPortals = with pkgs; [
+      #   xdg-desktop-portal-wlr # for wlroots based compositors(hyprland/sway)
+      #   xdg-desktop-portal-gtk # for gtk
+      # ];
     };
   };
 
   programs = {
-    dconf.enable = true;
-
     hyprland = {
       enable = true;
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -109,13 +107,13 @@ in
 
     systemPackages = with pkgs; [
       # xdg-utils
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
+      # xdg-desktop-portal-gtk
+      # xdg-desktop-portal-hyprland
+      # gnome.adwaita-icon-theme
+      # gnome.gnome-themes-extra
 
       alsa-utils
       dunst
-      gnome.adwaita-icon-theme
-      gnome.gnome-themes-extra
       grim
       gsettings-desktop-schemas
       # hyprland-protocols
@@ -128,8 +126,6 @@ in
       libsForQt5.qt5.qtwayland
       qt6.qtwayland
       rofi-wayland
-      rose-pine-gtk-theme
-      rose-pine-icon-theme
       slurp
       swww
       # swayidle

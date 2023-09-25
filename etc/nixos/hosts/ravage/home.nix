@@ -5,7 +5,7 @@
     ../../home/git.nix
     ../../home/gtk.nix
     ../../home/gnome.nix
-    # ../../home/hyprland
+    ../../home/hyprland
     ../../home/lf
     ../../home/packages.nix
   ];
