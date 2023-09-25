@@ -65,6 +65,7 @@
 
   outputs =
     { home-manager
+    , hyprland
     , musnix
     , nix-formatter-pack
     , nixos-generators
@@ -105,6 +106,8 @@
           specialArgs = { inherit inputs; };
           modules = [
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
+
+            hyprland.nixosModules.default
 
             ./hosts/ravage
 
