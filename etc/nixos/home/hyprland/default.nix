@@ -2,14 +2,12 @@
 
 {
   imports = [
-    inputs.hyprland.homeManagerModules.default
     ./config.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    disableAutoreload = false;
-    recommendedEnvironment = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemdIntegration = true;
     xwayland.enable = true;
   };
