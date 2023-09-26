@@ -9,6 +9,7 @@
     ../../home/gtk.nix
     ../../home/gnome.nix
     ../../home/hyprland
+    ../../home/kitty
     ../../home/lf
     ../../home/packages.nix
   ];
