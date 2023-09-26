@@ -10,7 +10,7 @@ in
     /* font-family: LigaSFMono Nerd Font, Iosevka, FontAwesome, Noto Sans CJK; */
     font-family: Iosevka, FontAwesome, Noto Sans CJK;
     /* font-family: JetBrainsMono Nerd Font, FontAwesome, Noto Sans CJK; */
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     min-height: 0;
   }

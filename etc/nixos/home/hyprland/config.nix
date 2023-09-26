@@ -18,7 +18,7 @@ in
       "${pkgs._1password-gui}/bin/1password --silent"
     ];
     exec = [
-      "${pkgs.swww}/bin/swww img ${config.xdg.userDirs.pictures}/${bg}"
+      "sleep 3 && ${pkgs.swww}/bin/swww img ${config.xdg.userDirs.pictures}/${bg}"
     ];
 
     xwayland.force_zero_scaling = true;
