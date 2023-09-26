@@ -8,6 +8,7 @@
   imports =
     [
       ../../modules/c.nix
+      ../../modules/bluetooth.nix
       ../../modules/development.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
