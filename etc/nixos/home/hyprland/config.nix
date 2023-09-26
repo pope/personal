@@ -15,9 +15,10 @@ in
       "${pkgs.swww}/bin/swww init --no-daemon"
       "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
       "${pkgs.udiskie}/bin/udiskie --appindicator --no-password-prompt"
+      "${pkgs._1password-gui}/bin/1password --silent"
     ];
     exec = [
-      "sleep 3 && ${pkgs.swww}/bin/swww img ${config.xdg.userDirs.pictures}/${bg}"
+      "${pkgs.swww}/bin/swww img ${config.xdg.userDirs.pictures}/${bg}"
     ];
 
     xwayland.force_zero_scaling = true;
