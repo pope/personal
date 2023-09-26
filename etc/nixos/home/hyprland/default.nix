@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ../waybar
+
     ./config.nix
   ];
 
@@ -10,16 +12,6 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemdIntegration = true;
     xwayland.enable = true;
-  };
-
-  programs = {
-    waybar = {
-      enable = true;
-      systemd = {
-        enable = false;
-        target = "graphical-session.target";
-      };
-    };
   };
 
   # allow fontconfig to discover fonts and configurations installed through home.packages
