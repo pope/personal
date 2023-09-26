@@ -5,7 +5,6 @@ let
   waybar_style = import ./style.nix { inherit config; };
 in
 {
-
   home.packages = with pkgs; [
     playerctl
     libcanberra-gtk3
@@ -21,5 +20,4 @@ in
       systemd.enable = false;
     };
   };
-
 }
