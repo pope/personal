@@ -4,6 +4,7 @@
   imports = [
     inputs.nix-colors.homeManagerModules.default
 
+    ../../home/dunst.nix
     ../../home/git.nix
     ../../home/gtk.nix
     ../../home/gnome.nix

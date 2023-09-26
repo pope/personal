@@ -11,7 +11,6 @@ in
     exec-once = [
       "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      "${pkgs.dunst}/bin/dunst"
       "${pkgs.waybar}/bin/waybar"
       "${pkgs.swww}/bin/swww init --no-daemon"
       "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
