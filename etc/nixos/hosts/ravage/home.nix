@@ -1,7 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
+    inputs.nix-colors.homeManagerModules.default
+
     ../../home/git.nix
     ../../home/gtk.nix
     ../../home/gnome.nix
@@ -14,15 +16,17 @@
     username = "pope";
     homeDirectory = "/home/pope";
 
+    packages = with pkgs; [
+      # TODO(pope): Move this to maybe a browsers file.
+      firefox
+      intel-gpu-tools
+      stow
+    ];
+
     stateVersion = "23.05";
   };
 
-  home.packages = with pkgs; [
-    # TODO(pope): Move this to maybe a browsers file.
-    firefox
-    intel-gpu-tools
-    stow
-  ];
+  colorScheme = inputs.nix-colors.colorSchemes.rose-pine-moon;
 
   xdg = {
     cacheHome = config.home.homeDirectory + "/.cache";
@@ -40,4 +44,3 @@
     home-manager.enable = true;
   };
 }
-

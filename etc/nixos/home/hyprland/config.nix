@@ -4,17 +4,18 @@ let
   bg = "23.png";
 in
 {
-  wayland.windowManager.hyprland.settings = {
+  wayland.windowManager.hyprland.settings = with config.colorScheme.colors; {
     monitor = [
       "eDP-1,preferred,auto,1"
     ];
     exec-once = [
+      "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       "${pkgs.dunst}/bin/dunst"
       "${pkgs.waybar}/bin/waybar"
       "${pkgs.swww}/bin/swww init --no-daemon"
       "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
       "${pkgs.udiskie}/bin/udiskie --appindicator --no-password-prompt"
-      "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
     ];
     exec = [
       "sleep 3 && ${pkgs.swww}/bin/swww img ${config.xdg.userDirs.pictures}/${bg}"
@@ -39,57 +40,64 @@ in
       sensitivity = 0;
 
       touchpad = {
-        natural_scroll = 1;
+        natural_scroll = true;
+        tap-to-click = false;
       };
     };
 
     general = {
-      gaps_in = 4;
-      gaps_out = 8;
-      border_size = 3;
-      apply_sens_to_raw = 1; # whether to apply the sensitivity to raw input (e.g. used by games where you aim using your mouse)
-      "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-      "col.inactive_border" = "rgba(595959aa)";
+      gaps_in = 5;
+      gaps_out = 5;
+      border_size = 2;
+      "col.active_border" = "rgb(${base0B}) rgb(${base0C}) 45deg";
+      "col.inactive_border" = "rgb(${base02})";
+      "col.group_border_active" = "rgb(${base0A})";
+      "col.group_border" = "rgb(${base03})";
       layout = "dwindle";
+      no_cursor_warps = true;
     };
 
     decoration = {
-      "col.shadow" = "rgba(1a1a1aee)";
-      drop_shadow = true;
+      rounding = 5;
       multisample_edges = true;
-      rounding = 10;
-      shadow_ignore_window = true;
-      shadow_range = 20;
-      shadow_render_power = 3;
       blur = {
         enabled = true;
-        brightness = 1;
-        contrast = 1.5;
-        ignore_opacity = true;
-        new_optimizations = true;
-        noise = 0.0117;
-        passes = 3;
+
         size = 6;
+        passes = 3;
+        new_optimizations = true;
+        ignore_opacity = true;
+        noise = "0.1";
+        contrast = "1.1";
+        brightness = "1.2";
+        xray = true;
       };
+
+      drop_shadow = true;
+      shadow_ignore_window = true;
+      shadow_offset = "0 8";
+      shadow_range = 50;
+      shadow_render_power = 3;
+      "col.shadow" = "rgba(${base00}99)";
     };
 
     animations = {
-      enabled = false;
-      # Selmer443 config
+      enabled = true;
       bezier = [
-        "pace,0.46, 1, 0.29, 0.99"
-        "overshot,0.13,0.99,0.29,1.1"
-        "md3_decel, 0.05, 0.7, 0.1, 1"
+        "wind, 0.05, 0.9, 0.1, 1.05"
+        "winIn, 0.1, 1.1, 0.1, 1.1"
+        "winOut, 0.3, -0.3, 0, 1"
+        "liner, 1, 1, 1, 1"
       ];
       animation = [
-        "windowsIn,1,6,md3_decel,slide"
-        "windowsOut,1,6,md3_decel,slide"
-        "windowsMove,1,6,md3_decel,slide"
-        "fade,1,10,md3_decel"
-        "workspaces,1,9,md3_decel,slide"
-        "workspaces, 1, 6, default"
-        "specialWorkspace,1,8,md3_decel,slide"
-        "border,1,10,md3_decel"
+        "windows, 1, 6, wind, slide"
+        "windowsIn, 1, 6, winIn, slide"
+        "windowsOut, 1, 5, winOut, slide"
+        "windowsMove, 1, 5, wind, slide"
+        "border, 1, 1, liner"
+        "borderangle, 1, 30, liner, loop"
+        "fade, 1, 10, default"
+        "workspaces, 1, 5, wind"
       ];
     };
 
@@ -119,10 +127,6 @@ in
 
     gestures = {
       workspace_swipe = false;
-    };
-
-    debug = {
-      damage_tracking = 2; # leave it on 2 (full) unless you hate your GPU and want to make it suffer!
     };
 
     bind = [
