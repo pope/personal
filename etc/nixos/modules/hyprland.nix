@@ -118,14 +118,12 @@ in
       gsettings-desktop-schemas
       # hyprland-protocols
       hyprpicker
-      killall
       libnotify
       networkmanagerapplet
       pavucontrol
       polkit_gnome
       libsForQt5.qt5.qtwayland
       qt6.qtwayland
-      rofi-wayland
       slurp
       swww
       # swayidle

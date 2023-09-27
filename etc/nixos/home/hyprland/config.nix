@@ -49,7 +49,7 @@ in
       gaps_in = 5;
       gaps_out = 5;
       border_size = 2;
-      "col.active_border" = "rgb(${base0B}) rgb(${base0C}) 45deg";
+      "col.active_border" = "rgb(${base0B}) rgb(${base0D}) 45deg";
       "col.inactive_border" = "rgb(${base02})";
       "col.group_border_active" = "rgb(${base0A})";
       "col.group_border" = "rgb(${base03})";
@@ -130,16 +130,24 @@ in
     };
 
     bind = [
-      "SUPER, Q, exec, kitty"
-      "SUPER, RETURN, exec, kitty"
-      "SUPER, C, killactive"
-      "SUPER, M, exit"
-      "SUPER, E, exec, thunar"
+      "SUPER, Q, killactive"
+      "SUPER SHIFT, Q, exit"
+
+      "SUPER, F, fullscreen"
       "SUPER, V, togglefloating"
-      "SUPER, R, exec, wofi --show drun"
       "SUPER, P, pseudo" # dwindle
       "SUPER, J, togglesplit" # dwindle
-      "SUPER, S, exec, rofi -show drun -show-icons"
+
+      "SUPER, Return, exec, kitty"
+      "SUPER, E, exec, thunar"
+      "SUPER, Space, exec, anyrun"
+
+      "SUPER, Tab, cyclenext"
+      "SUPER, Tab, bringactivetotop"
+
+      "SUPER, A, togglespecialworkspace"
+      "SUPER SHIFT, A, movetoworkspace, special"
+      "SUPER, C, exec, hyprctl dispatch centerwindow"
 
       "SUPER, left, movefocus, l"
       "SUPER, right, movefocus, r"
@@ -181,6 +189,20 @@ in
     bindm = [
       "SUPER, mouse:272, movewindow"
       "SUPER, mouse:273, resizewindow"
+    ];
+
+    windowrulev2 = [
+      "opacity 0.80 0.70,class:^(pavucontrol)$"
+      "opacity 0.90 0.80,class:^(discord)$"
+      "opacity 0.80 0.80,class:^(thunar)$"
+
+      "float,class:^(pavucontrol)$"
+    ];
+    layerrule = [
+      "blur, ^(gtk-layer-shell|NOTanyrun)$"
+      "ignorezero, ^(gtk-layer-shell|NOTanyrun)$"
+      "blur, notifications"
+      "blur, launcher"
     ];
   };
   wayland.windowManager.hyprland.extraConfig = ''
