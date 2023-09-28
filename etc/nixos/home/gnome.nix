@@ -23,14 +23,15 @@
 
       # `gnome-extensions list` for a list
       enabled-extensions = with pkgs.gnomeExtensions; [
-        custom-accent-colors.extensionUuid
         appindicator.extensionUuid
-        user-themes.extensionUuid
+        blur-my-shell.extensionUuid
         caffeine.extensionUuid
+        custom-accent-colors.extensionUuid
+        user-themes.extensionUuid
       ];
     };
 
-    "org/gnome/shell/extensions/user-theme".name = "rose-pine-moon";
+    # "org/gnome/shell/extensions/user-theme".name = "Catppuccin-Mocha-Standard-Mauve-dark";
     "org/gnome/shell/extensions/custom-accent-colors" = {
       accent-color = "purple";
       theme-flatpak = true;

@@ -70,7 +70,7 @@ in
         noise = "0.1";
         contrast = "1.1";
         brightness = "1.2";
-        xray = true;
+        xray = false;
       };
 
       drop_shadow = true;
@@ -131,7 +131,7 @@ in
 
     bind = [
       "SUPER, Q, killactive"
-      "SUPER SHIFT, Q, exit"
+      "SUPER SHIFT, Escape, exit"
 
       "SUPER, F, fullscreen"
       "SUPER, V, togglefloating"
