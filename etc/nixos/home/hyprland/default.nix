@@ -31,6 +31,9 @@
     packages = with pkgs; [
       xdg-utils
       xdg-user-dirs
+
+      mpv
+      imv
     ];
 
     # TODO(pope): Figure out how to do a "live" symlink here.

@@ -35,7 +35,7 @@
     "org/gnome/shell/extensions/custom-accent-colors" = {
       accent-color = "purple";
       theme-flatpak = true;
-      theme-gtk3 = true;
+      theme-gtk3 = false;
       theme-shell = true;
     };
   };
