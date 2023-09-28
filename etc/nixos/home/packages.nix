@@ -1,8 +1,20 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
+    discord
+    fd
+    fzf
+    htop
+    imagemagick
+    kitty
+    kitty-themes
+    neofetch
     nil
+    nvtop
+    ripgrep
+    tldr
+    tree
   ];
 
   programs = {
@@ -13,5 +25,20 @@
         theme_background = false;
       };
     };
+
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
+        fish_config theme choose "Rosé Pine"
+      '';
+      plugins = [
+        { name = "tide"; src = pkgs.fishPlugins.tide.src; }
+      ];
+    };
+  };
+
+  xdg.configFile."fish/themes" = {
+    source = "${inputs.fish-rose-pine}/themes";
+    recursive = true;
   };
 }

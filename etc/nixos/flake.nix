@@ -66,6 +66,11 @@
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fish-rose-pine = {
+      url = "github:rose-pine/fish";
+      flake = false;
+    };
   };
 
   outputs =
