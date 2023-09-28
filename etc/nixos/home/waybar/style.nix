@@ -5,14 +5,7 @@ let
 in
 ''
   * {
-    border: none;
-    border-radius: 0px;
-    /* font-family: LigaSFMono Nerd Font, Iosevka, FontAwesome, Noto Sans CJK; */
-    font-family: Iosevka, FontAwesome, Noto Sans CJK;
-    /* font-family: JetBrainsMono Nerd Font, FontAwesome, Noto Sans CJK; */
-    font-size: 14px;
-    font-style: normal;
-    min-height: 0;
+    font-size: 0.9rem;
   }
 
   window#waybar {
@@ -20,6 +13,20 @@ in
     color: #${color.base05};
     transition-duration: .5s;
     transition-property: background-color;
+  }
+
+  .modules-left,
+  .modules-right,
+  .modules-center {}
+
+  #custom-launcher {
+    color: #${color.base0C};
+    margin-left: 1rem;
+    margin-right: 1.2rem;
+  }
+
+  #custom-playerctl {
+    margin-right: 0.5rem;
   }
 
   tooltip {
@@ -41,57 +48,40 @@ in
   }
 
   #workspaces button {
-    background-color: #${color.base0A};
+    background-color: #${color.base02};
     border-radius: 16px;
-    color: #${color.base0A};
+    color: #${color.base02};
     margin: 0px 3px;
     padding: 0px 5px;
     transition: all 0.3s ease-in-out;
   }
 
   #workspaces button.active {
-    background-color: #${color.base05};
+    background-color: #${color.base0D};
     background-size: 400% 400%;
     border-radius: 16px;
-    color: #${color.base05};
+    color: #${color.base0D};
     min-width: 50px;
     transition: all 0.3s ease-in-out;
   }
 
   #workspaces button:hover {
-    background-color: #${color.base05};
+    background-color: #${color.base0A};
     background-size: 400% 400%;
     border-radius: 16px;
-    color: #${color.base05};
+    color: #${color.base0A};
     min-width: 50px;
   }
 
-  #custom-date, #custom-playerctl, #clock, #battery, #pulseaudio, #network {
-    background: #${color.base00};
-    border-radius: 10px;
-    color: #${color.base05};
-    margin: 6px;
-    padding: 0 6px;
-  }
-
-  #pulseaudio, #tray, #clock, #custom-launcher {
-    margin-right: 6px;
-  }
-
   #cpu,
-  #disk,
   #memory,
+  #disk,
+  #tray,
   #pulseaudio,
-  #backlight,
-  #battery,
-  #network,
-  #clock {
-      border-radius: 0px 10px 10px 0px;
-      margin: 6px;
-  }
-
-  #tray {
-    color: #${color.base0E};
+  #clock,
+  #battery {
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
   }
 
   #tray>.passive {
@@ -102,19 +92,23 @@ in
     -gtk-icon-effect: highlight;
   }
 
-  custom-launcher {
-    border-radius: 0px 10px 0px 0px;
+  #cpu, #battery {
     color: #${color.base0C};
-    font-size: 20px;
-    margin: 0px 0px 2px 0px;
-    padding: 10px 15px 10px 15px;
   }
 
-  #pulseaudio {
-    color: #${color.base05};
+  #battery.warning {
+    color: #${color.base09};
   }
 
-  #pulseaudio.muted {
-    color: #${color.base01};
+  #battery.critical {
+    color: #${color.base08};
+  }
+
+  #memory, #clock {
+    color: #${color.base0D};
+  }
+
+  #disk, #pulseaudio {
+    color: #${color.base0B};
   }
 ''

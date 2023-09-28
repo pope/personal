@@ -113,6 +113,7 @@ in
       # gnome.gnome-themes-extra
 
       alsa-utils
+      cava
       dunst
       grim
       gsettings-desktop-schemas

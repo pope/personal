@@ -37,6 +37,26 @@ return {
 		end
 	},
 	{
+		'catppuccin/nvim',
+		name = 'catppuccin',
+		event = { 'VeryLazy' },
+		opts = {
+			flavour = 'mocha',
+			transparent_background = true,
+			dim_inactive = {
+				enabled = false,
+			},
+			custom_highlights = function(colors)
+				return {
+					ColorColumn = { bg = colors.surface0 },
+					NonText = {
+						fg = colors.surface0,
+					},
+				}
+			end,
+		},
+	},
+	{
 		'Mofiqul/dracula.nvim',
 		event = { 'VeryLazy' },
 	},

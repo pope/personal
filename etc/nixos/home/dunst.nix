@@ -7,7 +7,7 @@
     settings = {
       global = {
         follow = "mouse";
-        width = 500;
+        width = 400;
         origin = "top-right";
         alignment = "left";
         vertical_alignment = "center";
@@ -37,9 +37,9 @@
         history_length = 20;
         show_age_threshold = 60;
         markup = "full";
-        font = "Iosevka";
+        font = "Iosevka 10";
         format =
-          "<span size='x-large' font_desc='Iosevka 10' foreground='#${base05}'>%a</span>\\n%s\\n%b";
+          "<span size='x-large' font_desc='Iosevka 8' foreground='#${base05}'>%a</span>\\n%s\\n%b";
         word_wrap = "yes";
         sort = "yes";
         shrink = "no";
@@ -65,17 +65,17 @@
       #   script = "~/.config/eww/scripts/notification_logger.zsh";
       # };
       urgency_critical = {
-        background = "#${base00}";
+        background = "#${base00}D0";
         foreground = "#${base05}";
         frame_color = "#${base0B}";
       };
       urgency_low = {
-        background = "#${base00}";
+        background = "#${base00}D0";
         foreground = "#${base05}";
         frame_color = "#${base0C}";
       };
       urgency_normal = {
-        background = "#${base00}";
+        background = "#${base00}D0";
         foreground = "#${base05}";
         frame_color = "#${base0C}";
       };

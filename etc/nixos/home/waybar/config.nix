@@ -21,10 +21,12 @@ in
       "memory"
       "disk"
       "tray"
+      # "network"
       "pulseaudio"
       "clock"
-      # "network"
+      "battery"
     ];
+
     clock = {
       format = "󱑍 {:%H:%M}";
       tooltip = "true";
@@ -58,8 +60,8 @@ in
       on-click = "playerctl previous";
       on-click-right = "playerctl next";
       format-icons = {
-        Playing = "<span foreground='#${color.base09}'>󰓇 </span>";
-        Paused = "<span foreground='#${color.base08}'>󰓇 </span>";
+        Playing = "<span foreground='#${color.base0B}'>󰓇 </span>";
+        Paused = "<span foreground='#${color.base0E}'>󰓇 </span>";
       };
     };
 
@@ -70,7 +72,7 @@ in
       exec = ''
         playerctl -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
       on-click-middle = "playerctl play-pause";
-      on-click = "playerctl previous";
+      on-click = "playkerctl previous";
       on-click-right = "playerctl next";
     };
 

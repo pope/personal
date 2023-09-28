@@ -23,13 +23,21 @@ rec {
     };
 
     iconTheme = {
-      name = "rose-pine";
-      package = pkgs.rose-pine-icon-theme;
+      name = "Papirus-Dark";
+      package = pkgs.catppuccin-papirus-folders.override {
+        accent = "mauve";
+        flavor = "mocha";
+      };
     };
 
     theme = {
-      name = "rose-pine";
-      package = pkgs.rose-pine-gtk-theme;
+      name = "Catppuccin-Mocha-Standard-Mauve-dark";
+      package = pkgs.catppuccin-gtk.override {
+        size = "standard";
+        accents = [ "mauve" ];
+        variant = "mocha";
+        tweaks = [ "normal" ];
+      };
     };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -41,7 +49,7 @@ rec {
     '';
 
     gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 0;
+      gtk-application-prefer-dark-theme = 1;
 
       gtk-xft-antialias = 1;
       gtk-xft-hinting = 1;
@@ -59,7 +67,12 @@ rec {
       themeDir = "${gtk.theme.package}/share/themes/${gtk.theme.name}";
     in
     {
+      configFile."gtk-4.0/assets" = {
+        source = "${themeDir}/gtk-4.0/assets";
+        recursive = true;
+      };
       configFile."gtk-4.0/gtk.css".source = "${themeDir}/gtk-4.0/gtk.css";
+      configFile."gtk-4.0/gtk-dark.css".source = "${themeDir}/gtk-4.0/gtk-dark.css";
     };
 
   qt = {

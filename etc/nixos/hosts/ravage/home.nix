@@ -30,7 +30,7 @@
     stateVersion = "23.05";
   };
 
-  colorScheme = inputs.nix-colors.colorSchemes.rose-pine-moon;
+  colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
 
   xdg = {
     cacheHome = config.home.homeDirectory + "/.cache";
