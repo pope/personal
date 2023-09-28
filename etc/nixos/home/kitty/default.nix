@@ -14,6 +14,6 @@
       shell = "${pkgs.fish}/bin/fish --login";
     };
     # theme = "Catppuccin-Mocha";
-    theme = "Rosé Pine Moon";
+    theme = "Rosé Pine";
   };
 }

@@ -41,14 +41,14 @@ in
         xterm.enable = false;
       };
 
-      # displayManager = {
-      #   # defaultSession = "hyprland";
-      #   lightdm.enable = true;
-      #   # gdm = {
-      #   #   enable = true;
-      #   #   wayland = true;
-      #   # };
-      # };
+      displayManager = {
+        # defaultSession = "hyprland";
+        lightdm.enable = true;
+        # gdm = {
+        #   enable = true;
+        #   wayland = true;
+        # };
+      };
     };
   };
 
@@ -97,6 +97,7 @@ in
       enable = true;
       plugins = with pkgs.xfce; [
         thunar-archive-plugin
+        thunar-media-tags-plugin
         thunar-volman
       ];
     };
@@ -135,6 +136,7 @@ in
       wl-clipboard
       wlogout
       wlr-randr
+      xfce.ristretto
       xfce.thunar
       waybar
     ];
