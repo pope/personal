@@ -1,4 +1,4 @@
-_:
+{ pkgs, ... }:
 
 {
   programs.kitty = {
@@ -11,6 +11,7 @@ _:
       adjust_line_height = "125%";
       background_opacity = "0.85";
       clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
+      shell = "${pkgs.fish}/bin/fish --login";
     };
     # theme = "Catppuccin-Mocha";
     theme = "Rosé Pine Moon";

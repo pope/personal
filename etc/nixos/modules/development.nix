@@ -2,14 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
-    fzf
     gh
     go
+    jq
     nodejs
     python3Full
-    ripgrep
-    tldr
-    tree
   ];
 
   programs = {
