@@ -5,9 +5,14 @@
     enable = true;
     font = {
       name = "Iosevka";
+      package = pkgs.iosevka;
       size = 11.0;
     };
     settings = {
+      bold_font = "Iosevka Bold";
+      italic_font = "Iosevka Italic";
+      bold_italic_font = "Iosevka Bold Italic";
+
       background_opacity = "0.85";
       clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
       dynamic_background_opacity = "yes";
@@ -15,6 +20,7 @@
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
       tab_powerline_style = "round";
+      window_padding_width = 4;
 
       "modify_font cell_height" = "125%";
     };
