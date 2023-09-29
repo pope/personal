@@ -14,6 +14,7 @@
     ../../home/kitty
     ../../home/lf
     ../../home/packages.nix
+    ../../home/xdg.nix
   ];
 
   home = {
@@ -31,18 +32,6 @@
   };
 
   colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
-
-  xdg = {
-    cacheHome = config.home.homeDirectory + "/.cache";
-
-    userDirs = {
-      enable = true;
-      createDirectories = true;
-      extraConfig = {
-        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
-      };
-    };
-  };
 
   programs = {
     home-manager.enable = true;
