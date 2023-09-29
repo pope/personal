@@ -19,9 +19,9 @@ return {
 			return {
 				bold_vert_split = false,
 				dark_variant = 'main',
-				dim_nc_background = true,
-				disable_background = false,
-				disable_float_background = false,
+				dim_nc_background = false,
+				disable_background = true,
+				disable_float_background = true,
 				highlight_groups = {
 					ColorColumn = { bg = p.highlight_low },
 					NonText = {
