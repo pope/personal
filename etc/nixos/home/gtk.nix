@@ -50,7 +50,7 @@ rec {
     };
 
     gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
+      gtk-application-prefer-dark-theme = 0;
     };
   };
 
