@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    kitty
+    kitty-themes
+  ];
+
   programs.kitty = {
     enable = true;
     font = {

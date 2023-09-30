@@ -7,8 +7,6 @@
     fzf
     htop
     imagemagick
-    kitty
-    kitty-themes
     neofetch
     nil
     nvtop
