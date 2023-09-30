@@ -199,8 +199,8 @@ in
       "float,class:^(pavucontrol)$"
     ];
     layerrule = [
-      "blur, ^(gtk-layer-shell|NOTanyrun)$"
-      "ignorezero, ^(gtk-layer-shell|NOTanyrun)$"
+      "blur, ^(gtk-layer-shell|anyrun|waybar)$"
+      "ignorezero, ^(gtk-layer-shell|anyrun|waybar)$"
       "blur, notifications"
       "blur, launcher"
     ];
