@@ -32,7 +32,7 @@
         fish_config theme choose "Rosé Pine"
       '';
       plugins = [
-        { name = "tide"; src = pkgs.fishPlugins.tide.src; }
+        { name = "tide"; inherit (pkgs.fishPlugins.tide) src; }
       ];
     };
   };

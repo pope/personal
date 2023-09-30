@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   bg = "23.png";
 in
 {
   wayland.windowManager.hyprland.settings = with config.colorScheme.colors; {
-    monitor = [
+    monitor = lib.mkDefault [
       "eDP-1,preferred,auto,1"
     ];
     exec-once = [

@@ -40,15 +40,6 @@ in
       desktopManager = {
         xterm.enable = false;
       };
-
-      displayManager = {
-        # defaultSession = "hyprland";
-        lightdm.enable = true;
-        # gdm = {
-        #   enable = true;
-        #   wayland = true;
-        # };
-      };
     };
   };
 
@@ -107,11 +98,8 @@ in
     pathsToLink = [ "/libexec" ];
 
     systemPackages = with pkgs; [
-      # xdg-utils
       # xdg-desktop-portal-gtk
       # xdg-desktop-portal-hyprland
-      # gnome.adwaita-icon-theme
-      # gnome.gnome-themes-extra
 
       alsa-utils
       cava
@@ -127,9 +115,9 @@ in
       libsForQt5.qt5.qtwayland
       qt6.qtwayland
       slurp
+      swayidle
+      swaylock
       swww
-      # swayidle
-      # swaylock
       udiskie
       wayland
       wf-recorder

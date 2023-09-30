@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -9,7 +9,7 @@
     ../../home/dunst.nix
     ../../home/git.nix
     ../../home/gtk.nix
-    # ../../home/gnome.nix
+    ../../home/gnome.nix
     ../../home/hyprland
     ../../home/kitty
     ../../home/lf
@@ -32,6 +32,10 @@
   };
 
   colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
+
+  wayland.windowManager.hyprland.settings.monitor = [
+    "eDP-1,preferred,auto,1"
+  ];
 
   programs = {
     home-manager.enable = true;
