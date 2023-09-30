@@ -8,14 +8,18 @@
   imports =
     [
       ../../modules/c.nix
+      ../../modules/bluetooth.nix
+      ../../modules/display-manager.nix
       ../../modules/development.nix
       ../../modules/gaming.nix
       ../../modules/gnome.nix
+      ../../modules/hyprland.nix
       ../../modules/java.nix
       ../../modules/nix.nix
       ../../modules/sound.nix
       ../../modules/system.nix
       ../../modules/users.nix
+      ../../modules/wayland.nix
 
       # Include the results of the hardware scan.
       ./hardware-configuration.nix

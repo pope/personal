@@ -9,8 +9,9 @@
     [
       ../../modules/c.nix
       ../../modules/bluetooth.nix
+      ../../modules/display-manager.nix
       ../../modules/development.nix
-      # ../../modules/gnome.nix
+      ../../modules/gnome.nix
       ../../modules/hyprland.nix
       ../../modules/nix.nix
       ../../modules/sound.nix
