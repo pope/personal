@@ -11,8 +11,8 @@
     ../../home/gtk.nix
     ../../home/gnome.nix
     ../../home/hyprland
-    ../../home/kitty
-    ../../home/lf
+    ../../home/kitty.nix
+    ../../home/lf.nix
     ../../home/packages.nix
     ../../home/xdg.nix
   ];

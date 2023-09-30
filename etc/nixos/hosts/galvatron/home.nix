@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    ../../home/lf
+    ../../home/lf.nix
   ];
 
   nixpkgs.overlays = with overlays; [

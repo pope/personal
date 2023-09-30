@@ -3,7 +3,7 @@
 {
   imports = [
     ../../home/gnome.nix
-    ../../home/lf
+    ../../home/lf.nix
     ../../home/packages.nix
   ];
 

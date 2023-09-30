@@ -10,8 +10,8 @@
     ../../home/gnome.nix
     ../../home/gtk.nix
     ../../home/hyprland
-    ../../home/kitty
-    ../../home/lf
+    ../../home/kitty.nix
+    ../../home/lf.nix
     ../../home/packages.nix
     ../../home/xdg.nix
   ];
