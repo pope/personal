@@ -21,7 +21,9 @@
     homeDirectory = "/home/pope";
 
     packages = with pkgs; [
+      discord
       firefox
+      nvtop
     ];
 
     stateVersion = "23.05";
