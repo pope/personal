@@ -2,14 +2,12 @@
 
 {
   home.packages = with pkgs; [
-    discord
     fd
     fzf
     htop
     imagemagick
     neofetch
     nil
-    nvtop
     ripgrep
     tldr
     tree
