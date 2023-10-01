@@ -191,6 +191,11 @@ in
 
       "SUPER, mouse_down, workspace, e+1"
       "SUPER, mouse_up, workspace, e-1"
+
+      # Brightness Control Bindings
+      ", XF86MonBrightnessUp, exec, brightnessctl set +10%"
+      ", XF86MonBrightnessDown, exec, brightnessctl set 10%- -n 1%"
+      ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
     ];
 
     bindm = [
