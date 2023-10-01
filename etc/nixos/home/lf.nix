@@ -3,11 +3,22 @@
 {
   home.packages = with pkgs; [
     ctpv
+    ripdrag
   ];
 
   programs = {
     lf = {
       enable = true;
+      commands = {
+        drag-out = ''%${pkgs.ripdrag}/bin/ripdrag -x -a $fx'';
+        mkdir = ''
+          ''${{
+            printf "Directory name: "
+            read DIR
+            mkdir $DIR
+          }}
+        '';
+      };
       settings = {
         previewer = "${pkgs.ctpv}/bin/ctpv";
         cleaner = "${pkgs.ctpv}/bin/ctpvclear";
