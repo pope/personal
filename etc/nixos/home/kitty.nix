@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -6,7 +6,7 @@
     kitty-themes
   ];
 
-  programs.kitty = {
+  programs.kitty = with config.colorScheme.colors; {
     enable = true;
     font = {
       name = "Iosevka";
@@ -25,6 +25,7 @@
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
       tab_powerline_style = "round";
+      wayland_titlebar_color = "#${base00}";
       window_padding_width = 4;
 
       "modify_font cell_height" = "125%";
