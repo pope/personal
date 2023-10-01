@@ -63,6 +63,19 @@
     hardwareClockInLocalTime = true;
   };
 
+  fileSystems = {
+    "/media/cyberia" = {
+      device = "raspberrypi.lan:/mnt/Cyberia";
+      fsType = "nfs";
+      options = [
+        "x-systemd.automount"
+        "noauto"
+        "x-systemd.after=network-online.target"
+        "x-systemd.idle-timeout=300"
+      ];
+    };
+  };
+
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
