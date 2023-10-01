@@ -9,7 +9,7 @@ in
   }
 
   window#waybar {
-    background: alpha(#${color.base00}, 0.9);
+    background: alpha(#${color.base00}, 0.85);
     color: #${color.base05};
     transition-duration: .5s;
     transition-property: background-color;
