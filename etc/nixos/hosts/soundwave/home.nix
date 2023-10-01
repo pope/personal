@@ -32,7 +32,8 @@
   colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "HDMI-A-1,2560x1440@119.998001,0x0,auto"
+    # "HDMI-A-1,2560x1440@119.998001,0x0,auto"
+    "HDMI-A-1,preferred,0x0,auto"
     "DP-2,preferred,2560x0,auto"
   ];
 
