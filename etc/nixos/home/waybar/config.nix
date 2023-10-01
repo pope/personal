@@ -7,7 +7,7 @@ in
   mainBar = {
     position = "top";
     layer = "top";
-    height = 42;
+    height = 37;
     margin-top = 0;
     margin-bottom = 0;
     margin-left = 0;
@@ -25,6 +25,7 @@ in
       "pulseaudio"
       "clock"
       "battery"
+      "custom/power"
     ];
 
     clock = {
@@ -33,7 +34,7 @@ in
       tooltip-format = ''
         <big>{:%Y %B}</big>
         <tt><small>{calendar}</small></tt>'';
-      format-alt = " {:%d/%m}";
+      format-alt = " {:%m/%d}";
     };
 
     "hyprland/workspaces" = {
@@ -42,7 +43,7 @@ in
       disable-scroll = false;
       on-scroll-up = "hyprctl dispatch workspace e-1";
       on-scroll-down = "hyprctl dispatch workspace e+1";
-      format = "{icon}";
+      format = " ";
       on-click = "activate";
       show-special = "false";
       sort-by-number = true;
@@ -72,7 +73,7 @@ in
       exec = ''
         playerctl -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
       on-click-middle = "playerctl play-pause";
-      on-click = "playkerctl previous";
+      on-click = "playerctl previous";
       on-click-right = "playerctl next";
     };
 
@@ -114,7 +115,7 @@ in
       format-wifi = "󰤨";
       format-ethernet = " {ifname}: Aesthetic";
       format-linked = " {ifname} (No IP)";
-      format-disconnected = "󰤭";
+      format-disconnected = "󰤭 ";
       format-alt = " {ifname}: {ipaddr}/{cidr}";
       tooltip-format = "{essid}";
       on-click-right = "nm-connection-editor";
@@ -135,8 +136,14 @@ in
     };
 
     "custom/launcher" = {
-      format = "";
+      format = " ";
       # on-click = "notify-send -t 1 'swww' '1' & ~/.config/hypr/scripts/wall";
+      tooltip = false;
+    };
+
+    "custom/power" = {
+      format = "⏻";
+      on-click = "wlogout";
       tooltip = false;
     };
   };
