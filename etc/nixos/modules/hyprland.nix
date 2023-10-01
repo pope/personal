@@ -120,14 +120,15 @@ in
       swaylock
       swww
       udiskie
+      waybar
       wayland
+      wdisplays # Tool for managing displays
       wf-recorder
       wl-clipboard
       wlogout
       wlr-randr
       xfce.ristretto
       xfce.thunar
-      waybar
     ];
   };
 }
