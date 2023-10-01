@@ -17,6 +17,8 @@
     ../../home/xdg.nix
   ];
 
+  nixpkgs.config.firefox.speechSynthesisSupport = true;
+
   home = {
     username = "pope";
     homeDirectory = "/home/pope";
