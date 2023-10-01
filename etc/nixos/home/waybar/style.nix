@@ -140,6 +140,10 @@ in
     color: #${color.base0C};
   }
 
+  #battery {
+    margin-right: 1rem;
+  }
+
   #battery.warning {
     color: #${color.base09};
   }

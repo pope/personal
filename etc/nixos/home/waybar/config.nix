@@ -69,7 +69,7 @@ in
     "custom/playerlabel" = {
       format = "<span>{}</span>";
       return-type = "json";
-      max-length = 35;
+      max-length = 50;
       exec = ''
         playerctl -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
       on-click-middle = "playerctl play-pause";
@@ -85,11 +85,11 @@ in
       };
       format = "{icon}  {capacity}%";
       format-charging = "{capacity}% ";
-      format-plugged = "{capacity}% ";
+      format-plugged = "{capacity}%  ";
       format-alt = "{icon} {time}";
       # "format-good"= "", # An empty format will hide the module
       # "format-full"= "";
-      format-icons = [ "" "" "" "" "" ];
+      format-icons = [ " " " " " " " " " " ];
     };
 
     memory = {
