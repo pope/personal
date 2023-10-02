@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, ... } @ args:
 
+let
+  overlays = import ../../overlays args;
+in
 {
   imports =
     [
@@ -24,14 +27,16 @@
     supportedFilesystems = [ "ntfs" ];
   };
 
-  # Fixes cross-compiling for the SD card for the PI.
-  # See: https://github.com/NixOS/nixpkgs/issues/126755
-  # Also: https://github.com/NixOS/nixpkgs/issues/154163
-  nixpkgs.overlays = [
+  nixpkgs.overlays = with overlays; [
+    # Fixes cross-compiling for the SD card for the PI.
+    # See: https://github.com/NixOS/nixpkgs/issues/126755
+    # Also: https://github.com/NixOS/nixpkgs/issues/154163
     (_final: super: {
       makeModulesClosure = x:
         super.makeModulesClosure (x // { allowMissing = true; });
     })
+    waybar
+    plow
   ];
 
   fileSystems = {

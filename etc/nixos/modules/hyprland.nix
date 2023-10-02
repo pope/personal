@@ -1,13 +1,6 @@
 { inputs, pkgs, lib, ... }:
 
-let
-  overlays = import ../overlays;
-in
 {
-  nixpkgs.overlays = with overlays; [
-    waybar
-  ];
-
   services = {
     dbus = {
       enable = true;
