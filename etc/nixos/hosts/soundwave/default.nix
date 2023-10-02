@@ -2,8 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, ... } @ args:
 
+let
+  overlays = import ../../overlays args;
+in
 {
   imports =
     [
@@ -59,12 +62,10 @@
     swraid.enable = false;
   };
 
-  nixpkgs.overlays = [
-    (_self: super: {
-      renoise343 = super.renoise.override {
-        releasePath = /home/pope/Documents/rns_343_linux_x86_64.tar.gz;
-      };
-    })
+  nixpkgs.overlays = with overlays; [
+    plow
+    renoise343
+    waybar
   ];
 
   virtualisation.libvirtd.enable = true;

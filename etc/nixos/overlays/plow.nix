@@ -1,5 +1,4 @@
-_final: prev:
-{
+_: (_final: prev: {
   plow = prev.buildGoModule {
     name = "plow";
     src = prev.fetchFromGitHub {
@@ -10,4 +9,4 @@ _final: prev:
     };
     vendorSha256 = "sha256-t2lBPyCn8bu9hLsWmaCGir9egbX0mQR+8kB0RfY7nHE=";
   };
-}
+})

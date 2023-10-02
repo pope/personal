@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, ... } @ args:
 
 let
-  overlays = import ../../overlays;
+  overlays = import ../../overlays args;
 in
 {
   imports = [

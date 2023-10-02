@@ -2,8 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ ... }:
+args:
 
+let
+  overlays = import ../../overlays args;
+in
 {
   imports =
     [
@@ -18,6 +21,11 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  nixpkgs.overlays = with overlays; [
+    waybar
+    plow
+  ];
 
   boot = {
     # Bootloader.
