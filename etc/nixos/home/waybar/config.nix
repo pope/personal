@@ -69,7 +69,7 @@ in
     "custom/playerlabel" = {
       format = "<span>{}</span>";
       return-type = "json";
-      max-length = 50;
+      max-length = 75;
       exec = ''
         playerctl -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
       on-click-middle = "playerctl play-pause";
