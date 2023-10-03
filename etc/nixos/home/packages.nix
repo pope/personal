@@ -2,12 +2,22 @@
 
 {
   home.packages = with pkgs; [
-    fd
+    cheat
+    choose # cut + awk
+    curlie # curl + httpie
+    du-dust # du
+    dua # du
+    duf # df 
+    eza # ls and tree
+    fd # find
     htop
+    hyperfine
     imagemagick
     neofetch
     nil
+    procs # ps
     ripgrep
+    sd # sed
     tldr
     tree
   ];
