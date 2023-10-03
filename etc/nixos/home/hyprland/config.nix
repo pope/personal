@@ -193,8 +193,13 @@ in
       "SUPER, mouse_up, workspace, e-1"
 
       # Brightness Control Bindings
-      ", XF86MonBrightnessUp, exec, brightnessctl set +10%"
-      ", XF86MonBrightnessDown, exec, brightnessctl set 10%- -n 1%"
+      ", XF86MonBrightnessUp, exec, light -A 10"
+      ", XF86MonBrightnessDown, exec, light set -U 10"
+      # Audio levels
+      ", XF86AudioRaiseVolume, exec, pamixer -u -i 10"
+      ", XF86AudioLowerVolume, exec, pamixer -u -d 10"
+      ", XF86AudioMute, exec, pamixer -t"
+      # Screenshot
       ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
     ];
 
