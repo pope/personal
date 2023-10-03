@@ -99,6 +99,7 @@ in
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     tlp.enable = false; # Conflicts with PPD above. But maybe useful in the future.
+    xserver.displayManager.defaultSession = "hyprland";
   };
   powerManagement.powertop.enable = true;
 
