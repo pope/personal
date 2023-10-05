@@ -11,6 +11,8 @@
     username = "pope";
     homeDirectory = "/home/pope";
 
+    file.".face".source = ../../face.png;
+
     stateVersion = "23.05";
   };
 

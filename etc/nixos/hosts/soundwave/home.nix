@@ -20,6 +20,8 @@
     username = "pope";
     homeDirectory = "/home/pope";
 
+    file.".face".source = ../../face.png;
+
     packages = with pkgs; [
       discord
       firefox
