@@ -104,10 +104,9 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
 
               home-manager.users.pope = import ./hosts/soundwave/home.nix;
-
-              home-manager.extraSpecialArgs = { inherit inputs; };
             }
           ];
         };
@@ -125,16 +124,15 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
 
               home-manager.users.pope = import ./hosts/ravage/home.nix;
-
-              home-manager.extraSpecialArgs = { inherit inputs; };
             }
           ];
         };
         "nixos-testing" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-
+          specialArgs = { inherit inputs; };
           modules = [
             ./hosts/nixos-testing
 
@@ -142,6 +140,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
 
               home-manager.users.pope = import ./hosts/nixos-testing/home.nix;
             }
@@ -149,7 +148,7 @@
         };
         "raspberrypi" = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-
+          specialArgs = { inherit inputs; };
           modules = [
             ./hosts/raspberrypi
 
@@ -157,6 +156,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
 
               home-manager.users.pi = import ./hosts/raspberrypi/home.nix;
             }
@@ -170,7 +170,7 @@
       homeConfigurations = {
         "pope@galvatron" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-
+          extraSpecialArgs = { inherit inputs; };
           modules = [
             ./hosts/galvatron/home.nix
           ];
