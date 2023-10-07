@@ -10,7 +10,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    systemdIntegration = true;
+    systemd.enable = true;
     xwayland.enable = true;
   };
 
