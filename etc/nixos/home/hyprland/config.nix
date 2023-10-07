@@ -59,7 +59,6 @@ in
 
     decoration = {
       rounding = 6;
-      multisample_edges = true;
       blur = {
         enabled = true;
 
