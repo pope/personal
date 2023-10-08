@@ -6,6 +6,7 @@
     inputs.nix-colors.homeManagerModules.default
 
     ../../home/anyrun.nix
+    ../../home/development.nix
     ../../home/dunst.nix
     ../../home/gnome.nix
     ../../home/gtk.nix
