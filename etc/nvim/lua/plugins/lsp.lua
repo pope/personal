@@ -43,26 +43,6 @@ capabilities.textDocument.foldingRange = {
 	lineFoldingOnly = true,
 }
 
-local servers = {
-	lua_ls = {
-		Lua = {
-			diagnostics = {
-				globals = { 'vim' },
-			},
-			workspace = { checkThirdParty = false },
-			telemetry = { enable = false },
-		},
-	},
-	gopls = {
-		gopls = {
-			analyses = {
-				unusedparams = true,
-			},
-			staticcheck = true,
-		},
-	},
-}
-
 local on_attach = function(client, bufnr)
 	local nmap = function(keys, cmd, desc)
 		if desc then
@@ -150,28 +130,45 @@ return {
 			'williamboman/mason.nvim',
 		},
 		lazy = true,
-		opts = {
-			-- ensure_installed = vim.tbl_keys(servers),
-			ensure_installed = { 'lua_ls', },
-		},
 		config = function(_, opts)
-			-- Dart provides their own LSP stuff, so no need to go through
-			-- mason.
-			require('lspconfig')['dartls'].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
-			require('lspconfig')['nil_ls'].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
+			local lspconfig = require('lspconfig')
+			local server = {
+				dartls = {},
+				nil_ls = {},
+				rust_analyzer = {
+					['rust-analyzer'] = {},
+				},
+				lua_ls = {
+					Lua = {
+						diagnostics = {
+							globals = { 'vim' },
+						},
+						workspace = { checkThirdParty = false },
+						telemetry = { enable = false },
+					},
+				},
+				gopls = {
+					gopls = {
+						analyses = {
+							unusedparams = true,
+						},
+						staticcheck = true,
+					},
+				},
+			}
+			for name, settings in pairs(server) do
+				lspconfig[name].setup({
+					capabilities = capabilities,
+					on_attach = on_attach,
+					settings = settings,
+				})
+			end
 			require('mason-lspconfig').setup(opts)
 			require('mason-lspconfig').setup_handlers({
 				function(server_name)
 					require('lspconfig')[server_name].setup({
 						capabilities = capabilities,
 						on_attach = on_attach,
-						settings = servers[server_name],
 					})
 				end,
 			})
