@@ -165,12 +165,26 @@ return {
 	},
 	{
 		'lukas-reineke/indent-blankline.nvim',
+		main = 'ibl',
 		opts = {
-			char                           = '┊',
-			disable_with_nolist            = true,
-			show_trailing_blankline_indent = false,
-			char_highlight_list            = { 'NonText' },
-			space_char_highlight_list      = { 'NonText' },
+			indent = {
+				char = '┊',
+				tab_char = '┊',
+				highlight = { 'NonText' },
+			},
+			whitespace = {
+				highlight = { 'NonText' },
+				remove_blankline_trail = false,
+			},
+			scope = {
+				enabled = false,
+			},
+			exclude = {
+				filetypes = {
+					'fugitive',
+					'dashboard',
+				},
+			},
 		},
 	},
 	{
