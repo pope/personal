@@ -13,7 +13,6 @@ in
       ../../modules/c.nix
       ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
-      ../../modules/development.nix
       ../../modules/gaming.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
