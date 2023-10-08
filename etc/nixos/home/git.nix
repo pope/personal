@@ -24,6 +24,13 @@
     };
 
     gh.enable = true;
+
+    ssh = {
+      enable = true;
+      matchBlocks."shifteleven.com" = {
+        addressFamily = "inet";
+      };
+    };
   };
 
   home.file.".ssh/allowed_signers".text = ''
