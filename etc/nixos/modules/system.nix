@@ -92,4 +92,6 @@
 
     flatpak.enable = true;
   };
+
+  security.sudo.wheelNeedsPassword = false;
 }
