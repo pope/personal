@@ -51,8 +51,6 @@ in
       border_size = 2;
       "col.active_border" = "rgb(${base0B}) rgb(${base0D}) 45deg";
       "col.inactive_border" = "rgb(${base02})";
-      "col.group_border_active" = "rgb(${base0A})";
-      "col.group_border" = "rgb(${base03})";
       layout = "dwindle";
       no_cursor_warps = true;
     };
@@ -106,10 +104,16 @@ in
 
       vfr = true; # misc:no_vfr -> misc:vfr. bool, heavily recommended to leave at default on. Saves on CPU usage.
       vrr = false; # misc:vrr -> Adaptive sync of your monitor. 0 (off), 1 (on), 2 (fullscreen only). Default 0 to avoid white flashes on select hardware.
+    };
 
-      # groupbar
-      groupbar_titles_font_size = 12;
-      groupbar_gradients = false;
+    group = {
+      "col.border_active" = "rgb(${base0A})";
+      "col.border_inactive" = "rgb(${base03})";
+
+      groupbar  = {
+        font_size = 12;
+        gradients = false;
+      };
     };
 
     dwindle = {
