@@ -37,7 +37,10 @@
   };
 
   security = {
-    pam.services.greetd.enableGnomeKeyring = true;
+    pam.services = {
+      greetd.enableGnomeKeyring = true;
+      swaylock = {};
+    };
     polkit.enable = true;
   };
 
