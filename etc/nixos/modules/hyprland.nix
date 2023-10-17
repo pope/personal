@@ -39,7 +39,7 @@
   security = {
     pam.services = {
       greetd.enableGnomeKeyring = true;
-      swaylock = {};
+      swaylock = { };
     };
     polkit.enable = true;
   };
