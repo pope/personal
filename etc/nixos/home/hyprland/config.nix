@@ -110,7 +110,7 @@ in
       "col.border_active" = "rgb(${base0A})";
       "col.border_inactive" = "rgb(${base03})";
 
-      groupbar  = {
+      groupbar = {
         font_size = 12;
         gradients = false;
       };
