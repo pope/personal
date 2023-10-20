@@ -135,6 +135,7 @@ return {
 			local server = {
 				dartls = {},
 				nil_ls = {},
+				phpactor = {},
 				rust_analyzer = {
 					['rust-analyzer'] = {},
 				},
