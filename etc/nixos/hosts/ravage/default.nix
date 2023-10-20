@@ -62,6 +62,8 @@ in
 
     # Enable networking
     networkmanager.enable = true;
+
+    firewall.allowedTCPPorts = [ 8001 ];
   };
 
   # Set your time zone.
