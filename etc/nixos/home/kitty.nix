@@ -11,7 +11,7 @@
     font = {
       name = "Iosevka";
       package = pkgs.iosevka;
-      size = 11.0;
+      size = 12.0;
     };
     settings = {
       bold_font = "Iosevka Bold";
