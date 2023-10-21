@@ -9,14 +9,14 @@
   programs.kitty = with config.colorScheme.colors; {
     enable = true;
     font = {
-      name = "Iosevka";
+      name = "Iosevka Comfy";
       package = pkgs.iosevka;
       size = lib.mkDefault 11.0;
     };
     settings = {
-      bold_font = "Iosevka Bold";
-      italic_font = "Iosevka Italic";
-      bold_italic_font = "Iosevka Bold Italic";
+      bold_font = "Iosevka Comfy Bold";
+      italic_font = "Iosevka Comfy Italic";
+      bold_italic_font = "Iosevka Comfy Bold Italic";
 
       background_opacity = "0.85";
       clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
