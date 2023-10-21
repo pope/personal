@@ -156,8 +156,8 @@ return {
 					local color = modes[mode] or modes.n
 
 					local base_highlight = vim.api.nvim_get_hl_by_name('CursorLineNr', true)
-					local opts = vim.tbl_extend('keep', { foreground = color }, base_highlight)
-					vim.api.nvim_set_hl(0, 'CursorLineNr', opts)
+					local o = vim.tbl_extend('keep', { foreground = color }, base_highlight)
+					vim.api.nvim_set_hl(0, 'CursorLineNr', o)
 				end,
 				group = 'pope_lualine',
 			})
@@ -223,7 +223,7 @@ return {
 		opts = function(_, opts)
 			local handler = function(virtText, lnum, endLnum, width, truncate)
 				local newVirtText = {}
-				local suffix = ('  %d '):format(endLnum - lnum)
+				local suffix = (' ⤸ %d '):format(endLnum - lnum)
 				local sufWidth = vim.fn.strdisplaywidth(suffix)
 				local targetWidth = width - sufWidth
 				local curWidth = 0
