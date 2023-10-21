@@ -39,6 +39,9 @@
     # "HDMI-A-1,2560x1440@119.998001,0x0,auto"
     "HDMI-A-1,preferred,0x0,auto"
     "DP-2,preferred,2560x0,auto"
+
+    # "HDMI-A-1,disable"
+    # "DP-2,preferred,0x0,auto"
   ];
 
   programs = {
