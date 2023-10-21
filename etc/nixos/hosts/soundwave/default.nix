@@ -131,13 +131,12 @@ in
     # Enable networking
     networkmanager.enable = true;
 
-    # firewall = {
-    #   # Open ports in the firewall.
-    #   allowedTCPPorts = [ ... ];
-    #   allowedUDPPorts = [ ... ];
-    #   # Or disable the firewall altogether.
-    #   enable = false;
-    # };
+    firewall = {
+      enable = true;
+      # Open ports in the firewall.
+      allowedTCPPorts = [ 8001 ];
+      allowedUDPPorts = [ 8001 ];
+    };
   };
 
   # Set your time zone.
