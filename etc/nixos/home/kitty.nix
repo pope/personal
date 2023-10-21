@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.packages = with pkgs; [
@@ -11,7 +11,7 @@
     font = {
       name = "Iosevka";
       package = pkgs.iosevka;
-      size = 12.0;
+      size = lib.mkDefault 11.0;
     };
     settings = {
       bold_font = "Iosevka Bold";
@@ -29,6 +29,25 @@
       window_padding_width = 4;
 
       "modify_font cell_height" = "125%";
+    };
+    keybindings = {
+      #: Increase font size
+      "kitty_mod+equal" = "change_font_size all +1.0";
+      "kitty_mod+plus" = "change_font_size all +1.0";
+      "kitty_mod+kp_add" = "change_font_size all +1.0";
+      "cmd+equal" = "change_font_size all +1.0";
+      "cmd+plus" = "change_font_size all +1.0";
+      "shift+cmd+equal" = "change_font_size all +1.0";
+
+      #: Decrease font size
+      "kitty_mod+minus" = "change_font_size all -1.0";
+      "kitty_mod+kp_subtract" = "change_font_size all -1.0";
+      "cmd+minus" = "change_font_size all -1.0";
+      "shift+cmd+minus" = "change_font_size all -1.0";
+
+      #: Reset font size
+      "kitty_mod+backspace" = "change_font_size all 0";
+      "map cmd+0" = "change_font_size all 0";
     };
     # theme = "Catppuccin-Mocha";
     theme = "Rosé Pine";
