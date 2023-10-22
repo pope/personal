@@ -376,6 +376,23 @@
         "type": "gitlab"
       }
     },
+    "plow": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1658972584,
+        "narHash": "sha256-TynFq7e4MtZlA5SmGMybhmCVw67yHYgZWffQjuyhTDA=",
+        "owner": "six-ddc",
+        "repo": "plow",
+        "rev": "343b7510ccfa477d9c0f3d9aeeaa0834e118c44a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "six-ddc",
+        "ref": "v1.3.1",
+        "repo": "plow",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "anyrun": "anyrun",
@@ -389,7 +406,8 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-stable": "nixpkgs-stable"
+        "nixpkgs-stable": "nixpkgs-stable",
+        "plow": "plow"
       }
     },
     "rust-overlay": {
