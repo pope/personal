@@ -71,6 +71,11 @@
       url = "github:rose-pine/fish";
       flake = false;
     };
+
+    plow = {
+      url = "github:six-ddc/plow/v1.3.1";
+      flake = false;
+    };
   };
 
   outputs =
