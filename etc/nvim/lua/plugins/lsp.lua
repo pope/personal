@@ -156,6 +156,7 @@ return {
 						staticcheck = true,
 					},
 				},
+				tsserver = {},
 			}
 			for name, settings in pairs(server) do
 				lspconfig[name].setup({
