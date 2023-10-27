@@ -72,6 +72,30 @@
         separator = "#403d52";
         spinner = "#f6c177";
       };
+      defaultCommand = "${pkgs.fd}/bin/fd --type file --hidden";
+      defaultOptions = [
+        "--height='80%'"
+        "--marker='* '"
+        "--pointer='▶'"
+        "--preview-window='right:60%'"
+        "--bind='ctrl-p:toggle-preview'"
+        "--bind='alt-a:select-all'"
+        "--bind='alt-n:deselect-all'"
+        "--bind='ctrl-f:jump'"
+        "--bind='ctrl-/:change-preview-window(down|hidden|)'"
+      ];
+      fileWidgetCommand = "${pkgs.fd}/bin/fd --type file --hidden";
+      fileWidgetOptions = [
+        "--preview '${pkgs.bat}/bin/bat --number --color=always --line-range=:200 {}'"
+      ];
+      changeDirWidgetCommand = "${pkgs.fd}/bin/fd --hidden --type d";
+      changeDirWidgetOptions = [
+        "--preview '${pkgs.eza}/bin/eza --tree --color=always --icons {} | head -200'"
+      ];
+      historyWidgetOptions = [
+        "--preview 'echo {} | ${pkgs.bat}/bin/bat --language Fish --color=always --plain'"
+        "--preview-window up:3:hidden:wrap"
+      ];
     };
   };
 
