@@ -17,11 +17,17 @@ in
     homeDirectory = "/Users/pope";
 
     packages = with pkgs; [
+      cmake-language-server
       fd
       fzf
       imagemagick
+      jq
+      lua-language-server
       neofetch
       nil
+      nodePackages.typescript-language-server
+      python311Packages.pyls-isort
+      python311Packages.python-lsp-server
       ripgrep
       tldr
       tree
@@ -39,6 +45,11 @@ in
         color_theme = "TTY";
         theme_background = false;
       };
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
   };
 }
