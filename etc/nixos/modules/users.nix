@@ -7,11 +7,13 @@
   users.users.pope = {
     isNormalUser = true;
     description = "K. Adam Christensen";
-    extraGroups = [ "networkmanager" "wheel" "audio" "video" "kvm" "input" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "video" "kvm" "input" "libvirtd" "plugdev" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGg+9LMpvJUBVCndjopRX7Jm6veGyHkf1ZBI/434K2a4"
     ];
     packages = [ ];
     shell = pkgs.fish;
   };
+
+  users.groups.plugdev = { };
 }
