@@ -25,6 +25,7 @@ in
       generic-extlinux-compatible.enable = true;
     };
     supportedFilesystems = [ "ntfs" ];
+    binfmt.emulatedSystems = [ "x86_64-linux" ];
   };
 
   nixpkgs.overlays = with overlays; [
@@ -109,6 +110,8 @@ in
       openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGg+9LMpvJUBVCndjopRX7Jm6veGyHkf1ZBI/434K2a4" ];
     };
   };
+
+  security.sudo.wheelNeedsPassword = false;
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "23.11";
