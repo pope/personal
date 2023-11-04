@@ -161,6 +161,19 @@
         "type": "github"
       }
     },
+    "keymapp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696935011,
+        "narHash": "sha256-34855BCE1BRGnJfgOw1hZgZEWvOc/M15btvfUNRZw+0=",
+        "type": "tarball",
+        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz"
+      }
+    },
     "musnix": {
       "inputs": {
         "nixpkgs": [
@@ -399,6 +412,7 @@
         "fish-rose-pine": "fish-rose-pine",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "keymapp": "keymapp",
         "musnix": "musnix",
         "nil": "nil",
         "nix-colors": "nix-colors",
