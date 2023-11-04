@@ -76,6 +76,11 @@
       url = "github:six-ddc/plow/v1.3.1";
       flake = false;
     };
+
+    keymapp = {
+      url = "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz";
+      flake = false;
+    };
   };
 
   outputs =
