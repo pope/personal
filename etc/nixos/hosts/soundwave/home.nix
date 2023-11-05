@@ -11,8 +11,8 @@
     ../../home/git.nix
     ../../home/gnome.nix
     ../../home/gtk.nix
-    ../../home/keymapp.nix
     ../../home/hyprland
+    ../../home/keymapp.nix
     ../../home/kitty.nix
     ../../home/lf.nix
     ../../home/packages.nix
