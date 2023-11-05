@@ -93,8 +93,9 @@ in
       driSupport = true;
       driSupport32Bit = true;
       extraPackages = with pkgs; [
-        vaapiVdpau
         libvdpau-va-gl
+        nvidia-vaapi-driver
+        vaapiVdpau
       ];
       extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
       setLdLibraryPath = true;
@@ -110,12 +111,18 @@ in
   services.xserver.videoDrivers = [ "nvidia" ];
 
   environment.systemPackages = with pkgs; [
-    nvidia-vaapi-driver
+    libva-utils
     renoise343
 
     maestral
     maestral-gui
   ];
+
+  environment.variables = {
+    GBM_BACKEND = "nvidia-drm";
+    LIBVA_DRIVER_NAME = "nvidia";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  };
 
   networking = {
     hostName = "soundwave"; # Define your hostname.
