@@ -5,7 +5,6 @@
     goverlay
     lutris
     mangohud
-    obs-studio
     vkbasalt
   ];
 
