@@ -9,9 +9,10 @@
     ../../home/development.nix
     ../../home/dunst.nix
     ../../home/git.nix
-    ../../home/gtk.nix
     ../../home/gnome.nix
+    ../../home/gtk.nix
     ../../home/hyprland
+    ../../home/keymapp.nix
     ../../home/kitty.nix
     ../../home/lf.nix
     ../../home/packages.nix
