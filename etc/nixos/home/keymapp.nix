@@ -1,22 +1,33 @@
 { inputs, pkgs, ... }:
 
+let
+  keymapp = pkgs.buildFHSUserEnv {
+    name = "keymapp";
+    runScript = pkgs.writeShellScript "keymapp-wrapper.sh" ''
+      exec ${inputs.keymapp}
+    '';
+    targetPkgs = pkgs: with pkgs; [
+      gdk-pixbuf
+      glib
+      gtk3
+      libgudev
+      libusb1
+      systemd
+      webkitgtk
+    ];
+  };
+in
 {
   home.packages = with pkgs; [
-    (pkgs.buildFHSUserEnv {
+    keymapp
+    (makeDesktopItem {
       name = "keymapp";
-      runScript = writeShellScript "keymapp-wrapper.sh" ''
-        exec ${inputs.keymapp}
-      '';
-      # runScript = "/home/pope/Downloads/keymapp";
-      targetPkgs = pkgs: with pkgs; [
-        gdk-pixbuf
-        glib
-        gtk3
-        libgudev
-        libusb1
-        systemd
-        webkitgtk
-      ];
+      desktopName = "Keymapp";
+      genericName = "Keyboard Mapper";
+      exec = "${keymapp}/bin/keymapp";
+      # TODO(pope): Use a different icon.
+      icon = "utilities-terminal";
+      type = "Application";
     })
   ];
 }
