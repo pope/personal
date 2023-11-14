@@ -164,7 +164,6 @@
     "keymapp": {
       "flake": false,
       "locked": {
-        "lastModified": 1699443993,
         "narHash": "sha256-6DCA67obDOlwznZowZjeVZhEHQpSW5ZkeHLJecYrZfc=",
         "type": "tarball",
         "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz"

@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ../../home/audio.nix
     ../../home/lf.nix
   ];
 
