@@ -164,13 +164,14 @@
     "keymapp": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-6DCA67obDOlwznZowZjeVZhEHQpSW5ZkeHLJecYrZfc=",
+        "lastModified": 1700043058,
+        "narHash": "sha256-x6cu+iHgQHrMMHMP+GVpWwZ2b02+7Wgm0se3DV4H2nk=",
         "type": "tarball",
-        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz"
+        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.0.5.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz"
+        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.0.5.tar.gz"
       }
     },
     "musnix": {
