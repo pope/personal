@@ -17,6 +17,7 @@ in
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
       ../../modules/java.nix
+      ../../modules/printing.nix
       ../../modules/nix.nix
       ../../modules/sound.nix
       ../../modules/system.nix
