@@ -9,8 +9,6 @@ _:
   };
 
   services = {
-    # Enable CUPS to print documents.
-    printing.enable = true;
 
     pipewire = {
       enable = true;

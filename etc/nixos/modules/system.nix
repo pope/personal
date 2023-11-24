@@ -87,9 +87,6 @@
     # Enable the OpenSSH daemon.
     openssh.enable = true;
 
-    # Enable CUPS to print documents.
-    printing.enable = true;
-
     flatpak.enable = true;
 
     udev.extraRules = ''
