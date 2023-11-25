@@ -17,7 +17,7 @@
     canon-cups-ufr2
     cnijfilter2
   ];
-  
+
   hardware.printers = {
     ensurePrinters = [
       {
