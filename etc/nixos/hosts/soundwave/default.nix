@@ -13,6 +13,7 @@ in
       ../../modules/c.nix
       ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
+      ../../modules/foldingathome.nix
       ../../modules/gaming.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
