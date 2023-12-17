@@ -134,6 +134,7 @@ return {
 			local lspconfig = require('lspconfig')
 			local server = {
 				dartls = {},
+				kotlin_language_server = {},
 				nil_ls = {},
 				phpactor = {},
 				rust_analyzer = {
