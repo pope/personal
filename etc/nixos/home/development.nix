@@ -18,7 +18,6 @@
     rust-analyzer
     rustc
     rustfmt
-    zig
   ];
 
   programs = {
