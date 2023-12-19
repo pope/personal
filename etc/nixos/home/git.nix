@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs = {
@@ -17,7 +17,7 @@
 
         gpg.format = "ssh";
         "gpg \"ssh\"" = {
-          program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+          program = lib.mkDefault "${pkgs._1password-gui}/bin/op-ssh-sign";
           allowedSignersFile = "/home/pope/.ssh/allowed_signers";
         };
       };
