@@ -1,8 +1,5 @@
-args:
+{ pkgs, ... }:
 
-let
-  overlays = import ../../overlays args;
-in
 {
   imports = [
     ../../home/audio.nix
@@ -12,13 +9,17 @@ in
     ../../home/lf.nix
   ];
 
-  nixpkgs.overlays = with overlays; [
-    ctpv
-  ];
-
   home = {
     username = "pope";
     homeDirectory = "/home/pope";
+
+    packages = with pkgs; [
+      cmake
+      gcc
+      gnumake
+      ninja
+      stdenv
+    ];
 
     stateVersion = "23.05";
   };
