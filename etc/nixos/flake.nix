@@ -178,6 +178,13 @@
         };
       };
       homeConfigurations = {
+        "pope@Death-Star" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/death-star/home.nix
+          ];
+        };
         "pope@galvatron" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."aarch64-darwin";
           extraSpecialArgs = { inherit inputs; };
