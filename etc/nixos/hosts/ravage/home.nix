@@ -16,6 +16,7 @@
     ../../home/kitty.nix
     ../../home/lf.nix
     ../../home/packages.nix
+    ../../home/vscode.nix
     ../../home/xdg.nix
   ];
 
