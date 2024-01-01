@@ -137,6 +137,7 @@ return {
 				kotlin_language_server = {},
 				nil_ls = {},
 				phpactor = {},
+				pyright = {},
 				rust_analyzer = {
 					['rust-analyzer'] = {},
 				},
