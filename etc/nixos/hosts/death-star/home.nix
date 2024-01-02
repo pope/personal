@@ -32,7 +32,9 @@
       nix-direnv.enable = true;
     };
 
-    git.extraConfig."gpg \"ssh\"".program = "/mnt/c/Users/pope/AppData/Local/1Password/app/8/op-ssh-sign-wsl";
+    git.extraConfig = {
+      core.sshCommand = "ssh.exe";
+      "gpg \"ssh\"".program = "/mnt/c/Users/pope/AppData/Local/1Password/app/8/op-ssh-sign-wsl";
+    };
   };
 }
-
