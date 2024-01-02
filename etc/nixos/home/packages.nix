@@ -10,6 +10,7 @@
     duf # df 
     eza # ls and tree
     fd # find
+    glow
     htop
     hyperfine
     imagemagick
