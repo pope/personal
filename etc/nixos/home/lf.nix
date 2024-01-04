@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     ctpv
+    chafa
     ripdrag
   ];
 
@@ -28,9 +29,14 @@
         icons = true;
         ignorecase = true;
         preview = true;
+        sixel = true;
       };
     };
   };
+
+  xdg.configFile."ctpv/config".text = ''
+    set chafasixel
+  '';
 
   xdg.configFile."lf/icons".text = ''
     # These examples require Nerd Fonts or a compatible font to be used.
