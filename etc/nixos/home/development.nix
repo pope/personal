@@ -7,8 +7,8 @@
     gh
     go
     gopls
-    jq
     lua-language-server
+    nil
     # nodePackages.pyright
     nodePackages.typescript-language-server
     nodejs
