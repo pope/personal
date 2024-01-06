@@ -14,8 +14,8 @@
     htop
     hyperfine
     imagemagick
+    jq
     neofetch
-    nil
     procs # ps
     ripgrep
     sd # sed
