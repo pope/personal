@@ -16,3 +16,14 @@ After the server starts, make sure change the password and to add a Samba user:
 ```sh
 sudo smbpasswd -a pi
 ```
+
+### Remote deployment
+
+It's also easy enough to build on a local machine the Pi dependencies and then
+copy those files over to the Pi for quick updates. The local machine will
+need `boot.binfmt.emulatedSystems = [ "aarch64-linux" ];` set up in order to
+be able to build for the ARM architecture.
+
+```sh
+nixos-rebuild --flake .#raspberrypi --target-host pi@raspberrypi.lan --use-remote-sudo switch
+```
