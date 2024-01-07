@@ -11,7 +11,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
@@ -109,6 +108,7 @@ in
   my.system = {
     mainUser = "pope";
 
+    bluetooth.enable = true;
     gaming.enable = true;
     sound.enable = true;
   };
