@@ -6,13 +6,16 @@
     inputs.nix-colors.homeManagerModules.default
 
     ../../home/anyrun.nix
+    ../../home/c.nix
     ../../home/chromium.nix
     ../../home/development.nix
+    ../../home/dropbox.nix
     ../../home/dunst.nix
     ../../home/git.nix
     ../../home/gnome.nix
     ../../home/gtk.nix
     ../../home/hyprland
+    ../../home/java.nix
     ../../home/keymapp.nix
     ../../home/kitty.nix
     ../../home/lf.nix

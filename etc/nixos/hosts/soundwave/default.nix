@@ -10,14 +10,12 @@ in
 {
   imports =
     [
-      ../../modules/c.nix
       ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
       ../../modules/foldingathome.nix
       ../../modules/gaming.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
-      ../../modules/java.nix
       ../../modules/printing.nix
       ../../modules/nix.nix
       ../../modules/sound.nix
@@ -115,9 +113,6 @@ in
   environment.systemPackages = with pkgs; [
     libva-utils
     renoise343
-
-    maestral
-    maestral-gui
   ];
 
   environment.variables = {
