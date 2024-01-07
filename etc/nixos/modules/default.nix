@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./bluetooth.nix
     ./foldingathome.nix
     ./gaming.nix
     ./nix.nix

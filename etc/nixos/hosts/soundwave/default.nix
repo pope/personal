@@ -11,7 +11,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
       ../../modules/foldingathome.nix
       ../../modules/gnome.nix
@@ -151,6 +150,7 @@ in
   my.system = {
     mainUser = "pope";
 
+    bluetooth.enable = true;
     gaming.enable = true;
     sound.enable = true;
   };
