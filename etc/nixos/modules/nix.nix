@@ -1,4 +1,4 @@
-_:
+{ config, ... }:
 
 {
   nix = {
@@ -12,7 +12,7 @@ _:
       builders-use-substitutes = true;
       # Enable Flakes and the new command-line tool
       experimental-features = [ "nix-command" "flakes" ];
-      trusted-users = [ "pope" ];
+      trusted-users = [ config.my.system.mainUser ];
     };
   };
 }

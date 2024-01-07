@@ -14,7 +14,6 @@ in
       ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
       ../../modules/gnome.nix
-      ../../modules/nix.nix
       ../../modules/system.nix
       ../../modules/users.nix
 
@@ -67,6 +66,8 @@ in
   };
 
   my.system = {
+    mainUser = "pope";
+
     sound.enable = true;
   };
 

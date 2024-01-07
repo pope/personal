@@ -17,7 +17,6 @@ in
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
       ../../modules/printing.nix
-      ../../modules/nix.nix
       ../../modules/system.nix
       ../../modules/users.nix
       ../../modules/wayland.nix
@@ -150,6 +149,8 @@ in
 
   musnix.enable = true;
   my.system = {
+    mainUser = "pope";
+
     gaming.enable = true;
     sound.enable = true;
   };

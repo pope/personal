@@ -8,15 +8,8 @@ in
     [
       ../../modules
       ../../modules/firewall-nfs.nix
-      ../../modules/nix.nix
       ../../modules/samba.nix
     ];
-
-  nix = {
-    settings = {
-      trusted-users = [ "pi" ];
-    };
-  };
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
@@ -113,6 +106,8 @@ in
   };
 
   security.sudo.wheelNeedsPassword = false;
+
+  my.system.mainUser = "pi";
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "23.11";
