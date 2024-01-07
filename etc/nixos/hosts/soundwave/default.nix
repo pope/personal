@@ -10,10 +10,10 @@ in
 {
   imports =
     [
+      ../../modules
       ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
       ../../modules/foldingathome.nix
-      ../../modules/gaming.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
       ../../modules/printing.nix
@@ -150,6 +150,7 @@ in
   };
 
   musnix.enable = true;
+  my.system.gaming.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -6,6 +6,7 @@ in
 {
   imports =
     [
+      ../../modules
       ../../modules/firewall-nfs.nix
       ../../modules/nix.nix
       ../../modules/samba.nix

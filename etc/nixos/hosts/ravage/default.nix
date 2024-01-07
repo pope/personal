@@ -10,6 +10,7 @@ in
 {
   imports =
     [
+      ../../modules
       ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
       ../../modules/gnome.nix
@@ -94,8 +95,6 @@ in
         libvdpau-va-gl
       ];
     };
-
-    steam-hardware.enable = true;
   };
 
   services = {
@@ -108,6 +107,8 @@ in
     xserver.displayManager.defaultSession = "hyprland";
   };
   powerManagement.powertop.enable = true;
+
+  my.system.gaming.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
