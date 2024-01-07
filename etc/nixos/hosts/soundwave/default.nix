@@ -15,7 +15,6 @@ in
       ../../modules/foldingathome.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
-      ../../modules/printing.nix
       ../../modules/system.nix
       ../../modules/users.nix
       ../../modules/wayland.nix
@@ -152,6 +151,7 @@ in
 
     bluetooth.enable = true;
     gaming.enable = true;
+    printing.enable = true;
     sound.enable = true;
   };
 

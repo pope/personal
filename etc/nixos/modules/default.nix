@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
 let
   inherit (lib) mkOption types;
@@ -9,6 +9,8 @@ in
     ./foldingathome.nix
     ./gaming.nix
     ./nix.nix
+    ./printing.nix
+    ./samba.nix
     ./sound.nix
   ];
 

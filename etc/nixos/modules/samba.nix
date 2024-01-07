@@ -1,45 +1,55 @@
-_:
+{ config, lib, ... }:
 
+let
+  inherit (lib) mkIf mkEnableOption;
+  cfg = config.my.system.samba;
+in
 {
-  networking = {
-    firewall = {
-      allowedTCPPorts = [
-        5357 # wsdd
-      ];
-      allowedUDPPorts = [
-        3702 # wsdd
-      ];
-    };
+  options.my.system.samba = {
+    enable = mkEnableOption "samba system options";
   };
 
-  services = {
-    avahi = {
-      enable = true;
-      nssmdns4 = true;
-      publish = {
-        enable = true;
-        addresses = true;
-        domain = true;
-        hinfo = true;
-        userServices = true;
-        workstation = true;
+  config = mkIf cfg.enable {
+    networking = {
+      firewall = {
+        allowedTCPPorts = [
+          5357 # wsdd
+        ];
+        allowedUDPPorts = [
+          3702 # wsdd
+        ];
       };
     };
 
-    samba-wsdd.enable = true; # make shares visible for windows 10 clients
+    services = {
+      avahi = {
+        enable = true;
+        nssmdns4 = true;
+        publish = {
+          enable = true;
+          addresses = true;
+          domain = true;
+          hinfo = true;
+          userServices = true;
+          workstation = true;
+        };
+      };
 
-    samba = {
-      enable = true;
-      openFirewall = true;
-      securityType = "user";
-      extraConfig = ''
-        browsable = yes
-        smb encrypt = required
-        security = user 
+      samba-wsdd.enable = true; # make shares visible for windows 10 clients
 
-        guest account = nobody
-        map to guest = bad user
-      '';
+      samba = {
+        enable = true;
+        openFirewall = true;
+        securityType = "user";
+        extraConfig = ''
+          browsable = yes
+          smb encrypt = required
+          security = user 
+
+          guest account = nobody
+          map to guest = bad user
+        '';
+      };
     };
   };
 }
