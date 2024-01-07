@@ -27,3 +27,12 @@ be able to build for the ARM architecture.
 ```sh
 nixos-rebuild --flake .#raspberrypi --target-host pi@raspberrypi.lan --use-remote-sudo switch
 ```
+
+## Remote builders
+
+It's possible to use another machine to do building when trying to update the
+system. 
+
+```sh
+sudo nixos-rebuild --build-host pope@soundwave.lan switch
+```
