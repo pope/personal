@@ -16,7 +16,6 @@ in
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
       ../../modules/nix.nix
-      ../../modules/sound.nix
       ../../modules/system.nix
       ../../modules/users.nix
 
@@ -108,7 +107,10 @@ in
   };
   powerManagement.powertop.enable = true;
 
-  my.system.gaming.enable = true;
+  my.system = {
+    gaming.enable = true;
+    sound.enable = true;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

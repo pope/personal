@@ -15,7 +15,6 @@ in
       ../../modules/display-manager.nix
       ../../modules/gnome.nix
       ../../modules/nix.nix
-      ../../modules/sound.nix
       ../../modules/system.nix
       ../../modules/users.nix
 
@@ -65,6 +64,10 @@ in
   fileSystems."/home/pope/Code/personal" = {
     device = "code_personal";
     fsType = "virtiofs";
+  };
+
+  my.system = {
+    sound.enable = true;
   };
 
   # This value determines the NixOS release from which the default
