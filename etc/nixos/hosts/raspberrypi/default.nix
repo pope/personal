@@ -8,7 +8,6 @@ in
     [
       ../../modules
       ../../modules/firewall-nfs.nix
-      ../../modules/samba.nix
     ];
 
   boot = {
@@ -107,7 +106,11 @@ in
 
   security.sudo.wheelNeedsPassword = false;
 
-  my.system.mainUser = "pi";
+  my.system = {
+    mainUser = "pi";
+
+    samba.enable = true;
+  };
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "23.11";
