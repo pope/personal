@@ -10,7 +10,6 @@ in
 {
   imports =
     [
-      ../../modules/c.nix
       ../../modules/bluetooth.nix
       ../../modules/display-manager.nix
       ../../modules/gnome.nix
