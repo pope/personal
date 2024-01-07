@@ -15,7 +15,6 @@ in
       ../../modules/display-manager.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
-      ../../modules/nix.nix
       ../../modules/system.nix
       ../../modules/users.nix
 
@@ -108,6 +107,8 @@ in
   powerManagement.powertop.enable = true;
 
   my.system = {
+    mainUser = "pope";
+
     gaming.enable = true;
     sound.enable = true;
   };
