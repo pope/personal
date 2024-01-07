@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.gaming;
+  cfg = config.my.system.bluetooth;
 in
 {
   options.my.system.bluetooth = {
