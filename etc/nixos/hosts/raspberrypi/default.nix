@@ -77,20 +77,6 @@ in
       '';
     };
     openssh.enable = true;
-    samba = {
-      shares = {
-        Cyberia = {
-          path = "/mnt/Cyberia";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "pi";
-          "force group" = "users";
-        };
-      };
-    };
   };
 
   users = {
@@ -109,7 +95,12 @@ in
   my.system = {
     mainUser = "pi";
 
-    samba.enable = true;
+    samba = {
+      enable = true;
+      shares = {
+        Cyberia.path = "/mnt/Cyberia";
+      };
+    };
   };
 
   hardware.enableRedistributableFirmware = true;
