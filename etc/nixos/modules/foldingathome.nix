@@ -3,6 +3,9 @@
 let
   inherit (lib) mkEnableOption mkIf mdDoc;
   cfg = config.my.system.fah;
+  # Use a wrapper script since the service was unable to find the correct
+  # binary for the FAHClient. This may be more of a fahclient config thing
+  # not being compatible in the new world.
   myfahclient = pkgs.writeShellScriptBin "my-fah-client" ''
     exec ${pkgs-stable.fahclient}/bin/FAHClient "$@"
   '';
