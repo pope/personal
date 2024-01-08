@@ -149,7 +149,7 @@ in
     mainUser = "pope";
 
     bluetooth.enable = true;
-    fah.enable = false;
+    fah.enable = true;
     gaming.enable = true;
     printing.enable = true;
     sound.enable = true;

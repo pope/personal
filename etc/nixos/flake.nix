@@ -91,6 +91,7 @@
     , nixos-generators
     , nixos-hardware
     , nixpkgs
+    , nixpkgs-stable
     , ...
     } @ inputs:
     let
@@ -102,9 +103,19 @@
     in
     {
       nixosConfigurations = {
-        "soundwave" = nixpkgs.lib.nixosSystem {
+        "soundwave" = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit inputs;
+            pkgs-stable = import nixpkgs-stable {
+              inherit system;
+              config.allowUnfree = true;
+              config.permittedInsecurePackages = [
+                "python-2.7.18.6"
+                "python-2.7.18.6-env"
+              ];
+            };
+          };
           modules = [
             musnix.nixosModules.musnix
 
@@ -120,7 +131,7 @@
             }
           ];
         };
-        "ravage" = nixpkgs.lib.nixosSystem rec {
+        "ravage" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
