@@ -12,7 +12,6 @@ in
     [
       ../../modules
       ../../modules/display-manager.nix
-      ../../modules/foldingathome.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
       ../../modules/system.nix
@@ -150,6 +149,7 @@ in
     mainUser = "pope";
 
     bluetooth.enable = true;
+    fah.enable = false;
     gaming.enable = true;
     printing.enable = true;
     sound.enable = true;
