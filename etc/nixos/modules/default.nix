@@ -13,9 +13,11 @@ in
     ./gnome.nix
     ./hyprland.nix
     ./nix.nix
+    ./onepassword.nix
     ./printing.nix
     ./samba.nix
     ./sound.nix
+    ./system.nix
     ./wayland.nix
   ];
 

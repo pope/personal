@@ -11,7 +11,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/system.nix
       ../../modules/users.nix
 
       # Include the results of the hardware scan.
@@ -110,7 +109,9 @@ in
     gaming.enable = true;
     gnome.enable = true;
     hyprland.enable = true;
+    onepassword.enable = true;
     sound.enable = true;
+    system.enable = true;
   };
 
   # This value determines the NixOS release from which the default
