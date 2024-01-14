@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.gnome;
+  cfg = config.my.nixos.gnome;
 in
 {
-  options.my.system.gnome = {
+  options.my.nixos.gnome = {
     enable = mkEnableOption "gnome system options";
   };
 

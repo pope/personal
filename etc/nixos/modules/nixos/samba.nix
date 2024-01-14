@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption mkOption types;
-  cfg = config.my.system.samba;
+  cfg = config.my.nixos.samba;
 in
 {
-  options.my.system.samba = {
+  options.my.nixos.samba = {
     enable = mkEnableOption "samba system options";
     shares = mkOption {
       default = { };
@@ -64,7 +64,7 @@ in
                 "guest ok" = "no";
                 "create mask" = "0644";
                 "directory mask" = "0755";
-                "force user" = config.my.system.mainUser;
+                "force user" = config.my.nixos.mainUser;
                 "force group" = "users";
               };
             };

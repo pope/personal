@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.bluetooth;
+  cfg = config.my.nixos.bluetooth;
 in
 {
-  options.my.system.bluetooth = {
+  options.my.nixos.bluetooth = {
     enable = mkEnableOption "bluetooth system options";
   };
 

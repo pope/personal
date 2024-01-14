@@ -6,7 +6,7 @@
 
 These are NixOS specific modules. Including it sets up a main user and can
 include subsets of common things I use with a
-`my.system.system.<module>.enable`. Some modules are also configurable.
+`my.nixos.system.<module>.enable`. Some modules are also configurable.
 
 ### `home/`
 

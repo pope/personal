@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.printing;
+  cfg = config.my.nixos.printing;
 in
 {
-  options.my.system.printing = {
+  options.my.nixos.printing = {
     enable = mkEnableOption "printing system options";
   };
 

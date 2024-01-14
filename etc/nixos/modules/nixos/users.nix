@@ -2,11 +2,11 @@
 
 let
   inherit (lib) mkOption types;
-  inherit (config.my.system) mainUser;
-  cfg = config.my.system.users;
+  inherit (config.my.nixos) mainUser;
+  cfg = config.my.nixos.users;
 in
 {
-  options.my.system.users = {
+  options.my.nixos.users = {
     uid = mkOption {
       type = with types; nullOr int;
       default = null;

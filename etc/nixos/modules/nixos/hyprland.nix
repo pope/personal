@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.hyprland;
+  cfg = config.my.nixos.hyprland;
 in
 {
-  options.my.system.hyprland = {
+  options.my.nixos.hyprland = {
     enable = mkEnableOption "hyprland system options";
   };
 
