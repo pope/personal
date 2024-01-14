@@ -7,7 +7,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/firewall-nfs.nix
     ];
 
   boot = {
@@ -95,6 +94,7 @@ in
   my.system = {
     mainUser = "pi";
 
+    firewall.nfs.enable = true;
     samba = {
       enable = true;
       shares = {
