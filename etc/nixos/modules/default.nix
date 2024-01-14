@@ -9,6 +9,7 @@ in
     ./display-manager.nix
     ./foldingathome.nix
     ./gaming.nix
+    ./gnome.nix
     ./nix.nix
     ./printing.nix
     ./samba.nix
