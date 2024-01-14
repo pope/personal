@@ -11,10 +11,12 @@ in
     ./foldingathome.nix
     ./gaming.nix
     ./gnome.nix
+    ./hyprland.nix
     ./nix.nix
     ./printing.nix
     ./samba.nix
     ./sound.nix
+    ./wayland.nix
   ];
 
   options.my.system = {

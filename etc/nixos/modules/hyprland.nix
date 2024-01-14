@@ -1,130 +1,140 @@
-{ inputs, pkgs, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 
+let
+  inherit (lib) mkIf mkEnableOption;
+  cfg = config.my.system.hyprland;
+in
 {
-  services = {
-    dbus = {
-      enable = true;
-      packages = with pkgs; [ gcr dconf ];
-    };
+  options.my.system.hyprland = {
+    enable = mkEnableOption "hyprland system options";
+  };
 
-    geoclue2.enable = true;
+  config = mkIf cfg.enable {
+    services = {
+      dbus = {
+        enable = true;
+        packages = with pkgs; [ gcr dconf ];
+      };
 
-    gnome.gnome-keyring.enable = true;
+      geoclue2.enable = true;
 
-    gvfs.enable = true;
+      gnome.gnome-keyring.enable = true;
 
-    power-profiles-daemon.enable = lib.mkDefault true;
+      gvfs.enable = true;
 
-    tumbler.enable = true;
+      power-profiles-daemon.enable = lib.mkDefault true;
 
-    upower.enable = true;
+      tumbler.enable = true;
 
-    udev = {
-      packages = with pkgs; [
-        gnome.gnome-settings-daemon
-      ];
-    };
+      upower.enable = true;
 
-    udisks2.enable = true;
+      udev = {
+        packages = with pkgs; [
+          gnome.gnome-settings-daemon
+        ];
+      };
 
-    xserver = {
-      enable = true;
+      udisks2.enable = true;
 
-      desktopManager = {
-        xterm.enable = false;
+      xserver = {
+        enable = true;
+
+        desktopManager = {
+          xterm.enable = false;
+        };
       };
     };
-  };
 
-  security = {
-    pam.services = {
-      greetd.enableGnomeKeyring = true;
-      swaylock = { };
+    security = {
+      pam.services = {
+        greetd.enableGnomeKeyring = true;
+        swaylock = { };
+      };
+      polkit.enable = true;
     };
-    polkit.enable = true;
-  };
 
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
+    systemd = {
+      user.services.polkit-gnome-authentication-agent-1 = {
+        description = "polkit-gnome-authentication-agent-1";
+        wantedBy = [ "graphical-session.target" ];
+        wants = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
       };
     };
-  };
 
-  xdg = {
-    portal = {
-      enable = true;
-      wlr.enable = true;
+    xdg = {
+      portal = {
+        enable = true;
+        wlr.enable = true;
 
-      # extraPortals = with pkgs; [
-      #   xdg-desktop-portal-wlr # for wlroots based compositors(hyprland/sway)
-      #   xdg-desktop-portal-gtk # for gtk
-      # ];
-    };
-  };
-
-  programs = {
-    hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        # extraPortals = with pkgs; [
+        #   xdg-desktop-portal-wlr # for wlroots based compositors(hyprland/sway)
+        #   xdg-desktop-portal-gtk # for gtk
+        # ];
+      };
     };
 
-    light.enable = true;
+    programs = {
+      hyprland = {
+        enable = true;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      };
 
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-media-tags-plugin
-        thunar-volman
+      light.enable = true;
+
+      thunar = {
+        enable = true;
+        plugins = with pkgs.xfce; [
+          thunar-archive-plugin
+          thunar-media-tags-plugin
+          thunar-volman
+        ];
+      };
+    };
+
+    environment = {
+      pathsToLink = [ "/libexec" ];
+
+      systemPackages = with pkgs; [
+        # xdg-desktop-portal-gtk
+        # xdg-desktop-portal-hyprland
+
+        alsa-utils
+        cava
+        dunst
+        grim
+        gsettings-desktop-schemas
+        # hyprland-protocols
+        hyprpicker
+        libnotify
+        networkmanagerapplet
+        pavucontrol
+        polkit_gnome
+        libsForQt5.qt5.qtwayland
+        qt6.qtwayland
+        slurp
+        swappy
+        swayidle
+        swaylock
+        swww
+        udiskie
+        waybar
+        wayland
+        wdisplays # Tool for managing displays
+        wf-recorder
+        wl-clipboard
+        wlogout
+        wlr-randr
+        xfce.ristretto
+        xfce.thunar
       ];
     };
-  };
-
-  environment = {
-    pathsToLink = [ "/libexec" ];
-
-    systemPackages = with pkgs; [
-      # xdg-desktop-portal-gtk
-      # xdg-desktop-portal-hyprland
-
-      alsa-utils
-      cava
-      dunst
-      grim
-      gsettings-desktop-schemas
-      # hyprland-protocols
-      hyprpicker
-      libnotify
-      networkmanagerapplet
-      pavucontrol
-      polkit_gnome
-      libsForQt5.qt5.qtwayland
-      qt6.qtwayland
-      slurp
-      swappy
-      swayidle
-      swaylock
-      swww
-      udiskie
-      waybar
-      wayland
-      wdisplays # Tool for managing displays
-      wf-recorder
-      wl-clipboard
-      wlogout
-      wlr-randr
-      xfce.ristretto
-      xfce.thunar
-    ];
   };
 }
