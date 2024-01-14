@@ -118,9 +118,8 @@
           };
           modules = [
             musnix.nixosModules.musnix
-
+            hyprland.nixosModules.default
             ./hosts/soundwave
-
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -136,11 +135,8 @@
           specialArgs = { inherit inputs; };
           modules = [
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
-
             hyprland.nixosModules.default
-
             ./hosts/ravage
-
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -156,7 +152,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/nixos-testing
-
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -172,7 +167,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/raspberrypi
-
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
