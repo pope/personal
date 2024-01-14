@@ -11,7 +11,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/hyprland.nix
       ../../modules/system.nix
       ../../modules/users.nix
 
@@ -110,6 +109,7 @@ in
     displayManager.enable = true;
     gaming.enable = true;
     gnome.enable = true;
+    hyprland.enable = true;
     sound.enable = true;
   };
 

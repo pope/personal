@@ -11,10 +11,8 @@ in
   imports =
     [
       ../../modules
-      ../../modules/hyprland.nix
       ../../modules/system.nix
       ../../modules/users.nix
-      ../../modules/wayland.nix
 
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -151,8 +149,10 @@ in
     fah.enable = true;
     gaming.enable = true;
     gnome.enable = true;
+    hyprland.enable = true;
     printing.enable = true;
     sound.enable = true;
+    wayland.enable = true;
   };
 
   # This value determines the NixOS release from which the default
