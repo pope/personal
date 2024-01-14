@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./bluetooth.nix
+    ./display-manager.nix
     ./foldingathome.nix
     ./gaming.nix
     ./nix.nix
