@@ -11,7 +11,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/gnome.nix
       ../../modules/system.nix
       ../../modules/users.nix
 
@@ -68,6 +67,7 @@ in
 
     bluetooth.enable = true;
     displayManager.enable = true;
+    gnome.enable = true;
     sound.enable = true;
   };
 
