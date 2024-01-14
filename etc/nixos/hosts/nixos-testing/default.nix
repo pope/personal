@@ -11,7 +11,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/display-manager.nix
       ../../modules/gnome.nix
       ../../modules/system.nix
       ../../modules/users.nix
@@ -68,6 +67,7 @@ in
     mainUser = "pope";
 
     bluetooth.enable = true;
+    displayManager.enable = true;
     sound.enable = true;
   };
 

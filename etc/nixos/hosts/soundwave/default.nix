@@ -11,7 +11,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/display-manager.nix
       ../../modules/gnome.nix
       ../../modules/hyprland.nix
       ../../modules/system.nix
@@ -149,6 +148,7 @@ in
     mainUser = "pope";
 
     bluetooth.enable = true;
+    displayManager.enable = true;
     fah.enable = true;
     gaming.enable = true;
     printing.enable = true;
