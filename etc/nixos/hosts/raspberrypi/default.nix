@@ -80,7 +80,7 @@ in
 
   security.sudo.wheelNeedsPassword = false;
 
-  my.system = {
+  my.nixos = {
     mainUser = "pi";
 
     firewall.nfs.enable = true;

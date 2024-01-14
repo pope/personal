@@ -2,11 +2,11 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  inherit (config.my.system) mainUser;
-  cfg = config.my.system.displayManager;
+  inherit (config.my.nixos) mainUser;
+  cfg = config.my.nixos.displayManager;
 in
 {
-  options.my.system.displayManager = {
+  options.my.nixos.displayManager = {
     enable = mkEnableOption "display manager system options";
   };
 

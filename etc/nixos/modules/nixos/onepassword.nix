@@ -2,11 +2,11 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  inherit (config.my.system) mainUser;
-  cfg = config.my.system.onepassword;
+  inherit (config.my.nixos) mainUser;
+  cfg = config.my.nixos.onepassword;
 in
 {
-  options.my.system.onepassword = {
+  options.my.nixos.onepassword = {
     enable = mkEnableOption "onepassword system options";
   };
 

@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.gaming;
+  cfg = config.my.nixos.gaming;
 in
 {
-  options.my.system.gaming = {
+  options.my.nixos.gaming = {
     enable = mkEnableOption "gaming system options";
   };
 

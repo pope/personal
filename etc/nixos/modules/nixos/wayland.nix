@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.wayland;
+  cfg = config.my.nixos.wayland;
 in
 {
-  options.my.system.wayland = {
+  options.my.nixos.wayland = {
     enable = mkEnableOption "wayland system options";
   };
 

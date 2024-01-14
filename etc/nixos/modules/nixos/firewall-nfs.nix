@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.firewall.nfs;
+  cfg = config.my.nixos.firewall.nfs;
 in
 {
-  options.my.system.firewall.nfs = {
+  options.my.nixos.firewall.nfs = {
     enable = mkEnableOption "nfs firewall options";
   };
 

@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.system.sound;
+  cfg = config.my.nixos.sound;
 in
 {
-  options.my.system.sound = {
+  options.my.nixos.sound = {
     enable = mkEnableOption "sound system options";
   };
 

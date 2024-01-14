@@ -99,7 +99,7 @@ in
   };
   powerManagement.powertop.enable = true;
 
-  my.system = {
+  my.nixos = {
     mainUser = "pope";
 
     bluetooth.enable = true;

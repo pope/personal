@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkEnableOption mkIf mdDoc;
-  cfg = config.my.system.fah;
+  cfg = config.my.nixos.fah;
   # Use a wrapper script since the service was unable to find the correct
   # binary for the FAHClient. This may be more of a fahclient config thing
   # not being compatible in the new world.
@@ -11,7 +11,7 @@ let
   '';
 in
 {
-  options.my.system.fah = {
+  options.my.nixos.fah = {
     enable = mkEnableOption (mdDoc "Folding@Home");
   };
 

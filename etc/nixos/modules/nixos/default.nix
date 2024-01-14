@@ -22,7 +22,7 @@ in
     ./wayland.nix
   ];
 
-  options.my.system = {
+  options.my.nixos = {
     mainUser = mkOption {
       default = "pope";
       description = "The main user of the machine";

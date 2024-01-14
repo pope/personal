@@ -59,7 +59,7 @@ in
     fsType = "virtiofs";
   };
 
-  my.system = {
+  my.nixos = {
     mainUser = "pope";
 
     bluetooth.enable = true;
