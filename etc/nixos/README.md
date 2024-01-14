@@ -1,5 +1,28 @@
 # NixOS Flake for pope
 
+## Structure
+
+### `modules/nixos/`
+
+These are NixOS specific modules. Including it sets up a main user and can
+include subsets of common things I use with a
+`my.system.system.<module>.enable`. Some modules are also configurable.
+
+### `home/`
+
+These are home-manager modules. Right now, each home module must be imported.
+But soon it will behave just like `modules/nixos`.
+
+### `hosts/`
+
+These are the files for each host. If the host runs on NixOS, then the
+`default.nix` file will configure the system. For home-manager files, those
+will be loaded by the `home.nix` file.
+
+### `overlays/`
+
+These are Nix overlays which can be loaded up and used.
+
 ## Raspberry Pi
 
 How to build the SD card:
