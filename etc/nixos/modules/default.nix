@@ -7,6 +7,7 @@ in
   imports = [
     ./bluetooth.nix
     ./display-manager.nix
+    ./firewall-nfs.nix
     ./foldingathome.nix
     ./gaming.nix
     ./gnome.nix
