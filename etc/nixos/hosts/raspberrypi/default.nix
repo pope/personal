@@ -78,17 +78,6 @@ in
     openssh.enable = true;
   };
 
-  users = {
-    # mutableUsers = false;
-    users.pi = {
-      isNormalUser = true;
-      initialPassword = "changeme";
-      uid = 1002;
-      extraGroups = [ "wheel" "networkmanager" "users" ];
-      openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGg+9LMpvJUBVCndjopRX7Jm6veGyHkf1ZBI/434K2a4" ];
-    };
-  };
-
   security.sudo.wheelNeedsPassword = false;
 
   my.system = {
@@ -100,6 +89,11 @@ in
       shares = {
         Cyberia.path = "/mnt/Cyberia";
       };
+    };
+    users = {
+      # TODO(pope): Is `mutableUsers = false;` a good idea?
+      uid = 1002;
+      initialPassword = "changeme";
     };
   };
 

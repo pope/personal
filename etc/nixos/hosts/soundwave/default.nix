@@ -11,8 +11,6 @@ in
   imports =
     [
       ../../modules
-      ../../modules/users.nix
-
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];

@@ -18,6 +18,7 @@ in
     ./samba.nix
     ./sound.nix
     ./system.nix
+    ./users.nix
     ./wayland.nix
   ];
 
