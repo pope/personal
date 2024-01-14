@@ -6,7 +6,7 @@ in
 {
   imports =
     [
-      ../../modules
+      ../../modules/nixos
     ];
 
   boot = {

@@ -10,7 +10,7 @@ in
 {
   imports =
     [
-      ../../modules
+      ../../modules/nixos
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
