@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../home
     ../../home/packages.nix
   ];
 

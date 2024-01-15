@@ -5,8 +5,8 @@ let
 in
 {
   imports = [
+    ../../home
     ../../home/audio.nix
-    ../../home/lf.nix
   ];
 
   nixpkgs.overlays = with overlays; [
@@ -52,5 +52,9 @@ in
       enable = true;
       nix-direnv.enable = true;
     };
+  };
+
+  my.home = {
+    lf.enable = true;
   };
 }

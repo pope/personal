@@ -2,11 +2,11 @@
 
 {
   imports = [
+    ../../home
     ../../home/audio.nix
     ../../home/development.nix
     ../../home/git.nix
     ../../home/packages.nix
-    ../../home/lf.nix
   ];
 
   home = {
@@ -36,5 +36,9 @@
       core.sshCommand = "ssh.exe";
       "gpg \"ssh\"".program = "/mnt/c/Users/pope/AppData/Local/1Password/app/8/op-ssh-sign-wsl";
     };
+  };
+
+  my.home = {
+    lf.enable = true;
   };
 }
