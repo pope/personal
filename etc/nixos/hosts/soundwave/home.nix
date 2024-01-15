@@ -62,5 +62,6 @@
     packages.enable = true;
     shell.enable = true;
     terminals.kitty.enable = true;
+    terminals.crt.enable = true;
   };
 }
