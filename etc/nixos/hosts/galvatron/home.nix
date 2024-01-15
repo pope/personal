@@ -26,9 +26,6 @@ in
       lua-language-server
       neofetch
       nil
-      nodePackages.typescript-language-server
-      python311Packages.pyls-isort
-      python311Packages.python-lsp-server
       ripgrep
       tldr
       tree
@@ -55,6 +52,11 @@ in
   };
 
   my.home = {
+    # TODO(pope) : Enable nvim here.
+    languages = {
+      javascript.enable = true;
+      python.enable = true;
+    };
     lf.enable = true;
   };
 }

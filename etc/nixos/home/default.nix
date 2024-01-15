@@ -2,8 +2,8 @@ _:
 
 {
   imports = [
-    ./c.nix
-    ./java.nix
+    ./editor.nix
+    ./languages
     ./lf.nix
   ];
 }

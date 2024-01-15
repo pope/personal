@@ -8,7 +8,6 @@
     ../../home
     ../../home/anyrun.nix
     ../../home/chromium.nix
-    ../../home/development.nix
     ../../home/dropbox.nix
     ../../home/dunst.nix
     ../../home/git.nix
@@ -52,9 +51,14 @@
   };
 
   my.home = {
+    editor.enable = true;
     languages = {
       c.enable = true;
+      go.enable = true;
       java.enable = true;
+      javascript.enable = true;
+      python.enable = true;
+      rust.enable = true;
     };
     lf.enable = true;
   };
