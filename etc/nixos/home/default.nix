@@ -9,5 +9,6 @@ _:
     ./lf.nix
     ./packages.nix
     ./shell.nix
+    ./terminals
   ];
 }
