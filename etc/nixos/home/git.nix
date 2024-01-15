@@ -17,6 +17,14 @@ in
       '';
     };
 
+    opIdentityAgent = mkOption {
+      type = types.str;
+      default = "~/.1password/agent.sock";
+      description = lib.mkDoc ''
+        The location of the 1Password agent socket used for SSH.
+      '';
+    };
+
     sshCommand = mkOption {
       type = with types; nullOr str;
       default = null;
@@ -42,7 +50,7 @@ in
           gpg.format = "ssh";
           "gpg \"ssh\"" = {
             program = cfg.opSshSignCommand;
-            allowedSignersFile = "/home/pope/.ssh/allowed_signers";
+            allowedSignersFile = "~/.ssh/allowed_signers";
           };
         };
       };
@@ -64,7 +72,7 @@ in
         };
 
         matchBlocks."*".extraOptions = {
-          IdentityAgent = "~/.1password/agent.sock";
+          IdentityAgent = cfg.opIdentityAgent;
         };
       };
     };
