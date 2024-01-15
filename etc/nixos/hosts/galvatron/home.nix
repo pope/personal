@@ -17,9 +17,16 @@ in
     homeDirectory = "/Users/pope";
 
     packages = with pkgs; [
+      clang-tools
       cmake-language-server
+      gh
+      hey
+      jpeg-archive
       lua-language-server
+      marksman
       nil
+      tut
+      vale
     ];
 
     stateVersion = "23.05";
