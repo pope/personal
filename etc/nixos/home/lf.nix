@@ -7,6 +7,7 @@ in
 {
   options.my.home.lf = {
     enable = mkEnableOption "lf home options";
+    enableSixel = mkEnableOption "whether or not to enable Sixel images";
   };
 
   config = mkIf cfg.enable {
@@ -38,14 +39,16 @@ in
           icons = true;
           ignorecase = true;
           preview = true;
-          sixel = true;
+          sixel = cfg.enableSixel;
         };
       };
     };
 
-    xdg.configFile."ctpv/config".text = ''
-      set chafasixel
-    '';
+    xdg.configFile."ctpv/config" = mkIf cfg.enableSixel {
+      text = ''
+        set chafasixel
+      '';
+    };
 
     xdg.configFile."lf/icons".text = ''
       # These examples require Nerd Fonts or a compatible font to be used.
