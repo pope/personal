@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 
 let
+  inherit (lib) mkIf mkEnableOption;
+  cfg = config.my.home.audio;
   convert_48khz = pkgs.writeScriptBin "convert_48khz" ''
     set -o errexit
     set -o pipefail
@@ -17,8 +19,14 @@ let
   '';
 in
 {
-  home.packages = [
-    convert_48khz
-    pkgs.parallel
-  ];
+  options.my.home.audio = {
+    enable = mkEnableOption "Audio tool home options";
+  };
+
+  config = mkIf cfg.enable {
+    home.packages = [
+      convert_48khz
+      pkgs.parallel
+    ];
+  };
 }

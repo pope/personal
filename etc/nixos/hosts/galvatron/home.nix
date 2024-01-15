@@ -6,7 +6,6 @@ in
 {
   imports = [
     ../../home
-    ../../home/audio.nix
   ];
 
   nixpkgs.overlays = with overlays; [
@@ -31,6 +30,7 @@ in
   };
 
   my.home = {
+    audio.enable = true;
     # TODO(pope) : Enable nvim here.
     languages = {
       javascript.enable = true;
