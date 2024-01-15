@@ -1,51 +1,76 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
+let
+  inherit (lib) mkIf mkEnableOption mkOption types;
+  cfg = config.my.home.git;
+in
 {
-  programs = {
-    git = {
-      enable = true;
+  options.my.home.git = {
+    enable = mkEnableOption "Git home options";
 
-      userName = "K. Adam Christensen";
-      userEmail = "pope@shifteleven.com";
+    opSshSignCommand = mkOption {
+      type = types.str;
+      default = "${pkgs._1password-gui}/bin/op-ssh-sign";
+      description = lib.mdDoc ''
+        The location of the 1Password SSH sign app used for signing Git
+        commits.
+      '';
+    };
 
-      extraConfig = {
-        init.defaultBranch = "main";
+    sshCommand = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      description = lib.mkDoc ''
+        Specifies an override for the SSH command to use with Git.
+      '';
+    };
+  };
 
-        user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo";
+  config = mkIf cfg.enable {
+    programs = {
+      git = {
+        enable = true;
 
-        commit.gpgsign = true;
+        userName = "K. Adam Christensen";
+        userEmail = "pope@shifteleven.com";
 
-        gpg.format = "ssh";
-        "gpg \"ssh\"" = {
-          program = lib.mkDefault "${pkgs._1password-gui}/bin/op-ssh-sign";
-          allowedSignersFile = "/home/pope/.ssh/allowed_signers";
+        extraConfig = {
+          core.sshCommand = mkIf (cfg.sshCommand != null) cfg.sshCommand;
+          init.defaultBranch = "main";
+          user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo";
+          commit.gpgsign = true;
+          gpg.format = "ssh";
+          "gpg \"ssh\"" = {
+            program = cfg.opSshSignCommand;
+            allowedSignersFile = "/home/pope/.ssh/allowed_signers";
+          };
+        };
+      };
+
+      gh = {
+        enable = true;
+
+        settings = {
+          # Workaround for https://github.com/nix-community/home-manager/issues/4744
+          version = 1;
+        };
+      };
+
+      ssh = {
+        enable = true;
+
+        matchBlocks."shifteleven.com" = {
+          addressFamily = "inet";
+        };
+
+        matchBlocks."*".extraOptions = {
+          IdentityAgent = "~/.1password/agent.sock";
         };
       };
     };
 
-    gh = {
-      enable = true;
-
-      settings = {
-        # Workaround for https://github.com/nix-community/home-manager/issues/4744
-        version = 1;
-      };
-    };
-
-    ssh = {
-      enable = true;
-      matchBlocks."shifteleven.com" = {
-        addressFamily = "inet";
-      };
-    };
+    home.file.".ssh/allowed_signers".text = ''
+      pope@shifteleven.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo
+    '';
   };
-
-  home.file.".ssh/allowed_signers".text = ''
-    pope@shifteleven.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo
-  '';
-
-  home.file.".ssh/config".text = ''
-    Host *
-      IdentityAgent ~/.1password/agent.sock
-  '';
 }
