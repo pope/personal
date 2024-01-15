@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -12,14 +12,6 @@
   home = {
     username = "pope";
     homeDirectory = "/home/pope";
-
-    packages = with pkgs; [
-      cmake
-      gcc
-      gnumake
-      ninja
-      stdenv
-    ];
 
     stateVersion = "23.05";
   };
@@ -39,6 +31,9 @@
   };
 
   my.home = {
+    languages = {
+      c.enable = true;
+    };
     lf.enable = true;
   };
 }

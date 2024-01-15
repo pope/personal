@@ -7,7 +7,6 @@
 
     ../../home
     ../../home/anyrun.nix
-    ../../home/c.nix
     ../../home/development.nix
     ../../home/dunst.nix
     ../../home/git.nix
@@ -51,6 +50,9 @@
   };
 
   my.home = {
+    languages = {
+      c.enable = true;
+    };
     lf.enable = true;
   };
 }

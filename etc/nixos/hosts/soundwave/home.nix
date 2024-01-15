@@ -7,7 +7,6 @@
 
     ../../home
     ../../home/anyrun.nix
-    ../../home/c.nix
     ../../home/chromium.nix
     ../../home/development.nix
     ../../home/dropbox.nix
@@ -54,6 +53,9 @@
   };
 
   my.home = {
+    languages = {
+      c.enable = true;
+    };
     lf.enable = true;
   };
 }
