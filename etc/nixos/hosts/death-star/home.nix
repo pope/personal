@@ -4,7 +4,6 @@
   imports = [
     ../../home
     ../../home/audio.nix
-    ../../home/development.nix
     ../../home/git.nix
     ../../home/packages.nix
   ];
@@ -31,8 +30,13 @@
   };
 
   my.home = {
+    editor.enable = true;
     languages = {
       c.enable = true;
+      go.enable = true;
+      javascript.enable = true;
+      python.enable = true;
+      rust.enable = true;
     };
     lf.enable = true;
   };

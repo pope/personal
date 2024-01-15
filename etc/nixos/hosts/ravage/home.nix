@@ -7,7 +7,6 @@
 
     ../../home
     ../../home/anyrun.nix
-    ../../home/development.nix
     ../../home/dunst.nix
     ../../home/git.nix
     ../../home/gnome.nix
@@ -50,8 +49,13 @@
   };
 
   my.home = {
+    editor.enable = true;
     languages = {
       c.enable = true;
+      go.enable = true;
+      javascript.enable = true;
+      python.enable = true;
+      rust.enable = true;
     };
     lf.enable = true;
   };
