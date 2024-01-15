@@ -5,5 +5,7 @@ _:
     ./editor.nix
     ./languages
     ./lf.nix
+    ./packages.nix
+    ./shell.nix
   ];
 }

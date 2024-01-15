@@ -5,7 +5,6 @@
     ../../home
     ../../home/audio.nix
     ../../home/git.nix
-    ../../home/packages.nix
   ];
 
   home = {
@@ -39,5 +38,7 @@
       rust.enable = true;
     };
     lf.enable = true;
+    packages.enable = true;
+    shell.enable = true;
   };
 }

@@ -16,7 +16,6 @@
     ../../home/hyprland
     ../../home/keymapp.nix
     ../../home/kitty.nix
-    ../../home/packages.nix
     ../../home/xdg.nix
   ];
 
@@ -61,5 +60,7 @@
       rust.enable = true;
     };
     lf.enable = true;
+    packages.enable = true;
+    shell.enable = true;
   };
 }
