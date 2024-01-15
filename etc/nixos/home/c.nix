@@ -1,12 +1,21 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 
+let
+  inherit (lib) mkIf mkEnableOption;
+  cfg = config.my.home.languages.c;
+in
 {
-  home.packages = with pkgs; [
-    cmake
-    gcc
-    gnumake
-    ninja
-    stdenv
-  ];
-}
+  options.my.home.languages.c = {
+    enable = mkEnableOption "C language home options";
+  };
 
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      cmake
+      gcc
+      gnumake
+      ninja
+      stdenv
+    ];
+  };
+}
