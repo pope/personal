@@ -3,7 +3,6 @@
 {
   imports = [
     ../../home
-    ../../home/git.nix
   ];
 
   home = {
@@ -15,16 +14,16 @@
 
   programs = {
     home-manager.enable = true;
-
-    git.extraConfig = {
-      core.sshCommand = "ssh.exe";
-      "gpg \"ssh\"".program = "/mnt/c/Users/pope/AppData/Local/1Password/app/8/op-ssh-sign-wsl";
-    };
   };
 
   my.home = {
     audio.enable = true;
     editor.enable = true;
+    git = {
+      enable = true;
+      sshCommand = "ssh.exe";
+      opSshSignCommand = "/mnt/c/Users/pope/AppData/Local/1Password/app/8/op-ssh-sign-wsl";
+    };
     languages = {
       c.enable = true;
       go.enable = true;

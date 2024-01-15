@@ -10,7 +10,6 @@
     ../../home/chromium.nix
     ../../home/dropbox.nix
     ../../home/dunst.nix
-    ../../home/git.nix
     ../../home/gnome.nix
     ../../home/gtk.nix
     ../../home/hyprland
@@ -51,6 +50,7 @@
 
   my.home = {
     editor.enable = true;
+    git.enable = true;
     languages = {
       c.enable = true;
       go.enable = true;

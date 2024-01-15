@@ -11,8 +11,6 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # TODO(pope): Move to git.nix
-      gh
       lua-language-server
       nil
     ];
