@@ -2,8 +2,8 @@
 
 {
   imports = [
+    ../../home
     ../../home/gnome.nix
-    ../../home/lf.nix
     ../../home/packages.nix
   ];
 
@@ -18,5 +18,9 @@
 
   programs = {
     home-manager.enable = true;
+  };
+
+  my.home = {
+    lf.enable = true;
   };
 }

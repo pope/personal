@@ -5,6 +5,7 @@
     inputs.anyrun.homeManagerModules.default
     inputs.nix-colors.homeManagerModules.default
 
+    ../../home
     ../../home/anyrun.nix
     ../../home/c.nix
     ../../home/development.nix
@@ -15,7 +16,6 @@
     ../../home/hyprland
     ../../home/keymapp.nix
     ../../home/kitty.nix
-    ../../home/lf.nix
     ../../home/packages.nix
     ../../home/vscode.nix
     ../../home/xdg.nix
@@ -48,5 +48,9 @@
 
   programs = {
     home-manager.enable = true;
+  };
+
+  my.home = {
+    lf.enable = true;
   };
 }
