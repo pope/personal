@@ -15,7 +15,6 @@
     ../../home/gnome.nix
     ../../home/gtk.nix
     ../../home/hyprland
-    ../../home/java.nix
     ../../home/keymapp.nix
     ../../home/kitty.nix
     ../../home/packages.nix
@@ -55,6 +54,7 @@
   my.home = {
     languages = {
       c.enable = true;
+      java.enable = true;
     };
     lf.enable = true;
   };
