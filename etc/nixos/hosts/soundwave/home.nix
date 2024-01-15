@@ -14,7 +14,6 @@
     ../../home/gtk.nix
     ../../home/hyprland
     ../../home/keymapp.nix
-    ../../home/kitty.nix
     ../../home/xdg.nix
   ];
 
@@ -62,5 +61,6 @@
     lf.enable = true;
     packages.enable = true;
     shell.enable = true;
+    terminals.kitty.enable = true;
   };
 }
