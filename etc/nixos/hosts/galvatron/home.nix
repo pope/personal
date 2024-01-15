@@ -18,13 +18,9 @@ in
 
     packages = with pkgs; [
       clang-tools
-      cmake-language-server
-      gh
       hey
       jpeg-archive
-      lua-language-server
       marksman
-      nil
       tut
       vale
     ];
@@ -53,12 +49,12 @@ in
 
   my.home = {
     audio.enable = true;
+    editor.enable = true;
     git = {
       enable = true;
       opIdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
       opSshSignCommand = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
     };
-    # TODO(pope) : Enable nvim here.
     languages = {
       javascript.enable = true;
       python.enable = true;
