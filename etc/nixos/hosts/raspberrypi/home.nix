@@ -3,7 +3,6 @@
 {
   imports = [
     ../../home
-    ../../home/packages.nix
   ];
 
   home = {
@@ -15,5 +14,10 @@
 
   programs = {
     home-manager.enable = true;
+  };
+
+  my.home = {
+    packages.enable = true;
+    shell.enable = true;
   };
 }

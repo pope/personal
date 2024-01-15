@@ -4,7 +4,6 @@
   imports = [
     ../../home
     ../../home/gnome.nix
-    ../../home/packages.nix
   ];
 
   home = {
@@ -22,5 +21,7 @@
 
   my.home = {
     lf.enable = true;
+    packages.enable = true;
+    shell.enable = true;
   };
 }
