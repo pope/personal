@@ -2,6 +2,7 @@ _:
 
 {
   imports = [
+    ./audio.nix
     ./editor.nix
     ./languages
     ./lf.nix

@@ -3,7 +3,6 @@
 {
   imports = [
     ../../home
-    ../../home/audio.nix
     ../../home/git.nix
   ];
 
@@ -24,6 +23,7 @@
   };
 
   my.home = {
+    audio.enable = true;
     editor.enable = true;
     languages = {
       c.enable = true;
