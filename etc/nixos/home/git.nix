@@ -72,7 +72,7 @@ in
         };
 
         matchBlocks."*".extraOptions = {
-          IdentityAgent = cfg.opIdentityAgent;
+          IdentityAgent = ''"${cfg.opIdentityAgent}"'';
         };
       };
     };
