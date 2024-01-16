@@ -9,8 +9,6 @@
     ../../home/hyprland
   ];
 
-  nixpkgs.config.firefox.speechSynthesisSupport = true;
-
   home = {
     username = "pope";
     homeDirectory = "/home/pope";
@@ -19,8 +17,6 @@
 
     packages = with pkgs; [
       discord
-      # TODO(pope): Move this to maybe a browsers file.
-      firefox
       intel-gpu-tools
       stow
     ];
@@ -40,6 +36,7 @@
 
   my.home = {
     anyrun.enable = true;
+    browsers.firefox.enable = true;
     editor.enable = true;
     dunst.enable = true;
     git.enable = true;
