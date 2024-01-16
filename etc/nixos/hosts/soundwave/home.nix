@@ -6,7 +6,6 @@
     inputs.nix-colors.homeManagerModules.default
 
     ../../home
-    ../../home/chromium.nix
     ../../home/dropbox.nix
     ../../home/hyprland
   ];
@@ -43,6 +42,9 @@
 
   my.home = {
     anyrun.enable = true;
+    browsers = {
+      chromium.enable = true;
+    };
     editor.enable = true;
     dunst.enable = true;
     git.enable = true;
