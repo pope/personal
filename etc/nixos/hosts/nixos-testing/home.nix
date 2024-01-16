@@ -3,7 +3,6 @@
 {
   imports = [
     ../../home
-    ../../home/gnome.nix
   ];
 
   home = {
@@ -20,6 +19,7 @@
   };
 
   my.home = {
+    gnome.enable = true;
     lf.enable = true;
     packages.enable = true;
     shell.enable = true;
