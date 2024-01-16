@@ -8,6 +8,7 @@
     ./anyrun.nix
     ./audio.nix
     ./browsers
+    ./dropbox.nix
     ./dunst.nix
     ./editor.nix
     ./git.nix
