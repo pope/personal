@@ -11,5 +11,6 @@ _:
     ./packages.nix
     ./shell.nix
     ./terminals
+    ./vscode.nix
   ];
 }
