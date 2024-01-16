@@ -18,7 +18,6 @@
 
     packages = with pkgs; [
       discord
-      firefox
       nvtop
     ];
 
@@ -44,6 +43,7 @@
     anyrun.enable = true;
     browsers = {
       chromium.enable = true;
+      firefox.enable = true;
     };
     editor.enable = true;
     dunst.enable = true;
