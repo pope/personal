@@ -6,7 +6,6 @@
     inputs.nix-colors.homeManagerModules.default
 
     ../../home
-    ../../home/anyrun.nix
     ../../home/dunst.nix
     ../../home/gtk.nix
     ../../home/hyprland
@@ -42,6 +41,7 @@
   };
 
   my.home = {
+    anyrun.enable = true;
     editor.enable = true;
     git.enable = true;
     gnome.enable = true;
