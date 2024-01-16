@@ -12,5 +12,6 @@ _:
     ./shell.nix
     ./terminals
     ./vscode.nix
+    ./xdg.nix
   ];
 }

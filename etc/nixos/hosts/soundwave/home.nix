@@ -13,7 +13,6 @@
     ../../home/gtk.nix
     ../../home/hyprland
     ../../home/keymapp.nix
-    ../../home/xdg.nix
   ];
 
   home = {
@@ -63,5 +62,6 @@
     shell.enable = true;
     terminals.kitty.enable = true;
     terminals.crt.enable = true;
+    xdg.enable = true;
   };
 }
