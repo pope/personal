@@ -34,7 +34,10 @@
   my.home = {
     anyrun.enable = true;
     browsers.firefox.enable = true;
-    editor.enable = true;
+    editors = {
+      neovim.enable = true;
+      vscode.enable = true;
+    };
     dunst.enable = true;
     git.enable = true;
     gnome.enable = true;
@@ -51,7 +54,6 @@
     packages.enable = true;
     shell.enable = true;
     terminals.kitty.enable = true;
-    vscode.enable = true;
     xdg.enable = true;
   };
 }

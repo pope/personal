@@ -41,7 +41,7 @@
       chromium.enable = true;
       firefox.enable = true;
     };
-    editor.enable = true;
+    editors.neovim.enable = true;
     dropbox.enable = true;
     dunst.enable = true;
     git.enable = true;

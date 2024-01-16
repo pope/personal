@@ -20,7 +20,7 @@
 
   my.home = {
     audio.enable = true;
-    editor.enable = true;
+    editors.neovim.enable = true;
     git = {
       enable = true;
       sshCommand = "ssh.exe";

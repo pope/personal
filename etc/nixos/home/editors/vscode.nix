@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.home.vscode;
+  cfg = config.my.home.editors.vscode;
 in
 {
-  options.my.home.vscode = {
+  options.my.home.editors.vscode = {
     enable = mkEnableOption "VSCode home options";
   };
 
