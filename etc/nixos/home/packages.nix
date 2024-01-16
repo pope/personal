@@ -1,8 +1,20 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption optionalAttrs;
   cfg = config.my.home.packages;
+  glowConfig = lib.generators.toYAML { } {
+    # style name or JSON path (default "auto")
+    style = "dracula";
+    # show local files only; no network (TUI-mode only)
+    local = false;
+    # mouse support (TUI-mode only)
+    mouse = true;
+    # use pager to display markdown
+    pager = true;
+    # word-wrap at width
+    width = 100;
+  };
 in
 {
   options.my.home.packages = {
@@ -100,17 +112,11 @@ in
       };
     };
 
-    xdg.configFile."glow/glow.yml".text = ''
-      # style name or JSON path (default "auto")
-      style: "dracula"
-      # show local files only; no network (TUI-mode only)
-      local: false
-      # mouse support (TUI-mode only)
-      mouse: true
-      # use pager to display markdown
-      pager: true
-      # word-wrap at width
-      width: 80
-    '';
+    xdg.configFile = optionalAttrs pkgs.stdenv.isLinux {
+      "glow/glow.yml".text = glowConfig;
+    };
+    home.file = optionalAttrs pkgs.stdenv.isDarwin {
+      "/Library/Preferences/glow/glow.yml".text = glowConfig;
+    };
   };
 }
