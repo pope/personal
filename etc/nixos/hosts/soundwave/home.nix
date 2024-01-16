@@ -3,7 +3,6 @@
 {
   imports = [
     ../../home
-    ../../home/dropbox.nix
     ../../home/hyprland
   ];
 
@@ -43,6 +42,7 @@
       firefox.enable = true;
     };
     editor.enable = true;
+    dropbox.enable = true;
     dunst.enable = true;
     git.enable = true;
     gnome.enable = true;
