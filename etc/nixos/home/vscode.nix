@@ -11,7 +11,7 @@ in
 
   config = mkIf cfg.enable {
     programs.vscode = {
-      enable = false;
+      enable = true;
       package = pkgs.vscodium.fhsWithPackages (ps: with ps; [ zlib ]);
       extensions = with pkgs.vscode-extensions; [
         golang.go
