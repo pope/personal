@@ -14,6 +14,7 @@ in
       enable = true;
       package = pkgs.vscodium.fhsWithPackages (ps: with ps; [ zlib ]);
       extensions = with pkgs.vscode-extensions; [
+        bbenoist.nix
         golang.go
         ms-python.python
         ms-vscode.cpptools
