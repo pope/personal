@@ -6,6 +6,7 @@ _:
     ./editor.nix
     ./git.nix
     ./gnome.nix
+    ./keymapp.nix
     ./languages
     ./lf.nix
     ./packages.nix

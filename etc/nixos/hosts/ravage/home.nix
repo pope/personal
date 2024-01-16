@@ -10,7 +10,6 @@
     ../../home/dunst.nix
     ../../home/gtk.nix
     ../../home/hyprland
-    ../../home/keymapp.nix
   ];
 
   nixpkgs.config.firefox.speechSynthesisSupport = true;
@@ -46,6 +45,7 @@
     editor.enable = true;
     git.enable = true;
     gnome.enable = true;
+    keymapp.enable = true;
     languages = {
       c.enable = true;
       go.enable = true;
