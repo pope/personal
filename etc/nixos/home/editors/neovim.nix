@@ -2,11 +2,11 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.home.editor;
+  cfg = config.my.home.editors.neovim;
 in
 {
-  options.my.home.editor = {
-    enable = mkEnableOption "Text editor home options";
+  options.my.home.editors.neovim = {
+    enable = mkEnableOption "Neovim text editor home options";
   };
 
   config = mkIf cfg.enable {

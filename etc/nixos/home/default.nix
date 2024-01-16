@@ -5,22 +5,21 @@
     inputs.anyrun.homeManagerModules.default
     inputs.nix-colors.homeManagerModules.default
 
-    ./anyrun.nix
-    ./audio.nix
+    ./anyrun
+    ./audio
     ./browsers
-    ./dropbox.nix
-    ./dunst.nix
-    ./editor.nix
-    ./git.nix
-    ./gnome.nix
+    ./dropbox
+    ./dunst
+    ./editors
+    ./git
+    ./gnome
     ./gtk
-    ./keymapp.nix
+    ./keymapp
     ./languages
-    ./lf.nix
-    ./packages.nix
-    ./shell.nix
+    ./lf
+    ./packages
+    ./shell
     ./terminals
-    ./vscode.nix
-    ./xdg.nix
+    ./xdg
   ];
 }
