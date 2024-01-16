@@ -11,7 +11,6 @@
     ../../home/gtk.nix
     ../../home/hyprland
     ../../home/keymapp.nix
-    ../../home/xdg.nix
   ];
 
   nixpkgs.config.firefox.speechSynthesisSupport = true;
@@ -59,5 +58,6 @@
     shell.enable = true;
     terminals.kitty.enable = true;
     vscode.enable = true;
+    xdg.enable = true;
   };
 }
