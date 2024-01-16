@@ -6,7 +6,6 @@
     inputs.nix-colors.homeManagerModules.default
 
     ../../home
-    ../../home/anyrun.nix
     ../../home/chromium.nix
     ../../home/dropbox.nix
     ../../home/dunst.nix
@@ -45,6 +44,7 @@
   };
 
   my.home = {
+    anyrun.enable = true;
     editor.enable = true;
     git.enable = true;
     gnome.enable = true;

@@ -2,6 +2,7 @@ _:
 
 {
   imports = [
+    ./anyrun.nix
     ./audio.nix
     ./editor.nix
     ./git.nix
