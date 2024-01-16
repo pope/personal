@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ../../home
-    ../../home/hyprland
+    ../../modules/home
+    ../../modules/home/hyprland
   ];
 
   home = {

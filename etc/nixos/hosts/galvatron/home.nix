@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    ../../home
+    ../../modules/home
   ];
 
   nixpkgs.overlays = with overlays; [
