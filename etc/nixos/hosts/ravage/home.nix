@@ -8,7 +8,6 @@
     ../../home
     ../../home/anyrun.nix
     ../../home/dunst.nix
-    ../../home/gnome.nix
     ../../home/gtk.nix
     ../../home/hyprland
     ../../home/keymapp.nix
@@ -48,6 +47,7 @@
   my.home = {
     editor.enable = true;
     git.enable = true;
+    gnome.enable = true;
     languages = {
       c.enable = true;
       go.enable = true;
