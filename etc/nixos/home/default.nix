@@ -1,7 +1,10 @@
-_:
+{ inputs, ... }:
 
 {
   imports = [
+    inputs.anyrun.homeManagerModules.default
+    inputs.nix-colors.homeManagerModules.default
+
     ./anyrun.nix
     ./audio.nix
     ./browsers
