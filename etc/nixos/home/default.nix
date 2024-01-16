@@ -7,6 +7,7 @@ _:
     ./editor.nix
     ./git.nix
     ./gnome.nix
+    ./gtk
     ./keymapp.nix
     ./languages
     ./lf.nix

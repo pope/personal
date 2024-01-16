@@ -7,7 +7,6 @@
 
     ../../home
     ../../home/dunst.nix
-    ../../home/gtk.nix
     ../../home/hyprland
   ];
 
@@ -45,6 +44,7 @@
     editor.enable = true;
     git.enable = true;
     gnome.enable = true;
+    gtk.enable = true;
     keymapp.enable = true;
     languages = {
       c.enable = true;
