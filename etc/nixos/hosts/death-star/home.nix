@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   imports = [
@@ -15,6 +15,8 @@
   programs = {
     home-manager.enable = true;
   };
+
+  colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
 
   my.home = {
     audio.enable = true;
