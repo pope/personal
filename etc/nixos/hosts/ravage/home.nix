@@ -6,7 +6,6 @@
     inputs.nix-colors.homeManagerModules.default
 
     ../../home
-    ../../home/dunst.nix
     ../../home/hyprland
   ];
 
@@ -42,6 +41,7 @@
   my.home = {
     anyrun.enable = true;
     editor.enable = true;
+    dunst.enable = true;
     git.enable = true;
     gnome.enable = true;
     gtk.enable = true;

@@ -4,6 +4,7 @@ _:
   imports = [
     ./anyrun.nix
     ./audio.nix
+    ./dunst.nix
     ./editor.nix
     ./git.nix
     ./gnome.nix
