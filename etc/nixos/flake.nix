@@ -84,8 +84,7 @@
   };
 
   outputs =
-    { self
-    , home-manager
+    { home-manager
     , hyprland
     , musnix
     , nix-formatter-pack
@@ -199,7 +198,7 @@
           ];
         };
       };
-      homeManagerModules.default = import ./modules/home self;
+      homeManagerModules.default = import ./modules/home;
       formatter = eachSystem (system:
         nix-formatter-pack.lib.mkFormatter {
           pkgs = nixpkgs.legacyPackages.${system};
