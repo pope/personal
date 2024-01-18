@@ -199,6 +199,7 @@
           ];
         };
       };
+      overlays = import ./overlays { inherit inputs; };
       homeManagerModules.default = import ./modules/home self;
       formatter = eachSystem (system:
         nix-formatter-pack.lib.mkFormatter {
