@@ -144,6 +144,7 @@ in
     bluetooth.enable = true;
     displayManager.enable = true;
     fah.enable = true;
+    fonts.enable = true;
     gaming.enable = true;
     gnome.enable = true;
     hyprland.enable = true;

@@ -104,6 +104,7 @@ in
 
     bluetooth.enable = true;
     displayManager.enable = true;
+    fonts.enable = true;
     gaming.enable = true;
     gnome.enable = true;
     hyprland.enable = true;

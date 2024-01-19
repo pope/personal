@@ -64,6 +64,7 @@ in
 
     bluetooth.enable = true;
     displayManager.enable = true;
+    fonts.enable = true;
     gnome.enable = true;
     onepassword.enable = true;
     sound.enable = true;
