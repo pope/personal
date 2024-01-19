@@ -9,6 +9,7 @@ in
     ./display-manager.nix
     ./firewall-nfs.nix
     ./foldingathome.nix
+    ./fonts.nix
     ./gaming.nix
     ./gnome.nix
     ./hyprland.nix
