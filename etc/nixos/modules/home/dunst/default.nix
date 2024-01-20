@@ -11,7 +11,7 @@ in
 
   config = mkIf cfg.enable {
     # Taken from https://github.com/linuxmobile/kaku
-    services.dunst = with config.colorScheme.colors; {
+    services.dunst = with config.my.home.theme.colors.withHash; {
       enable = true;
       settings = {
         global = {
@@ -35,7 +35,7 @@ in
           progress_bar_max_width = 300;
           separator_height = 2;
           frame_width = 2;
-          frame_color = "#${base08}";
+          frame_color = base08;
           separator_color = "frame";
           corner_radius = 8;
           transparency = 0;
@@ -48,7 +48,7 @@ in
           markup = "full";
           font = "Iosevka 10";
           format =
-            "<span size='x-large' font_desc='Iosevka 8' foreground='#${base05}'>%a</span>\\n%s\\n%b";
+            "<span size='x-large' font_desc='Iosevka 8' foreground='${base05}'>%a</span>\\n%s\\n%b";
           word_wrap = "yes";
           sort = "yes";
           shrink = "no";
@@ -74,19 +74,19 @@ in
         #   script = "~/.config/eww/scripts/notification_logger.zsh";
         # };
         urgency_critical = {
-          background = "#${base00}D0";
-          foreground = "#${base05}";
-          frame_color = "#${base0B}";
+          background = "${base00}D0";
+          foreground = base05;
+          frame_color = base0B;
         };
         urgency_low = {
-          background = "#${base00}D0";
-          foreground = "#${base05}";
-          frame_color = "#${base0C}";
+          background = "${base00}D0";
+          foreground = base05;
+          frame_color = base0C;
         };
         urgency_normal = {
-          background = "#${base00}D0";
-          foreground = "#${base05}";
-          frame_color = "#${base0C}";
+          background = "${base00}D0";
+          foreground = base05;
+          frame_color = base0C;
         };
       };
     };

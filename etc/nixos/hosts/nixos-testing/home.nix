@@ -1,4 +1,4 @@
-{ inputs, ... }:
+_:
 
 {
   imports = [
@@ -17,8 +17,6 @@
   programs = {
     home-manager.enable = true;
   };
-
-  colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
 
   my.home = {
     gnome.enable = true;

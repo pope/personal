@@ -1,7 +1,7 @@
 { config }:
 
 let
-  color = config.colorScheme.colors;
+  color = config.my.home.theme.colors.withHash;
 in
 {
   mainBar = {
@@ -61,8 +61,8 @@ in
       on-click = "playerctl previous";
       on-click-right = "playerctl next";
       format-icons = {
-        Playing = "<span foreground='#${color.base0B}'>󰓇 </span>";
-        Paused = "<span foreground='#${color.base0E}'>󰓇 </span>";
+        Playing = "<span foreground='${color.base0B}'>󰓇 </span>";
+        Paused = "<span foreground='${color.base0E}'>󰓇 </span>";
       };
     };
 
