@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... } @ args:
+{ config, pkgs, inputs, ... } @ args:
 
 let
   overlays = import ../../overlays args;
@@ -50,6 +50,7 @@ in
   };
 
   nixpkgs.overlays = with overlays; [
+    inputs.keymapp.overlays.default
     plow
     renoise343
     waybar
