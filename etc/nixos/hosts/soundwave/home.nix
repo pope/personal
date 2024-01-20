@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -19,8 +19,6 @@
 
     stateVersion = "23.05";
   };
-
-  colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
 
   wayland.windowManager.hyprland.settings.monitor = [
     # "HDMI-A-1,2560x1440@119.998001,0x0,auto"

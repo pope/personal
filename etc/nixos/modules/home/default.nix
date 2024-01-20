@@ -20,6 +20,7 @@
     ./packages
     ./shell
     ./terminals
+    ./theme
     ./xdg
   ];
 }

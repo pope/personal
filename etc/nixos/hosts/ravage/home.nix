@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -20,8 +20,6 @@
 
     stateVersion = "23.05";
   };
-
-  colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
 
   wayland.windowManager.hyprland.settings.monitor = [
     "eDP-1,preferred,auto,1"

@@ -10,7 +10,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.anyrun = with config.colorScheme.colors; {
+    programs.anyrun = with config.my.home.theme.colors.withHash; {
       enable = true;
 
       config = {
@@ -60,7 +60,7 @@ in
 
       extraCss = ''
         * {
-          color: #${base05};
+          color: ${base05};
         }
 
         #window {
@@ -68,52 +68,52 @@ in
         }
 
         #window > widget > #main {
-          background-color: alpha(#${base00}, 0.9);
+          background-color: alpha(${base00}, 0.9);
           border-radius: 24px;
           padding: 12px;
         }
 
         #entry {
           background-color: transparent;
-          border-bottom-color: #${base0D};
-          border-left-color: #${base0D};
+          border-bottom-color: ${base0D};
+          border-left-color: ${base0D};
           border-radius: 16px;
-          border-right-color: #${base0D};
-          border-top-color: #${base0D};
-          color: #${base05};
+          border-right-color: ${base0D};
+          border-top-color: ${base0D};
+          color: ${base05};
           font-size: 1.2rem;
           padding: 4px;
           padding-left: 8px;
         }
 
         #main > #main {
-          background-color: alpha(#${base01}, 0.5);
+          background-color: alpha(${base01}, 0.5);
           border-radius: 16px;
         }
 
         #main > #main > #plugin {
-          background-color: alpha(#${base01}, 0.5);
+          background-color: alpha(${base01}, 0.5);
           border-radius: 8px;
           padding: 4px;
         }
 
         #main > #main > #plugin:hover {
-          background-color: alpha(#${base02}, 0.5);
+          background-color: alpha(${base02}, 0.5);
         }
 
         list#plugin {
-          background-color: alpha(#${base01}, 0.5);
+          background-color: alpha(${base01}, 0.5);
         }
 
         list#plugin:hover,
         list#plugin #match:hover {
-          background-color: alpha(#${base02}, 0.5);
+          background-color: alpha(${base02}, 0.5);
         }
 
         list#plugin #match:active,
         list#plugin #match:focus,
         list#plugin #match:selected {
-          background-color: alpha(#${base0D}, 0.5);
+          background-color: alpha(${base0D}, 0.5);
         }
 
         list#plugin #match {

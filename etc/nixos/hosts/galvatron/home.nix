@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... } @ args:
+{ pkgs, ... } @ args:
 
 let
   overlays = import ../../overlays args;
@@ -46,8 +46,6 @@ in
       };
     };
   };
-
-  colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
 
   my.home = {
     audio.enable = true;

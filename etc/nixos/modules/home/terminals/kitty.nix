@@ -15,7 +15,7 @@ in
       kitty-themes
     ];
 
-    programs.kitty = with config.colorScheme.colors; {
+    programs.kitty = with config.my.home.theme.colors.withHash; {
       enable = true;
       font = {
         name = "Iosevka Comfy";
@@ -34,7 +34,7 @@ in
         tab_bar_edge = "top";
         tab_bar_style = "powerline";
         tab_powerline_style = "round";
-        wayland_titlebar_color = "#${base00}";
+        wayland_titlebar_color = base00;
         window_padding_width = 4;
 
         "modify_font cell_height" = "125%";
