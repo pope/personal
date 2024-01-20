@@ -44,7 +44,17 @@ in
       inherit (cfg) uid initialPassword;
       isNormalUser = true;
       description = "K. Adam Christensen";
-      extraGroups = [ "networkmanager" "wheel" "audio" "video" "kvm" "input" "libvirtd" "plugdev" ];
+      extraGroups = [
+        "audio"
+        "dialout"
+        "input"
+        "kvm"
+        "libvirtd"
+        "networkmanager"
+        "plugdev"
+        "video"
+        "wheel"
+      ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGg+9LMpvJUBVCndjopRX7Jm6veGyHkf1ZBI/434K2a4"
       ];
