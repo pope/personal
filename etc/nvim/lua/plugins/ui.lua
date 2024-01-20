@@ -14,18 +14,19 @@ return {
 		priority = 1000,
 		opts = function()
 			local p = require('rose-pine.palette')
-			local blend = require('rose-pine.util').blend
-
 			return {
-				bold_vert_split = false,
 				dark_variant = 'main',
-				dim_nc_background = false,
-				disable_background = true,
-				disable_float_background = true,
+				dim_inactive_windows = false,
+				extend_background_behind_borders = true,
+				styles = {
+					bold = true,
+					italic = true,
+					transparency = true,
+				},
 				highlight_groups = {
 					ColorColumn = { bg = p.highlight_low },
 					NonText = {
-						fg = blend(p.highlight_med, p.highlight_low, .4),
+						fg = p.highlight_med,
 						bg = p.none,
 					},
 				},
