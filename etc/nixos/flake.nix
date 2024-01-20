@@ -78,8 +78,8 @@
     };
 
     keymapp = {
-      url = "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.0.5.tar.gz";
-      flake = false;
+      url = "github:pope/keymapp-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
