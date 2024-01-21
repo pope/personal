@@ -1,7 +1,12 @@
-{ config }:
+{ config, pkgs, hyprland }:
 
 let
   color = config.my.home.theme.colors.withHash;
+  hyprctl = "${hyprland}/bin/hyprctl";
+  playerctl = "${pkgs.playerctl}/bin/playerctl";
+  nm-connection-editor = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+  pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
+  wlogout = "${pkgs.wlogout}/bin/wlogout";
 in
 {
   mainBar = {
@@ -41,8 +46,8 @@ in
       active-only = false;
       all-outputs = false;
       disable-scroll = false;
-      on-scroll-up = "hyprctl dispatch workspace e-1";
-      on-scroll-down = "hyprctl dispatch workspace e+1";
+      on-scroll-up = "${hyprctl} dispatch workspace e-1";
+      on-scroll-down = "${hyprctl} dispatch workspace e+1";
       format = " ";
       on-click = "activate";
       show-special = "false";
@@ -56,10 +61,11 @@ in
       format = "{icon}";
       return-type = "json";
       exec = ''
-        playerctl -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
-      on-click-middle = "playerctl play-pause";
-      on-click = "playerctl previous";
-      on-click-right = "playerctl next";
+        ${playerctl} -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F
+      '';
+      on-click-middle = "${playerctl} play-pause";
+      on-click = "${playerctl} previous";
+      on-click-right = "${playerctl} next";
       format-icons = {
         Playing = "<span foreground='${color.base0B}'>󰓇 </span>";
         Paused = "<span foreground='${color.base0E}'>󰓇 </span>";
@@ -71,10 +77,11 @@ in
       return-type = "json";
       max-length = 75;
       exec = ''
-        playerctl -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F'';
-      on-click-middle = "playerctl play-pause";
-      on-click = "playerctl previous";
-      on-click-right = "playerctl next";
+        ${playerctl} -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F
+      '';
+      on-click-middle = "${playerctl} play-pause";
+      on-click = "${playerctl} previous";
+      on-click-right = "${playerctl} next";
     };
 
     battery = {
@@ -118,7 +125,7 @@ in
       format-disconnected = "󰤭 ";
       format-alt = " {ifname}: {ipaddr}/{cidr}";
       tooltip-format = "{essid}";
-      on-click-right = "nm-connection-editor";
+      on-click-right = nm-connection-editor;
     };
 
     tray = {
@@ -131,7 +138,7 @@ in
       format-muted = "";
       format-icons = { default = [ "" "" "" ]; };
       scroll-step = 1;
-      on-click-right = "pavucontrol";
+      on-click-right = pavucontrol;
       tooltip = false;
     };
 
@@ -143,7 +150,7 @@ in
 
     "custom/power" = {
       format = "⏻";
-      on-click = "wlogout";
+      on-click = wlogout;
       tooltip = false;
     };
   };
