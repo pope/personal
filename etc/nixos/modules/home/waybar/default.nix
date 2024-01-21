@@ -1,15 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
-  waybar_config = import ./config.nix { inherit config; };
+  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
+  waybar_config = import ./config.nix { inherit config pkgs hyprland; };
   waybar_style = import ./style.nix { inherit config; };
 in
 {
   home.packages = with pkgs; [
-    playerctl
     libcanberra-gtk3
-    pavucontrol
-    pamixer
   ];
 
   programs = {
