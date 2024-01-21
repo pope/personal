@@ -48,19 +48,28 @@ in
 
   home = {
     packages = with pkgs; [
+      alsa-utils
       gamemode
+      grim
+      hyprpicker
       imv
+      libnotify
       mpv
+      pamixer
+      slurp
+      swappy
+      swayidle
+      swww
+      wdisplays # Tool for managing displays
+      wf-recorder
+      wl-clipboard
+      wlr-randr
     ];
+  };
 
-    # TODO(pope): Figure out how to do a "live" symlink here.
-    # What's happening is that the hyprland.conf file, when saved, doesn't
-    # update automatically.
-    # file = {
-    #   ".config/hypr" = {
-    #     source = config.lib.file.mkOutOfStoreSymlink "/home/pope/Code/hyprland";
-    #   };
-    # };
+  programs = {
+    wlogout.enable = true;
+    swaylock.enable = true;
   };
 
   xdg.configFile."swappy/config".text = ''
