@@ -73,11 +73,6 @@ in
       portal = {
         enable = true;
         wlr.enable = true;
-
-        # extraPortals = with pkgs; [
-        #   xdg-desktop-portal-wlr # for wlroots based compositors(hyprland/sway)
-        #   xdg-desktop-portal-gtk # for gtk
-        # ];
       };
     };
 
@@ -100,38 +95,7 @@ in
     };
 
     environment = {
-      pathsToLink = [ "/libexec" ];
-
       systemPackages = with pkgs; [
-        # xdg-desktop-portal-gtk
-        # xdg-desktop-portal-hyprland
-
-        alsa-utils
-        cava
-        dunst
-        grim
-        gsettings-desktop-schemas
-        # hyprland-protocols
-        hyprpicker
-        libnotify
-        networkmanagerapplet
-        pavucontrol
-        polkit_gnome
-        libsForQt5.qt5.qtwayland
-        qt6.qtwayland
-        slurp
-        swappy
-        swayidle
-        swaylock
-        swww
-        udiskie
-        waybar
-        wayland
-        wdisplays # Tool for managing displays
-        wf-recorder
-        wl-clipboard
-        wlogout
-        wlr-randr
         xfce.ristretto
         xfce.thunar
       ];

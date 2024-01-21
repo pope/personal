@@ -60,6 +60,8 @@ in
         };
       };
 
+      cava.enable = true;
+
       direnv = {
         enable = true;
         nix-direnv.enable = true;
