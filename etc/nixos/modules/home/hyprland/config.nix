@@ -1,7 +1,28 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
+  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
+  anyrunPkg = inputs.anyrun.packages.${pkgs.system}.default;
+
   bg = "23.png";
+
+  # commands
+  _1password = "${pkgs._1password-gui}/bin/1password";
+  anyrun = "${anyrunPkg}/bin/anyrun";
+  dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
+  grim = "${pkgs.grim}/bin/grim";
+  hyprctl = "${hyprland}/bin/hyprctl";
+  kitty = "${pkgs.kitty}/bin/kitty";
+  light = "${pkgs.light}/bin/light";
+  nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+  pamixer = "${pkgs.pamixer}/bin/pamixer";
+  slurp = "${pkgs.slurp}/bin/slurp";
+  swappy = "${pkgs.swappy}/bin/swappy";
+  swww = "${pkgs.swww}/bin/swww";
+  systemctl = "${pkgs.systemd}/bin/systemctl";
+  thunar = "${pkgs.xfce.thunar}/bin/thunar";
+  udiskie = "${pkgs.udiskie}/bin/udiskie";
+  waybar = "${pkgs.waybar}/bin/waybar";
 in
 {
   wayland.windowManager.hyprland.settings = with config.my.home.theme.colors; {
@@ -9,16 +30,16 @@ in
       "eDP-1,preferred,auto,1"
     ];
     exec-once = [
-      "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      "${pkgs.waybar}/bin/waybar"
-      "${pkgs.swww}/bin/swww init --no-daemon"
-      "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
-      "${pkgs.udiskie}/bin/udiskie --appindicator --no-password-prompt"
-      "${pkgs._1password-gui}/bin/1password --silent"
+      "${dbus-update-activation-environment} --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      "${systemctl} --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      waybar
+      "${swww} init --no-daemon"
+      "${nm-applet} --indicator"
+      "${udiskie} --appindicator --no-password-prompt"
+      "${_1password} --silent"
     ];
     exec = [
-      "sleep 3 && ${pkgs.swww}/bin/swww img ${config.xdg.userDirs.pictures}/${bg}"
+      "sleep 3 && ${swww} img ${config.xdg.userDirs.pictures}/${bg}"
     ];
 
     xwayland.force_zero_scaling = true;
@@ -148,16 +169,16 @@ in
       "SUPER SHIFT, N, changegroupactive, f"
       "SUPER SHIFT, P, changegroupactive, b"
 
-      "SUPER, Return, exec, kitty"
-      "SUPER, E, exec, thunar"
-      "SUPER, Space, exec, anyrun"
+      "SUPER, Return, exec, ${kitty}"
+      "SUPER, E, exec, ${thunar}"
+      "SUPER, Space, exec, ${anyrun}"
 
       "SUPER, Tab, cyclenext"
       "SUPER, Tab, bringactivetotop"
 
       "SUPER, A, togglespecialworkspace"
       "SUPER SHIFT, A, movetoworkspace, special"
-      "SUPER, C, exec, hyprctl dispatch centerwindow"
+      "SUPER, C, exec, ${hyprctl} dispatch centerwindow"
 
       "SUPER, left, movefocus, l"
       "SUPER, right, movefocus, r"
@@ -196,14 +217,14 @@ in
       "SUPER, mouse_up, workspace, e-1"
 
       # Brightness Control Bindings
-      ", XF86MonBrightnessUp, exec, light -A 10"
-      ", XF86MonBrightnessDown, exec, light set -U 10"
+      ", XF86MonBrightnessUp, exec, ${light} -A 10"
+      ", XF86MonBrightnessDown, exec, ${light} -U 10"
       # Audio levels
-      ", XF86AudioRaiseVolume, exec, pamixer -u -i 10"
-      ", XF86AudioLowerVolume, exec, pamixer -u -d 10"
-      ", XF86AudioMute, exec, pamixer -t"
+      ", XF86AudioRaiseVolume, exec, ${pamixer} -u -i 10"
+      ", XF86AudioLowerVolume, exec, ${pamixer} -u -d 10"
+      ", XF86AudioMute, exec, ${pamixer} -t"
       # Screenshot
-      ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
+      ", Print, exec, ${grim} -g \"$(${slurp})\" - | ${swappy} -f -"
     ];
 
     bindm = [
