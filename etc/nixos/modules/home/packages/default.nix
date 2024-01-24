@@ -60,8 +60,6 @@ in
         };
       };
 
-      cava.enable = true;
-
       direnv = {
         enable = true;
         nix-direnv.enable = true;
@@ -112,6 +110,8 @@ in
           "--preview-window up:3:hidden:wrap"
         ];
       };
+    } // optionalAttrs pkgs.stdenv.isLinux {
+      cava.enable = true;
     };
 
     xdg.configFile = optionalAttrs pkgs.stdenv.isLinux {
