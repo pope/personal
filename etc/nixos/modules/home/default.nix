@@ -17,6 +17,7 @@
     ./keymapp
     ./languages
     ./lf
+    ./mpv
     ./packages
     ./shell
     ./terminals

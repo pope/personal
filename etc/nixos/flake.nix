@@ -81,6 +81,37 @@
       url = "github:pope/keymapp-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ssimSuperRes = {
+      url = "file+https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/15d93440d0a24fc4b8770070be6a9fa2af6f200b/SSimSuperRes.glsl";
+      flake = false;
+    };
+    ssimDownscaler = {
+      url = "file+https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/575d13567bbe3caa778310bd3b2a4c516c445039/SSimDownscaler.glsl";
+      flake = false;
+    };
+    krigBilateral = {
+      url = "file+https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/038064821c5f768dfc6c00261535018d5932cdd5/KrigBilateral.glsl";
+      flake = false;
+    };
+
+    fsrcnnx_lineart = {
+      url = "file+https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/checkpoints_params.7z";
+      flake = false;
+    };
+    fsrcnnx8 = {
+      url = "file+https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_8-0-4-1.glsl";
+      flake = false;
+    };
+    fsrcnnx16 = {
+      url = "file+https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_16-0-4-1.glsl";
+      flake = false;
+    };
+
+    mpv_prescalers = {
+      url = "github:bjin/mpv-prescalers";
+      flake = false;
+    };
   };
 
   outputs =
