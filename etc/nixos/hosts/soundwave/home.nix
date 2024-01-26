@@ -55,6 +55,10 @@
       rust.enable = true;
     };
     lf.enable = true;
+    mpv = {
+      enable = true;
+      enableHqAnimeSettings = true;
+    };
     packages.enable = true;
     shell.enable = true;
     terminals.kitty.enable = true;

@@ -49,6 +49,7 @@
       rust.enable = true;
     };
     lf.enable = true;
+    mpv.enable = true;
     packages.enable = true;
     shell.enable = true;
     terminals.kitty.enable = true;
