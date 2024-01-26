@@ -60,6 +60,7 @@ in
       python.enable = true;
     };
     lf.enable = true;
+    mpv.enable = true;
     packages.enable = true;
   };
 }
