@@ -1,30 +1,34 @@
 { pkgs, config, lib, inputs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
-  inherit (pkgs) anime4k;
+  inherit (lib) mkIf mkEnableOption mkMerge optionalAttrs;
   inherit (inputs) ssimSuperRes ssimDownscaler krigBilateral;
+  inherit (pkgs) anime4k;
   fsrcnnx = pkgs.callPackage ./fsrcnnx.nix { inherit inputs; };
+  setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
+  anime4khqbindings = import ./anime4k-hq-bindings.nix { inherit anime4k setShader; };
+  anime4kfastbindings = import ./anime4k-fast-bindings.nix { inherit anime4k setShader; };
   cfg = config.my.home.mpv;
 in
 {
   options.my.home.mpv = {
     enable = mkEnableOption "mpv options";
+    enableHqAnimeSettings = mkEnableOption "use the HQ Anime4K shaders";
   };
 
   config = mkIf cfg.enable {
     programs.mpv = {
       enable = true;
+
       # https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/#auto-profiles
       config = {
         # UI
         keep-open = "yes";
 
         # Video
-        # profile = "high-quality";
-        # vo = "gpu-next";
-        # gpu-api = "vulkan";
-        # hwdec = "auto-safe";
+        profile = "gpu-hq";
+        vo = if pkgs.stdenv.isLinux then "gpu" else "libmpv";
+        hwdec = "auto-safe";
 
         # Shaders
         glsl-shaders = builtins.concatStringsSep ":" [
@@ -37,80 +41,12 @@ in
         cscale = "spline36";
         linear-downscaling = "no";
         correct-downscaling = "yes";
+      } // optionalAttrs pkgs.stdenv.isLinux {
+        gpu-api = "vulkan";
       };
-      bindings =
-        let
-          setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
-        in
+
+      bindings = mkMerge [
         {
-          # A for originally blurry lines, B for pretty sharp ones, C for potato resolution
-          "CTRL+1" = setShader {
-            files = [
-              "${anime4k}/Anime4K_Clamp_Highlights.glsl"
-              "${anime4k}/Anime4K_Restore_CNN_VL.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x2.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x4.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
-            ];
-            message = "Anime4K: Mode A (HQ)";
-          };
-          "CTRL+2" = setShader {
-            files = [
-              "${anime4k}/Anime4K_Clamp_Highlights.glsl"
-              "${anime4k}/Anime4K_Restore_CNN_Soft_VL.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x2.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x4.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
-            ];
-            message = "Anime4K: Mode B (HQ)";
-          };
-          "CTRL+3" = setShader {
-            files = [
-              "${anime4k}/Anime4K_Clamp_Highlights.glsl"
-              "${anime4k}/Anime4K_Upscale_Denoise_CNN_x2_VL.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x2.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x4.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
-            ];
-            message = "Anime4K: Mode C (HQ)";
-          };
-          "CTRL+4" = setShader {
-            files = [
-              "${anime4k}/Anime4K_Clamp_Highlights.glsl"
-              "${anime4k}/Anime4K_Restore_CNN_VL.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl"
-              "${anime4k}/Anime4K_Restore_CNN_M.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x2.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x4.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
-            ];
-            message = "Anime4K: Mode A+A (HQ)";
-          };
-          "CTRL+5" = setShader {
-            files = [
-              "${anime4k}/Anime4K_Clamp_Highlights.glsl"
-              "${anime4k}/Anime4K_Restore_CNN_Soft_VL.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x2.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x4.glsl"
-              "${anime4k}/Anime4K_Restore_CNN_Soft_M.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
-            ];
-            message = "Anime4K: Mode B+B (HQ)";
-          };
-          "CTRL+6" = setShader {
-            files = [
-              "${anime4k}/Anime4K_Clamp_Highlights.glsl"
-              "${anime4k}/Anime4K_Upscale_Denoise_CNN_x2_VL.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x2.glsl"
-              "${anime4k}/Anime4K_AutoDownscalePre_x4.glsl"
-              "${anime4k}/Anime4K_Restore_CNN_M.glsl"
-              "${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
-            ];
-            message = "Anime4K: Mode C+A (HQ)";
-          };
           "CTRL+7" = setShader {
             files = [ ssimSuperRes krigBilateral ];
             message = "SuperRes";
@@ -125,7 +61,10 @@ in
           };
 
           "CTRL+0" = ''no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"'';
-        };
+        }
+        (mkIf cfg.enableHqAnimeSettings anime4khqbindings)
+        (mkIf (!cfg.enableHqAnimeSettings) anime4kfastbindings)
+      ];
     };
   };
 }
