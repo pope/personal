@@ -54,7 +54,6 @@ in
       hyprpicker
       imv
       libnotify
-      mpv
       pamixer
       slurp
       swappy
