@@ -6,6 +6,7 @@ let
   inherit (pkgs) anime4k;
   fsrcnnx = pkgs.callPackage ./fsrcnnx.nix { inherit inputs; };
   modernx = pkgs.callPackage ./modernx.nix { inherit inputs; };
+  # retroShaders = pkgs.callPackage ./retro-shaders.nix { inherit inputs; };
   setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
   anime4khqbindings = import ./anime4k-hq-bindings.nix { inherit anime4k setShader; };
   anime4kfastbindings = import ./anime4k-fast-bindings.nix { inherit anime4k setShader; };
@@ -36,7 +37,7 @@ in
 
         # Video
         profile = "gpu-hq";
-        vo = if pkgs.stdenv.isLinux then "gpu" else "libmpv";
+        vo = if pkgs.stdenv.isLinux then "gpu-next" else "libmpv";
         hwdec = "auto-safe";
 
         # Shaders
@@ -81,6 +82,21 @@ in
       ] ++ optionals pkgs.stdenv.isLinux [
         pkgs.mpvScripts.mpris
       ];
+
+      profiles = {
+        crt-guest-advanced-ntsc = {
+          glsl-shaders = "${./shaders/crt-guest-advanced-ntsc.glsl}";
+        };
+        crt-lottes = {
+          glsl-shaders = "${./shaders/crt-lottes.glsl}";
+          # Doesn't work yet, but keeping it here as a test and note.
+          glsl-shader-opts = "SHADOW_MASK=0";
+        };
+        gba = {
+          glsl-shaders = "${./shaders/gba.glsl}";
+          scale = "nearest";
+        };
+      };
     };
   };
 }
