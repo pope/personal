@@ -1,10 +1,11 @@
 { pkgs, config, lib, inputs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkMerge optionalAttrs;
+  inherit (lib) mkIf mkEnableOption mkMerge optionalAttrs optionals;
   inherit (inputs) ssimSuperRes ssimDownscaler krigBilateral;
   inherit (pkgs) anime4k;
   fsrcnnx = pkgs.callPackage ./fsrcnnx.nix { inherit inputs; };
+  modernx = pkgs.callPackage ./modernx.nix { inherit inputs; };
   setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
   anime4khqbindings = import ./anime4k-hq-bindings.nix { inherit anime4k setShader; };
   anime4kfastbindings = import ./anime4k-fast-bindings.nix { inherit anime4k setShader; };
@@ -17,6 +18,12 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = [
+      modernx
+    ];
+
+    fonts.fontconfig.enable = true;
+
     programs.mpv = {
       enable = true;
 
@@ -24,6 +31,8 @@ in
       config = {
         # UI
         keep-open = "yes";
+        osc = "no";
+        border = "no";
 
         # Video
         profile = "gpu-hq";
@@ -64,6 +73,12 @@ in
         }
         (mkIf cfg.enableHqAnimeSettings anime4khqbindings)
         (mkIf (!cfg.enableHqAnimeSettings) anime4kfastbindings)
+      ];
+
+      scripts = [
+        modernx
+      ] ++ optionals pkgs.stdenv.isLinux [
+        pkgs.mpvScripts.mpris
       ];
     };
   };

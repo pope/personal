@@ -112,6 +112,11 @@
       url = "github:bjin/mpv-prescalers";
       flake = false;
     };
+
+    modernx = {
+      url = "github:cyl0/ModernX/0.6.0";
+      flake = false;
+    };
   };
 
   outputs =

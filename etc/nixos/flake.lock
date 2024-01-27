@@ -385,6 +385,23 @@
         "type": "github"
       }
     },
+    "modernx": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673520434,
+        "narHash": "sha256-Gpofl529VbmdN7eOThDAsNfNXNkUDDF82Rd+csXGOQg=",
+        "owner": "cyl0",
+        "repo": "ModernX",
+        "rev": "d053ea602d797bdd85d8b2275d7f606be067dc21",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cyl0",
+        "ref": "0.6.0",
+        "repo": "ModernX",
+        "type": "github"
+      }
+    },
     "mpv_prescalers": {
       "flake": false,
       "locked": {
@@ -731,6 +748,7 @@
         "hyprland": "hyprland",
         "keymapp": "keymapp",
         "krigBilateral": "krigBilateral",
+        "modernx": "modernx",
         "mpv_prescalers": "mpv_prescalers",
         "musnix": "musnix",
         "nil": "nil",

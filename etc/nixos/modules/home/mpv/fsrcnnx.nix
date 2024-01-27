@@ -20,4 +20,3 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 }
-
