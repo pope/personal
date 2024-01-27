@@ -6,7 +6,6 @@ let
   inherit (pkgs) anime4k;
   fsrcnnx = pkgs.callPackage ./fsrcnnx.nix { inherit inputs; };
   modernx = pkgs.callPackage ./modernx.nix { inherit inputs; };
-  # retroShaders = pkgs.callPackage ./retro-shaders.nix { inherit inputs; };
   setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
   anime4khqbindings = import ./anime4k-hq-bindings.nix { inherit anime4k setShader; };
   anime4kfastbindings = import ./anime4k-fast-bindings.nix { inherit anime4k setShader; };
@@ -19,8 +18,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
+    home.packages = with pkgs; [
       modernx
+      streamlink
+      yt-dlp
     ];
 
     fonts.fontconfig.enable = true;
@@ -76,9 +77,10 @@ in
         (mkIf (!cfg.enableHqAnimeSettings) anime4kfastbindings)
       ];
 
-      scripts = [
+      scripts = with pkgs.mpvScripts; [
         modernx
-        pkgs.mpvScripts.thumbfast
+        thumbfast
+        visualizer
       ] ++ optionals pkgs.stdenv.isLinux [
         pkgs.mpvScripts.mpris
       ];
@@ -89,8 +91,6 @@ in
         };
         crt-lottes = {
           glsl-shaders = "${./shaders/crt-lottes.glsl}";
-          # Doesn't work yet, but keeping it here as a test and note.
-          glsl-shader-opts = "SHADOW_MASK=0";
         };
         gba = {
           glsl-shaders = "${./shaders/gba.glsl}";
