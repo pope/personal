@@ -77,6 +77,7 @@ in
 
       scripts = [
         modernx
+        pkgs.mpvScripts.thumbfast
       ] ++ optionals pkgs.stdenv.isLinux [
         pkgs.mpvScripts.mpris
       ];
