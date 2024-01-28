@@ -23,6 +23,7 @@ let
   thunar = "${pkgs.xfce.thunar}/bin/thunar";
   udiskie = "${pkgs.udiskie}/bin/udiskie";
   waybar = "${pkgs.waybar}/bin/waybar";
+  polkit = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
 in
 {
   wayland.windowManager.hyprland.settings = with config.my.home.theme.colors; {
@@ -32,6 +33,7 @@ in
     exec-once = [
       "${dbus-update-activation-environment} --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       "${systemctl} --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      polkit
       waybar
       "${swww} init --no-daemon"
       "${nm-applet} --indicator"
