@@ -13,7 +13,7 @@ let
               keyword general:gaps_in 0;\
               keyword general:gaps_out 0;\
               keyword general:border_size 1;\
-              keyword decoration:rounding 0"
+              keyword decoration:rounding 0" &> /dev/null
           exit
       fi
       ${hyprland}/bin/hyprctl reload
