@@ -1,48 +1,29 @@
 { inputs, pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.nixos.hyprland;
+  inherit (lib) mkIf;
+  cfg = config.my.nixos.xserver;
 in
 {
-  options.my.nixos.hyprland = {
-    enable = mkEnableOption "hyprland system options";
-  };
-
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && cfg.enableHyprland) {
     services = {
       dbus = {
         enable = true;
         packages = with pkgs; [ gcr dconf ];
       };
-
       geoclue2.enable = true;
-
       gnome.gnome-keyring.enable = true;
-
       gvfs.enable = true;
-
-      power-profiles-daemon.enable = lib.mkDefault true;
-
+      power-profiles-daemon.enable = true;
       tumbler.enable = true;
-
       upower.enable = true;
-
       udev = {
         packages = with pkgs; [
           gnome.gnome-settings-daemon
         ];
       };
-
       udisks2.enable = true;
-
-      xserver = {
-        enable = true;
-
-        desktopManager = {
-          xterm.enable = false;
-        };
-      };
+      xserver.enable = true;
     };
 
     security = {

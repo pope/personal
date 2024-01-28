@@ -6,13 +6,10 @@ in
 {
   imports = [
     ./bluetooth.nix
-    ./display-manager.nix
     ./firewall-nfs.nix
     ./foldingathome.nix
     ./fonts.nix
     ./gaming.nix
-    ./gnome.nix
-    ./hyprland.nix
     ./nix.nix
     ./onepassword.nix
     ./printing.nix
@@ -21,6 +18,7 @@ in
     ./system.nix
     ./users.nix
     ./wayland.nix
+    ./xserver
   ];
 
   options.my.nixos = {

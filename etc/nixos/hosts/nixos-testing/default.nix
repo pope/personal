@@ -63,12 +63,14 @@ in
     mainUser = "pope";
 
     bluetooth.enable = true;
-    displayManager.enable = true;
     fonts.enable = true;
-    gnome.enable = true;
     onepassword.enable = true;
     sound.enable = true;
     system.enable = true;
+    xserver = {
+      enable = true;
+      desktop = "gnome";
+    };
   };
 
   # This value determines the NixOS release from which the default

@@ -91,9 +91,8 @@ in
 
   services = {
     # Power management
-    power-profiles-daemon.enable = true;
     thermald.enable = true;
-    tlp.enable = false; # Conflicts with PPD above. But maybe useful in the future.
+    tlp.enable = false; # Conflicts with Power Profiles Daemon. But maybe useful in the future.
 
     openssh.enable = true;
     xserver.displayManager.defaultSession = "hyprland";
@@ -104,14 +103,19 @@ in
     mainUser = "pope";
 
     bluetooth.enable = true;
-    displayManager.enable = true;
     fonts.enable = true;
     gaming.enable = true;
-    gnome.enable = true;
-    hyprland.enable = true;
     onepassword.enable = true;
     sound.enable = true;
     system.enable = true;
+    xserver = {
+      enable = true;
+
+      desktop = "gnome";
+
+      enableAutoLogin = true;
+      enableHyprland = true;
+    };
   };
 
   # This value determines the NixOS release from which the default
