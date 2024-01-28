@@ -59,10 +59,12 @@ in
       };
     };
 
-    # qt = {
-    #   enable = true;
-    #   platformTheme = "gtk";
-    # };
+    # When this is enabled, KDE and Plasma don't work for Wayland.
+    # But this is the style I like for non-KDE stuff, so will re-work later.
+    qt = {
+      enable = true;
+      platformTheme = "gtk";
+    };
 
     services.xsettingsd = {
       enable = true;
