@@ -117,6 +117,11 @@
       url = "github:cyl0/ModernX/0.6.0";
       flake = false;
     };
+
+    kde2nix = {
+      url = "github:nix-community/kde2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -129,6 +134,7 @@
     , nixos-hardware
     , nixpkgs
     , nixpkgs-stable
+    , kde2nix
     , ...
     } @ inputs:
     let
@@ -154,8 +160,9 @@
             };
           };
           modules = [
-            musnix.nixosModules.musnix
             hyprland.nixosModules.default
+            kde2nix.nixosModules.plasma6
+            musnix.nixosModules.musnix
             ./hosts/soundwave
             home-manager.nixosModules.home-manager
             {
@@ -173,6 +180,7 @@
           modules = [
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
             hyprland.nixosModules.default
+            kde2nix.nixosModules.plasma6
             ./hosts/ravage
             home-manager.nixosModules.home-manager
             {
@@ -188,6 +196,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            hyprland.nixosModules.default
+            kde2nix.nixosModules.plasma6
             ./hosts/nixos-testing
             home-manager.nixosModules.home-manager
             {
