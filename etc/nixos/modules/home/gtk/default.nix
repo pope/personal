@@ -59,10 +59,10 @@ in
       };
     };
 
-    qt = {
-      enable = true;
-      platformTheme = "gtk";
-    };
+    # qt = {
+    #   enable = true;
+    #   platformTheme = "gtk";
+    # };
 
     services.xsettingsd = {
       enable = true;
