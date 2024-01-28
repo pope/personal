@@ -143,17 +143,22 @@ in
     mainUser = "pope";
 
     bluetooth.enable = true;
-    displayManager.enable = true;
     fah.enable = true;
     fonts.enable = true;
     gaming.enable = true;
-    gnome.enable = true;
-    hyprland.enable = true;
     onepassword.enable = true;
     printing.enable = true;
     sound.enable = true;
     system.enable = true;
     wayland.enable = true;
+    xserver = {
+      enable = true;
+
+      desktop = "gnome";
+
+      enableAutoLogin = true;
+      enableHyprland = true;
+    };
   };
 
   # This value determines the NixOS release from which the default
