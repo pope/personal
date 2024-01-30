@@ -1,7 +1,7 @@
 { config, lib, inputs, ... }:
 
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkOption types mkIf;
   cfg = config.my.home.theme;
 in
 {
@@ -15,7 +15,10 @@ in
     };
   };
 
-  config =
+  # Using `mkIf` here since the usage is predicated on a lazy-evaluated
+  # colorScheme option. So while the `colorScheme` should never be null (not
+  # allowed as a type), this check works for lazy eval.
+  config = mkIf (cfg.colorScheme != null) (
     let
       colors = cfg.colorScheme.colors // {
         withHash = builtins.mapAttrs (_k: v: "#${v}") cfg.colorScheme.colors;
@@ -29,5 +32,6 @@ in
       xdg.configFile = {
         "nix-theme-colors.html".text = import ./colors.html.nix { inherit colors; };
       };
-    };
+    }
+  );
 }
