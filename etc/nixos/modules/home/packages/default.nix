@@ -31,6 +31,7 @@ in
       duf # df 
       eza # ls and tree
       fd # find
+      ffmpeg_6
       glow
       htop
       hyperfine # benchmark util
