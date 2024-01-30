@@ -20,9 +20,9 @@ in
   # allowed as a type), this check works for lazy eval.
   config = mkIf (cfg.colorScheme != null) (
     let
-      colors = cfg.colorScheme.colors // {
-        withHash = builtins.mapAttrs (_k: v: "#${v}") cfg.colorScheme.colors;
-        withHex = builtins.mapAttrs (_k: v: "0x${v}") cfg.colorScheme.colors;
+      colors = cfg.colorScheme.palette // {
+        withHash = builtins.mapAttrs (_k: v: "#${v}") cfg.colorScheme.palette;
+        withHex = builtins.mapAttrs (_k: v: "0x${v}") cfg.colorScheme.palette;
       };
     in
     {
