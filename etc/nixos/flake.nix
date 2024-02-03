@@ -160,6 +160,9 @@
             };
           };
           modules = [
+            nixos-hardware.nixosModules.common-cpu-amd
+            nixos-hardware.nixosModules.common-cpu-amd-pstate
+            nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
             hyprland.nixosModules.default
             kde2nix.nixosModules.plasma6
             musnix.nixosModules.musnix
