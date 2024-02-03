@@ -80,13 +80,6 @@ in
     opengl = {
       enable = true;
       driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        libvdpau-va-gl
-        nvidia-vaapi-driver
-        vaapiVdpau
-      ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
       setLdLibraryPath = true;
     };
 
@@ -97,7 +90,6 @@ in
       powerManagement.enable = true;
     };
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
 
   environment.systemPackages = with pkgs; [
     libva-utils
