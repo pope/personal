@@ -163,6 +163,8 @@
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-cpu-amd-pstate
             nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+            nixos-hardware.nixosModules.common-pc
+            nixos-hardware.nixosModules.common-pc-ssd
             hyprland.nixosModules.default
             kde2nix.nixosModules.plasma6
             musnix.nixosModules.musnix
