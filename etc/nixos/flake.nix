@@ -243,6 +243,13 @@
             ./hosts/death-star/home.nix
           ];
         };
+        "deck@poopdeck" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/poopdeck/home.nix
+          ];
+        };
         "pope@galvatron" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."aarch64-darwin";
           extraSpecialArgs = { inherit inputs; };
