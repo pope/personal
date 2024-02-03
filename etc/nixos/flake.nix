@@ -216,6 +216,7 @@
           system = "aarch64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            kde2nix.nixosModules.plasma6
             ./hosts/raspberrypi
             home-manager.nixosModules.home-manager
             {
