@@ -63,7 +63,7 @@ in
     # But this is the style I like for non-KDE stuff, so will re-work later.
     qt = {
       enable = true;
-      platformTheme = "gtk";
+      platformTheme = "gtk3";
     };
 
     services.xsettingsd = {
