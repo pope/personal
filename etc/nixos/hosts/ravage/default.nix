@@ -89,7 +89,6 @@ in
     tlp.enable = false; # Conflicts with Power Profiles Daemon. But maybe useful in the future.
 
     openssh.enable = true;
-    xserver.displayManager.defaultSession = "hyprland";
   };
   powerManagement.powertop.enable = true;
 
@@ -107,7 +106,7 @@ in
 
       desktop = "gnome";
 
-      enableAutoLogin = true;
+      enableAutoLogin = false;
       enableHyprland = true;
     };
   };
