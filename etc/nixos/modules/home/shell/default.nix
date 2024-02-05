@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
@@ -21,7 +21,7 @@ in
     };
 
     xdg.configFile."fish/themes" = {
-      source = "${inputs.fish-rose-pine}/themes";
+      source = "${pkgs.fish-rose-pine}/share/fish/themes";
       recursive = true;
     };
   };

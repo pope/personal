@@ -2,11 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, inputs, ... } @ args:
+{ pkgs, inputs, self, ... }:
 
-let
-  overlays = import ../../overlays args;
-in
 {
   imports =
     [
@@ -15,10 +12,9 @@ in
       ./hardware-configuration.nix
     ];
 
-  nixpkgs.overlays = with overlays; [
+  nixpkgs.overlays = [
     inputs.keymapp.overlays.default
-    plow
-    waybar
+    self.overlays.default
   ];
 
   boot = {

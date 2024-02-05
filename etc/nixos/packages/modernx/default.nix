@@ -1,10 +1,10 @@
-{ inputs, stdenvNoCC, makeFontsConf, ... }:
+{ nvsrcs, stdenvNoCC, makeFontsConf, ... }:
 
+let
+  source = nvsrcs.modernx;
+in
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "modernx";
-  version = "0.6.0";
-
-  src = inputs.modernx;
+  inherit (source) pname version src;
 
   dontBuild = true;
 

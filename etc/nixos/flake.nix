@@ -67,55 +67,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fish-rose-pine = {
-      url = "github:rose-pine/fish";
-      flake = false;
-    };
-
-    plow = {
-      url = "github:six-ddc/plow/v1.3.1";
-      flake = false;
-    };
-
     keymapp = {
       url = "github:pope/keymapp-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ssimSuperRes = {
-      url = "file+https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/15d93440d0a24fc4b8770070be6a9fa2af6f200b/SSimSuperRes.glsl";
-      flake = false;
-    };
-    ssimDownscaler = {
-      url = "file+https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/575d13567bbe3caa778310bd3b2a4c516c445039/SSimDownscaler.glsl";
-      flake = false;
-    };
-    krigBilateral = {
-      url = "file+https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/038064821c5f768dfc6c00261535018d5932cdd5/KrigBilateral.glsl";
-      flake = false;
-    };
-
-    fsrcnnx_lineart = {
-      url = "file+https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/checkpoints_params.7z";
-      flake = false;
-    };
-    fsrcnnx8 = {
-      url = "file+https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_8-0-4-1.glsl";
-      flake = false;
-    };
-    fsrcnnx16 = {
-      url = "file+https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_16-0-4-1.glsl";
-      flake = false;
-    };
-
-    mpv_prescalers = {
-      url = "github:bjin/mpv-prescalers";
-      flake = false;
-    };
-
-    modernx = {
-      url = "github:cyl0/ModernX/0.6.0";
-      flake = false;
     };
 
     kde2nix = {
@@ -149,7 +103,7 @@
         "soundwave" = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = {
-            inherit inputs;
+            inherit inputs self;
             pkgs-stable = import nixpkgs-stable {
               inherit system;
               config.allowUnfree = true;
@@ -173,7 +127,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs self; };
 
               home-manager.users.pope = import ./hosts/soundwave/home.nix;
             }
@@ -181,7 +135,7 @@
         };
         "ravage" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs self; };
           modules = [
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
             hyprland.nixosModules.default
@@ -191,7 +145,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs self; };
 
               home-manager.users.pope = import ./hosts/ravage/home.nix;
             }
@@ -199,7 +153,7 @@
         };
         "nixos-testing" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs self; };
           modules = [
             hyprland.nixosModules.default
             kde2nix.nixosModules.plasma6
@@ -208,7 +162,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs self; };
 
               home-manager.users.pope = import ./hosts/nixos-testing/home.nix;
             }
@@ -216,7 +170,7 @@
         };
         "raspberrypi" = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs self; };
           modules = [
             kde2nix.nixosModules.plasma6
             ./hosts/raspberrypi
@@ -224,7 +178,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs self; };
 
               home-manager.users.pi = import ./hosts/raspberrypi/home.nix;
             }
@@ -238,28 +192,47 @@
       homeConfigurations = {
         "pope@Death-Star" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs self; };
           modules = [
             ./hosts/death-star/home.nix
           ];
         };
         "deck@poopdeck" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs self; };
           modules = [
             ./hosts/poopdeck/home.nix
           ];
         };
         "pope@galvatron" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs self; };
           modules = [
             ./hosts/galvatron/home.nix
           ];
         };
       };
-      overlays = import ./overlays { inherit inputs; };
       homeManagerModules.default = import ./modules/home self;
+      packages = eachSystem (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          mypkgs = import ./packages { inherit pkgs; };
+        in
+        mypkgs);
+      overlays.default = import ./overlays { inherit self; };
+      devShells = eachSystem (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          updatePackages = pkgs.writeShellScriptBin "updatePackages" ''
+            cd packages
+            ${pkgs.nvfetcher}/bin/nvfetcher
+          '';
+        in
+        {
+          default = pkgs.mkShell {
+            packages = with pkgs; [ nvfetcher updatePackages ];
+          };
+        });
       formatter = eachSystem (system:
         nix-formatter-pack.lib.mkFormatter {
           pkgs = nixpkgs.legacyPackages.${system};

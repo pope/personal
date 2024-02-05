@@ -61,22 +61,6 @@
         "type": "github"
       }
     },
-    "fish-rose-pine": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1663356772,
-        "narHash": "sha256-bSGGksL/jBNqVV0cHZ8eJ03/8j3HfD9HXpDa8G/Cmi8=",
-        "owner": "rose-pine",
-        "repo": "fish",
-        "rev": "38aab5baabefea1bc7e560ba3fbdb53cb91a6186",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rose-pine",
-        "repo": "fish",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -203,42 +187,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
-      }
-    },
-    "fsrcnnx16": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-29zZs01R4otKRREm6D4FMCC9CUcmPj0+cdwvWIJRCJ4=",
-        "type": "file",
-        "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_16-0-4-1.glsl"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_16-0-4-1.glsl"
-      }
-    },
-    "fsrcnnx8": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-ok04I+mNwGlSkfhMvE6FiliRmety5uExYoxWJTpnwT4=",
-        "type": "file",
-        "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_8-0-4-1.glsl"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_8-0-4-1.glsl"
-      }
-    },
-    "fsrcnnx_lineart": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-udzoAlJ+F499Dw3SD5KJHup5GN2ve7yZ/Nd62gbVUEY=",
-        "type": "file",
-        "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/checkpoints_params.7z"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/checkpoints_params.7z"
       }
     },
     "gitignore": {
@@ -435,18 +383,6 @@
         "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.0.7.tar.gz"
       }
     },
-    "krigBilateral": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-VauSZM2znKsYaH2nn4HVLOom0oEHRC0rM/H18PjfNrA=",
-        "type": "file",
-        "url": "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/038064821c5f768dfc6c00261535018d5932cdd5/KrigBilateral.glsl"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/038064821c5f768dfc6c00261535018d5932cdd5/KrigBilateral.glsl"
-      }
-    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -460,39 +396,6 @@
       "original": {
         "owner": "kristapsdz",
         "repo": "lowdown",
-        "type": "github"
-      }
-    },
-    "modernx": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1673520434,
-        "narHash": "sha256-Gpofl529VbmdN7eOThDAsNfNXNkUDDF82Rd+csXGOQg=",
-        "owner": "cyl0",
-        "repo": "ModernX",
-        "rev": "d053ea602d797bdd85d8b2275d7f606be067dc21",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cyl0",
-        "ref": "0.6.0",
-        "repo": "ModernX",
-        "type": "github"
-      }
-    },
-    "mpv_prescalers": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1704963498,
-        "narHash": "sha256-KfCFU3fa8Fr5G5zVqKS35CJBzTYMY72kep8+Kd0YIu4=",
-        "owner": "bjin",
-        "repo": "mpv-prescalers",
-        "rev": "b3f0a59d68f33b7162051ea5970a5169558f0ea2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bjin",
-        "repo": "mpv-prescalers",
         "type": "github"
       }
     },
@@ -784,23 +687,6 @@
         "type": "gitlab"
       }
     },
-    "plow": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1658972584,
-        "narHash": "sha256-TynFq7e4MtZlA5SmGMybhmCVw67yHYgZWffQjuyhTDA=",
-        "owner": "six-ddc",
-        "repo": "plow",
-        "rev": "343b7510ccfa477d9c0f3d9aeeaa0834e118c44a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "six-ddc",
-        "ref": "v1.3.1",
-        "repo": "plow",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -862,17 +748,10 @@
     "root": {
       "inputs": {
         "anyrun": "anyrun",
-        "fish-rose-pine": "fish-rose-pine",
-        "fsrcnnx16": "fsrcnnx16",
-        "fsrcnnx8": "fsrcnnx8",
-        "fsrcnnx_lineart": "fsrcnnx_lineart",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "kde2nix": "kde2nix",
         "keymapp": "keymapp",
-        "krigBilateral": "krigBilateral",
-        "modernx": "modernx",
-        "mpv_prescalers": "mpv_prescalers",
         "musnix": "musnix",
         "nil": "nil",
         "nix-colors": "nix-colors",
@@ -880,10 +759,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-stable": "nixpkgs-stable_3",
-        "plow": "plow",
-        "ssimDownscaler": "ssimDownscaler",
-        "ssimSuperRes": "ssimSuperRes"
+        "nixpkgs-stable": "nixpkgs-stable_3"
       }
     },
     "rust-overlay": {
@@ -909,30 +785,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
-      }
-    },
-    "ssimDownscaler": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-YzVBz7G0JN6Mx2zb2pmmv6pOKRuWFgRZsMArJe73xRg=",
-        "type": "file",
-        "url": "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/575d13567bbe3caa778310bd3b2a4c516c445039/SSimDownscaler.glsl"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/575d13567bbe3caa778310bd3b2a4c516c445039/SSimDownscaler.glsl"
-      }
-    },
-    "ssimSuperRes": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-otB9utoUkxDZvk6LYT8bOB1/w7GncbiCTNk/IthvGvc=",
-        "type": "file",
-        "url": "https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/15d93440d0a24fc4b8770070be6a9fa2af6f200b/SSimSuperRes.glsl"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/15d93440d0a24fc4b8770070be6a9fa2af6f200b/SSimSuperRes.glsl"
       }
     },
     "systems": {

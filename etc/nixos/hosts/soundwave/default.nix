@@ -2,11 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... } @ args:
+{ config, pkgs, inputs, self, ... }:
 
-let
-  overlays = import ../../overlays args;
-in
 {
   imports =
     [
@@ -49,11 +46,9 @@ in
     swraid.enable = false;
   };
 
-  nixpkgs.overlays = with overlays; [
+  nixpkgs.overlays = [
     inputs.keymapp.overlays.default
-    plow
-    renoise343
-    waybar
+    self.overlays.default
   ];
 
   virtualisation.libvirtd.enable = true;

@@ -1,8 +1,5 @@
-{ pkgs, ... } @ args:
+{ pkgs, self, ... }:
 
-let
-  overlays = import ../../overlays args;
-in
 {
   imports =
     [
@@ -20,7 +17,7 @@ in
     binfmt.emulatedSystems = [ "x86_64-linux" ];
   };
 
-  nixpkgs.overlays = with overlays; [
+  nixpkgs.overlays = [
     # Fixes cross-compiling for the SD card for the PI.
     # See: https://github.com/NixOS/nixpkgs/issues/126755
     # Also: https://github.com/NixOS/nixpkgs/issues/154163
@@ -28,8 +25,7 @@ in
       makeModulesClosure = x:
         super.makeModulesClosure (x // { allowMissing = true; });
     })
-    waybar
-    plow
+    self.overlays.default
   ];
 
   fileSystems = {
