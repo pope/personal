@@ -1,11 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, self, ... }:
 
 {
   imports = [
     ../../modules/home
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      self.overlays.default
+    ];
+  };
 
   home = {
     username = "deck";

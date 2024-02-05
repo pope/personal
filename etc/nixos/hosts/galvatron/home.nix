@@ -1,15 +1,12 @@
-{ pkgs, ... } @ args:
+{ pkgs, self, ... }:
 
-let
-  overlays = import ../../overlays args;
-in
 {
   imports = [
     ../../modules/home
   ];
 
-  nixpkgs.overlays = with overlays; [
-    ctpv
+  nixpkgs.overlays = [
+    self.overlays.default
   ];
 
   home = {

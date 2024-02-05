@@ -1,11 +1,11 @@
-{ pkgs, config, lib, inputs, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption mkMerge optionalAttrs optionals;
-  inherit (inputs) ssimSuperRes ssimDownscaler krigBilateral;
-  inherit (pkgs) anime4k;
-  fsrcnnx = pkgs.callPackage ./fsrcnnx.nix { inherit inputs; };
-  modernx = pkgs.callPackage ./modernx.nix { inherit inputs; };
+  inherit (pkgs) anime4k modernx fsrcnnx;
+  krigBilateral = "${pkgs.krigBilateral}/KrigBilateral.glsl";
+  ssimDownscaler = "${pkgs.ssimDownscaler}/SSimDownscaler.glsl";
+  ssimSuperRes = "${pkgs.ssimSuperRes}/SSimSuperRes.glsl";
   setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
   anime4khqbindings = import ./anime4k-hq-bindings.nix { inherit anime4k setShader; };
   anime4kfastbindings = import ./anime4k-fast-bindings.nix { inherit anime4k setShader; };

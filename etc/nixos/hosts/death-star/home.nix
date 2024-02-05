@@ -1,8 +1,12 @@
-_:
+{ self, ... }:
 
 {
   imports = [
     ../../modules/home
+  ];
+
+  nixpkgs.overlays = [
+    self.overlays.default
   ];
 
   home = {
