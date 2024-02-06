@@ -2,24 +2,14 @@
 
 let
   inherit (lib) mkOption types;
+  imports = map
+    (p: ./. + "/${p}")
+    (builtins.filter
+      (p: p != "default.nix")
+      (builtins.attrNames (builtins.readDir ./.)));
 in
 {
-  imports = [
-    ./bluetooth.nix
-    ./firewall-nfs.nix
-    ./foldingathome.nix
-    ./fonts.nix
-    ./gaming.nix
-    ./nix.nix
-    ./onepassword.nix
-    ./printing.nix
-    ./samba.nix
-    ./sound.nix
-    ./system.nix
-    ./users.nix
-    ./wayland.nix
-    ./xserver
-  ];
+  inherit imports;
 
   options.my.nixos = {
     mainUser = mkOption {
