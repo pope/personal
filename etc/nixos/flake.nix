@@ -97,121 +97,116 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
+      mkNixosSystem =
+        { name
+        , system
+        , extraModules ? [ ]
+        , user ? "pope"
+        }: {
+          inherit name;
+          value = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs self;
+              pkgs-stable = import nixpkgs-stable {
+                inherit system;
+                config.allowUnfree = true;
+                config.permittedInsecurePackages = [
+                  "python-2.7.18.6"
+                  "python-2.7.18.6-env"
+                ];
+              };
+            };
+            modules = extraModules ++ [
+              (./hosts + "/${name}")
+              kde2nix.nixosModules.plasma6
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs self; };
+
+                home-manager.users.${user} =
+                  import (./hosts + "/${name}/home.nix");
+              }
+            ];
+          };
+        };
+      mkHomeManagerConfig =
+        { name
+        , system
+        }:
+        let
+          inherit (nixpkgs.lib) last;
+          inherit (nixpkgs.lib.strings) toLower splitString;
+          hostname = toLower (last (splitString "@" name));
+        in
+        {
+          inherit name;
+          value = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            extraSpecialArgs = { inherit inputs self; };
+            modules = [
+              (./hosts + "/${hostname}/home.nix")
+            ];
+          };
+        };
     in
     {
-      nixosConfigurations = {
-        "soundwave" = nixpkgs.lib.nixosSystem rec {
+      nixosConfigurations = builtins.listToAttrs [
+        (mkNixosSystem {
+          name = "soundwave";
           system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs self;
-            pkgs-stable = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
-              config.permittedInsecurePackages = [
-                "python-2.7.18.6"
-                "python-2.7.18.6-env"
-              ];
-            };
-          };
-          modules = [
+          extraModules = [
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-cpu-amd-pstate
             nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
             nixos-hardware.nixosModules.common-pc
             nixos-hardware.nixosModules.common-pc-ssd
             hyprland.nixosModules.default
-            kde2nix.nixosModules.plasma6
             musnix.nixosModules.musnix
-            ./hosts/soundwave
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs self; };
-
-              home-manager.users.pope = import ./hosts/soundwave/home.nix;
-            }
           ];
-        };
-        "ravage" = nixpkgs.lib.nixosSystem {
+        })
+        (mkNixosSystem {
+          name = "ravage";
           system = "x86_64-linux";
-          specialArgs = { inherit inputs self; };
-          modules = [
+          extraModules = [
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
             hyprland.nixosModules.default
-            kde2nix.nixosModules.plasma6
-            ./hosts/ravage
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs self; };
-
-              home-manager.users.pope = import ./hosts/ravage/home.nix;
-            }
           ];
-        };
-        "nixos-testing" = nixpkgs.lib.nixosSystem {
+        })
+        (mkNixosSystem {
+          name = "nixos-testing";
           system = "x86_64-linux";
-          specialArgs = { inherit inputs self; };
-          modules = [
+          extraModules = [
             hyprland.nixosModules.default
-            kde2nix.nixosModules.plasma6
-            ./hosts/nixos-testing
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs self; };
-
-              home-manager.users.pope = import ./hosts/nixos-testing/home.nix;
-            }
           ];
-        };
-        "raspberrypi" = nixpkgs.lib.nixosSystem {
+        })
+        (mkNixosSystem {
+          name = "raspberrypi";
           system = "aarch64-linux";
-          specialArgs = { inherit inputs self; };
-          modules = [
-            kde2nix.nixosModules.plasma6
-            ./hosts/raspberrypi
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs self; };
-
-              home-manager.users.pi = import ./hosts/raspberrypi/home.nix;
-            }
-
+          user = "pi";
+          extraModules = [
             # With this, we can build an SD card for the PI.
             # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
             nixos-generators.nixosModules.all-formats
           ];
-        };
-      };
-      homeConfigurations = {
-        "pope@Death-Star" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = { inherit inputs self; };
-          modules = [
-            ./hosts/death-star/home.nix
-          ];
-        };
-        "deck@poopdeck" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = { inherit inputs self; };
-          modules = [
-            ./hosts/poopdeck/home.nix
-          ];
-        };
-        "pope@galvatron" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-          extraSpecialArgs = { inherit inputs self; };
-          modules = [
-            ./hosts/galvatron/home.nix
-          ];
-        };
-      };
+        })
+      ];
+      homeConfigurations = builtins.listToAttrs [
+        (mkHomeManagerConfig {
+          name = "pope@Death-Star";
+          system = "x86_64-linux";
+        })
+        (mkHomeManagerConfig {
+          name = "deck@poopdeck";
+          system = "x86_64-linux";
+        })
+        (mkHomeManagerConfig {
+          name = "pope@galvatron";
+          system = "aarch64-darwin";
+        })
+      ];
       homeManagerModules.default = import ./modules/home self;
       packages = eachSystem (system:
         let
