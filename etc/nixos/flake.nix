@@ -89,6 +89,7 @@
     , nixpkgs
     , nixpkgs-stable
     , kde2nix
+    , keymapp
     , ...
     } @ inputs:
     let
@@ -118,6 +119,12 @@
               };
             };
             modules = extraModules ++ [
+              (_: {
+                nixpkgs.overlays = [
+                  keymapp.overlays.default
+                  self.overlays.default
+                ];
+              })
               (./hosts + "/${name}")
               kde2nix.nixosModules.plasma6
               home-manager.nixosModules.home-manager
@@ -144,7 +151,11 @@
         {
           inherit name;
           value = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+              overlays = [ self.overlays.default ];
+            };
             extraSpecialArgs = { inherit inputs self; };
             modules = [
               (./hosts + "/${hostname}/home.nix")

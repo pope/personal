@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, self, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -45,11 +45,6 @@
     # See https://github.com/NixOS/nixpkgs/issues/254807
     swraid.enable = false;
   };
-
-  nixpkgs.overlays = [
-    inputs.keymapp.overlays.default
-    self.overlays.default
-  ];
 
   virtualisation.libvirtd.enable = true;
 
