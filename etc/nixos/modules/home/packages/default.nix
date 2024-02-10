@@ -38,6 +38,7 @@ in
       imagemagick
       jq
       neofetch
+      nvd
       procs # ps
       ripgrep
       sd # sed
