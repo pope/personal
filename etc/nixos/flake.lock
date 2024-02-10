@@ -358,11 +358,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1705791482,
-        "narHash": "sha256-WwDxfCZMJRjSpvle0jntKZ5b5oqrSKS0aeICS4ty8Uw=",
+        "lastModified": 1707580426,
+        "narHash": "sha256-03Y8P37cVnbQ8OKZE80bx5qKcj9+im2SB8GZiuZ7f7Y=",
         "owner": "pope",
         "repo": "keymapp-flake",
-        "rev": "4c6e004351a2250ffd45173050f9f591556ca574",
+        "rev": "59977885a72ccc0222a3db6c90108f6b19f5c2fd",
         "type": "github"
       },
       "original": {
@@ -374,13 +374,13 @@
     "keymapp_2": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-wcsVe5wO2bdOAhrladTRXIJ02UDwhXeLGpcXLLNzJwQ=",
+        "narHash": "sha256-GMLPJrg1jZU7riVugPG2t+CUv3h4k5Lteey/+UMnPy8=",
         "type": "file",
-        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.0.7.tar.gz"
+        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.0.9.tar.gz"
       },
       "original": {
         "type": "file",
-        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.0.7.tar.gz"
+        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.0.9.tar.gz"
       }
     },
     "lowdown-src": {
