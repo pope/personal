@@ -1,4 +1,4 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -25,7 +25,6 @@
       makeModulesClosure = x:
         super.makeModulesClosure (x // { allowMissing = true; });
     })
-    self.overlays.default
   ];
 
   fileSystems = {

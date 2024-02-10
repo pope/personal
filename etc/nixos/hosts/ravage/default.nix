@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, inputs, self, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -11,11 +11,6 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-
-  nixpkgs.overlays = [
-    inputs.keymapp.overlays.default
-    self.overlays.default
-  ];
 
   boot = {
     # Bootloader.
