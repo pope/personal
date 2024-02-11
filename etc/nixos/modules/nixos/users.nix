@@ -48,8 +48,6 @@ in
         "audio"
         "dialout"
         "input"
-        "kvm"
-        "libvirtd"
         "networkmanager"
         "plugdev"
         "video"
