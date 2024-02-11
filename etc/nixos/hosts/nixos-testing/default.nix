@@ -41,8 +41,6 @@ _:
 
   services = {
     openssh.enable = true;
-    qemuGuest.enable = true;
-    spice-vdagentd.enable = true;
     xserver.videoDrivers = [ "qxl" ];
   };
 
@@ -59,6 +57,10 @@ _:
     onepassword.enable = true;
     sound.enable = true;
     system.enable = true;
+    virtualization = {
+      enable = true;
+      kind = "guest";
+    };
     xserver = {
       enable = true;
       desktop = "gnome";

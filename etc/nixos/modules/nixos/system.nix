@@ -39,9 +39,6 @@ in
       git
       gparted
       ntfs3g
-      qemu
-      virt-manager
-      virtiofsd
       wget
     ];
 

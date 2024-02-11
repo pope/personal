@@ -46,8 +46,6 @@
     swraid.enable = false;
   };
 
-  virtualisation.libvirtd.enable = true;
-
   fileSystems = {
     "/media/win-cyberia" = {
       device = "/dev/disk/by-label/Cyberia";
@@ -133,6 +131,7 @@
     sound.enable = true;
     system.enable = true;
     wayland.enable = true;
+    virtualization.enable = true;
     xserver = {
       enable = true;
 
