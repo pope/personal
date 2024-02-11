@@ -9,7 +9,10 @@ in
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
 
   renoise343 = prev.renoise.override {
-    releasePath = /home/pope/Documents/rns_343_linux_x86_64.tar.gz;
+    releasePath =
+      if prev.system == "x86_64-linux"
+      then /media/cyberia/Public/Software/rns_343_linux_x86_64.tar.gz
+      else /media/cyberia/Public/Software/rns_343_linux_arm64.tar.gz;
   };
 
   waybar = prev.waybar.overrideAttrs (oldAttrs: {
