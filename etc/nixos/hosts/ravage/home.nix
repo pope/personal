@@ -53,6 +53,7 @@
     packages.enable = true;
     shell.enable = true;
     terminals.kitty.enable = true;
+    terminals.wezterm.enable = true;
     xdg.enable = true;
   };
 }
