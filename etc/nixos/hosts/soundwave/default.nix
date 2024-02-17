@@ -137,7 +137,7 @@
 
       desktop = "gnome";
 
-      enableAutoLogin = true;
+      enableAutoLogin = false;
       enableHyprland = true;
     };
   };
