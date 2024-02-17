@@ -61,8 +61,11 @@
     };
     packages.enable = true;
     shell.enable = true;
-    terminals.kitty.enable = true;
-    terminals.crt.enable = true;
+    terminals = {
+      crt.enable = true;
+      kitty.enable = true;
+      wezterm.enable = true;
+    };
     xdg.enable = true;
   };
 }
