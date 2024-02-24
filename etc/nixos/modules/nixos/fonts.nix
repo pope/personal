@@ -15,6 +15,8 @@ in
       packages = with pkgs; [
         fira
         fira-go
+        go-font
+        hasklig
         iosevka
         iosevka-comfy.comfy
         jetbrains-mono
@@ -22,7 +24,14 @@ in
         noto-fonts-emoji
         source-serif
         work-sans
-        (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
+        (nerdfonts.override {
+          fonts = [
+            "FiraCode"
+            "NerdFontsSymbolsOnly"
+            "Lilex"
+            "Terminus"
+          ];
+        })
       ];
 
       enableDefaultPackages = true;
