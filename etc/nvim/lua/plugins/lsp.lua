@@ -139,7 +139,11 @@ return {
 				phpactor = {},
 				pyright = {},
 				rust_analyzer = {
-					['rust-analyzer'] = {},
+					['rust-analyzer'] = {
+						files = {
+							excludeDirs = { '.direnv', '.devenv' },
+						},
+					},
 				},
 				lua_ls = {
 					Lua = {
