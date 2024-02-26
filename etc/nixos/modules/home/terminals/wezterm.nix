@@ -18,6 +18,10 @@ in
         let
           opacity = if pkgs.stdenv.isDarwin then 0.94 else 0.85;
           line_height = if pkgs.stdenv.isDarwin then 1.6 else 1.5;
+          shell =
+            if config.my.home.shell.zsh.enable
+            then "${pkgs.zsh}/bin/zsh"
+            else "${pkgs.fish}/bin/fish";
         in
         ''
           local config = wezterm.config_builder()
@@ -26,7 +30,7 @@ in
           -- config.color_scheme = 'Rosé Pine (Gogh)'
           config.color_scheme = 'rose-pine'
           config.default_cursor_style = "SteadyBar"
-          config.default_prog = { '${pkgs.fish}/bin/fish', '-l'}
+          config.default_prog = { '${shell}', '-l'}
           config.enable_wayland = true
           config.font = wezterm.font_with_fallback {
             { family = 'Iosevka' },

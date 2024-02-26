@@ -51,7 +51,7 @@
     lf.enable = true;
     mpv.enable = true;
     packages.enable = true;
-    shell.enable = true;
+    shell.fish.enable = true;
     terminals.kitty.enable = true;
     terminals.wezterm.enable = true;
     xdg.enable = true;

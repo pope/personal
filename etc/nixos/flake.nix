@@ -218,7 +218,7 @@
           system = "aarch64-darwin";
         })
       ];
-      nixosModules.default = {...}: { imports = [ ./modules/nixos ]; };
+      nixosModules.default = { ... }: { imports = [ ./modules/nixos ]; };
       nixosModules.kde2nix.default = kde2nix.nixosModules.plasma6;
       homeManagerModules.default = import ./modules/home self;
       packages = eachSystem (system:
