@@ -55,6 +55,7 @@
     lf.enable = true;
     mpv.enable = true;
     packages.enable = true;
+    shell.zsh.enable = true;
     terminals.wezterm.enable = true;
   };
 }

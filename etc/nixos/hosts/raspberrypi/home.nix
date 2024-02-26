@@ -18,6 +18,6 @@ _:
 
   my.home = {
     packages.enable = true;
-    shell.enable = true;
+    shell.fish.enable = true;
   };
 }

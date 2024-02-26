@@ -60,7 +60,7 @@
       enableHqAnimeSettings = true;
     };
     packages.enable = true;
-    shell.enable = true;
+    shell.fish.enable = true;
     terminals = {
       crt.enable = true;
       kitty.enable = true;

@@ -22,6 +22,6 @@ _:
     gnome.enable = true;
     lf.enable = true;
     packages.enable = true;
-    shell.enable = true;
+    shell.fish.enable = true;
   };
 }

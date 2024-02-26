@@ -33,6 +33,6 @@ _:
     };
     lf.enable = true;
     packages.enable = true;
-    shell.enable = true;
+    shell.fish.enable = true;
   };
 }
