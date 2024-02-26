@@ -12,13 +12,17 @@ in
   config = mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscodium.fhsWithPackages (ps: with ps; [ zlib ]);
+      package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib ]);
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
+        editorconfig.editorconfig
         golang.go
+        mkhl.direnv
         ms-python.python
         ms-vscode.cpptools
         mvllow.rose-pine
+        pkief.material-icon-theme
+        pkief.material-product-icons
         rust-lang.rust-analyzer
         vscode-icons-team.vscode-icons
         vscodevim.vim
