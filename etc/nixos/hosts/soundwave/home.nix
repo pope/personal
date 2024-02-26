@@ -39,6 +39,7 @@
       chromium.enable = true;
       firefox.enable = true;
     };
+    editors.vscode.enable = true;
     editors.neovim.enable = true;
     dropbox.enable = true;
     dunst.enable = true;
