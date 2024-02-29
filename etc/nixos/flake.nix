@@ -71,11 +71,6 @@
       url = "github:pope/keymapp-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    kde2nix = {
-      url = "github:nix-community/kde2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -88,7 +83,6 @@
     , nixos-hardware
     , nixpkgs
     , nixpkgs-stable
-    , kde2nix
     , keymapp
     , ...
     } @ inputs:
@@ -126,7 +120,6 @@
                 ];
               })
               (./hosts + "/${name}")
-              kde2nix.nixosModules.plasma6
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
@@ -219,7 +212,6 @@
         })
       ];
       nixosModules.default = { ... }: { imports = [ ./modules/nixos ]; };
-      nixosModules.kde2nix.default = kde2nix.nixosModules.plasma6;
       homeManagerModules.default = import ./modules/home self;
       packages = eachSystem (system:
         let
