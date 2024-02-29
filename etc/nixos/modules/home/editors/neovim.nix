@@ -13,6 +13,7 @@ in
     home.packages = with pkgs; [
       lua-language-server
       nil
+      tree-sitter
     ];
 
     programs = {
