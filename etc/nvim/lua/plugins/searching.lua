@@ -4,11 +4,13 @@ return {
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'nvim-telescope/telescope-file-browser.nvim',
+			'folke/noice.nvim',
 		},
 		opts = {},
 		config = function(_, opts)
 			require('telescope').setup(opts)
 			require('telescope').load_extension('file_browser')
+			require('telescope').load_extension('noice')
 		end,
 		cmd = { 'Telescope' },
 		keys = {
