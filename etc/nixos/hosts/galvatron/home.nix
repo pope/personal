@@ -57,5 +57,6 @@
     packages.enable = true;
     shell.zsh.enable = true;
     terminals.wezterm.enable = true;
+    tmux.enable = true;
   };
 }
