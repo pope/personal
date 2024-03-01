@@ -31,13 +31,15 @@ in
             set -g @rose_pine_variant 'main'
             set -g @rose_pine_date_time '%Y-%m-%d %H:%M'
             set -g @rose_pine_directory 'on'
-            set -g @rose_ping_disable_active_window_menu 'on'
+            set -g @rose_pine_disable_active_window_menu 'on'
+            set -g @rose_pine_bar_bg_disable 'on'
+            set -g @rose_pine_bar_bg_disabled_color_option 'default'
           '';
         }
       ];
       extraConfig = ''
         set-option -sa terminal-features ',XXX:RGB'
-        # set -g status-position top
+        set -g status-position top
 
         bind '"' split-window -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
