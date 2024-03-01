@@ -67,6 +67,7 @@
       kitty.enable = true;
       wezterm.enable = true;
     };
+    tmux.enable = true;
     xdg.enable = true;
   };
 }
