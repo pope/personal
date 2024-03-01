@@ -57,3 +57,13 @@ vim.opt.completeopt:append('noselect')
 
 -- responsiveness
 vim.opt.updatetime = 250
+
+-- netrw
+-- Inspiration from https://github.com/doom-neovim/doom-nvim/blob/main/lua/doom/modules/features/netrw/init.lua
+vim.g.netrw_banner = 1                  -- 0 to disable the banner
+vim.g.netrw_keepdir = 0                 -- cwd and browser in sync
+vim.g.netrw_sort_sequence = [[[\/]$,*]] -- dirs before files
+vim.g.netrw_sizestyle = 'H'             -- human readable
+vim.g.netrw_list_hide = vim.fn['netrw_gitignore#Hide']()
+vim.g.netrw_hide = 0                    -- show all files
+vim.g.netrw_browse_split = 4            -- enter opens in previous window
