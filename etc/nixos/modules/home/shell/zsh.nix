@@ -58,6 +58,7 @@ in
       };
       shellAliases = {
         "eza" = "eza --group-directories-first";
+        "ls" = "eza --group-directories-first";
       };
       syntaxHighlighting.enable = true;
     };
