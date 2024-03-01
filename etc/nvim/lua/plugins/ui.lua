@@ -111,12 +111,12 @@ return {
 		end,
 		opts = {
 			view = {
-				auto_resize = true,
+				width = 32,
 			},
 			renderer = {
 				indent_markers = {
 					enable = true,
-				}
+				},
 			},
 			sync_root_with_cwd = true,
 			update_focused_file = {
