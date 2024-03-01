@@ -26,6 +26,7 @@ return {
 				'cmake',
 				'comment',
 				'cpp',
+				'css',
 				'dockerfile',
 				'fish',
 				'go',
@@ -38,6 +39,7 @@ return {
 				'lua',
 				'make',
 				'markdown',
+				'markdown_inline',
 				'ninja',
 				'python',
 				'regex',
@@ -47,6 +49,7 @@ return {
 				'tsx',
 				'typescript',
 				'vim',
+				'vimdoc',
 				'yaml',
 			},
 			-- Install parsers synchronously (only applied to `ensure_installed`)
