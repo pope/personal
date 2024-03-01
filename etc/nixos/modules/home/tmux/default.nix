@@ -38,11 +38,15 @@ in
         }
       ];
       extraConfig = ''
-        set-option -sa terminal-features ',XXX:RGB'
+        set-option -sa terminal-features ',alacritty*:RGB,foot*:RGB,xterm-kitty*:RGB,xterm-256color:RGB'
+        
+        set -g update-environment -r
+        set -g renumber-windows on
         set -g status-position top
 
         bind '"' split-window -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
+        bind R source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
       '';
     };
   };

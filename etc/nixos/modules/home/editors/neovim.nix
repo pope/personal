@@ -14,6 +14,7 @@ in
       lua-language-server
       nil
       tree-sitter
+      wget
     ];
 
     programs = {
