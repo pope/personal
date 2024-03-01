@@ -105,10 +105,6 @@ return {
 				desc = '[p]roject tree [v]iew',
 			},
 		},
-		init = function()
-			vim.g.loaded_netrw = 1
-			vim.g.loaded_netrwPlugin = 1
-		end,
 		opts = {
 			view = {
 				width = 32,
@@ -121,6 +117,26 @@ return {
 			sync_root_with_cwd = true,
 			update_focused_file = {
 				enable = true,
+			},
+		},
+	},
+	{
+		"prichrd/netrw.nvim",
+		dependencies = {
+			'nvim-tree/nvim-web-devicons',
+		},
+		-- event = { 'VeryLazy' },
+		opts = {
+			icons = {
+				symlink = " ",
+				directory = " ",
+				file = " ",
+			},
+			use_devicons = true,
+			mappings = {
+				["K"] = function(payload)
+					print(vim.inspect(payload))
+				end,
 			},
 		},
 	},
