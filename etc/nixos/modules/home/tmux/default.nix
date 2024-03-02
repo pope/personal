@@ -24,18 +24,22 @@ in
       terminal = "tmux-256color";
       plugins = with pkgs.tmuxPlugins; [
         { plugin = fuzzback; }
+        { plugin = fzf-tmux-url; }
         { plugin = tmux-fzf; }
+        { plugin = yank; }
         {
           plugin = rose-pine;
           extraConfig = ''
             set -g @rose_pine_variant 'main'
             set -g @rose_pine_date_time '%Y-%m-%d %H:%M'
-            set -g @rose_pine_directory 'on'
             set -g @rose_pine_disable_active_window_menu 'on'
             set -g @rose_pine_bar_bg_disable 'on'
             set -g @rose_pine_bar_bg_disabled_color_option 'default'
           '';
         }
+        { plugin = tmux-thumbs; extraConfig = "set -g @thumbs-osc52 1"; }
+        { plugin = resurrect; extraConfig = "set -g @resurrect-strategy-nvim 'session'"; }
+        { plugin = continuum; extraConfig = "set -g @continuum-restore 'on'"; }
       ];
       extraConfig = ''
         set-option -sa terminal-features ',alacritty*:RGB,foot*:RGB,xterm-kitty*:RGB,xterm-256color:RGB'
