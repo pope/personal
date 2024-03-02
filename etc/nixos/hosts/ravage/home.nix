@@ -54,6 +54,7 @@
     shell.fish.enable = true;
     terminals.kitty.enable = true;
     terminals.wezterm.enable = true;
+    tmux.enable = true;
     xdg.enable = true;
   };
 }
