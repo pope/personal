@@ -118,6 +118,7 @@ in
           "75%"
         ];
       };
+      zoxide.enable = true;
     } // optionalAttrs pkgs.stdenv.isLinux {
       cava = {
         enable = true;
