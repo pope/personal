@@ -95,7 +95,10 @@ return {
 			enable_tailwind = false,
 		},
 	},
-	'nvim-tree/nvim-web-devicons',
+	{
+		'nvim-tree/nvim-web-devicons',
+		lazy = true,
+	},
 	{
 		'nvim-tree/nvim-tree.lua',
 		dependencies = {
@@ -151,6 +154,7 @@ return {
 			'nvim-tree/nvim-web-devicons',
 			'SmiteshP/nvim-navic',
 		},
+		event = { 'VeryLazy' },
 		opts = {
 			extensions = { 'fugitive', 'nvim-tree', 'toggleterm' },
 			options = {
@@ -228,6 +232,7 @@ return {
 	},
 	{
 		'melkster/modicator.nvim',
+		event = { 'BufReadPost', 'BufNewFile' },
 		opts = {},
 		init = function()
 			vim.o.termguicolors = true
@@ -324,6 +329,7 @@ return {
 	},
 	{
 		'stevearc/dressing.nvim',
+		event = 'VeryLazy',
 		opts = {},
 	},
 }
