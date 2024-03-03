@@ -87,9 +87,13 @@ return {
 		},
 	},
 	{
-		"NvChad/nvim-colorizer.lua",
+		"brenoprata10/nvim-highlight-colors",
 		event = { "BufReadPre", "BufNewFile" },
-		config = true,
+		opts = {
+			render = 'virtual',
+			enable_named_colors = true,
+			enable_tailwind = false,
+		},
 	},
 	'nvim-tree/nvim-web-devicons',
 	{
