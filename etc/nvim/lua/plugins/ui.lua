@@ -130,6 +130,7 @@ return {
 			'nvim-tree/nvim-web-devicons',
 		},
 		-- event = { 'VeryLazy' },
+		ft = 'netrw',
 		opts = {
 			icons = {
 				symlink = " ",
@@ -198,6 +199,7 @@ return {
 	},
 	{
 		'lukas-reineke/indent-blankline.nvim',
+		event = { 'BufReadPost', 'BufNewFile' },
 		main = 'ibl',
 		opts = {
 			indent = {
