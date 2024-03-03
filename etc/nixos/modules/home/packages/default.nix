@@ -112,6 +112,11 @@ in
           "--preview 'echo {} | ${pkgs.bat}/bin/bat --language Fish --color=always --plain'"
           "--preview-window up:3:hidden:wrap"
         ];
+        tmux.enableShellIntegration = config.my.home.tmux.enable;
+        tmux.shellIntegrationOptions = [
+          "-p"
+          "75%"
+        ];
       };
     } // optionalAttrs pkgs.stdenv.isLinux {
       cava = {
