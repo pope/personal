@@ -20,6 +20,7 @@ in
         extended = true;
         expireDuplicatesFirst = true;
         path = "${config.xdg.dataHome}/zsh/history";
+        size = 99999;
       };
       plugins = [
         {
@@ -33,14 +34,21 @@ in
           file = "p10k.zsh";
         }
       ];
+      initExtraBeforeCompInit = ''
+        if [ -e /opt/homebrew/bin/brew ]
+        then
+          fpath+=($(brew --prefix)/share/zsh/site-functions)
+        fi
+      '';
+      initExtra = ''
+        autoload -z edit-command-line
+        zle -N edit-command-line
+        bindkey "^X^E" edit-command-line
+      '';
       profileExtra = ''
         if [ -e /opt/homebrew/bin/brew ]
         then
           eval "$(/opt/homebrew/bin/brew shellenv)"
-
-          fpath+=($(brew --prefix)/share/zsh/site-functions)
-          autoload -Uz compinit
-          compinit
         fi
 
         if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]
@@ -60,7 +68,10 @@ in
         "eza" = "eza --group-directories-first";
         "ls" = "eza --group-directories-first";
       };
-      syntaxHighlighting.enable = true;
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = [ "main" "brackets" "pattern" "line" "cursor" "root" ];
+      };
     };
 
     programs.dircolors = {
