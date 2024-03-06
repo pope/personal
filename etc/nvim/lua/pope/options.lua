@@ -66,4 +66,4 @@ vim.g.netrw_sort_sequence = [[[\/]$,*]] -- dirs before files
 vim.g.netrw_sizestyle = 'H'             -- human readable
 vim.g.netrw_list_hide = vim.fn['netrw_gitignore#Hide']()
 vim.g.netrw_hide = 0                    -- show all files
-vim.g.netrw_browse_split = 4            -- enter opens in previous window
+vim.g.netrw_browse_split = 0            -- enter opens in current window
