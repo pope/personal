@@ -30,46 +30,44 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
+    flake-utils.url = "github:numtide/flake-utils";
     nix-colors.url = "github:misterio77/nix-colors";
-
     nix-formatter-pack = {
       url = "github:Gerschtli/nix-formatter-pack";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     # nix language server, used by vscode & neovim
     nil = {
       url = "github:oxalica/nil/2023-08-09";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
-
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     anyrun = {
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     # Real-time audio
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     keymapp = {
       url = "github:pope/keymapp-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixgl = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -83,6 +81,7 @@
     , nixos-hardware
     , nixpkgs
     , nixpkgs-stable
+    , nixgl
     , keymapp
     , ...
     } @ inputs:
@@ -135,6 +134,7 @@
       mkHomeManagerConfig =
         { name
         , system
+        , extraOverlays ? [ ]
         }:
         let
           inherit (nixpkgs.lib) last;
@@ -147,7 +147,7 @@
             pkgs = import nixpkgs {
               inherit system;
               config.allowUnfree = true;
-              overlays = [ self.overlays.default ];
+              overlays = extraOverlays ++ [ self.overlays.default ];
             };
             extraSpecialArgs = { inherit inputs self; };
             modules = [
@@ -201,6 +201,7 @@
         (mkHomeManagerConfig {
           name = "pope@Death-Star";
           system = "x86_64-linux";
+          extraOverlays = [ nixgl.overlay ];
         })
         (mkHomeManagerConfig {
           name = "deck@poopdeck";
