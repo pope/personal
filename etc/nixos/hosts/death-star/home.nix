@@ -1,4 +1,4 @@
-_:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -8,6 +8,11 @@ _:
   home = {
     username = "pope";
     homeDirectory = "/home/pope";
+
+    packages = with pkgs; [
+      nixgl.nixGLIntel
+      nixgl.nixVulkanIntel
+    ];
 
     stateVersion = "23.05";
   };
