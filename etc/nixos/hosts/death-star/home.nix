@@ -12,6 +12,8 @@ _:
     stateVersion = "23.05";
   };
 
+  targets.genericLinux.enable = true;
+
   programs = {
     home-manager.enable = true;
   };
