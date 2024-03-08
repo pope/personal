@@ -23,7 +23,13 @@ in
       prefix = "C-z";
       terminal = "tmux-256color";
       plugins = with pkgs.tmuxPlugins; [
-        { plugin = fuzzback; }
+        {
+          plugin = fuzzback;
+          extraConfig = ''
+            set -g @fuzzback-popup 1
+            set -g @fuzzback-popup-size '90%'
+          '';
+        }
         { plugin = fzf-tmux-url; }
         { plugin = tmux-fzf; }
         { plugin = yank; }
