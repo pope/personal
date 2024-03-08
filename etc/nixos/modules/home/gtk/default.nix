@@ -34,8 +34,9 @@ in
       enable = true;
 
       font = {
-        name = "Iosevka";
-        package = pkgs.iosevka;
+        name = "Helvetica Neue LT Std, Light";
+        # name = "Work Sans, Thin";
+        package = pkgs.helvetica-neue-lt-std;
         size = 12;
       };
 
