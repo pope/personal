@@ -14,7 +14,7 @@ in
       geoclue2.enable = true;
       gnome.gnome-keyring.enable = true;
       gvfs.enable = true;
-      power-profiles-daemon.enable = true;
+      power-profiles-daemon.enable = !config.services.tlp.enable;
       tumbler.enable = true;
       upower.enable = true;
       udev = {
