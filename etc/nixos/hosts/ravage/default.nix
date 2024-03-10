@@ -77,7 +77,7 @@
   services = {
     # Power management
     thermald.enable = true;
-    tlp.enable = false; # Conflicts with Power Profiles Daemon. But maybe useful in the future.
+    tlp.enable = true;
 
     openssh.enable = true;
   };
