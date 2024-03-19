@@ -14,7 +14,7 @@ in
       enable = true;
       defaultKeymap = "emacs";
       dotDir = ".config/zsh";
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       history = {
         extended = true;
