@@ -34,7 +34,7 @@
     browsers.firefox.enable = true;
     editors = {
       neovim.enable = true;
-      vscode.enable = true;
+      vscode.enable = false;
     };
     dunst.enable = true;
     git.enable = true;
