@@ -37,7 +37,7 @@ in
         name = "Helvetica Neue LT Std, Light";
         # name = "Work Sans, Thin";
         package = pkgs.helvetica-neue-lt-std;
-        size = 12;
+        size = 11;
       };
 
       cursorTheme = {
