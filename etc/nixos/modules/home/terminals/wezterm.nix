@@ -33,7 +33,8 @@ in
           config.color_scheme = 'rose-pine'
           config.default_cursor_style = "SteadyBar"
           config.default_prog = { '${shell}', '-l'}
-          config.enable_wayland = true
+          -- Disabled. See https://www.reddit.com/r/archlinux/comments/18rf5t1/psa_on_hyprland_wezterm_will_not_start_anymore/
+          config.enable_wayland = false
           config.font = wezterm.font_with_fallback {
             { family = 'Iosevka' },
           }
