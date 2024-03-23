@@ -22,8 +22,10 @@ in
             if config.my.home.shell.zsh.enable
             then "${pkgs.zsh}/bin/zsh"
             else "${pkgs.fish}/bin/fish";
+          # Add lua syntax highlighting via TreeSitter
+          lua = txt: txt;
         in
-        ''
+        lua ''
           local config = wezterm.config_builder()
 
           -- config.color_scheme = 'Rosé Pine (base16)'
