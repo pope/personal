@@ -7,8 +7,11 @@ in
 {
   options.my.home.theme = {
     colorScheme = mkOption {
-      type = with types; attrs;
-      default = inputs.nix-colors.colorSchemes.rose-pine;
+      type = types.enum [ "rose-pine" "catppuccin" ];
+      default = "rose-pine";
+      description = lib.mkDoc ''
+        Which theme to use with UI elements.
+      '';
     };
     colors = mkOption {
       type = with types; attrs;
@@ -20,13 +23,25 @@ in
   # allowed as a type), this check works for lazy eval.
   config = mkIf (cfg.colorScheme != null) (
     let
-      colors = cfg.colorScheme.palette // {
-        withHash = builtins.mapAttrs (_k: v: "#${v}") cfg.colorScheme.palette;
-        withHex = builtins.mapAttrs (_k: v: "0x${v}") cfg.colorScheme.palette;
+      colorScheme =
+        if cfg.colorScheme == "rose-pine"
+        then inputs.nix-colors.colorSchemes.rose-pine
+        else inputs.nix-colors.colorSchemes.catppuccin-mocha;
+      inherit (colorScheme) palette;
+      colors = palette // {
+        withHash = builtins.mapAttrs (_k: v: "#${v}") palette;
+        withHex = builtins.mapAttrs (_k: v: "0x${v}") palette;
       };
     in
     {
       my.home.theme.colors = colors;
+
+      # TODO(pope): Enable this when the GTK catppuccin libraries are updated.
+      # my.home.gtk.theme = cfg.colorScheme;
+
+      my.home.shell.fish.colorScheme = cfg.colorScheme;
+      my.home.terminals.kitty.colorScheme = cfg.colorScheme;
+      my.home.terminals.wezterm.colorScheme = cfg.colorScheme;
 
       # A helper file to view the colors to names. Borrowed from stylix.
       xdg.configFile = {
