@@ -14,7 +14,7 @@
 
     packages = with pkgs; [
       discord
-      nvtop
+      nvtopPackages.nvidia
     ];
 
     stateVersion = "23.05";
