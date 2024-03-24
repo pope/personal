@@ -1,12 +1,19 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption optionals types;
   cfg = config.my.home.tmux;
 in
 {
   options.my.home.tmux = {
     enable = mkEnableOption "tmux home options";
+    colorScheme = mkOption {
+      type = types.enum [ "rose-pine" "catppuccin" ];
+      default = "rose-pine";
+      description = lib.mkDoc ''
+        Which color theme to use.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -33,6 +40,10 @@ in
         { plugin = fzf-tmux-url; }
         { plugin = tmux-fzf; }
         { plugin = yank; }
+        { plugin = tmux-thumbs; extraConfig = "set -g @thumbs-osc52 1"; }
+        { plugin = resurrect; extraConfig = "set -g @resurrect-strategy-nvim 'session'"; }
+        { plugin = continuum; extraConfig = "set -g @continuum-restore 'on'"; }
+      ] ++ optionals (cfg.colorScheme == "rose-pine") [
         {
           plugin = rose-pine;
           extraConfig = ''
@@ -43,9 +54,31 @@ in
             set -g @rose_pine_bar_bg_disabled_color_option 'default'
           '';
         }
-        { plugin = tmux-thumbs; extraConfig = "set -g @thumbs-osc52 1"; }
-        { plugin = resurrect; extraConfig = "set -g @resurrect-strategy-nvim 'session'"; }
-        { plugin = continuum; extraConfig = "set -g @continuum-restore 'on'"; }
+      ] ++ optionals (cfg.colorScheme == "catppuccin") [
+        {
+          plugin = catppuccin;
+          extraConfig = ''
+            set -g @catppuccin_window_left_separator ""
+            set -g @catppuccin_window_right_separator " "
+            set -g @catppuccin_window_middle_separator " █"
+            set -g @catppuccin_window_number_position "right"
+
+            set -g @catppuccin_window_default_fill "number"
+            set -g @catppuccin_window_default_text "#W"
+
+            set -g @catppuccin_window_current_fill "number"
+            set -g @catppuccin_window_current_text "#W"
+
+            set -g @catppuccin_status_modules_right "directory user host session"
+            set -g @catppuccin_status_left_separator  " "
+            set -g @catppuccin_status_right_separator ""
+            set -g @catppuccin_status_right_separator_inverse "no"
+            set -g @catppuccin_status_fill "icon"
+            set -g @catppuccin_status_connect_separator "no"
+
+            set -g @catppuccin_directory_text "#{pane_current_path}"
+          '';
+        }
       ];
       extraConfig = ''
         set-option -sa terminal-features ',alacritty*:RGB,foot*:RGB,xterm-kitty*:RGB,xterm-256color:RGB'

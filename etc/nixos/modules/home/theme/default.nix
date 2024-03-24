@@ -42,6 +42,7 @@ in
       my.home.shell.fish.colorScheme = cfg.colorScheme;
       my.home.terminals.kitty.colorScheme = cfg.colorScheme;
       my.home.terminals.wezterm.colorScheme = cfg.colorScheme;
+      my.home.tmux.colorScheme = cfg.colorScheme;
 
       # A helper file to view the colors to names. Borrowed from stylix.
       xdg.configFile = {
