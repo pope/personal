@@ -1,12 +1,19 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.terminals.wezterm;
 in
 {
   options.my.home.terminals.wezterm = {
     enable = mkEnableOption "WezTerm terminal home options";
+    colorScheme = mkOption {
+      type = types.enum [ "rose-pine" "catppuccin" ];
+      default = "rose-pine";
+      description = lib.mkDoc ''
+        Which color theme to use.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -22,15 +29,17 @@ in
             if config.my.home.shell.zsh.enable
             then "${pkgs.zsh}/bin/zsh"
             else "${pkgs.fish}/bin/fish";
+          colorScheme =
+            if cfg.colorScheme == "rose-pine"
+            then "rose-pine"
+            else "catppuccin-mocha";
           # Add lua syntax highlighting via TreeSitter
           lua = txt: txt;
         in
         lua ''
           local config = wezterm.config_builder()
 
-          -- config.color_scheme = 'Rosé Pine (base16)'
-          -- config.color_scheme = 'Rosé Pine (Gogh)'
-          config.color_scheme = 'rose-pine'
+          config.color_scheme = '${colorScheme}'
           config.default_cursor_style = "SteadyBar"
           config.default_prog = { '${shell}', '-l'}
           -- Disabled. See https://www.reddit.com/r/archlinux/comments/18rf5t1/psa_on_hyprland_wezterm_will_not_start_anymore/

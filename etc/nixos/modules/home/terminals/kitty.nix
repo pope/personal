@@ -1,12 +1,19 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.terminals.kitty;
 in
 {
   options.my.home.terminals.kitty = {
     enable = mkEnableOption "Kitty terminal home options";
+    colorScheme = mkOption {
+      type = types.enum [ "rose-pine" "catppuccin" ];
+      default = "rose-pine";
+      description = lib.mkDoc ''
+        Which color theme to use.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -19,8 +26,8 @@ in
       enable = true;
       font = {
         name = "Iosevka Comfy";
-        package = pkgs.iosevka;
-        size = lib.mkDefault 11.0;
+        package = pkgs.iosevka-comfy.comfy;
+        size = lib.mkDefault 12.0;
       };
       settings = {
         bold_font = "Iosevka Comfy Bold";
@@ -58,8 +65,10 @@ in
         "kitty_mod+backspace" = "change_font_size all 0";
         "map cmd+0" = "change_font_size all 0";
       };
-      # theme = "Catppuccin-Mocha";
-      theme = "Rosé Pine";
+      theme =
+        if cfg.colorScheme == "rose-pine"
+        then "Rosé Pine"
+        else "Catppuccin-Mocha";
     };
   };
 }

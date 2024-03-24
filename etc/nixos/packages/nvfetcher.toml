@@ -2,6 +2,10 @@
 src.git = "https://github.com/rose-pine/fish"
 fetch.git = "https://github.com/rose-pine/fish"
 
+[fish-catppuccin]
+src.git = "https://github.com/catppuccin/fish"
+fetch.git = "https://github.com/catppuccin/fish"
+
 [modernx]
 src.github_tag = "cyl0/ModernX"
 fetch.github = "cyl0/ModernX"
