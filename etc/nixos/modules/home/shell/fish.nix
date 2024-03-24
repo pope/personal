@@ -26,7 +26,7 @@ in
       };
     })
 
-    (mkIf (cfg.colorScheme == "rose-pine") {
+    (mkIf (cfg.enable && cfg.colorScheme == "rose-pine") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "Rosé Pine"
       '';
@@ -36,7 +36,7 @@ in
       };
     })
 
-    (mkIf (cfg.colorScheme == "catppuccin") {
+    (mkIf (cfg.enable && cfg.colorScheme == "catppuccin") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "Catppuccin Mocha"
       '';
