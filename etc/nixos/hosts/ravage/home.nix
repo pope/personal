@@ -16,6 +16,7 @@
       discord
       intel-gpu-tools
       stow
+      nvtopPackages.intel
     ];
 
     stateVersion = "23.05";
