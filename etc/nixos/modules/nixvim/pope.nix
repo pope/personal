@@ -3,7 +3,7 @@ let
 in
 {
   plugins = {
-    comment-nvim.enable = true;
+    comment.enable = true;
     cmp = {
       enable = true;
       autoEnableSources = true;
@@ -80,31 +80,34 @@ in
     fugitive.enable = true;
     gitsigns = {
       enable = true;
-      trouble = true;
+      settings.trouble = true;
     };
     indent-blankline = {
       enable = true;
-      exclude.filetypes = [
-        "TelescopePrompt"
-        "TelescopeResults"
-        "\'\'"
-        "checkhealth"
-        "dashboard"
-        "fugitive"
-        "gitcommit"
-        "help"
-        "lspinfo"
-        "man"
-        "packer"
-      ];
-      indent = {
-        char = "┊";
-        highlight = "NonText";
-      };
-      scope.enabled = true;
-      whitespace = {
-        highlight = "NonText";
-        removeBlanklineTrail = false;
+      settings = {
+        exclude.filetypes = [
+          "TelescopePrompt"
+          "TelescopeResults"
+          "\'\'"
+          "checkhealth"
+          "dashboard"
+          "fugitive"
+          "gitcommit"
+          "help"
+          "lspinfo"
+          "man"
+          "packer"
+        ];
+        indent = {
+          char = "┊";
+          highlight = "NonText";
+        };
+        scope.enabled = true;
+        whitespace = {
+          highlight = "NonText";
+          # TODO(pope): See what happened to this attribute.
+          # removeBlanklineTrail = false;
+        };
       };
     };
     lualine = {
