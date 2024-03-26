@@ -1,0 +1,10 @@
+[default.extend-words]
+# IPUT = "IPUT"
+# Laf = "Laf"
+# Darcula = "Darcula"
+noice = "noice"
+
+# [default]
+# extend-ignore-identifiers-re = [
+#     "finaly", # intentional package name
+# ]
