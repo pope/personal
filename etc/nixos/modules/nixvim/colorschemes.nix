@@ -1,5 +1,5 @@
 {
-  colorschemes.rose-pine =
+  config.colorschemes.rose-pine =
     let
       lua = x: { __raw = x; };
     in
@@ -25,7 +25,7 @@
         };
       };
     };
-  colorschemes.catppuccin =
+  config.colorschemes.catppuccin =
     let
       lua = x: x;
     in

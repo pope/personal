@@ -1,8 +1,18 @@
+{ pkgs }:
+
 let
   lua = x: x;
 in
 {
-  extraConfigLua = lua ''
+  config.extraPlugins = with pkgs; [
+    vimPlugins.vim-protobuf
+    vimPlugins.vim-startuptime
+    (vimUtils.buildVimPlugin {
+      name = "treesitter-extra";
+      src = ./treesitter-extra;
+    })
+  ];
+  config.extraConfigLua = lua ''
     -- diagnostic
     local sign = function(opts)
       vim.fn.sign_define(opts.name, {
@@ -35,7 +45,7 @@ in
     })
   '';
 
-  extraConfigLuaPost = lua ''
+  config.extraConfigLuaPost = lua ''
     require('luasnip.loaders.from_vscode').lazy_load()
   '';
 }

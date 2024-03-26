@@ -2,12 +2,12 @@ let
   lua = x: { __raw = x; };
 in
 {
-  autoGroups = {
+  config.autoGroups = {
     cursorColor = { };
     lspConfig = { };
     restoreCursorPosition = { };
   };
-  autoCmd = [
+  config.autoCmd = [
     {
       group = "cursorColor";
       event = "ModeChanged";

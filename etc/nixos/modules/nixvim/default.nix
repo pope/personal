@@ -1,22 +1,22 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
+let
+  autocmd = import ./autocmd.nix;
+  colorschemes = import ./colorschemes.nix;
+  extras = import ./extras.nix { inherit pkgs; };
+  ftplugins = import ./ftplugins.nix;
+  mappings = import ./mappings.nix;
+  options = import ./options.nix;
+  pope = import ./pope.nix;
+in
 {
-  # Import all your configuration modules here
-  imports = [
-    ./autocmd.nix
-    ./colorschemes.nix
-    ./ftplugins.nix
-    ./options.nix
-    ./bufferline.nix
-    ./pope.nix
-    ./mappings.nix
-  ];
-  extraPlugins = with pkgs; [
-    vimPlugins.vim-protobuf
-    vimPlugins.vim-startuptime
-    (vimUtils.buildVimPlugin {
-      name = "treesitter-extra";
-      src = ./treesitter-extra;
-    })
+  config = lib.mkMerge [
+    autocmd.config
+    colorschemes.config
+    extras.config
+    ftplugins.config
+    mappings.config
+    options.config
+    pope.config
   ];
 }
