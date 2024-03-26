@@ -41,6 +41,11 @@
       url = "github:Gerschtli/nix-formatter-pack";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     # nix language server, used by vscode & neovim
     nil = {
       url = "github:oxalica/nil/2023-08-09";
@@ -82,6 +87,7 @@
     , nixpkgs
     , nixpkgs-stable
     , nixgl
+    , nixvim
     , keymapp
     , ...
     } @ inputs:
@@ -217,7 +223,14 @@
       packages = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          mypkgs = import ./packages { inherit pkgs; };
+          nixvim' = nixvim.legacyPackages.${system};
+          nixvimModule = {
+            inherit pkgs;
+            module = import ./modules/nixvim;
+            # You can use `extraSpecialArgs` to pass additional arguments to your module files
+          };
+          nvim = nixvim'.makeNixvimWithModule nixvimModule;
+          mypkgs = import ./packages { inherit pkgs; } // { inherit nvim; };
         in
         mypkgs);
       overlays.default = import ./overlays { inherit self; };
@@ -234,6 +247,18 @@
             packages = with pkgs; [ nvfetcher updatePackages ];
           };
         });
+      checks = eachSystem (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          nixvimLib = nixvim.lib.${system};
+          nixvimModule = {
+            inherit pkgs;
+            module = import ./modules/nixvim;
+          };
+        in
+        {
+          nixvim = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+        });
       formatter = eachSystem (system:
         nix-formatter-pack.lib.mkFormatter {
           pkgs = nixpkgs.legacyPackages.${system};
@@ -242,7 +267,6 @@
             nixpkgs-fmt.enable = true;
             statix.enable = true;
           };
-        }
-      );
+        });
     };
 }
