@@ -26,7 +26,7 @@ let
   };
 in
 {
-  keymaps = [
+  config.keymaps = [
     {
       mode = "n";
       key = "<Esc>";

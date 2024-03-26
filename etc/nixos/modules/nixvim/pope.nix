@@ -2,7 +2,8 @@ let
   lua = x: x;
 in
 {
-  plugins = {
+  config.plugins = {
+    bufferline.enable = true;
     comment.enable = true;
     cmp = {
       enable = true;
