@@ -36,9 +36,7 @@ in
     {
       my.home.theme.colors = colors;
 
-      # TODO(pope): Enable this when the GTK catppuccin libraries are updated.
-      # my.home.gtk.theme = cfg.colorScheme;
-
+      my.home.gtk.theme = cfg.colorScheme;
       my.home.shell.fish.colorScheme = cfg.colorScheme;
       my.home.terminals.kitty.colorScheme = cfg.colorScheme;
       my.home.terminals.wezterm.colorScheme = cfg.colorScheme;
