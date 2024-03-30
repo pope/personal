@@ -4,7 +4,7 @@ let
   inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
   gamemode =
     pkgs.writeShellScriptBin "gamemode" ''
-      HYPRGAMEMODE=$(${hyprland}/bin/hyprctl getoption animations:enabled | awk 'NR==2{print $2}')
+      HYPRGAMEMODE=$(${hyprland}/bin/hyprctl getoption animations:enabled -j | ${pkgs.jq}/bin/jq '.int')
       if [ "$HYPRGAMEMODE" = 1 ] ; then
           ${hyprland}/bin/hyprctl --batch "\
               keyword animations:enabled 0;\
