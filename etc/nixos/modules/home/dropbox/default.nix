@@ -22,10 +22,10 @@ in
 
     systemd.user.services = mkIf cfg.service.enable {
       maestral = {
-        Unit.Descriptoin = "Maestral (Dropbox)";
+        Unit.Description = "Maestral (Dropbox)";
         Install.WantedBy = [ "default.target" ];
 
-        Serivce = {
+        Service = {
           ExecStart = "${pkgs.maestral}/bin/maestral start --foreground";
           ExecStop = "${pkgs.maestral}/bin/maestral stop";
           Restart = "on-failure";
