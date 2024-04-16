@@ -15,7 +15,7 @@
       netrw_hide = 0; # show all files
       netrw_browse_split = 0; # enter opens in current window
     };
-    options =
+    opts =
       let
         sw = 2;
       in

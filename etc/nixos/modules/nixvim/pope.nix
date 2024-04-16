@@ -222,7 +222,7 @@ in
     notify.enable = true;
     nvim-autopairs = {
       enable = true;
-      checkTs = true;
+      settings.check_ts = true;
     };
     nvim-colorizer = {
       enable = true;
@@ -246,11 +246,11 @@ in
     telescope = {
       enable = true;
       extensions = {
-        file_browser.enable = true;
+        file-browser.enable = true;
         # frecency.enable = true;
         fzf-native.enable = true;
         fzy-native.enable = false;
-        media_files.enable = true;
+        media-files.enable = true;
         undo.enable = true;
         ui-select.enable = true;
       };
