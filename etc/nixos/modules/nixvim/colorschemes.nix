@@ -1,59 +1,57 @@
+{ pkgs, helpers, ... }:
+
+let
+  inherit (import ./lib.nix { inherit helpers; }) lua;
+in
 {
-  config.colorschemes.rose-pine =
-    let
-      lua = x: { __raw = x; };
-    in
+  config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
-      enable = true;
-      settings.enable.transparency = true;
-      settings.highlight_groups = {
-        ColorColumn = {
-          bg = lua "require('rose-pine.palette').highlight_low";
-        };
-        IblIndent = {
-          fg = lua "require('rose-pine.palette').highlight_high";
-        };
-        IblScope = {
-          fg = lua "require('rose-pine.palette').highlight_high";
-        };
-        NonText = {
-          fg = lua "require('rose-pine.palette').highlight_med";
-          bg = lua "require('rose-pine.palette').none";
-        };
-        NotifyBackground = {
-          bg = lua "require('rose-pine.palette').overlay";
-        };
-      };
-    };
-  config.colorschemes.catppuccin =
-    let
-      lua = x: x;
-    in
-    {
-      enable = false;
-      settings.flavour = "mocha";
-      settings.custom_highlights = lua ''
-        function(colors)
+      pkg = rose-pine;
+      priority = 1000;
+      opts = lua ''
+        function()
+          local p = require("rose-pine.palette")
           return {
-            ColorColumn = { bg = colors.surface0 },
-            NonText = { fg = colors.surface0, },
+            dark_variant = "main",
+            dim_inactive_windows = false,
+            extend_background_behind_borders = true,
+            styles = {
+              bold = true,
+              italic = true,
+              transparency = true,
+            },
+            highlight_groups = {
+              ColorColumn = { bg = p.highlight_low },
+              NonText = {
+                fg = p.highlight_med,
+                bg = p.none,
+              },
+            },
           }
         end
       '';
-      settings.dim_inactive.enabled = true;
-      settings.integrations = {
+      config = ''
+        function(_, opts)
+          require('rose-pine').setup(opts)
+          vim.cmd('colorscheme rose-pine')
+        end
+      '';
+    }
+    {
+      pkg = catppuccin-nvim;
+      priority = 1000;
+      opts.flavor = "mocha";
+      opts.transparent_background = true;
+      opts.dim_inactive.enabled = false;
+      opts.integrations = {
         cmp = true;
         dashboard = true;
-        fidget = true;
         gitsigns = true;
         indent_blankline.enabled = true;
-        lsp_trouble = true;
         markdown = true;
         native_lsp.enabled = true;
-        navic.enabled = true;
         noice = true;
         notify = true;
-        nvimtree = true;
         rainbow_delimiters = true;
         telescope.enabled = true;
         treesitter = true;
@@ -61,6 +59,20 @@
         ufo = true;
         which_key = true;
       };
-      settings.transparent_background = true;
-    };
+      opts.custom_highlights = lua ''
+        function(colors)
+          return {
+            ColorColumn = { bg = colors.surface0 },
+            NonText = { fg = colors.surface0 },
+          }
+        end
+      '';
+      config = ''
+        function(_, opts)
+          require("catppuccin").setup(opts)
+          -- vim.cmd("colorscheme catppuccin")
+        end
+      '';
+    }
+  ];
 }
