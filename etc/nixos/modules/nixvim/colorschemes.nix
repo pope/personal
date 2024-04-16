@@ -5,8 +5,8 @@
     in
     {
       enable = true;
-      transparentBackground = true;
-      highlightGroups = {
+      settings.enable.transparency = true;
+      settings.highlight_groups = {
         ColorColumn = {
           bg = lua "require('rose-pine.palette').highlight_low";
         };
@@ -31,8 +31,8 @@
     in
     {
       enable = false;
-      flavour = "mocha";
-      customHighlights = lua ''
+      settings.flavour = "mocha";
+      settings.custom_highlights = lua ''
         function(colors)
           return {
             ColorColumn = { bg = colors.surface0 },
@@ -40,8 +40,8 @@
           }
         end
       '';
-      dimInactive.enabled = true;
-      integrations = {
+      settings.dim_inactive.enabled = true;
+      settings.integrations = {
         cmp = true;
         dashboard = true;
         fidget = true;
@@ -61,6 +61,6 @@
         ufo = true;
         which_key = true;
       };
-      transparentBackground = true;
+      settings.transparent_background = true;
     };
 }

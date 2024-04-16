@@ -1,6 +1,6 @@
 {
   config = {
-    files."ftplugin/nix.lua".options = {
+    files."ftplugin/nix.lua".opts = {
       expandtab = true;
     };
   };
