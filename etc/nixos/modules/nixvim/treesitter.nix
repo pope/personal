@@ -154,4 +154,6 @@ in
         '';
     }
   ];
+  config.extraFiles."queries/ecma/textobjects.scm" = builtins.readFile ./treesitter-extra/after/queries/ecma/textobjects.scm;
+  config.extraFiles."queries/nix/injections.scm" = builtins.readFile ./treesitter-extra/after/queries/nix/injections.scm;
 }
