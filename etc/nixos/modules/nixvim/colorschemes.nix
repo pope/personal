@@ -26,6 +26,9 @@ in
                 fg = p.highlight_med,
                 bg = p.none,
               },
+              NotifyBackground = {
+                bg = p.overlay,
+              },
             },
           }
         end
