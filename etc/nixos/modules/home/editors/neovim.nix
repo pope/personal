@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
@@ -9,21 +9,21 @@ in
     enable = mkEnableOption "Neovim text editor home options";
   };
 
+  imports = [
+    inputs.nixvim.homeManagerModules.nixvim
+  ];
+
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       lua-language-server
       nil
-      tree-sitter
       wget
     ];
 
-    programs = {
-      neovim = {
-        enable = true;
-        defaultEditor = true;
-      };
+    programs.nixvim =  _: {
+      imports = [ ../../nixvim ];
+      enable = true;
+      defaultEditor = true;
     };
-    xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/Code/personal/etc/nvim";
   };
 }

@@ -1,7 +1,6 @@
 {
   config = {
     clipboard.register = "unnamedplus";
-    editorconfig.enable = true;
     globals = {
       mapleader = " ";
       maplocalleader = " ";
@@ -64,6 +63,8 @@
           foldsep = "│";
           foldclose = "";
         };
+        foldmethod = "expr";
+        foldexpr = "nvim_treesitter#foldexpr()";
         foldenable = true;
 
         # panels
@@ -86,6 +87,9 @@
           "menuone"
           "noselect"
         ];
+
+        timeout = true;
+        timeoutlen = 500;
       };
   };
 }
