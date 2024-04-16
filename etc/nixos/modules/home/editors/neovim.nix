@@ -20,7 +20,7 @@ in
       wget
     ];
 
-    programs.nixvim =  _: {
+    programs.nixvim = _: {
       imports = [ ../../nixvim ];
       enable = true;
       defaultEditor = true;
