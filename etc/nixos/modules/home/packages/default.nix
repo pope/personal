@@ -38,6 +38,7 @@ in
       imagemagick
       jq
       neofetch
+      nh
       nvd
       procs # ps
       ripgrep
