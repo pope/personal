@@ -36,6 +36,7 @@ in
     {
       my.home.theme.colors = colors;
 
+      my.home.editors.neovim.colorScheme = cfg.colorScheme;
       my.home.gtk.theme = cfg.colorScheme;
       my.home.shell.fish.colorScheme = cfg.colorScheme;
       my.home.terminals.kitty.colorScheme = cfg.colorScheme;
