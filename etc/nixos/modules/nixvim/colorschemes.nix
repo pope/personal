@@ -1,9 +1,21 @@
-{ pkgs, helpers, ... }:
+{ pkgs, helpers, lib, config, ... }:
 
 let
   inherit (import ./lib.nix { inherit helpers; }) lua;
+  inherit (lib) mkOption types optionalString;
+  cfg = config.my.nixvim.theme;
 in
 {
+  options.my.nixvim.theme = {
+    colorScheme = mkOption {
+      type = types.enum [ "rose-pine" "catppuccin" ];
+      default = "rose-pine";
+      description = lib.mkDoc ''
+        Which color theme to use.
+      '';
+    };
+  };
+
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
       pkg = rose-pine;
@@ -36,7 +48,9 @@ in
       config = ''
         function(_, opts)
           require('rose-pine').setup(opts)
-          vim.cmd('colorscheme rose-pine')
+      '' + (optionalString (cfg.colorScheme == "rose-pine") ''
+        vim.cmd('colorscheme rose-pine')
+      '') + ''
         end
       '';
     }
@@ -73,7 +87,9 @@ in
       config = ''
         function(_, opts)
           require("catppuccin").setup(opts)
-          -- vim.cmd("colorscheme catppuccin")
+      '' + (optionalString (cfg.colorScheme == "catppuccin") ''
+        vim.cmd("colorscheme catppuccin")
+      '') + ''
         end
       '';
     }
