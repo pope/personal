@@ -85,6 +85,16 @@
   };
   powerManagement.powertop.enable = true;
 
+  # Fingerprint
+  services = {
+    open-fprintd.enable = true;
+    python-validity.enable = true;
+  };
+  security.pam.services = {
+    sudo.fprintAuth = true;
+    polkit-1.fprintAuth = true;
+  };
+
   my.nixos = {
     mainUser = "pope";
 

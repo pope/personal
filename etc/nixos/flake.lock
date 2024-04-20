@@ -83,6 +83,26 @@
         "type": "github"
       }
     },
+    "fingerprint-sensor": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1702831324,
+        "narHash": "sha256-bpDHKBDBcuMO14FFdBCEfsW26hzu2lby6xtfoU0jKW4=",
+        "owner": "ahbnr",
+        "repo": "nixos-06cb-009a-fingerprint-sensor",
+        "rev": "58a01fe62f5a71778bffaeb9929a118b4be0d222",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ahbnr",
+        "repo": "nixos-06cb-009a-fingerprint-sensor",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -893,6 +913,7 @@
     "root": {
       "inputs": {
         "anyrun": "anyrun",
+        "fingerprint-sensor": "fingerprint-sensor",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
