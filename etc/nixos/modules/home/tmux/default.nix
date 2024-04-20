@@ -41,8 +41,6 @@ in
         { plugin = tmux-fzf; }
         { plugin = yank; }
         { plugin = tmux-thumbs; extraConfig = "set -g @thumbs-osc52 1"; }
-        { plugin = resurrect; extraConfig = "set -g @resurrect-strategy-nvim 'session'"; }
-        { plugin = continuum; extraConfig = "set -g @continuum-restore 'on'"; }
       ] ++ optionals (cfg.colorScheme == "rose-pine") [
         {
           plugin = rose-pine;
@@ -79,7 +77,13 @@ in
             set -g @catppuccin_directory_text "#{pane_current_path}"
           '';
         }
-      ];
+      ] ++ (with pkgs.tmuxPlugins; [
+        # These come last because continuum updates the `status-left` &
+        # `status-right` variables - and thus need to come after the themeing
+        # stuff above.
+        { plugin = resurrect; extraConfig = "set -g @resurrect-strategy-nvim 'session'"; }
+        { plugin = continuum; extraConfig = "set -g @continuum-restore 'on'"; }
+      ]);
       extraConfig = ''
         set-option -sa terminal-features ',alacritty*:RGB,foot*:RGB,xterm-kitty*:RGB,xterm-256color:RGB'
         
