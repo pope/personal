@@ -188,7 +188,7 @@
           extraModules = [
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
             hyprland.nixosModules.default
-            fingerprint-sensor.nixosModules.open-fprintd 
+            fingerprint-sensor.nixosModules.open-fprintd
             fingerprint-sensor.nixosModules.python-validity
           ];
         })
