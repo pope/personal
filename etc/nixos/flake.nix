@@ -74,6 +74,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    fingerprint-sensor = {
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -89,6 +93,7 @@
     , nixgl
     , nixvim
     , keymapp
+    , fingerprint-sensor
     , ...
     } @ inputs:
     let
@@ -183,6 +188,8 @@
           extraModules = [
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
             hyprland.nixosModules.default
+            fingerprint-sensor.nixosModules.open-fprintd 
+            fingerprint-sensor.nixosModules.python-validity
           ];
         })
         (mkNixosSystem {
