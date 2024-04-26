@@ -8,7 +8,7 @@ in
   options.my.home.terminals.wezterm = {
     enable = mkEnableOption "WezTerm terminal home options";
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
@@ -32,7 +32,11 @@ in
           colorScheme =
             if cfg.colorScheme == "rose-pine"
             then "rose-pine"
-            else "catppuccin-mocha";
+            else if cfg.colorScheme == "catppuccin"
+            then "catppuccin-mocha"
+            else if cfg.colorScheme == "dracula"
+            then "Dracula (Official)"
+            else abort "invalid colorScheme";
           # Add lua syntax highlighting via TreeSitter
           lua = txt: txt;
         in

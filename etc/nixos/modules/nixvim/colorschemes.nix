@@ -8,7 +8,7 @@ in
 {
   options.my.nixvim.theme = {
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
@@ -89,6 +89,27 @@ in
           require("catppuccin").setup(opts)
       '' + (optionalString (cfg.colorScheme == "catppuccin") ''
         vim.cmd("colorscheme catppuccin")
+      '') + ''
+        end
+      '';
+    }
+    {
+      pkg = dracula-nvim;
+      priority = 1000;
+      opts.transparent_bg = true;
+      opts.italic_comment = true;
+      opts.overrides = lua ''
+        function(colors)
+          return {
+            NotifyBackground = { bg = colors.bg },
+          }
+        end
+      '';
+      config = ''
+        function(_, opts)
+          require("dracula").setup(opts)
+      '' + (optionalString (cfg.colorScheme == "dracula") ''
+        vim.cmd("colorscheme dracula")
       '') + ''
         end
       '';

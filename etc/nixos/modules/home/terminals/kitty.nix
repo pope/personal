@@ -8,7 +8,7 @@ in
   options.my.home.terminals.kitty = {
     enable = mkEnableOption "Kitty terminal home options";
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
@@ -66,9 +66,10 @@ in
         "map cmd+0" = "change_font_size all 0";
       };
       theme =
-        if cfg.colorScheme == "rose-pine"
-        then "Rosé Pine"
-        else "Catppuccin-Mocha";
+        if cfg.colorScheme == "rose-pine" then "Rosé Pine"
+        else if cfg.colorScheme == "catppuccin" then "Catppuccin-Mocha"
+        else if cfg.colorScheme == "dracula" then "Dracula"
+        else abort "invalid theme";
     };
   };
 }

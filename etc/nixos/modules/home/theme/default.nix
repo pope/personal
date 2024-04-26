@@ -7,7 +7,7 @@ in
 {
   options.my.home.theme = {
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which theme to use with UI elements.
@@ -24,9 +24,13 @@ in
   config = mkIf (cfg.colorScheme != null) (
     let
       colorScheme =
-        if cfg.colorScheme == "rose-pine"
-        then inputs.nix-colors.colorSchemes.rose-pine
-        else inputs.nix-colors.colorSchemes.catppuccin-mocha;
+        if cfg.colorScheme == "rose-pine" then
+          inputs.nix-colors.colorSchemes.rose-pine
+        else if cfg.colorScheme == "catppuccin" then
+          inputs.nix-colors.colorSchemes.catppuccin-mocha
+        else if cfg.colorScheme == "dracula" then
+          inputs.nix-colors.colorSchemes.dracula
+        else abort "colorScheme is invalid";
       inherit (colorScheme) palette;
       colors = palette // {
         withHash = builtins.mapAttrs (_k: v: "#${v}") palette;

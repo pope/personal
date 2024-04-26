@@ -7,13 +7,14 @@ in
 {
   imports = [
     ./catppuccin.nix
+    ./dracula.nix
     ./rose-pine.nix
   ];
 
   options.my.home.gtk = {
     enable = mkEnableOption "GTK home options";
     theme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which theme to use with the GTK configuration.

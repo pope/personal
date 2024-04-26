@@ -8,7 +8,7 @@ in
   options.my.home.editors.neovim = {
     enable = mkEnableOption "Neovim text editor home options";
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
