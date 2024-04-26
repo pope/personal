@@ -16,7 +16,7 @@ in
       };
 
       theme = {
-        name = "Catppuccin-Mocha-Standard-Mauve-dark";
+        name = "Catppuccin-Mocha-Standard-Mauve-Dark";
         package = pkgs.catppuccin-gtk.override {
           size = "standard";
           accents = [ "mauve" ];
@@ -40,18 +40,5 @@ in
         "Net/ThemeName" = "${gtk.theme.name}";
       };
     };
-
-    xdg =
-      let
-        themeDir = "${gtk.theme.package}/share/themes/${gtk.theme.name}";
-      in
-      {
-        configFile."gtk-4.0/assets" = {
-          source = "${themeDir}/gtk-4.0/assets";
-          recursive = true;
-        };
-        configFile."gtk-4.0/gtk.css".source = "${themeDir}/gtk-4.0/gtk.css";
-        configFile."gtk-4.0/gtk-dark.css".source = "${themeDir}/gtk-4.0/gtk-dark.css";
-      };
   };
 }
