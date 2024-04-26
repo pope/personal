@@ -8,7 +8,7 @@ in
   options.my.home.tmux = {
     enable = mkEnableOption "tmux home options";
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
@@ -75,6 +75,15 @@ in
             set -g @catppuccin_status_connect_separator "no"
 
             set -g @catppuccin_directory_text "#{pane_current_path}"
+          '';
+        }
+      ] ++ optionals (cfg.colorScheme == "dracula") [
+        {
+          plugin = dracula;
+          extraConfig = ''
+            set -g @dracula-show-powerline true
+            set -g @dracula-show-left-sep ""
+            set -g @dracula-show-right-sep ""
           '';
         }
       ] ++ (with pkgs.tmuxPlugins; [

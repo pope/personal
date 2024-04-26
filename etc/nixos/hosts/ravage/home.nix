@@ -55,7 +55,7 @@
     shell.fish.enable = true;
     terminals.kitty.enable = true;
     terminals.wezterm.enable = true;
-    theme.colorScheme = "catppuccin";
+    theme.colorScheme = "dracula";
     tmux.enable = true;
     xdg.enable = true;
   };
