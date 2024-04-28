@@ -186,10 +186,11 @@
           name = "ravage";
           system = "x86_64-linux";
           extraModules = [
-            nixos-hardware.nixosModules.lenovo-thinkpad-t480
-            hyprland.nixosModules.default
             fingerprint-sensor.nixosModules.open-fprintd
             fingerprint-sensor.nixosModules.python-validity
+            hyprland.nixosModules.default
+            musnix.nixosModules.musnix
+            nixos-hardware.nixosModules.lenovo-thinkpad-t480
           ];
         })
         (mkNixosSystem {
