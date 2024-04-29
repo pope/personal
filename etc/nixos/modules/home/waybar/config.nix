@@ -52,7 +52,7 @@ in
       on-click = "activate";
       show-special = "false";
       sort-by-number = true;
-      persistent_workspaces = {
+      persistent-workspaces = {
         "*" = 8;
       };
     };
