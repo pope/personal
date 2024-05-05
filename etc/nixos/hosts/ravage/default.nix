@@ -48,6 +48,7 @@
     # Enable networking
     networkmanager.enable = true;
 
+    enableIPv6 = false;
     firewall.allowedTCPPorts = [ 8001 ];
   };
 
