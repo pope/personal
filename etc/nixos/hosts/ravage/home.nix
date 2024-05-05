@@ -13,10 +13,12 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
+      blender
       discord
+      godot_4
       intel-gpu-tools
-      stow
       nvtopPackages.intel
+      stow
     ];
 
     stateVersion = "23.05";
