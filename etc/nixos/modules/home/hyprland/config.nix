@@ -75,7 +75,10 @@ in
       "col.active_border" = "rgb(${base0B}) rgb(${base0D}) 45deg";
       "col.inactive_border" = "rgb(${base02})";
       layout = "dwindle";
-      no_cursor_warps = true;
+    };
+
+    cursor = {
+      no_warps = true;
     };
 
     decoration = {
