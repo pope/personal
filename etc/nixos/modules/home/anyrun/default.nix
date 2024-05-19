@@ -17,7 +17,9 @@ in
         plugins = lib.optionals pkgs.stdenv.isLinux [
           inputs.anyrun.packages.${pkgs.system}.applications
           inputs.anyrun.packages.${pkgs.system}.dictionary
-          inputs.anyrun.packages.${pkgs.system}.randr
+          # TODO(pope): Re-enable when the bug is fixed.
+          # See https://github.com/anyrun-org/anyrun/issues/153
+          # inputs.anyrun.packages.${pkgs.system}.randr
           inputs.anyrun.packages.${pkgs.system}.rink
           inputs.anyrun.packages.${pkgs.system}.stdin
           inputs.anyrun.packages.${pkgs.system}.shell
