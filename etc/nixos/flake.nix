@@ -135,6 +135,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = { inherit inputs self; };
+                home-manager.backupFileExtension = "hm-backup";
 
                 home-manager.users.${user} =
                   import (./hosts + "/${name}/home.nix");
