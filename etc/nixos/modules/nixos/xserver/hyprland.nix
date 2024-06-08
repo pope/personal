@@ -26,20 +26,9 @@ in
       xserver.enable = true;
     };
 
-    security = {
-      pam.services = {
-        greetd.enableGnomeKeyring = true;
-        swaylock = { };
-      };
-      polkit.enable = true;
-    };
+    security.pam.services.greetd.enableGnomeKeyring = true;
 
-    xdg = {
-      portal = {
-        enable = true;
-        wlr.enable = true;
-      };
-    };
+    xdg.portal.enable = true;
 
     programs = {
       hyprland = {
