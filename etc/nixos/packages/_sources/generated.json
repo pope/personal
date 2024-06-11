@@ -1,7 +1,7 @@
 {
     "fish-catppuccin": {
         "cargoLocks": null,
-        "date": "2023-11-02",
+        "date": "2024-05-14",
         "extract": null,
         "name": "fish-catppuccin",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0ce27b518e8ead555dec34dd8be3df5bd75cff8e",
-            "sha256": "sha256-Dc/zdxfzAUM5NX8PxzfljRbYvO9f9syuLO8yBr+R3qg=",
+            "rev": "a3b9eb5eaf2171ba1359fe98f20d226c016568cf",
+            "sha256": "sha256-shQxlyoauXJACoZWtRUbRMxmm10R8vOigXwjxBhG8ng=",
             "type": "git",
             "url": "https://github.com/catppuccin/fish"
         },
-        "version": "0ce27b518e8ead555dec34dd8be3df5bd75cff8e"
+        "version": "a3b9eb5eaf2171ba1359fe98f20d226c016568cf"
     },
     "fish-rose-pine": {
         "cargoLocks": null,
