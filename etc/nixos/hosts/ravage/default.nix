@@ -15,8 +15,13 @@
   boot = {
     # Bootloader.
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot.enable = false;
       efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        efiSupport = true;
+        device = "nodev";
+      };
     };
 
     # Setup keyfile
