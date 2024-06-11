@@ -24,6 +24,8 @@ css ''
   @define-color base0F ${color.base0F};
 
   * {
+    font-family: "Iosevka, monospace";
+    font-weight: normal;
     font-size: 0.9rem;
   }
 
@@ -49,6 +51,7 @@ css ''
 
   #custom-launcher {
     color: @base00;
+    font-size: 1.5rem;
     margin-left: 0.5rem;
     margin-right: 1rem;
   }
@@ -122,6 +125,7 @@ css ''
 
   #custom-power {
     color: @base00;
+    font-size: 1.2rem;
     margin-right: 0.5rem;
     margin-left: 1.2rem;
   }

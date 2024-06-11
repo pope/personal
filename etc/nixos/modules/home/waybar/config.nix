@@ -143,7 +143,7 @@ in
     };
 
     "custom/launcher" = {
-      format = " ";
+      format = "";
       # on-click = "notify-send -t 1 'swww' '1' & ~/.config/hypr/scripts/wall";
       tooltip = false;
     };
