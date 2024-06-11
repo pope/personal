@@ -7,6 +7,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    iosevka
     libcanberra-gtk3
   ];
 
