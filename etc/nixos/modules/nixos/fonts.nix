@@ -17,11 +17,15 @@ in
         fira-go
         go-font
         hasklig
+        helvetica-neue-lt-std
+        inter
         iosevka
         iosevka-comfy.comfy
         jetbrains-mono
         joypixels
         noto-fonts-emoji
+        open-sans
+        roboto
         source-serif
         work-sans
         (nerdfonts.override {
