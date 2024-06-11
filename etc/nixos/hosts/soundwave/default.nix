@@ -15,8 +15,17 @@
   boot = {
     # Bootloader.
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot.enable = false;
       efi.canTouchEfiVariables = true;
+      grub = rec {
+        enable = true;
+        efiSupport = true;
+        default = "saved";
+        device = "nodev";
+        useOSProber = true;
+        theme = "${pkgs.p5r-grub}/joker";
+        splashImage = "${theme}/background.png";
+      };
     };
 
     initrd = {
