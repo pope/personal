@@ -35,8 +35,6 @@ in
       enable = true;
 
       font = {
-        # name = "Helvetica Neue LT Std, Light";
-        # package = pkgs.helvetica-neue-lt-std;
         name = "Work Sans, Thin";
         package = pkgs.work-sans;
         size = 11;
