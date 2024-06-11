@@ -3,16 +3,16 @@
 {
   fish-catppuccin = {
     pname = "fish-catppuccin";
-    version = "0ce27b518e8ead555dec34dd8be3df5bd75cff8e";
+    version = "a3b9eb5eaf2171ba1359fe98f20d226c016568cf";
     src = fetchgit {
       url = "https://github.com/catppuccin/fish";
-      rev = "0ce27b518e8ead555dec34dd8be3df5bd75cff8e";
+      rev = "a3b9eb5eaf2171ba1359fe98f20d226c016568cf";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Dc/zdxfzAUM5NX8PxzfljRbYvO9f9syuLO8yBr+R3qg=";
+      sha256 = "sha256-shQxlyoauXJACoZWtRUbRMxmm10R8vOigXwjxBhG8ng=";
     };
-    date = "2023-11-02";
+    date = "2024-05-14";
   };
   fish-rose-pine = {
     pname = "fish-rose-pine";
