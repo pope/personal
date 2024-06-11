@@ -5,7 +5,7 @@ let
   mypkgs = self.packages.${final.system};
 in
 {
-  inherit (mypkgs) fish-rose-pine fish-catppuccin fsrcnnx modernx plow;
+  inherit (mypkgs) fish-rose-pine fish-catppuccin fsrcnnx modernx plow p5r-grub;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
 
   renoise343 = prev.renoise.override {

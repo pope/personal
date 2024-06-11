@@ -136,6 +136,26 @@
         },
         "version": "b3f0a59d68f33b7162051ea5970a5169558f0ea2"
     },
+    "p5r-grub": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "p5r-grub",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SiriusAhu",
+            "repo": "Persona_5_Royal_Grub_Themes",
+            "rev": "v1.0",
+            "sha256": "sha256-YnTBgUWWsR0W8eTtg3oa2MIXSqj7HW555xSEhV7/74w=",
+            "type": "github"
+        },
+        "version": "v1.0"
+    },
     "plow": {
         "cargoLocks": null,
         "date": null,

@@ -17,10 +17,12 @@
     loader = {
       systemd-boot.enable = false;
       efi.canTouchEfiVariables = true;
-      grub = {
+      grub = rec {
         enable = true;
         efiSupport = true;
         device = "nodev";
+        theme = "${pkgs.p5r-grub}/navi";
+        splashImage = "${theme}/background.png";
       };
     };
 
