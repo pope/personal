@@ -83,6 +83,17 @@
     };
     date = "2024-01-11";
   };
+  p5r-grub = {
+    pname = "p5r-grub";
+    version = "v1.0";
+    src = fetchFromGitHub {
+      owner = "SiriusAhu";
+      repo = "Persona_5_Royal_Grub_Themes";
+      rev = "v1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-YnTBgUWWsR0W8eTtg3oa2MIXSqj7HW555xSEhV7/74w=";
+    };
+  };
   plow = {
     pname = "plow";
     version = "v1.3.1";
