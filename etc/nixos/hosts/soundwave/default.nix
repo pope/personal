@@ -20,15 +20,8 @@
     };
 
     initrd = {
-      # Setup keyfile
-      secrets = {
-        "/crypto_keyfile.bin" = null;
-      };
-
-      # Enable swap on luks
-      luks.devices."luks-4ad17370-d029-41e6-9ef0-cf3fec50df26" = {
-        device = "/dev/disk/by-uuid/4ad17370-d029-41e6-9ef0-cf3fec50df26";
-        keyFile = "/crypto_keyfile.bin";
+      luks.devices."luks-56068f38-928f-450d-b4e4-96be2a27674e" = {
+        device = "/dev/disk/by-uuid/56068f38-928f-450d-b4e4-96be2a27674e";
       };
 
       kernelModules = [ "nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
@@ -148,5 +141,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 }
