@@ -17,6 +17,7 @@
     binfmt.emulatedSystems = [ "x86_64-linux" ];
   };
 
+  nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     # Fixes cross-compiling for the SD card for the PI.
     # See: https://github.com/NixOS/nixpkgs/issues/126755
@@ -57,10 +58,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    bat
     git
     ntfs3g
-    vim
   ];
 
   services = {
@@ -70,10 +69,20 @@
         /mnt/Cyberia    192.168.86.0/24(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1002,anongid=100)
       '';
     };
+    rpcbind.enable = true;
     openssh.enable = true;
+    zerotierone = {
+      enable = true;
+      joinNetworks = [ "272f5eae164a4c0f" ];
+    };
   };
 
   security.sudo.wheelNeedsPassword = false;
+
+  time = {
+    timeZone = "America/Los_Angeles";
+    hardwareClockInLocalTime = true;
+  };
 
   my.nixos = {
     mainUser = "pi";
