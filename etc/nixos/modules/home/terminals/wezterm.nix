@@ -37,10 +37,8 @@ in
             else if cfg.colorScheme == "dracula"
             then "Dracula (Official)"
             else abort "invalid colorScheme";
-          # Add lua syntax highlighting via TreeSitter
-          lua = txt: txt;
         in
-        lua ''
+          /* lua */ ''
           local config = wezterm.config_builder()
 
           config.color_scheme = '${colorScheme}'

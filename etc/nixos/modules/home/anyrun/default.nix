@@ -60,7 +60,7 @@ in
         '';
       };
 
-      extraCss = ''
+      extraCss = /* css */ ''
         * {
           color: ${base05};
         }

@@ -1,7 +1,6 @@
 { pkgs, helpers, lib, config, ... }:
 
 let
-  inherit (import ./lib.nix { inherit helpers; }) lua;
   inherit (lib) mkOption types optionalString;
   cfg = config.my.nixvim.theme;
 in
@@ -20,7 +19,7 @@ in
     {
       pkg = rose-pine;
       priority = 1000;
-      opts = lua ''
+      opts = helpers.mkRaw /* lua */ ''
         function()
           local p = require("rose-pine.palette")
           return {
@@ -76,7 +75,7 @@ in
         ufo = true;
         which_key = true;
       };
-      opts.custom_highlights = lua ''
+      opts.custom_highlights = helpers.mkRaw /* lua */ ''
         function(colors)
           return {
             ColorColumn = { bg = colors.surface0 },
@@ -98,7 +97,7 @@ in
       priority = 1000;
       opts.transparent_bg = true;
       opts.italic_comment = true;
-      opts.overrides = lua ''
+      opts.overrides = helpers.mkRaw /* lua */ ''
         function(colors)
           return {
             NotifyBackground = { bg = colors.bg },

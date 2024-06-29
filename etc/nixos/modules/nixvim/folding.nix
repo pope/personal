@@ -1,15 +1,12 @@
 { pkgs, helpers, ... }:
 
-let
-  inherit (import ./lib.nix { inherit helpers; }) lua;
-in
 {
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
       pkg = nvim-ufo;
       dependencies = [ promise-async ];
       event = [ "BufReadPost" "BufNewFile" ];
-      opts = lua ''
+      opts = helpers.mkRaw /* lua */ ''
         function(_, opts)
           local handler = function(virtText, lnum, endLnum, width, truncate)
             local newVirtText = {}

@@ -7,7 +7,6 @@ let
     rhs = "<cmd>Telescope ${cmd}<cr>";
     inherit desc;
   };
-  lua = x: x;
 in
 {
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
@@ -42,7 +41,7 @@ in
         (searchmap "Search workspace symbols" "sdw" "lsp_dynamic_workspace_symbols")
         (searchmap "Search undo tree" "su" "undo")
       ];
-      config = lua ''
+      config = /* lua */ ''
         function (_, opts)
           require("telescope").setup(opts)
           require("telescope").load_extension("file_browser")

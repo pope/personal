@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 let
-  lua = x: x;
   allParsers = with pkgs.vimPlugins;
     builtins.filter
       (p: p.pkg ? type && p.pkg.type == "derivation")
@@ -23,6 +22,7 @@ in
         # Parsers that should be auto-loaded. These are ones that can be
         # embedded into other languages or are just so common.
         nvim-treesitter-parsers.bash
+        nvim-treesitter-parsers.css
         nvim-treesitter-parsers.lua
         nvim-treesitter-parsers.markdown
         nvim-treesitter-parsers.markdown_inline
@@ -134,11 +134,11 @@ in
       };
       config =
         let
-          mapping = key: cmd: lua ''
+          mapping = key: cmd: /* lua */ ''
             vim.keymap.set({ "n", "x", "o" }, "${key}", ts_repeat_move.${cmd})
           '';
         in
-        lua ''
+          /* lua */ ''
           function (_, opts)
             require("nvim-treesitter.configs").setup(opts)
             local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")

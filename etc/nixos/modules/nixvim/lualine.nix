@@ -1,15 +1,12 @@
 { pkgs, helpers, ... }:
 
-let
-  inherit (import ./lib.nix { inherit helpers; }) lua;
-in
 {
   config.autoGroups.cursorColor = { };
   config.autoCmd = [
     {
       group = "cursorColor";
       event = "ModeChanged";
-      callback = lua ''
+      callback = helpers.mkRaw /* lua */ ''
         function()
           local auto = require("lualine.themes.auto")
           local modes = {
