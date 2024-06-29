@@ -67,10 +67,9 @@
   };
 
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      setLdLibraryPath = true;
+      enable32Bit = true;
     };
 
     nvidia = {
@@ -128,6 +127,7 @@
     fah.enable = true;
     fonts.enable = true;
     gaming.enable = true;
+    gaming.enableSteam = true;
     onepassword.enable = true;
     printing.enable = true;
     sound.enable = true;
