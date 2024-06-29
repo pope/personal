@@ -1,10 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, helpers, ... }:
 
 # Shout out to https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
-
-let
-  lua = x: x;
-in
 {
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
@@ -37,7 +33,7 @@ in
         nvim-navic
       ];
       event = [ "BufReadPre" "BufNewFile" ];
-      opts.__raw = lua ''
+      opts = helpers.mkRaw /* lua */ ''
         function (_, opts)
           local capabilities = vim.lsp.protocol.make_client_capabilities()
           capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -165,7 +161,7 @@ in
       '';
     }
   ];
-  config.extraConfigLua = lua ''
+  config.extraConfigLua = /* lua */ ''
     do
       -- diagnostic
       local sign = function(opts)
@@ -215,14 +211,14 @@ in
       group = "lspConfig";
       event = "LspAttach";
       pattern = "*";
-      callback.__raw =
+      callback =
         let
           rawMapping = desc: key: fn: ''
             vim.keymap.set("n", "${key}", ${fn}, { buffer = bufnr, desc = "${desc}" }) 
           '';
           mapping = desc: key: cmd: (rawMapping desc key "vim.lsp.buf.${cmd}");
         in
-        lua ''
+        helpers.mkRaw /* lua */ ''
           function(opts)
             local bufnr = opts.buf
             local client = vim.lsp.get_client_by_id(opts.data.client_id)
@@ -238,11 +234,11 @@ in
             --   vim.lsp.inlay_hint.enable(bufnr, true)
             -- end
             -- -- Some Lsp servers do not advertise inlay hints properly so enable this keybinding regardless
-            -- ${rawMapping "Hints toggle" "<leader>ht" (lua ''
+            -- ${rawMapping "Hints toggle" "<leader>ht" /* lua */ ''
             --   function()
             --     vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
             --   end
-            -- '')}
+            -- ''}
 
             -- Enable completion triggered by <c-x><c-o>
             vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -262,20 +258,20 @@ in
 
             ${mapping "Workspace add folder" "<leader>wa" "add_workspace_folder"}
             ${mapping "Workspace remove folder" "<leader>wr" "remove_workspace_folder"}
-            ${rawMapping "Workspace list folders" "<leader>wl" (lua ''
+            ${rawMapping "Workspace list folders" "<leader>wl" /* lua */ ''
               function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
               end
-            '')}
+            ''}
 
             ${mapping "Format" "<leader>f" "format"}
 
-            ${rawMapping "Format and save" "<leader>F" (lua ''
+            ${rawMapping "Format and save" "<leader>F" /* lua */ ''
               function()
                 vim.lsp.buf.format()
                 vim.api.nvim_command("write")
               end
-            '')}
+            ''}
           end
         '';
     }

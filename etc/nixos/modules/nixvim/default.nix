@@ -62,15 +62,12 @@
 
     autoGroups.restoreCursorPosition = { };
     autoCmd =
-      let
-        lua = x: helpers.mkRaw x;
-      in
       [
         {
           group = "restoreCursorPosition";
           event = "BufReadPost";
           pattern = "*";
-          callback = lua ''
+          callback = helpers.mkRaw /* lua */ ''
             function()
               if vim.fn.line "'\"" > 0 and vim.fn.line "'\"" <= vim.fn.line "$" then
                 vim.cmd [[execute "normal! g'\""]]
