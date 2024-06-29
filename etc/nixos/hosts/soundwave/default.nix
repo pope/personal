@@ -124,7 +124,7 @@
     mainUser = "pope";
 
     bluetooth.enable = true;
-    fah.enable = true;
+    fah.enable = false;
     fonts.enable = true;
     gaming.enable = true;
     gaming.enableSteam = true;
