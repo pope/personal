@@ -7,6 +7,7 @@ in
 {
   options.my.nixos.gaming = {
     enable = mkEnableOption "gaming system options";
+    enableSteam = mkEnableOption "whether or not to enable Steam";
   };
 
   config = mkIf cfg.enable {
@@ -34,6 +35,13 @@ in
     # Hardware support from Steam
     hardware = {
       steam-hardware.enable = true;
+    };
+
+    programs.steam = {
+      enable = cfg.enableSteam;
+      dedicatedServer.openFirewall = true;
+      gamescopeSession.enable = true;
+      remotePlay.openFirewall = true;
     };
   };
 }
