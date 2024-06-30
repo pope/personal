@@ -12,7 +12,6 @@ let
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   grim = "${pkgs.grim}/bin/grim";
   hyprctl = "${hyprland}/bin/hyprctl";
-  kitty = "${pkgs.kitty}/bin/kitty";
   light = "${pkgs.light}/bin/light";
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${pkgs.pamixer}/bin/pamixer";
@@ -20,6 +19,7 @@ let
   swappy = "${pkgs.swappy}/bin/swappy";
   swww = "${pkgs.swww}/bin/swww";
   systemctl = "${pkgs.systemd}/bin/systemctl";
+  terminal = "${pkgs.wezterm}/bin/wezterm";
   thunar = "${pkgs.xfce.thunar}/bin/thunar";
   udiskie = "${pkgs.udiskie}/bin/udiskie";
   waybar = "${pkgs.waybar}/bin/waybar";
@@ -174,7 +174,7 @@ in
       "SUPER SHIFT, N, changegroupactive, f"
       "SUPER SHIFT, P, changegroupactive, b"
 
-      "SUPER, Return, exec, ${kitty}"
+      "SUPER, Return, exec, ${terminal}"
       "SUPER, E, exec, ${thunar}"
       "SUPER, Space, exec, ${anyrun}"
 
