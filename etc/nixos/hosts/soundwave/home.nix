@@ -65,6 +65,7 @@
     };
     packages.enable = true;
     shell.fish.enable = true;
+    shell.zsh.enable = true;
     terminals = {
       crt.enable = true;
       kitty.enable = true;

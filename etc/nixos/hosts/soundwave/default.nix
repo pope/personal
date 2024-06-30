@@ -132,8 +132,9 @@
     printing.enable = true;
     sound.enable = true;
     system.enable = true;
-    wayland.enable = true;
+    users.shell = "zsh";
     virtualization.enable = true;
+    wayland.enable = true;
     xserver = {
       enable = true;
 
