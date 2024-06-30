@@ -24,7 +24,7 @@ in
 
   config = mkIf cfg.enable rec {
     home.pointerCursor = {
-      name = "Catppuccin-Mocha-Mauve-Cursors";
+      name = "catppuccin-mocha-mauve-cursors";
       size = 32;
       package = pkgs.catppuccin-cursors.mochaMauve;
       gtk.enable = true;
