@@ -21,10 +21,10 @@ let
 in
 {
   imports = [
-    ../waybar
-
     ./config.nix
   ];
+
+  my.home.waybar.enable = true;
 
   wayland.windowManager.hyprland = {
     enable = true;

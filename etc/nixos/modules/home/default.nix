@@ -6,8 +6,7 @@ let
     (builtins.filter
       (p: p != "default.nix"
         # TODO(pope): Turn these into config-based modules.
-        && p != "hyprland"
-        && p != "waybar")
+        && p != "hyprland")
       (builtins.attrNames (builtins.readDir ./.)));
 in
 {
