@@ -4,9 +4,7 @@ let
   imports = map
     (p: ./. + "/${p}")
     (builtins.filter
-      (p: p != "default.nix"
-        # TODO(pope): Turn these into config-based modules.
-        && p != "hyprland")
+      (p: p != "default.nix")
       (builtins.attrNames (builtins.readDir ./.)));
 in
 {
