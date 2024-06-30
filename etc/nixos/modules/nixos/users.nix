@@ -34,10 +34,17 @@ in
         option if both are set.
       '';
     };
+    shell = mkOption {
+      default = "fish";
+      description = "Which shell to use";
+      example = "zsh";
+      type = types.enum [ "fish" "zsh" ];
+    };
   };
 
   config = {
-    programs.fish.enable = true;
+    programs.fish.enable = cfg.shell == "fish";
+    programs.zsh.enable = cfg.shell == "zsh";
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users."${mainUser}" = {
@@ -57,7 +64,10 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGg+9LMpvJUBVCndjopRX7Jm6veGyHkf1ZBI/434K2a4"
       ];
       packages = [ ];
-      shell = pkgs.fish;
+      shell =
+        if cfg.shell == "fish" then pkgs.fish
+        else if cfg.shell == "zsh" then pkgs.zsh
+        else abort "shell is invalid";
     };
 
     users.groups.plugdev = { };
