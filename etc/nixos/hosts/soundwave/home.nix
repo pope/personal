@@ -13,6 +13,7 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
+      bitwig-studio
       discord
       nvtopPackages.nvidia
     ];
