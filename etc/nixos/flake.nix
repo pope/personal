@@ -195,6 +195,14 @@
           ];
         })
         (mkNixosSystem {
+          name = "rumble";
+          system = "x86_64-linux";
+          extraModules = [
+            nixos-hardware.nixosModules.framework-13-7040-amd
+            hyprland.nixosModules.default
+          ];
+        })
+        (mkNixosSystem {
           name = "nixos-testing";
           system = "x86_64-linux";
           extraModules = [
