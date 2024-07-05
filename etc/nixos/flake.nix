@@ -22,6 +22,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-24.05";
     nixpkgs-2305.url = "github:NixOS/nixpkgs/release-23.05";
 
     home-manager = {
@@ -89,6 +90,7 @@
     , nixos-generators
     , nixos-hardware
     , nixpkgs
+    , nixpkgs-stable
     , nixpkgs-2305
     , nixgl
     , nixvim
@@ -113,6 +115,10 @@
             inherit system;
             specialArgs = {
               inherit inputs self;
+              pkgs-stable = import nixpkgs-stable {
+                inherit system;
+                config.allowUnfree = true;
+              };
               pkgs-2305 = import nixpkgs-2305 {
                 inherit system;
                 config.allowUnfree = true;
@@ -134,7 +140,13 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit inputs self; };
+                home-manager.extraSpecialArgs = {
+                  inherit inputs self;
+                  pkgs-stable = import nixpkgs-stable {
+                    inherit system;
+                    config.allowUnfree = true;
+                  };
+                };
                 home-manager.backupFileExtension = "hm-backup";
 
                 home-manager.users.${user} =
@@ -241,11 +253,13 @@
       packages = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          pkgs-stable = nixpkgs-stable.legacyPackages.${system};
           nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
             inherit pkgs;
             module = import ./modules/nixvim;
             # You can use `extraSpecialArgs` to pass additional arguments to your module files
+            extraSpecialArgs = { inherit pkgs-stable; };
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;
           mypkgs = import ./packages { inherit pkgs; } // { inherit nvim; };
@@ -268,10 +282,12 @@
       checks = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          pkgs-stable = nixpkgs-stable.legacyPackages.${system};
           nixvimLib = nixvim.lib.${system};
           nixvimModule = {
             inherit pkgs;
             module = import ./modules/nixvim;
+            extraSpecialArgs = { inherit pkgs-stable; };
           };
         in
         {

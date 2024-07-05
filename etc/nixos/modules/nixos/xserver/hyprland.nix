@@ -27,7 +27,7 @@ in
     };
 
     security.pam.services.greetd.enableGnomeKeyring = true;
-    security.pam.services.hyprlock = {};
+    security.pam.services.hyprlock = { };
 
     xdg.portal.enable = true;
 
