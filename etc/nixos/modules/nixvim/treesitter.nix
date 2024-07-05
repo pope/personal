@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ pkgs-stable, ... }:
 
 let
+  pkgs = pkgs-stable;
   allParsers = with pkgs.vimPlugins;
     builtins.filter
       (p: p.pkg ? type && p.pkg.type == "derivation")
