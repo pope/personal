@@ -1,4 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
+{ pkgs, pkgs-stable, config, lib, inputs, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption mkOption types;
@@ -28,6 +28,7 @@ in
     ];
 
     programs.nixvim = _: {
+      _module.args.pkgs-stable = pkgs-stable;
       imports = [
         ../../nixvim
         { config.my.nixvim.theme.colorScheme = cfg.colorScheme; }
