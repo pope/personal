@@ -1,7 +1,6 @@
-{ pkgs-stable, helpers, ... }:
+{ pkgs, helpers, ... }:
 
 let
-  pkgs = pkgs-stable;
   inherit (import ./lib.nix { inherit helpers; }) mkLazyKeys;
   searchmap = desc: key: cmd: {
     lhs = "<leader>${key}";

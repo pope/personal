@@ -1,7 +1,6 @@
-{ pkgs-stable, helpers, ... }:
+{ pkgs, helpers, ... }:
 
 let
-  pkgs = pkgs-stable;
   inherit (import ./lib.nix { inherit helpers; }) mkLazyKeys;
 in
 {

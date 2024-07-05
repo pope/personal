@@ -1,7 +1,6 @@
-{ pkgs-stable, helpers, lib, config, ... }:
+{ pkgs, helpers, lib, config, ... }:
 
 let
-  pkgs = pkgs-stable;
   inherit (lib) mkOption types optionalString;
   cfg = config.my.nixvim.theme;
 in
