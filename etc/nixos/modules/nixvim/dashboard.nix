@@ -1,8 +1,5 @@
-{ pkgs-stable, ... }:
+{ pkgs, ... }:
 
-let
-  pkgs = pkgs-stable;
-in
 {
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {

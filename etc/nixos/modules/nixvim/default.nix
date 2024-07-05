@@ -1,8 +1,5 @@
-{ pkgs-stable, helpers, ... }:
+{ pkgs, helpers, ... }:
 
-let
-  pkgs = pkgs-stable;
-in
 {
   imports = [
     ./colorschemes.nix
