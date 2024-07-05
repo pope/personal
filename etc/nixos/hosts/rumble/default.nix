@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ ... }:
+{ pkgs, lib, ... }:
 
 {
   imports =
@@ -60,11 +60,34 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+      # rocmPackages.clr.icd
+      amdvlk
+      # Encoding/decoding acceleration
+      libvdpau-va-gl
+      libva-vdpau-driver
+    ];
+    extraPackages32 = with pkgs; [
+      driversi686Linux.amdvlk
+    ];
   };
 
-  services.fwupd.enable = true;
+  hardware.framework.amd-7040.preventWakeOnAC = true;
+
+  services.fwupd = {
+    enable = true;
+    extraRemotes = [ "lvfs-testing" ]; # Some framework firmware is still in testing
+  };
+
   # Must be explicitly false otherwise there's infinite recursion going on.
   services.tlp.enable = false;
+  services.power-profiles-daemon.enable = true;
+  services.thermald.enable = true;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.powertop.enable = true; # Run powertop on boot
+
+  # Does not really work....hmm...
+  services.logind.lidSwitch = "suspend-then-hibernate";
 
   musnix.enable = true;
 
