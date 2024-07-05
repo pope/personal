@@ -1,6 +1,9 @@
-{ pkgs, helpers, ... }:
+{ pkgs-stable, helpers, ... }:
 
 # Shout out to https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
+let
+  pkgs = pkgs-stable;
+in
 {
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {

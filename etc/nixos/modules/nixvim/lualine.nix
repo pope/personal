@@ -1,5 +1,8 @@
-{ pkgs, helpers, ... }:
+{ pkgs-stable, helpers, ... }:
 
+let
+  pkgs = pkgs-stable;
+in
 {
   config.autoGroups.cursorColor = { };
   config.autoCmd = [
