@@ -12,6 +12,7 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
+      bitwig-studio
       discord
       nvtopPackages.amd
     ];
@@ -41,16 +42,17 @@
     hyprland.enable = true;
     keymapp.enable = true;
     languages = {
-      c.enable = true;
-      go.enable = true;
       javascript.enable = true;
       python.enable = true;
-      rust.enable = true;
     };
     lf.enable = true;
-    mpv.enable = true;
+    mpv = {
+      enable = true;
+      enableHqAnimeSettings = true;
+    };
     packages.enable = true;
     shell.fish.enable = true;
+    shell.zsh.enable = true;
     terminals.kitty.enable = true;
     terminals.wezterm.enable = true;
     theme.colorScheme = "rose-pine";
