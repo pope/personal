@@ -1,8 +1,7 @@
-{ pkgs-stable, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 let
-  pkgs = pkgs-stable;
-  allParsers = with pkgs.vimPlugins;
+  allParsers = with pkgs-stable.vimPlugins;
     builtins.filter
       (p: p.pkg ? type && p.pkg.type == "derivation")
       (builtins.map
@@ -20,6 +19,7 @@ in
       dependencies = [
         nvim-treesitter-textobjects
         rainbow-delimiters-nvim
+      ] ++ (with pkgs-stable.vimPlugins; [
         # Parsers that should be auto-loaded. These are ones that can be
         # embedded into other languages or are just so common.
         nvim-treesitter-parsers.bash
@@ -29,7 +29,7 @@ in
         nvim-treesitter-parsers.markdown_inline
         nvim-treesitter-parsers.regex
         nvim-treesitter-parsers.vimdoc
-      ];
+      ]);
       event = [ "BufReadPost" "BufNewFile" ];
       opts.highlight = {
         enable = true;
