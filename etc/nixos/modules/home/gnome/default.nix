@@ -21,7 +21,7 @@ in
       gnomeExtensions.rounded-window-corners
       gnomeExtensions.user-themes
 
-      gnome.gnome-themes-extra
+      gnome-themes-extra
     ];
 
     dconf.settings = {
