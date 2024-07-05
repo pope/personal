@@ -23,7 +23,7 @@ in
     };
 
     # Disable for pipewire
-    hardware .pulseaudio.enable = false;
+    hardware.pulseaudio.enable = false;
 
     # Enabled for pipewire
     security.rtkit.enable = true;
