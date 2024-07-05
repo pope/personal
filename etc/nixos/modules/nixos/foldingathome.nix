@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, config, lib, ... }:
+{ pkgs, pkgs-2305, config, lib, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf mdDoc;
@@ -7,7 +7,7 @@ let
   # binary for the FAHClient. This may be more of a fahclient config thing
   # not being compatible in the new world.
   myfahclient = pkgs.writeShellScriptBin "my-fah-client" ''
-    exec ${pkgs-stable.fahclient}/bin/FAHClient "$@"
+    exec ${pkgs-2305.fahclient}/bin/FAHClient "$@"
   '';
 in
 {
@@ -24,7 +24,7 @@ in
       extraArgs = [ "--pause-on-start" ];
     };
 
-    environment.systemPackages = with pkgs-stable; [
+    environment.systemPackages = with pkgs-2305; [
       fahclient
       fahcontrol
       fahviewer
