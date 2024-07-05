@@ -5,8 +5,6 @@ let
   inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
   anyrunPkg = inputs.anyrun.packages.${pkgs.system}.default;
 
-  bg = "23.png";
-
   # commands
   _1password = "${pkgs._1password-gui}/bin/1password";
   anyrun = "${anyrunPkg}/bin/anyrun";
@@ -18,7 +16,6 @@ let
   pamixer = "${pkgs.pamixer}/bin/pamixer";
   slurp = "${pkgs.slurp}/bin/slurp";
   swappy = "${pkgs.swappy}/bin/swappy";
-  swww = "${pkgs.swww}/bin/swww";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   terminal = "${pkgs.wezterm}/bin/wezterm";
   thunar = "${pkgs.xfce.thunar}/bin/thunar";
@@ -37,13 +34,9 @@ in
         "${systemctl} --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         polkit
         waybar
-        "${swww} init --no-daemon"
         "${nm-applet} --indicator"
         "${udiskie} --appindicator --no-password-prompt"
         "${_1password} --silent"
-      ];
-      exec = [
-        "sleep 3 && ${swww} img ${config.xdg.userDirs.pictures}/${bg}"
       ];
 
       xwayland.force_zero_scaling = true;
