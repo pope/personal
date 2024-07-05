@@ -11,7 +11,7 @@ in
       displayManager.gdm.enable = true;
     };
 
-    environment.systemPackages = with pkgs.gnome; [
+    environment.systemPackages = with pkgs; [
       adwaita-icon-theme
       gnome-themes-extra
     ];
