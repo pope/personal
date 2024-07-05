@@ -25,6 +25,8 @@
     };
 
     supportedFilesystems = [ "ntfs" ];
+
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   networking = {
@@ -42,11 +44,29 @@
 
   time.timeZone = "America/Los_Angeles";
 
-  hardware.graphics.enable = true;
+  fileSystems = {
+    "/media/cyberia" = {
+      device = "raspberrypi.lan:/mnt/Cyberia";
+      fsType = "nfs";
+      options = [
+        "x-systemd.automount"
+        "noauto"
+        "x-systemd.after=network-online.target"
+        "x-systemd.idle-timeout=300"
+      ];
+    };
+  };
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   services.fwupd.enable = true;
   # Must be explicitly false otherwise there's infinite recursion going on.
   services.tlp.enable = false;
+
+  musnix.enable = true;
 
   my.nixos = {
     mainUser = "pope";
@@ -54,9 +74,12 @@
     bluetooth.enable = true;
     fonts.enable = true;
     gaming.enable = true;
+    gaming.enableSteam = true;
     onepassword.enable = true;
+    printing.enable = true;
     sound.enable = true;
     system.enable = true;
+    users.shell = "zsh";
     xserver = {
       enable = true;
 
