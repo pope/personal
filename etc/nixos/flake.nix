@@ -22,7 +22,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-23.05";
+    nixpkgs-2305.url = "github:NixOS/nixpkgs/release-23.05";
 
     home-manager = {
       # The stable URL
@@ -89,7 +89,7 @@
     , nixos-generators
     , nixos-hardware
     , nixpkgs
-    , nixpkgs-stable
+    , nixpkgs-2305
     , nixgl
     , nixvim
     , keymapp
@@ -113,7 +113,7 @@
             inherit system;
             specialArgs = {
               inherit inputs self;
-              pkgs-stable = import nixpkgs-stable {
+              pkgs-2305 = import nixpkgs-2305 {
                 inherit system;
                 config.allowUnfree = true;
                 config.permittedInsecurePackages = [
