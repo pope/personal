@@ -21,6 +21,7 @@ in
       mimeApps.enable = true;
       mimeApps.defaultApplications = {
         "image/gif" = "imv.desktop";
+        "image/jpeg" = "imv.desktop";
         "image/jpg" = "imv.desktop";
         "image/png" = "imv.desktop";
         "image/webp" = "imv.desktop";
