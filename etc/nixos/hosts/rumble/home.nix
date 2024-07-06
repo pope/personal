@@ -21,7 +21,7 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "eDP-1,preferred,auto,1.175"
+    "eDP-1,highres,auto,1.333333"
   ];
 
   programs = {
