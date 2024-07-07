@@ -53,7 +53,9 @@
       python.enable = true;
     };
     lf.enable = true;
-    mpv.enable = true;
+    # Disabling while there's a build error. I also don't use MPV too much on
+    # this system anyway.
+    mpv.enable = false;
     packages.enable = true;
     shell.zsh.enable = true;
     terminals.wezterm.enable = true;
