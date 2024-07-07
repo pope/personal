@@ -173,7 +173,13 @@
               config.allowUnfree = true;
               overlays = extraOverlays ++ [ self.overlays.default ];
             };
-            extraSpecialArgs = { inherit inputs self; };
+            extraSpecialArgs = {
+              inherit inputs self;
+              pkgs-stable = import nixpkgs-stable {
+                inherit system;
+                config.allowUnfree = true;
+              };
+            };
             modules = [
               (./hosts + "/${hostname}/home.nix")
             ];
