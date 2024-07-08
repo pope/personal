@@ -14,6 +14,7 @@ let
   light = "${pkgs.light}/bin/light";
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${pkgs.pamixer}/bin/pamixer";
+  polkit = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
   slurp = "${pkgs.slurp}/bin/slurp";
   swappy = "${pkgs.swappy}/bin/swappy";
   systemctl = "${pkgs.systemd}/bin/systemctl";
@@ -21,7 +22,7 @@ let
   thunar = "${pkgs.xfce.thunar}/bin/thunar";
   udiskie = "${pkgs.udiskie}/bin/udiskie";
   waybar = "${pkgs.waybar}/bin/waybar";
-  polkit = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+  wlogout = "${pkgs.wlogout}/bin/wlogout";
 in
 {
   config = mkIf config.my.home.hyprland.enable {
@@ -172,6 +173,7 @@ in
         "SUPER, Return, exec, ${terminal}"
         "SUPER, E, exec, ${thunar}"
         "SUPER, Space, exec, ${anyrun}"
+        "SUPER, L, exec, ${wlogout}"
 
         "SUPER, Tab, cyclenext"
         "SUPER, Tab, bringactivetotop"
