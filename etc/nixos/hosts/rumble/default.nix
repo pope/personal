@@ -84,6 +84,9 @@
   # Does not really work....hmm...
   services.logind.lidSwitch = "suspend-then-hibernate";
 
+  environment.systemPackages = with pkgs; [
+    renoise343
+  ];
 
   my.nixos = {
     mainUser = "pope";
