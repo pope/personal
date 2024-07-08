@@ -10,7 +10,11 @@ in
 
   renoise343 = prev.renoise.override {
     releasePath =
-      if prev.system == "x86_64-linux"
+      if prev.system == "x86_64-linux" && builtins.pathExists /home/pope/Documents/Software/rns_343_linux_x86_64.tar.gz
+      then /home/pope/Documents/Software/rns_343_linux_x86_64.tar.gz
+      else if builtins.pathExists /home/pope/Documents/Software/rns_343_linux_arm64.tar.gz
+      then /home/pope/Documents/Software/rns_343_linux_arm64.tar.gz
+      else if prev.system == "x86_64-linux"
       then /media/cyberia/Public/Software/rns_343_linux_x86_64.tar.gz
       else /media/cyberia/Public/Software/rns_343_linux_arm64.tar.gz;
   };
