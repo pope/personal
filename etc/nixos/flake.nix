@@ -217,7 +217,6 @@
           system = "x86_64-linux";
           extraModules = [
             hyprland.nixosModules.default
-            musnix.nixosModules.musnix
             nixos-hardware.nixosModules.framework-13-7040-amd
           ];
         })
