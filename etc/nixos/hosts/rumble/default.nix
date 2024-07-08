@@ -84,7 +84,6 @@
   # Does not really work....hmm...
   services.logind.lidSwitch = "suspend-then-hibernate";
 
-  musnix.enable = true;
 
   my.nixos = {
     mainUser = "pope";
