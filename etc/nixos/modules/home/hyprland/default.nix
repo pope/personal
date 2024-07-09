@@ -150,7 +150,7 @@ in
           }
           {
             timeout = 360;
-            on-timeout = "${pkgs.systemd}/bin/loginctl suspend";
+            on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
           }
         ];
       };
