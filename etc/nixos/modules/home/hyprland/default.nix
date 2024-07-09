@@ -31,6 +31,7 @@ in
 {
   options.my.home.hyprland = {
     enable = mkEnableOption "hyprland home options";
+    hypridle.enable = mkEnableOption "Whether to enable hypridle";
   };
 
   imports = [
@@ -127,7 +128,7 @@ in
     };
 
     services.hypridle = {
-      enable = true;
+      enable = cfg.hypridle.enable;
       settings = {
         general = {
           after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
