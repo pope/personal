@@ -76,13 +76,13 @@
 
   # Must be explicitly false otherwise there's infinite recursion going on.
   services.tlp.enable = false;
+  services.logind.lidSwitch = "suspend-then-hibernate";
   services.power-profiles-daemon.enable = true;
-  services.thermald.enable = true;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   powerManagement.powertop.enable = true; # Run powertop on boot
-
-  # Does not really work....hmm...
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+  '';
 
   environment.systemPackages = with pkgs; [
     renoise343
