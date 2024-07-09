@@ -68,7 +68,18 @@
             gopls = {
               gopls = {
                 analyses = {
+                  nilness = true,
+                  shadow = true,
                   unusedparams = true,
+                  unusewrites = true,
+                },
+                hints = {
+                  assignVariableTypes = true,
+                  compositeLiteralFields = true,
+                  constantValues = true,
+                  functionTypeParameters = true,
+                  parameterNames = true,
+                  rangeVariableTypes = true,
                 },
                 staticcheck = true,
               },
@@ -223,22 +234,20 @@
             local bufnr = opts.buf
             local client = vim.lsp.get_client_by_id(opts.data.client_id)
 
-            if client.server_capabilities["documentSymbolProvider"] then
+            if client.supports_method("textDocument/documentSymbol") then
               require("nvim-navic").attach(client, bufnr)
             end
 
-            -- TODO(pope): Enable this.
-            -- -- Enable inlay hints if supported
-            -- local capabilities = client.server_capabilities
-            -- if capabilities.inlayHintProvider then
-            --   vim.lsp.inlay_hint.enable(bufnr, true)
-            -- end
-            -- -- Some Lsp servers do not advertise inlay hints properly so enable this keybinding regardless
-            -- ${rawMapping "Hints toggle" "<leader>ht" /* lua */ ''
-            --   function()
-            --     vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
-            --   end
-            -- ''}
+            if client.supports_method("textDocument/inlayHint") then
+              vim.lsp.inlay_hint.enable(true, { bufnr })
+              ${rawMapping "Hints toggle" "<leader>ht" /* lua */ ''
+                function()
+                  vim.lsp.inlay_hint.enable(
+                      not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }),
+                      { bufnr = 0 })
+                end
+              ''}
+            end
 
             -- Enable completion triggered by <c-x><c-o>
             vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
