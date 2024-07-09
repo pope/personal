@@ -8,16 +8,21 @@ in
   inherit (mypkgs) fish-rose-pine fish-catppuccin fsrcnnx modernx plow p5r-grub;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
 
-  renoise343 = prev.renoise.override {
-    releasePath =
-      if prev.system == "x86_64-linux" && builtins.pathExists /home/pope/Documents/Software/rns_343_linux_x86_64.tar.gz
-      then /home/pope/Documents/Software/rns_343_linux_x86_64.tar.gz
-      else if builtins.pathExists /home/pope/Documents/Software/rns_343_linux_arm64.tar.gz
-      then /home/pope/Documents/Software/rns_343_linux_arm64.tar.gz
-      else if prev.system == "x86_64-linux"
-      then /media/cyberia/Public/Software/rns_343_linux_x86_64.tar.gz
-      else /media/cyberia/Public/Software/rns_343_linux_arm64.tar.gz;
-  };
+  renoise343 = prev.renoise.override (
+    let
+      version = "343";
+      os = if prev.system == "x86_64-linux" then "x86_64" else "arm64";
+      basename = "rns_${version}_linux_${os}.tar.gz";
+      localReleasePath = /home/pope/Documents/Software/${basename};
+      remoteReleasePath = /media/cyberia/Public/Software/${basename};
+    in
+    {
+      releasePath =
+        if builtins.pathExists localReleasePath
+        then localReleasePath
+        else remoteReleasePath;
+    }
+  );
 
 } // prev.lib.optionalAttrs prev.stdenv.isDarwin {
 
