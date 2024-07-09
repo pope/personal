@@ -6,6 +6,14 @@ let
 in
 {
   config = mkIf (cfg.enable && cfg.theme == "catppuccin") rec {
+    home.pointerCursor = {
+      name = "catppuccin-mocha-mauve-cursors";
+      size = 32;
+      package = pkgs.catppuccin-cursors.mochaMauve;
+      gtk.enable = true;
+      x11.enable = true;
+    };
+
     gtk = {
       iconTheme = {
         name = "Papirus-Dark";

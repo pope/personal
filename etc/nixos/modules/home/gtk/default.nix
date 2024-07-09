@@ -23,14 +23,6 @@ in
   };
 
   config = mkIf cfg.enable rec {
-    home.pointerCursor = {
-      name = "catppuccin-mocha-mauve-cursors";
-      size = 32;
-      package = pkgs.catppuccin-cursors.mochaMauve;
-      gtk.enable = true;
-      x11.enable = true;
-    };
-
     gtk = {
       enable = true;
 
@@ -41,7 +33,7 @@ in
       };
 
       cursorTheme = {
-        inherit (home.pointerCursor) name size package;
+        inherit (config.home.pointerCursor) name size package;
       };
 
       gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
