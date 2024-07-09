@@ -37,7 +37,6 @@ in
       hyperfine # benchmark util
       imagemagick
       jq
-      neofetch
       nh
       nvd
       procs # ps
