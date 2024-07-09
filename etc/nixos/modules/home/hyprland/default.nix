@@ -21,6 +21,12 @@ let
       fi
       ${hyprland}/bin/hyprctl reload
     '';
+  caffeinemode  = pkgs.writeShellScriptBin "caffeinemode" ''
+    if ${pkgs.procps}/bin/pidof hypridle > /dev/null
+    then ${pkgs.systemd}/bin/systemctl --user stop hypridle.service && echo "hypridle stopped";
+    else ${pkgs.systemd}/bin/systemctl --user start hypridle.service && echo "hypridle started";
+    fi
+  '';
 in
 {
   options.my.home.hyprland = {
@@ -58,6 +64,7 @@ in
     home = {
       packages = with pkgs; [
         alsa-utils
+        caffeinemode
         gamemode
         grim
         hyprpicker
@@ -130,13 +137,20 @@ in
         };
         listener = [
           {
-            timeout = 900;
-            on-timeout = "${pkgs.hyprlock}/bin/hyprlock";
+            # Dim the brightness of the screen.
+            # The current value is stored so that when resumed, the brightness
+            # will go back up to the original value - animated over time.
+            timeout = 180;
+            on-timeout = "${pkgs.brillo}/bin/brillo -O; ${pkgs.brillo}/bin/brillo -u 1000000 -S 10";
+            on-resume = "${pkgs.brillo}/bin/brillo -I -u 500000";
           }
           {
-            timeout = 1200;
-            on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-            on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+            timeout = 300;
+            on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
+          }
+          {
+            timeout = 360;
+            on-timeout = "${pkgs.systemd}/bin/loginctl suspend";
           }
         ];
       };
