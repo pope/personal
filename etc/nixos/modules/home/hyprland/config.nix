@@ -8,10 +8,10 @@ let
   # commands
   _1password = "${pkgs._1password-gui}/bin/1password";
   anyrun = "${anyrunPkg}/bin/anyrun";
+  brillo = "${pkgs.brillo}/bin/brillo";
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   grim = "${pkgs.grim}/bin/grim";
   hyprctl = "${hyprland}/bin/hyprctl";
-  light = "${pkgs.light}/bin/light";
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${pkgs.pamixer}/bin/pamixer";
   polkit = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
@@ -219,8 +219,8 @@ in
         "SUPER, mouse_up, workspace, e-1"
 
         # Brightness Control Bindings
-        ", XF86MonBrightnessUp, exec, ${light} -A 10"
-        ", XF86MonBrightnessDown, exec, ${light} -U 10"
+        ", XF86MonBrightnessUp, exec, ${brillo} -A 10"
+        ", XF86MonBrightnessDown, exec, ${brillo} -U 10"
         # Audio levels
         ", XF86AudioRaiseVolume, exec, ${pamixer} -u -i 10"
         ", XF86AudioLowerVolume, exec, ${pamixer} -u -d 10"
