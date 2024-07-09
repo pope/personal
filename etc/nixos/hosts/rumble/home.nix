@@ -41,6 +41,7 @@
     gnome.enable = true;
     gtk.enable = true;
     hyprland.enable = true;
+    hyprland.hypridle.enable = true;
     keymapp.enable = true;
     languages = {
       javascript.enable = true;
