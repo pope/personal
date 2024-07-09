@@ -208,7 +208,6 @@
             fingerprint-sensor.nixosModules.open-fprintd
             fingerprint-sensor.nixosModules.python-validity
             hyprland.nixosModules.default
-            musnix.nixosModules.musnix
             nixos-hardware.nixosModules.lenovo-thinkpad-t480
           ];
         })

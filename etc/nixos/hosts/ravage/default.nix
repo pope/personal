@@ -84,7 +84,6 @@
     libva-utils
     renoise343
   ];
-  musnix.enable = true;
 
   services = {
     # Power management
