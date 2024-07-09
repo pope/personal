@@ -21,7 +21,7 @@ let
       fi
       ${hyprland}/bin/hyprctl reload
     '';
-  caffeinemode  = pkgs.writeShellScriptBin "caffeinemode" ''
+  caffeinemode = pkgs.writeShellScriptBin "caffeinemode" ''
     if ${pkgs.procps}/bin/pidof hypridle > /dev/null
     then ${pkgs.systemd}/bin/systemctl --user stop hypridle.service && echo "hypridle stopped";
     else ${pkgs.systemd}/bin/systemctl --user start hypridle.service && echo "hypridle started";
