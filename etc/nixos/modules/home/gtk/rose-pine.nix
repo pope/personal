@@ -6,6 +6,14 @@ let
 in
 {
   config = mkIf (cfg.enable && cfg.theme == "rose-pine") rec {
+    home.pointerCursor = {
+      name = "BreezeX-RosePine-Linux";
+      size = 24;
+      package = pkgs.rose-pine-cursor;
+      gtk.enable = true;
+      x11.enable = true;
+    };
+
     gtk = {
       iconTheme = {
         name = "rose-pine";
