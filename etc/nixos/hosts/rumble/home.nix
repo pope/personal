@@ -17,6 +17,9 @@
         src = /home/pope/Documents/fonts/comic-code-ligatures;
       }))
       discord
+      (lucida-grande.overrideAttrs (_: {
+        src = /home/pope/Documents/fonts/lucida-grande;
+      }))
       nvtopPackages.amd
     ];
 
