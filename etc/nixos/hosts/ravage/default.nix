@@ -85,8 +85,9 @@
     renoise343
   ];
 
+  # Power management
   services = {
-    # Power management
+    logind.lidSwitch = "suspend-then-hibernate";
     thermald.enable = true;
     tlp = {
       enable = true;
@@ -113,10 +114,11 @@
         MEM_SLEEP_ON_BAT = "deep";
       };
     };
-
-    openssh.enable = true;
   };
   powerManagement.powertop.enable = true;
+  systemd.sleep.extraConfig  = ''
+    HibernateDelaySec=30m
+  '';
 
   # # Fingerprint
   # services = {
