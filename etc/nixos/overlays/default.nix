@@ -6,6 +6,7 @@ let
 in
 {
   inherit (mypkgs) fish-rose-pine fish-catppuccin fsrcnnx modernx plow p5r-grub;
+  inherit (mypkgs) comic-code-ligatures;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
 
   renoise343 = prev.renoise.override (
