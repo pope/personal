@@ -128,7 +128,7 @@ in
     };
 
     services.hypridle = {
-      enable = cfg.hypridle.enable;
+      inherit (cfg.hypridle) enable;
       settings = {
         general = {
           after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
