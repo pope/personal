@@ -14,15 +14,9 @@ in
       version = "343";
       os = if prev.system == "x86_64-linux" then "x86_64" else "arm64";
       basename = "rns_${version}_linux_${os}.tar.gz";
-      localReleasePath = /home/pope/Documents/software/${basename};
-      remoteReleasePath = /media/cyberia/nix-files/software/${basename};
+      releasePath = /media/cyberia/nix-files/software/${basename};
     in
-    {
-      releasePath =
-        if builtins.pathExists localReleasePath
-        then localReleasePath
-        else remoteReleasePath;
-    }
+    { inherit releasePath; }
   );
 
 } // prev.lib.optionalAttrs prev.stdenv.isDarwin {
