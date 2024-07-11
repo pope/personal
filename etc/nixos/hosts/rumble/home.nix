@@ -13,6 +13,9 @@
 
     packages = with pkgs; [
       bitwig-studio
+      (comic-code-ligatures.overrideAttrs (_: {
+        src = /home/pope/Documents/fonts/comic-code-ligatures;
+      }))
       discord
       nvtopPackages.amd
     ];

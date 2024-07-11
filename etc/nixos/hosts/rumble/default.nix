@@ -84,8 +84,10 @@
     HibernateDelaySec=2h
   '';
 
-  environment.systemPackages = with pkgs; [
-    renoise343
+  environment.systemPackages = [
+    (pkgs.renoise.override {
+      releasePath = /home/pope/Documents/software/rns_344_linux_x86_64.tar.gz;
+    })
   ];
 
   my.nixos = {
