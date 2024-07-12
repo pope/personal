@@ -81,7 +81,7 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   powerManagement.powertop.enable = true; # Run powertop on boot
   systemd.sleep.extraConfig = ''
-    HibernateDelaySec=2h
+    HibernateDelaySec=24h
   '';
 
   environment.systemPackages = [
