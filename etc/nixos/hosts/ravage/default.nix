@@ -2,15 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ self, inputs, pkgs, ... }:
 
 {
   imports =
     [
-      ../../modules/nixos
+      inputs.fingerprint-sensor.nixosModules.open-fprintd
+      inputs.fingerprint-sensor.nixosModules.python-validity
+      inputs.hyprland.nixosModules.default
+      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
+      self.nixosModules.default
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  nixpkgs.overlays = [
+    inputs.keymapp.overlays.default
+    self.overlays.default
+  ];
 
   boot = {
     # Bootloader.

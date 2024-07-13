@@ -2,15 +2,22 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, lib, ... }:
+{ self, inputs, pkgs, lib, ... }:
 
 {
   imports =
     [
-      ../../modules/nixos
+      inputs.hyprland.nixosModules.default
+      inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+      self.nixosModules.default
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  nixpkgs.overlays = [
+    inputs.keymapp.overlays.default
+    self.overlays.default
+  ];
 
   boot = {
     loader = {

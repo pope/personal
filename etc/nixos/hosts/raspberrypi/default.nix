@@ -1,9 +1,12 @@
-{ pkgs, ... }:
+{ self, inputs, pkgs, ... }:
 
 {
   imports =
     [
-      ../../modules/nixos
+      # With this, we can build an SD card for the PI.
+      # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
+      inputs.nixos-generators.nixosModules.all-formats
+      self.nixosModules.default
     ];
 
   boot = {
@@ -19,6 +22,8 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
+    inputs.keymapp.overlays.default
+    self.overlays.default
     # Fixes cross-compiling for the SD card for the PI.
     # See: https://github.com/NixOS/nixpkgs/issues/126755
     # Also: https://github.com/NixOS/nixpkgs/issues/154163
