@@ -84,18 +84,12 @@
   outputs =
     { self
     , home-manager
-    , hyprland
-    , musnix
     , nix-formatter-pack
-    , nixos-generators
-    , nixos-hardware
     , nixpkgs
     , nixpkgs-stable
     , nixpkgs-2305
     , nixgl
     , nixvim
-    , keymapp
-    , fingerprint-sensor
     , ...
     } @ inputs:
     let
@@ -107,7 +101,6 @@
       mkNixosSystem =
         { name
         , system
-        , extraModules ? [ ]
         , user ? "pope"
         }: {
           inherit name;
@@ -128,13 +121,7 @@
                 ];
               };
             };
-            modules = extraModules ++ [
-              (_: {
-                nixpkgs.overlays = [
-                  keymapp.overlays.default
-                  self.overlays.default
-                ];
-              })
+            modules = [
               (./hosts + "/${name}")
               home-manager.nixosModules.home-manager
               {
@@ -191,50 +178,23 @@
         (mkNixosSystem {
           name = "soundwave";
           system = "x86_64-linux";
-          extraModules = [
-            nixos-hardware.nixosModules.common-cpu-amd
-            nixos-hardware.nixosModules.common-cpu-amd-pstate
-            nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-            nixos-hardware.nixosModules.common-pc
-            nixos-hardware.nixosModules.common-pc-ssd
-            hyprland.nixosModules.default
-            musnix.nixosModules.musnix
-          ];
         })
         (mkNixosSystem {
           name = "ravage";
           system = "x86_64-linux";
-          extraModules = [
-            fingerprint-sensor.nixosModules.open-fprintd
-            fingerprint-sensor.nixosModules.python-validity
-            hyprland.nixosModules.default
-            nixos-hardware.nixosModules.lenovo-thinkpad-t480
-          ];
         })
         (mkNixosSystem {
           name = "rumble";
           system = "x86_64-linux";
-          extraModules = [
-            hyprland.nixosModules.default
-            nixos-hardware.nixosModules.framework-13-7040-amd
-          ];
         })
         (mkNixosSystem {
           name = "nixos-testing";
           system = "x86_64-linux";
-          extraModules = [
-            hyprland.nixosModules.default
-          ];
         })
         (mkNixosSystem {
           name = "raspberrypi";
           system = "aarch64-linux";
           user = "pi";
-          extraModules = [
-            # With this, we can build an SD card for the PI.
-            # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
-            nixos-generators.nixosModules.all-formats
-          ];
         })
       ];
       homeConfigurations = builtins.listToAttrs [
