@@ -12,8 +12,8 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       pyright
-      python311Packages.pyls-isort
-      python311Packages.python-lsp-server
+      python312Packages.pyls-isort
+      python312Packages.python-lsp-server
       python3Full
     ];
   };
