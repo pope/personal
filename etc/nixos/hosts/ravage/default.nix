@@ -116,7 +116,7 @@
     };
   };
   powerManagement.powertop.enable = true;
-  systemd.sleep.extraConfig  = ''
+  systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m
   '';
 
