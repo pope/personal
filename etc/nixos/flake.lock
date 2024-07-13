@@ -456,11 +456,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1720537663,
-        "narHash": "sha256-Qas4I6SugY1DlHva3BVI4eHRMw4UlcRZ4y708owjZd0=",
+        "lastModified": 1720908358,
+        "narHash": "sha256-5LqzWBfmv3Gxo2H6N+DQL5cRZTSOB2tD1k9RaWPqmSQ=",
         "owner": "pope",
         "repo": "keymapp-flake",
-        "rev": "9763caf4c65314d66536d2fa3f23b298d7bef221",
+        "rev": "13285c5d51684ad3d494f56ab51693b7752adb93",
         "type": "github"
       },
       "original": {
@@ -472,13 +472,13 @@
     "keymapp_2": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-loNs1kbyArdyxfgAUxv/1KbYIcUDX+hC4NA6WhWwLvQ=",
+        "narHash": "sha256-Ylrr5k+XOlsDyfeTnrPKjvkpviBENVi/ay7sYJxm7ss=",
         "type": "file",
-        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.3.0.tar.gz"
+        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.3.1.tar.gz"
       },
       "original": {
         "type": "file",
-        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.3.0.tar.gz"
+        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.3.1.tar.gz"
       }
     },
     "musnix": {
