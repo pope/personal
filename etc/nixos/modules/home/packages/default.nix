@@ -44,7 +44,6 @@ in
       sd # sed
       tldr
       tree
-      yazi
     ];
 
     programs = {
@@ -116,6 +115,27 @@ in
         tmux.shellIntegrationOptions = [
           "-p"
           "75%"
+        ];
+      };
+      yazi = {
+        enable = true;
+        settings.manager.ratio = [ 1 4 3 ];
+        settings.preview = {
+          max_width = 2048;
+          max_height = 4096;
+        };
+        settings.opener = {
+          "image" = [{
+            run = "${pkgs.imv}/bin/imv \"$@\"";
+            desc = "imv";
+            for = "unix";
+          }];
+        };
+        settings.open.rules = [
+          {
+            mime = "image/*";
+            use = "image";
+          }
         ];
       };
       zoxide.enable = true;
