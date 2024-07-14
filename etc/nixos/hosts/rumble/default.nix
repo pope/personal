@@ -71,6 +71,7 @@
       # Encoding/decoding acceleration
       libvdpau-va-gl
       libva-vdpau-driver
+      libva
     ];
   };
 
@@ -109,6 +110,7 @@
     sound.enable = true;
     system.enable = true;
     users.shell = "zsh";
+    v4l2loopback.enable = true;
     xserver = {
       enable = true;
 
