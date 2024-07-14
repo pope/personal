@@ -58,6 +58,7 @@
       enable = true;
       enableHqAnimeSettings = true;
     };
+    obs.enable = true;
     packages.enable = true;
     shell.fish.enable = true;
     shell.zsh.enable = true;
