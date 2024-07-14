@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, inputs, ... }:
 
 {
   nix = {
@@ -6,6 +6,9 @@
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
+    };
+    registry = {
+      nixpkgs-stable.flake = inputs.nixpkgs-stable;
     };
     settings = {
       auto-optimise-store = true;
