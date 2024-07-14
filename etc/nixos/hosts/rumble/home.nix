@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 {
   imports = [
@@ -13,6 +13,7 @@
 
     packages = with pkgs; [
       bitwig-studio
+      pkgs-stable.blender-hip
       (comic-code-ligatures.overrideAttrs (_: {
         src = /home/pope/Documents/fonts/comic-code-ligatures;
       }))
@@ -20,6 +21,7 @@
       (lucida-grande.overrideAttrs (_: {
         src = /home/pope/Documents/fonts/lucida-grande;
       }))
+      godot_4
       nvtopPackages.amd
     ];
 
