@@ -279,7 +279,13 @@
         in
         {
           default = pkgs.mkShell {
-            packages = with pkgs; [ nvfetcher updatePackages ];
+            packages = with pkgs; [
+              deadnix
+              nixpkgs-fmt
+              nvfetcher
+              statix
+              updatePackages
+            ];
           };
         });
       checks = eachSystem (system:
