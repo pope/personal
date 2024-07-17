@@ -92,6 +92,19 @@
       inputs.hyprutils.follows = "hyprutils";
       inputs.systems.follows = "linux-systems";
     };
+    hypridle = {
+      url = "github:hyprwm/hypridle";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprlang.follows = "hyprlang";
+      inputs.hyprutils.follows = "hyprutils";
+      inputs.systems.follows = "linux-systems";
+    };
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprlang.follows = "hyprlang";
+      inputs.systems.follows = "linux-systems";
+    };
     anyrun = {
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";

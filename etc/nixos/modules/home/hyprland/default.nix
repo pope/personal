@@ -4,8 +4,10 @@ let
   inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.hyprland;
 
+  inherit (inputs.hypridle.packages.${pkgs.system}) hypridle;
   inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
   inherit (inputs.hyprlock.packages.${pkgs.system}) hyprlock;
+  inherit (inputs.hyprpaper.packages.${pkgs.system}) hyprpaper;
   gamemode =
     pkgs.writeShellScriptBin "gamemode" ''
       HYPRGAMEMODE=$(${hyprland}/bin/hyprctl getoption animations:enabled -j | ${pkgs.jq}/bin/jq '.int')
@@ -131,6 +133,7 @@ in
 
     services.hypridle = {
       inherit (cfg.hypridle) enable;
+      package = hypridle;
       settings = {
         general = {
           after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
@@ -161,6 +164,7 @@ in
 
     services.hyprpaper = {
       enable = true;
+      package = hyprpaper;
       settings = {
         ipc = "on";
         splash = false;
