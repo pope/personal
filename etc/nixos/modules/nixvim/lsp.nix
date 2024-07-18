@@ -44,6 +44,7 @@
           capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
           local server = {
+            clangd = {},
             dartls = {},
             kotlin_language_server = {},
             nil_ls = {},
