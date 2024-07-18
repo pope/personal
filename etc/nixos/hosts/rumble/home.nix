@@ -42,7 +42,7 @@
     browsers.chromium.enable = true;
     editors = {
       neovim.enable = true;
-      vscode.enable = false;
+      vscode.enable = true;
     };
     dunst.enable = true;
     git.enable = true;
