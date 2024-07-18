@@ -111,6 +111,7 @@
     system.enable = true;
     users.shell = "zsh";
     v4l2loopback.enable = true;
+    virtualization.enable = true;
     xserver = {
       enable = true;
 
