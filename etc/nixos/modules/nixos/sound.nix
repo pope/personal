@@ -10,11 +10,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
-    # ALSA sound
-    # See https://github.com/NixOS/nixpkgs/pull/319839
-    sound.enable = false;
-
     services.pipewire = {
       enable = true;
       alsa.enable = true;
