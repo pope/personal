@@ -31,6 +31,7 @@
       efi.canTouchEfiVariables = true;
       grub = rec {
         enable = true;
+        configurationLimit = 10;
         efiSupport = true;
         default = "saved";
         device = "nodev";
