@@ -145,6 +145,7 @@
     sound.enable = true;
     system.enable = true;
     users.shell = "zsh";
+    v4l2loopback.enable = true;
     virtualization.enable = true;
     wayland.enable = true;
     xserver = {
