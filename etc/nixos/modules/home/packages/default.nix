@@ -125,6 +125,20 @@ in
             max_width = 2048;
             max_height = 4096;
           };
+        } // optionalAttrs pkgs.stdenv.isLinux {
+          opener = {
+            "image" = [{
+              run = "${pkgs.imv}/bin/imv \"$@\"";
+              desc = "imv";
+              for = "unix";
+            }];
+          };
+          open.rules = [
+            {
+              mime = "image/*";
+              use = "image";
+            }
+          ];
         };
       };
       zoxide.enable = true;
@@ -146,21 +160,6 @@ in
           gradient_color_5 = toStr base0E;
           gradient_color_6 = toStr base0A;
         };
-      };
-      yazi.settings = {
-        opener = {
-          "image" = [{
-            run = "${pkgs.imv}/bin/imv \"$@\"";
-            desc = "imv";
-            for = "unix";
-          }];
-        };
-        open.rules = [
-          {
-            mime = "image/*";
-            use = "image";
-          }
-        ];
       };
     };
 
