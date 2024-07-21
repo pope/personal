@@ -105,6 +105,14 @@
       sha256 = "sha256-TynFq7e4MtZlA5SmGMybhmCVw67yHYgZWffQjuyhTDA=";
     };
   };
+  rbutil = {
+    pname = "rbutil";
+    version = "1.5.1";
+    src = fetchurl {
+      url = "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_1.5.1.tar.gz";
+      sha256 = "sha256-XtiCXrROtJfNCcXDxwvtyxKzrSk0GGY/bDtimr3Iu50=";
+    };
+  };
   ssimDownscaler = {
     pname = "ssimDownscaler";
     version = "575d13567bbe3caa778310bd3b2a4c516c445039";

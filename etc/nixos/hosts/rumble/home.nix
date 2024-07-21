@@ -23,6 +23,7 @@
       }))
       godot_4
       nvtopPackages.amd
+      rbutil
     ];
 
     stateVersion = "24.05";

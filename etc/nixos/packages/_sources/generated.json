@@ -176,6 +176,21 @@
         },
         "version": "v1.3.1"
     },
+    "rbutil": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "rbutil",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-XtiCXrROtJfNCcXDxwvtyxKzrSk0GGY/bDtimr3Iu50=",
+            "type": "url",
+            "url": "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_1.5.1.tar.gz"
+        },
+        "version": "1.5.1"
+    },
     "ssimDownscaler": {
         "cargoLocks": null,
         "date": null,
