@@ -21,6 +21,7 @@ in
         ms-python.python
         ms-vscode.cpptools
         ms-vscode.cpptools-extension-pack
+        ms-vscode.hexeditor
         ms-vscode.makefile-tools
         mvllow.rose-pine
         pkief.material-icon-theme
