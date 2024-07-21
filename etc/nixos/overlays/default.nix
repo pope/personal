@@ -8,6 +8,7 @@ in
   inherit (mypkgs) fish-rose-pine fish-catppuccin fsrcnnx modernx plow p5r-grub;
   inherit (mypkgs) comic-code-ligatures lucida-grande;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
+  inherit (mypkgs) rbutil;
 
   renoise343 = prev.renoise.override (
     let
