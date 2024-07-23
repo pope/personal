@@ -36,15 +36,7 @@
       }
       {
         pkg = which-key-nvim;
-        opts.operators = {
-          gc = "Line comments";
-          gb = "Block comments";
-          ys = "Add surround";
-          cs = "Change surround";
-          ds = "Delete surround";
-          ii = "Object scope";
-          ai = "Object scope with border";
-        };
+        event = [ "VeryLazy" ];
       }
       {
         pkg = toggleterm-nvim;
