@@ -4,6 +4,7 @@
   imports = [
     ./colorschemes.nix
     ./dashboard.nix
+    ./debugging.nix
     ./editing.nix
     ./folding.nix
     ./ftplugins.nix
