@@ -235,10 +235,6 @@ in
       ];
 
       windowrulev2 = [
-        "opacity 0.80 0.70,class:^(pavucontrol)$"
-        "opacity 0.90 0.80,class:^(discord)$"
-        "opacity 0.80 0.80,class:^(thunar)$"
-
         "float,class:^(pavucontrol)$"
       ];
       layerrule = [
