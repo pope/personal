@@ -66,18 +66,35 @@ in
             command = "gdb",
             args = { "-i", "dap" }
           }
+          dap.adapters.lldb = {
+            type = 'executable',
+            command = '${pkgs.lldb}/bin/lldb-vscode', -- adjust as needed, must be absolute path
+            name = 'lldb'
+          }
           dap.configurations.c = {
             {
-              name = "Launch",
+              name = "Launch (gdb)",
               type = "gdb",
               request = "launch",
               program = function()
                 return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
               end,
-              cwd = "$${workspaceFolder}",
+              cwd = "''${workspaceFolder}",
               stopAtBeginningOfMainSubprogram = false,
             },
+            {
+              name = "Launch (lldb)",
+              type = "lldb",
+              request = "launch",
+              program = function()
+                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+              end,
+              cwd = "''${workspaceFolder}",
+              stopOnEntry = false,
+              args = {},
+            },
           }
+          dap.configurations.cpp = dap.configurations.c
 
           local sign = vim.fn.sign_define
           sign("DapBreakpoint", { text = "", texthl = "ErrorMsg", linehl = "", numhl = "" })
