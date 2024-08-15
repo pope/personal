@@ -1,18 +1,14 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.hyprland;
 
-  inherit (inputs.hypridle.packages.${pkgs.system}) hypridle;
-  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
-  inherit (inputs.hyprlock.packages.${pkgs.system}) hyprlock;
-  inherit (inputs.hyprpaper.packages.${pkgs.system}) hyprpaper;
   gamemode =
     pkgs.writeShellScriptBin "gamemode" ''
-      HYPRGAMEMODE=$(${hyprland}/bin/hyprctl getoption animations:enabled -j | ${pkgs.jq}/bin/jq '.int')
+      HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled -j | ${pkgs.jq}/bin/jq '.int')
       if [ "$HYPRGAMEMODE" = 1 ] ; then
-          ${hyprland}/bin/hyprctl --batch "\
+          ${pkgs.hyprland}/bin/hyprctl --batch "\
               keyword animations:enabled 0;\
               keyword decoration:drop_shadow 0;\
               keyword decoration:blur:enabled 0;\
@@ -22,7 +18,7 @@ let
               keyword decoration:rounding 0" &> /dev/null
           exit
       fi
-      ${hyprland}/bin/hyprctl reload
+      ${pkgs.hyprland}/bin/hyprctl reload
     '';
   caffeinemode = pkgs.writeShellScriptBin "caffeinemode" ''
     if ${pkgs.procps}/bin/pidof hypridle > /dev/null
@@ -47,7 +43,6 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = hyprland;
       systemd.enable = true;
       xwayland.enable = true;
     };
@@ -89,7 +84,6 @@ in
 
     programs.hyprlock = {
       enable = true;
-      package = hyprlock;
       settings = {
         background = [
           {
@@ -133,13 +127,12 @@ in
 
     services.hypridle = {
       inherit (cfg.hypridle) enable;
-      package = hypridle;
       settings = {
         general = {
           after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
           before_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off && ${pkgs.systemd}/bin/loginctl lock-session";
           ignore_dbus_inhibit = false;
-          lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${hyprlock}/bin/hyprlock";
+          lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         };
         listener = [
           {
@@ -164,7 +157,6 @@ in
 
     services.hyprpaper = {
       enable = true;
-      package = hyprpaper;
       settings = {
         ipc = "on";
         splash = false;

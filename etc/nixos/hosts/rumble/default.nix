@@ -7,7 +7,6 @@
 {
   imports =
     [
-      inputs.hyprland.nixosModules.default
       inputs.nixos-hardware.nixosModules.framework-13-7040-amd
       self.nixosModules.default
       # Include the results of the hardware scan.

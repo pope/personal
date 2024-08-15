@@ -9,7 +9,6 @@
     [
       inputs.fingerprint-sensor.nixosModules.open-fprintd
       inputs.fingerprint-sensor.nixosModules.python-validity
-      inputs.hyprland.nixosModules.default
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
       self.nixosModules.default
       # Include the results of the hardware scan.

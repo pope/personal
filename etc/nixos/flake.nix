@@ -67,44 +67,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    hyprutils = {
-      url = "github:hyprwm/hyprutils";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "linux-systems";
-    };
-    hyprlang = {
-      url = "github:hyprwm/hyprlang";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "linux-systems";
-      inputs.hyprutils.follows = "hyprutils";
-    };
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprlang.follows = "hyprlang";
-      inputs.hyprutils.follows = "hyprutils";
-      inputs.systems.follows = "linux-systems";
-    };
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprlang.follows = "hyprlang";
-      inputs.hyprutils.follows = "hyprutils";
-      inputs.systems.follows = "linux-systems";
-    };
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprlang.follows = "hyprlang";
-      inputs.hyprutils.follows = "hyprutils";
-      inputs.systems.follows = "linux-systems";
-    };
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprlang.follows = "hyprlang";
-      inputs.systems.follows = "linux-systems";
-    };
     anyrun = {
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -2,7 +2,6 @@
 
 let
   inherit (lib) mkIf;
-  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
   anyrunPkg = inputs.anyrun.packages.${pkgs.system}.default;
 
   # commands
@@ -11,7 +10,7 @@ let
   brillo = "${pkgs.brillo}/bin/brillo";
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   grim = "${pkgs.grim}/bin/grim";
-  hyprctl = "${hyprland}/bin/hyprctl";
+  hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${pkgs.pamixer}/bin/pamixer";
   polkit = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
