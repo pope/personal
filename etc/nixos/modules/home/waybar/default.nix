@@ -1,11 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.waybar;
 
-  inherit (inputs.hyprland.packages.${pkgs.system}) hyprland;
-  waybar_config = import ./config.nix { inherit config pkgs hyprland; };
+  waybar_config = import ./config.nix { inherit config pkgs; inherit (pkgs) hyprland; };
   waybar_style = import ./style.nix { inherit config; };
 in
 {

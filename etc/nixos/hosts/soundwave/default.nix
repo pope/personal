@@ -7,7 +7,6 @@
 {
   imports =
     [
-      inputs.hyprland.nixosModules.default
       inputs.musnix.nixosModules.musnix
       inputs.nixos-hardware.nixosModules.common-cpu-amd
       inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate

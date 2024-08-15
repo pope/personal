@@ -7,7 +7,6 @@
 {
   imports =
     [
-      inputs.hyprland.nixosModules.default
       self.nixosModules.default
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
