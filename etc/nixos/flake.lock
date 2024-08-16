@@ -151,7 +151,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1710146030,
@@ -231,46 +231,6 @@
         "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
-      }
-    },
-    "keymapp": {
-      "inputs": {
-        "git-hooks": [
-          "git-hooks"
-        ],
-        "keymapp": "keymapp_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": "systems_2",
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1721015648,
-        "narHash": "sha256-W6+NR9n7RgNL6ocuHqNaPcIR93z9vDqjucuV9OXawMA=",
-        "owner": "pope",
-        "repo": "keymapp-flake",
-        "rev": "3fddc60476e0c0af7563780c2a493feeb5a94f02",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pope",
-        "repo": "keymapp-flake",
-        "type": "github"
-      }
-    },
-    "keymapp_2": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-Ylrr5k+XOlsDyfeTnrPKjvkpviBENVi/ay7sYJxm7ss=",
-        "type": "file",
-        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.3.1.tar.gz"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-1.3.1.tar.gz"
       }
     },
     "linux-systems": {
@@ -643,7 +603,6 @@
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
-        "keymapp": "keymapp",
         "linux-systems": "linux-systems",
         "musnix": "musnix",
         "nil": "nil",
@@ -700,21 +659,6 @@
       }
     },
     "systems_2": {
-      "locked": {
-        "lastModified": 1680978846,
-        "narHash": "sha256-Gtqg8b/v49BFDpDetjclCYXm8mAnTrUzR0JnE2nv5aw=",
-        "owner": "nix-systems",
-        "repo": "x86_64-linux",
-        "rev": "2ecfcac5e15790ba6ce360ceccddb15ad16d08a8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "x86_64-linux",
-        "type": "github"
-      }
-    },
-    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
