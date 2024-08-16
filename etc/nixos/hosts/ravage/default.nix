@@ -16,7 +16,6 @@
     ];
 
   nixpkgs.overlays = [
-    inputs.keymapp.overlays.default
     self.overlays.default
   ];
 
