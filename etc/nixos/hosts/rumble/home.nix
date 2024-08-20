@@ -17,6 +17,7 @@
       (comic-code-ligatures.overrideAttrs (_: {
         src = /home/pope/Documents/fonts/comic-code-ligatures;
       }))
+      davinci-resolve
       discord
       (lucida-grande.overrideAttrs (_: {
         src = /home/pope/Documents/fonts/lucida-grande;
