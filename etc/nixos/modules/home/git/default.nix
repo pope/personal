@@ -38,6 +38,7 @@ in
     programs = {
       git = {
         enable = true;
+        lfs.enable = true;
 
         userName = "K. Adam Christensen";
         userEmail = "pope@shifteleven.com";
