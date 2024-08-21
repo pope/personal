@@ -86,6 +86,12 @@
               },
             },
             tsserver = {},
+            zls = {
+              zls = {
+                enable_snippets = true,
+                warn_style = true,
+              },
+            },
           }
 
           local lspconfig = require("lspconfig")
