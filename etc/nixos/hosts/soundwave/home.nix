@@ -12,6 +12,7 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
+      blender
       bitwig-studio
       discord
       nvtopPackages.nvidia
