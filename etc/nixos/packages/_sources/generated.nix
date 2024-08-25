@@ -51,6 +51,19 @@
       sha256 = "sha256-6ADbxcHJUYXMgiFsWXckUz/18ogBefJW7vYA8D6Nwq4=";
     };
   };
+  iqm = {
+    pname = "iqm";
+    version = "e5004bb3f46eafece81376ecafccc7f3ae747b59";
+    src = fetchgit {
+      url = "https://github.com/lsalzman/iqm";
+      rev = "e5004bb3f46eafece81376ecafccc7f3ae747b59";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-M7cn/TEG7hP6U9JpaAVp2vLAQxHNxnBvAU39vFnRiEM=";
+    };
+    date = "2024-06-23";
+  };
   krigBilateral = {
     pname = "krigBilateral";
     version = "038064821c5f768dfc6c00261535018d5932cdd5";

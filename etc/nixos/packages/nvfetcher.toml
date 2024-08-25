@@ -22,6 +22,14 @@ fetch.github = "six-ddc/plow"
 src.github_tag = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 fetch.github = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 
+[rbutil]
+src.manual = "1.5.1"
+fetch.url = "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_$ver.tar.gz"
+
+[iqm]
+src.git = "https://github.com/lsalzman/iqm"
+fetch.git = "https://github.com/lsalzman/iqm"
+
 # Shaders
 
 [fsrcnnx-lineart]
@@ -47,7 +55,3 @@ fetch.url = "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969
 [ssimSuperRes]
 src.manual = "15d93440d0a24fc4b8770070be6a9fa2af6f200b"
 fetch.url = "https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/$ver/SSimSuperRes.glsl"
-
-[rbutil]
-src.manual = "1.5.1"
-fetch.url = "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_$ver.tar.gz"
