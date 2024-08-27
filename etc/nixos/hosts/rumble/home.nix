@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -13,7 +13,7 @@
 
     packages = with pkgs; [
       bitwig-studio
-      pkgs-stable.blender-hip
+      blender-hip
       (comic-code-ligatures.overrideAttrs (_: {
         src = /home/pope/Documents/fonts/comic-code-ligatures;
       }))
