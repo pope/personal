@@ -50,7 +50,13 @@
             kotlin_language_server = {},
             nil_ls = {},
             phpactor = {},
-            pyright = {},
+            pyright = {
+              pyright = {
+                exclude = { ".venv" },
+                venvPath = ".",
+                venv = ".venv",
+              },
+            },
             rust_analyzer = {
               ["rust-analyzer"] = {
                 files = {
