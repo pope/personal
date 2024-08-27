@@ -19,6 +19,7 @@ in
         golang.go
         mkhl.direnv
         ms-python.python
+        ms-vscode.cmake-tools
         ms-vscode.cpptools
         ms-vscode.cpptools-extension-pack
         ms-vscode.hexeditor
@@ -27,6 +28,7 @@ in
         pkief.material-icon-theme
         pkief.material-product-icons
         rust-lang.rust-analyzer
+        twxs.cmake
         vscode-icons-team.vscode-icons
         vscodevim.vim
         yzhang.markdown-all-in-one
