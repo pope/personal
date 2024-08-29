@@ -46,6 +46,8 @@ in
           config.default_prog = { '${shell}', '-l'}
           -- Disabled. See https://www.reddit.com/r/archlinux/comments/18rf5t1/psa_on_hyprland_wezterm_will_not_start_anymore/
           config.enable_wayland = false
+          -- Without, just blocks appear. https://github.com/wez/wezterm/issues/5990
+          config.front_end = "WebGpu"
           config.font = wezterm.font_with_fallback {
             { family = 'Iosevka' },
           }
