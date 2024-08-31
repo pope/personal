@@ -12,10 +12,23 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
-      blender
+      aseprite
       bitwig-studio
+      blender
       discord
+      geeqie
+      (gimp-with-plugins.override {
+        plugins = with gimpPlugins; [
+          bimp
+          gimplensfun
+          gmic
+          lqrPlugin
+          waveletSharpen
+        ];
+      })
       godot_4
+      inkscape
+      krita
       nvtopPackages.nvidia
     ];
 
