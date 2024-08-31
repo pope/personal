@@ -82,6 +82,25 @@
         },
         "version": "1.1"
     },
+    "hatsune-miku-cursor": {
+        "cargoLocks": null,
+        "date": "2024-04-13",
+        "extract": null,
+        "name": "hatsune-miku-cursor",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "24bbed734c17bc19516b939ee10203b229513d2a",
+            "sha256": "sha256-m5CDmAATxtQgjV5Ij+5bF3QQ8Na3pXPNmQUtwHwwWFc=",
+            "type": "git",
+            "url": "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors"
+        },
+        "version": "24bbed734c17bc19516b939ee10203b229513d2a"
+    },
     "iqm": {
         "cargoLocks": null,
         "date": "2024-06-23",

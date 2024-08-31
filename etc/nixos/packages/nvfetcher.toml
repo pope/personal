@@ -30,6 +30,10 @@ fetch.url = "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_$v
 src.git = "https://github.com/lsalzman/iqm"
 fetch.git = "https://github.com/lsalzman/iqm"
 
+[hatsune-miku-cursor]
+src.git = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors"
+fetch.git = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors"
+
 # Shaders
 
 [fsrcnnx-lineart]
