@@ -15,6 +15,7 @@
       blender
       bitwig-studio
       discord
+      godot_4
       nvtopPackages.nvidia
     ];
 
