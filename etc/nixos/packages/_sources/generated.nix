@@ -51,6 +51,19 @@
       sha256 = "sha256-6ADbxcHJUYXMgiFsWXckUz/18ogBefJW7vYA8D6Nwq4=";
     };
   };
+  hatsune-miku-cursor = {
+    pname = "hatsune-miku-cursor";
+    version = "24bbed734c17bc19516b939ee10203b229513d2a";
+    src = fetchgit {
+      url = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors";
+      rev = "24bbed734c17bc19516b939ee10203b229513d2a";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-m5CDmAATxtQgjV5Ij+5bF3QQ8Na3pXPNmQUtwHwwWFc=";
+    };
+    date = "2024-04-13";
+  };
   iqm = {
     pname = "iqm";
     version = "e5004bb3f46eafece81376ecafccc7f3ae747b59";
