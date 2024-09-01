@@ -95,7 +95,11 @@ in
       ]);
       extraConfig = ''
         set-option -sa terminal-features ',alacritty*:RGB,foot*:RGB,xterm-kitty*:RGB,xterm-256color:RGB'
-        
+
+        set -g allow-passthrough on
+        set -ga update-environment TERM
+        set -ga update-environment TERM_PROGRAM
+
         set -g update-environment -r
         set -g renumber-windows on
         set -g status-position top
