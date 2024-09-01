@@ -30,6 +30,7 @@
       inkscape
       krita
       nvtopPackages.nvidia
+      zathura
     ];
 
     stateVersion = "23.05";
