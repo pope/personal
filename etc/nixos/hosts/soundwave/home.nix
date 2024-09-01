@@ -91,6 +91,7 @@
     shell.zsh.enable = true;
     terminals = {
       crt.enable = true;
+      foot.enable =  true;
       kitty.enable = true;
       wezterm.enable = true;
     };
