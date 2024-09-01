@@ -46,6 +46,7 @@
           local server = {
             clangd = {},
             dartls = {},
+            gdscript = {},
             glsl_analyzer = {},
             kotlin_language_server = {},
             nil_ls = {},

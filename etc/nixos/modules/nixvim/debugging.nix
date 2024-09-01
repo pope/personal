@@ -61,6 +61,8 @@ in
       config = /* lua */ ''
         function ()
           local dap = require("dap")
+
+          -- C & C++
           dap.adapters.gdb = {
             type = "executable",
             command = "gdb",
@@ -95,6 +97,22 @@ in
             },
           }
           dap.configurations.cpp = dap.configurations.c
+
+          -- Godot
+          dap.adapters.godot = {
+            type = "server",
+            host = "127.0.0.1",
+            port = 6006,
+          }
+          dap.configurations.gdscript = {
+            {
+              name = "Launch scene",
+              type = "godot",
+              request = "launch",
+              project = "''${workspaceFolder}",
+              launch_scene = true,
+            },
+          }
 
           local sign = vim.fn.sign_define
           sign("DapBreakpoint", { text = "", texthl = "ErrorMsg", linehl = "", numhl = "" })
