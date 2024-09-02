@@ -12,12 +12,9 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
-      bitwig-studio
-      blender-hip
       (comic-code-ligatures.overrideAttrs (_: {
         src = /home/pope/Documents/fonts/comic-code-ligatures;
       }))
-      davinci-resolve
       discord
       (lucida-grande.overrideAttrs (_: {
         src = /home/pope/Documents/fonts/lucida-grande;
@@ -61,6 +58,14 @@
     mpv = {
       enable = true;
       enableHqAnimeSettings = true;
+    };
+    multimedia = {
+      audio.enable = true;
+      graphics.enable = false;
+      photography.enable = false;
+      threed.enable = true;
+      threed.hip.enable = true;
+      video.enable = true;
     };
     obs.enable = true;
     packages.enable = true;

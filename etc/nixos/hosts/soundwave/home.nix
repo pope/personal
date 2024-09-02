@@ -12,23 +12,8 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
-      aseprite
-      bitwig-studio
-      blender
       discord
-      geeqie
-      (gimp-with-plugins.override {
-        plugins = with gimpPlugins; [
-          bimp
-          gimplensfun
-          gmic
-          lqrPlugin
-          waveletSharpen
-        ];
-      })
       godot_4
-      inkscape
-      krita
       nvtopPackages.nvidia
       zathura
     ];
@@ -84,6 +69,13 @@
     mpv = {
       enable = true;
       enableHqAnimeSettings = true;
+    };
+    multimedia = {
+      audio.enable = true;
+      graphics.enable = true;
+      photography.enable = true;
+      threed.enable = true;
+      video.enable = false;
     };
     obs.enable = true;
     packages.enable = true;

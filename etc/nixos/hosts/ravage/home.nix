@@ -12,7 +12,6 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
-      blender
       discord
       godot_4
       intel-gpu-tools
@@ -54,6 +53,7 @@
     };
     lf.enable = true;
     mpv.enable = true;
+    multimedia.threed.enable = true;
     packages.enable = true;
     shell.fish.enable = true;
     terminals.kitty.enable = true;
