@@ -41,7 +41,6 @@
   };
 
   my.home = {
-    audio.enable = true;
     editors.neovim.enable = true;
     git = {
       enable = true;

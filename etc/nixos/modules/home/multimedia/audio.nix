@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.my.home.audio;
+  cfg = config.my.home.multimedia.audio;
   convert_48khz = pkgs.writeScriptBin "convert_48khz" ''
     set -o errexit
     set -o pipefail
@@ -19,14 +19,14 @@ let
   '';
 in
 {
-  options.my.home.audio = {
+  options.my.home.multimedia.audio = {
     enable = mkEnableOption "Audio tool home options";
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
+    home.packages = with pkgs; [
+      bitwig-studio
       convert_48khz
-      pkgs.parallel
     ];
   };
 }

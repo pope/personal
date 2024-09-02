@@ -39,6 +39,7 @@ in
       jq
       nh
       nvd
+      parallel
       procs # ps
       ripgrep
       sd # sed
