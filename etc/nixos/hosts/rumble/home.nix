@@ -61,8 +61,8 @@
     };
     multimedia = {
       audio.enable = true;
-      graphics.enable = false;
-      photography.enable = false;
+      graphics.enable = true;
+      photography.enable = true;
       threed.enable = true;
       threed.hip.enable = true;
       video.enable = true;
