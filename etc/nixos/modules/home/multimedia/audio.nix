@@ -25,8 +25,9 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      bitwig-studio
       convert_48khz
+    ] ++ lib.optionals stdenv.isLinux [
+      bitwig-studio
     ];
   };
 }

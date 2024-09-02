@@ -55,6 +55,7 @@
     # Disabling while there's a build error. I also don't use MPV too much on
     # this system anyway.
     mpv.enable = false;
+    multimedia.audio.enable = true;
     packages.enable = true;
     shell.zsh.enable = true;
     terminals.wezterm.enable = true;
