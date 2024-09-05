@@ -71,8 +71,11 @@
     packages.enable = true;
     shell.fish.enable = true;
     shell.zsh.enable = true;
-    terminals.kitty.enable = true;
-    terminals.wezterm.enable = true;
+    terminals = {
+      kitty.enable = true;
+      foot.enable = true;
+      wezterm.enable = true;
+    };
     theme.colorScheme = "rose-pine";
     tmux.enable = true;
     xdg.enable = true;
