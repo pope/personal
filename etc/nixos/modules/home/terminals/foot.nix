@@ -14,7 +14,7 @@ in
       enable = true;
       settings = with config.my.home.theme.colors; {
         main = {
-          dpi-aware = true;
+          dpi-aware = false;
           font = "Iosevka Comfy:size=10, Symbols Nerd Font:size=10";
         };
         cursor = {
