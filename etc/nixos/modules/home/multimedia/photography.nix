@@ -12,6 +12,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       darktable
+      dnglab
       geeqie
       rawtherapee
     ];
