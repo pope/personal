@@ -27,7 +27,7 @@ in
       enable = true;
 
       font = {
-        name = "Work Sans, Thin";
+        name = "Work Sans";
         package = pkgs.work-sans;
         size = 11;
       };
