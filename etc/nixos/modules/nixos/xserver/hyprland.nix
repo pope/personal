@@ -19,7 +19,7 @@ in
       upower.enable = true;
       udev = {
         packages = with pkgs; [
-          gnome.gnome-settings-daemon
+          gnome-settings-daemon
         ];
       };
       udisks2.enable = true;
