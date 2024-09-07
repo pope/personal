@@ -16,7 +16,7 @@ in
       settings = {
         global = {
           follow = "mouse";
-          width = 400;
+          width = 350;
           origin = "top-right";
           alignment = "left";
           vertical_alignment = "center";
@@ -46,9 +46,8 @@ in
           history_length = 20;
           show_age_threshold = 60;
           markup = "full";
-          font = "Iosevka 10";
-          format =
-            "<span size='x-large' font_desc='Iosevka 8' foreground='${base05}'>%a</span>\\n%s\\n%b";
+          font = "Sans 8";
+          format = "%a\\n<b>%s</b>\\n%b";
           word_wrap = "yes";
           sort = "yes";
           shrink = "no";
