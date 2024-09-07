@@ -22,9 +22,9 @@ in
   @define-color base0F ${color.base0F};
 
   * {
-    font-family: "Iosevka, monospace";
+    font-family: "Work Sans", "Symbols Nerd Font", monospace;
     font-weight: normal;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   window#waybar {
@@ -49,7 +49,7 @@ in
 
   #custom-launcher {
     color: @base00;
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin-left: 0.5rem;
     margin-right: 1rem;
   }
@@ -123,7 +123,7 @@ in
 
   #custom-power {
     color: @base00;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-right: 0.5rem;
     margin-left: 1.2rem;
   }

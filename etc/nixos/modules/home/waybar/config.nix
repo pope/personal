@@ -12,12 +12,16 @@ in
   mainBar = {
     position = "top";
     layer = "top";
-    height = 37;
+    height = 24;
     margin-top = 0;
     margin-bottom = 0;
     margin-left = 0;
     margin-right = 0;
-    modules-left = [ "custom/launcher" "custom/playerctl" "custom/playerlabel" ];
+    modules-left = [ 
+      "custom/launcher"
+      "custom/playerctl"
+      "custom/playerlabel"
+    ];
     modules-center = [
       "hyprland/workspaces"
     ];
@@ -129,7 +133,7 @@ in
     };
 
     tray = {
-      icon-size = 18;
+      icon-size = 12;
       spacing = 10;
     };
 
