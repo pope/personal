@@ -15,7 +15,7 @@ in
       settings = with config.my.home.theme.colors; {
         main = {
           dpi-aware = false;
-          font = "Iosevka Comfy:size=10, Symbols Nerd Font:size=10";
+          font = "monospace:size=12, Symbols Nerd Font:size=12";
         };
         cursor = {
           color = "${base00} ${base05}";
@@ -46,4 +46,3 @@ in
     };
   };
 }
-
