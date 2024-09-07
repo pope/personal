@@ -22,7 +22,7 @@ in
   @define-color base0F ${color.base0F};
 
   * {
-    font-family: "Work Sans", "Symbols Nerd Font", monospace;
+    font-family: sans-serif, "Symbols Nerd Font", monospace;
     font-weight: normal;
     font-size: 0.8rem;
   }
