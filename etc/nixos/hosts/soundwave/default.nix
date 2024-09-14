@@ -41,10 +41,6 @@
     };
 
     initrd = {
-      luks.devices."luks-56068f38-928f-450d-b4e4-96be2a27674e" = {
-        device = "/dev/disk/by-uuid/56068f38-928f-450d-b4e4-96be2a27674e";
-      };
-
       kernelModules = [ "nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
       availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
     };
@@ -61,11 +57,11 @@
   };
 
   fileSystems = {
-    "/media/win-cyberia" = {
-      device = "/dev/disk/by-label/Cyberia";
-      fsType = "ntfs-3g";
-      options = [ "rw" "noauto,uid=1000,gid=100" "noatime" ];
-    };
+    # "/media/win-cyberia" = {
+    #   device = "/dev/disk/by-label/Cyberia";
+    #   fsType = "ntfs-3g";
+    #   options = [ "rw" "noauto,uid=1000,gid=100" "noatime" ];
+    # };
     "/media/cyberia" = {
       device = "raspberrypi.lan:/mnt/Cyberia";
       fsType = "nfs";
