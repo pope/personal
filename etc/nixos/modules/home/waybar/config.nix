@@ -17,7 +17,7 @@ in
     margin-bottom = 0;
     margin-left = 0;
     margin-right = 0;
-    modules-left = [ 
+    modules-left = [
       "custom/launcher"
       "custom/playerctl"
       "custom/playerlabel"
