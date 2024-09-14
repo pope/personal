@@ -71,18 +71,18 @@ in
           shares = listToAttrs (map shareConfig (attrNames cfg.shares));
         in
         {
-          inherit shares;
           enable = true;
           openFirewall = true;
-          securityType = "user";
-          extraConfig = ''
-            browsable = yes
-            smb encrypt = required
-            security = user 
+          settings = {
+            global = {
+              browsable = "yes";
+              "smb encrypt" = "required";
+              security = "user";
 
-            guest account = nobody
-            map to guest = bad user
-          '';
+              "guest account" = "nobody";
+              "map to guest" = "bad user";
+            };
+          } // shares;
         };
     };
   };
