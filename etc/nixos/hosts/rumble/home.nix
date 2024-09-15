@@ -28,21 +28,20 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "eDP-1,highres,auto,2,vrr,1"
+    "eDP-1,preferred,auto,2,vrr,1"
   ];
 
   services.xsettingsd.settings =
     let
-      # The actual PPI is 256, but 192 looks better to me.
-      ppi = 192;
       scaling = 2;
-      dpi = ppi * 1024;
+      dpi = (96 * scaling) * 1024;
     in
     {
       "Xft/DPI" = dpi;
       "Gdk/UnscaledDPI" = dpi / scaling;
       "Gdk/WindowScalingFactor" = scaling;
     };
+  xresources.properties."Xft.dpi" = 96 * 2;
 
   programs = {
     home-manager.enable = true;
