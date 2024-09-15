@@ -243,5 +243,14 @@ in
         "blur, launcher"
       ];
     };
+     wayland.windowManager.hyprland.extraConfig = ''
+      # Some default env vars.
+      env = XCURSOR_SIZE,24
+      env = HYPRCURSOR_SIZE,24
+
+      env = XDG_CURRENT_DESKTOP,Hyprland
+      env = XDG_SESSION_TYPE,wayland
+      env = XDG_SESSION_DESKTOP,Hyprland
+    '';
   };
 }
