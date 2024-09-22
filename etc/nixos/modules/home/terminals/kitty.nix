@@ -17,11 +17,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      kitty
-      kitty-themes
-    ];
-
     programs.kitty = with config.my.home.theme.colors.withHash; {
       enable = true;
       font = {
@@ -65,8 +60,8 @@ in
         "kitty_mod+backspace" = "change_font_size all 0";
         "map cmd+0" = "change_font_size all 0";
       };
-      theme =
-        if cfg.colorScheme == "rose-pine" then "Rosé Pine"
+      themeFile =
+        if cfg.colorScheme == "rose-pine" then "rose-pine"
         else if cfg.colorScheme == "catppuccin" then "Catppuccin-Mocha"
         else if cfg.colorScheme == "dracula" then "Dracula"
         else abort "invalid theme";
