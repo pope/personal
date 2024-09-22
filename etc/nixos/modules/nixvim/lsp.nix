@@ -93,7 +93,7 @@
                 staticcheck = true,
               },
             },
-            tsserver = {},
+            ts_ls = {},
             zls = {
               zls = {
                 enable_snippets = true,
