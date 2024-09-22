@@ -1,42 +1,13 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, ... }:
 
-let
-  allParsers = (with pkgs-stable.vimPlugins; [
-    {
-      pkg = nvim-treesitter-parsers.nix;
-      ft = [ "nix" ];
-    }
-  ]) ++ (with pkgs.vimPlugins;
-    builtins.filter
-      (p: p.pkg ? type && p.pkg.type == "derivation")
-      (builtins.map
-        (name: {
-          pkg = nvim-treesitter-parsers.${name};
-          ft = [ name ];
-        })
-        (builtins.filter
-          (n: n != "nix")
-          (builtins.attrNames nvim-treesitter-parsers))));
-in
 {
-  config.plugins.lazy.plugins = with pkgs.vimPlugins; allParsers ++ [
+  config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
-      # pkg = nvim-treesitter.withAllGrammars;
       pkg = nvim-treesitter;
       dependencies = [
         nvim-treesitter-textobjects
         rainbow-delimiters-nvim
-      ] ++ (with pkgs.vimPlugins; [
-        # Parsers that should be auto-loaded. These are ones that can be
-        # embedded into other languages or are just so common.
-        nvim-treesitter-parsers.bash
-        nvim-treesitter-parsers.css
-        nvim-treesitter-parsers.lua
-        nvim-treesitter-parsers.markdown
-        nvim-treesitter-parsers.markdown_inline
-        nvim-treesitter-parsers.regex
-        nvim-treesitter-parsers.vimdoc
-      ]);
+      ];
       event = [ "BufReadPost" "BufNewFile" ];
       opts.highlight = {
         enable = true;
@@ -140,6 +111,23 @@ in
           "<leader>pm" = "@function.outer"; # swap function with previous
         };
       };
+      init =
+        let
+          # Create one path to hold all of the gammars. This greatly reduces the number of paths
+          # That vim needs to search for as opposed to just doing one gammar at a time.
+          parsersPath = pkgs.symlinkJoin {
+            name = "treesitter-parsers";
+            paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+            # Taken from https://github.com/nvim-treesitter/nvim-treesitter/issues/6870#issuecomment-2296220844
+            postBuild = "rm -r $out/queries";
+          };
+        in
+          /* lua */ ''
+          function ()
+            -- Put treesitter path as first entry in rtp
+            vim.opt.rtp:prepend("${parsersPath}")
+          end
+        '';
       config =
         let
           mapping = key: cmd: /* lua */ ''
