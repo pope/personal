@@ -243,7 +243,7 @@ in
         "blur, launcher"
       ];
     };
-     wayland.windowManager.hyprland.extraConfig = ''
+    wayland.windowManager.hyprland.extraConfig = ''
       # Some default env vars.
       env = XCURSOR_SIZE,24
       env = HYPRCURSOR_SIZE,24
