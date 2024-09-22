@@ -16,6 +16,23 @@
       marksman
       tut
       vale
+      (writeShellScriptBin "my-jpeg-archive" ''
+        set -o errexit
+        set -o nounset
+
+        readonly dir=''${1:-.}
+        cd "$dir"
+
+        readonly tmpdir=$(mktemp -d)
+        trap "rm -rf $(printf %q "$tmpdir")" EXIT
+
+        ${findutils}/bin/find . -mindepth 1 -maxdepth 1 -iregex '.*\.jpe?g$' \
+          | ${parallel}/bin/parallel --no-notice "${jpeg-archive}/bin/jpeg-recompress --quality veryhigh --no-copy {} $(printf %q "$tmpdir")/{}"
+        if find "$tmpdir" -mindepth 1 -maxdepth 1 | read
+        then
+          mv $(printf %q "$tmpdir")/* .
+        fi
+      '')
     ];
 
     stateVersion = "23.05";
