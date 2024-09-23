@@ -10,6 +10,20 @@
     homeDirectory = "/Users/pope";
 
     packages = with pkgs; [
+      # Fonts
+      go-font
+      iosevka
+      iosevka-comfy.comfy
+      jetbrains-mono
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "NerdFontsSymbolsOnly"
+          "Lilex"
+          "Terminus"
+        ];
+      })
+
       clang-tools
       hey
       jpeg-archive
