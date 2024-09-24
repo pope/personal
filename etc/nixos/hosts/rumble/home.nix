@@ -70,6 +70,9 @@
     mpv = {
       enable = true;
       enableHqAnimeSettings = true;
+      # Disabled because MPV won't play videos otherwise. My current thought is
+      # that when I added amdvlk, it stopped working.
+      enableVulkan = false;
     };
     multimedia = {
       audio.enable = true;

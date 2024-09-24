@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkMerge optionalAttrs optionals;
+  inherit (lib) mkIf mkEnableOption mkMerge mkOption optionalAttrs optionals;
   inherit (pkgs) anime4k modernx fsrcnnx;
   krigBilateral = "${pkgs.krigBilateral}/KrigBilateral.glsl";
   ssimDownscaler = "${pkgs.ssimDownscaler}/SSimDownscaler.glsl";
@@ -15,6 +15,12 @@ in
   options.my.home.mpv = {
     enable = mkEnableOption "mpv options";
     enableHqAnimeSettings = mkEnableOption "use the HQ Anime4K shaders";
+    enableVulkan = mkOption {
+      default = pkgs.stdenv.isLinux;
+      example = true;
+      description = "Whether to enable Vulkan GPU API.";
+      type = lib.types.bool;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -52,7 +58,7 @@ in
         cscale = "spline36";
         linear-downscaling = "no";
         correct-downscaling = "yes";
-      } // optionalAttrs pkgs.stdenv.isLinux {
+      } // optionalAttrs cfg.enableVulkan {
         gpu-api = "vulkan";
       };
 
