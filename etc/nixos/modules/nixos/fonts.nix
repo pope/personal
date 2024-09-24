@@ -13,6 +13,7 @@ in
     fonts = {
       fontDir.enable = true;
       packages = with pkgs; [
+        comic-mono
         fira
         fira-go
         go-font
@@ -23,17 +24,20 @@ in
         iosevka-comfy.comfy
         jetbrains-mono
         joypixels
+        maple-mono
         noto-fonts-emoji
         open-sans
         roboto
         source-serif
+        terminus_font
+        terminus_font_ttf
+        victor-mono
         work-sans
         (nerdfonts.override {
           fonts = [
             "FiraCode"
             "NerdFontsSymbolsOnly"
             "Lilex"
-            "Terminus"
           ];
         })
       ];
