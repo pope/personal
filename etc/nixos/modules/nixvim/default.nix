@@ -37,6 +37,7 @@
       {
         pkg = which-key-nvim;
         event = [ "VeryLazy" ];
+        dependencies = [ nvim-web-devicons mini-nvim ];
       }
       {
         pkg = toggleterm-nvim;
