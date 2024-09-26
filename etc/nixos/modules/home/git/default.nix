@@ -53,6 +53,7 @@ in
             program = cfg.opSshSignCommand;
             allowedSignersFile = "~/.ssh/allowed_signers";
           };
+          log.showSignature = true;
         };
       };
 
@@ -62,6 +63,22 @@ in
         settings = {
           # Workaround for https://github.com/nix-community/home-manager/issues/4744
           version = 1;
+        };
+      };
+
+      lazygit = {
+        enable = true;
+        settings = {
+          gui = {
+            nerdFontsVersion = "3";
+            showDivergenceFromBaseBranch = "arrowAndNumber";
+            filterMode = "fuzzy";
+          };
+          git = {
+            commit.signOff = true;
+            parseEmoji = true;
+            paging.externalDiffCommand = "${pkgs.difftastic}/bin/difft --color=always";
+          };
         };
       };
 
