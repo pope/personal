@@ -43,6 +43,8 @@ in
         userName = "K. Adam Christensen";
         userEmail = "pope@shifteleven.com";
 
+        diff-so-fancy.enable = true;
+
         extraConfig = {
           core.sshCommand = mkIf (cfg.sshCommand != null) cfg.sshCommand;
           init.defaultBranch = "main";
@@ -77,7 +79,10 @@ in
           git = {
             commit.signOff = true;
             parseEmoji = true;
-            paging.externalDiffCommand = "${pkgs.difftastic}/bin/difft --color=always";
+            paging = {
+              color = "always";
+              pager = "diff-so-fancy";
+            };
           };
         };
       };
