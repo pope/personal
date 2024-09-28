@@ -83,9 +83,7 @@
       python.enable = true;
     };
     lf.enable = true;
-    # Disabling while there's a build error. I also don't use MPV too much on
-    # this system anyway.
-    mpv.enable = false;
+    mpv.enable = true;
     multimedia.audio.enable = true;
     packages.enable = true;
     shell.zsh.enable = true;
