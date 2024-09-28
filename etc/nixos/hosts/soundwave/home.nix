@@ -22,16 +22,13 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    # "HDMI-A-1,2560x1440@119.998001,0x0,auto"
-    "HDMI-A-1,preferred,0x0,auto"
+    "HDMI-A-1,2560x1440@120,0x0,auto"
+    # "HDMI-A-1,preferred,0x0,auto"
     "DP-2,preferred,2560x0,auto"
     # TODO(pope): Find out why there is this unknown screen showing up.
     # Leaving it means that if something gets opened on that monitor, then
     # Hyprland will crash.
     "Unknown-1,disable"
-
-    # "HDMI-A-1,disable"
-    # "DP-2,preferred,0x0,auto"
   ];
 
   programs = {
