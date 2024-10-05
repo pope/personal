@@ -70,7 +70,7 @@ in
           }
           dap.adapters.lldb = {
             type = 'executable',
-            command = '${pkgs.lldb}/bin/lldb-vscode', -- adjust as needed, must be absolute path
+            command = '${pkgs.lldb}/bin/lldb-dap', -- adjust as needed, must be absolute path
             name = 'lldb'
           }
           dap.configurations.c = {
@@ -97,6 +97,21 @@ in
             },
           }
           dap.configurations.cpp = dap.configurations.c
+
+          -- Rust
+          dap.configurations.rust = {
+            {
+              name = "Launch (lldb)",
+              type = "lldb",
+              request = "launch",
+              program = function()
+                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+              end,
+              cwd = "''${workspaceFolder}",
+              stopOnEntry = false,
+              args = {},
+            },
+          }
 
           -- Godot
           dap.adapters.godot = {
