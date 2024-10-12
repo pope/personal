@@ -21,7 +21,7 @@
   nixpkgs.overlays = [
     self.overlays.default
   ];
-  nixpkgs.config.cudaSupport = false;
+  nixpkgs.config.cudaSupport = true;
 
   boot = {
     # Bootloader.
