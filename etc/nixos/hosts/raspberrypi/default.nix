@@ -38,8 +38,13 @@
       fsType = "ext4";
       options = [ "noatime" ];
     };
-    "/mnt/Cyberia" = {
+    "/mnt/Backup" = {
       device = "/dev/disk/by-label/Cyberia";
+      fsType = "ext4";
+      options = [ "rw" "users" "noatime" ];
+    };
+    "/mnt/Cyberia" = {
+      device = "/dev/disk/by-label/T5-EVO";
       fsType = "ext4";
       options = [ "rw" "users" "noatime" ];
     };
