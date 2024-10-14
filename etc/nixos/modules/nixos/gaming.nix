@@ -35,13 +35,22 @@ in
     # Hardware support from Steam
     hardware = {
       steam-hardware.enable = true;
+      xone.enable = true;
     };
 
-    programs.steam = {
-      enable = cfg.enableSteam;
-      dedicatedServer.openFirewall = true;
-      gamescopeSession.enable = true;
-      remotePlay.openFirewall = true;
+    programs = {
+      gamescope = {
+        enable = true;
+        capSysNice = true;
+      };
+
+      steam = {
+        enable = cfg.enableSteam;
+        dedicatedServer.openFirewall = true;
+        gamescopeSession.enable = true;
+        localNetworkGameTransfers.openFirewall = true;
+        remotePlay.openFirewall = true;
+      };
     };
   };
 }
