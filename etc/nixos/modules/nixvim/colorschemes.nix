@@ -7,7 +7,7 @@ in
 {
   options.my.nixvim.theme = {
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
@@ -109,6 +109,18 @@ in
           require("dracula").setup(opts)
       '' + (optionalString (cfg.colorScheme == "dracula") ''
         vim.cmd("colorscheme dracula")
+      '') + ''
+        end
+      '';
+    }
+    {
+      pkg = tokyonight-nvim;
+      priority = 1000;
+      config = ''
+        function(_, opts)
+          require("tokyonight").setup(opts)
+      '' + (optionalString (cfg.colorScheme == "tokyonight") ''
+        vim.cmd("colorscheme tokyonight")
       '') + ''
         end
       '';
