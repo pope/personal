@@ -6,6 +6,10 @@ fetch.git = "https://github.com/rose-pine/fish"
 src.git = "https://github.com/catppuccin/fish"
 fetch.git = "https://github.com/catppuccin/fish"
 
+[fish-tokyonight]
+src.git = "https://github.com/vitallium/tokyonight-fish"
+fetch.git = "https://github.com/vitallium/tokyonight-fish"
+
 [modernx]
 src.github_tag = "cyl0/ModernX"
 fetch.github = "cyl0/ModernX"

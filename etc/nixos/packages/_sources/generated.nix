@@ -3,16 +3,16 @@
 {
   fish-catppuccin = {
     pname = "fish-catppuccin";
-    version = "a3b9eb5eaf2171ba1359fe98f20d226c016568cf";
+    version = "cc8e4d8fffbdaab07b3979131030b234596f18da";
     src = fetchgit {
       url = "https://github.com/catppuccin/fish";
-      rev = "a3b9eb5eaf2171ba1359fe98f20d226c016568cf";
+      rev = "cc8e4d8fffbdaab07b3979131030b234596f18da";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-shQxlyoauXJACoZWtRUbRMxmm10R8vOigXwjxBhG8ng=";
+      sha256 = "sha256-udiU2TOh0lYL7K7ylbt+BGlSDgCjMpy75vQ98C1kFcc=";
     };
-    date = "2024-05-14";
+    date = "2024-08-31";
   };
   fish-rose-pine = {
     pname = "fish-rose-pine";
@@ -26,6 +26,19 @@
       sha256 = "sha256-bSGGksL/jBNqVV0cHZ8eJ03/8j3HfD9HXpDa8G/Cmi8=";
     };
     date = "2022-09-16";
+  };
+  fish-tokyonight = {
+    pname = "fish-tokyonight";
+    version = "04fc51e1f53afe3be14f9169bf800337a430d253";
+    src = fetchgit {
+      url = "https://github.com/vitallium/tokyonight-fish";
+      rev = "04fc51e1f53afe3be14f9169bf800337a430d253";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-JI1kTez4CeMpSKcSikFUee15N48zkJJOvLHCi0H2PUc=";
+    };
+    date = "2024-07-17";
   };
   fsrcnnx-lineart = {
     pname = "fsrcnnx-lineart";

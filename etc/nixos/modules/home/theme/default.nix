@@ -7,7 +7,7 @@ in
 {
   options.my.home.theme = {
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which theme to use with UI elements.
@@ -30,6 +30,8 @@ in
           inputs.nix-colors.colorSchemes.catppuccin-mocha
         else if cfg.colorScheme == "dracula" then
           inputs.nix-colors.colorSchemes.dracula
+        else if cfg.colorScheme == "tokyonight" then
+          inputs.nix-colors.colorSchemes.tokyo-night-storm
         else abort "colorScheme is invalid";
       inherit (colorScheme) palette;
       colors = palette // {
