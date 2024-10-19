@@ -8,7 +8,7 @@ in
   options.my.home.shell.fish = {
     enable = mkEnableOption "Fish shell home options";
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
@@ -51,5 +51,16 @@ in
         fish_config theme choose "Dracula"
       '';
     })
+
+    (mkIf (cfg.enable && cfg.colorScheme == "catppuccin") {
+      programs.fish.interactiveShellInit = ''
+        fish_config theme choose "TokyoNight Storm"
+      '';
+      xdg.configFile."fish/themes" = {
+        source = "${pkgs.fish-tokyonight}/share/fish/themes";
+        recursive = true;
+      };
+    })
+
   ];
 }

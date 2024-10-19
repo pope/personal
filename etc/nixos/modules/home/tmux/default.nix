@@ -8,10 +8,12 @@ in
   options.my.home.tmux = {
     enable = mkEnableOption "tmux home options";
     colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" ];
+      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
+
+        NOTE: tokyonight doesn't do anything yet.
       '';
     };
   };

@@ -5,7 +5,8 @@ let
   mypkgs = self.packages.${final.system};
 in
 {
-  inherit (mypkgs) fish-rose-pine fish-catppuccin fsrcnnx modernx plow p5r-grub;
+  inherit (mypkgs) fish-rose-pine fish-catppuccin fish-tokyonight;
+  inherit (mypkgs) fsrcnnx modernx plow p5r-grub;
   inherit (mypkgs) comic-code-ligatures lucida-grande;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
   inherit (mypkgs) iqm rbutil hatsune-miku-cursor;

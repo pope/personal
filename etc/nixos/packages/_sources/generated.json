@@ -1,7 +1,7 @@
 {
     "fish-catppuccin": {
         "cargoLocks": null,
-        "date": "2024-05-14",
+        "date": "2024-08-31",
         "extract": null,
         "name": "fish-catppuccin",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a3b9eb5eaf2171ba1359fe98f20d226c016568cf",
-            "sha256": "sha256-shQxlyoauXJACoZWtRUbRMxmm10R8vOigXwjxBhG8ng=",
+            "rev": "cc8e4d8fffbdaab07b3979131030b234596f18da",
+            "sha256": "sha256-udiU2TOh0lYL7K7ylbt+BGlSDgCjMpy75vQ98C1kFcc=",
             "type": "git",
             "url": "https://github.com/catppuccin/fish"
         },
-        "version": "a3b9eb5eaf2171ba1359fe98f20d226c016568cf"
+        "version": "cc8e4d8fffbdaab07b3979131030b234596f18da"
     },
     "fish-rose-pine": {
         "cargoLocks": null,
@@ -36,6 +36,25 @@
             "url": "https://github.com/rose-pine/fish"
         },
         "version": "38aab5baabefea1bc7e560ba3fbdb53cb91a6186"
+    },
+    "fish-tokyonight": {
+        "cargoLocks": null,
+        "date": "2024-07-17",
+        "extract": null,
+        "name": "fish-tokyonight",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "04fc51e1f53afe3be14f9169bf800337a430d253",
+            "sha256": "sha256-JI1kTez4CeMpSKcSikFUee15N48zkJJOvLHCi0H2PUc=",
+            "type": "git",
+            "url": "https://github.com/vitallium/tokyonight-fish"
+        },
+        "version": "04fc51e1f53afe3be14f9169bf800337a430d253"
     },
     "fsrcnnx-lineart": {
         "cargoLocks": null,
