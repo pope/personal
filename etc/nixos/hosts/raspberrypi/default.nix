@@ -100,8 +100,8 @@
           rsync -av --exclude=lost+found/ --link-dest="$LASTBACKUP" /mnt/Cyberia/ "$BACKUP"
         fi
       '';
-      after  = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
-      wants  = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
+      after = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
+      wants = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
       serviceConfig.Type = "oneshot";
     };
 
@@ -109,8 +109,8 @@
       description = "Cyberia rsync daily backup timer";
       wantedBy = [ "timers.target" ];
       partOf = [ "cyberia-backup.service" ];
-      after  = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
-      requires  = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
+      after = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
+      requires = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
       timerConfig = {
         OnBootSec = "5min";
         OnUnitActiveSec = "6h";
