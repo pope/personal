@@ -168,4 +168,17 @@
       sha256 = "sha256-qLJxFYQMYARSUEEbN14BiAACFyWK13butRckyXgVRg8=";
     };
   };
+  yazi-plugins = {
+    pname = "yazi-plugins";
+    version = "4f1d0ae0862f464e08f208f1807fcafcd8778e16";
+    src = fetchgit {
+      url = "https://github.com/yazi-rs/plugins";
+      rev = "4f1d0ae0862f464e08f208f1807fcafcd8778e16";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-+d7D6nq/oOzcsvvH0MHmLUDkxAtand+IXKQ730m4Ifs=";
+    };
+    date = "Good \"git\" signature with ED25519 key SHA256:UpS/s3AKXiouO9D7joFqpoEMveeZ8A6ZyE48w2WkJ0U\nNo principal matched.\n2024-10-16";
+  };
 }

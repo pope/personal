@@ -30,5 +30,6 @@
       c.enable = true;
     };
     packages.enable = true;
+    yazi.enable = true;
   };
 }

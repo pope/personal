@@ -61,5 +61,6 @@
     theme.colorScheme = "catppuccin";
     tmux.enable = true;
     xdg.enable = true;
+    yazi.enable = true;
   };
 }

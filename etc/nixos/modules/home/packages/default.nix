@@ -120,16 +120,6 @@ in
           "75%"
         ];
       };
-      yazi = {
-        enable = true;
-        settings = {
-          manager.ratio = [ 1 4 3 ];
-          preview = {
-            max_width = 2048;
-            max_height = 4096;
-          };
-        };
-      };
       zoxide.enable = true;
     } // optionalAttrs pkgs.stdenv.isLinux {
       cava = {

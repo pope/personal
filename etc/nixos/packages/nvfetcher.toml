@@ -10,6 +10,10 @@ fetch.git = "https://github.com/catppuccin/fish"
 src.git = "https://github.com/vitallium/tokyonight-fish"
 fetch.git = "https://github.com/vitallium/tokyonight-fish"
 
+[yazi-plugins]
+src.git = "https://github.com/yazi-rs/plugins"
+fetch.git = "https://github.com/yazi-rs/plugins"
+
 [modernx]
 src.github_tag = "cyl0/ModernX"
 fetch.github = "cyl0/ModernX"
