@@ -43,10 +43,6 @@
     };
     editors.vscode.enable = true;
     editors.neovim.enable = true;
-    dropbox = {
-      enable = true;
-      gui.enable = true;
-    };
     dunst.enable = true;
     gaming.enable = true;
     git.enable = true;
