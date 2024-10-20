@@ -16,8 +16,8 @@ in
 
     gtk = {
       iconTheme = {
-        name = "Arc";
-        package = pkgs.arc-icon-theme;
+        name = "Qogir";
+        package = pkgs.qogir-icon-theme;
       };
 
       theme = {
