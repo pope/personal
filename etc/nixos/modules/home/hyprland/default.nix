@@ -156,7 +156,9 @@ in
     };
 
     services.hyprpaper = {
-      enable = true;
+      # Disabling in favor of swww.
+      # With swww, I can change the background easily after the fact.
+      enable = false;
       settings = {
         ipc = "on";
         splash = false;
@@ -164,6 +166,24 @@ in
 
         preload = [ "~/Pictures/wallpaper-purple.png" ];
         wallpaper = [ ",~/Pictures/wallpaper-purple.png" ];
+      };
+    };
+
+    systemd.user.services = {
+      swww = {
+        Unit = {
+          Description = "Efficient animated wallpaper daemon for wayland";
+          PartOf = [ "graphical-session-pre.target" ];
+          After = [ "graphical-session.target" ];
+          ConditionEnvironment = [ "XDG_CURRENT_DESKTOP=Hyprland" ];
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          ExecStart = "${pkgs.swww}/bin/swww-daemon";
+          ExecStop = "${pkgs.swww}/bin/swww kill";
+          Restart = "always";
+          RestartSec = "10";
+        };
       };
     };
 
