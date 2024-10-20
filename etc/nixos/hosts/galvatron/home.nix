@@ -89,5 +89,6 @@
     shell.zsh.enable = true;
     terminals.wezterm.enable = true;
     tmux.enable = true;
+    yazi.enable = true;
   };
 }

@@ -23,5 +23,6 @@ _:
     lf.enable = true;
     packages.enable = true;
     shell.fish.enable = true;
+    yazi.enable = true;
   };
 }

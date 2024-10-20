@@ -94,5 +94,6 @@
     theme.colorScheme = "rose-pine";
     tmux.enable = true;
     xdg.enable = true;
+    yazi.enable = true;
   };
 }
