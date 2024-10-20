@@ -45,6 +45,8 @@ in
       sd # sed
       tldr
       tree
+    ] ++ optionalAttrs pkgs.stdenv.isLinux [
+      systemctl-tui
     ];
 
     programs = {
