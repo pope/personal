@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption mkOption types;
@@ -20,14 +20,13 @@ in
     programs.kitty = with config.my.home.theme.colors.withHash; {
       enable = true;
       font = {
-        name = "Iosevka Comfy";
-        package = pkgs.iosevka-comfy.comfy;
+        name = "monospace";
         size = lib.mkDefault 12.0;
       };
       settings = {
-        bold_font = "Iosevka Comfy Bold";
-        italic_font = "Iosevka Comfy Italic";
-        bold_italic_font = "Iosevka Comfy Bold Italic";
+        bold_font = "auto";
+        italic_font = "auto";
+        bold_italic_font = "auto";
 
         background_opacity = "0.85";
         clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
