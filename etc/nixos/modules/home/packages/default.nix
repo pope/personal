@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption optionalAttrs optional;
+  inherit (lib) mkIf mkEnableOption optionalAttrs optionals;
   cfg = config.my.home.packages;
   glowConfig = lib.generators.toYAML { } {
     # style name or JSON path (default "auto")
@@ -45,7 +45,7 @@ in
       sd # sed
       tldr
       tree
-    ] ++ optional pkgs.stdenv.isLinux [
+    ] ++ optionals stdenv.isLinux [
       systemctl-tui
     ];
 
