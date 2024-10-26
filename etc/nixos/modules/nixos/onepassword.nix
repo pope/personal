@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
@@ -17,6 +17,16 @@ in
         enable = true;
         polkitPolicyOwners = [ mainUser ];
       };
+    };
+
+    systemd.user.services.one-password = {
+      enable = true;
+
+      description = "1Password";
+      script = "${lib.getExe pkgs._1password-gui} --silent";
+      partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
     };
   };
 }
