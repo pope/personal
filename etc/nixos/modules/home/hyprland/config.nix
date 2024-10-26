@@ -5,7 +5,6 @@ let
   anyrunPkg = inputs.anyrun.packages.${pkgs.system}.default;
 
   # commands
-  _1password = "${pkgs._1password-gui}/bin/1password";
   anyrun = "${anyrunPkg}/bin/anyrun";
   brillo = "${pkgs.brillo}/bin/brillo";
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
@@ -36,7 +35,6 @@ in
         waybar
         "${nm-applet} --indicator"
         "${udiskie} --appindicator --no-password-prompt"
-        "${_1password} --silent"
       ];
 
       xwayland.force_zero_scaling = true;
