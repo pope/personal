@@ -48,14 +48,19 @@ in
         extraConfig = {
           core.sshCommand = mkIf (cfg.sshCommand != null) cfg.sshCommand;
           init.defaultBranch = "main";
-          user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo";
-          commit.gpgsign = true;
-          gpg.format = "ssh";
-          "gpg \"ssh\"" = {
-            program = cfg.opSshSignCommand;
-            allowedSignersFile = "~/.ssh/allowed_signers";
+          gpg = {
+            format = "ssh";
+            "ssh" = {
+              program = cfg.opSshSignCommand;
+              allowedSignersFile = "~/.ssh/allowed_signers";
+            };
           };
           log.showSignature = true;
+        };
+
+        signing = {
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo";
+          signByDefault = true;
         };
       };
 
