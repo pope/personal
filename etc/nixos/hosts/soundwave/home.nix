@@ -41,8 +41,10 @@
       chromium.enable = true;
       firefox.enable = true;
     };
-    editors.vscode.enable = true;
-    editors.neovim.enable = true;
+    editors = {
+      vscode.enable = true;
+      neovim.enable = true;
+    };
     dunst.enable = true;
     gaming.enable = true;
     git.enable = true;
@@ -72,14 +74,17 @@
     };
     obs.enable = true;
     packages.enable = true;
-    shell.fish.enable = true;
-    shell.zsh.enable = true;
+    shell = {
+      fish.enable = true;
+      zsh.enable = true;
+    };
     terminals = {
       crt.enable = true;
       foot.enable = true;
       kitty.enable = true;
       wezterm.enable = true;
     };
+    theme.colorScheme = "tokyonight";
     tmux.enable = true;
     xdg.enable = true;
     yazi.enable = true;
