@@ -12,4 +12,6 @@ in
     inputs.anyrun.homeManagerModules.default
     inputs.nix-colors.homeManagerModules.default
   ] ++ imports;
+
+  config.nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 }

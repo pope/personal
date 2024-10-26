@@ -49,7 +49,24 @@
             gdscript = {},
             glsl_analyzer = {},
             kotlin_language_server = {},
-            nil_ls = {},
+            nixd = {
+              nixd = {
+                nixpkgs = {
+                  expr = "import <nixpkgs> { }",
+                },
+                formatting = {
+                  command = { "nixpkgs-fmt" },
+                },
+                options = {
+                  nixos = {
+                    expr = 'let configs = (builtins.getFlake ((builtins.getEnv "HOME") + "/Code/personal/etc/nixos")).nixosConfigurations; in (builtins.head (builtins.attrValues configs)).options',
+                  },
+                  home_manager = {
+                    expr = 'let configs = (builtins.getFlake ((builtins.getEnv "HOME") + "/Code/personal/etc/nixos")).homeConfigurations; in (builtins.head (builtins.attrValues configs)).options',
+                  },
+                },
+              },
+            },
             phpactor = {},
             pyright = {
               pyright = {

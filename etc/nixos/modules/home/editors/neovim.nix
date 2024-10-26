@@ -21,12 +21,6 @@ in
   ];
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      lua-language-server
-      nil
-      wget
-    ];
-
     programs.nixvim = _: {
       _module.args.pkgs-stable = pkgs-stable;
       imports = [

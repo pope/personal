@@ -19,7 +19,11 @@
 
   config = {
     extraPackages = with pkgs; [
+      lua-language-server
+      nixd
+      nixpkgs-fmt
       tree-sitter
+      wget
     ];
 
     editorconfig.enable = true;
