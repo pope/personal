@@ -28,6 +28,7 @@ in
       convert_48khz
     ] ++ lib.optionals stdenv.isLinux [
       bitwig-studio
+      reaper
     ];
   };
 }
