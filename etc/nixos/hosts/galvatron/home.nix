@@ -60,13 +60,15 @@
       controlPath = "/tmp/%r@%h:%p";
       controlPersist = "5m";
 
-      matchBlocks."shifteleven.com".user = "root";
+      matchBlocks = {
+        "shifteleven.com".user = "root";
 
-      matchBlocks."nix-builder" = {
-        user = "root";
-        hostname = "127.0.0.1";
-        port = 3022;
-        identityFile = "~/.ssh/insecure_rsa";
+        "nix-builder" = {
+          user = "root";
+          hostname = "127.0.0.1";
+          port = 3022;
+          identityFile = "~/.ssh/insecure_rsa";
+        };
       };
     };
   };
