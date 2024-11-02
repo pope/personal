@@ -49,8 +49,10 @@
 
   my.home = {
     anyrun.enable = true;
-    browsers.firefox.enable = true;
-    browsers.chromium.enable = true;
+    browsers = {
+      firefox.enable = true;
+      chromium.enable = true;
+    };
     editors = {
       neovim.enable = true;
       vscode.enable = true;
@@ -59,8 +61,10 @@
     git.enable = true;
     gnome.enable = true;
     gtk.enable = true;
-    hyprland.enable = true;
-    hyprland.hypridle.enable = true;
+    hyprland = {
+      enable = true;
+      hypridle.enable = true;
+    };
     keymapp.enable = true;
     languages = {
       javascript.enable = true;
@@ -78,13 +82,14 @@
       audio.enable = true;
       graphics.enable = true;
       photography.enable = true;
-      threed.enable = true;
-      threed.hip.enable = true;
+      threed = {
+        enable = true;
+        hip.enable = true;
+      };
       video.enable = true;
     };
     obs.enable = true;
     packages.enable = true;
-    shell.fish.enable = true;
     shell.zsh.enable = true;
     terminals = {
       kitty.enable = true;

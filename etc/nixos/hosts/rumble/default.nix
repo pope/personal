@@ -62,31 +62,39 @@
     };
   };
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      rocmPackages.clr.icd
-      # Encoding/decoding acceleration
-      libvdpau-va-gl
-      libva-vdpau-driver
-      libva
-    ];
+  hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        rocmPackages.clr.icd
+        # Encoding/decoding acceleration
+        libvdpau-va-gl
+        libva-vdpau-driver
+        libva
+      ];
+    };
+
+    framework.amd-7040.preventWakeOnAC = true;
   };
 
-  hardware.framework.amd-7040.preventWakeOnAC = true;
+  services = {
+    fwupd = {
+      enable = true;
+      extraRemotes = [ "lvfs-testing" ]; # Some framework firmware is still in testing
+    };
 
-  services.fwupd = {
-    enable = true;
-    extraRemotes = [ "lvfs-testing" ]; # Some framework firmware is still in testing
+    # Must be explicitly false otherwise there's infinite recursion going on.
+    tlp.enable = false;
+    logind.lidSwitch = "suspend-then-hibernate";
+    power-profiles-daemon.enable = true;
   };
 
-  # Must be explicitly false otherwise there's infinite recursion going on.
-  services.tlp.enable = false;
-  services.logind.lidSwitch = "suspend-then-hibernate";
-  services.power-profiles-daemon.enable = true;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  powerManagement.powertop.enable = true; # Run powertop on boot
+  powerManagement = {
+    cpuFreqGovernor = lib.mkDefault "powersave";
+    powertop.enable = true; # Run powertop on boot
+  };
+
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=24h
   '';
@@ -102,8 +110,10 @@
 
     bluetooth.enable = true;
     fonts.enable = true;
-    gaming.enable = true;
-    gaming.enableSteam = true;
+    gaming = {
+      enable = true;
+      enableSteam = true;
+    };
     onepassword.enable = true;
     printing.enable = true;
     sound.enable = true;
