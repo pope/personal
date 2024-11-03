@@ -52,7 +52,7 @@ in
       '';
     })
 
-    (mkIf (cfg.enable && cfg.colorScheme == "catppuccin") {
+    (mkIf (cfg.enable && cfg.colorScheme == "tokyonight") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "TokyoNight Storm"
       '';
