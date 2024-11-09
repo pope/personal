@@ -18,7 +18,7 @@ in
       gnomeExtensions.custom-accent-colors
       gnomeExtensions.forge
       gnomeExtensions.pop-shell
-      gnomeExtensions.rounded-window-corners
+      gnomeExtensions.rounded-window-corners-reborn
       gnomeExtensions.user-themes
 
       gnome-themes-extra
@@ -40,7 +40,7 @@ in
           appindicator.extensionUuid
           blur-my-shell.extensionUuid
           caffeine.extensionUuid
-          rounded-window-corners.extensionUuid
+          rounded-window-corners-reborn.extensionUuid
           user-themes.extensionUuid
         ];
       };
