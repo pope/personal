@@ -89,12 +89,14 @@ in
           xray = false;
         };
 
-        drop_shadow = true;
-        shadow_ignore_window = true;
-        shadow_offset = "0 8";
-        shadow_range = 50;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(${base00}99)";
+        shadow = {
+          enabled = true;
+          ignore_window = true;
+          offset = "0 8";
+          range = 50;
+          render_power = 3;
+          color = "rgba(${base00}99)";
+        };
       };
 
       animations = {
@@ -138,7 +140,6 @@ in
       dwindle = {
         default_split_ratio = 1.0;
         force_split = 0;
-        no_gaps_when_only = false;
         preserve_split = true;
         pseudotile = true; # enable pseudotiling on dwindle
         special_scale_factor = 0.8;
@@ -231,8 +232,24 @@ in
         "SUPER, mouse:273, resizewindow"
       ];
 
+      workspace = [
+        # # For no gaps when only one Window. Also requires windowrulev2.
+        # # Ref https://wiki.hyprland.org/Configuring/Workspace-Rules/
+        # "w[t1], gapsout:0, gapsin:0"
+        # "w[tg1], gapsout:0, gapsin:0"
+        # "f[1], gapsout:0, gapsin:0"
+      ];
+
       windowrulev2 = [
         "float,class:^(pavucontrol)$"
+
+        # # For no gaps when only one Window
+        # "bordersize 0, floating:0, onworkspace:w[t1]"
+        # "rounding 0, floating:0, onworkspace:w[t1]"
+        # "bordersize 0, floating:0, onworkspace:w[tg1]"
+        # "rounding 0, floating:0, onworkspace:w[tg1]"
+        # "bordersize 0, floating:0, onworkspace:f[1]"
+        # "rounding 0, floating:0, onworkspace:f[1]"
       ];
       layerrule = [
         "blur, ^(gtk-layer-shell|anyrun|waybar)$"
