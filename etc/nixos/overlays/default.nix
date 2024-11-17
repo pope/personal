@@ -11,12 +11,21 @@ in
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
   inherit (mypkgs) iqm rbutil hatsune-miku-cursor yazi-plugins;
 
-  renoise343 = prev.renoise.override (
+  renoise344 = prev.renoise.override (
     let
-      version = "343";
-      os = if prev.system == "x86_64-linux" then "x86_64" else "arm64";
-      basename = "rns_${version}_linux_${os}.tar.gz";
-      releasePath = /media/cyberia/nix-files/software/${basename};
+      version = "344";
+      releasePath =
+        if prev.system == "x86_64-linux" then
+          (prev.requireFile rec {
+            name = "rns_${version}_linux_x86_64.tar.gz";
+            url = "file:///media/cyberia/nix-files/software/${name}";
+            sha256 = "0qdvqdr5whqmsbiaqw5933p728ckcq3cigzh57bk4hydrrxy22cn";
+          }) else
+          (prev.requireFile rec {
+            name = "rns_${version}_linux_arm64.tar.gz";
+            url = "file:///media/cyberia/nix-files/software/${name}";
+            sha256 = "0dkmsp5v0rvlppnl1s2hwnfw2ccnhav6rbv1lrck818jprzibjdh";
+          });
     in
     { inherit releasePath; }
   );
