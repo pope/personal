@@ -12,13 +12,9 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
-      (comic-code-ligatures.overrideAttrs (_: {
-        src = /home/pope/Documents/fonts/comic-code-ligatures;
-      }))
+      comic-code-ligatures
       discord
-      (lucida-grande.overrideAttrs (_: {
-        src = /home/pope/Documents/fonts/lucida-grande;
-      }))
+      lucida-grande
       godot_4
       nvtopPackages.amd
       rbutil
