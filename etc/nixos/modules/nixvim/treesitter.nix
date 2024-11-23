@@ -118,8 +118,8 @@
           parsersPath = pkgs.symlinkJoin {
             name = "treesitter-parsers";
             paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-            # Taken from https://github.com/nvim-treesitter/nvim-treesitter/issues/6870#issuecomment-2296220844
-            postBuild = "rm -r $out/queries";
+            # # Taken from https://github.com/nvim-treesitter/nvim-treesitter/issues/6870#issuecomment-2296220844
+            # postBuild = "rm -r $out/queries";
           };
         in
           /* lua */ ''
