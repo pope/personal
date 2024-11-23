@@ -38,6 +38,15 @@ in
 
       light.enable = true;
 
+      uwsm = {
+        enable = true;
+        waylandCompositors.hyprland = {
+          binPath = "${pkgs.hyprland}/bin/Hyprland";
+          comment = "Hyprland session managed by uwsm";
+          prettyName = "Hyprland";
+        };
+      };
+
       thunar = {
         enable = true;
         plugins = with pkgs.xfce; [

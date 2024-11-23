@@ -5,22 +5,21 @@ let
   anyrunPkg = inputs.anyrun.packages.${pkgs.system}.default;
 
   # commands
-  anyrun = "${anyrunPkg}/bin/anyrun";
+  uwsm-app = "${pkgs.uwsm}/bin/uwsm app --";
+
+  anyrun = "${uwsm-app} ${anyrunPkg}/bin/anyrun";
   brillo = "${pkgs.brillo}/bin/brillo";
-  dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   grim = "${pkgs.grim}/bin/grim";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+  nm-applet = "${uwsm-app} ${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${pkgs.pamixer}/bin/pamixer";
-  polkit = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
   slurp = "${pkgs.slurp}/bin/slurp";
-  swappy = "${pkgs.swappy}/bin/swappy";
-  systemctl = "${pkgs.systemd}/bin/systemctl";
-  terminal = "${pkgs.wezterm}/bin/wezterm";
-  thunar = "${pkgs.xfce.thunar}/bin/thunar";
-  udiskie = "${pkgs.udiskie}/bin/udiskie";
-  waybar = "${pkgs.waybar}/bin/waybar";
-  wlogout = "${pkgs.wlogout}/bin/wlogout";
+  swappy = "${uwsm-app} ${pkgs.swappy}/bin/swappy";
+  terminal = "${uwsm-app} ${pkgs.wezterm}/bin/wezterm";
+  thunar = "${uwsm-app} ${pkgs.xfce.thunar}/bin/thunar";
+  udiskie = "${uwsm-app} ${pkgs.udiskie}/bin/udiskie";
+  waybar = "${uwsm-app} ${pkgs.waybar}/bin/waybar";
+  wlogout = "${uwsm-app} ${pkgs.wlogout}/bin/wlogout";
 in
 {
   config = mkIf config.my.home.hyprland.enable {
@@ -29,9 +28,7 @@ in
         "eDP-1,preferred,auto,1"
       ];
       exec-once = [
-        "${dbus-update-activation-environment} --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "${systemctl} --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        polkit
+        "systemctl --user start hyprpolkitagent"
         waybar
         "${nm-applet} --indicator"
         "${udiskie} --appindicator --no-password-prompt"
@@ -266,6 +263,15 @@ in
       env = XDG_CURRENT_DESKTOP,Hyprland
       env = XDG_SESSION_TYPE,wayland
       env = XDG_SESSION_DESKTOP,Hyprland
+
+      env = WLR_NO_HARDWARE_CURSORS,1
+      env = WLR_EGL_NO_MODIFIRES,1
+
+      env = NIXOS_OZONE_WL,1
+      env = MOZ_ENABLE_WAYLAND,1
+      env = MOZ_WEBRENDER,1
+
+      env = GDK_BACKEND,wayland
     '';
   };
 }
