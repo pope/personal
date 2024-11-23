@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, pkgs-stable, config, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption optionalAttrs optionals;
@@ -124,6 +124,7 @@ in
     } // optionalAttrs pkgs.stdenv.isLinux {
       cava = {
         enable = true;
+        package = pkgs-stable.cava;
         settings.color = with config.my.home.theme.colors.withHash; let
           toStr = color: "\"${color}\"";
         in
