@@ -23,9 +23,14 @@
     stateVersion = "24.05";
   };
 
-  wayland.windowManager.hyprland.settings.monitor = [
-    "eDP-1,preferred,auto,2,vrr,1"
-  ];
+  wayland.windowManager.hyprland.settings = {
+    monitor = [
+      "eDP-1,preferred,auto,2,vrr,1"
+    ];
+    exec-once = [
+      "systemctl --user start xsettingsd"
+    ];
+  };
 
   services.xsettingsd.settings =
     let
