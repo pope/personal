@@ -196,6 +196,10 @@
           system = "x86_64-linux";
         })
         (mkNixosSystem {
+          name = "unicron";
+          system = "x86_64-linux";
+        })
+        (mkNixosSystem {
           name = "nixos-testing";
           system = "x86_64-linux";
         })
