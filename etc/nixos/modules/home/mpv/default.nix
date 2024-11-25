@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption mkMerge mkOption optionalAttrs;
@@ -103,15 +103,11 @@ in
         visualizer
       ];
     } // optionalAttrs pkgs.stdenv.isDarwin {
-      # Using the stable pkgs for Darwin. Using these, Swift doesn't have to be
-      # recompiled and everything downloads quickly.
-      package = pkgs-stable.wrapMpv pkgs-stable.mpv-unwrapped {
-        scripts = with pkgs-stable.mpvScripts; [
-          modernx
-          thumbfast
-          visualizer
-        ];
-      };
+      scripts = with pkgs.mpvScripts; [
+        modernx
+        thumbfast
+        visualizer
+      ];
     };
   };
 }
