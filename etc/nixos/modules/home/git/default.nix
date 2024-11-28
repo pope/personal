@@ -1,8 +1,15 @@
 { pkgs, lib, config, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
+  inherit (lib) mkIf mkEnableOption map mkOption types;
   cfg = config.my.home.git;
+  ghWrapper = pkgs.writeShellScriptBin "op-gh" ''
+    if [ -e "$HOME/.config/op/plugins/gh.json" ]; then
+      exec op plugin run -- gh "''${@:1}"
+    else
+      exec ${pkgs.gh}/bin/gh "''${@:1}"
+    fi
+  '';
 in
 {
   options.my.home.git = {
@@ -46,6 +53,12 @@ in
         diff-so-fancy.enable = true;
 
         extraConfig = {
+          credential = builtins.listToAttrs (map
+            (host:
+              lib.nameValuePair host {
+                helper = "${ghWrapper}/bin/op-gh auth git-credential";
+              })
+            [ "https://github.com" "https://gist.github.com" ]);
           core.sshCommand = mkIf (cfg.sshCommand != null) cfg.sshCommand;
           init.defaultBranch = "main";
           gpg = {
@@ -66,6 +79,7 @@ in
 
       gh = {
         enable = true;
+        gitCredentialHelper.enable = false;
 
         settings = {
           # Workaround for https://github.com/nix-community/home-manager/issues/4744
@@ -103,8 +117,20 @@ in
           IdentityAgent = ''"${cfg.opIdentityAgent}"'';
         };
       };
-    };
 
+      # TODO(pope): Move this somewhere else. This is common enough for other
+      # 1password plugins, but `gh` is the only one I really use now.
+      fish.interactiveShellInit = /* fish */ ''
+        if test -e "$HOME/.config/op/plugins.sh"
+          source "$HOME/.config/op/plugins.sh"
+        end
+      '';
+      zsh.initExtra = /* sh */ ''
+        if [ -e "$HOME/.config/op/plugins.sh" ]; then
+          source "$HOME/.config/op/plugins.sh"
+        fi
+      '';
+    };
     home.file.".ssh/allowed_signers".text = ''
       pope@shifteleven.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo
     '';
