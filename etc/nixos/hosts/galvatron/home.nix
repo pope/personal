@@ -15,6 +15,7 @@
       iosevka
       iosevka-comfy.comfy
       jetbrains-mono
+      monolisa
       (nerdfonts.override {
         fonts = [
           "FiraCode"
