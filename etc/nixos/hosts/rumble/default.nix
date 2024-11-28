@@ -63,6 +63,8 @@
   };
 
   hardware = {
+    framework.laptop13.audioEnhancement.enable = true;
+
     graphics = {
       enable = true;
       enable32Bit = true;
