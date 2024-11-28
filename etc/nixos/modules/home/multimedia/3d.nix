@@ -1,4 +1,4 @@
-{ pkgs-stable, config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
@@ -11,7 +11,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs-stable; [
+    home.packages = with pkgs; [
       (if cfg.hip.enable then blender-hip else blender)
     ];
   };
