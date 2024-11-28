@@ -14,8 +14,9 @@
     packages = with pkgs; [
       comic-code-ligatures
       discord
-      lucida-grande
       godot_4
+      lucida-grande
+      monolisa
       nvtopPackages.amd
       rbutil
     ];
