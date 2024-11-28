@@ -46,6 +46,8 @@
       availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
     };
 
+    # resumeDevice = (builtins.head config.swapDevices).device;
+    #
     supportedFilesystems = [ "ntfs" ];
 
     binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -83,9 +85,9 @@
 
     nvidia = {
       nvidiaSettings = true;
-      open = false;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      powerManagement.enable = true;
+      open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      powerManagement.enable = false;
     };
   };
 
@@ -161,5 +163,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
