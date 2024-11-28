@@ -280,7 +280,7 @@
     },
     "yazi-plugins": {
         "cargoLocks": null,
-        "date": "Good \"git\" signature with ED25519 key SHA256:UpS/s3AKXiouO9D7joFqpoEMveeZ8A6ZyE48w2WkJ0U\nNo principal matched.\n2024-10-16",
+        "date": "Good \"git\" signature with ED25519 key SHA256:UpS/s3AKXiouO9D7joFqpoEMveeZ8A6ZyE48w2WkJ0U\nNo principal matched.\n2024-11-28",
         "extract": null,
         "name": "yazi-plugins",
         "passthru": null,
@@ -290,11 +290,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "4f1d0ae0862f464e08f208f1807fcafcd8778e16",
-            "sha256": "sha256-+d7D6nq/oOzcsvvH0MHmLUDkxAtand+IXKQ730m4Ifs=",
+            "rev": "2491a93e2ce425768fe58559106544932b14c64a",
+            "sha256": "sha256-geg0UjwzXALZl+XYGFzwSx4hcNwXCZykvfUV0/U8QwE=",
             "type": "git",
             "url": "https://github.com/yazi-rs/plugins"
         },
-        "version": "4f1d0ae0862f464e08f208f1807fcafcd8778e16"
+        "version": "2491a93e2ce425768fe58559106544932b14c64a"
     }
 }
