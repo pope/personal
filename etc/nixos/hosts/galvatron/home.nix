@@ -16,14 +16,10 @@
       iosevka-comfy.comfy
       jetbrains-mono
       monolisa
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "NerdFontsSymbolsOnly"
-          "Lilex"
-          "Terminus"
-        ];
-      })
+      nerd-fonts.fira-code
+      nerd-fonts.lilex
+      nerd-fonts.symbols-only
+      nerd-fonts.terminess-ttf
 
       clang-tools
       hey
