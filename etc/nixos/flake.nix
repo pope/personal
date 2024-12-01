@@ -87,6 +87,10 @@
       url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wezterm = {
+      url = "github:wez/wezterm?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -165,7 +169,10 @@
           value = home-manager.lib.homeManagerConfiguration {
             pkgs = import nixpkgs {
               inherit system;
-              config.allowUnfree = true;
+              config = {
+                allowUnfree = true;
+                joypixels.acceptLicense = true;
+              };
               overlays = extraOverlays ++ [ self.overlays.default ];
             };
             extraSpecialArgs = {

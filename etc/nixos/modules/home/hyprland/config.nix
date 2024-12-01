@@ -16,7 +16,10 @@ let
   slurp = "${pkgs.slurp}/bin/slurp";
   swappy = "${pkgs.swappy}/bin/swappy";
   systemctl = "${pkgs.systemd}/bin/systemctl";
-  terminal = "${pkgs.wezterm}/bin/wezterm";
+  terminal =
+    if config.my.home.terminals.wezterm.enable
+    then "${config.programs.wezterm.package}/bin/wezterm"
+    else "${config.programs.kitty.package}/bin/kitty";
   thunar = "${pkgs.xfce.thunar}/bin/thunar";
   udiskie = "${pkgs.udiskie}/bin/udiskie";
   waybar = "${pkgs.waybar}/bin/waybar";
