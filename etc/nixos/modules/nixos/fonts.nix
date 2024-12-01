@@ -25,6 +25,9 @@ in
         jetbrains-mono
         joypixels
         maple-mono
+        nerd-fonts.fira-code
+        nerd-fonts.lilex
+        nerd-fonts.symbols-only
         noto-fonts-emoji
         open-sans
         roboto
@@ -33,13 +36,6 @@ in
         terminus_font_ttf
         victor-mono
         work-sans
-        (nerdfonts.override {
-          fonts = [
-            "FiraCode"
-            "NerdFontsSymbolsOnly"
-            "Lilex"
-          ];
-        })
       ];
 
       enableDefaultPackages = true;

@@ -12,7 +12,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       cool-retro-term
-      terminus-nerdfont
+      nerd-fonts.terminess-ttf
     ];
   };
 }
