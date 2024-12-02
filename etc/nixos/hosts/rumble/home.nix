@@ -90,8 +90,11 @@
     shell.zsh.enable = true;
     terminals = {
       kitty.enable = true;
-      foot.enable = true;
-      wezterm.enable = true;
+      wezterm = {
+        enable = true;
+        useUnstable = true;
+        useWayland = true;
+      };
     };
     theme.colorScheme = "rose-pine";
     tmux.enable = true;
