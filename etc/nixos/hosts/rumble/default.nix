@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, lib, ... }:
+{ self, inputs, pkgs, ... }:
 
 {
   imports =
@@ -18,6 +18,7 @@
   ];
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -63,7 +64,10 @@
   };
 
   hardware = {
-    framework.laptop13.audioEnhancement.enable = true;
+    framework = {
+      enableKmod = true;
+      laptop13.audioEnhancement.enable = true;
+    };
 
     graphics = {
       enable = true;
@@ -93,7 +97,8 @@
   };
 
   powerManagement = {
-    cpuFreqGovernor = lib.mkDefault "powersave";
+    enable = true;
+    cpuFreqGovernor = "powersave";
     powertop.enable = true; # Run powertop on boot
   };
 
@@ -119,7 +124,7 @@
     sound.enable = true;
     system.enable = true;
     users.shell = "zsh";
-    v4l2loopback.enable = true;
+    v4l2loopback.enable = false;
     virtualization.enable = true;
     xserver = {
       enable = true;
