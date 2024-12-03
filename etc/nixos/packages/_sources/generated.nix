@@ -66,16 +66,16 @@
   };
   hatsune-miku-cursor = {
     pname = "hatsune-miku-cursor";
-    version = "24bbed734c17bc19516b939ee10203b229513d2a";
+    version = "814a5d731e121ccdeb374f29ea1464fbf56bc36d";
     src = fetchgit {
       url = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors";
-      rev = "24bbed734c17bc19516b939ee10203b229513d2a";
+      rev = "814a5d731e121ccdeb374f29ea1464fbf56bc36d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-m5CDmAATxtQgjV5Ij+5bF3QQ8Na3pXPNmQUtwHwwWFc=";
+      sha256 = "sha256-OQjjOc9VnxJ7tWNmpHIMzNWX6WsavAOkgPwK1XAMwtE=";
     };
-    date = "2024-04-13";
+    date = "gpg: Signature made Thu 28 Nov 2024 08:42:52 AM PST\ngpg:                using RSA key B5690EEEBB952194\ngpg: Can't check signature: No public key\n2024-11-28";
   };
   iqm = {
     pname = "iqm";
@@ -170,15 +170,15 @@
   };
   yazi-plugins = {
     pname = "yazi-plugins";
-    version = "2491a93e2ce425768fe58559106544932b14c64a";
+    version = "a53d5440481f0f9a2160ded47d343bd22ffbc1fb";
     src = fetchgit {
       url = "https://github.com/yazi-rs/plugins";
-      rev = "2491a93e2ce425768fe58559106544932b14c64a";
+      rev = "a53d5440481f0f9a2160ded47d343bd22ffbc1fb";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-geg0UjwzXALZl+XYGFzwSx4hcNwXCZykvfUV0/U8QwE=";
+      sha256 = "sha256-I9u1d3l0AyNW/t1A7MAxfA6Wu1/L3XKUoWPZ9L85WTM=";
     };
-    date = "Good \"git\" signature with ED25519 key SHA256:UpS/s3AKXiouO9D7joFqpoEMveeZ8A6ZyE48w2WkJ0U\nNo principal matched.\n2024-11-28";
+    date = "Good \"git\" signature with ED25519 key SHA256:UpS/s3AKXiouO9D7joFqpoEMveeZ8A6ZyE48w2WkJ0U\nNo principal matched.\n2024-11-29";
   };
 }
