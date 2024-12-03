@@ -152,6 +152,19 @@
       sha256 = "sha256-XtiCXrROtJfNCcXDxwvtyxKzrSk0GGY/bDtimr3Iu50=";
     };
   };
+  sf-mono-font = {
+    pname = "sf-mono-font";
+    version = "1409ae79074d204c284507fef9e479248d5367c1";
+    src = fetchgit {
+      url = "https://github.com/supercomputra/SF-Mono-Font";
+      rev = "1409ae79074d204c284507fef9e479248d5367c1";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-3wG3M4Qep7MYjktzX9u8d0iDWa17FSXYnObSoTG2I/o=";
+    };
+    date = "gpg: Signature made Thu 07 Jun 2018 11:21:44 AM PDT\ngpg:                using RSA key 4AEE18F83AFDEB23\ngpg: Can't check signature: No public key\n2018-06-08";
+  };
   ssimDownscaler = {
     pname = "ssimDownscaler";
     version = "575d13567bbe3caa778310bd3b2a4c516c445039";
