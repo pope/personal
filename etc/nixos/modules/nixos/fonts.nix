@@ -16,6 +16,7 @@ in
         comic-mono
         fira
         fira-go
+        geist-font
         go-font
         hasklig
         helvetica-neue-lt-std
@@ -31,6 +32,7 @@ in
         noto-fonts-emoji
         open-sans
         roboto
+        sf-mono-font
         source-serif
         terminus_font
         terminus_font_ttf

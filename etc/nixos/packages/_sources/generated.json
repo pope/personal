@@ -248,6 +248,25 @@
         },
         "version": "1.5.1"
     },
+    "sf-mono-font": {
+        "cargoLocks": null,
+        "date": "gpg: Signature made Thu 07 Jun 2018 11:21:44 AM PDT\ngpg:                using RSA key 4AEE18F83AFDEB23\ngpg: Can't check signature: No public key\n2018-06-08",
+        "extract": null,
+        "name": "sf-mono-font",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "1409ae79074d204c284507fef9e479248d5367c1",
+            "sha256": "sha256-3wG3M4Qep7MYjktzX9u8d0iDWa17FSXYnObSoTG2I/o=",
+            "type": "git",
+            "url": "https://github.com/supercomputra/SF-Mono-Font"
+        },
+        "version": "1409ae79074d204c284507fef9e479248d5367c1"
+    },
     "ssimDownscaler": {
         "cargoLocks": null,
         "date": null,

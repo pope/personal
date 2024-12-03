@@ -42,6 +42,10 @@ fetch.git = "https://github.com/lsalzman/iqm"
 src.git = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors"
 fetch.git = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors"
 
+[sf-mono-font]
+src.git = "https://github.com/supercomputra/SF-Mono-Font"
+fetch.git = "https://github.com/supercomputra/SF-Mono-Font"
+
 # Shaders
 
 [fsrcnnx-lineart]
