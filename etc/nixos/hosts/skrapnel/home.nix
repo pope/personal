@@ -22,6 +22,10 @@ _:
       enable = false;
       service.enable = true;
     };
+    git = {
+      enable = true;
+      remoteOnly = true;
+    };
     packages.enable = true;
     shell.zsh.enable = true;
     tmux.enable = true;

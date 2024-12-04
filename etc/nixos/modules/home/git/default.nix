@@ -39,6 +39,8 @@ in
         Specifies an override for the SSH command to use with Git.
       '';
     };
+
+    remoteOnly = mkEnableOption "if the config is on a remote machine only";
   };
 
   config = mkIf cfg.enable {
@@ -53,18 +55,18 @@ in
         diff-so-fancy.enable = true;
 
         extraConfig = {
-          credential = builtins.listToAttrs (map
+          credential = mkIf (!cfg.remoteOnly) (builtins.listToAttrs (map
             (host:
               lib.nameValuePair host {
                 helper = "${ghWrapper}/bin/op-gh auth git-credential";
               })
-            [ "https://github.com" "https://gist.github.com" ]);
+            [ "https://github.com" "https://gist.github.com" ]));
           core.sshCommand = mkIf (cfg.sshCommand != null) cfg.sshCommand;
           init.defaultBranch = "main";
           gpg = {
             format = "ssh";
             "ssh" = {
-              program = cfg.opSshSignCommand;
+              program = mkIf (!cfg.remoteOnly) cfg.opSshSignCommand;
               allowedSignersFile = "~/.ssh/allowed_signers";
             };
           };
@@ -78,7 +80,7 @@ in
       };
 
       gh = {
-        enable = true;
+        enable = !cfg.remoteOnly;
         gitCredentialHelper.enable = false;
 
         settings = {
