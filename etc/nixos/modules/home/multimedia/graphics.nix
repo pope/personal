@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs-stable, config, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
@@ -10,7 +10,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home.packages = with pkgs-stable; [
       aseprite
       (gimp-with-plugins.override {
         plugins = with gimpPlugins; [
