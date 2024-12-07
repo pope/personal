@@ -16,6 +16,8 @@
     self.overlays.default
   ];
 
+  hardware.enableRedistributableFirmware = true;
+
   boot = {
     # Bootloader.
     loader = {
@@ -45,7 +47,7 @@
 
   services = {
     openssh.enable = true;
-    xserver.videoDrivers = [ "qxl" ];
+    xserver.videoDrivers = [ "qxl" "amdgpu" ];
   };
 
   fileSystems."/home/pope/Code/personal" = {
@@ -68,6 +70,9 @@
     xserver = {
       enable = true;
       desktop = "gnome";
+    };
+    users = {
+      initialPassword = "changeme";
     };
   };
 
