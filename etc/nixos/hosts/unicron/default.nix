@@ -158,6 +158,32 @@
     };
   };
 
+  specialisation = {
+    vfio.configuration = {
+      system.nixos.tags = [ "with-vfio" ];
+      boot = {
+        blacklistedKernelModules = [ "amdgpu" "radeon" ];
+        kernelModules = [
+          # "vfio_virqfd"
+          "vfio_pci"
+          "vfio_iommu_type1"
+          "vfio"
+        ];
+        initrd.kernelModules = [
+          # "vfio_virqfd"
+          "vfio_pci"
+          "vfio_iommu_type1"
+          "vfio"
+        ];
+        kernelParams = [
+          "amd_iommu=on"
+          "vfio-pci.ids=1002:13c0"
+        ];
+      };
+      hardware.enableRedistributableFirmware = true;
+    };
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
