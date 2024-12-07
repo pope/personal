@@ -41,8 +41,10 @@
     git.enable = true;
     gnome.enable = true;
     gtk.enable = true;
-    hyprland.enable = true;
-    hyprland.hypridle.enable = true;
+    hyprland = {
+      enable = true;
+      hypridle.enable = true;
+    };
     keymapp.enable = true;
     languages = {
       c.enable = true;
@@ -56,8 +58,10 @@
     multimedia.threed.enable = true;
     packages.enable = true;
     shell.fish.enable = true;
-    terminals.kitty.enable = true;
-    terminals.wezterm.enable = true;
+    terminals = {
+      kitty.enable = true;
+      wezterm.enable = true;
+    };
     theme.colorScheme = "catppuccin";
     tmux.enable = true;
     xdg.enable = true;
