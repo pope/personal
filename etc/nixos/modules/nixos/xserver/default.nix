@@ -7,6 +7,7 @@ in
 {
   imports = [
     ./autologin.nix
+    ./dwl.nix
     ./gnome.nix
     ./hyprland.nix
     ./kde.nix
@@ -20,7 +21,7 @@ in
       default = "gnome";
       description = "The main desktop environment to use";
       example = "kde";
-      type = types.enum [ "gnome" "kde" "pantheon" ];
+      type = types.enum [ "dwl" "gnome" "kde" "pantheon" ];
     };
 
     enableAutoLogin = mkEnableOption "auto login of display manager";
