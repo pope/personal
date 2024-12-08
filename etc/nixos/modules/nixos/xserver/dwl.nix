@@ -126,7 +126,7 @@ in
         ((pkgs.writeTextDir "share/wayland-sessions/dwl.desktop" ''
           [Desktop Entry]
           Name=dwl
-          Exec=${lib.getExe dwl-start}
+          Exec=/run/current-system/sw/bin/dwl-start
           Type=Application
         '').overrideAttrs (_: { passthru.providedSessions = [ "dwl" ]; }))
       ];
