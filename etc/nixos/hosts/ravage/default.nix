@@ -2,8 +2,29 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, ... }:
+{ self, inputs, pkgs, lib, ... }:
 
+let
+  dwl-start = pkgs.writeShellScriptBin "dwl-start" ''
+    set -x
+
+    systemctl --user is-active dwl-session.target \
+      && echo "DWL is already running" \
+      && exit 1
+
+    # The commands below were adapted from:
+    # https://github.com/NixOS/nixpkgs/blob/ad3e815dfa9181aaa48b9aa62a00cf9f5e4e3da7/nixos/modules/programs/wayland/sway.nix#L122
+    # Import the most important environment variables into the D-Bus and systemd
+    dbus-run-session -- ${lib.getExe pkgs.dwl} -s "
+      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
+      systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
+      systemctl --user start dwl-session.target;
+    " & 
+    dwlPID=$!
+    wait $dwlPID
+    systemctl --user stop dwl-session.target
+  '';
+in
 {
   imports =
     [
@@ -87,13 +108,107 @@
 
   hardware.graphics.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    libva-utils
-    renoise344
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      bemenu
+      libva-utils
+      renoise344
+      wdisplays
+      wl-clipboard
+    ];
+    sessionVariables = {
+      WLR_NO_HARDWARE_CURSORS = "1";
+      # Hint electron apps to use wayland
+      NIXOS_OZONE_WL = "1";
+    };
+  };
 
-  # Power management
+  programs = {
+    dconf.enable = true;
+    xwayland.enable = true;
+  };
+
+  security.polkit.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    config.dwl.default = [ "wlr" "gtk" ];
+    config.common.default = [ "wlr" ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
+    ];
+  };
+
+  systemd.user = {
+    targets.dwl-session = {
+      documentation = [ "man:systemd.special(7)" ];
+      bindsTo = [ "graphical-session.target" ];
+      wants = [ "graphical-session-pre.target" ];
+      after = [ "graphical-session-pre.target" ];
+    };
+    services = {
+      dwlb = {
+        description = "Service to run the dwlb status bar";
+        enable = true;
+        serviceConfig = {
+          ExecStart = ''
+            ${lib.getExe pkgs.dwlb} -ipc -font 'mono:size=10'
+          '';
+        };
+        bindsTo = [ "dwl-session.target" ];
+        wantedBy = [ "dwl-session.target" ];
+        restartIfChanged = true;
+      };
+      status-bar = with pkgs; {
+        description = "Service to run the status bar provider";
+        enable = true;
+        script = "${lib.getExe slstatus} -s | ${lib.getExe dwlb} -status-stdin all -ipc";
+        bindsTo = [ "dwlb.service" ];
+        wantedBy = [ "dwlb.service" ];
+        reloadTriggers = [ dwlb slstatus ];
+        restartTriggers = [ dwlb slstatus ];
+      };
+      polkit-gnome-authentication-agent-1 = {
+        description = "polkit-gnome-authentication-agent-1";
+        wantedBy = [ "graphical-session.target" ];
+        wants = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+      };
+    };
+  };
+
   services = {
+    displayManager.sessionPackages = [
+      ((pkgs.writeTextDir "share/wayland-sessions/dwl.desktop" ''
+        [Desktop Entry]
+        Name=dwl
+        Exec=${lib.getExe dwl-start}
+        Type=Application
+      '').overrideAttrs (_: { passthru.providedSessions = [ "dwl" ]; }))
+    ];
+    graphical-desktop.enable = true;
+    xserver = {
+      enable = true;
+
+      desktopManager.runXdgAutostartIfNone = true;
+      displayManager = {
+        gdm = {
+          enable = true;
+          wayland = true;
+        };
+      };
+    };
+
+    # Power management
     logind.lidSwitch = "suspend-then-hibernate";
     thermald.enable = true;
     tlp = {
@@ -147,7 +262,7 @@
     sound.enable = true;
     system.enable = true;
     xserver = {
-      enable = true;
+      enable = false;
 
       desktop = "gnome";
 

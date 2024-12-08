@@ -31,29 +31,22 @@
   };
 
   my.home = {
-    anyrun.enable = true;
+    anyrun.enable = false;
     browsers.firefox.enable = true;
     editors = {
       neovim.enable = true;
       vscode.enable = false;
     };
-    dunst.enable = true;
+    dunst.enable = false;
     git.enable = true;
-    gnome.enable = true;
+    gnome.enable = false;
     gtk.enable = true;
-    hyprland = {
-      enable = true;
-      hypridle.enable = true;
-    };
     keymapp.enable = true;
     languages = {
-      c.enable = true;
-      go.enable = true;
       javascript.enable = true;
       python.enable = true;
-      rust.enable = true;
     };
-    lf.enable = true;
+    lf.enable = false;
     mpv.enable = true;
     multimedia.threed.enable = true;
     packages.enable = true;
@@ -61,6 +54,7 @@
     terminals = {
       kitty.enable = true;
       wezterm.enable = true;
+      foot.enable = true;
     };
     theme.colorScheme = "catppuccin";
     tmux.enable = true;
