@@ -5,6 +5,14 @@
 { self, inputs, pkgs, lib, ... }:
 
 let
+  dwl = (pkgs.dwl.overrideAttrs (oldAttrs: {
+    patches = [
+      ./ipc.patch
+      ./gaps.patch
+    ];
+  })).override {
+    configH = ./config.def.h;
+  };
   dwl-start = pkgs.writeShellScriptBin "dwl-start" ''
     set -x
 
@@ -15,11 +23,11 @@ let
     # The commands below were adapted from:
     # https://github.com/NixOS/nixpkgs/blob/ad3e815dfa9181aaa48b9aa62a00cf9f5e4e3da7/nixos/modules/programs/wayland/sway.nix#L122
     # Import the most important environment variables into the D-Bus and systemd
-    dbus-run-session -- ${lib.getExe pkgs.dwl} -s "
+    dbus-run-session -- ${lib.getExe dwl} -s "
       dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
       systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
       systemctl --user start dwl-session.target;
-    " & 
+    " &
     dwlPID=$!
     wait $dwlPID
     systemctl --user stop dwl-session.target
@@ -110,11 +118,16 @@ in
 
   environment = {
     systemPackages = with pkgs; [
-      bemenu
+      dwl
+      dwl-start
+      dwlb
+      libnotify
       libva-utils
       renoise344
+      slstatus
       wdisplays
       wl-clipboard
+      wmenu
     ];
     sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
@@ -149,6 +162,7 @@ in
       after = [ "graphical-session-pre.target" ];
     };
     services = {
+      seatd.enable = true;
       dwlb = {
         description = "Service to run the dwlb status bar";
         enable = true;
