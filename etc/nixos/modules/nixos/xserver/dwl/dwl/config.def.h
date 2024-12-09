@@ -64,13 +64,13 @@ static const struct xkb_rule_names xkb_rules = {
 };
 
 static const int repeat_rate = 25;
-static const int repeat_delay = 600;
+static const int repeat_delay = 160;
 
 /* Trackpad */
 static const int tap_to_click = 1;
 static const int tap_and_drag = 1;
 static const int drag_lock = 1;
-static const int natural_scrolling = 0;
+static const int natural_scrolling = 1;
 static const int disable_while_typing = 1;
 static const int left_handed = 0;
 static const int middle_button_emulation = 0;
@@ -126,6 +126,11 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 static const char *termcmd[] = { "foot", NULL };
 static const char *menucmd[] = { "wmenu-run", NULL };
 static const char *logout[] =  { "wlogout", NULL };
+static const char *brightness_up[] =  { "brillo", "-A", "10", NULL };
+static const char *brightness_down[] =  { "brillo", "-U", "10", NULL };
+static const char *volume_up[] = { "pamixer", "-u", "-i", "10", NULL };
+static const char *volume_down[] = { "pamixer", "-u", "-d", "10", NULL };
+static const char *mute[] = { "pamixer", "-t", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -166,6 +171,12 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          spawn,          {.v = logout} },
 	// { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} },
+	
+	{ 0,                XKB_KEY_XF86MonBrightnessUp, spawn,          {.v = brightness_up} },
+	{ 0,              XKB_KEY_XF86MonBrightnessDown, spawn,          {.v = brightness_down} },
+	{ 0,               XKB_KEY_XF86AudioRaiseVolume, spawn,          {.v = volume_up} },
+	{ 0,               XKB_KEY_XF86AudioLowerVolume, spawn,          {.v = volume_down} },
+	{ 0,                      XKB_KEY_XF86AudioMute, spawn,          {.v = mute} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_Terminate_Server, quit, {0} },

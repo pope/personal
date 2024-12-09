@@ -68,7 +68,7 @@ in
 
     programs = {
       dconf.enable = true;
-      xwayland.enable = true;
+      light.enable = true;
       uwsm = {
         enable = true;
         waylandCompositors.dwl = {
@@ -77,6 +77,7 @@ in
           binPath = "/run/current-system/sw/bin/dwl-run";
         };
       };
+      xwayland.enable = true;
     };
 
     security.polkit.enable = true;
@@ -155,6 +156,10 @@ in
         packages = with pkgs; [
           gnome-settings-daemon
         ];
+        extraRules = ''
+          ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"
+          ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", GROUP="video", MODE="0664"
+        '';
       };
       udisks2.enable = true;
       upower.enable = true;
