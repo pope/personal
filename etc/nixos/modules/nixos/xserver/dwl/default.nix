@@ -3,12 +3,15 @@
 let
   inherit (lib) mkIf;
   cfg = config.my.nixos.xserver;
+
   dwlb = pkgs.dwlb.override {
     configH = ./dwlb/config.def.h;
   };
+
   slstatus = pkgs.slstatus.override {
     conf = ./slstatus/config.def.h;
   };
+
   dwl = (pkgs.dwl.overrideAttrs (_oldAttrs: {
     patches = [
       ./dwl/patches/ipc.patch
@@ -18,6 +21,7 @@ let
   })).override {
     configH = ./dwl/config.def.h;
   };
+
   dwl-start = pkgs.writeShellScriptBin "dwl-start" ''
     set -x
 
