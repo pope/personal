@@ -8,7 +8,7 @@ in
   config = mkIf (cfg.enable && cfg.theme == "catppuccin") rec {
     home.pointerCursor = {
       name = "catppuccin-mocha-mauve-cursors";
-      size = 32;
+      size = 24;
       package = pkgs.catppuccin-cursors.mochaMauve;
       gtk.enable = true;
       x11.enable = true;
@@ -24,12 +24,11 @@ in
       };
 
       theme = {
-        name = "Catppuccin-Mocha-Standard-Mauve-Dark";
-        package = pkgs.catppuccin-gtk.override {
-          size = "standard";
-          accents = [ "mauve" ];
-          variant = "mocha";
-          tweaks = [ "normal" ];
+        name = "Catppuccin-GTK-Purple-Dark-Compact";
+        package = pkgs.magnetic-catppuccin-gtk.override {
+          accent = [ "purple" ];
+          shade = "dark";
+          size = "compact";
         };
       };
 
