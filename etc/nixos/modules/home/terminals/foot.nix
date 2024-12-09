@@ -21,26 +21,36 @@ in
           color = "${base00} ${base05}";
         };
         colors = {
+          alpha = 0.96;
           background = "${base00}";
           foreground = "${base05}";
 
-          regular0 = "${base02}"; # black
+          regular0 = "${base03}"; # black
           regular1 = "${base08}"; # red
-          regular2 = "${base0C}"; # green
-          regular3 = "${base09}"; # yellow
-          regular4 = "${base0B}"; # blue
-          regular5 = "${base0D}"; # magenta
-          regular6 = "${base0A}"; # cyan
+          regular2 = "${base0B}"; # green
+          regular3 = "${base0A}"; # yellow
+          regular4 = "${base0D}"; # blue
+          regular5 = "${base0E}"; # magenta
+          regular6 = "${base0C}"; # cyan
           regular7 = "${base05}"; # white
 
-          bright0 = "${base02}"; # bright black
+          bright0 = "${base04}"; # bright black
           bright1 = "${base08}"; # bright red
-          bright2 = "${base0C}"; # bright green
-          bright3 = "${base09}"; # bright yellow
-          bright4 = "${base0B}"; # bright blue
-          bright5 = "${base0D}"; # bright magenta
-          bright6 = "${base0A}"; # bright cyan
-          bright7 = "${base05}"; # bright white
+          bright2 = "${base0B}"; # bright green
+          bright3 = "${base0A}"; # bright yellow
+          bright4 = "${base0D}"; # bright blue
+          bright5 = "${base0E}"; # bright magenta
+          bright6 = "${base0C}"; # bright cyan
+          bright7 = "ffffff"; # bright white
+
+          selection-foreground = "${base05}";
+          selection-background = "${base03}";
+
+          search-box-no-match = "${base01} ${base08}";
+          search-box-match = "${base05} ${base02}";
+
+          jump-labels = "${base02} ${base09}";
+          urls = "${base0D}";
         };
       };
     };
