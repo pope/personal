@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -28,6 +28,13 @@
 
   programs = {
     home-manager.enable = true;
+  };
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = lib.mkForce "Adwaita-dark";
+    };
   };
 
   my.home = {
