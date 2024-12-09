@@ -55,6 +55,7 @@ in
         wdisplays
         wf-recorder
         wl-clipboard
+        wlogout
         wlr-randr
         wmenu
       ];
