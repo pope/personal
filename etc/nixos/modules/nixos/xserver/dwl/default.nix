@@ -13,6 +13,7 @@ let
     patches = [
       ./dwl/patches/ipc.patch
       ./dwl/patches/gaps.patch
+      ./dwl/patches/alwayscenter.patch
     ];
   })).override {
     configH = ./dwl/config.def.h;
