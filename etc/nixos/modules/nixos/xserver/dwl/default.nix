@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   inherit (lib) mkIf;
@@ -58,6 +58,8 @@ in
         wlogout
         wlr-randr
         wmenu
+
+        inputs.anyrun.packages.${system}.default
       ];
       sessionVariables = {
         WLR_NO_HARDWARE_CURSORS = "1";
