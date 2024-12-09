@@ -22,24 +22,13 @@ let
     configH = ./dwl/config.def.h;
   };
 
-  dwl-start = pkgs.writeShellScriptBin "dwl-start" ''
-    set -x
-
-    systemctl --user is-active dwl-session.target \
-      && echo "DWL is already running" \
-      && exit 1
-
-    # The commands below were adapted from:
-    # https://github.com/NixOS/nixpkgs/blob/ad3e815dfa9181aaa48b9aa62a00cf9f5e4e3da7/nixos/modules/programs/wayland/sway.nix#L122
-    # Import the most important environment variables into the D-Bus and systemd
-    dbus-run-session -- ${lib.getExe dwl} -s "
+  dwl-run = pkgs.writeShellScriptBin "dwl-run" ''
+    exec ${lib.getExe dwl} -s "
       dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
       systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
       systemctl --user start dwl-session.target;
-    " &
-    dwlPID=$!
-    wait $dwlPID
-    systemctl --user stop dwl-session.target
+      swww-daemon;
+    "
   '';
 in
 {
@@ -51,7 +40,7 @@ in
         alsa-utils
         brillo
         dwl
-        dwl-start
+        dwl-run
         dwlb
         grim
         imv
@@ -79,6 +68,14 @@ in
     programs = {
       dconf.enable = true;
       xwayland.enable = true;
+      uwsm = {
+        enable = true;
+        waylandCompositors.dwl = {
+          prettyName = "dwl";
+          comment = "dwl compositor managed by UWSM";
+          binPath = "/run/current-system/sw/bin/dwl-run";
+        };
+      };
     };
 
     security.polkit.enable = true;
@@ -103,7 +100,7 @@ in
       };
 
       services = {
-        seatd.enable = true;
+        seatd.enable = false;
 
         dwlb = {
           description = "Service to run the dwlb status bar";
@@ -129,20 +126,6 @@ in
           restartTriggers = [ dwlb slstatus ];
         };
 
-        swww = {
-          description = "Efficient animated wallpaper daemon for wayland";
-          enable = true;
-          wantedBy = [ "graphical-session.target" ];
-          wants = [ "graphical-session.target" ];
-          after = [ "graphical-session.target" ];
-          serviceConfig = {
-            ExecStart = "${pkgs.swww}/bin/swww-daemon";
-            ExecStop = "${pkgs.swww}/bin/swww kill";
-            Restart = "always";
-            RestartSec = 10;
-          };
-        };
-
         polkit-gnome-authentication-agent-1 = {
           description = "polkit-gnome-authentication-agent-1";
           wantedBy = [ "graphical-session.target" ];
@@ -164,15 +147,6 @@ in
         enable = true;
         packages = with pkgs; [ dconf ];
       };
-
-      displayManager.sessionPackages = [
-        ((pkgs.writeTextDir "share/wayland-sessions/dwl.desktop" ''
-          [Desktop Entry]
-          Name=dwl
-          Exec=/run/current-system/sw/bin/dwl-start
-          Type=Application
-        '').overrideAttrs (_: { passthru.providedSessions = [ "dwl" ]; }))
-      ];
 
       graphical-desktop.enable = true;
       geoclue2.enable = true;
