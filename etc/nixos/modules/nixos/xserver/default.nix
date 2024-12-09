@@ -7,7 +7,7 @@ in
 {
   imports = [
     ./autologin.nix
-    ./dwl.nix
+    ./dwl
     ./gnome.nix
     ./hyprland.nix
     ./kde.nix
