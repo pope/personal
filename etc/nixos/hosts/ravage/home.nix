@@ -38,13 +38,13 @@
   };
 
   my.home = {
-    anyrun.enable = false;
+    anyrun.enable = true;
     browsers.firefox.enable = true;
     editors = {
       neovim.enable = true;
       vscode.enable = false;
     };
-    dunst.enable = false;
+    dunst.enable = true;
     git.enable = true;
     gnome.enable = false;
     gtk.enable = true;
