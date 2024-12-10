@@ -1,7 +1,7 @@
 { pkgs, helpers, ... }:
 
 let
-  inherit (import ./lib.nix { inherit helpers; }) mkLazyKeys;
+  inherit (import ../lib.nix { inherit helpers; }) mkLazyKeys;
   searchmap = desc: key: cmd: {
     lhs = "<leader>${key}";
     rhs = "<cmd>Telescope ${cmd}<cr>";
