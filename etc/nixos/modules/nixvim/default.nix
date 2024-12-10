@@ -2,19 +2,19 @@
 
 {
   imports = [
-    ./colorschemes.nix
-    ./dashboard.nix
-    ./debugging.nix
-    ./editing.nix
-    ./folding.nix
-    ./ftplugins.nix
-    ./git.nix
-    ./lsp.nix
-    ./lualine.nix
-    ./options.nix
-    ./telescope.nix
-    ./treesitter.nix
-    ./ui.nix
+    ./colorschemes
+    ./dashboard
+    ./debugging
+    ./editing
+    ./folding
+    ./ftplugins
+    ./git
+    ./lsp
+    ./lualine
+    ./options
+    ./telescope
+    ./treesitter
+    ./ui
   ];
 
   config = {

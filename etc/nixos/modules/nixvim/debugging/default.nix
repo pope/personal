@@ -1,7 +1,7 @@
 { pkgs, helpers, ... }:
 
 let
-  inherit (import ./lib.nix { inherit helpers; }) mkLazyKeys;
+  inherit (import ../lib.nix { inherit helpers; }) mkLazyKeys;
   ezkeymap = desc: key: cmd: {
     lhs = "${key}";
     rhs = "<cmd>lua require('dap').${cmd}()<cr>";
