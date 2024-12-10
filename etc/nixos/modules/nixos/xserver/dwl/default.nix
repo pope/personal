@@ -8,8 +8,15 @@ let
     configH = ./dwlb/config.def.h;
   };
 
-  slstatus = pkgs.slstatus.override {
-    conf = ./slstatus/config.def.h;
+  dwl-status = pkgs.writeShellApplication {
+    name = "dwl-status";
+    runtimeInputs = with pkgs; [
+      bash
+      coreutils
+      gawk
+      upower
+    ];
+    text = ./status.sh;
   };
 
   dwl = (pkgs.dwl.overrideAttrs (_oldAttrs: {
@@ -40,6 +47,7 @@ in
         alsa-utils
         brillo
         dwl
+        dwl-status
         dwl-run
         dwlb
         grim
@@ -47,7 +55,6 @@ in
         libnotify
         networkmanagerapplet
         pamixer
-        slstatus
         slurp
         swappy
         swww
@@ -115,19 +122,21 @@ in
           bindsTo = [ "dwl-session.target" ];
           wantedBy = [ "dwl-session.target" ];
           restartIfChanged = true;
+          reloadTriggers = [ dwlb ];
+          restartTriggers = [ dwlb ];
         };
 
         status-bar = {
           description = "Service to run the status bar provider";
           enable = true;
           script = ''
-            /run/current-system/sw/bin/slstatus -s \
-              | /run/current-system/sw/bin/dwlb -status-stdin all -ipc
+            /run/current-system/sw/bin/dwl-status \
+              | /run/current-system/sw/bin/dwlb -status-stdin all
           '';
           bindsTo = [ "dwlb.service" ];
           wantedBy = [ "dwlb.service" ];
-          reloadTriggers = [ dwlb slstatus ];
-          restartTriggers = [ dwlb slstatus ];
+          reloadTriggers = [ dwlb dwl-status ];
+          restartTriggers = [ dwlb dwl-status ];
         };
 
         polkit-gnome-authentication-agent-1 = {
