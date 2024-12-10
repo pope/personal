@@ -90,6 +90,7 @@
     shell.zsh.enable = true;
     terminals = {
       kitty.enable = true;
+      foot.enable = true;
       wezterm = {
         enable = true;
         useUnstable = true;
