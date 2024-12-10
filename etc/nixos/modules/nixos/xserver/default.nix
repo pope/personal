@@ -6,11 +6,11 @@ let
 in
 {
   imports = [
-    ./autologin.nix
-    ./gnome.nix
-    ./hyprland.nix
-    ./kde.nix
-    ./pantheon.nix
+    ./autologin
+    ./gnome
+    ./hyprland
+    ./kde
+    ./pantheon
   ];
 
   options.my.nixos.xserver = {
