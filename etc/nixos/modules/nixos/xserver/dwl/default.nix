@@ -14,6 +14,10 @@ let
       bash
       coreutils
       gawk
+      gnused
+      pamixer
+      playerctl
+      procps
       upower
     ];
     text = ./status.sh;
@@ -55,6 +59,7 @@ in
         libnotify
         networkmanagerapplet
         pamixer
+        playerctl
         slurp
         swappy
         swww
