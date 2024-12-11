@@ -92,7 +92,7 @@
 
     # Must be explicitly false otherwise there's infinite recursion going on.
     tlp.enable = false;
-    logind.lidSwitch = "suspend-then-hibernate";
+    logind.lidSwitch = "hybrid-sleep";
     power-profiles-daemon.enable = true;
   };
 
@@ -103,7 +103,12 @@
   };
 
   systemd.sleep.extraConfig = ''
+    AllowHibernation=yes
+    AllowHybridSleep=yes
+    AllowSuspend=yes
+    AllowSuspendThenHibernate=yes
     HibernateDelaySec=24h
+    MemorySleepMode=s2idle
   '';
 
   environment.systemPackages = with pkgs; [
