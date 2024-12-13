@@ -165,6 +165,19 @@
     };
     date = "gpg: Signature made Thu 07 Jun 2018 11:21:44 AM PDT\ngpg:                using RSA key 4AEE18F83AFDEB23\ngpg: Can't check signature: No public key\n2018-06-08";
   };
+  sf-mono-nf-liga = {
+    pname = "sf-mono-nf-liga";
+    version = "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea";
+    src = fetchgit {
+      url = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized";
+      rev = "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=";
+    };
+    date = "gpg: Signature made Sat 01 Jul 2023 05:33:46 PM PDT\ngpg:                using RSA key 4AEE18F83AFDEB23\ngpg: Can't check signature: No public key\n2023-07-01";
+  };
   ssimDownscaler = {
     pname = "ssimDownscaler";
     version = "575d13567bbe3caa778310bd3b2a4c516c445039";

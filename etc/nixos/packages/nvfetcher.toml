@@ -46,6 +46,10 @@ fetch.git = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors
 src.git = "https://github.com/supercomputra/SF-Mono-Font"
 fetch.git = "https://github.com/supercomputra/SF-Mono-Font"
 
+[sf-mono-nf-liga]
+src.git = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
+fetch.git = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
+
 # Shaders
 
 [fsrcnnx-lineart]

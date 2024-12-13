@@ -33,6 +33,7 @@ in
         noto-fonts-emoji
         open-sans
         roboto
+        sf-mono-nf-liga
         sf-mono-font
         source-serif
         terminus_font
@@ -49,7 +50,7 @@ in
         antialias = true;
         defaultFonts = {
           emoji = [ "Joypixels" "Noto Color Emoji" ];
-          monospace = [ "JetBrainsMono Nerd Font Mono" "FiraCode Nerd Font Mono" ];
+          monospace = [ "Liga SFMono Nerd Font" "FiraCode Nerd Font Mono" ];
           sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
           serif = [ "Source Serif" ];
         };
