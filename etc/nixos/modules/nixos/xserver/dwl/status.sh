@@ -12,8 +12,10 @@ while true; do
 			/^[123]?[0-9]%$/ { printf("🔈%s", $0); }
 			/mute/ { printf("🔇"); }'
 
-	df | awk '$6 == "/" { printf(" | 💾%s ", $5); }'
-	free -m | awk '/Mem:/ { printf("🐏%0.0f%% | ", $3 / $2 * 100); }'
+	echo -n " | "
+
+	# df | awk '$6 == "/" { printf("💾%s ", $5); }'
+	# free -m | awk '/Mem:/ { printf("🐏%0.0f%% | ", $3 / $2 * 100); }'
 
 
 	upower -i /org/freedesktop/UPower/devices/DisplayDevice \
