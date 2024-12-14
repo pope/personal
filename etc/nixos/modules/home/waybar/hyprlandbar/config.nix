@@ -158,4 +158,49 @@ in
       tooltip = false;
     };
   };
+  dwlBar = {
+    id = "dwl-bar";
+    name = "dwl-bar";
+    layer = "top";
+    position = "top";
+    height = 36;
+    spacing = 4;
+    modules-left = [
+      "custom/nixos"
+      "dwl/tags"
+      "dwl/window"
+    ];
+    modules-center = [
+      "mpris"
+    ];
+    modules-right = [
+      "pulseaudio"
+      "cpu"
+      "memory"
+      "disk"
+      "battery"
+      # "battery#bat1"
+      "power-profiles-daemon"
+      "idle_inhibitor"
+      "tray"
+      "clock"
+      "custom/power"
+    ];
+    # Modules
+    "custom/nixos" = {
+      format = "";
+      tooltip = false;
+    };
+    "dwl/window" = {
+      format = ''
+        {title} <small>{layout}</small>
+      '';
+      # TODO(pope): Dynamically update the foreground color
+      rewrite = {
+        "^ <small>.*?</small>$" = ''
+          <span foreground="#585b70">Get ready for a new challenger</span>
+        '';
+      };
+    };
+  };
 }

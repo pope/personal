@@ -65,6 +65,10 @@
     };
     theme.colorScheme = "catppuccin";
     tmux.enable = true;
+    waybar = {
+      enable = true;
+      theme = "dwl";
+    };
     xdg.enable = true;
     yazi.enable = true;
   };

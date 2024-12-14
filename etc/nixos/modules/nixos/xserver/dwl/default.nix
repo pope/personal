@@ -60,6 +60,7 @@ in
         networkmanagerapplet
         pamixer
         playerctl
+        procps
         slurp
         swappy
         swww
@@ -120,7 +121,7 @@ in
 
         dwlb = {
           description = "Service to run the dwlb status bar";
-          enable = true;
+          enable = false;
           serviceConfig = {
             ExecStart = "/run/current-system/sw/bin/dwlb";
           };
@@ -133,7 +134,7 @@ in
 
         status-bar = {
           description = "Service to run the status bar provider";
-          enable = true;
+          enable = false;
           script = ''
             /run/current-system/sw/bin/dwl-status \
               | /run/current-system/sw/bin/dwlb -status-stdin all

@@ -131,13 +131,15 @@ static const char *brightness_down[] =  { "brillo", "-U", "10", NULL };
 static const char *volume_up[] = { "pamixer", "-u", "-i", "10", NULL };
 static const char *volume_down[] = { "pamixer", "-u", "-d", "10", NULL };
 static const char *mute[] = { "pamixer", "-t", NULL };
+static const char *toggle_waybar[] = { "pkill", "-SIGUSR1", "waybar", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_space,      spawn,          {.v = menucmd} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     spawn,          {.v = termcmd} },
-	{ MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
+	// { MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
+	{ MODKEY,                    XKB_KEY_b,          spawn,          {.v = toggle_waybar} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
