@@ -30,7 +30,11 @@ in
 {
   options.my.home.hyprland = {
     enable = mkEnableOption "hyprland home options";
-    hypridle.enable = mkEnableOption "Whether to enable hypridle";
+    hypridle = {
+      enable = mkEnableOption "Whether to enable hypridle";
+      forDesktop = mkEnableOption "desktop version of hypeidle configs";
+      withPowerProfiles = mkEnableOption "to enable power profile adjustments on idle";
+    };
   };
 
   imports = [
@@ -132,9 +136,16 @@ in
           after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
           before_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off && ${pkgs.systemd}/bin/loginctl lock-session";
           ignore_dbus_inhibit = false;
+          ignore_systemd_inhibit = false;
           lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         };
-        listener = [
+        listener = lib.optionals cfg.hypridle.withPowerProfiles [
+          {
+            timeout = 180;
+            on-timeout = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver";
+            on-resume = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced";
+          }
+        ] ++ lib.optionals (!cfg.hypridle.forDesktop) [
           {
             # Dim the brightness of the screen.
             # The current value is stored so that when resumed, the brightness
