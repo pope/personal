@@ -24,6 +24,10 @@
   nixpkgs.config.cudaSupport = true;
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
+    plymouth.enable = true;
+
     # Bootloader.
     loader = {
       systemd-boot.enable = false;
@@ -31,12 +35,27 @@
       grub = rec {
         enable = true;
         configurationLimit = 10;
-        efiSupport = true;
         default = "saved";
         device = "nodev";
-        useOSProber = true;
-        theme = "${pkgs.p5r-grub}/joker";
+        efiSupport = true;
+        gfxmodeBios = "1920x1080";
+        gfxmodeEfi = "1920x1080";
+        gfxpayloadBios = "keep";
+        gfxpayloadEfi = "keep";
         splashImage = "${theme}/background.png";
+        theme = "${pkgs.p5r-grub}/joker";
+        useOSProber = true;
+        extraEntries = ''
+          menuentry "Reboot" {
+            reboot
+          }
+          menuentry "Shut Down" {
+            halt
+          }
+          menuentry "Firmware" {
+            fwsetup
+          }
+        '';
       };
     };
 
@@ -82,8 +101,8 @@
 
     nvidia = {
       nvidiaSettings = true;
-      open = false;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       powerManagement.enable = true;
     };
   };
@@ -127,7 +146,7 @@
     hardwareClockInLocalTime = true;
   };
 
-  musnix.enable = true;
+  musnix.enable = false;
   my.nixos = {
     mainUser = "pope";
 

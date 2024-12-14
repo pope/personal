@@ -70,7 +70,7 @@ in
               allowedSignersFile = "~/.ssh/allowed_signers";
             };
           };
-          log.showSignature = true;
+          log.showSignature = false;
         };
 
         signing = {

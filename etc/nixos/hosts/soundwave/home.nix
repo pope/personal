@@ -22,13 +22,7 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "HDMI-A-1,2560x1440@120,0x0,auto"
-    # "HDMI-A-1,preferred,0x0,auto"
-    "DP-2,preferred,2560x0,auto"
-    # TODO(pope): Find out why there is this unknown screen showing up.
-    # Leaving it means that if something gets opened on that monitor, then
-    # Hyprland will crash.
-    "Unknown-1,disable"
+    ",preferred,auto,1,vrr,1"
   ];
 
   programs = {
@@ -50,7 +44,14 @@
     git.enable = true;
     gnome.enable = true;
     gtk.enable = true;
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      hypridle = {
+        enable = true;
+        forDesktop = true;
+        withPowerProfiles = true;
+      };
+    };
     keymapp.enable = true;
     languages = {
       c.enable = true;
@@ -82,7 +83,11 @@
       crt.enable = true;
       foot.enable = true;
       kitty.enable = true;
-      wezterm.enable = true;
+      wezterm = {
+        enable = true;
+        useUnstable = true;
+        useWayland = true;
+      };
     };
     theme.colorScheme = "tokyonight";
     tmux.enable = true;

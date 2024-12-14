@@ -37,7 +37,7 @@ in
       extraConfig =
         let
           opacity = if pkgs.stdenv.isDarwin then 0.94 else 0.85;
-          line_height = if pkgs.stdenv.isDarwin then 1.6 else 1.5;
+          line_height = if pkgs.stdenv.isDarwin then 1.6 else 1.25;
           shell =
             if config.my.home.shell.zsh.enable
             then "${pkgs.zsh}/bin/zsh"
