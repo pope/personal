@@ -24,6 +24,8 @@
   nixpkgs.config.cudaSupport = true;
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
     # Bootloader.
     loader = {
       systemd-boot.enable = false;
@@ -82,8 +84,8 @@
 
     nvidia = {
       nvidiaSettings = true;
-      open = false;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       powerManagement.enable = true;
     };
   };

@@ -76,7 +76,11 @@
       crt.enable = true;
       foot.enable = true;
       kitty.enable = true;
-      wezterm.enable = true;
+      wezterm = {
+        enable = true;
+        useUnstable = true;
+        useWayland = true;
+      };
     };
     theme.colorScheme = "tokyonight";
     tmux.enable = true;
