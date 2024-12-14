@@ -146,7 +146,7 @@
     hardwareClockInLocalTime = true;
   };
 
-  musnix.enable = true;
+  musnix.enable = false;
   my.nixos = {
     mainUser = "pope";
 
