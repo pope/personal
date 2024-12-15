@@ -92,7 +92,8 @@
 
     # Must be explicitly false otherwise there's infinite recursion going on.
     tlp.enable = false;
-    logind.lidSwitch = "hybrid-sleep";
+    logind.lidSwitch = "suspend-then-hibernate";
+    logind.lidSwitchExternalPower = "suspend";
     power-profiles-daemon.enable = true;
   };
 
