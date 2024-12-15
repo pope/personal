@@ -7,22 +7,24 @@ in
 {
   options.my.home.gnome = {
     enable = mkEnableOption "GNOME home options";
+    disableGnomeShellExtensions = mkEnableOption "GNOME shell extension options";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      gnomeExtensions.app-icons-taskbar
-      gnomeExtensions.appindicator
-      gnomeExtensions.blur-my-shell
-      gnomeExtensions.caffeine
-      gnomeExtensions.custom-accent-colors
-      gnomeExtensions.forge
-      gnomeExtensions.pop-shell
-      gnomeExtensions.rounded-window-corners-reborn
-      gnomeExtensions.user-themes
-
+    home.packages = (with pkgs; [
+      adwaita-icon-theme
       gnome-themes-extra
-    ];
+    ]) ++ lib.optionals (!cfg.disableGnomeShellExtensions) (with pkgs.gnomeExtensions; [
+      app-icons-taskbar
+      appindicator
+      blur-my-shell
+      caffeine
+      custom-accent-colors
+      forge
+      pop-shell
+      rounded-window-corners-reborn
+      user-themes
+    ]);
 
     dconf.settings = {
       "org/gnome/desktop/interface" = {
@@ -31,7 +33,7 @@ in
         # jump-scare going back to light background apps.
         gtk-theme = lib.mkForce "Adwaita-dark";
       };
-
+    } // lib.optionalAttrs (!cfg.disableGnomeShellExtensions) {
       "org/gnome/shell" = {
         disable-user-extensions = false;
 
@@ -44,7 +46,6 @@ in
           user-themes.extensionUuid
         ];
       };
-
       # "org/gnome/shell/extensios/user-theme".name = "Catppuccin-Mocha-Standard-Mauve-dark";
     };
   };

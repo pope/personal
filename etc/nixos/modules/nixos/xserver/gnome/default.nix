@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   inherit (lib) mkIf;
@@ -10,10 +10,5 @@ in
       desktopManager.gnome.enable = true;
       displayManager.gdm.enable = true;
     };
-
-    environment.systemPackages = with pkgs; [
-      adwaita-icon-theme
-      gnome-themes-extra
-    ];
   };
 }
