@@ -48,12 +48,14 @@ in
 
     environment = {
       systemPackages = with pkgs; [
+        adwaita-icon-theme
         alsa-utils
         brillo
         dwl
-        dwl-status
         dwl-run
+        dwl-status
         dwlb
+        gnome-themes-extra
         grim
         imv
         libnotify
