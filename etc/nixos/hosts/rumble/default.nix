@@ -134,11 +134,10 @@
     virtualization.enable = true;
     xserver = {
       enable = true;
-
-      desktop = "gnome";
-
       enableAutoLogin = false;
-      enableHyprland = true;
+      displayManager = "gdm";
+      gnome.enable = true;
+      hyprland.enable = true;
     };
   };
 
