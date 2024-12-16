@@ -32,6 +32,47 @@ in
 
     programs.wlogout.enable = true;
 
+    systemd.user.services = {
+      polkit-gnome-authentication-agent-1 = {
+        Unit = {
+          Description = "polkit-gnome-authentication-agent-1";
+          After = [ "graphical-session.target" ];
+          Wants = [ "graphical-session.target" ];
+          ConditionEnvironment = [ "XDG_SESSION_TYPE=wayland" ];
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          Type = "simple";
+          ExecCondition = ''
+            ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
+          '';
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+      };
+
+      swww = {
+        Unit = {
+          Description = "Efficient animated wallpaper daemon for wayland";
+          PartOf = [ "graphical-session-pre.target" ];
+          After = [ "graphical-session.target" ];
+          ConditionEnvironment = [ "XDG_SESSION_TYPE=wayland" ];
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          ExecCondition = ''
+            ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
+          '';
+          ExecStart = "${pkgs.swww}/bin/swww-daemon";
+          ExecStop = "${pkgs.swww}/bin/swww kill";
+          Restart = "always";
+          RestartSec = 10;
+        };
+      };
+    };
+
     xdg.configFile = {
       "swappy/config".text = /* ini */ ''
         [Default]

@@ -164,24 +164,6 @@ in
       };
     };
 
-    systemd.user.services = {
-      swww = {
-        Unit = {
-          Description = "Efficient animated wallpaper daemon for wayland";
-          PartOf = [ "graphical-session-pre.target" ];
-          After = [ "graphical-session.target" ];
-          ConditionEnvironment = [ "XDG_CURRENT_DESKTOP=Hyprland" ];
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-        Service = {
-          ExecStart = "${pkgs.swww}/bin/swww-daemon";
-          ExecStop = "${pkgs.swww}/bin/swww kill";
-          Restart = "always";
-          RestartSec = "10";
-        };
-      };
-    };
-
     systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   };
 }

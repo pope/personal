@@ -12,7 +12,6 @@ let
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${pkgs.pamixer}/bin/pamixer";
-  polkit = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
   slurp = "${pkgs.slurp}/bin/slurp";
   swappy = "${pkgs.swappy}/bin/swappy";
   systemctl = "${pkgs.systemd}/bin/systemctl";
@@ -34,7 +33,6 @@ in
       exec-once = [
         "${dbus-update-activation-environment} --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "${systemctl} --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        polkit
         waybar
         "${nm-applet} --indicator"
         "${udiskie} --appindicator --no-password-prompt"
