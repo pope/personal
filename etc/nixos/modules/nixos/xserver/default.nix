@@ -8,35 +8,57 @@ in
   imports = [
     ./autologin
     ./dwl
-    ./gnome
     ./hyprland
-    ./kde
-    ./pantheon
   ];
 
   options.my.nixos.xserver = {
     enable = mkEnableOption "xserver system options";
 
-    desktop = mkOption {
-      default = "gnome";
-      description = "The main desktop environment to use";
+    displayManager = mkOption {
+      default = "gdm";
+      description = "Which display manager to use";
       example = "kde";
-      type = types.enum [ "dwl" "gnome" "kde" "pantheon" ];
+      type = types.enum [ "gdm" "sddm" "lightdm" ];
     };
 
     enableAutoLogin = mkEnableOption "auto login of display manager";
 
-    enableHyprland = mkEnableOption "hyprland";
+    dwl.enable = mkEnableOption "DWL";
+    hyprland.enable = mkEnableOption "Hyprland";
+    gnome.enable = mkEnableOption "GNOME";
+    kde.enable = mkEnableOption "KDE";
+    pantheon.enable = mkEnableOption "Pantheon";
   };
 
   config = mkIf cfg.enable {
-    services.xserver = {
-      enable = true;
+    services = {
+      displayManager.sddm.enable = cfg.displayManager == "sddm";
+      desktopManager.plasma6.enable = cfg.kde.enable;
 
-      # Configure keymap in X11
-      xkb = {
-        layout = "us";
-        variant = "";
+      xserver = {
+        enable = true;
+
+        displayManager = {
+          gdm = {
+            enable = cfg.displayManager == "gdm";
+            wayland = true;
+          };
+          lightdm = {
+            enable = cfg.displayManager == "lightdm";
+            greeters.pantheon.enable = cfg.pantheon.enable;
+          };
+        };
+
+        desktopManager = {
+          gnome.enable = cfg.gnome.enable;
+          pantheon.enable = cfg.pantheon.enable;
+        };
+
+        # Configure keymap in X11
+        xkb = {
+          layout = "us";
+          variant = "";
+        };
       };
     };
   };

@@ -14,19 +14,21 @@ in
       enable = true;
 
       config = {
-        plugins = lib.optionals pkgs.stdenv.isLinux [
-          inputs.anyrun.packages.${pkgs.system}.applications
-          inputs.anyrun.packages.${pkgs.system}.dictionary
-          # TODO(pope): Re-enable when the bug is fixed.
-          # See https://github.com/anyrun-org/anyrun/issues/153
-          # inputs.anyrun.packages.${pkgs.system}.randr
-          inputs.anyrun.packages.${pkgs.system}.rink
-          inputs.anyrun.packages.${pkgs.system}.stdin
-          inputs.anyrun.packages.${pkgs.system}.shell
-          inputs.anyrun.packages.${pkgs.system}.symbols
-          inputs.anyrun.packages.${pkgs.system}.translate
-          inputs.anyrun.packages.${pkgs.system}.websearch
-        ];
+        plugins = lib.optionals
+          pkgs.stdenv.isLinux
+          (with inputs.anyrun.packages.${pkgs.system}; [
+            applications
+            dictionary
+            # TODO(pope): Re-enable when the bug is fixed.
+            # See https://github.com/anyrun-org/anyrun/issues/153
+            # randr
+            rink
+            stdin
+            shell
+            symbols
+            translate
+            websearch
+          ]);
 
         closeOnClick = true;
         hideIcons = false;
@@ -55,7 +57,7 @@ in
               "kirby": "(>\")>",
               "shrug": "¯\\_(ツ)_/¯",
             },
-            max_entries: 4,
+            max_entries: 7,
           )
         '';
       };

@@ -5,7 +5,7 @@ let
   cfg = config.my.nixos.xserver;
 in
 {
-  config = mkIf (cfg.enable && cfg.enableHyprland) {
+  config = mkIf (cfg.enable && cfg.hyprland.enable) {
     services = {
       dbus = {
         enable = true;

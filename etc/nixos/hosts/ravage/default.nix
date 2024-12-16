@@ -146,11 +146,9 @@
     system.enable = true;
     xserver = {
       enable = true;
-
-      desktop = "dwl";
-
       enableAutoLogin = false;
-      enableHyprland = false;
+      displayManager = "gdm";
+      dwl.enable = true;
     };
   };
 

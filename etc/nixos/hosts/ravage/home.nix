@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -30,13 +30,6 @@
     home-manager.enable = true;
   };
 
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-      gtk-theme = lib.mkForce "Adwaita-dark";
-    };
-  };
-
   my.home = {
     anyrun.enable = true;
     browsers.firefox.enable = true;
@@ -46,7 +39,10 @@
     };
     dunst.enable = true;
     git.enable = true;
-    gnome.enable = false;
+    gnome = {
+      enable = false;
+      disableGnomeShellExtensions = true;
+    };
     gtk.enable = true;
     keymapp.enable = true;
     languages = {

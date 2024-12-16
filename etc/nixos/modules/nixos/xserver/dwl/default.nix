@@ -43,7 +43,7 @@ let
   '';
 in
 {
-  config = mkIf (cfg.enable && cfg.desktop == "dwl") {
+  config = mkIf (cfg.enable && cfg.dwl.enable) {
     hardware.graphics.enable = true;
 
     environment = {
@@ -183,16 +183,7 @@ in
       udisks2.enable = true;
       upower.enable = true;
 
-      xserver = {
-        desktopManager.runXdgAutostartIfNone = true;
-
-        displayManager = {
-          gdm = {
-            enable = true;
-            wayland = true;
-          };
-        };
-      };
+      xserver.desktopManager.runXdgAutostartIfNone = true;
     };
   };
 }

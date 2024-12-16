@@ -69,7 +69,8 @@
     };
     xserver = {
       enable = true;
-      desktop = "gnome";
+      displayManager = "gdm";
+      gnome.enable = true;
     };
     users = {
       initialPassword = "changeme";
