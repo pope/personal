@@ -45,6 +45,7 @@
       disableGnomeShellExtensions = true;
     };
     gtk.enable = true;
+    hypridle.enable = true;
     keymapp.enable = true;
     languages = {
       javascript.enable = true;
