@@ -44,18 +44,14 @@ let
 in
 {
   config = mkIf (cfg.enable && cfg.dwl.enable) {
-    hardware.graphics.enable = true;
-
     environment = {
       systemPackages = with pkgs; [
-        adwaita-icon-theme
         alsa-utils
         brillo
         dwl
         dwl-run
         dwl-status
         dwlb
-        gnome-themes-extra
         grim
         imv
         libnotify
@@ -84,8 +80,6 @@ in
     };
 
     programs = {
-      dconf.enable = true;
-      light.enable = true;
       uwsm = {
         enable = true;
         waylandCompositors.dwl = {
@@ -94,13 +88,9 @@ in
           binPath = "/run/current-system/sw/bin/dwl-run";
         };
       };
-      xwayland.enable = true;
     };
 
-    security.polkit.enable = true;
-
     xdg.portal = {
-      enable = true;
       wlr.enable = true;
       config.dwl.default = [ "wlr" "gtk" ];
       config.common.default = [ "wlr" ];
@@ -164,25 +154,10 @@ in
     };
 
     services = {
-      dbus = {
-        enable = true;
-        packages = with pkgs; [ dconf ];
-      };
-
-      graphical-desktop.enable = true;
-      geoclue2.enable = true;
-      udev = {
-        packages = with pkgs; [
-          gnome-settings-daemon
-        ];
-        extraRules = ''
-          ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"
-          ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", GROUP="video", MODE="0664"
-        '';
-      };
-      udisks2.enable = true;
-      upower.enable = true;
-
+      udev.extraRules = ''
+        ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="acpi_video0", GROUP="video", MODE="0664"
+        ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", GROUP="video", MODE="0664"
+      '';
       xserver.desktopManager.runXdgAutostartIfNone = true;
     };
   };
