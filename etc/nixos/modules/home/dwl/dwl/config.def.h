@@ -10,12 +10,12 @@ static const int smartgaps                 = 0;  /* 1 means no outer gap when th
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const unsigned int borderpx         = 2;  /* border pixel of windows */
-static const float rootcolor[]             = COLOR(0x181825ff);
-static const float bordercolor[]           = COLOR(0x313244ff);
-static const float focuscolor[]            = COLOR(0xcba6f7ff);
-static const float urgentcolor[]           = COLOR(0xf38ba8ff);
+static const float rootcolor[]             = COLOR(@base01@ff);
+static const float bordercolor[]           = COLOR(@base02@ff);
+static const float focuscolor[]            = COLOR(@base0E@ff);
+static const float urgentcolor[]           = COLOR(@base09@ff);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
-static const float fullscreen_bg[]         = COLOR(0xe1e2eff); /* You can also use glsl colors */
+static const float fullscreen_bg[]         = COLOR(@base00@ff); /* You can also use glsl colors */
 
 /* tagging - TAGCOUNT must be no greater than 31 */
 #define TAGCOUNT (9)
@@ -123,15 +123,15 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[] = { "foot", NULL };
-static const char *menucmd[] = { "anyrun", NULL };
-static const char *logout[] =  { "wlogout", NULL };
-static const char *brightness_up[] =  { "brillo", "-A", "10", NULL };
-static const char *brightness_down[] =  { "brillo", "-U", "10", NULL };
-static const char *volume_up[] = { "pamixer", "-u", "-i", "10", NULL };
-static const char *volume_down[] = { "pamixer", "-u", "-d", "10", NULL };
-static const char *mute[] = { "pamixer", "-t", NULL };
-static const char *toggle_waybar[] = { "pkill", "-SIGUSR1", "waybar", NULL };
+static const char *termcmd[] = { "@foot@", NULL };
+static const char *menucmd[] = { "@anyrun@", NULL };
+static const char *logout[] =  { "@wlogout@", NULL };
+static const char *brightness_up[] =  { "@brillo@", "-A", "10", NULL };
+static const char *brightness_down[] =  { "@brillo@", "-U", "10", NULL };
+static const char *volume_up[] = { "@pamixer@", "-u", "-i", "10", NULL };
+static const char *volume_down[] = { "@pamixer@", "-u", "-d", "10", NULL };
+static const char *mute[] = { "@pamixer@", "-t", NULL };
+static const char *toggle_waybar[] = { "@pkill@", "-SIGUSR1", "waybar", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */

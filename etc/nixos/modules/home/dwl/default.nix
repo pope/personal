@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
@@ -30,7 +30,40 @@ let
       ./dwl/patches/alwayscenter.patch
     ];
   })).override {
-    configH = ./dwl/config.def.h;
+    configH = pkgs.substituteAll (with pkgs;
+      let
+        inherit (lib) getExe;
+        color = config.my.home.theme.colors.withHex;
+      in
+      {
+        src = ./dwl/config.def.h;
+
+        # apps
+        anyrun = getExe inputs.anyrun.packages.${system}.anyrun;
+        brillo = getExe brillo;
+        foot = getExe foot;
+        pamixer = getExe pamixer;
+        pkill = "${procps}/bin/pkill";
+        wlogout = getExe wlogout;
+
+        # colors
+        inherit (color) base00;
+        inherit (color) base01;
+        inherit (color) base02;
+        inherit (color) base03;
+        inherit (color) base04;
+        inherit (color) base05;
+        inherit (color) base06;
+        inherit (color) base07;
+        inherit (color) base08;
+        inherit (color) base09;
+        inherit (color) base0A;
+        inherit (color) base0B;
+        inherit (color) base0C;
+        inherit (color) base0D;
+        inherit (color) base0E;
+        inherit (color) base0F;
+      });
   };
 in
 {
