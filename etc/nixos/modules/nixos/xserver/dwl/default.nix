@@ -1,40 +1,19 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkIf;
+  inherit (config.my.nixos) mainUser;
   cfg = config.my.nixos.xserver;
 
-  dwlb = pkgs.dwlb.override {
-    configH = ./dwlb/config.def.h;
-  };
-
-  dwl-status = pkgs.writeShellApplication {
-    name = "dwl-status";
-    runtimeInputs = with pkgs; [
-      bash
-      coreutils
-      gawk
-      gnused
-      pamixer
-      playerctl
-      procps
-      upower
-    ];
-    text = ./status.sh;
-  };
-
-  dwl = (pkgs.dwl.overrideAttrs (_oldAttrs: {
-    patches = [
-      ./dwl/patches/ipc.patch
-      ./dwl/patches/gaps.patch
-      ./dwl/patches/alwayscenter.patch
-    ];
-  })).override {
-    configH = ./dwl/config.def.h;
-  };
-
   dwl-run = pkgs.writeShellScriptBin "dwl-run" ''
-    exec ${lib.getExe dwl} -s "
+    HOME_DWL_EXE=/etc/profiles/per-user/${mainUser}/bin/dwl
+    DWL_EXE=$(lib.getExe pkgs.dwl)
+    if [ -f $HOME_DWL_EXE ]
+    then
+      DWL_EXE=$HOME_DWL_EXE
+    fi
+
+    exec $DWL_EXE -s "
       dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
       systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
       systemctl --user start dwl-session.target;
@@ -44,40 +23,10 @@ let
 in
 {
   config = mkIf (cfg.enable && cfg.dwl.enable) {
-    environment = {
-      systemPackages = with pkgs; [
-        alsa-utils
-        brillo
-        dwl
-        dwl-run
-        dwl-status
-        dwlb
-        grim
-        imv
-        libnotify
-        networkmanagerapplet
-        pamixer
-        playerctl
-        procps
-        slurp
-        swappy
-        swww
-        udiskie
-        wdisplays
-        wf-recorder
-        wl-clipboard
-        wlogout
-        wlr-randr
-        wmenu
-
-        inputs.anyrun.packages.${system}.default
-      ];
-      sessionVariables = {
-        WLR_NO_HARDWARE_CURSORS = "1";
-        # Hint electron apps to use wayland
-        NIXOS_OZONE_WL = "1";
-      };
-    };
+    environment.systemPackages = with pkgs; [
+      dwl-run
+      swww
+    ];
 
     programs = {
       uwsm = {
@@ -111,31 +60,31 @@ in
       services = {
         seatd.enable = false;
 
-        dwlb = {
-          description = "Service to run the dwlb status bar";
-          enable = false;
-          serviceConfig = {
-            ExecStart = "/run/current-system/sw/bin/dwlb";
-          };
-          bindsTo = [ "dwl-session.target" ];
-          wantedBy = [ "dwl-session.target" ];
-          restartIfChanged = true;
-          reloadTriggers = [ dwlb ];
-          restartTriggers = [ dwlb ];
-        };
+        # dwlb = {
+        #   description = "Service to run the dwlb status bar";
+        #   enable = false;
+        #   serviceConfig = {
+        #     ExecStart = "/run/current-system/sw/bin/dwlb";
+        #   };
+        #   bindsTo = [ "dwl-session.target" ];
+        #   wantedBy = [ "dwl-session.target" ];
+        #   restartIfChanged = true;
+        #   reloadTriggers = [ dwlb ];
+        #   restartTriggers = [ dwlb ];
+        # };
 
-        status-bar = {
-          description = "Service to run the status bar provider";
-          enable = false;
-          script = ''
-            /run/current-system/sw/bin/dwl-status \
-              | /run/current-system/sw/bin/dwlb -status-stdin all
-          '';
-          bindsTo = [ "dwlb.service" ];
-          wantedBy = [ "dwlb.service" ];
-          reloadTriggers = [ dwlb dwl-status ];
-          restartTriggers = [ dwlb dwl-status ];
-        };
+        # status-bar = {
+        #   description = "Service to run the status bar provider";
+        #   enable = false;
+        #   script = ''
+        #     /run/current-system/sw/bin/dwl-status \
+        #       | /run/current-system/sw/bin/dwlb -status-stdin all
+        #   '';
+        #   bindsTo = [ "dwlb.service" ];
+        #   wantedBy = [ "dwlb.service" ];
+        #   reloadTriggers = [ dwlb dwl-status ];
+        #   restartTriggers = [ dwlb dwl-status ];
+        # };
 
         polkit-gnome-authentication-agent-1 = {
           description = "polkit-gnome-authentication-agent-1";

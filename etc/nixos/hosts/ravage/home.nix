@@ -38,9 +38,10 @@
       vscode.enable = false;
     };
     dunst.enable = true;
+    dwl.enable = true;
     git.enable = true;
     gnome = {
-      enable = false;
+      enable = true;
       disableGnomeShellExtensions = true;
     };
     gtk.enable = true;
@@ -61,10 +62,6 @@
     };
     theme.colorScheme = "catppuccin";
     tmux.enable = true;
-    waybar = {
-      enable = true;
-      theme = "dwl";
-    };
     xdg.enable = true;
     yazi.enable = true;
   };

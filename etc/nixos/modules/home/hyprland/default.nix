@@ -43,16 +43,16 @@ in
 
   config = mkIf cfg.enable {
 
-    my.home.waybar.enable = true;
+    my.home = {
+      waybar.enable = true;
+      wayland.enable = true;
+    };
 
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
       xwayland.enable = true;
     };
-
-    # allow fontconfig to discover fonts and configurations installed through home.packages
-    fonts.fontconfig.enable = true;
 
     systemd.user.sessionVariables = {
       "NIXOS_OZONE_WL" = "1"; # for any ozone-based browser & electron apps to run on wayland
@@ -64,27 +64,11 @@ in
       "WLR_EGL_NO_MODIFIRES" = "1";
     };
 
-    home = {
-      packages = with pkgs; [
-        alsa-utils
-        caffeinemode
-        gamemode
-        grim
-        hyprpicker
-        imv
-        libnotify
-        pamixer
-        slurp
-        swappy
-        swww
-        wdisplays # Tool for managing displays
-        wf-recorder
-        wl-clipboard
-        wlr-randr
-      ];
-    };
-
-    programs.wlogout.enable = true;
+    home.packages = with pkgs; [
+      caffeinemode
+      gamemode
+      hyprpicker
+    ];
 
     programs.hyprlock = {
       enable = true;
@@ -197,11 +181,6 @@ in
         };
       };
     };
-
-    xdg.configFile."swappy/config".text = ''
-      [Default]
-      save_dir=$HOME/Pictures/Screenshots
-    '';
 
     systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   };
