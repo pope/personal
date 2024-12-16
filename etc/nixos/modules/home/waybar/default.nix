@@ -40,8 +40,8 @@ in
           if cfg.theme == "hyprland" then hyprland_style
           else if cfg.theme == "dwl" then dwl_style
           else abort "unsupported theme";
-        systemd = {
-          enable = cfg.theme == "dwl";
+        systemd = mkIf (cfg.theme == "dwl") {
+          enable = true;
           target = "dwl-session.target";
         };
       };

@@ -21,7 +21,7 @@ let
     else "${config.programs.kitty.package}/bin/kitty";
   thunar = "${pkgs.xfce.thunar}/bin/thunar";
   udiskie = "${pkgs.udiskie}/bin/udiskie";
-  waybar = "${pkgs.waybar}/bin/waybar";
+  waybar = "${config.programs.waybar.package}/bin/waybar";
   wlogout = "${pkgs.wlogout}/bin/wlogout";
 in
 {
