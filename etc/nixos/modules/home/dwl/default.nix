@@ -44,6 +44,7 @@ let
         foot = getExe foot;
         pamixer = getExe pamixer;
         pkill = "${procps}/bin/pkill";
+        uwsm = getExe uwsm;
         wlogout = getExe wlogout;
 
         # colors

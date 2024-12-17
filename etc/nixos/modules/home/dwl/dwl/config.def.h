@@ -123,15 +123,15 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[] = { "@foot@", NULL };
-static const char *menucmd[] = { "@anyrun@", NULL };
-static const char *logout[] =  { "@wlogout@", NULL };
-static const char *brightness_up[] =  { "@brillo@", "-A", "10", NULL };
-static const char *brightness_down[] =  { "@brillo@", "-U", "10", NULL };
-static const char *volume_up[] = { "@pamixer@", "-u", "-i", "10", NULL };
-static const char *volume_down[] = { "@pamixer@", "-u", "-d", "10", NULL };
-static const char *mute[] = { "@pamixer@", "-t", NULL };
-static const char *toggle_waybar[] = { "@pkill@", "-SIGUSR1", "waybar", NULL };
+static const char *termcmd[] = { "@uwsm@", "app", "--", "@foot@", NULL };
+static const char *menucmd[] = { "@uwsm@", "app", "--", "@anyrun@", NULL };
+static const char *logout[] =  { "@uwsm@", "app", "--", "@wlogout@", NULL };
+static const char *brightness_up[] =  { "@uwsm@", "app", "--", "@brillo@", "-A", "10", NULL };
+static const char *brightness_down[] =  { "@uwsm@", "app", "--", "@brillo@", "-U", "10", NULL };
+static const char *volume_up[] = { "@uwsm@", "app", "--", "@pamixer@", "-u", "-i", "10", NULL };
+static const char *volume_down[] = { "@uwsm@", "app", "--", "@pamixer@", "-u", "-d", "10", NULL };
+static const char *mute[] = { "@uwsm@", "app", "--", "@pamixer@", "-t", NULL };
+static const char *toggle_waybar[] = { "@uwsm@", "app", "--", "@pkill@", "-SIGUSR1", "waybar", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
