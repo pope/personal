@@ -17,7 +17,10 @@ in
     security.pam.services.hyprlock = { };
 
     programs = {
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        withUWSM = true;
+      };
 
       thunar = {
         enable = true;

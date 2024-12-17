@@ -40,19 +40,21 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = true;
+      systemd.enable = false; # Using UWSM
       xwayland.enable = true;
     };
 
-    systemd.user.sessionVariables = {
-      "NIXOS_OZONE_WL" = "1"; # for any ozone-based browser & electron apps to run on wayland
-      "MOZ_ENABLE_WAYLAND" = "1"; # for firefox to run on wayland
-      "MOZ_WEBRENDER" = "1";
+    xdg.configFile."uwsm/env-hyprland".text = /* sh */ ''
+      # For Firefox to run on Wayland
+      export MOZ_ENABLE_WAYLAND=1
+      export MOZ_WEBRENDER=1
 
-      "XDG_SESSION_TYPE" = "wayland";
-      "WLR_NO_HARDWARE_CURSORS" = "1";
-      "WLR_EGL_NO_MODIFIRES" = "1";
-    };
+      export XCURSOR_SIZE=24
+      export HYPRCURSOR_SIZE=24
+
+      export XDG_CURRENT_DESKTOP=Hyprland
+      export XDG_SESSION_DESKTOP=Hyprland
+    '';
 
     home.packages = with pkgs; [
       gamemode

@@ -1,27 +1,27 @@
 { config, pkgs, lib, inputs, ... }:
 
 let
-  inherit (lib) mkIf;
-  anyrunPkg = inputs.anyrun.packages.${pkgs.system}.default;
+  inherit (lib) mkIf getExe;
+  anyrunPkg = inputs.anyrun.packages.${pkgs.system}.anyrun;
+
+  launcher = "${getExe pkgs.uwsm} app --";
 
   # commands
-  anyrun = "${anyrunPkg}/bin/anyrun";
-  brillo = "${pkgs.brillo}/bin/brillo";
+  anyrun = "${launcher} ${getExe anyrunPkg}";
+  brillo = "${getExe pkgs.brillo}";
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
-  grim = "${pkgs.grim}/bin/grim";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-  pamixer = "${pkgs.pamixer}/bin/pamixer";
-  slurp = "${pkgs.slurp}/bin/slurp";
-  swappy = "${pkgs.swappy}/bin/swappy";
+  nm-applet = "${launcher} ${pkgs.networkmanagerapplet}/bin/nm-applet";
+  pamixer = "${getExe pkgs.pamixer}";
+  screenshot = "${launcher} wayland-screenshot";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   terminal =
     if config.my.home.terminals.wezterm.enable
-    then "${config.programs.wezterm.package}/bin/wezterm"
-    else "${config.programs.kitty.package}/bin/kitty";
-  thunar = "${pkgs.xfce.thunar}/bin/thunar";
-  waybar = "${config.programs.waybar.package}/bin/waybar";
-  wlogout = "${pkgs.wlogout}/bin/wlogout";
+    then "${launcher} ${getExe config.programs.wezterm.package}"
+    else "${launcher} ${getExe config.programs.kitty.package}";
+  thunar = "${launcher} ${getExe pkgs.xfce.thunar}";
+  waybar = "${launcher} ${getExe config.programs.waybar.package}";
+  wlogout = "${launcher} ${getExe pkgs.wlogout}";
 in
 {
   config = mkIf config.my.home.hyprland.enable {
@@ -223,7 +223,7 @@ in
         ", XF86AudioLowerVolume, exec, ${pamixer} -u -d 10"
         ", XF86AudioMute, exec, ${pamixer} -t"
         # Screenshot
-        ", Print, exec, ${grim} -g \"$(${slurp})\" - | ${swappy} -f -"
+        ", Print, exec, ${screenshot}"
       ];
 
       bindm = [
@@ -257,14 +257,5 @@ in
         "blur, launcher"
       ];
     };
-    wayland.windowManager.hyprland.extraConfig = ''
-      # Some default env vars.
-      env = XCURSOR_SIZE,24
-      env = HYPRCURSOR_SIZE,24
-
-      env = XDG_CURRENT_DESKTOP,Hyprland
-      env = XDG_SESSION_TYPE,wayland
-      env = XDG_SESSION_DESKTOP,Hyprland
-    '';
   };
 }

@@ -1,11 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) getExe mkIf mkEnableOption;
   cfg = config.my.home.wayland;
 
   ExecCondition = ''
     ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
+  '';
+
+  wayland-screenshot = pkgs.writeShellScriptBin "wayland-screenshot" ''
+    ${getExe pkgs.slurp} \
+      | ${getExe pkgs.grim} -g - - \
+      | ${getExe pkgs.swappy} -f -
   '';
 in
 {
@@ -24,6 +30,7 @@ in
         slurp
         swappy
         swww
+        wayland-screenshot
         wdisplays # Tool for managing displays
         wf-recorder
         wl-clipboard
@@ -83,8 +90,6 @@ in
         Install.WantedBy = [ "graphical-session.target" ];
         Service = {
           inherit ExecCondition;
-          # TODO(pope): See if `--appindicator` is needed when Hyprland goes
-          # through UWSM.
           ExecStart = "${pkgs.udiskie}/bin/udiskie --appindicator";
         };
       };

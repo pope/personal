@@ -29,6 +29,7 @@ in
       ];
       udisks2.enable = true;
       upower.enable = true;
+      xserver.desktopManager.runXdgAutostartIfNone = true;
     };
 
     xdg.portal.enable = true;
