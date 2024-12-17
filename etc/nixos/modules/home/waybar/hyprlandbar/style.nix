@@ -73,8 +73,9 @@ in
     border-radius: 16px;
     color: @base02;
     margin: 0px 3px;
-    min-height: 10px;
-    min-width: 10px;
+    min-height: 16px;
+    min-width: 16px;
+    padding: 0;
     transition: all 0.3s ease-in-out;
   }
 
@@ -83,7 +84,8 @@ in
     background-size: 400% 400%;
     border-radius: 16px;
     color: @base0D;
-    min-width: 30px;
+    min-width: 50px;
+    min-height: 16px;
     transition: all 0.3s ease-in-out;
   }
 
@@ -97,7 +99,8 @@ in
     background-size: 400% 400%;
     border-radius: 16px;
     color: @base0A;
-    min-width: 30px;
+    min-width: 50px;
+    min-height: 16px;
   }
 
   tooltip {
