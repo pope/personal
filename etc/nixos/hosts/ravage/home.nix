@@ -38,22 +38,20 @@
       vscode.enable = false;
     };
     dunst.enable = true;
+    dwl.enable = true;
     git.enable = true;
-    gnome.enable = true;
-    gtk.enable = true;
-    hyprland = {
+    gnome = {
       enable = true;
-      hypridle.enable = true;
+      disableGnomeShellExtensions = true;
     };
+    gtk.enable = true;
+    hypridle.enable = true;
     keymapp.enable = true;
     languages = {
-      c.enable = true;
-      go.enable = true;
       javascript.enable = true;
       python.enable = true;
-      rust.enable = true;
     };
-    lf.enable = true;
+    lf.enable = false;
     mpv.enable = true;
     multimedia.threed.enable = true;
     packages.enable = true;
@@ -61,6 +59,7 @@
     terminals = {
       kitty.enable = true;
       wezterm.enable = true;
+      foot.enable = true;
     };
     theme.colorScheme = "catppuccin";
     tmux.enable = true;

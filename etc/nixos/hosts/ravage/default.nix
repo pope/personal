@@ -85,8 +85,6 @@
     };
   };
 
-  hardware.graphics.enable = true;
-
   environment.systemPackages = with pkgs; [
     libva-utils
     renoise344
@@ -150,8 +148,7 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "gdm";
-      gnome.enable = true;
-      hyprland.enable = true;
+      dwl.enable = true;
     };
   };
 

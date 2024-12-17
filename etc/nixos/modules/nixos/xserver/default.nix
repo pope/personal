@@ -7,7 +7,9 @@ in
 {
   imports = [
     ./autologin
+    ./dwl
     ./hyprland
+    ./tile-manager-common
   ];
 
   options.my.nixos.xserver = {
@@ -22,6 +24,7 @@ in
 
     enableAutoLogin = mkEnableOption "auto login of display manager";
 
+    dwl.enable = mkEnableOption "DWL";
     hyprland.enable = mkEnableOption "Hyprland";
     gnome.enable = mkEnableOption "GNOME";
     kde.enable = mkEnableOption "KDE";
@@ -37,7 +40,10 @@ in
         enable = true;
 
         displayManager = {
-          gdm.enable = cfg.displayManager == "gdm";
+          gdm = {
+            enable = cfg.displayManager == "gdm";
+            wayland = true;
+          };
           lightdm = {
             enable = cfg.displayManager == "lightdm";
             greeters.pantheon.enable = cfg.pantheon.enable;

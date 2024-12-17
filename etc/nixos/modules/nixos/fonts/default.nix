@@ -27,11 +27,13 @@ in
         joypixels
         maple-mono
         nerd-fonts.fira-code
+        nerd-fonts.jetbrains-mono
         nerd-fonts.lilex
         nerd-fonts.symbols-only
         noto-fonts-emoji
         open-sans
         roboto
+        sf-mono-nf-liga
         sf-mono-font
         source-serif
         terminus_font
@@ -48,7 +50,7 @@ in
         antialias = true;
         defaultFonts = {
           emoji = [ "Joypixels" "Noto Color Emoji" ];
-          monospace = [ "Iosevka" "FiraCode Nerd Font Mono" ];
+          monospace = [ "Liga SFMono Nerd Font" "FiraCode Nerd Font Mono" ];
           sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
           serif = [ "Source Serif" ];
         };
