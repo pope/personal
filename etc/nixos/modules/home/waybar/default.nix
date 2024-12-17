@@ -26,6 +26,7 @@ in
 
     home.packages = with pkgs; [
       libcanberra-gtk3
+      playerctl
     ];
 
     programs = {

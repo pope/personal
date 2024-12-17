@@ -88,7 +88,6 @@ in
       dwl-status
       dwlb
       networkmanagerapplet
-      playerctl
       procps
       wmenu
     ];

@@ -54,7 +54,7 @@ in
     margin-right: 1rem;
   }
 
-  #custom-playerctl {
+  #mpris {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
   }

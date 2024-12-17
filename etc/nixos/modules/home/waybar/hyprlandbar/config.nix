@@ -3,7 +3,6 @@
 let
   color = config.my.home.theme.colors.withHash;
   hyprctl = "${hyprland}/bin/hyprctl";
-  playerctl = "${pkgs.playerctl}/bin/playerctl";
   nm-connection-editor = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
   pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
   wlogout = "${pkgs.wlogout}/bin/wlogout";
@@ -19,8 +18,7 @@ in
     margin-right = 0;
     modules-left = [
       "custom/launcher"
-      "custom/playerctl"
-      "custom/playerlabel"
+      "mpris"
     ];
     modules-center = [
       "hyprland/workspaces"
@@ -63,31 +61,15 @@ in
       };
     };
 
-    "custom/playerctl" = {
-      format = "{icon}";
-      return-type = "json";
-      exec = ''
-        ${playerctl} -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F
-      '';
-      on-click-middle = "${playerctl} play-pause";
-      on-click = "${playerctl} previous";
-      on-click-right = "${playerctl} next";
-      format-icons = {
-        Playing = "<span foreground='${color.base0B}'>󰓇 </span>";
-        Paused = "<span foreground='${color.base0E}'>󰓇 </span>";
+    mpris = {
+      format = "{status_icon} {dynamic}";
+      format-paused = "{status_icon} <i>{dynamic}</i>";
+      dynamic-separator = " - ";
+      status-icons = {
+        playing = "<span foreground='${color.base0B}'>󰓇 </span>";
+        paused = "<span foreground='${color.base0E}'>󰓇 </span>";
+        stopped = "";
       };
-    };
-
-    "custom/playerlabel" = {
-      format = "<span>{}</span>";
-      return-type = "json";
-      max-length = 75;
-      exec = ''
-        ${playerctl} -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "{{playerName}} : {{markup_escape(title)}}", "alt": "{{status}}", "class": "{{status}}"}' -F
-      '';
-      on-click-middle = "${playerctl} play-pause";
-      on-click = "${playerctl} previous";
-      on-click-right = "${playerctl} next";
     };
 
     battery = {
