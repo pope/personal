@@ -9,6 +9,7 @@ in
     ./autologin
     ./dwl
     ./hyprland
+    ./tile-manager-common
   ];
 
   options.my.nixos.xserver = {
