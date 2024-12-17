@@ -16,7 +16,7 @@ let
     exec $DWL_EXE -s "
       dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
       systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_SESSION_TYPE;
-      systemctl --user start dwl-session.target;
+      systemctl --user start tile-manager-session.target;
     "
   '';
 in
@@ -43,15 +43,6 @@ in
         xdg-desktop-portal-gtk
         xdg-desktop-portal-wlr
       ];
-    };
-
-    systemd.user = {
-      targets.dwl-session = {
-        documentation = [ "man:systemd.special(7)" ];
-        bindsTo = [ "graphical-session.target" ];
-        wants = [ "graphical-session-pre.target" ];
-        after = [ "graphical-session-pre.target" ];
-      };
     };
 
     services = {

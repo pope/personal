@@ -87,7 +87,7 @@ in
           ConditionEnvironment = [ "XDG_SESSION_TYPE=wayland" ];
           PartOf = [ "graphical-session.target" ];
         };
-        Install.WantedBy = [ "graphical-session.target" ];
+        Install.WantedBy = [ "tile-manager-session.target" ];
         Service = {
           inherit ExecCondition;
           ExecStart = "${pkgs.udiskie}/bin/udiskie --appindicator";

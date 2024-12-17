@@ -20,7 +20,6 @@ let
     then "${launcher} ${getExe config.programs.wezterm.package}"
     else "${launcher} ${getExe config.programs.kitty.package}";
   thunar = "${launcher} ${getExe pkgs.xfce.thunar}";
-  waybar = "${launcher} ${getExe config.programs.waybar.package}";
   wlogout = "${launcher} ${getExe pkgs.wlogout}";
 in
 {
@@ -32,7 +31,7 @@ in
       exec-once = [
         "${dbus-update-activation-environment} --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "${systemctl} --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        waybar
+        "${systemctl} --user start tile-manager-session.target"
         "${nm-applet} --indicator"
       ];
 

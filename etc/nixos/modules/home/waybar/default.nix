@@ -41,9 +41,9 @@ in
           if cfg.theme == "hyprland" then hyprland_style
           else if cfg.theme == "dwl" then dwl_style
           else abort "unsupported theme";
-        systemd = mkIf (cfg.theme == "dwl") {
+        systemd = {
           enable = true;
-          target = "dwl-session.target";
+          target = "tile-manager-session.target";
         };
       };
     };
