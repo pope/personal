@@ -3,6 +3,10 @@
 let
   inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.wayland;
+
+  ExecCondition = ''
+    ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
+  '';
 in
 {
   options.my.home.wayland = {
@@ -42,10 +46,8 @@ in
         };
         Install.WantedBy = [ "graphical-session.target" ];
         Service = {
+          inherit ExecCondition;
           Type = "simple";
-          ExecCondition = ''
-            ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
-          '';
           ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           Restart = "on-failure";
           RestartSec = 1;
@@ -62,13 +64,28 @@ in
         };
         Install.WantedBy = [ "graphical-session.target" ];
         Service = {
-          ExecCondition = ''
-            ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
-          '';
+          inherit ExecCondition;
           ExecStart = "${pkgs.swww}/bin/swww-daemon";
           ExecStop = "${pkgs.swww}/bin/swww kill";
           Restart = "always";
           RestartSec = 10;
+        };
+      };
+
+      # Using this instead of `service.udiskie` since the latter requires
+      # the tray.target - and I don't feel like setting that up.
+      udiskie = {
+        Unit = {
+          After = [ "graphical-session-pre.target" ];
+          ConditionEnvironment = [ "XDG_SESSION_TYPE=wayland" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          inherit ExecCondition;
+          # TODO(pope): See if `--appindicator` is needed when Hyprland goes
+          # through UWSM.
+          ExecStart = "${pkgs.udiskie}/bin/udiskie --appindicator";
         };
       };
     };

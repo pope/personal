@@ -20,7 +20,6 @@ let
     then "${config.programs.wezterm.package}/bin/wezterm"
     else "${config.programs.kitty.package}/bin/kitty";
   thunar = "${pkgs.xfce.thunar}/bin/thunar";
-  udiskie = "${pkgs.udiskie}/bin/udiskie";
   waybar = "${config.programs.waybar.package}/bin/waybar";
   wlogout = "${pkgs.wlogout}/bin/wlogout";
 in
@@ -35,7 +34,6 @@ in
         "${systemctl} --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         waybar
         "${nm-applet} --indicator"
-        "${udiskie} --appindicator --no-password-prompt"
       ];
 
       xwayland.force_zero_scaling = true;

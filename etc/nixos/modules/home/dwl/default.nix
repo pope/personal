@@ -90,7 +90,6 @@ in
       networkmanagerapplet
       playerctl
       procps
-      udiskie
       wmenu
     ];
   };
