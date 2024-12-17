@@ -30,6 +30,8 @@ in
       "memory"
       "disk"
       "tray"
+      "power-profiles-daemon"
+      "idle_inhibitor"
       # "network"
       "pulseaudio"
       "clock"
@@ -135,6 +137,26 @@ in
     tray = {
       icon-size = 12;
       spacing = 10;
+    };
+
+    power-profiles-daemon = {
+      format = "{icon}";
+      tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+      tooltip = true;
+      format-icons = {
+        default = "";
+        performance = "";
+        balanced = "";
+        power-saver = "";
+      };
+    };
+
+    idle_inhibitor = {
+      format = "{icon}";
+      format-icons = {
+        activated = "";
+        deactivated = "";
+      };
     };
 
     pulseaudio = {

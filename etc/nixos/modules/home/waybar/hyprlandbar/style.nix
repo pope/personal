@@ -74,7 +74,7 @@ in
     color: @base02;
     margin: 0px 3px;
     min-height: 10px;
-    padding: 0px 5px;
+    min-width: 10px;
     transition: all 0.3s ease-in-out;
   }
 
@@ -83,7 +83,7 @@ in
     background-size: 400% 400%;
     border-radius: 16px;
     color: @base0D;
-    min-width: 50px;
+    min-width: 30px;
     transition: all 0.3s ease-in-out;
   }
 
@@ -97,7 +97,7 @@ in
     background-size: 400% 400%;
     border-radius: 16px;
     color: @base0A;
-    min-width: 50px;
+    min-width: 30px;
   }
 
   tooltip {
@@ -131,6 +131,8 @@ in
   #cpu,
   #memory,
   #disk,
+  #idle_inhibitor,
+  #power-profiles-daemon,
   #tray,
   #pulseaudio,
   #clock,
