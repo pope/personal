@@ -54,6 +54,11 @@
     gnome.enable = true;
     gtk.enable = true;
     hyprland.enable = true;
+    hypridle = {
+      enable = true;
+      forDesktop = true;
+      withPowerProfiles = true;
+    };
     keymapp.enable = true;
     languages = {
       javascript.enable = true;
