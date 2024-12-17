@@ -1,12 +1,20 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.dunst;
 in
 {
   options.my.home.dunst = {
     enable = mkEnableOption "Dunst home options";
+    font = mkOption {
+      type = types.str;
+      default = "Sans 8";
+      example = "monospace 10";
+      description = lib.mkDoc ''
+        The font config to use.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -15,8 +23,10 @@ in
       enable = true;
       settings = {
         global = {
+          inherit (cfg) font;
+
           follow = "mouse";
-          width = 350;
+          width = 450;
           origin = "top-right";
           alignment = "left";
           vertical_alignment = "center";
@@ -46,7 +56,6 @@ in
           history_length = 20;
           show_age_threshold = 60;
           markup = "full";
-          font = "Sans 8";
           format = "%a\\n<b>%s</b>\\n%b";
           word_wrap = "yes";
           sort = "yes";

@@ -45,7 +45,10 @@
       vscode.enable = true;
       neovim.enable = true;
     };
-    dunst.enable = true;
+    dunst = {
+      enable = true;
+      font = "Sans 10";
+    };
     gaming.enable = true;
     git.enable = true;
     gnome.enable = true;
