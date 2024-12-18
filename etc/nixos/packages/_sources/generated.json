@@ -39,7 +39,7 @@
     },
     "fish-tokyonight": {
         "cargoLocks": null,
-        "date": "2024-07-17",
+        "date": null,
         "extract": null,
         "name": "fish-tokyonight",
         "passthru": null,
@@ -49,12 +49,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "04fc51e1f53afe3be14f9169bf800337a430d253",
+            "owner": "vitallium",
+            "repo": "tokyonight-fish",
+            "rev": "v4.8.0",
             "sha256": "sha256-JI1kTez4CeMpSKcSikFUee15N48zkJJOvLHCi0H2PUc=",
-            "type": "git",
-            "url": "https://github.com/vitallium/tokyonight-fish"
+            "type": "github"
         },
-        "version": "04fc51e1f53afe3be14f9169bf800337a430d253"
+        "version": "v4.8.0"
     },
     "fsrcnnx-lineart": {
         "cargoLocks": null,
@@ -103,7 +104,7 @@
     },
     "hatsune-miku-cursor": {
         "cargoLocks": null,
-        "date": "gpg: Signature made Thu 28 Nov 2024 08:42:52 AM PST\ngpg:                using RSA key B5690EEEBB952194\ngpg: Can't check signature: No public key\n2024-11-28",
+        "date": "2024-11-28",
         "extract": null,
         "name": "hatsune-miku-cursor",
         "passthru": null,
@@ -250,7 +251,7 @@
     },
     "sf-mono-font": {
         "cargoLocks": null,
-        "date": "gpg: Signature made Thu 07 Jun 2018 11:21:44 AM PDT\ngpg:                using RSA key 4AEE18F83AFDEB23\ngpg: Can't check signature: No public key\n2018-06-08",
+        "date": "2018-06-08",
         "extract": null,
         "name": "sf-mono-font",
         "passthru": null,
@@ -269,7 +270,7 @@
     },
     "sf-mono-nf-liga": {
         "cargoLocks": null,
-        "date": "gpg: Signature made Sat 01 Jul 2023 05:33:46 PM PDT\ngpg:                using RSA key 4AEE18F83AFDEB23\ngpg: Can't check signature: No public key\n2023-07-01",
+        "date": "2023-07-01",
         "extract": null,
         "name": "sf-mono-nf-liga",
         "passthru": null,
@@ -318,7 +319,7 @@
     },
     "yazi-plugins": {
         "cargoLocks": null,
-        "date": "Good \"git\" signature with ED25519 key SHA256:UpS/s3AKXiouO9D7joFqpoEMveeZ8A6ZyE48w2WkJ0U\nNo principal matched.\n2024-11-29",
+        "date": "2024-12-16",
         "extract": null,
         "name": "yazi-plugins",
         "passthru": null,
@@ -328,11 +329,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a53d5440481f0f9a2160ded47d343bd22ffbc1fb",
-            "sha256": "sha256-I9u1d3l0AyNW/t1A7MAxfA6Wu1/L3XKUoWPZ9L85WTM=",
+            "rev": "7afba3a73cdd69f346408b77ea5aac26fe09e551",
+            "sha256": "sha256-w9dSXW0NpgMOTnBlL/tzlNSCyRpZNT4XIcWZW5NlIUQ=",
             "type": "git",
             "url": "https://github.com/yazi-rs/plugins"
         },
-        "version": "a53d5440481f0f9a2160ded47d343bd22ffbc1fb"
+        "version": "7afba3a73cdd69f346408b77ea5aac26fe09e551"
     }
 }

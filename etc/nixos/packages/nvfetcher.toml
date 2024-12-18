@@ -7,8 +7,8 @@ src.git = "https://github.com/catppuccin/fish"
 fetch.git = "https://github.com/catppuccin/fish"
 
 [fish-tokyonight]
-src.git = "https://github.com/vitallium/tokyonight-fish"
-fetch.git = "https://github.com/vitallium/tokyonight-fish"
+src.github_tag = "vitallium/tokyonight-fish"
+fetch.github = "vitallium/tokyonight-fish"
 
 [yazi-plugins]
 src.git = "https://github.com/yazi-rs/plugins"

@@ -29,16 +29,14 @@
   };
   fish-tokyonight = {
     pname = "fish-tokyonight";
-    version = "04fc51e1f53afe3be14f9169bf800337a430d253";
-    src = fetchgit {
-      url = "https://github.com/vitallium/tokyonight-fish";
-      rev = "04fc51e1f53afe3be14f9169bf800337a430d253";
+    version = "v4.8.0";
+    src = fetchFromGitHub {
+      owner = "vitallium";
+      repo = "tokyonight-fish";
+      rev = "v4.8.0";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
       sha256 = "sha256-JI1kTez4CeMpSKcSikFUee15N48zkJJOvLHCi0H2PUc=";
     };
-    date = "2024-07-17";
   };
   fsrcnnx-lineart = {
     pname = "fsrcnnx-lineart";
@@ -75,7 +73,7 @@
       leaveDotGit = false;
       sha256 = "sha256-OQjjOc9VnxJ7tWNmpHIMzNWX6WsavAOkgPwK1XAMwtE=";
     };
-    date = "gpg: Signature made Thu 28 Nov 2024 08:42:52 AM PST\ngpg:                using RSA key B5690EEEBB952194\ngpg: Can't check signature: No public key\n2024-11-28";
+    date = "2024-11-28";
   };
   iqm = {
     pname = "iqm";
@@ -163,7 +161,7 @@
       leaveDotGit = false;
       sha256 = "sha256-3wG3M4Qep7MYjktzX9u8d0iDWa17FSXYnObSoTG2I/o=";
     };
-    date = "gpg: Signature made Thu 07 Jun 2018 11:21:44 AM PDT\ngpg:                using RSA key 4AEE18F83AFDEB23\ngpg: Can't check signature: No public key\n2018-06-08";
+    date = "2018-06-08";
   };
   sf-mono-nf-liga = {
     pname = "sf-mono-nf-liga";
@@ -176,7 +174,7 @@
       leaveDotGit = false;
       sha256 = "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=";
     };
-    date = "gpg: Signature made Sat 01 Jul 2023 05:33:46 PM PDT\ngpg:                using RSA key 4AEE18F83AFDEB23\ngpg: Can't check signature: No public key\n2023-07-01";
+    date = "2023-07-01";
   };
   ssimDownscaler = {
     pname = "ssimDownscaler";
@@ -196,15 +194,15 @@
   };
   yazi-plugins = {
     pname = "yazi-plugins";
-    version = "a53d5440481f0f9a2160ded47d343bd22ffbc1fb";
+    version = "7afba3a73cdd69f346408b77ea5aac26fe09e551";
     src = fetchgit {
       url = "https://github.com/yazi-rs/plugins";
-      rev = "a53d5440481f0f9a2160ded47d343bd22ffbc1fb";
+      rev = "7afba3a73cdd69f346408b77ea5aac26fe09e551";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-I9u1d3l0AyNW/t1A7MAxfA6Wu1/L3XKUoWPZ9L85WTM=";
+      sha256 = "sha256-w9dSXW0NpgMOTnBlL/tzlNSCyRpZNT4XIcWZW5NlIUQ=";
     };
-    date = "Good \"git\" signature with ED25519 key SHA256:UpS/s3AKXiouO9D7joFqpoEMveeZ8A6ZyE48w2WkJ0U\nNo principal matched.\n2024-11-29";
+    date = "2024-12-16";
   };
 }
