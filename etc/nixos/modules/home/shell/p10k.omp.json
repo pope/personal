@@ -28,12 +28,25 @@
           "foreground": "#ffffff",
           "powerline_symbol": "",
           "properties": {
-            "max_width": 40,
             "folder_separator_icon": "  ",
+            "mapped_locations": {
+              "/": "  /",
+              "~": "󰋜 ",
+              "~/Code": "󰋜   󰅭 ",
+              "~/Code/personal/etc/nixos": "󰋜   󰅭   󱄅 ",
+              "~/Desktop": "󰋜   󰇄 ",
+              "~/Documents": "󰋜   󱔗 ",
+              "~/Downloads": "󰋜   󰇚 ",
+              "~/Music": "󰋜    ",
+              "~/Pictures": "󰋜    ",
+              "~/Videos": "󰋜   󰕧 "
+            },
+            "max_width": 40,
+            "right_format": "<b>%s</b>",
             "style": "powerlevel"
           },
           "style": "powerline",
-          "template": "   <b>{{ .Path }}</b> "
+          "template": " {{ .Path }} "
         },
         {
           "type": "git",
