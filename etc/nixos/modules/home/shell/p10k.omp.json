@@ -1,0 +1,161 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 3,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "background": "transparent",
+          "foreground": "darkGray",
+          "template": "╭─"
+        },
+        {
+          "type": "os",
+          "background": "white",
+          "foreground": "black",
+          "leading_powerline_symbol": "",
+          "powerline_symbol": "",
+          "style": "powerline"
+        },
+        {
+          "type": "path",
+          "background": "blue",
+          "foreground": "#ffffff",
+          "powerline_symbol": "",
+          "properties": {
+            "max_width": 40,
+            "folder_separator_icon": "  ",
+            "style": "powerlevel"
+          },
+          "style": "powerline",
+          "template": "   <b>{{ .Path }}</b> "
+        },
+        {
+          "type": "git",
+          "background": "yellow",
+          "foreground": "black",
+          "powerline_symbol": "",
+          "properties": {
+            "branch_icon": " ",
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "fetch_user": true,
+            "github_icon": " "
+          },
+          "source": "cli",
+          "style": "powerline",
+          "template": " on {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "filler": "{{ if not .Overflow }}<darkGray>·</>{{ end }}",
+      "overflow": "hide",
+      "segments": [
+        {
+          "type": "status",
+          "background": "black",
+          "background_templates": [
+            "{{ if .Error }}red{{ end }}"
+          ],
+          "foreground": "green",
+          "foreground_templates": [
+            "{{ if .Error }}yellow{{ end }}"
+          ],
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "diamond",
+          "template": " {{ if eq .Code 0 }}✔{{ else }}{{ .Code }} ✘{{ end }} "
+        },
+        {
+          "type": "session",
+          "background": "black",
+          "foreground": "yellow",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond",
+          "template": "{{ if .SSHSession }} with {{ .UserName }}@{{ .HostName }}{{ end}}"
+        },
+        {
+          "type": "executiontime",
+          "background": "yellow",
+          "foreground": "black",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "properties": {
+            "style": "round",
+            "threshold": 3000
+          },
+          "style": "diamond",
+          "template": " took {{ .FormattedMs }}  "
+        },
+        {
+          "type": "cmake",
+          "background": "blue",
+          "foreground": "black",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond"
+        },
+        {
+          "type": "nix-shell",
+          "background": "blue",
+          "foreground": "black",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond",
+          "template": "{{ if ne .Type \"unknown\" }}  {{ .Type }} {{ end }}"
+        },
+        {
+          "type": "time",
+          "background": "white",
+          "foreground": "black",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond",
+          "template": " at {{ .CurrentDate | date .Format }}  "
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "background": "transparent",
+          "foreground": "darkGray",
+          "style": "plain",
+          "template": "╰─"
+        }
+      ]
+    }
+  ],
+  "enable_cursor_positioning": true,
+  "final_space": true,
+  "secondary_prompt": {
+    "template": "> "
+  },
+  "shell_integration": true,
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "darkGray",
+    "foreground_templates": [
+      "{{ if gt .Code 0 }}red{{ end }}",
+      "{{ if eq .Code 0 }}green{{ end }}"
+    ],
+    "newline": true,
+    "template": "❯ "
+  }
+}

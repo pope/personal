@@ -18,12 +18,7 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      programs.fish = {
-        enable = true;
-        plugins = [
-          { name = "tide"; inherit (pkgs.fishPlugins.tide) src; }
-        ];
-      };
+      programs.fish.enable = true;
     })
 
     (mkIf (cfg.enable && cfg.colorScheme == "rose-pine") {
