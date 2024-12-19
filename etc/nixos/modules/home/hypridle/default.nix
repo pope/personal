@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption optionalString;
   cfg = config.my.home.hypridle;
 
   caffeinemode = pkgs.writeShellScriptBin "caffeinemode" ''
@@ -25,8 +25,14 @@ in
       enable = true;
       settings = {
         general = {
-          after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-          before_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off && ${pkgs.systemd}/bin/loginctl lock-session";
+          after_sleep_cmd = optionalString
+            config.my.home.hyprland.enable
+            "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+          before_sleep_cmd =
+            (optionalString
+              config.my.home.hyprland.enable
+              "${pkgs.hyprland}/bin/hyprctl dispatch dpms off;")
+            + "${pkgs.systemd}/bin/loginctl lock-session";
           ignore_dbus_inhibit = false;
           ignore_systemd_inhibit = false;
           lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
