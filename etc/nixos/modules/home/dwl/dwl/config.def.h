@@ -126,18 +126,18 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 static const char *termcmd[] = { "@uwsm@", "app", "--", "@foot@", NULL };
 static const char *menucmd[] = { "@uwsm@", "app", "--", "@anyrun@", NULL };
 static const char *logout[] =  { "@uwsm@", "app", "--", "@wlogout@", NULL };
-static const char *brightness_up[] =  { "@uwsm@", "app", "--", "@brillo@", "-A", "10", NULL };
-static const char *brightness_down[] =  { "@uwsm@", "app", "--", "@brillo@", "-U", "10", NULL };
-static const char *volume_up[] = { "@uwsm@", "app", "--", "@pamixer@", "-u", "-i", "10", NULL };
-static const char *volume_down[] = { "@uwsm@", "app", "--", "@pamixer@", "-u", "-d", "10", NULL };
-static const char *mute[] = { "@uwsm@", "app", "--", "@pamixer@", "-t", NULL };
-static const char *toggle_waybar[] = { "@uwsm@", "app", "--", "@pkill@", "-SIGUSR1", "waybar", NULL };
+static const char *brightness_up[] =  { "@brillo@", "-A", "10", NULL };
+static const char *brightness_down[] =  { "@brillo@", "-U", "10", NULL };
+static const char *volume_up[] = { "@pamixer@", "-u", "-i", "10", NULL };
+static const char *volume_down[] = { "@pamixer@", "-u", "-d", "10", NULL };
+static const char *mute[] = { "@pamixer@", "-t", NULL };
+static const char *toggle_waybar[] = { "@pkill@", "-SIGUSR1", "waybar", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_space,      spawn,          {.v = menucmd} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     spawn,          {.v = termcmd} },
+	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	// { MODKEY,                    XKB_KEY_b,          togglebar,      {0} },
 	{ MODKEY,                    XKB_KEY_b,          spawn,          {.v = toggle_waybar} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
@@ -146,7 +146,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_d,          incnmaster,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_h,          setmfact,       {.f = -0.05f} },
 	{ MODKEY,                    XKB_KEY_l,          setmfact,       {.f = +0.05f} },
-	{ MODKEY,                    XKB_KEY_Return,     zoom,           {0} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     zoom,           {0} },
 	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
 	{ MODKEY,                    XKB_KEY_g,          togglegaps,     {0} },
 	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
