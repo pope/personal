@@ -14,7 +14,10 @@ in
       xwayland.enable = true;
     };
 
-    security.polkit.enable = true;
+    security = {
+      pam.services.hyprlock = { };
+      polkit.enable = true;
+    };
 
     services = {
       dbus = {
