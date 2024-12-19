@@ -14,6 +14,13 @@ in
         Which color theme to use.
       '';
     };
+    fontSize = mkOption {
+      type = types.number;
+      default = 12;
+      description = lib.mkDoc ''
+        The font size to use
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -28,10 +35,15 @@ in
             else if cfg.colorScheme == "tokyonight" then "${pkgs.foot.themes}/share/foot/themes/tokyonight-storm"
             else abort "invalid theme";
           dpi-aware = false;
-          font = "monospace:size=12, Symbols Nerd Font:size=12";
+          font =
+            let
+              fontSize = builtins.toString cfg.fontSize;
+            in
+            "monospace:size=${fontSize}, Symbols Nerd Font:size=${fontSize}";
+          pad = "0x10";
         };
         colors = {
-          alpha = 0.96;
+          alpha = 0.94;
         };
       };
     };

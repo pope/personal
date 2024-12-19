@@ -3,12 +3,6 @@
 let
   inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.waybar;
-
-  dwl_config = import ./dwlbar/config.nix { inherit config pkgs; };
-  dwl_style = import ./dwlbar/style.nix { inherit config; };
-
-  hyprland_config = import ./hyprlandbar/config.nix { inherit config pkgs; inherit (pkgs) hyprland; };
-  hyprland_style = import ./hyprlandbar/style.nix { inherit config; };
 in
 {
   options.my.home.waybar = {
@@ -18,6 +12,14 @@ in
       default = "hyprland";
       description = lib.mkDoc ''
         Which waybar theme to use.
+      '';
+    };
+    scale = mkOption {
+      type = types.number;
+      default = 1;
+      example = 0.8;
+      description = lib.mkDoc ''
+        Scaling to apply to the Waybar sizing.
       '';
     };
   };
@@ -30,22 +32,30 @@ in
     ];
 
     programs = {
-      waybar = {
-        enable = true;
-        package = inputs.waybar.packages.${pkgs.system}.waybar;
-        settings =
-          if cfg.theme == "hyprland" then hyprland_config
-          else if cfg.theme == "dwl" then dwl_config
-          else abort "unsupported theme";
-        style =
-          if cfg.theme == "hyprland" then hyprland_style
-          else if cfg.theme == "dwl" then dwl_style
-          else abort "unsupported theme";
-        systemd = {
+      waybar =
+        let
+          dwl_config = import ./dwlbar/config.nix { inherit config pkgs; inherit (cfg) scale; };
+          dwl_style = import ./dwlbar/style.nix { inherit config lib; inherit (cfg) scale; };
+
+          hyprland_config = import ./hyprlandbar/config.nix { inherit config pkgs; inherit (pkgs) hyprland; };
+          hyprland_style = import ./hyprlandbar/style.nix { inherit config; };
+        in
+        {
           enable = true;
-          target = "tile-manager-session.target";
+          package = inputs.waybar.packages.${pkgs.system}.waybar;
+          settings =
+            if cfg.theme == "hyprland" then hyprland_config
+            else if cfg.theme == "dwl" then dwl_config
+            else abort "unsupported theme";
+          style =
+            if cfg.theme == "hyprland" then hyprland_style
+            else if cfg.theme == "dwl" then dwl_style
+            else abort "unsupported theme";
+          systemd = {
+            enable = true;
+            target = "tile-manager-session.target";
+          };
         };
-      };
     };
   };
 }

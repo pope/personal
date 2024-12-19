@@ -1,7 +1,13 @@
-{ config }:
+{ config, scale, lib }:
 
 let
+  inherit (lib) isFloat strings;
   color = config.my.home.theme.colors.withHash;
+
+  baseFontSize =
+    if isFloat scale then strings.floatToString (1 * scale)
+    else builtins.toString (1 * scale);
+  smallFontSize = strings.floatToString (1 * scale);
 in
   /* css */ ''
   @define-color base00 ${color.base00};
@@ -23,7 +29,7 @@ in
 
   * {
     font-family: monospace;
-    font-size: 1rem;
+    font-size: ${baseFontSize}rem;
     font-weight: normal;
   }
 
@@ -35,34 +41,34 @@ in
   .modules-left, .modules-right, #mpris {
     background: alpha(@base01, 0.90);
     border: 2px solid @base0E;
-    border-radius: 16px;
-    padding-left: 4px;
-    padding-right: 4px;
+    border-radius: 1rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
   }
   .modules-left {
-    margin-left: 8px;
+    margin-left: 0.5rem;
   }
   .modules-right {
-    margin-right: 8px;
+    margin-right: 0.5rem;
   }
 
   #mpris {
-    margin-left: 16px;
-    margin-right: 16px;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 
   #custom-nixos {
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
 
   #tags button {
     border: 0px solid black;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     box-shadow: none;
     color: @base03;
     min-width: 0px;
-    padding: 4px 8px;
+    padding: 0.25rem 0.5rem;
   }
   #tags button.focused {
     background-color: @base02;
@@ -71,7 +77,7 @@ in
     background-color: @base02;
     background-image: none;
     border: 0px solid black;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     color: @base04;
     box-shadow: none;
     text-shadow: none;
@@ -98,8 +104,8 @@ in
 
   #window {
     color: @base0E;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
 
   #mpris {
@@ -107,16 +113,16 @@ in
     min-width: 20px;
     /* font-size: 0.9rem; */
     font-weight: lighter;
-    padding-left: 16px;
-    padding-right: 8px;
+    padding-left: 1rem;
+    padding-right: 0.5rem;
   }
 
   .modules-right .module {
     color: @base05;
-    font-size: 1rem;
+    font-size: ${baseFontSize}rem;
     font-weight: lighter;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
 
   #pulseaudio,
@@ -126,7 +132,7 @@ in
   #battery,
   #power-profiles-daemon,
   #idle_inhibitor {
-    font-size: 0.9rem;
+    font-size: ${smallFontSize}rem;
   }
 
   #pulseaudio { color: @base07; }

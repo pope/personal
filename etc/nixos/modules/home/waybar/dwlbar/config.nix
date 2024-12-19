@@ -1,4 +1,4 @@
-{ config, pkgs }:
+{ config, pkgs, scale }:
 
 let
   color = config.my.home.theme.colors.withHash;
@@ -9,7 +9,7 @@ in
   dwlBar = {
     layer = "top";
     position = "top";
-    height = 36;
+    height = builtins.ceil (36 * scale);
     spacing = 4;
     modules-left = [
       "custom/nixos"
@@ -48,6 +48,7 @@ in
       format = "{status_icon} {dynamic}";
       format-paused = "{status_icon} <i>{dynamic}</i>";
       dynamic-separator = ''<span foreground="${color.base04}"> ) </span>'';
+      max-length = 100;
       status-icons = {
         playing = "▶";
         paused = "⏸";
@@ -126,7 +127,7 @@ in
       };
     };
     tray = {
-      icon-size = 16;
+      icon-size = builtins.ceil (16 * scale);
       spacing = 10;
     };
     clock = {

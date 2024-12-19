@@ -28,17 +28,20 @@
     "eDP-1,preferred,auto,2,vrr,1"
   ];
 
-  services.xsettingsd.settings =
-    let
-      scaling = 2;
-      dpi = (96 * scaling) * 1024;
-    in
-    {
-      "Xft/DPI" = dpi;
-      "Gdk/UnscaledDPI" = dpi / scaling;
-      "Gdk/WindowScalingFactor" = scaling;
-    };
-  xresources.properties."Xft.dpi" = 96 * 2;
+  # TODO(pope): Enable this when using Hyprland and not DWL.
+  # Hyprland has a wayland scaling fix that makes these settings good. But I
+  # didn't find a DWL counter-part - so commenting out.
+  # services.xsettingsd.settings =
+  #   let
+  #     scaling = 2;
+  #     dpi = (96 * scaling) * 1024;
+  #   in
+  #   {
+  #     "Xft/DPI" = dpi;
+  #     "Gdk/UnscaledDPI" = dpi / scaling;
+  #     "Gdk/WindowScalingFactor" = scaling;
+  #   };
+  # xresources.properties."Xft.dpi" = 96 * 2;
 
   programs = {
     home-manager.enable = true;
@@ -55,13 +58,15 @@
       vscode.enable = true;
     };
     dunst.enable = true;
+    dwl = {
+      enable = true;
+      dpiScale = 2;
+    };
     git.enable = true;
     gnome.enable = true;
     gtk.enable = true;
     hypridle.enable = true;
-    hyprland = {
-      enable = true;
-    };
+    hyprland.enable = false;
     keymapp.enable = true;
     languages = {
       javascript.enable = true;
@@ -90,7 +95,10 @@
     shell.zsh.enable = true;
     terminals = {
       kitty.enable = true;
-      foot.enable = true;
+      foot = {
+        enable = true;
+        fontSize = 9;
+      };
       wezterm = {
         enable = true;
         useUnstable = true;
@@ -99,6 +107,7 @@
     };
     theme.colorScheme = "rose-pine";
     tmux.enable = true;
+    waybar.scale = 0.7;
     xdg.enable = true;
     yazi.enable = true;
   };

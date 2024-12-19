@@ -1,7 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.dwl;
 
   dwlb = pkgs.dwlb.override {
@@ -36,6 +36,8 @@ let
         color = config.my.home.theme.colors.withHex;
       in
       {
+        inherit (cfg) dpiScale;
+
         src = ./dwl/config.def.h;
 
         # apps
@@ -70,6 +72,13 @@ in
 {
   options.my.home.dwl = {
     enable = mkEnableOption "dwl home options";
+    dpiScale = mkOption {
+      type = types.int;
+      default = 1;
+      description = lib.mkDoc ''
+        The default DPI scale to use.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
