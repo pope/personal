@@ -1,19 +1,13 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkMerge mkOption types;
+  inherit (lib) mkIf mkEnableOption mkMerge;
   cfg = config.my.home.shell.fish;
+  inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.shell.fish = {
     enable = mkEnableOption "Fish shell home options";
-    colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
-      default = "rose-pine";
-      description = lib.mkDoc ''
-        Which color theme to use.
-      '';
-    };
   };
 
   config = mkMerge [
@@ -21,7 +15,7 @@ in
       programs.fish.enable = true;
     })
 
-    (mkIf (cfg.enable && cfg.colorScheme == "rose-pine") {
+    (mkIf (cfg.enable && colorScheme == "rose-pine") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "Rosé Pine"
       '';
@@ -31,7 +25,7 @@ in
       };
     })
 
-    (mkIf (cfg.enable && cfg.colorScheme == "catppuccin") {
+    (mkIf (cfg.enable && colorScheme == "catppuccin") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "Catppuccin Mocha"
       '';
@@ -41,13 +35,13 @@ in
       };
     })
 
-    (mkIf (cfg.enable && cfg.colorScheme == "dracula") {
+    (mkIf (cfg.enable && colorScheme == "dracula") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "Dracula"
       '';
     })
 
-    (mkIf (cfg.enable && cfg.colorScheme == "tokyonight") {
+    (mkIf (cfg.enable && colorScheme == "tokyonight") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "TokyoNight Storm"
       '';

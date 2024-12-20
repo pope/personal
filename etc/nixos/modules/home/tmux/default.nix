@@ -1,21 +1,13 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption optionals types;
+  inherit (lib) mkIf mkEnableOption optionals;
   cfg = config.my.home.tmux;
+  inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.tmux = {
     enable = mkEnableOption "tmux home options";
-    colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
-      default = "rose-pine";
-      description = lib.mkDoc ''
-        Which color theme to use.
-
-        NOTE: tokyonight doesn't do anything yet.
-      '';
-    };
   };
 
   config = mkIf cfg.enable {
@@ -43,7 +35,7 @@ in
         { plugin = tmux-fzf; }
         { plugin = yank; }
         { plugin = tmux-thumbs; extraConfig = "set -g @thumbs-osc52 1"; }
-      ] ++ optionals (cfg.colorScheme == "rose-pine") [
+      ] ++ optionals (colorScheme == "rose-pine") [
         {
           plugin = rose-pine;
           extraConfig = ''
@@ -54,7 +46,7 @@ in
             set -g @rose_pine_bar_bg_disabled_color_option 'default'
           '';
         }
-      ] ++ optionals (cfg.colorScheme == "catppuccin") [
+      ] ++ optionals (colorScheme == "catppuccin") [
         {
           plugin = catppuccin;
           extraConfig = ''
@@ -79,7 +71,7 @@ in
             set -g @catppuccin_directory_text "#{pane_current_path}"
           '';
         }
-      ] ++ optionals (cfg.colorScheme == "dracula") [
+      ] ++ optionals (colorScheme == "dracula") [
         {
           plugin = dracula;
           extraConfig = ''

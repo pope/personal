@@ -1,19 +1,13 @@
 { pkgs-stable, config, lib, inputs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
+  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.editors.neovim;
+  inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.editors.neovim = {
     enable = mkEnableOption "Neovim text editor home options";
-    colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
-      default = "rose-pine";
-      description = lib.mkDoc ''
-        Which color theme to use.
-      '';
-    };
   };
 
   imports = [
@@ -25,7 +19,7 @@ in
       _module.args.pkgs-stable = pkgs-stable;
       imports = [
         ../../nixvim
-        { config.my.nixvim.theme.colorScheme = cfg.colorScheme; }
+        { config.my.nixvim.theme.colorScheme = colorScheme; }
       ];
       enable = true;
       defaultEditor = true;

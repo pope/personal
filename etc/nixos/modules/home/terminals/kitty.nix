@@ -1,19 +1,13 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
+  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.terminals.kitty;
+  inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.terminals.kitty = {
     enable = mkEnableOption "Kitty terminal home options";
-    colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
-      default = "rose-pine";
-      description = lib.mkDoc ''
-        Which color theme to use.
-      '';
-    };
   };
 
   config = mkIf cfg.enable {
@@ -60,10 +54,10 @@ in
         "map cmd+0" = "change_font_size all 0";
       };
       themeFile =
-        if cfg.colorScheme == "rose-pine" then "rose-pine"
-        else if cfg.colorScheme == "catppuccin" then "Catppuccin-Mocha"
-        else if cfg.colorScheme == "dracula" then "Dracula"
-        else if cfg.colorScheme == "tokyonight" then "tokyo_night_night"
+        if colorScheme == "rose-pine" then "rose-pine"
+        else if colorScheme == "catppuccin" then "Catppuccin-Mocha"
+        else if colorScheme == "dracula" then "Dracula"
+        else if colorScheme == "tokyonight" then "tokyo_night_night"
         else abort "invalid theme";
     };
   };

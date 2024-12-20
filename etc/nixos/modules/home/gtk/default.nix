@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
+  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.gtk;
 in
 {
@@ -14,13 +14,6 @@ in
 
   options.my.home.gtk = {
     enable = mkEnableOption "GTK home options";
-    theme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
-      default = "rose-pine";
-      description = lib.mkDoc ''
-        Which theme to use with the GTK configuration.
-      '';
-    };
   };
 
   config = mkIf cfg.enable rec {

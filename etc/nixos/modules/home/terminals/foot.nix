@@ -3,17 +3,11 @@
 let
   inherit (lib) mkIf mkOption mkEnableOption types;
   cfg = config.my.home.terminals.foot;
+  inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.terminals.foot = {
     enable = mkEnableOption "Foot terminal home options";
-    colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
-      default = "rose-pine";
-      description = lib.mkDoc ''
-        Which color theme to use.
-      '';
-    };
     fontSize = mkOption {
       type = types.number;
       default = 12;
@@ -29,10 +23,10 @@ in
       settings = {
         main = {
           include =
-            if cfg.colorScheme == "rose-pine" then "${pkgs.foot.themes}/share/foot/themes/rose-pine"
-            else if cfg.colorScheme == "catppuccin" then "${pkgs.foot.themes}/share/foot/themes/catppuccin-mocha"
-            else if cfg.colorScheme == "dracula" then "${pkgs.foot.themes}/share/foot/themes/dracula"
-            else if cfg.colorScheme == "tokyonight" then "${pkgs.foot.themes}/share/foot/themes/tokyonight-storm"
+            if colorScheme == "rose-pine" then "${pkgs.foot.themes}/share/foot/themes/rose-pine"
+            else if colorScheme == "catppuccin" then "${pkgs.foot.themes}/share/foot/themes/catppuccin-mocha"
+            else if colorScheme == "dracula" then "${pkgs.foot.themes}/share/foot/themes/dracula"
+            else if colorScheme == "tokyonight" then "${pkgs.foot.themes}/share/foot/themes/tokyonight-storm"
             else abort "invalid theme";
           dpi-aware = false;
           font =

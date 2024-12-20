@@ -3,9 +3,10 @@
 let
   inherit (lib) mkIf;
   cfg = config.my.home.gtk;
+  inherit (config.my.home.theme) colorScheme;
 in
 {
-  config = mkIf (cfg.enable && cfg.theme == "catppuccin") rec {
+  config = mkIf (cfg.enable && colorScheme == "catppuccin") rec {
     home.pointerCursor = {
       name = "catppuccin-mocha-mauve-cursors";
       size = 24;

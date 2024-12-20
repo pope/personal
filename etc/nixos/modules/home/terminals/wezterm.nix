@@ -1,8 +1,9 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  inherit (lib) boolToString mkIf mkEnableOption mkOption types;
+  inherit (lib) boolToString mkIf mkEnableOption;
   cfg = config.my.home.terminals.wezterm;
+  inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.terminals.wezterm = {
@@ -11,13 +12,6 @@ in
     # See https://www.reddit.com/r/archlinux/comments/18rf5t1/psa_on_hyprland_wezterm_will_not_start_anymore/
     useWayland = mkEnableOption "the use of Wayland";
     installExtraFonts = mkEnableOption "the installation of extra fonts used by the config";
-    colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
-      default = "rose-pine";
-      description = lib.mkDoc ''
-        Which color theme to use.
-      '';
-    };
   };
 
   config = mkIf cfg.enable {
@@ -42,21 +36,17 @@ in
             if config.my.home.shell.zsh.enable
             then "${pkgs.zsh}/bin/zsh"
             else "${pkgs.fish}/bin/fish";
-          colorScheme =
-            if cfg.colorScheme == "rose-pine"
-            then "rose-pine"
-            else if cfg.colorScheme == "catppuccin"
-            then "catppuccin-mocha"
-            else if cfg.colorScheme == "dracula"
-            then "Dracula (Official)"
-            else if cfg.colorScheme == "tokyonight"
-            then "Tokyo Night"
+          cs =
+            if colorScheme == "rose-pine" then "rose-pine"
+            else if colorScheme == "catppuccin" then "catppuccin-mocha"
+            else if colorScheme == "dracula" then "Dracula (Official)"
+            else if colorScheme == "tokyonight" then "Tokyo Night"
             else abort "invalid colorScheme";
         in
           /* lua */ ''
           local config = wezterm.config_builder()
 
-          config.color_scheme = '${colorScheme}'
+          config.color_scheme = '${cs}'
           config.default_cursor_style = "SteadyBar"
           config.default_prog = { '${shell}', '-l'}
           config.enable_wayland = ${boolToString cfg.useWayland}
