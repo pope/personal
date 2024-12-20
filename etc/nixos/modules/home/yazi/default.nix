@@ -34,6 +34,10 @@ in
 
     xdg.configFile = {
       "yazi/plugins".source = "${pkgs.yazi-plugins}/share/yazi/plugins";
+
+      # Not really needed, but good for reference.
+      "yazi/theme-dark.toml".source = ./theme-dark.toml;
+      "yazi/theme-light.toml".source = ./theme-light.toml;
     };
   };
 }
