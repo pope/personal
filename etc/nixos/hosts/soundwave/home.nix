@@ -49,9 +49,7 @@
       forDesktop = true;
       withPowerProfiles = true;
     };
-    hyprland = {
-      enable = true;
-    };
+    hyprland.enable = true;
     keymapp.enable = true;
     languages = {
       c.enable = true;
@@ -91,6 +89,7 @@
     };
     theme.colorScheme = "tokyonight";
     tmux.enable = true;
+    waybar.enable = true;
     xdg.enable = true;
     yazi.enable = true;
   };

@@ -107,7 +107,11 @@
     };
     theme.colorScheme = "rose-pine";
     tmux.enable = true;
-    waybar.scale = 0.7;
+    waybar = {
+      enable = true;
+      scale = 0.7;
+      theme = "dwl";
+    };
     xdg.enable = true;
     yazi.enable = true;
   };

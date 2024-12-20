@@ -82,15 +82,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    my.home = {
-      anyrun.enable = true;
-      waybar = {
-        enable = true;
-        theme = "dwl";
-      };
-      wayland.enable = true;
-    };
-
     home.packages = with pkgs; [
       brillo
       dwl

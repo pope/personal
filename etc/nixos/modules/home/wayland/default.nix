@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) getExe mkIf mkEnableOption;
-  cfg = config.my.home.wayland;
+  inherit (lib) getExe mkIf;
+  inherit (config.my.home) dwl hyprland;
 
   ExecCondition = ''
     ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
@@ -15,11 +15,7 @@ let
   '';
 in
 {
-  options.my.home.wayland = {
-    enable = mkEnableOption "common Wayland options";
-  };
-
-  config = mkIf cfg.enable {
+  config = mkIf (dwl.enable || hyprland.enable) {
     home = {
       packages = with pkgs; [
         alsa-utils

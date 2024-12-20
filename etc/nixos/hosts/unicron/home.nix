@@ -92,6 +92,7 @@
     };
     theme.colorScheme = "tokyonight";
     tmux.enable = true;
+    waybar.enable = true;
     xdg.enable = true;
     yazi.enable = true;
   };

@@ -32,12 +32,6 @@ in
   ];
 
   config = mkIf cfg.enable {
-
-    my.home = {
-      waybar.enable = true;
-      wayland.enable = true;
-    };
-
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false; # Using UWSM
