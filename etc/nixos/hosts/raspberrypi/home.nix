@@ -18,8 +18,10 @@ _:
 
   my.home = {
     editors.neovim.enable = true;
-    dropbox.enable = true;
-    dropbox.service.enable = true;
+    dropbox = {
+      enable = false;
+      service.enable = false;
+    };
     packages.enable = true;
     shell.fish.enable = true;
     tmux.enable = true;

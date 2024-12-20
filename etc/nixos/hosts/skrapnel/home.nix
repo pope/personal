@@ -19,7 +19,7 @@ _:
   my.home = {
     editors.neovim.enable = true;
     dropbox = {
-      enable = false;
+      enable = true;
       service.enable = true;
     };
     git = {

@@ -52,7 +52,7 @@
 
   fileSystems = {
     "/media/cyberia" = {
-      device = "raspberrypi.lan:/mnt/Cyberia";
+      device = "skrapnel.lan:/mnt/Cyberia";
       fsType = "nfs";
       options = [
         "x-systemd.automount"

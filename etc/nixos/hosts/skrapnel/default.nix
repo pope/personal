@@ -50,6 +50,10 @@
 
   networking = {
     hostName = "skrapnel"; # Define your hostname.
+    firewall = {
+      enable = true;
+      allowPing = true;
+    };
     networkmanager.enable = true;
   };
 
@@ -57,15 +61,15 @@
   time.timeZone = "America/Los_Angeles";
 
   fileSystems = {
-    "/media/cyberia" = {
-      device = "raspberrypi.lan:/mnt/Cyberia";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.after=network-online.target"
-        "x-systemd.idle-timeout=300"
-      ];
+    "/mnt/Backup" = {
+      device = "/dev/disk/by-label/Cyberia";
+      fsType = "ext4";
+      options = [ "rw" "users" "noatime" ];
+    };
+    "/mnt/Cyberia" = {
+      device = "/dev/disk/by-label/T5-EVO";
+      fsType = "ext4";
+      options = [ "rw" "users" "noatime" ];
     };
   };
 
@@ -76,17 +80,81 @@
   ];
 
   services = {
+    nfs.server = {
+      enable = true;
+      exports = ''
+        /mnt/Cyberia    192.168.86.0/24(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1000,anongid=100)
+      '';
+    };
+    rpcbind.enable = true;
     openssh = {
       enable = true;
       settings.PasswordAuthentication = false;
     };
-    # Add syncthing and zerotierone
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      settings = {
+        gui = {
+          user = "pope";
+          password = "test";
+        };
+        folders = {
+          "Sync" = {
+            path = "/mnt/Cyberia/Sync";
+          };
+        };
+      };
+    };
+    zerotierone = {
+      enable = true;
+      joinNetworks = [ "272f5eae164a4c0f" ];
+    };
   };
   security.sudo.wheelNeedsPassword = false;
+
+  systemd = {
+    services.cyberia-backup = {
+      description = "Cyberia rsync daily backup service";
+      path = with pkgs; [ coreutils-full rsync ];
+      script = ''
+        LASTBACKUP=$(ls -d /mnt/Backup/Cyberia.*/ | sort | tail -1)
+        BACKUP="/mnt/Backup/Cyberia.$(date -d today +"%Y%m%d")"
+
+        if [ -d "$BACKUP" ]; then
+          echo "$BACKUP is already backed up. Skipping."
+        else
+          rsync -av --exclude=lost+found/ --link-dest="$LASTBACKUP" /mnt/Cyberia/ "$BACKUP"
+        fi
+      '';
+      after = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
+      wants = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
+      serviceConfig.Type = "oneshot";
+    };
+
+    timers.cyberia-backup = {
+      description = "Cyberia rsync daily backup timer";
+      wantedBy = [ "timers.target" ];
+      partOf = [ "cyberia-backup.service" ];
+      after = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
+      requires = [ "mnt-Backup.mount" "mnt-Cyberia.mount" ];
+      timerConfig = {
+        OnBootSec = "5min";
+        OnUnitActiveSec = "6h";
+      };
+    };
+  };
 
   my.nixos = {
     mainUser = "pope";
 
+    firewall.nfs.enable = true;
+    samba = {
+      enable = true;
+      shares = {
+        Cyberia.path = "/mnt/Cyberia";
+      };
+    };
     users.shell = "zsh";
   };
 

@@ -76,13 +76,8 @@
   };
 
   fileSystems = {
-    # "/media/win-cyberia" = {
-    #   device = "/dev/disk/by-label/Cyberia";
-    #   fsType = "ntfs-3g";
-    #   options = [ "rw" "noauto,uid=1000,gid=100" "noatime" ];
-    # };
     "/media/cyberia" = {
-      device = "raspberrypi.lan:/mnt/Cyberia";
+      device = "skrapnel.lan:/mnt/Cyberia";
       fsType = "nfs";
       options = [
         "x-systemd.automount"
