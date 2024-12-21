@@ -103,7 +103,7 @@ in
       format-alt = "{time} {icon}";
       # format-good = ""; # An empty format will hide the module
       # format-full = "";
-      format-icons = [ "" "" "" "" "" ];
+      format-icons = [ " " " " " " " " " " ];
     };
     "battery#bat1" = {
       bat = "BAT1";
