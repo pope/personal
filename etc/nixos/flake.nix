@@ -61,12 +61,6 @@
       inputs.home-manager.follows = "home-manager";
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
-    # nix language server, used by vscode & neovim
-    nil = {
-      url = "github:oxalica/nil/2023-08-09";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     anyrun = {
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
