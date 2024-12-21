@@ -94,10 +94,10 @@
           "type": "session",
           "background": "black",
           "foreground": "yellow",
-          "leading_diamond": "",
+          "leading_diamond": "",
           "trailing_diamond": "",
           "style": "diamond",
-          "template": "{{ if .SSHSession }} with {{ .UserName }}@{{ .HostName }}{{ end}}"
+          "template": "{{ if .SSHSession }} with {{ .UserName }}@{{ .HostName }} {{ end}}"
         },
         {
           "type": "executiontime",
