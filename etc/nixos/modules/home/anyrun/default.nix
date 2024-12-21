@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
@@ -9,26 +9,26 @@ in
     enable = mkEnableOption "Anyrun home options";
   };
 
+  # Pull the home-manager code from
+  # https://github.com/anyrun-org/anyrun/blob/master/nix/modules/home-manager.nix
+  # so that I don't need the whole flake.
+  imports = [ ./home-manager.nix ];
+
   config = mkIf cfg.enable {
     programs.anyrun = with config.my.home.theme.colors.withHash; {
       enable = true;
 
       config = {
-        plugins = lib.optionals
-          pkgs.stdenv.isLinux
-          (with inputs.anyrun.packages.${pkgs.system}; [
-            applications
-            dictionary
-            # TODO(pope): Re-enable when the bug is fixed.
-            # See https://github.com/anyrun-org/anyrun/issues/153
-            # randr
-            rink
-            stdin
-            shell
-            symbols
-            translate
-            websearch
-          ]);
+        plugins = [
+          "${pkgs.anyrun}/lib/libapplications.so"
+          "${pkgs.anyrun}/lib/libdictionary.so"
+          "${pkgs.anyrun}/lib/librink.so"
+          "${pkgs.anyrun}/lib/libstdin.so"
+          "${pkgs.anyrun}/lib/libshell.so"
+          "${pkgs.anyrun}/lib/libsymbols.so"
+          "${pkgs.anyrun}/lib/libtranslate.so"
+          "${pkgs.anyrun}/lib/libwebsearch.so"
+        ];
 
         closeOnClick = true;
         hideIcons = false;

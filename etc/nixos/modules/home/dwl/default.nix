@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption mkOption types;
@@ -41,7 +41,7 @@ let
         src = ./dwl/config.def.h;
 
         # apps
-        anyrun = getExe inputs.anyrun.packages.${system}.anyrun;
+        anyrun = getExe anyrun;
         brillo = getExe brillo;
         foot = getExe foot;
         pamixer = getExe pamixer;

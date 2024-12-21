@@ -1,13 +1,12 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (lib) mkIf getExe;
-  anyrunPkg = inputs.anyrun.packages.${pkgs.system}.anyrun;
 
   launcher = "${getExe pkgs.uwsm} app --";
 
   # commands
-  anyrun = "${launcher} ${getExe anyrunPkg}";
+  anyrun = "${launcher} ${getExe pkgs.anyrun}";
   brillo = "${getExe pkgs.brillo}";
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";

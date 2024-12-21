@@ -9,7 +9,6 @@ let
 in
 {
   imports = [
-    inputs.anyrun.homeManagerModules.default
     inputs.nix-colors.homeManagerModules.default
   ] ++ imports;
 
