@@ -149,6 +149,7 @@
       enableAutoLogin = false;
       displayManager = "gdm";
       dwl.enable = true;
+      gnome.enable = true;
     };
   };
 
