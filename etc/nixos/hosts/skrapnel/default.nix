@@ -32,22 +32,6 @@
     supportedFilesystems = [ "ntfs" ];
   };
 
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "en_US.UTF-8";
-      LC_MONETARY = "en_US.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
-      LC_PAPER = "en_US.UTF-8";
-      LC_TELEPHONE = "en_US.UTF-8";
-      LC_TIME = "en_US.UTF-8";
-    };
-  };
-
   networking = {
     hostName = "skrapnel"; # Define your hostname.
     firewall = {
@@ -73,12 +57,6 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    git
-    ntfs3g
-    wget
-  ];
-
   services = {
     nfs.server = {
       enable = true;
@@ -87,10 +65,6 @@
       '';
     };
     rpcbind.enable = true;
-    openssh = {
-      enable = true;
-      settings.PasswordAuthentication = false;
-    };
     syncthing = {
       enable = true;
       openDefaultPorts = true;
@@ -111,7 +85,6 @@
       joinNetworks = [ "272f5eae164a4c0f" ];
     };
   };
-  security.sudo.wheelNeedsPassword = false;
 
   systemd = {
     services.cyberia-backup = {
@@ -155,6 +128,7 @@
         Cyberia.path = "/mnt/Cyberia";
       };
     };
+    system.enable = true;
     users.shell = "zsh";
   };
 
