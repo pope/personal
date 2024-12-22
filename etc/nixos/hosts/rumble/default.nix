@@ -120,6 +120,7 @@
     mainUser = "pope";
 
     bluetooth.enable = true;
+    flatpak.enable = true;
     fonts.enable = true;
     gaming = {
       enable = true;

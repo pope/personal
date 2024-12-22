@@ -10,10 +10,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
-    # Accept the joypixels license
-    nixpkgs.config.joypixels.acceptLicense = true;
+    nixpkgs.config = {
+      # Allow unfree packages
+      allowUnfree = true;
+      # Accept the joypixels license
+      joypixels.acceptLicense = true;
+    };
 
     # Select internationalisation properties.
     i18n = {
@@ -35,26 +37,13 @@ in
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
-      flatpak
       git
       gparted
       ntfs3g
       wget
-
-      (pkgs.writeShellScriptBin "setup-flatpak" ''
-        ${pkgs.flatpak}/bin/flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-        ln -s /run/current-system/sw/share/X11/fonts $HOME/.local/share/fonts
-        ln -s /run/current-system/sw/share/themes $HOME/.themes
-        ${pkgs.flatpak}/bin/flatpak override --user \
-            --filesystem=xdg-config/gtk-3.0:ro \
-            --filesystem=xdg-config/gtkrc-2.0:ro \
-            --filesystem=xdg-config/gtk-4.0:ro \
-            --filesystem=xdg-config/gtkrc:ro \
-            --filesystem=$HOME/.themes:ro \
-            --filesystem=$HOME/.local/share/fonts:ro \
-            --filesystem=$HOME/.icons:ro
-      '')
     ];
+
+    security.sudo.wheelNeedsPassword = false;
 
     services = {
       # Enable the OpenSSH daemon.
@@ -62,8 +51,6 @@ in
         enable = true;
         settings.PasswordAuthentication = false;
       };
-
-      flatpak.enable = true;
 
       udev.extraRules = ''
         ## Needed Zsa and Voyager
@@ -75,7 +62,5 @@ in
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="3297", MODE:="0666", SYMLINK+="ignition_dfu"
       '';
     };
-
-    security.sudo.wheelNeedsPassword = false;
   };
 }
