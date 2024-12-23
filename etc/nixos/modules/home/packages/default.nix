@@ -38,6 +38,7 @@ in
       imagemagick
       jq
       nh
+      nix-output-monitor
       nvd
       parallel
       procs # ps
