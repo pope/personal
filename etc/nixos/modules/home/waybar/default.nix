@@ -34,7 +34,7 @@ in
     programs = {
       waybar =
         let
-          bubble_config = import ./bubblebar/config.nix { inherit config pkgs; inherit (cfg) scale; };
+          bubble_config = import ./bubblebar/config.nix { inherit config pkgs lib; inherit (cfg) scale; };
           bubble_style = import ./bubblebar/style.nix { inherit config lib; inherit (cfg) scale; };
 
           hyprland_config = import ./hyprlandbar/config.nix { inherit config pkgs; inherit (pkgs) hyprland; };

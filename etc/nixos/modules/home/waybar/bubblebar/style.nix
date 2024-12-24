@@ -7,7 +7,7 @@ let
   baseFontSize =
     if isFloat scale then strings.floatToString (1 * scale)
     else builtins.toString (1 * scale);
-  smallFontSize = strings.floatToString (1 * scale);
+  smallFontSize = strings.floatToString (0.9 * scale);
 in
   /* css */ ''
   @define-color base00 ${color.base00};
@@ -62,7 +62,8 @@ in
     margin-right: 0.5rem;
   }
 
-  #tags button {
+  #tags button,
+  #workspaces button {
     border: 0px solid black;
     border-radius: 0.5rem;
     box-shadow: none;
@@ -70,11 +71,13 @@ in
     min-width: 0px;
     padding: 0.25rem 0.5rem;
   }
-  #tags button.focused {
-    background-color: @base02;
+  #tags button.focused,
+  #workspaces button.active {
+    background-color: alpha(@base02, 0.5);
   }
-  #tags button:hover {
-    background-color: @base02;
+  #tags button:hover,
+  #workspaces button:hover {
+    background-color: alpha(@base02, 0.5);
     background-image: none;
     border: 0px solid black;
     border-radius: 0.5rem;
@@ -89,21 +92,25 @@ in
   #tags button label {
     font-weight: lighter;
   }
-  #tags button.occupied label {
+  #tags button.occupied label,
+  #workspaces button label {
     color: @base05;
     font-weight: lighter;
   }
-  #tags button.focused label {
+  #tags button.focused label,
+  #workspaces button.active  label {
     color: @base0E;
     font-weight: bolder;
   }
-  #tags button.urgent label {
+  #tags button.urgent label,
+  #workspaces button.urgent label {
     color: @base08;
     font-weight: bolder;
   }
 
   #window {
     color: @base0E;
+    font-size: ${smallFontSize}rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
@@ -119,7 +126,7 @@ in
 
   .modules-right .module {
     color: @base05;
-    font-size: ${baseFontSize}rem;
+    font-size: ${smallFontSize}rem;
     font-weight: lighter;
     margin-left: 0.5rem;
     margin-right: 0.5rem;

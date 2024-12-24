@@ -92,7 +92,10 @@
     };
     theme.colorScheme = "tokyonight";
     tmux.enable = true;
-    waybar.enable = true;
+    waybar = {
+      enable = true;
+      theme = "bubble";
+    };
     xdg.enable = true;
     yazi.enable = true;
   };

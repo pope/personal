@@ -1,4 +1,4 @@
-{ config, pkgs, scale }:
+{ config, pkgs, lib, scale }:
 
 let
   color = config.my.home.theme.colors.withHash;
@@ -13,8 +13,12 @@ in
     spacing = 4;
     modules-left = [
       "custom/nixos"
+    ] ++ lib.optionals config.my.home.dwl.enable [
       "dwl/tags"
       "dwl/window"
+    ] ++ lib.optionals config.my.home.hyprland.enable [
+      "hyprland/workspaces"
+      "hyprland/window"
     ];
     modules-center = [
       "mpris"
@@ -42,6 +46,12 @@ in
       rewrite = {
         # When no window is present, show this message
         "^ <small>.*?</small>$" = ''<span foreground="${color.base04}">Get ready for a new challenger</span>'';
+      };
+    };
+    "hyprland/window" = {
+      rewrite = {
+        # When no window is present, show this message
+        "^$" = ''<span foreground="${color.base04}">Get ready for a new challenger</span>'';
       };
     };
     mpris = {
