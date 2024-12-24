@@ -110,7 +110,7 @@
     waybar = {
       enable = true;
       scale = 0.7;
-      theme = "dwl";
+      theme = "bubble";
     };
     xdg.enable = true;
     yazi.enable = true;

@@ -8,7 +8,7 @@ in
   options.my.home.waybar = {
     enable = mkEnableOption "waybar home options";
     theme = mkOption {
-      type = types.enum [ "dwl" "hyprland" ];
+      type = types.enum [ "bubble" "hyprland" ];
       default = "hyprland";
       description = lib.mkDoc ''
         Which waybar theme to use.
@@ -34,8 +34,8 @@ in
     programs = {
       waybar =
         let
-          dwl_config = import ./dwlbar/config.nix { inherit config pkgs; inherit (cfg) scale; };
-          dwl_style = import ./dwlbar/style.nix { inherit config lib; inherit (cfg) scale; };
+          bubble_config = import ./bubblebar/config.nix { inherit config pkgs; inherit (cfg) scale; };
+          bubble_style = import ./bubblebar/style.nix { inherit config lib; inherit (cfg) scale; };
 
           hyprland_config = import ./hyprlandbar/config.nix { inherit config pkgs; inherit (pkgs) hyprland; };
           hyprland_style = import ./hyprlandbar/style.nix { inherit config; };
@@ -45,11 +45,11 @@ in
           package = inputs.waybar.packages.${pkgs.system}.waybar;
           settings =
             if cfg.theme == "hyprland" then hyprland_config
-            else if cfg.theme == "dwl" then dwl_config
+            else if cfg.theme == "bubble" then bubble_config
             else abort "unsupported theme";
           style =
             if cfg.theme == "hyprland" then hyprland_style
-            else if cfg.theme == "dwl" then dwl_style
+            else if cfg.theme == "bubble" then bubble_style
             else abort "unsupported theme";
           systemd = {
             enable = true;

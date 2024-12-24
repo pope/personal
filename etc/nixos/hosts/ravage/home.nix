@@ -65,7 +65,7 @@
     tmux.enable = true;
     waybar = {
       enable = true;
-      theme = "dwl";
+      theme = "bubble";
     };
     xdg.enable = true;
     yazi.enable = true;
