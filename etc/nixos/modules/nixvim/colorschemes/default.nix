@@ -116,6 +116,12 @@ in
     {
       pkg = tokyonight-nvim;
       priority = 1000;
+      opts = {
+        transparent = true;
+        styles = {
+          floats = "transparent";
+        };
+      };
       config = ''
         function(_, opts)
           require("tokyonight").setup(opts)
