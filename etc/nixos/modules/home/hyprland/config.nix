@@ -20,10 +20,21 @@ let
     else "${launcher} ${getExe config.programs.kitty.package}";
   thunar = "${launcher} ${getExe pkgs.xfce.thunar}";
   wlogout = "${launcher} ${getExe pkgs.wlogout}";
+
+  #color overrides
+  inherit (config.my.home.theme) colorScheme;
+  inherit (config.my.home.theme) colors;
+
+  color_active_border_a =
+    if colorScheme == "tokyonight" then colors.base0E
+    else colors.base0B;
+  color_active_border_b =
+    if colorScheme == "tokyonight" then colors.base0F
+    else colors.base0D;
 in
 {
   config = mkIf config.my.home.hyprland.enable {
-    wayland.windowManager.hyprland.settings = with config.my.home.theme.colors; {
+    wayland.windowManager.hyprland.settings = with colors; {
       monitor = lib.mkDefault [
         "eDP-1,preferred,auto,1"
       ];
@@ -62,7 +73,7 @@ in
         gaps_in = 5;
         gaps_out = 5;
         border_size = 2;
-        "col.active_border" = "rgb(${base0B}) rgb(${base0D}) 45deg";
+        "col.active_border" = "rgb(${color_active_border_a}) rgb(${color_active_border_b}) 45deg";
         "col.inactive_border" = "rgb(${base02})";
         layout = "dwindle";
       };
