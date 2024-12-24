@@ -4,6 +4,13 @@ let
   inherit (lib) mkIf;
   cfg = config.my.home.gtk;
   inherit (config.my.home.theme) colorScheme;
+
+  package = pkgs.tokyonight-gtk-theme.override {
+    sizeVariants = [ "standard" "compact" ];
+    themeVariants = [ "all" ];
+    tweakVariants = [ "moon" ];
+    iconVariants = [ "Moon" ];
+  };
 in
 {
   config = mkIf (cfg.enable && colorScheme == "tokyonight") rec {
@@ -17,13 +24,13 @@ in
 
     gtk = {
       iconTheme = {
-        name = "Qogir";
-        package = pkgs.qogir-icon-theme;
+        inherit package;
+        name = "Tokyonight-Moon";
       };
 
       theme = {
-        name = "Tokyonight-Dark";
-        package = pkgs.tokyonight-gtk-theme;
+        inherit package;
+        name = "Tokyonight-Purple-Dark-Moon";
       };
 
       gtk3.extraConfig = {
