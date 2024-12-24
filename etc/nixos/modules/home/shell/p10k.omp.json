@@ -113,14 +113,6 @@
           "template": " took {{ .FormattedMs }}  "
         },
         {
-          "type": "cmake",
-          "background": "blue",
-          "foreground": "black",
-          "leading_diamond": "",
-          "trailing_diamond": "",
-          "style": "diamond"
-        },
-        {
           "type": "nix-shell",
           "background": "blue",
           "foreground": "black",
