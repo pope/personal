@@ -75,8 +75,6 @@
     , home-manager
     , nix-formatter-pack
     , nixpkgs
-    , nixpkgs-stable
-    , nixpkgs-2305
     , nixgl
     , nixvim
     , ...
@@ -95,34 +93,14 @@
           inherit name;
           value = nixpkgs.lib.nixosSystem {
             inherit system;
-            specialArgs = {
-              inherit inputs self;
-              pkgs-stable = import nixpkgs-stable {
-                inherit system;
-                config.allowUnfree = true;
-              };
-              pkgs-2305 = import nixpkgs-2305 {
-                inherit system;
-                config.allowUnfree = true;
-                config.permittedInsecurePackages = [
-                  "python-2.7.18.6"
-                  "python-2.7.18.6-env"
-                ];
-              };
-            };
+            specialArgs = { inherit inputs self; };
             modules = [
               (./hosts + "/${name}")
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = {
-                  inherit inputs self;
-                  pkgs-stable = import nixpkgs-stable {
-                    inherit system;
-                    config.allowUnfree = true;
-                  };
-                };
+                home-manager.extraSpecialArgs = { inherit inputs self; };
                 home-manager.backupFileExtension = "hm-backup";
 
                 home-manager.users.${user} =
@@ -152,13 +130,7 @@
               };
               overlays = extraOverlays ++ [ self.overlays.default ];
             };
-            extraSpecialArgs = {
-              inherit inputs self;
-              pkgs-stable = import nixpkgs-stable {
-                inherit system;
-                config.allowUnfree = true;
-              };
-            };
+            extraSpecialArgs = { inherit inputs self; };
             modules = [
               (./hosts + "/${hostname}/home.nix")
             ];
@@ -216,14 +188,14 @@
       homeManagerModules.default = import ./modules/home self;
       packages = eachSystem (system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
-          pkgs-stable = nixpkgs-stable.legacyPackages.${system};
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ self.overlays.default ];
+          };
           nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
             inherit pkgs;
             module = import ./modules/nixvim;
-            # You can use `extraSpecialArgs` to pass additional arguments to your module files
-            extraSpecialArgs = { inherit pkgs-stable; };
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;
           mypkgs = import ./packages { inherit pkgs; } // { inherit nvim; };
@@ -251,13 +223,14 @@
         });
       checks = eachSystem (system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
-          pkgs-stable = nixpkgs-stable.legacyPackages.${system};
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ self.overlays.default ];
+          };
           nixvimLib = nixvim.lib.${system};
           nixvimModule = {
             inherit pkgs;
             module = import ./modules/nixvim;
-            extraSpecialArgs = { inherit pkgs-stable; };
           };
         in
         {
