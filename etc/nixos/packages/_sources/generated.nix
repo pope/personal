@@ -133,13 +133,13 @@
   };
   plow = {
     pname = "plow";
-    version = "v1.3.1";
+    version = "v1.3.2";
     src = fetchFromGitHub {
       owner = "six-ddc";
       repo = "plow";
-      rev = "v1.3.1";
+      rev = "v1.3.2";
       fetchSubmodules = false;
-      sha256 = "sha256-TynFq7e4MtZlA5SmGMybhmCVw67yHYgZWffQjuyhTDA=";
+      sha256 = "sha256-q9k5GzhYPOP8p8VKrqpoHc3B9Qak+4DtZAZZuFlkED0=";
     };
   };
   rbutil = {
@@ -194,15 +194,15 @@
   };
   yazi-plugins = {
     pname = "yazi-plugins";
-    version = "7afba3a73cdd69f346408b77ea5aac26fe09e551";
+    version = "71c4fc2e6fa1d6f70c85bf525842d6888d1ffa46";
     src = fetchgit {
       url = "https://github.com/yazi-rs/plugins";
-      rev = "7afba3a73cdd69f346408b77ea5aac26fe09e551";
+      rev = "71c4fc2e6fa1d6f70c85bf525842d6888d1ffa46";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-w9dSXW0NpgMOTnBlL/tzlNSCyRpZNT4XIcWZW5NlIUQ=";
+      sha256 = "sha256-X3R5bsnzGv1TVXOKdhAyspDMguVAyc9tvCxJlypUUAA=";
     };
-    date = "2024-12-16";
+    date = "2024-12-24";
   };
 }

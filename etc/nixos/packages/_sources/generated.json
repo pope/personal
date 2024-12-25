@@ -228,11 +228,11 @@
             "name": null,
             "owner": "six-ddc",
             "repo": "plow",
-            "rev": "v1.3.1",
-            "sha256": "sha256-TynFq7e4MtZlA5SmGMybhmCVw67yHYgZWffQjuyhTDA=",
+            "rev": "v1.3.2",
+            "sha256": "sha256-q9k5GzhYPOP8p8VKrqpoHc3B9Qak+4DtZAZZuFlkED0=",
             "type": "github"
         },
-        "version": "v1.3.1"
+        "version": "v1.3.2"
     },
     "rbutil": {
         "cargoLocks": null,
@@ -319,7 +319,7 @@
     },
     "yazi-plugins": {
         "cargoLocks": null,
-        "date": "2024-12-16",
+        "date": "2024-12-24",
         "extract": null,
         "name": "yazi-plugins",
         "passthru": null,
@@ -329,11 +329,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7afba3a73cdd69f346408b77ea5aac26fe09e551",
-            "sha256": "sha256-w9dSXW0NpgMOTnBlL/tzlNSCyRpZNT4XIcWZW5NlIUQ=",
+            "rev": "71c4fc2e6fa1d6f70c85bf525842d6888d1ffa46",
+            "sha256": "sha256-X3R5bsnzGv1TVXOKdhAyspDMguVAyc9tvCxJlypUUAA=",
             "type": "git",
             "url": "https://github.com/yazi-rs/plugins"
         },
-        "version": "7afba3a73cdd69f346408b77ea5aac26fe09e551"
+        "version": "71c4fc2e6fa1d6f70c85bf525842d6888d1ffa46"
     }
 }
