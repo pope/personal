@@ -2,11 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, ... }:
+{ self, inputs, pkgs, lib, ... }:
 
 {
   imports =
     [
+      inputs.musnix.nixosModules.musnix
       inputs.nixos-hardware.nixosModules.framework-13-7040-amd
       self.nixosModules.default
       # Include the results of the hardware scan.
@@ -99,7 +100,7 @@
 
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = "powersave";
+    cpuFreqGovernor = lib.mkDefault "powersave";
     powertop.enable = true; # Run powertop on boot
   };
 
@@ -140,6 +141,13 @@
       dwl.enable = true;
       gnome.enable = true;
       hyprland.enable = false;
+    };
+  };
+
+  specialisation = {
+    music.configuration = {
+      system.nixos.tags = [ "music" ];
+      musnix.enable = true;
     };
   };
 
