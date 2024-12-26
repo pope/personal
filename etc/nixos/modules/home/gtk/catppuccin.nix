@@ -8,9 +8,9 @@ in
 {
   config = mkIf (cfg.enable && colorScheme == "catppuccin") rec {
     home.pointerCursor = {
-      name = "catppuccin-mocha-mauve-cursors";
+      name = "macOS-White";
       size = 24;
-      package = pkgs.catppuccin-cursors.mochaMauve;
+      package = pkgs.apple-cursor;
       gtk.enable = true;
       x11.enable = true;
     };

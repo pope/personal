@@ -105,7 +105,7 @@
         useWayland = true;
       };
     };
-    theme.colorScheme = "rose-pine";
+    theme.colorScheme = "catppuccin";
     tmux.enable = true;
     waybar = {
       enable = true;
