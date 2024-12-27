@@ -88,7 +88,7 @@
             "always_enabled": true
           },
           "style": "diamond",
-          "template": " {{ if eq .Code 0 }}✔{{ else }}{{ .Code }} ✘{{ end }} "
+          "template": " {{ if eq .Code 0 }}{{ else }}{{ .Code }} {{ end }} "
         },
         {
           "type": "session",
