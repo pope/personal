@@ -94,6 +94,7 @@
     packages.enable = true;
     shell.zsh.enable = true;
     terminals = {
+      ghostty.enable = true;
       kitty.enable = true;
       foot = {
         enable = true;
