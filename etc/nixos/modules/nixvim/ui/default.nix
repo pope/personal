@@ -67,6 +67,18 @@ in
         "vim.lsp.util.stylize_markdown" = true;
         "cmp.entry.get_documentation" = true;
       };
+      keys = mkLazyKeys [
+        {
+          lhs = "<Esc><Esc>";
+          rhs = "<cmd>NoiceDismiss<cr>";
+          desc = "Dismiss notifications";
+        }
+        {
+          lhs = "<leader><Esc>";
+          rhs = "<cmd>NoiceDismiss<cr>";
+          desc = "Dismiss notifications";
+        }
+      ];
     }
     {
       pkg = nvim-notify;
