@@ -31,6 +31,8 @@ in
     { inherit releasePath; }
   );
 
+  ghostty = self.inputs.ghostty.packages.${prev.system}.default;
+
   stable = import self.inputs.nixpkgs-stable {
     inherit (prev) system;
     config.allowUnfree = true;
