@@ -86,9 +86,12 @@
     multimedia.audio.enable = true;
     packages.enable = true;
     shell.zsh.enable = true;
-    terminals.wezterm = {
-      enable = true;
-      installExtraFonts = true;
+    terminals = {
+      ghostty.enable = true;
+      wezterm = {
+        enable = true;
+        installExtraFonts = true;
+      };
     };
     tmux.enable = true;
     yazi.enable = true;

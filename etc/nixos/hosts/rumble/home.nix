@@ -94,7 +94,10 @@
     packages.enable = true;
     shell.zsh.enable = true;
     terminals = {
-      ghostty.enable = true;
+      ghostty = {
+        enable = true;
+        fontSize = 9;
+      };
       kitty.enable = true;
       foot = {
         enable = true;
