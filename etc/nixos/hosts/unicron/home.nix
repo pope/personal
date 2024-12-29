@@ -82,6 +82,10 @@
     };
     terminals = {
       crt.enable = true;
+      ghostty = {
+        enable = true;
+        fontSize = 10;
+      };
       foot.enable = true;
       kitty.enable = true;
       wezterm = {
