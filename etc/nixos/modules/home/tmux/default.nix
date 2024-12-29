@@ -17,6 +17,7 @@ in
       clock24 = true;
       customPaneNavigationAndResize = true;
       escapeTime = 50;
+      focusEvents = true;
       historyLimit = 30000;
       keyMode = "vi";
       mouse = true;
@@ -88,7 +89,7 @@ in
         { plugin = continuum; extraConfig = "set -g @continuum-restore 'on'"; }
       ]);
       extraConfig = ''
-        set-option -sa terminal-features ',alacritty*:RGB,foot*:RGB,xterm-kitty*:RGB,xterm-256color:RGB'
+        set-option -sa terminal-features ',alacritty*:RGB,foot*:RGB,xterm-*:RGB'
 
         set -g allow-passthrough on
         set -ga update-environment TERM
@@ -105,4 +106,3 @@ in
     };
   };
 }
-
