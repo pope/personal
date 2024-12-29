@@ -31,7 +31,6 @@ in
 
     home.file."${configDir}/config".text =
       let
-        opacity = if pkgs.stdenv.isDarwin then "0.9" else "0.95";
         theme =
           if colorScheme == "rose-pine" then "rose-pine"
           else if colorScheme == "catppuccin" then "catppuccin-mocha"
@@ -43,7 +42,7 @@ in
       ''
         adjust-cell-height = "25%"
 
-        background-opacity = ${opacity}
+        background-opacity = 0.95
         background-blur-radius = 20
 
         font-family = ""
