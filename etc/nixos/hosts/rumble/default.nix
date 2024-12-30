@@ -74,7 +74,7 @@
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        rocmPackages.clr.icd
+        stable.rocmPackages.clr.icd
         # Encoding/decoding acceleration
         libvdpau-va-gl
         libva-vdpau-driver
