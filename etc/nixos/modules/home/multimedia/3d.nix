@@ -11,7 +11,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home.packages = with pkgs.stable; [
       (if cfg.hip.enable then blender-hip else blender)
     ];
   };

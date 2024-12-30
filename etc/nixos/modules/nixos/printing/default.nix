@@ -24,7 +24,7 @@ in
 
     environment.systemPackages = with pkgs; [
       canon-cups-ufr2
-      cnijfilter2
+      stable.cnijfilter2
     ];
 
     hardware.printers = {
