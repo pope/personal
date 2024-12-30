@@ -129,6 +129,7 @@
     };
     onepassword.enable = true;
     printing.enable = true;
+    sops.enable = true;
     sound.enable = true;
     system.enable = true;
     users.shell = "zsh";

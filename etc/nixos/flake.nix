@@ -60,6 +60,10 @@
       url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     waybar = {
       url = "github:pope/Waybar";
       inputs.nixpkgs.follows = "nixpkgs";
