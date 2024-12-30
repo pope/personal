@@ -23,6 +23,16 @@ will be loaded by the `home.nix` file.
 
 These are Nix overlays which can be loaded up and used.
 
+## SOPS Nix
+
+In order to use the SOPS nix secrets, the key needs to be stored in
+`~/.config/sops/age/keys.txt`. It can be extracted from 1Password.
+
+```sh
+mkdir -p ~/.config/sops/age
+op read "op://NixOS/Sops Age Keys/keys.txt" -o ~/.config/sops/age/keys.txt
+```
+
 ## Raspberry Pi
 
 How to build the SD card:
