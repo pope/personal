@@ -11,6 +11,7 @@
 
     packages = with pkgs; [
       # Fonts
+      dank-mono
       go-font
       iosevka
       iosevka-comfy.comfy

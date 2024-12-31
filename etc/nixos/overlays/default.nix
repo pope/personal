@@ -8,7 +8,7 @@ in
   inherit (mypkgs) fish-rose-pine fish-catppuccin fish-tokyonight;
   inherit (mypkgs) fsrcnnx modernx plow p5r-grub;
   inherit (mypkgs) comic-code-ligatures lucida-grande monolisa;
-  inherit (mypkgs) sf-mono-font sf-mono-nf-liga;
+  inherit (mypkgs) dank-mono sf-mono-font sf-mono-nf-liga;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
   inherit (mypkgs) iqm rbutil hatsune-miku-cursor yazi-plugins;
 
