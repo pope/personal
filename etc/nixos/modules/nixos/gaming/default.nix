@@ -42,12 +42,24 @@ in
       gamescope = {
         enable = true;
         capSysNice = true;
+        args = [
+          "--mangoapp"
+        ];
       };
 
       steam = {
         enable = cfg.enableSteam;
         dedicatedServer.openFirewall = true;
-        gamescopeSession.enable = true;
+        extraPackages = with pkgs; [
+          mangohud
+          gamescope
+        ];
+        gamescopeSession = {
+          enable = true;
+          env = {
+            "MANGOHUD" = "true";
+          };
+        };
         localNetworkGameTransfers.openFirewall = true;
         remotePlay.openFirewall = true;
       };
