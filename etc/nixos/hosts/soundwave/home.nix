@@ -78,7 +78,7 @@
       zsh.enable = true;
     };
     terminals = {
-      crt.enable = true;
+      ghostty.enable = true;
       foot.enable = true;
       kitty.enable = true;
       wezterm = {
