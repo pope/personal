@@ -149,6 +149,7 @@
     music.configuration = {
       system.nixos.tags = [ "music" ];
       musnix.enable = true;
+      boot.extraModprobeConfig = "options snd-virmidi index=-2 midi_devs=1";
     };
   };
 
