@@ -21,7 +21,7 @@ in
   config = mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
+      package = if pkgs.stdenv.isDarwin then pkgs.emptyDirectory else pkgs.ghostty;
       enableFishIntegration = config.my.home.shell.fish.enable;
       enableZshIntegration = config.my.home.shell.zsh.enable;
       settings =
