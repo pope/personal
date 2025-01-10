@@ -147,7 +147,7 @@
       ]
     }
   ],
-  "enable_cursor_positioning": true,
+  "enable_cursor_positioning": false,
   "final_space": true,
   "secondary_prompt": {
     "template": "> "
