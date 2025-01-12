@@ -54,6 +54,7 @@
       chromium.enable = true;
     };
     editors = {
+      emacs.enable = true;
       neovim.enable = true;
       vscode.enable = true;
     };
