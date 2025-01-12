@@ -32,6 +32,7 @@
 	confirm-kill-emacs 'y-or-n-p      ; y and n instead of yes and no when quitting
 	auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
         backup-directory-alist `(("." . "~/.emacs.d/backups/")))
+  (setq-default line-spacing 4)
   (global-display-line-numbers-mode)
   (global-hl-line-mode 1)
   (global-visual-line-mode 1)
