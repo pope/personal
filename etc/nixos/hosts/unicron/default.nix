@@ -66,6 +66,11 @@
     #   fsType = "ntfs-3g";
     #   options = [ "rw" "noauto,uid=1000,gid=100" "noatime" ];
     # };
+    "/media/games" = {
+       device = "/dev/nvme1n1p4";
+       fsType = "ntfs-3g";
+       options = [ "rw" "uid=pope" ];
+    };
     "/media/cyberia" = {
       device = "skrapnel.lan:/mnt/Cyberia";
       fsType = "nfs";
