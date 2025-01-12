@@ -99,13 +99,13 @@
         enable = true;
         fontSize = 9;
       };
-      kitty.enable = true;
+      kitty.enable = false;
       foot = {
         enable = true;
         fontSize = 9;
       };
       wezterm = {
-        enable = true;
+        enable = false;
         useUnstable = true;
         useWayland = true;
       };
