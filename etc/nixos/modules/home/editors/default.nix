@@ -2,7 +2,7 @@ _:
 
 {
   imports = [
-    ./emacs.nix
+    ./emacs
     ./neovim.nix
     ./vscode.nix
   ];

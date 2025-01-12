@@ -10,19 +10,28 @@ in
   };
 
   config = mkIf cfg.enable {
+    home = {
+      file.".emacs.d/init.el".source = config.lib.file.mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/Code/personal/etc/nixos/modules/home/editors/emacs/init.el";
+
+      packages = with pkgs; [
+        nil
+      ];
+    };
     programs.emacs = {
       enable = true;
       package = pkgs.emacs29-pgtk;
       extraPackages = epkgs: (with epkgs; [
+        editorconfig
+        evil
         magit
         markdown-mode
-        markdown-ts-mode
-        nix-ts-mode
+        nix-mode
         treesit-auto
         treesit-grammars.with-all-grammars
-        zig-ts-mode
+        xclip
+        zig-mode
       ]);
     };
   };
 }
-

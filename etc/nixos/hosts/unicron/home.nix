@@ -42,6 +42,7 @@
       firefox.enable = true;
     };
     editors = {
+      emacs.enable = true;
       vscode.enable = true;
       neovim.enable = true;
     };
