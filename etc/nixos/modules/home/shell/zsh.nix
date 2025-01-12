@@ -33,6 +33,11 @@ in
         zle -N edit-command-line
         bindkey "^X^E" edit-command-line
       '';
+      # Add this escape hatch for Emacs remote editing with tramp.
+      # See https://www.emacswiki.org/emacs/TrampMode#h5o-9
+      initExtraFirst = ''
+        [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+      '';
       profileExtra = ''
         if [ -e /opt/homebrew/bin/brew ]
         then
