@@ -22,6 +22,8 @@ in
       enable = true;
       package = pkgs.emacs29-pgtk;
       extraPackages = epkgs: (with epkgs; [
+        doom-modeline
+        doom-themes
         editorconfig
         evil
         magit
