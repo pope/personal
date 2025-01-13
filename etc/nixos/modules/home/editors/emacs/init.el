@@ -4,11 +4,13 @@
   :config (xclip-mode 1))
 
 (use-package treesit-auto
+  :defer t
   :custom (treesit-auto-install 'prompt)
   :config (treesit-auto-add-to-auto-mode-alist 'all)
           (global-treesit-auto-mode))
 
 (use-package evil
+  :defer t
   :config (evil-mode 0))
 
 ;;. UI
@@ -25,10 +27,12 @@
 ;;.. Fonts
 
 (use-package nerd-icons
+  :after prog-mode
   :config
   (nerd-icons-set-font))
 
 (use-package ligature
+  :after prog-mode
   :config
   ;; Enable all ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
