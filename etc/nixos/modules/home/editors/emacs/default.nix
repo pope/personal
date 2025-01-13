@@ -26,7 +26,7 @@ in
     };
     programs.emacs = {
       enable = true;
-      package = pkgs.emacs29-pgtk;
+      package = if pkgs.stdenv.isDarwin then pkgs.emacs29 else pkgs.emacs29-pgtk;
       extraPackages = epkgs: (with epkgs; [
         doom-modeline
         doom-themes

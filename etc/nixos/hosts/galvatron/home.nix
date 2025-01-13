@@ -72,7 +72,10 @@
   };
 
   my.home = {
-    editors.neovim.enable = true;
+    editors = {
+      emacs.enable = true;
+      neovim.enable = true;
+    };
     git = {
       enable = true;
       opIdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
