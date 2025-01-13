@@ -34,6 +34,7 @@
     anyrun.enable = true;
     browsers.firefox.enable = true;
     editors = {
+      emacs.enable = true;
       neovim.enable = true;
       vscode.enable = false;
     };
