@@ -57,7 +57,7 @@
     packages.enable = true;
     shell.fish.enable = true;
     terminals = {
-      kitty.enable = true;
+      ghostty.enable = true;
       wezterm.enable = true;
       foot.enable = true;
     };
