@@ -11,11 +11,17 @@ in
 
   config = mkIf cfg.enable {
     home = {
+      activation.createEmacsDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        run mkdir -m 700 -p $VERBOSE_ARG \
+            ${config.home.homeDirectory}/.emacs.d/auto-saves \
+            ${config.home.homeDirectory}/.emacs.d/backups
+      '';
+
       file.".emacs.d/init.el".source = config.lib.file.mkOutOfStoreSymlink
         "${config.home.homeDirectory}/Code/personal/etc/nixos/modules/home/editors/emacs/init.el";
 
       packages = with pkgs; [
-        nil
+        nixd
       ];
     };
     programs.emacs = {
