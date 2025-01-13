@@ -9,7 +9,9 @@
           (global-treesit-auto-mode))
 
 (use-package evil
-  :config (evil-mode 1))
+  :config (evil-mode 0))
+
+;;. UI
 
 (use-package doom-themes
   :config
@@ -17,14 +19,34 @@
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   (load-theme 'doom-tokyo-night t)
-
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-(use-package doom-modeline
-  :hook (after-init . doom-modeline-mode))
+;;.. Fonts
+
+(use-package nerd-icons
+  :config
+  (nerd-icons-set-font))
+
+(use-package ligature
+  :config
+  ;; Enable all ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                                       "\\\\" "://"))
+  (global-ligature-mode t))
+
+;;. Emacs config
 
 (use-package emacs
   :config
@@ -34,6 +56,5 @@
         backup-directory-alist `(("." . "~/.emacs.d/backups/")))
   (setq-default line-spacing 4)
   (global-display-line-numbers-mode)
-  (global-hl-line-mode 1)
-  (global-visual-line-mode 1)
+  (global-hl-line-mode 1)  (global-visual-line-mode 1)
   (global-auto-revert-mode t))

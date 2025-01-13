@@ -26,8 +26,10 @@ in
         doom-themes
         editorconfig
         evil
+        ligature
         magit
         markdown-mode
+        nerd-icons
         nix-mode
         treesit-auto
         treesit-grammars.with-all-grammars
