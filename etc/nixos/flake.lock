@@ -730,15 +730,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1734195973,
-        "narHash": "sha256-N6eYPEbIJiJd544k+N7G82scl1VOSn8R4Ibvdo7oTnU=",
-        "owner": "pope",
+        "lastModified": 1736677965,
+        "narHash": "sha256-vj4NpvjjW5cUBYJc9AUbH8D8LIkoSwQyKJ+02tHKAAU=",
+        "owner": "Alexays",
         "repo": "Waybar",
-        "rev": "157ea445102b0bc2db02733095a4350c7b2089d1",
+        "rev": "a4241d700823cbee9e717c90a8408e2dfc977b45",
         "type": "github"
       },
       "original": {
-        "owner": "pope",
+        "owner": "Alexays",
         "repo": "Waybar",
         "type": "github"
       }
