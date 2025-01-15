@@ -11,7 +11,7 @@ in
 
   config = mkIf cfg.enable {
     home = {
-      activation.createEmacsDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      activation.createEmacsDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] /* sh */ ''
         run mkdir -m 700 -p $VERBOSE_ARG \
             ${config.home.homeDirectory}/.emacs.d/auto-saves \
             ${config.home.homeDirectory}/.emacs.d/backups
@@ -26,21 +26,34 @@ in
     };
     programs.emacs = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.emacs29 else pkgs.emacs29-pgtk;
+      package = if pkgs.stdenv.isDarwin then pkgs.emacs else pkgs.emacs29-pgtk;
       extraPackages = epkgs: (with epkgs; [
+        cape
+        consult
+        corfu
+        corfu-terminal
         doom-modeline
         doom-themes
         editorconfig
+        embark
+        embark-consult
         evil
+        fzf
         ligature
         magit
+        marginalia
         markdown-mode
         nerd-icons
         nix-mode
+        nix-ts-mode
+        orderless
+        rg
         treesit-auto
         treesit-grammars.with-all-grammars
+        vertico
         xclip
         zig-mode
+        zig-ts-mode
       ]);
     };
   };
