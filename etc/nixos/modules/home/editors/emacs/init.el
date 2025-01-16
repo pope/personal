@@ -1,5 +1,8 @@
 ;;; -*- lexical-binding: t -*-
 
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file t)
+
 (use-package xclip
   :config (xclip-mode 1))
 
@@ -124,8 +127,6 @@
         global-auto-revert-non-file-buffers t ; Revert dired
         auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
         backup-directory-alist `(("." . "~/.emacs.d/backups/")))
-  (setq-default line-spacing 4)
-  (set-frame-font "MonoLisa 12" nil t)
   (recentf-mode 1)
   (savehist-mode 1)
   (save-place-mode 1)
