@@ -35,17 +35,6 @@ in
     inherit (prev) system;
     config.allowUnfree = true;
   };
-
-  _2305 = import self.inputs.nixpkgs-2305 {
-    inherit (prev) system;
-    config = {
-      allowUnfree = true;
-      permittedInsecurePackages = [
-        "python-2.7.18.6"
-        "python-2.7.18.6-env"
-      ];
-    };
-  };
 } // prev.lib.optionalAttrs prev.stdenv.isDarwin {
 
   ctpv = (prev.ctpv.override {
