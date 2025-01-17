@@ -1,0 +1,333 @@
+#+title: Emacs config
+#+PROPERTY: header-args :emacs-lisp :tangle ./init.el :mkdirp yes
+
+* Goal
+
+To configure emacs while also commenting and documenting the process for the setup.
+
+* Methodology
+
+My idea for this config is one part Nix, one part Emacs with [[elisp:(describe-function 'use-package)][=use-package=]]. Nix will supply all of the dependency emacs packages, and =use-pacakge= will be used to configure things.
+
+While Emacs can run in server-mode, I still want the editor to load as quickly as possible. So I will try to lazy load as much as possible when I can - even to the point it may be aggressive.
+
+In order to use changes in this file, use =M-x org-babel-tangle= to export the elisp in here to the =init.el= file.
+
+* Enable lexical binding
+
+Not sure what this does for performance or how the init functions, but adding it because.
+
+#+begin_src emacs-lisp
+  ;;; -*- lexical-binding: t -*-
+#+end_src
+
+* Tuning for speed
+
+The Emacs garbage collector runs many times during app start. So at the start, we increase the amount of GC temporarily at the start. At the end of this doc, we can reset it (though not quite as low). The default is 800kb.
+
+Reference: https://emacsconf.org/2023/talks/gc/
+
+#+begin_src emacs-lisp
+  ;; Measured in bytes.
+  (setq gc-cons-threshold (* 20 1000 1000))
+  (add-hook 'emacs-startup-hook
+	    (lambda () (setq gc-cons-threshold (* 3 1000 1000))))
+#+end_src
+
+* Core Settings
+
+** Custom file
+
+I don't want quick Emacs customizations to show up in the init file. So we can add it to it's own file. This needs to load first incase there is any theme information, like which ones I trust and whatnot.
+
+#+begin_src emacs-lisp
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file t)
+#+end_src
+
+** Config
+
+First, let's put extra emacs files into the =.emacs.d= directory.
+
+#+begin_src emacs-lisp
+  (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
+        backup-directory-alist `(("." . "~/.emacs.d/backups/")))
+  (recentf-mode 1)
+  (save-place-mode 1)
+#+end_src
+
+Next, we can auto-revert some buffers when things change on disk
+
+#+begin_src emacs-lisp
+  (setq global-auto-revert-non-file-buffers t)
+  (global-auto-revert-mode t)
+#+end_src
+
+* Editing
+
+** Clipboard
+
+When on [[https://wayland.freedesktop.org/][Wayland]] I was noticing that copy/paste was not working. Using [[https://elpa.gnu.org/packages/xclip.html][xclip]] seems to address that.
+
+#+begin_src emacs-lisp
+  (use-package xclip
+    :config (xclip-mode 1))
+#+end_src
+
+** Vim style
+
+[[https://github.com/emacs-evil/evil][Evil mode]] exists to emulate vim modes and shortcuts. I will keep it around, but not exactly load it and use it immediately. But run =M-x evil-mode= to turn it on.
+
+#+begin_src emacs-lisp
+  (use-package evil
+    :commands (evil-mode))
+#+end_src
+
+* Completions
+
+Adding some modern completion code for Emacs
+
+Sources:
+- https://protesilaos.com/codelog/2024-02-17-emacs-modern-minibuffer-packages/
+- https://www.youtube.com/watch?v=SOxlQ7ogplA
+
+** Minibuffer
+
+*** Vertico
+
+[[https://github.com/minad/vertico][=vertico=]] positions completions in a vertical column in the minibuffer.
+
+#+begin_src emacs-lisp
+  (use-package vertico
+    :custom
+    (vertico-cycle t)
+    (vertico-resize nil)
+    :config
+    (vertico-mode 1))
+#+end_src
+
+The vertico docs also recommend the following configs
+
+#+begin_src emacs-lisp
+  ;; Enable saving of minibuffer history
+  (use-package savehist
+    :hook (after-init . savehist-mode))
+
+  (use-package emacs
+    :custom
+    ;; Yo dawg, I heard you like minibuffers.
+    (enable-recursive-minibuffers t)
+    ;; Hide commands in M-x that are incompatible for the current mode.
+    (read-extended-command-predicate #'command-completion-default-include-p)
+
+    :init
+    ;; Add prompt indicator to `completing-read-multiple'.
+    ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+    (defun crm-indicator (args)
+      (cons (format "[CRM%s] %s"
+                    (replace-regexp-in-string
+                     "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                     crm-separator)
+                    (car args))
+            (cdr args)))
+    (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+    ;; Do not allow the cursor in the minibuffer prompt
+    (setq minibuffer-prompt-properties
+          '(read-only-mode t cursor-intangible-mode t face minibuffer-prompt))
+    (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
+#+end_src
+
+*** Marginalia
+
+[[https://github.com/minad/marginalia][=marginalia=]] adds extra context in the minibuffer for whatever is being completed.
+
+#+begin_src emacs-lisp
+  (use-package marginalia
+    :demand 1
+    :bind (:map minibuffer-local-map
+                ("M-A" . marginalia-cycle))
+    :config
+    (marginalia-mode 1))
+#+end_src
+
+*** Orderless
+
+[[https://github.com/oantolin/orderless][=orderless=]] is a package that divides completion patterns by spaces to match the components in order.
+
+#+begin_src emacs-lisp
+  (use-package orderless
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-defaults nil)
+    (completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
+*** Consult
+
+[[https://github.com/minad/consult][=consult=]] provides search and navigation with completion functions. The consult documentation includes a lot more options than I'm using now - so I will revisit to see if I want to add more.
+
+#+begin_src emacs-lisp
+  (use-package consult-
+    :bind (:map global-map
+           ("M-s M-r" . consult-recent-file)
+           ("M-s M-g" . consult-rg)
+           ("M-s M-f" . consult-fd)
+           ("M-s M-o" . consult-outline)
+           ("M-s M-l" . consult-line)
+           ("M-s M-b" . consult-buffer)))
+#+end_src
+
+*** Embark
+
+[[https://github.com/oantolin/embark][=embark=]] provides mini-buffer actions for a target point.
+
+#+begin_src emacs-lisp
+  (use-package embark
+    :bind (("C-." . embark-act)         ;; pick some comfortable binding
+           ("C-;" . embark-dwim)        ;; good alternative: M-.
+           ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+    :init
+     ;; Optionally replace the key help with a completing-read interface
+     (setq prefix-help-command #'embark-prefix-help-command)
+    :config
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+                 '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                   nil
+                   (window-parameters (mode-line-format . none)))))
+#+end_src
+
+Then we can join embark and consult together
+
+#+begin_src emacs-lisp
+  (use-package embark-consult
+    :hook
+    (embark-collect-mode . consult-preview-at-point-mode))
+#+end_src
+
+** In-Buffer
+
+*** Corfu
+
+[[https://github.com/minad/corfu][=corfu=]] does in-buffer completions with a pop-up.
+
+#+begin_src emacs-lisp
+  (use-package corfu
+    :config
+    (global-corfu-mode 1))
+#+end_src
+
+In the regular Emacs config, we can make the =<TAB>= key trigger an autocomplete.
+
+#+begin_src emacs-lisp
+  (use-package emacs
+    :custom (tab-always-indent 'complete))
+#+end_src
+
+The settings above work fine in GUI mode, but for terminal, we need a separate package for that.
+
+#+begin_src emacs-lisp
+  (unless (display-graphic-p)
+    (use-package corfu-terminal
+      :after corfu
+      :config (corfu-terminal-mode 1)))
+#+end_src
+
+=corfu= can also use =orderless=, and since it's configured above, there isn't anything to worry about here.
+
+*** Cape
+
+[[https://github.com/minad/cape][=cape=]] provides additional =capf= backends. This is something to consider adding to my configuration.
+
+* The UI
+
+** Basic Config
+
+Some basic emacs stuff to add/remove UI to emacs.
+
+#+begin_src emacs-lisp
+  (use-package emacs
+    :config
+    (setq inhibit-startup-screen t      ; Don't show startup message
+          confirm-kill-emacs 'y-or-n-p) ; Less typing when quitting
+
+    (column-number-mode 1)
+    (global-display-line-numbers-mode 1)
+    (global-hl-line-mode 1)
+    (global-visual-line-mode 1)
+
+    (tool-bar-mode -1)
+
+    (winner-mode 1))
+#+end_src
+
+** Color Theme
+
+Using the [[https://github.com/doomemacs/themes][=doom-themes=]]. It's a nice set of themes, though it doesn't contain Catppuccin or Rose-Pine.
+
+#+begin_src emacs-lisp
+  (use-package doom-themes
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (load-theme 'doom-one t)
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
+#+end_src
+
+** Nerd Icons
+
+This package is nice if I want to enter in some =nerd-icons-insert=. It also has the benefit of adding Symbols for Nerd Font as a font for the regions where the font is applicable.
+
+#+begin_src emacs-lisp
+  (use-package nerd-icons
+    :config
+    (when (display-graphic-p)
+      (nerd-icons-set-font)))
+#+end_src
+
+TODO(pope): Add icons for corfu and marginalia 
+
+** Ligatures
+
+I like ligatures. So this sets those up for all programming modes.
+
+#+begin_src emacs-lisp
+  (use-package ligature
+    :config
+    ;; Enable all ligatures in programming modes
+    (ligature-set-ligatures
+     'prog-mode
+     '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+       "\\\\" "://"))
+    (global-ligature-mode t))
+#+end_src
+
+* Programming
+
+Lastly, let's add support for programming languages. =nix-mode= and =zig-mode= are installed through Nix and have auto-loads configured. So there isn't anything that we need to do here.
+
+But what we can do is make language parsing better with =treesit=, a package for =treesitter= configurations into the mix
+
+#+begin_src emacs-lisp
+  (use-package treesit-auto
+    :custom
+    (treesit-auto-install 'prompt)
+    :config
+    (treesit-auto-add-to-auto-mode-alist 'all)
+    (global-treesit-auto-mode))
+#+end_src
+

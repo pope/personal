@@ -44,6 +44,8 @@ in
         marginalia
         markdown-mode
         nerd-icons
+        nerd-icons-corfu
+        nerd-icons-completion
         nix-mode
         nix-ts-mode
         orderless
