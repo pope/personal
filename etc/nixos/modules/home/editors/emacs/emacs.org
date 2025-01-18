@@ -36,9 +36,37 @@ Reference: https://emacsconf.org/2023/talks/gc/
 
 * Core Settings
 
+** Color Theme
+
+Using the [[https://github.com/doomemacs/themes][=doom-themes=]]. It's a nice set of themes, though it doesn't contain Catppuccin or Rose-Pine. This is in the core settings and not UI primarily because we want this to happen as early as possible. If not, we can get a flash of white as Emacs loads.
+
+#+begin_src emacs-lisp
+  (use-package doom-themes
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    (load-theme 'doom-one t)
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
+#+end_src
+
+** Transparency
+
+I also happen to like just a little bit of transparency to my windows.  This sets the current frame to have a transparency of =98%=, and ensure that all new frames have that same transparency value.
+
+#+begin_src emacs-lisp
+  (set-frame-parameter nil 'alpha-background 98)
+  (add-to-list 'default-frame-alist '(alpha-background . 98))
+#+end_src
+
+:NOTE:
+This does make the =menu-bar= on my Linux machine with a GTK show as fully transparent background. And this mode doesn't work for transparency in TTY mode.
+:END:
+
 ** Custom file
 
-I don't want quick Emacs customizations to show up in the init file. So we can add it to it's own file. This needs to load first incase there is any theme information, like which ones I trust and whatnot.
+I don't want quick Emacs customizations to show up in the init file. So we can add it to it's own file.
 
 #+begin_src emacs-lisp
   (setq custom-file "~/.emacs.d/custom.el")
@@ -242,6 +270,8 @@ The settings above work fine in GUI mode, but for terminal, we need a separate p
 
 * The UI
 
+This is all of the UI tweaks - outside of themeing. The theme config happens early in the startup to avoid flashes of white if the theme were to load later in the init process.
+
 ** Basic Config
 
 Some basic emacs stuff to add/remove UI to emacs.
@@ -260,21 +290,6 @@ Some basic emacs stuff to add/remove UI to emacs.
     (tool-bar-mode -1)
 
     (winner-mode 1))
-#+end_src
-
-** Color Theme
-
-Using the [[https://github.com/doomemacs/themes][=doom-themes=]]. It's a nice set of themes, though it doesn't contain Catppuccin or Rose-Pine.
-
-#+begin_src emacs-lisp
-  (use-package doom-themes
-    :config
-    ;; Global settings (defaults)
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-          doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (load-theme 'doom-one t)
-    ;; Corrects (and improves) org-mode's native fontification.
-    (doom-themes-org-config))
 #+end_src
 
 ** Nerd Icons

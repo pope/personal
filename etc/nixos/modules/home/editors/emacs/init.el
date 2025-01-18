@@ -5,6 +5,18 @@
 (add-hook 'emacs-startup-hook
 	  (lambda () (setq gc-cons-threshold (* 3 1000 1000))))
 
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one t)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+(set-frame-parameter nil 'alpha-background 98)
+(add-to-list 'default-frame-alist '(alpha-background . 98))
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file t)
 
@@ -122,15 +134,6 @@
   (tool-bar-mode -1)
 
   (winner-mode 1))
-
-(use-package doom-themes
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
 
 (use-package nerd-icons
   :config
