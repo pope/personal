@@ -21,6 +21,8 @@ in
         "${config.home.homeDirectory}/Code/personal/etc/nixos/modules/home/editors/emacs/init.el";
 
       packages = with pkgs; [
+        fd
+        ripgrep
         nixd
       ];
     };
@@ -50,7 +52,6 @@ in
         nix-ts-mode
         orderless
         rg
-        treesit-auto
         treesit-grammars.with-all-grammars
         vertico
         xclip

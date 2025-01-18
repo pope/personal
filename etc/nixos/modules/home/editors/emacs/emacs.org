@@ -288,7 +288,7 @@ This package is nice if I want to enter in some =nerd-icons-insert=. It also has
       (nerd-icons-set-font)))
 #+end_src
 
-TODO(pope): Add icons for corfu and marginalia 
+TODO(pope): Add icons for corfu and marginalia
 
 ** Ligatures
 
@@ -318,16 +318,61 @@ I like ligatures. So this sets those up for all programming modes.
 
 * Programming
 
-Lastly, let's add support for programming languages. =nix-mode= and =zig-mode= are installed through Nix and have auto-loads configured. So there isn't anything that we need to do here.
+Lastly, let's add support for programming languages. =nix-mode= (and one with treesit) and =zig-mode= (and also with treesit) are installed through Nix and have auto-loads configured. So there isn't anything that we need to do here. The goal with installing =-mode= and =-ts-mode= packages is to use ts version as the main major mode, but still use features from the normal mode.
 
-But what we can do is make language parsing better with =treesit=, a package for =treesitter= configurations into the mix
+Speaking of treesit and treesitter, I do want Emacs to use the =-ts-mode= versions of major modes. With Emacs 29, there's a remap list where we can say instead of loading one mode, load the next. Learn more on the [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter][How to get started with tree-sitter article]] on /Mastering Emacs/ site.
 
 #+begin_src emacs-lisp
-  (use-package treesit-auto
-    :custom
-    (treesit-auto-install 'prompt)
-    :config
-    (treesit-auto-add-to-auto-mode-alist 'all)
-    (global-treesit-auto-mode))
+  (setq major-mode-remap-alist
+        '(
+          (bash-mode . bash-ts-mode)
+          (c-mode . c-ts-mode)
+          (c++-mode . c++-ts-mode)
+          (c-or-c++-mode . c-or-c++-ts-mode)
+          (css-mode . css-ts-mode)
+          (js-mode . js-ts-mode)
+          (js2-mode . js-ts-mode)
+          (java-mode . java-ts-mode)
+          (json-mode . json-ts-mode)
+          (ruby-mode . ruby-ts-mode)
+          (nix-mode . nix-ts-mode)
+          (python-mode . python-ts-mode)
+          (typescript-mode . typescript-ts-mode)
+          (yaml-mode . yaml-ts-mode)
+          (zig-mode . zig-ts-mode)))
 #+end_src
 
+:NOTE:
+Using =treesit-auto= is a common tool for doing the mapping above, but it also has code to download TreeSit parsers if they are not available. Nix already has those parsers - so I control adding through that. Thus, =treesit-auto= does more than I need and I can just keep it simple here.
+:END:
+
+Next up, there are some treesit modes that are available, but they do not autoload when visiting a buffer. So we shall address that next.
+
+#+begin_src emacs-lisp
+  (use-package go-ts-mode
+    :mode "\\.go\\'")
+  (use-package rust-ts-mode
+    :mode "\\.rs\\'")
+#+end_src
+
+** LSP support with Eglot
+
+For better code complete and code searching, we can use an LSP. =Eglot= gives us that library for doing the integration, and most things work right out of the box - especially for the =-mode= languages. But because I'm doing with the =-ts-mode= versions, there is some tweaking I need to do to propery map the ts-mode version to LSP.
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'eglot
+    (dolist (el '((nix-ts-mode . ("nixd"))
+                  (zig-ts-mode . ("zls"))))
+      (add-to-list 'eglot-server-programs el)))
+#+end_src
+
+And we can auto-start =eglot= when some modes activate
+
+#+begin_src emacs-lisp
+  (use-package eglot-
+    :hook ((c-ts-mode . eglot-ensure)
+           (go-ts-mode . eglot-ensure)
+           (nix-ts-mode . eglot-ensure)
+           (rust-ts-mode . eglot-ensure)
+           (zig-ts-mode . eglot-ensure)))
+#+end_src
