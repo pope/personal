@@ -203,3 +203,7 @@
          (nix-ts-mode . eglot-ensure)
          (rust-ts-mode . eglot-ensure)
          (zig-ts-mode . eglot-ensure)))
+
+(use-package direnv
+  :config
+  (direnv-mode))

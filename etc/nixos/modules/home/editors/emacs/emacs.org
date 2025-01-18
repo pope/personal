@@ -404,3 +404,13 @@ And we can auto-start =eglot= when some modes activate
            (rust-ts-mode . eglot-ensure)
            (zig-ts-mode . eglot-ensure)))
 #+end_src
+
+** Direnv support
+
+I don't only use Nix for my config files - I also use it for all of my projects. Many/most of those projects use =direnv= to create a local environment where the tools needed to build the project are made available - including LSP servers. So to make things easy, we can have Emacs bring in those configurations automatically.
+
+#+begin_src emacs-lisp
+  (use-package direnv
+    :config
+    (direnv-mode))
+#+end_src

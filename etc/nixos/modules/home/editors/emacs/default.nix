@@ -34,6 +34,7 @@ in
         consult
         corfu
         corfu-terminal
+        direnv
         doom-modeline
         doom-themes
         editorconfig
