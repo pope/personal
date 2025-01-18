@@ -17,8 +17,10 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-24.11";
+    # Using the git URLs to get around tarball download slowness
+    # See https://github.com/NixOS/nix/issues/10683
+    nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=nixos-unstable";
+    nixpkgs-stable.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=release-24.11";
 
     home-manager = {
       # The stable URL
