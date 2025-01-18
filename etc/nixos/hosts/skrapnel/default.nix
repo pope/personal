@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, ... }:
+{ self, inputs, pkgs, config, ... }:
 
 {
   imports =
@@ -20,6 +20,12 @@
       self.overlays.default
     ];
     config.allowUnfree = true;
+    config.permittedInsecurePackages = [
+      "aspnetcore-runtime-6.0.36"
+      "aspnetcore-runtime-wrapped-6.0.36"
+      "dotnet-sdk-6.0.428"
+      "dotnet-sdk-wrapped-6.0.428"
+    ];
   };
 
   boot = {
@@ -83,6 +89,35 @@
     zerotierone = {
       enable = true;
       joinNetworks = [ "272f5eae164a4c0f" ];
+    };
+
+    # # Jellyfin
+    # jellyfin = {
+    #   enable = true;
+    #   openFirewall = true;
+    # };
+    # jellyseerr = {
+    #   enable = true;
+    #   port = 5055;
+    #   openFirewall = true;
+    # };
+    sabnzbd = {
+      enable = true;
+      openFirewall = true;
+      user = "pope";
+      group = "wheel";
+    };
+    sonarr = {
+      enable = true;
+      openFirewall = true;
+      user = "pope";
+      group = "wheel";
+    };
+    radarr = {
+      enable = true;
+      openFirewall = true;
+      user = "pope";
+      group = "wheel";
     };
   };
 
