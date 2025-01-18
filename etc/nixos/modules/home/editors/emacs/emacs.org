@@ -1,5 +1,7 @@
-#+title: Emacs config
-#+PROPERTY: header-args :emacs-lisp :tangle ./init.el :mkdirp yes
+#+title: My Emacs Config
+#+author: K. Adam Christensen
+#+language: en
+#+property: header-args :emacs-lisp :tangle ./init.el :mkdirp yes
 
 * Goal
 
