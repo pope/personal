@@ -1,18 +1,12 @@
 ;;; -*- lexical-binding: t -*-
 
-(defvar pope-emacs/file-name-handler-alist file-name-handler-alist)
-(defvar pope-emacs/vc-handled-backends vc-handled-backends)
 ;; Measured in bytes.
 (setq gc-cons-threshold most-positive-fixnum
-      gc-cons-percentage 0.5
-      file-name-handler-alist nil
-      vc-handled-backends nil)
+      gc-cons-percentage 0.5)
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq gc-cons-threshold (* 8 1000 1000)
-                  gc-cons-percentage 0.1
-                  file-name-handler-alist pope-emacs/file-name-handler-alist
-                  vc-handled-backends pope-emacs/vc-handled-backends)))
+                  gc-cons-percentage 0.1)))
 
 (use-package doom-themes
   :config
