@@ -75,6 +75,19 @@
     };
     date = "2025-01-14";
   };
+  ia-writer = {
+    pname = "ia-writer";
+    version = "f32c04c3058a75d7ce28919ce70fe8800817491b";
+    src = fetchgit {
+      url = "https://github.com/iaolo/iA-Fonts";
+      rev = "f32c04c3058a75d7ce28919ce70fe8800817491b";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-2T165nFfCzO65/PIHauJA//S+zug5nUwPcg8NUEydfc=";
+    };
+    date = "2023-06-16";
+  };
   iqm = {
     pname = "iqm";
     version = "e5004bb3f46eafece81376ecafccc7f3ae747b59";

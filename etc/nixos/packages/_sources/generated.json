@@ -121,6 +121,25 @@
         },
         "version": "0980605c3d3ea1241446b058043a21f22061a399"
     },
+    "ia-writer": {
+        "cargoLocks": null,
+        "date": "2023-06-16",
+        "extract": null,
+        "name": "ia-writer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "f32c04c3058a75d7ce28919ce70fe8800817491b",
+            "sha256": "sha256-2T165nFfCzO65/PIHauJA//S+zug5nUwPcg8NUEydfc=",
+            "type": "git",
+            "url": "https://github.com/iaolo/iA-Fonts"
+        },
+        "version": "f32c04c3058a75d7ce28919ce70fe8800817491b"
+    },
     "iqm": {
         "cargoLocks": null,
         "date": "2024-06-23",

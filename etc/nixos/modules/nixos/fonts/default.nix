@@ -20,6 +20,7 @@ in
         go-font
         hasklig
         helvetica-neue-lt-std
+        ia-writer
         inter
         iosevka
         iosevka-comfy.comfy
