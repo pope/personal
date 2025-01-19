@@ -64,16 +64,16 @@
   };
   hatsune-miku-cursor = {
     pname = "hatsune-miku-cursor";
-    version = "814a5d731e121ccdeb374f29ea1464fbf56bc36d";
+    version = "0980605c3d3ea1241446b058043a21f22061a399";
     src = fetchgit {
       url = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors";
-      rev = "814a5d731e121ccdeb374f29ea1464fbf56bc36d";
+      rev = "0980605c3d3ea1241446b058043a21f22061a399";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-OQjjOc9VnxJ7tWNmpHIMzNWX6WsavAOkgPwK1XAMwtE=";
+      sha256 = "sha256-5aVSlRoO/VNYDxcRsMOIdV0uyyOcvvPxI+NFFkj95Yw=";
     };
-    date = "2024-11-28";
+    date = "2025-01-14";
   };
   iqm = {
     pname = "iqm";
@@ -194,15 +194,15 @@
   };
   yazi-plugins = {
     pname = "yazi-plugins";
-    version = "71c4fc2e6fa1d6f70c85bf525842d6888d1ffa46";
+    version = "e4aaf430ad7f81d2e358e3a60525c8ef3fa259fc";
     src = fetchgit {
       url = "https://github.com/yazi-rs/plugins";
-      rev = "71c4fc2e6fa1d6f70c85bf525842d6888d1ffa46";
+      rev = "e4aaf430ad7f81d2e358e3a60525c8ef3fa259fc";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-X3R5bsnzGv1TVXOKdhAyspDMguVAyc9tvCxJlypUUAA=";
+      sha256 = "sha256-dIj2YgLN04nFxmw7I/sdbJY2QCs+Nmb4eUtfLlPL53E=";
     };
-    date = "2024-12-24";
+    date = "2025-01-17";
   };
 }
