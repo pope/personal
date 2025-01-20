@@ -201,3 +201,12 @@
 (use-package direnv
   :config
   (direnv-mode))
+
+(use-package vterm
+  :commands (vterm)
+  :config
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (display-line-numbers-mode -1)
+              (visual-line-mode -1)
+              (toggle-truncate-lines 1))))

@@ -55,6 +55,7 @@ in
         rg
         treesit-grammars.with-all-grammars
         vertico
+        vterm
         xclip
         zig-mode
         zig-ts-mode

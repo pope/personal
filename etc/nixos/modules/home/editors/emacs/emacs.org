@@ -408,3 +408,18 @@ I don't only use Nix for my config files - I also use it for all of my projects.
     :config
     (direnv-mode))
 #+end_src
+
+** A Terminal
+
+I have a complex terminal setup - it's where I tend to do most of my work, and so I use fancy (overlay complicated) TUIs and icons and settings - all of which can make =vterm= have problems displaying everything unless we tweak a few things. Some of the properties above like showing line numbers or a visual line don't make sense for a vterm session - so those get disable. The odd one though is =toggle-truncate-lines=. The Oh-My-Posh prompt can cause the line (which should be on just one line) break to another line. Then there are TUI apps like =lazygit= which can also exibit this longer-than-one-line issue. Truncating - while not perfect, does a better job of making things readible and usable.
+
+#+begin_src emacs-lisp
+  (use-package vterm
+    :commands (vterm)
+    :config
+    (add-hook 'vterm-mode-hook
+              (lambda ()
+                (display-line-numbers-mode -1)
+                (visual-line-mode -1)
+                (toggle-truncate-lines 1))))
+#+end_src
