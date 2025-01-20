@@ -51,6 +51,7 @@ in
         nerd-icons-completion
         nix-mode
         nix-ts-mode
+        nyan-mode
         orderless
         rg
         treesit-grammars.with-all-grammars

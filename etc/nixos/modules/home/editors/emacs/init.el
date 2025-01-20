@@ -163,6 +163,17 @@
      "\\\\" "://"))
   (global-ligature-mode t))
 
+(use-package nyan-mode
+  :custom (nyan-cat-face-number 4)
+  :hook (after-init . nyan-mode))
+
+(use-package emacs
+  :config (scroll-bar-mode -1))
+
+(unless (display-graphic-p)
+  (use-package emacs
+    :config (xterm-mouse-mode 1)))
+
 (setq major-mode-remap-alist
       '(
         (bash-mode . bash-ts-mode)

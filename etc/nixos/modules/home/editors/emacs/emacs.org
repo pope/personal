@@ -27,7 +27,7 @@ Not sure what this does for performance or how the init functions, but adding it
 
 The Emacs garbage collector runs many times during app start. So at the start, we increase the amount of GC temporarily at the start. At the end of this doc, we can reset it (though not quite as low). The default is 800kb.
 
-Referencse:
+References:
   - https://emacsconf.org/2023/talks/gc/
   - https://github.com/protesilaos/dotfiles/blob/master/emacs/.emacs.d/prot-emacs.org
 
@@ -336,6 +336,27 @@ I like ligatures. So this sets those up for all programming modes.
        "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
        "\\\\" "://"))
     (global-ligature-mode t))
+#+end_src
+
+** Scrolling
+
+We could rely on the scrollbars provided by Emacs, but for whatever reason, I want to have more fun - and =nyan-mode= does that.
+
+#+begin_src emacs-lisp
+  (use-package nyan-mode
+    :custom (nyan-cat-face-number 4)
+    :hook (after-init . nyan-mode))
+
+  (use-package emacs
+    :config (scroll-bar-mode -1))
+#+end_src
+
+Scrolling can also be wonky when using a mouse in TTY mode. So we can enable =xterm-mouse-mode= to make that - and other things like menu selection - work.
+
+#+begin_src emacs-lisp
+  (unless (display-graphic-p)
+    (use-package emacs
+      :config (xterm-mouse-mode 1)))
 #+end_src
 
 * Programming
