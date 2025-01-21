@@ -400,7 +400,7 @@ Next up, there are some treesit modes that are available, but they do not autolo
 
 ** LSP support with Eglot
 
-For better code complete and code searching, we can use an LSP. =Eglot= gives us that library for doing the integration, and most things work right out of the box - especially for the =-mode= languages. But because I'm doing with the =-ts-mode= versions, there is some tweaking I need to do to propery map the ts-mode version to LSP.
+For better code complete and code searching, we can use an LSP. =Eglot= gives us that library for doing the integration, and most things work right out of the box - especially for the =-mode= languages. But because I'm doing with the =-ts-mode= versions, there is some tweaking I need to do to properly map the ts-mode version to an LSP.
 
 #+begin_src emacs-lisp
   (with-eval-after-load 'eglot
