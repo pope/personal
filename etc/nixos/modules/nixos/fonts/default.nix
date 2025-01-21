@@ -34,8 +34,10 @@ in
         noto-fonts-emoji
         open-sans
         roboto
-        sf-mono-nf-liga
+        roboto-mono
+        roboto-slab
         sf-mono-font
+        sf-mono-nf-liga
         source-serif
         terminus_font
         terminus_font_ttf
