@@ -12,10 +12,12 @@ in
   config = mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib ]);
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
+        catppuccin.catppuccin-vsc
+        catppuccin.catppuccin-vsc-icons
         editorconfig.editorconfig
+        enkia.tokyo-night
         golang.go
         mkhl.direnv
         ms-python.python
@@ -34,6 +36,8 @@ in
         yzhang.markdown-all-in-one
         zxh404.vscode-proto3
       ];
+      mutableExtensionsDir = false;
+      package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib ]);
     };
   };
 }
