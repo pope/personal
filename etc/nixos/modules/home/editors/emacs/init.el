@@ -174,6 +174,12 @@
   (use-package emacs
     :config (xterm-mouse-mode 1)))
 
+(use-package doom-modeline
+  :custom
+  (doom-modeline-minor-modes t)
+  :hook
+  (after-init . doom-modeline-mode))
+
 (setq major-mode-remap-alist
       '(
         (bash-mode . bash-ts-mode)

@@ -359,6 +359,18 @@ Scrolling can also be wonky when using a mouse in TTY mode. So we can enable =xt
       :config (xterm-mouse-mode 1)))
 #+end_src
 
+** Modeline
+
+Using =doom-modeline= to have a fancier looking modeline bar at the bottom of the editor.
+
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :custom
+    (doom-modeline-minor-modes t)
+    :hook
+    (after-init . doom-modeline-mode))
+#+end_src
+
 * Programming
 
 Lastly, let's add support for programming languages. =nix-mode= (and one with treesit) and =zig-mode= (and also with treesit) are installed through Nix and have auto-loads configured. So there isn't anything that we need to do here. The goal with installing =-mode= and =-ts-mode= packages is to use ts version as the main major mode, but still use features from the normal mode.
