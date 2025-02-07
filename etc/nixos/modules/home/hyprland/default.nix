@@ -25,6 +25,7 @@ in
 {
   options.my.home.hyprland = {
     enable = mkEnableOption "hyprland home options";
+    enableVrr = mkEnableOption "variable refresh rate";
   };
 
   imports = [
