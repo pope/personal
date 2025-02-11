@@ -359,6 +359,19 @@ Scrolling can also be wonky when using a mouse in TTY mode. So we can enable =xt
       :config (xterm-mouse-mode 1)))
 #+end_src
 
+** Indentation
+
+I like seeing a line for where the indentation levels.
+
+#+begin_src emacs-lisp
+  (use-package indent-bars
+    :custom
+    (indent-bars-treesit-support t)
+    (indent-bars-prefer-character t)
+    :config (require 'indent-bars-ts)
+    :hook (prog-mode . indent-bars-mode))
+#+end_src
+
 ** Modeline
 
 Using =doom-modeline= to have a fancier looking modeline bar at the bottom of the editor.

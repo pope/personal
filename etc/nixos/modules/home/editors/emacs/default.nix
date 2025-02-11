@@ -42,13 +42,14 @@ in
         embark-consult
         evil
         fzf
+        indent-bars
         ligature
         magit
         marginalia
         markdown-mode
         nerd-icons
-        nerd-icons-corfu
         nerd-icons-completion
+        nerd-icons-corfu
         nix-mode
         nix-ts-mode
         nyan-mode

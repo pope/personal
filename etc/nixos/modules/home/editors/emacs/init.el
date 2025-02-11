@@ -174,6 +174,13 @@
   (use-package emacs
     :config (xterm-mouse-mode 1)))
 
+(use-package indent-bars
+  :custom
+  (indent-bars-treesit-support t)
+  (indent-bars-prefer-character t)
+  :config (require 'indent-bars-ts)
+  :hook (prog-mode . indent-bars-mode))
+
 (use-package doom-modeline
   :custom
   (doom-modeline-minor-modes t)
