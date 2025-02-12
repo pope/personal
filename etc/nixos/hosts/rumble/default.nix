@@ -96,6 +96,11 @@
     logind.lidSwitch = "suspend-then-hibernate";
     logind.lidSwitchExternalPower = "suspend";
     power-profiles-daemon.enable = true;
+
+    zerotierone = {
+      enable = true;
+      joinNetworks = [ "272f5eae164a4c0f" ];
+    };
   };
 
   powerManagement = {
