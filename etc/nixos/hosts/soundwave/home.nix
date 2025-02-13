@@ -18,7 +18,7 @@
       zathura
     ];
 
-    stateVersion = "23.05";
+    stateVersion = "24.11";
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
