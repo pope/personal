@@ -23,7 +23,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      canon-cups-ufr2
+      pkgs.stable.canon-cups-ufr2
       stable.cnijfilter2
     ];
 
