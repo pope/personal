@@ -42,6 +42,7 @@ in
     ] ++ lib.optionals stdenv.isLinux [
       bitwig-studio
       reaper
+      vital
     ];
   };
 }
