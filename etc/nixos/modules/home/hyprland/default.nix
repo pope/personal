@@ -49,6 +49,9 @@ in
 
       export XDG_CURRENT_DESKTOP=Hyprland
       export XDG_SESSION_DESKTOP=Hyprland
+
+      # For org.gtk.Settings.FileChooser
+      export XDG_DATA_DIRS="$XDG_DATA_DIRS:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
     '';
 
     home.packages = with pkgs; [
