@@ -10,7 +10,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.config.firefox.speechSynthesisSupport = true;
     home.packages = with pkgs; [
       firefox
     ];

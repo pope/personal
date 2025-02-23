@@ -13,6 +13,7 @@ in
     nixpkgs.config = {
       # Allow unfree packages
       allowUnfree = true;
+      firefox.speechSynthesisSupport = true;
       # Accept the joypixels license
       joypixels.acceptLicense = true;
     };

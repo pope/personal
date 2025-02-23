@@ -12,7 +12,9 @@ in
   config = mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      extensions = with pkgs.vscode-extensions; [
+      package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib ]);
+      mutableExtensionsDir = false;
+      profiles.default.extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
         catppuccin.catppuccin-vsc
         catppuccin.catppuccin-vsc-icons
@@ -29,15 +31,14 @@ in
         mvllow.rose-pine
         pkief.material-icon-theme
         pkief.material-product-icons
-        rust-lang.rust-analyzer
+        # Go back to unstable when https://github.com/NixOS/nixpkgs/issues/382845 lands
+        pkgs.stable.vscode-extensions.rust-lang.rust-analyzer
         twxs.cmake
         vscode-icons-team.vscode-icons
         vscodevim.vim
         yzhang.markdown-all-in-one
         zxh404.vscode-proto3
       ];
-      mutableExtensionsDir = false;
-      package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib ]);
     };
   };
 }
