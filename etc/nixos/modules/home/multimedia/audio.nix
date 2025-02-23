@@ -41,6 +41,8 @@ in
       convert_to_opus
     ] ++ lib.optionals stdenv.isLinux [
       bitwig-studio
+      easyaudiosync
+      easytag
       reaper
       vital
     ];
