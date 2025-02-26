@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption mkOption types;
@@ -42,7 +42,6 @@ in
         in
         {
           enable = true;
-          package = inputs.waybar.packages.${pkgs.system}.waybar;
           settings =
             if cfg.theme == "hyprland" then hyprland_config
             else if cfg.theme == "bubble" then bubble_config

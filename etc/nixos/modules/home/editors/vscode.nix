@@ -31,8 +31,7 @@ in
         mvllow.rose-pine
         pkief.material-icon-theme
         pkief.material-product-icons
-        # Go back to unstable when https://github.com/NixOS/nixpkgs/issues/382845 lands
-        pkgs.stable.vscode-extensions.rust-lang.rust-analyzer
+        rust-lang.rust-analyzer
         twxs.cmake
         vscode-icons-team.vscode-icons
         vscodevim.vim
