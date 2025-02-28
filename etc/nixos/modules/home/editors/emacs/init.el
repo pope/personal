@@ -176,8 +176,14 @@
 
 (use-package indent-bars
   :custom
+  (indent-bars-color '(highlight :face-bg t :blend 0.2))
+  (indent-bars-highlight-current-depth '(:blend 0.5))
+  (indent-bars-pad-frac 0.1)
+  (indent-bars-pattern ".")
+  (indent-bars-starting-column 0)
   (indent-bars-treesit-support t)
-  (indent-bars-prefer-character t)
+  (indent-bars-width-frac 0.1)
+  (indent-bars-zigzag nil)
   :config (require 'indent-bars-ts)
   :hook (prog-mode . indent-bars-mode))
 

@@ -28,7 +28,7 @@ in
     };
     programs.emacs = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.emacs else pkgs.emacs29-pgtk;
+      package = if pkgs.stdenv.isDarwin then pkgs.emacs30 else pkgs.emacs30-pgtk;
       extraPackages = epkgs: (with epkgs; [
         cape
         consult
