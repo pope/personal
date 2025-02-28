@@ -227,7 +227,7 @@
                 (zig-ts-mode . ("zls"))))
     (add-to-list 'eglot-server-programs el)))
 
-(use-package eglot-
+(use-package eglot
   :hook ((c-ts-mode . eglot-ensure)
          (go-ts-mode . eglot-ensure)
          (nix-ts-mode . eglot-ensure)

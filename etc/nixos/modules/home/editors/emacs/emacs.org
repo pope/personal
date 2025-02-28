@@ -449,7 +449,7 @@ For better code complete and code searching, we can use an LSP. =Eglot= gives us
 And we can auto-start =eglot= when some modes activate
 
 #+begin_src emacs-lisp
-  (use-package eglot-
+  (use-package eglot
     :hook ((c-ts-mode . eglot-ensure)
            (go-ts-mode . eglot-ensure)
            (nix-ts-mode . eglot-ensure)
