@@ -168,7 +168,13 @@
   :hook (after-init . nyan-mode))
 
 (use-package emacs
-  :config (scroll-bar-mode -1))
+  :custom
+  (mouse-wheel-tilt-scroll t)
+  (scroll-conservatively 101)
+  (scroll-margin 0)
+  :config
+  (scroll-bar-mode -1)
+  (pixel-scroll-precision-mode 1))
 
 (unless (display-graphic-p)
   (use-package emacs
