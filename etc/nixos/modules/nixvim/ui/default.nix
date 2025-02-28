@@ -75,6 +75,43 @@ in
       config = true;
     }
     {
+      pkg = barbar-nvim;
+      dependencies = [
+        gitsigns-nvim
+        nvim-web-devicons
+      ];
+      keys =
+        let
+          bufferkeymap = desc: key: cmd: {
+            inherit desc;
+            lhs = "<M-${key}>";
+            rhs = "<cmd>${cmd}<CR>";
+          };
+          gotokeymap = num: {
+            lhs = "<M-${toString num}>";
+            rhs = "<cmd>BufferGoto ${toString num}<CR>";
+            desc = "Goto buffer ${toString num}";
+          };
+        in
+        mkLazyKeys ([
+          (bufferkeymap "Goto previous buffer" "," "BufferPrevious")
+          (bufferkeymap "Goto next buffer" "." "BufferNext")
+          (bufferkeymap "Goto last buffer" "0" "BufferLast")
+
+          (bufferkeymap "Reorder to previous buffer" "<" "BufferMovePrevious")
+          (bufferkeymap "Reorder to next buffer" ">" "BufferMoveNext")
+
+          (bufferkeymap "Close buffer" "c" "BufferClose")
+        ] ++ (map gotokeymap [ 1 2 3 4 5 6 7 8 9 ]));
+      init = /* lua */ ''
+        function()
+          vim.g.barbar_auto_setup = false
+        end
+      '';
+      config = true;
+      lazy = false;
+    }
+    {
       pkg = neoscroll-nvim;
       event = [ "VeryLazy" ];
       config = true;
