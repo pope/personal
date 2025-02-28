@@ -60,6 +60,21 @@ in
       ];
     }
     {
+      pkg = oil-nvim;
+      dependencies = [
+        nvim-web-devicons
+      ];
+      cmd = [ "Oil" ];
+      keys = mkLazyKeys [
+        {
+          lhs = "-";
+          rhs = "<cmd>Oil<CR>";
+          desc = "Open parent directory";
+        }
+      ];
+      config = true;
+    }
+    {
       pkg = neoscroll-nvim;
       event = [ "VeryLazy" ];
       config = true;
