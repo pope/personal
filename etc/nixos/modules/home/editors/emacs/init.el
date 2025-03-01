@@ -125,10 +125,11 @@
     :config (corfu-terminal-mode 1)))
 
 (use-package emacs
+  :custom
+  (display-line-numbers-grow-only t)
+  (inhibit-startup-screen t)		; Don't show startup message
+  (confirm-kill-emacs 'y-or-n-p)	; Less typing when quitting
   :config
-  (setq inhibit-startup-screen t      ; Don't show startup message
-        confirm-kill-emacs 'y-or-n-p) ; Less typing when quitting
-
   (column-number-mode 1)
   (global-display-line-numbers-mode 1)
   (global-hl-line-mode 1)
