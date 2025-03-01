@@ -6,7 +6,7 @@ let
   launcher = "${getExe pkgs.uwsm} app --";
 
   # commands
-  anyrun = "${launcher} ${getExe pkgs.anyrun}";
+  anyrun = "${launcher} ${getExe config.programs.anyrun.package}";
   brillo = "${getExe pkgs.brillo}";
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";

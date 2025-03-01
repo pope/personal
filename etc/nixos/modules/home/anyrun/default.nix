@@ -1,8 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.anyrun;
+  anyrun = inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins;
 in
 {
   options.my.home.anyrun = {
@@ -17,17 +18,18 @@ in
   config = mkIf cfg.enable {
     programs.anyrun = with config.my.home.theme.colors.withHash; {
       enable = true;
+      package = anyrun;
 
       config = {
         plugins = [
-          "${pkgs.anyrun}/lib/libapplications.so"
-          "${pkgs.anyrun}/lib/libdictionary.so"
-          "${pkgs.anyrun}/lib/librink.so"
-          "${pkgs.anyrun}/lib/libstdin.so"
-          "${pkgs.anyrun}/lib/libshell.so"
-          "${pkgs.anyrun}/lib/libsymbols.so"
-          "${pkgs.anyrun}/lib/libtranslate.so"
-          "${pkgs.anyrun}/lib/libwebsearch.so"
+          "${anyrun}/lib/libapplications.so"
+          "${anyrun}/lib/libdictionary.so"
+          "${anyrun}/lib/librink.so"
+          "${anyrun}/lib/libstdin.so"
+          "${anyrun}/lib/libshell.so"
+          "${anyrun}/lib/libsymbols.so"
+          "${anyrun}/lib/libtranslate.so"
+          "${anyrun}/lib/libwebsearch.so"
         ];
 
         closeOnClick = true;

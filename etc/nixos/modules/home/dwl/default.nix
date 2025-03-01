@@ -41,7 +41,7 @@ let
         src = ./dwl/config.def.h;
 
         # apps
-        anyrun = getExe anyrun;
+        anyrun = getExe config.programs.anyrun.package;
         brillo = getExe brillo;
         foot = getExe foot;
         pamixer = getExe pamixer;
