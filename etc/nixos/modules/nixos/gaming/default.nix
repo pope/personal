@@ -51,8 +51,9 @@ in
         enable = cfg.enableSteam;
         dedicatedServer.openFirewall = true;
         extraPackages = with pkgs; [
-          mangohud
+          gamemode
           gamescope
+          mangohud
         ];
         gamescopeSession = {
           enable = true;
