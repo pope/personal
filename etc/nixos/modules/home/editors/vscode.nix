@@ -22,7 +22,7 @@ in
         enkia.tokyo-night
         golang.go
         mkhl.direnv
-        ms-python.python
+        pkgs.stable.vscode-extensions.ms-python.python
         ms-vscode.cmake-tools
         ms-vscode.cpptools
         ms-vscode.cpptools-extension-pack
