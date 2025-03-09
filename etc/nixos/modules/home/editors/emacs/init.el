@@ -145,11 +145,9 @@
 (use-package diff-hl
   :custom
   (diff-hl-update-async t)
-  ;;(global-diff-hl-mode t)
   (diff-hl-margin-mode t)
   :hook
   (after-init . global-diff-hl-mode))
-;;  (diff-hl-margin-mode t))
 
 (use-package nerd-icons
   :config
@@ -177,8 +175,7 @@
   (global-ligature-mode t))
 
 (use-package nyan-mode
-  :custom (nyan-cat-face-number 4)
-  :hook (after-init . nyan-mode))
+  :custom (nyan-cat-face-number 4))
 
 (use-package emacs
   :custom
@@ -208,7 +205,7 @@
 
 (use-package doom-modeline
   :custom
-  (doom-modeline-minor-modes t)
+  (doom-modeline-minor-modes nil)
   :hook
   (after-init . doom-modeline-mode))
 
