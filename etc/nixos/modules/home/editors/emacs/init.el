@@ -142,6 +142,15 @@
 
   (winner-mode 1))
 
+(use-package diff-hl
+  :custom
+  (diff-hl-update-async t)
+  ;;(global-diff-hl-mode t)
+  (diff-hl-margin-mode t)
+  :hook
+  (after-init . global-diff-hl-mode))
+;;  (diff-hl-margin-mode t))
+
 (use-package nerd-icons
   :config
   (when (display-graphic-p)

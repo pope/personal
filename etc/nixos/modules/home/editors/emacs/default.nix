@@ -34,6 +34,7 @@ in
         consult
         corfu
         corfu-terminal
+        diff-hl
         direnv
         doom-modeline
         doom-themes

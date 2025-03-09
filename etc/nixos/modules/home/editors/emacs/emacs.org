@@ -309,6 +309,19 @@ Some basic emacs stuff to add/remove UI to emacs.
     (winner-mode 1))
 #+end_src
 
+** Diffs
+
+=diff-hl= provides a way to see changes to the file in the gutter/fringe of the file, and not just Git. It does require =vc-handled-backends= to be set - which is by default for my Emacs installation. Through the use of the margin-mode variant, the diff changes can be highlighted from the terminal as well.
+
+#+begin_src emacs-lisp
+  (use-package diff-hl
+    :custom
+    (diff-hl-update-async t)
+    (diff-hl-margin-mode t)
+    :hook
+    (after-init . global-diff-hl-mode))
+#+end_src
+
 ** Nerd Icons
 
 This package is nice if I want to enter in some =nerd-icons-insert=. It also has the benefit of adding Symbols for Nerd Font as a font for the regions where the font is applicable.
