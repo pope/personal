@@ -89,7 +89,7 @@
         enable = true;
         hip.enable = true;
       };
-      video.enable = true;
+      video.enable = false;
     };
     obs.enable = true;
     packages.enable = true;
