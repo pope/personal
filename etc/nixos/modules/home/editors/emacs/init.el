@@ -31,6 +31,9 @@
 (setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode t)
 
+(use-package emacs
+  :custom (editorconfig-mode t))
+
 (use-package xclip
   :config (xclip-mode 1))
 

@@ -100,6 +100,15 @@ Next, we can auto-revert some buffers when things change on disk
 
 * Editing
 
+** Basics
+
+The first thing we can set up for the editing experience is to leverage project EditorConfig settings. This is something that's available with Emacs 30, and can be set with a custom variable.
+
+#+begin_src emacs-lisp
+  (use-package emacs
+    :custom (editorconfig-mode t))
+#+end_src
+
 ** Clipboard
 
 When on [[https://wayland.freedesktop.org/][Wayland]] I was noticing that copy/paste was not working. Using [[https://elpa.gnu.org/packages/xclip.html][xclip]] seems to address that.
