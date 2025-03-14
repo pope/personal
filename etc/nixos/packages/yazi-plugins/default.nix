@@ -13,6 +13,7 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/share/yazi/plugins
+    cp -r $src/LICENSE $out/share/yazi/plugins/
     cp -r $src/*.yazi $out/share/yazi/plugins/
   '';
 }

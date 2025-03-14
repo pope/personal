@@ -1,7 +1,7 @@
 {
     "fish-catppuccin": {
         "cargoLocks": null,
-        "date": "2024-08-31",
+        "date": "2025-03-01",
         "extract": null,
         "name": "fish-catppuccin",
         "passthru": null,
@@ -11,12 +11,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cc8e4d8fffbdaab07b3979131030b234596f18da",
-            "sha256": "sha256-udiU2TOh0lYL7K7ylbt+BGlSDgCjMpy75vQ98C1kFcc=",
+            "rev": "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed",
+            "sha256": "sha256-Oc0emnIUI4LV7QJLs4B2/FQtCFewRFVp7EDv8GawFsA=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/catppuccin/fish"
         },
-        "version": "cc8e4d8fffbdaab07b3979131030b234596f18da"
+        "version": "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed"
     },
     "fish-rose-pine": {
         "cargoLocks": null,
@@ -32,6 +33,7 @@
             "name": null,
             "rev": "38aab5baabefea1bc7e560ba3fbdb53cb91a6186",
             "sha256": "sha256-bSGGksL/jBNqVV0cHZ8eJ03/8j3HfD9HXpDa8G/Cmi8=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rose-pine/fish"
         },
@@ -53,6 +55,7 @@
             "repo": "tokyonight-fish",
             "rev": "v4.8.0",
             "sha256": "sha256-JI1kTez4CeMpSKcSikFUee15N48zkJJOvLHCi0H2PUc=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v4.8.0"
@@ -104,7 +107,7 @@
     },
     "hatsune-miku-cursor": {
         "cargoLocks": null,
-        "date": "2025-01-14",
+        "date": "2025-03-13",
         "extract": null,
         "name": "hatsune-miku-cursor",
         "passthru": null,
@@ -114,12 +117,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0980605c3d3ea1241446b058043a21f22061a399",
-            "sha256": "sha256-5aVSlRoO/VNYDxcRsMOIdV0uyyOcvvPxI+NFFkj95Yw=",
+            "rev": "471ff88156e9a3dc8542d23e8cae4e1c9de6e732",
+            "sha256": "sha256-HCHo4GwWLvjjnKWNiHb156Z+NQqliqLX1T1qNxMEMfE=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors"
         },
-        "version": "0980605c3d3ea1241446b058043a21f22061a399"
+        "version": "471ff88156e9a3dc8542d23e8cae4e1c9de6e732"
     },
     "ia-writer": {
         "cargoLocks": null,
@@ -135,6 +139,7 @@
             "name": null,
             "rev": "f32c04c3058a75d7ce28919ce70fe8800817491b",
             "sha256": "sha256-2T165nFfCzO65/PIHauJA//S+zug5nUwPcg8NUEydfc=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iaolo/iA-Fonts"
         },
@@ -154,6 +159,7 @@
             "name": null,
             "rev": "e5004bb3f46eafece81376ecafccc7f3ae747b59",
             "sha256": "sha256-M7cn/TEG7hP6U9JpaAVp2vLAQxHNxnBvAU39vFnRiEM=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lsalzman/iqm"
         },
@@ -190,6 +196,7 @@
             "repo": "ModernX",
             "rev": "0.6.1",
             "sha256": "sha256-q7DwyfmOIM7K1L7vvCpq1EM0RVpt9E/drhAa9rLYb1k=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "0.6.1"
@@ -208,6 +215,7 @@
             "name": null,
             "rev": "b3f0a59d68f33b7162051ea5970a5169558f0ea2",
             "sha256": "sha256-KfCFU3fa8Fr5G5zVqKS35CJBzTYMY72kep8+Kd0YIu4=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/bjin/mpv-prescalers"
         },
@@ -229,6 +237,7 @@
             "repo": "Persona_5_Royal_Grub_Themes",
             "rev": "v1.0",
             "sha256": "sha256-YnTBgUWWsR0W8eTtg3oa2MIXSqj7HW555xSEhV7/74w=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v1.0"
@@ -249,6 +258,7 @@
             "repo": "plow",
             "rev": "v1.3.2",
             "sha256": "sha256-q9k5GzhYPOP8p8VKrqpoHc3B9Qak+4DtZAZZuFlkED0=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v1.3.2"
@@ -282,6 +292,7 @@
             "name": null,
             "rev": "1409ae79074d204c284507fef9e479248d5367c1",
             "sha256": "sha256-3wG3M4Qep7MYjktzX9u8d0iDWa17FSXYnObSoTG2I/o=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/supercomputra/SF-Mono-Font"
         },
@@ -301,6 +312,7 @@
             "name": null,
             "rev": "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea",
             "sha256": "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
         },
@@ -338,7 +350,7 @@
     },
     "yazi-plugins": {
         "cargoLocks": null,
-        "date": "2025-01-17",
+        "date": "2025-03-12",
         "extract": null,
         "name": "yazi-plugins",
         "passthru": null,
@@ -348,11 +360,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e4aaf430ad7f81d2e358e3a60525c8ef3fa259fc",
-            "sha256": "sha256-dIj2YgLN04nFxmw7I/sdbJY2QCs+Nmb4eUtfLlPL53E=",
+            "rev": "cb6165b25515b653a70f72a67889579d190facfe",
+            "sha256": "sha256-XDz67eHmVM5NrnQ/uPXN/jRgmrShs80anWnHpVmbPO8=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/yazi-rs/plugins"
         },
-        "version": "e4aaf430ad7f81d2e358e3a60525c8ef3fa259fc"
+        "version": "cb6165b25515b653a70f72a67889579d190facfe"
     }
 }

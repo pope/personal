@@ -3,16 +3,17 @@
 {
   fish-catppuccin = {
     pname = "fish-catppuccin";
-    version = "cc8e4d8fffbdaab07b3979131030b234596f18da";
+    version = "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed";
     src = fetchgit {
       url = "https://github.com/catppuccin/fish";
-      rev = "cc8e4d8fffbdaab07b3979131030b234596f18da";
+      rev = "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-udiU2TOh0lYL7K7ylbt+BGlSDgCjMpy75vQ98C1kFcc=";
+      sparseCheckout = [ ];
+      sha256 = "sha256-Oc0emnIUI4LV7QJLs4B2/FQtCFewRFVp7EDv8GawFsA=";
     };
-    date = "2024-08-31";
+    date = "2025-03-01";
   };
   fish-rose-pine = {
     pname = "fish-rose-pine";
@@ -23,6 +24,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-bSGGksL/jBNqVV0cHZ8eJ03/8j3HfD9HXpDa8G/Cmi8=";
     };
     date = "2022-09-16";
@@ -64,16 +66,17 @@
   };
   hatsune-miku-cursor = {
     pname = "hatsune-miku-cursor";
-    version = "0980605c3d3ea1241446b058043a21f22061a399";
+    version = "471ff88156e9a3dc8542d23e8cae4e1c9de6e732";
     src = fetchgit {
       url = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors";
-      rev = "0980605c3d3ea1241446b058043a21f22061a399";
+      rev = "471ff88156e9a3dc8542d23e8cae4e1c9de6e732";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-5aVSlRoO/VNYDxcRsMOIdV0uyyOcvvPxI+NFFkj95Yw=";
+      sparseCheckout = [ ];
+      sha256 = "sha256-HCHo4GwWLvjjnKWNiHb156Z+NQqliqLX1T1qNxMEMfE=";
     };
-    date = "2025-01-14";
+    date = "2025-03-13";
   };
   ia-writer = {
     pname = "ia-writer";
@@ -84,6 +87,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-2T165nFfCzO65/PIHauJA//S+zug5nUwPcg8NUEydfc=";
     };
     date = "2023-06-16";
@@ -97,6 +101,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-M7cn/TEG7hP6U9JpaAVp2vLAQxHNxnBvAU39vFnRiEM=";
     };
     date = "2024-06-23";
@@ -129,6 +134,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-KfCFU3fa8Fr5G5zVqKS35CJBzTYMY72kep8+Kd0YIu4=";
     };
     date = "2024-01-11";
@@ -172,6 +178,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-3wG3M4Qep7MYjktzX9u8d0iDWa17FSXYnObSoTG2I/o=";
     };
     date = "2018-06-08";
@@ -185,6 +192,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=";
     };
     date = "2023-07-01";
@@ -207,15 +215,16 @@
   };
   yazi-plugins = {
     pname = "yazi-plugins";
-    version = "e4aaf430ad7f81d2e358e3a60525c8ef3fa259fc";
+    version = "cb6165b25515b653a70f72a67889579d190facfe";
     src = fetchgit {
       url = "https://github.com/yazi-rs/plugins";
-      rev = "e4aaf430ad7f81d2e358e3a60525c8ef3fa259fc";
+      rev = "cb6165b25515b653a70f72a67889579d190facfe";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-dIj2YgLN04nFxmw7I/sdbJY2QCs+Nmb4eUtfLlPL53E=";
+      sparseCheckout = [ ];
+      sha256 = "sha256-XDz67eHmVM5NrnQ/uPXN/jRgmrShs80anWnHpVmbPO8=";
     };
-    date = "2025-01-17";
+    date = "2025-03-12";
   };
 }
