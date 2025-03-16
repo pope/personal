@@ -1,9 +1,27 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
     ../../modules/home
   ];
+
+  nix = {
+    gc = {
+      automatic = true;
+      frequency = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    registry = {
+      nixpkgs-stable.flake = inputs.nixpkgs-stable;
+    };
+    package = pkgs.nix;
+    settings = {
+      # Add trusted-users to /etc/nix/nix.conf to make the warnings go away
+      auto-optimise-store = true;
+      builders-use-substitutes = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 
   home = {
     username = "pope";
@@ -14,7 +32,7 @@
       nixgl.nixVulkanIntel
     ];
 
-    stateVersion = "23.05";
+    stateVersion = "24.11";
   };
 
   targets.genericLinux.enable = true;
@@ -30,16 +48,9 @@
       sshCommand = "ssh.exe";
       opSshSignCommand = "/mnt/c/Users/pope/AppData/Local/1Password/app/8/op-ssh-sign-wsl";
     };
-    languages = {
-      c.enable = true;
-      go.enable = true;
-      javascript.enable = true;
-      python.enable = true;
-      rust.enable = true;
-    };
-    lf.enable = true;
+    languages.python.enable = true;
     packages.enable = true;
-    shell.fish.enable = true;
+    shell.zsh.enable = true;
     yazi.enable = true;
   };
 }
