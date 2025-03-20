@@ -93,6 +93,7 @@
     };
     obs.enable = true;
     packages.enable = true;
+    rofi.enable = true;
     shell.zsh.enable = true;
     terminals = {
       ghostty = {

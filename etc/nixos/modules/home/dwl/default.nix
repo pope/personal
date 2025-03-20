@@ -46,6 +46,7 @@ let
         foot = getExe foot;
         pamixer = getExe pamixer;
         pkill = "${procps}/bin/pkill";
+        rofi = getExe config.programs.rofi.finalPackage;
         uwsm = getExe uwsm;
         wlogout = getExe wlogout;
 

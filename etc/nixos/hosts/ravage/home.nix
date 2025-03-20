@@ -56,6 +56,7 @@
     mpv.enable = true;
     multimedia.threed.enable = true;
     packages.enable = true;
+    rofi.enable = true;
     shell.fish.enable = true;
     terminals = {
       ghostty.enable = true;

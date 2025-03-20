@@ -124,7 +124,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[] = { "@uwsm@", "app", "--", "@foot@", NULL };
-static const char *menucmd[] = { "@uwsm@", "app", "--", "@anyrun@", NULL };
+static const char *menucmd[] = { "@uwsm@", "app", "--", "@rofi@", "-show", "drun", "-run-command", "@uwsm@ app -- {cmd}", NULL };
 static const char *logout[] =  { "@uwsm@", "app", "--", "@wlogout@", NULL };
 static const char *brightness_up[] =  { "@brillo@", "-A", "10", NULL };
 static const char *brightness_down[] =  { "@brillo@", "-U", "10", NULL };
