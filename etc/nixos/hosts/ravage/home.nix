@@ -31,7 +31,7 @@
   };
 
   my.home = {
-    anyrun.enable = true;
+    anyrun.enable = false;
     browsers.firefox.enable = true;
     editors = {
       emacs.enable = true;

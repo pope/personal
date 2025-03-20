@@ -48,7 +48,7 @@
   };
 
   my.home = {
-    anyrun.enable = true;
+    anyrun.enable = false;
     browsers = {
       firefox.enable = true;
       chromium.enable = true;
