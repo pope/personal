@@ -17,8 +17,10 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-(set-frame-parameter nil 'alpha-background 98)
-(add-to-list 'default-frame-alist '(alpha-background . 98))
+(defun pope-set-background-alpha (val)
+  (interactive "nAlpha: ")
+  (set-frame-parameter nil 'alpha-background val)
+  (add-to-list 'default-frame-alist `(alpha-background . ,val)))
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file t)

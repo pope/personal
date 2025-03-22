@@ -60,11 +60,13 @@ Using the [[https://github.com/doomemacs/themes][=doom-themes=]]. It's a nice se
 
 ** Transparency
 
-I also happen to like just a little bit of transparency to my windows.  This sets the current frame to have a transparency of =98%=, and ensure that all new frames have that same transparency value.
+I like a little transparency, but sometimes it can be a tad jank. The function =pope-set-background-alpha= is there to interactively set the transparency to any value I want. And I can always customize the variable per device if ever I so should choose.
 
 #+begin_src emacs-lisp
-  (set-frame-parameter nil 'alpha-background 98)
-  (add-to-list 'default-frame-alist '(alpha-background . 98))
+  (defun pope-set-background-alpha (val)
+    (interactive "nAlpha: ")
+    (set-frame-parameter nil 'alpha-background val)
+    (add-to-list 'default-frame-alist `(alpha-background . ,val)))
 #+end_src
 
 :NOTE:
