@@ -42,6 +42,7 @@ in
         embark
         embark-consult
         evil
+        expand-region
         fzf
         indent-bars
         ligature

@@ -111,6 +111,13 @@ The first thing we can set up for the editing experience is to leverage project 
     :custom (editorconfig-mode t))
 #+end_src
 
+Next, we can use =expand-region= so that we can select things in strings, or parenthesis, etc.
+
+#+begin_src emacs-lisp
+  (use-package expand-region
+    :bind ("C-=" . er/expand-region))
+#+end_src
+
 ** Clipboard
 
 When on [[https://wayland.freedesktop.org/][Wayland]] I was noticing that copy/paste was not working. Using [[https://elpa.gnu.org/packages/xclip.html][xclip]] seems to address that.

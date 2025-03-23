@@ -36,6 +36,9 @@
 (use-package emacs
   :custom (editorconfig-mode t))
 
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
+
 (use-package xclip
   :config (xclip-mode 1))
 
