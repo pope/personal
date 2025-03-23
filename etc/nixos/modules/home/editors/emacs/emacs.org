@@ -224,7 +224,7 @@ The vertico docs also recommend the following configs
   (use-package consult-
     :bind (:map global-map
            ("M-s M-r" . consult-recent-file)
-           ("M-s M-g" . consult-rg)
+           ("M-s M-g" . consult-ripgrep)
            ("M-s M-f" . consult-fd)
            ("M-s M-o" . consult-outline)
            ("M-s M-l" . consult-line)
