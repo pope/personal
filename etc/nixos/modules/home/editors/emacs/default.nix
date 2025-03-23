@@ -52,6 +52,8 @@ in
         nerd-icons
         nerd-icons-completion
         nerd-icons-corfu
+        nerd-icons-dired
+        nerd-icons-ibuffer
         nix-mode
         nix-ts-mode
         nyan-mode

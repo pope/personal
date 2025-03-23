@@ -342,7 +342,22 @@ This package is nice if I want to enter in some =nerd-icons-insert=. It also has
       (nerd-icons-set-font)))
 #+end_src
 
-TODO(pope): Add icons for corfu and marginalia
+There are some packages that make nerd fonts work with other packages or core emacs components.
+
+#+begin_src emacs-lisp
+  (use-package nerd-icons-dired
+    :hook (dired-mode . nerd-icons-dired-mode))
+  (use-package nerd-icons-ibuffer
+    :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+  (use-package nerd-icons-corfu
+    :after corfu
+    :config (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+  (use-package nerd-icons-completion
+    :after marginalia
+    :config
+    (nerd-icons-completion-mode)
+    (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+#+end_src
 
 ** Ligatures
 
