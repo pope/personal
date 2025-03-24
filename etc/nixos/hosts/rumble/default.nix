@@ -114,7 +114,7 @@
     AllowHybridSleep=yes
     AllowSuspend=yes
     AllowSuspendThenHibernate=yes
-    HibernateDelaySec=4h
+    HibernateDelaySec=24h
     MemorySleepMode=s2idle
   '';
 
