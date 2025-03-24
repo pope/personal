@@ -118,6 +118,17 @@ Next, we can use =expand-region= so that we can select things in strings, or par
     :bind ("C-=" . er/expand-region))
 #+end_src
 
+Finally, =multiple-cursors= allows for quick selection and edit at once
+
+#+begin_src emacs-lisp
+  (use-package multiple-cursors
+    :bind
+    ("C-S-c C-S-c"	. mc/edit-lines)
+    ("C->"		. mc/mark-next-like-this)
+    ("C-<"		. mc/mark-previous-like-this)
+    ("C-c C-<"		. mc/mark-all-like-this))
+#+end_src
+
 ** Clipboard
 
 When on [[https://wayland.freedesktop.org/][Wayland]] I was noticing that copy/paste was not working. Using [[https://elpa.gnu.org/packages/xclip.html][xclip]] seems to address that.

@@ -49,6 +49,7 @@ in
         magit
         marginalia
         markdown-mode
+        multiple-cursors
         nerd-icons
         nerd-icons-completion
         nerd-icons-corfu

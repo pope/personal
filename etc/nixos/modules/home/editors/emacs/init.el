@@ -39,6 +39,13 @@
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
 
+(use-package multiple-cursors
+  :bind
+  ("C-S-c C-S-c"	. mc/edit-lines)
+  ("C->"		. mc/mark-next-like-this)
+  ("C-<"		. mc/mark-previous-like-this)
+  ("C-c C-<"		. mc/mark-all-like-this))
+
 (use-package xclip
   :config (xclip-mode 1))
 
