@@ -31,6 +31,7 @@ in
       package = if pkgs.stdenv.isDarwin then pkgs.emacs30 else pkgs.emacs30-pgtk;
       extraPackages = epkgs: (with epkgs; [
         cape
+        clipetty
         consult
         corfu
         corfu-terminal

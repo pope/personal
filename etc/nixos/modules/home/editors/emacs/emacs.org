@@ -84,31 +84,34 @@ I don't want quick Emacs customizations to show up in the init file. So we can a
 
 ** Config
 
-First, let's put extra emacs files into the =.emacs.d= directory.
+First, let's put extra emacs files into the =.emacs.d= directory, namely auto-saves and backups. Then we can enable puting auto-saves into that path and enable =save-place-mode= which will keep it's history in the =.emacs.d= location.
+
+:NOTE:
+The Nix configuration should make sure that the auto-saves and backup directories exist. Otherwise the backup and saves can fail.
+:END:
 
 #+begin_src emacs-lisp
-  (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
-        backup-directory-alist `(("." . "~/.emacs.d/backups/")))
-  (recentf-mode 1)
-  (save-place-mode 1)
-#+end_src
-
-Next, we can auto-revert some buffers when things change on disk
-
-#+begin_src emacs-lisp
-  (setq global-auto-revert-non-file-buffers t)
-  (global-auto-revert-mode t)
+  (use-package emacs
+    :custom
+    (recentf-mode t)
+    (save-place-mode t)
+    :init
+    (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
+          backup-directory-alist         `(("." . "~/.emacs.d/backups/"))))
 #+end_src
 
 * Editing
 
 ** Basics
 
-The first thing we can set up for the editing experience is to leverage project EditorConfig settings. This is something that's available with Emacs 30, and can be set with a custom variable.
+The first thing we can set up for the editing experience is to leverage project EditorConfig settings. This is something that's available with Emacs 30, and can be set with a custom variable. Additionally, it would be nice to auto-revery buffers when things change on disk.
 
 #+begin_src emacs-lisp
   (use-package emacs
-    :custom (editorconfig-mode t))
+    :custom
+    (editorconfig-mode t)
+    (global-auto-revert-non-file-buffers t)
+    (global-auto-revert-mode t))
 #+end_src
 
 Next, we can use =expand-region= so that we can select things in strings, or parenthesis, etc.
@@ -135,7 +138,14 @@ When on [[https://wayland.freedesktop.org/][Wayland]] I was noticing that copy/p
 
 #+begin_src emacs-lisp
   (use-package xclip
-    :config (xclip-mode 1))
+    :custom (xclip-mode t))
+#+end_src
+
+=clipetty= is needed so that copy/paste works in terminals as well.
+
+#+begin_src emacs-lisp
+  (use-package clipetty
+    :custom (global-clipetty-mode t))
 #+end_src
 
 ** Vim style
@@ -166,8 +176,7 @@ Sources:
     :custom
     (vertico-cycle t)
     (vertico-resize nil)
-    :config
-    (vertico-mode 1))
+    (vertico-mode t))
 #+end_src
 
 The vertico docs also recommend the following configs
@@ -211,8 +220,7 @@ The vertico docs also recommend the following configs
     :demand 1
     :bind (:map minibuffer-local-map
                 ("M-A" . marginalia-cycle))
-    :config
-    (marginalia-mode 1))
+    :custom (marginalia-mode t))
 #+end_src
 
 *** Orderless
@@ -279,8 +287,7 @@ Then we can join embark and consult together
 
 #+begin_src emacs-lisp
   (use-package corfu
-    :config
-    (global-corfu-mode 1))
+    :custom (global-corfu-mode t))
 #+end_src
 
 In the regular Emacs config, we can make the =<TAB>= key trigger an autocomplete.
@@ -296,7 +303,7 @@ The settings above work fine in GUI mode, but for terminal, we need a separate p
   (unless (display-graphic-p)
     (use-package corfu-terminal
       :after corfu
-      :config (corfu-terminal-mode 1)))
+      :custom (corfu-terminal-mode t)))
 #+end_src
 
 =corfu= can also use =orderless=, and since it's configured above, there isn't anything to worry about here.
@@ -317,17 +324,14 @@ Some basic emacs stuff to add/remove UI to emacs.
   (use-package emacs
     :custom
     (display-line-numbers-grow-only t)
-    (inhibit-startup-screen t)		; Don't show startup message
-    (confirm-kill-emacs 'y-or-n-p)	; Less typing when quitting
-    :config
-    (column-number-mode 1)
-    (global-display-line-numbers-mode 1)
-    (global-hl-line-mode 1)
-    (global-visual-line-mode 1)
-
-    (tool-bar-mode -1)
-
-    (winner-mode 1))
+    (inhibit-startup-screen t)     ; Don't show startup message
+    (confirm-kill-emacs 'y-or-n-p) ; Less typing when quitting
+    (column-number-mode t)
+    (global-display-line-numbers-mode t)
+    (global-hl-line-mode t)
+    (global-visual-line-mode t)
+    (tool-bar-mode nil)
+    (winner-mode t))
 #+end_src
 
 ** Diffs
@@ -410,9 +414,8 @@ We could rely on the scrollbars provided by Emacs, but for whatever reason, I wa
     (mouse-wheel-tilt-scroll t)
     (scroll-conservatively 101)
     (scroll-margin 0)
-    :config
-    (scroll-bar-mode -1)
-    (pixel-scroll-precision-mode 1))
+    (scroll-bar-mode nil)
+    (pixel-scroll-precision-mode t))
 #+end_src
 
 Scrolling can also be wonky when using a mouse in TTY mode. So we can enable =xterm-mouse-mode= to make that - and other things like menu selection - work.
@@ -525,8 +528,7 @@ I don't only use Nix for my config files - I also use it for all of my projects.
 
 #+begin_src emacs-lisp
   (use-package direnv
-    :config
-    (direnv-mode))
+    :custom (direnv-mode t))
 #+end_src
 
 ** A Terminal

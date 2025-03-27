@@ -25,16 +25,19 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file t)
 
-(setq auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
-      backup-directory-alist `(("." . "~/.emacs.d/backups/")))
-(recentf-mode 1)
-(save-place-mode 1)
-
-(setq global-auto-revert-non-file-buffers t)
-(global-auto-revert-mode t)
+(use-package emacs
+  :custom
+  (recentf-mode t)
+  (save-place-mode t)
+  :init
+  (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
+        backup-directory-alist         `(("." . "~/.emacs.d/backups/"))))
 
 (use-package emacs
-  :custom (editorconfig-mode t))
+  :custom
+  (editorconfig-mode t)
+  (global-auto-revert-non-file-buffers t)
+  (global-auto-revert-mode t))
 
 (use-package expand-region
   :bind ("C-c SPC" . er/expand-region))
@@ -47,7 +50,10 @@
   ("C-c C-<"      . mc/mark-all-like-this))
 
 (use-package xclip
-  :config (xclip-mode 1))
+  :custom (xclip-mode t))
+
+(use-package clipetty
+  :custom (global-clipetty-mode t))
 
 (use-package evil
   :commands (evil-mode))
@@ -56,8 +62,7 @@
   :custom
   (vertico-cycle t)
   (vertico-resize nil)
-  :config
-  (vertico-mode 1))
+  (vertico-mode t))
 
 ;; Enable saving of minibuffer history
 (use-package savehist
@@ -91,8 +96,7 @@
   :demand 1
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
-  :config
-  (marginalia-mode 1))
+  :custom (marginalia-mode t))
 
 (use-package orderless
   :custom
@@ -129,8 +133,7 @@
   (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package corfu
-  :config
-  (global-corfu-mode 1))
+  :custom (global-corfu-mode t))
 
 (use-package emacs
   :custom (tab-always-indent 'complete))
@@ -138,22 +141,19 @@
 (unless (display-graphic-p)
   (use-package corfu-terminal
     :after corfu
-    :config (corfu-terminal-mode 1)))
+    :custom (corfu-terminal-mode t)))
 
 (use-package emacs
   :custom
   (display-line-numbers-grow-only t)
-  (inhibit-startup-screen t)		; Don't show startup message
-  (confirm-kill-emacs 'y-or-n-p)	; Less typing when quitting
-  :config
-  (column-number-mode 1)
-  (global-display-line-numbers-mode 1)
-  (global-hl-line-mode 1)
-  (global-visual-line-mode 1)
-
-  (tool-bar-mode -1)
-
-  (winner-mode 1))
+  (inhibit-startup-screen t)     ; Don't show startup message
+  (confirm-kill-emacs 'y-or-n-p) ; Less typing when quitting
+  (column-number-mode t)
+  (global-display-line-numbers-mode t)
+  (global-hl-line-mode t)
+  (global-visual-line-mode t)
+  (tool-bar-mode nil)
+  (winner-mode t))
 
 (use-package diff-hl
   :custom
@@ -208,9 +208,8 @@
   (mouse-wheel-tilt-scroll t)
   (scroll-conservatively 101)
   (scroll-margin 0)
-  :config
-  (scroll-bar-mode -1)
-  (pixel-scroll-precision-mode 1))
+  (scroll-bar-mode nil)
+  (pixel-scroll-precision-mode t))
 
 (unless (display-graphic-p)
   (use-package emacs
@@ -271,8 +270,7 @@
          (zig-ts-mode   . eglot-ensure)))
 
 (use-package direnv
-  :config
-  (direnv-mode))
+  :custom (direnv-mode t))
 
 (use-package vterm
   :commands (vterm)
