@@ -115,7 +115,7 @@ Next, we can use =expand-region= so that we can select things in strings, or par
 
 #+begin_src emacs-lisp
   (use-package expand-region
-    :bind ("C-=" . er/expand-region))
+    :bind ("C-c SPC" . er/expand-region))
 #+end_src
 
 Finally, =multiple-cursors= allows for quick selection and edit at once
