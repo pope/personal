@@ -14,6 +14,13 @@
       ./hardware-configuration.nix
     ];
 
+  nix.settings.system-features = [ "gccarch-znver4" ];
+  # nixpkgs.hostPlatform = {
+  #   gcc.arch = "znver4";
+  #   gcc.tune = "znver4";
+  #   system = "x86_64-linux";
+  # };
+
   nixpkgs.overlays = [
     self.overlays.default
   ];
