@@ -232,7 +232,7 @@ The vertico docs also recommend the following configs
 [[https://github.com/minad/consult][=consult=]] provides search and navigation with completion functions. The consult documentation includes a lot more options than I'm using now - so I will revisit to see if I want to add more.
 
 #+begin_src emacs-lisp
-  (use-package consult-
+  (use-package consult
     :bind (:map global-map
            ("M-s M-r" . consult-recent-file)
            ("M-s M-g" . consult-ripgrep)

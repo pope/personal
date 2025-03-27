@@ -100,7 +100,7 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
-(use-package consult-
+(use-package consult
   :bind (:map global-map
          ("M-s M-r" . consult-recent-file)
          ("M-s M-g" . consult-ripgrep)
