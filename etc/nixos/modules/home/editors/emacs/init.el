@@ -106,6 +106,7 @@
          ("M-s M-g" . consult-ripgrep)
          ("M-s M-f" . consult-fd)
          ("M-s M-o" . consult-outline)
+         ("M-s M-i" . consult-imenu)
          ("M-s M-l" . consult-line)
          ("M-s M-b" . consult-buffer)))
 
