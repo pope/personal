@@ -111,9 +111,9 @@
          ("M-s M-b" . consult-buffer)))
 
 (use-package embark
-  :bind (("C-." . embark-act)         ;; pick some comfortable binding
-         ("C-;" . embark-dwim)        ;; good alternative: M-.
-         ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :bind (("C-."    . embark-act)       ;; pick some comfortable binding
+         ("C-;"    . embark-dwim)      ;; good alternative: M-.
+         ("C-h B"  . embark-bindings)) ;; alternative for `describe-bindings'
   :init
    ;; Optionally replace the key help with a completing-read interface
    (setq prefix-help-command #'embark-prefix-help-command)
@@ -237,21 +237,21 @@
 
 (setq major-mode-remap-alist
       '(
-        (bash-mode . bash-ts-mode)
-        (c-mode . c-ts-mode)
-        (c++-mode . c++-ts-mode)
-        (c-or-c++-mode . c-or-c++-ts-mode)
-        (css-mode . css-ts-mode)
-        (js-mode . js-ts-mode)
-        (js2-mode . js-ts-mode)
-        (java-mode . java-ts-mode)
-        (json-mode . json-ts-mode)
-        (ruby-mode . ruby-ts-mode)
-        (nix-mode . nix-ts-mode)
-        (python-mode . python-ts-mode)
-        (typescript-mode . typescript-ts-mode)
-        (yaml-mode . yaml-ts-mode)
-        (zig-mode . zig-ts-mode)))
+        (bash-mode        . bash-ts-mode)
+        (c-mode           . c-ts-mode)
+        (c++-mode         . c++-ts-mode)
+        (c-or-c++-mode    . c-or-c++-ts-mode)
+        (css-mode         . css-ts-mode)
+        (js-mode          . js-ts-mode)
+        (js2-mode         . js-ts-mode)
+        (java-mode        . java-ts-mode)
+        (json-mode        . json-ts-mode)
+        (ruby-mode        . ruby-ts-mode)
+        (nix-mode         . nix-ts-mode)
+        (python-mode      . python-ts-mode)
+        (typescript-mode  . typescript-ts-mode)
+        (yaml-mode        . yaml-ts-mode)
+        (zig-mode         . zig-ts-mode)))
 
 (use-package go-ts-mode
   :mode "\\.go\\'")
@@ -264,11 +264,11 @@
     (add-to-list 'eglot-server-programs el)))
 
 (use-package eglot
-  :hook ((c-ts-mode . eglot-ensure)
-         (go-ts-mode . eglot-ensure)
-         (nix-ts-mode . eglot-ensure)
-         (rust-ts-mode . eglot-ensure)
-         (zig-ts-mode . eglot-ensure)))
+  :hook ((c-ts-mode     . eglot-ensure)
+         (go-ts-mode    . eglot-ensure)
+         (nix-ts-mode   . eglot-ensure)
+         (rust-ts-mode  . eglot-ensure)
+         (zig-ts-mode   . eglot-ensure)))
 
 (use-package direnv
   :config
