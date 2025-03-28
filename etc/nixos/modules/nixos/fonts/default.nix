@@ -26,7 +26,7 @@ in
         iosevka-comfy.comfy
         jetbrains-mono
         joypixels
-        maple-mono
+        stable.maple-mono
         nerd-fonts.fira-code
         nerd-fonts.jetbrains-mono
         nerd-fonts.lilex
