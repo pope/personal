@@ -7,6 +7,12 @@ in
 {
   options.my.home.editors.emacs = {
     enable = mkEnableOption "Emacs text editor home options";
+    package = mkOption {
+      type = types.package;
+      default = if pkgs.stdenv.isDarwin then pkgs.emacs30 else pkgs.emacs30-pgtk;
+      defaultText = lib.literalExpression "pkgs.emacs30-pgtk";
+      description = lib.mkDoc "Package of Emacs to use";
+    };
     useSymlink = mkEnableOption "Use a symlink for the init.el file";
     extraConfig = mkOption {
       type = types.lines;
@@ -73,7 +79,7 @@ in
       inherit (cfg) extraConfig;
 
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.emacs30 else pkgs.emacs30-pgtk;
+      package = cfg.package;
       extraPackages = epkgs: (with epkgs; [
         cape
         clipetty
@@ -90,6 +96,7 @@ in
         evil
         expand-region
         fzf
+        goto-chg
         indent-bars
         ligature
         magit
