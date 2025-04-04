@@ -79,7 +79,7 @@ in
       inherit (cfg) extraConfig;
 
       enable = true;
-      package = cfg.package;
+      inherit (cfg) package;
       extraPackages = epkgs: (with epkgs; [
         cape
         clipetty
