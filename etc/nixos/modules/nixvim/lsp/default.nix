@@ -266,11 +266,11 @@
             local bufnr = opts.buf
             local client = vim.lsp.get_client_by_id(opts.data.client_id)
 
-            if client.supports_method("textDocument/documentSymbol") then
+            if client:supports_method("textDocument/documentSymbol") then
               require("nvim-navic").attach(client, bufnr)
             end
 
-            if client.supports_method("textDocument/inlayHint") then
+            if client:supports_method("textDocument/inlayHint") then
               vim.lsp.inlay_hint.enable(true, { bufnr })
               ${rawMapping "Hints toggle" "<leader>ht" /* lua */ ''
                 function()

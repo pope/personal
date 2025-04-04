@@ -157,6 +157,16 @@ in
         "vim.lsp.util.stylize_markdown" = true;
         "cmp.entry.get_documentation" = true;
       };
+      opts.routes = [
+        {
+          filter = {
+            event = "msg_show";
+            kind = "echomsg";
+            find = ":checkhealth vim.deprecated";
+          };
+          opts.skip = true;
+        }
+      ];
       keys = mkLazyKeys [
         {
           lhs = "<leader><Esc>";
