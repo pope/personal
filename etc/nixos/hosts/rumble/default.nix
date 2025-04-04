@@ -54,6 +54,9 @@
 
     # Enable networking
     networkmanager.enable = true;
+
+    enableIPv6 = false;
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
 
   time.timeZone = "America/Los_Angeles";
@@ -121,7 +124,7 @@
     AllowHybridSleep=yes
     AllowSuspend=yes
     AllowSuspendThenHibernate=yes
-    HibernateDelaySec=24h
+    HibernateDelaySec=4h
     MemorySleepMode=s2idle
   '';
 
