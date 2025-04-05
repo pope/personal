@@ -35,6 +35,7 @@
 
 (use-package emacs
   :custom
+  (fill-column 78)
   (editorconfig-mode t)
   (global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode t))

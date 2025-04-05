@@ -1,3 +1,4 @@
+# -*- fill-column: 78; eval: (auto-fill-mode 1); -*-
 #+title: My Emacs Config
 #+author: K. Adam Christensen
 #+language: en
@@ -5,19 +6,26 @@
 
 * Goal
 
-To configure emacs while also commenting and documenting the process for the setup.
+To configure emacs while also commenting and documenting the process for the
+setup.
 
 * Methodology
 
-My idea for this config is one part Nix, one part Emacs with [[elisp:(describe-function 'use-package)][=use-package=]]. Nix will supply all of the dependency emacs packages, and =use-pacakge= will be used to configure things.
+My idea for this config is one part Nix, one part Emacs with [[elisp:(describe-function 'use-package)][=use-package=]].
+Nix will supply all of the dependency emacs packages, and =use-pacakge= will
+be used to configure things.
 
-While Emacs can run in server-mode, I still want the editor to load as quickly as possible. So I will try to lazy load as much as possible when I can - even to the point it may be aggressive.
+While Emacs can run in server-mode, I still want the editor to load as quickly
+as possible. So I will try to lazy load as much as possible when I can - even
+to the point it may be aggressive.
 
-In order to use changes in this file, use =M-x org-babel-tangle= to export the elisp in here to the =init.el= file.
+In order to use changes in this file, use =M-x org-babel-tangle= to export the
+elisp in here to the =init.el= file.
 
 * Enable lexical binding
 
-Not sure what this does for performance or how the init functions, but adding it because.
+Not sure what this does for performance or how the init functions, but adding
+it because.
 
 #+begin_src emacs-lisp
   ;;; -*- lexical-binding: t -*-
@@ -25,7 +33,9 @@ Not sure what this does for performance or how the init functions, but adding it
 
 * Tuning for speed
 
-The Emacs garbage collector runs many times during app start. So at the start, we increase the amount of GC temporarily at the start. At the end of this doc, we can reset it (though not quite as low). The default is 800kb.
+The Emacs garbage collector runs many times during app start. So at the start,
+we increase the amount of GC temporarily at the start. At the end of this doc,
+we can reset it (though not quite as low). The default is 800kb.
 
 References:
   - https://emacsconf.org/2023/talks/gc/
@@ -45,7 +55,10 @@ References:
 
 ** Color Theme
 
-Using the [[https://github.com/doomemacs/themes][=doom-themes=]]. It's a nice set of themes, though it doesn't contain Catppuccin or Rose-Pine. This is in the core settings and not UI primarily because we want this to happen as early as possible. If not, we can get a flash of white as Emacs loads.
+Using the [[https://github.com/doomemacs/themes][=doom-themes=]]. It's a nice set of themes, though it doesn't contain
+Catppuccin or Rose-Pine. This is in the core settings and not UI primarily
+because we want this to happen as early as possible. If not, we can get a
+flash of white as Emacs loads.
 
 #+begin_src emacs-lisp
   (use-package doom-themes
@@ -60,7 +73,10 @@ Using the [[https://github.com/doomemacs/themes][=doom-themes=]]. It's a nice se
 
 ** Transparency
 
-I like a little transparency, but sometimes it can be a tad jank. The function =pope-set-background-alpha= is there to interactively set the transparency to any value I want. And I can always customize the variable per device if ever I so should choose.
+I like a little transparency, but sometimes it can be a tad jank. The function
+=pope-set-background-alpha= is there to interactively set the transparency to
+any value I want. And I can always customize the variable per device if ever I
+so should choose.
 
 #+begin_src emacs-lisp
   (defun pope-set-background-alpha (val)
@@ -70,12 +86,15 @@ I like a little transparency, but sometimes it can be a tad jank. The function =
 #+end_src
 
 :NOTE:
-This does make the =menu-bar= on my Linux machine with a GTK show as fully transparent background. And this mode doesn't work for transparency in TTY mode.
+This does make the =menu-bar= on my Linux machine with a GTK show as fully
+transparent background. And this mode doesn't work for transparency in TTY
+mode.
 :END:
 
 ** Custom file
 
-I don't want quick Emacs customizations to show up in the init file. So we can add it to it's own file.
+I don't want quick Emacs customizations to show up in the init file. So we can
+add it to it's own file.
 
 #+begin_src emacs-lisp
   (setq custom-file "~/.emacs.d/custom.el")
@@ -84,10 +103,14 @@ I don't want quick Emacs customizations to show up in the init file. So we can a
 
 ** Config
 
-First, let's put extra emacs files into the =.emacs.d= directory, namely auto-saves and backups. Then we can enable puting auto-saves into that path and enable =save-place-mode= which will keep it's history in the =.emacs.d= location.
+First, let's put extra emacs files into the =.emacs.d= directory, namely
+auto-saves and backups. Then we can enable puting auto-saves into that path
+and enable =save-place-mode= which will keep it's history in the =.emacs.d=
+location.
 
 :NOTE:
-The Nix configuration should make sure that the auto-saves and backup directories exist. Otherwise the backup and saves can fail.
+The Nix configuration should make sure that the auto-saves and backup
+directories exist. Otherwise the backup and saves can fail.
 :END:
 
 #+begin_src emacs-lisp
@@ -104,17 +127,22 @@ The Nix configuration should make sure that the auto-saves and backup directorie
 
 ** Basics
 
-The first thing we can set up for the editing experience is to leverage project EditorConfig settings. This is something that's available with Emacs 30, and can be set with a custom variable. Additionally, it would be nice to auto-revery buffers when things change on disk.
+The first thing we can set up for the editing experience is to leverage
+project EditorConfig settings. This is something that's available with Emacs
+30, and can be set with a custom variable. Additionally, it would be nice to
+auto-revery buffers when things change on disk.
 
 #+begin_src emacs-lisp
   (use-package emacs
     :custom
+    (fill-column 78)
     (editorconfig-mode t)
     (global-auto-revert-non-file-buffers t)
     (global-auto-revert-mode t))
 #+end_src
 
-Next, we can use =expand-region= so that we can select things in strings, or parenthesis, etc.
+Next, we can use =expand-region= so that we can select things in strings, or
+parenthesis, etc.
 
 #+begin_src emacs-lisp
   (use-package expand-region
@@ -134,7 +162,8 @@ Finally, =multiple-cursors= allows for quick selection and edit at once
 
 ** Clipboard
 
-When on [[https://wayland.freedesktop.org/][Wayland]] I was noticing that copy/paste was not working. Using [[https://elpa.gnu.org/packages/xclip.html][xclip]] seems to address that.
+When on [[https://wayland.freedesktop.org/][Wayland]] I was noticing that copy/paste was not working. Using [[https://elpa.gnu.org/packages/xclip.html][xclip]]
+seems to address that.
 
 #+begin_src emacs-lisp
   (use-package xclip
@@ -150,7 +179,9 @@ When on [[https://wayland.freedesktop.org/][Wayland]] I was noticing that copy/p
 
 ** Vim style
 
-[[https://github.com/emacs-evil/evil][Evil mode]] exists to emulate vim modes and shortcuts. I will keep it around, but not exactly load it and use it immediately. But run =M-x evil-mode= to turn it on.
+[[https://github.com/emacs-evil/evil][Evil mode]] exists to emulate vim modes and shortcuts. I will keep it around,
+but not exactly load it and use it immediately. But run =M-x evil-mode= to
+turn it on.
 
 #+begin_src emacs-lisp
   (use-package evil
@@ -213,7 +244,8 @@ The vertico docs also recommend the following configs
 
 *** Marginalia
 
-[[https://github.com/minad/marginalia][=marginalia=]] adds extra context in the minibuffer for whatever is being completed.
+[[https://github.com/minad/marginalia][=marginalia=]] adds extra context in the minibuffer for whatever is being
+completed.
 
 #+begin_src emacs-lisp
   (use-package marginalia
@@ -225,7 +257,8 @@ The vertico docs also recommend the following configs
 
 *** Orderless
 
-[[https://github.com/oantolin/orderless][=orderless=]] is a package that divides completion patterns by spaces to match the components in order.
+[[https://github.com/oantolin/orderless][=orderless=]] is a package that divides completion patterns by spaces to match
+the components in order.
 
 #+begin_src emacs-lisp
   (use-package orderless
@@ -237,7 +270,9 @@ The vertico docs also recommend the following configs
 
 *** Consult
 
-[[https://github.com/minad/consult][=consult=]] provides search and navigation with completion functions. The consult documentation includes a lot more options than I'm using now - so I will revisit to see if I want to add more.
+[[https://github.com/minad/consult][=consult=]] provides search and navigation with completion functions. The
+consult documentation includes a lot more options than I'm using now - so I
+will revisit to see if I want to add more.
 
 #+begin_src emacs-lisp
   (use-package consult
@@ -290,14 +325,16 @@ Then we can join embark and consult together
     :custom (global-corfu-mode t))
 #+end_src
 
-In the regular Emacs config, we can make the =<TAB>= key trigger an autocomplete.
+In the regular Emacs config, we can make the =<TAB>= key trigger an
+autocomplete.
 
 #+begin_src emacs-lisp
   (use-package emacs
     :custom (tab-always-indent 'complete))
 #+end_src
 
-The settings above work fine in GUI mode, but for terminal, we need a separate package for that.
+The settings above work fine in GUI mode, but for terminal, we need a separate
+package for that.
 
 #+begin_src emacs-lisp
   (unless (display-graphic-p)
@@ -306,15 +343,19 @@ The settings above work fine in GUI mode, but for terminal, we need a separate p
       :custom (corfu-terminal-mode t)))
 #+end_src
 
-=corfu= can also use =orderless=, and since it's configured above, there isn't anything to worry about here.
+=corfu= can also use =orderless=, and since it's configured above, there isn't
+anything to worry about here.
 
 *** Cape
 
-[[https://github.com/minad/cape][=cape=]] provides additional =capf= backends. This is something to consider adding to my configuration.
+[[https://github.com/minad/cape][=cape=]] provides additional =capf= backends. This is something to consider
+adding to my configuration.
 
 * The UI
 
-This is all of the UI tweaks - outside of themeing. The theme config happens early in the startup to avoid flashes of white if the theme were to load later in the init process.
+This is all of the UI tweaks - outside of themeing. The theme config happens
+early in the startup to avoid flashes of white if the theme were to load later
+in the init process.
 
 ** Basic Config
 
@@ -336,7 +377,11 @@ Some basic emacs stuff to add/remove UI to emacs.
 
 ** Diffs
 
-=diff-hl= provides a way to see changes to the file in the gutter/fringe of the file, and not just Git. It does require =vc-handled-backends= to be set - which is by default for my Emacs installation. Through the use of the margin-mode variant, the diff changes can be highlighted from the terminal as well.
+=diff-hl= provides a way to see changes to the file in the gutter/fringe of
+the file, and not just Git. It does require =vc-handled-backends= to be set -
+which is by default for my Emacs installation. Through the use of the
+margin-mode variant, the diff changes can be highlighted from the terminal as
+well.
 
 #+begin_src emacs-lisp
   (use-package diff-hl
@@ -349,7 +394,9 @@ Some basic emacs stuff to add/remove UI to emacs.
 
 ** Nerd Icons
 
-This package is nice if I want to enter in some =nerd-icons-insert=. It also has the benefit of adding Symbols for Nerd Font as a font for the regions where the font is applicable.
+This package is nice if I want to enter in some =nerd-icons-insert=. It also
+has the benefit of adding Symbols for Nerd Font as a font for the regions
+where the font is applicable.
 
 #+begin_src emacs-lisp
   (use-package nerd-icons
@@ -358,7 +405,8 @@ This package is nice if I want to enter in some =nerd-icons-insert=. It also has
       (nerd-icons-set-font)))
 #+end_src
 
-There are some packages that make nerd fonts work with other packages or core emacs components.
+There are some packages that make nerd fonts work with other packages or core
+emacs components.
 
 #+begin_src emacs-lisp
   (use-package nerd-icons-dired
@@ -403,7 +451,10 @@ I like ligatures. So this sets those up for all programming modes.
 
 ** Scrolling
 
-We could rely on the scrollbars provided by Emacs, but for whatever reason, I want to have more fun - and =nyan-mode= does that. It doesn't auto activate, but it's there! Also, scrolling is a little stiff by default, so we can enable pixel-level scrolling for a bit of smoothness.
+We could rely on the scrollbars provided by Emacs, but for whatever reason, I
+want to have more fun - and =nyan-mode= does that. It doesn't auto activate,
+but it's there! Also, scrolling is a little stiff by default, so we can enable
+pixel-level scrolling for a bit of smoothness.
 
 #+begin_src emacs-lisp
   (use-package nyan-mode
@@ -418,7 +469,8 @@ We could rely on the scrollbars provided by Emacs, but for whatever reason, I wa
     (pixel-scroll-precision-mode t))
 #+end_src
 
-Scrolling can also be wonky when using a mouse in TTY mode. So we can enable =xterm-mouse-mode= to make that - and other things like menu selection - work.
+Scrolling can also be wonky when using a mouse in TTY mode. So we can enable
+=xterm-mouse-mode= to make that - and other things like menu selection - work.
 
 #+begin_src emacs-lisp
   (unless (display-graphic-p)
@@ -447,10 +499,14 @@ I like seeing a line for where the indentation levels.
 
 ** Modeline
 
-Using =doom-modeline= to have a fancier looking modeline bar at the bottom of the editor. The minor modes are hidden, as it takes up extra room in the modeline, and it's often incomplete. =M-x describe-mode= (=C-h m=) is a good way to get the full info about what is enabled anyway.
+Using =doom-modeline= to have a fancier looking modeline bar at the bottom of
+the editor. The minor modes are hidden, as it takes up extra room in the
+modeline, and it's often incomplete. =M-x describe-mode= (=C-h m=) is a good
+way to get the full info about what is enabled anyway.
 
 :NOTE:
-=S-TAB= is a good way to toggle the headings in the mode *Help* buffer to get a quick overview of things.
+=S-TAB= is a good way to toggle the headings in the mode *Help* buffer to get
+a quick overview of things.
 :END:
 
 #+begin_src emacs-lisp
@@ -463,9 +519,16 @@ Using =doom-modeline= to have a fancier looking modeline bar at the bottom of th
 
 * Programming
 
-Lastly, let's add support for programming languages. =nix-mode= (and one with treesit) and =zig-mode= (and also with treesit) are installed through Nix and have auto-loads configured. So there isn't anything that we need to do here. The goal with installing =-mode= and =-ts-mode= packages is to use ts version as the main major mode, but still use features from the normal mode.
+Lastly, let's add support for programming languages. =nix-mode= (and one with
+treesit) and =zig-mode= (and also with treesit) are installed through Nix and
+have auto-loads configured. So there isn't anything that we need to do
+here. The goal with installing =-mode= and =-ts-mode= packages is to use ts
+version as the main major mode, but still use features from the normal mode.
 
-Speaking of treesit and treesitter, I do want Emacs to use the =-ts-mode= versions of major modes. With Emacs 29, there's a remap list where we can say instead of loading one mode, load the next. Learn more on the [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter][How to get started with tree-sitter article]] on /Mastering Emacs/ site.
+Speaking of treesit and treesitter, I do want Emacs to use the =-ts-mode=
+versions of major modes. With Emacs 29, there's a remap list where we can say
+instead of loading one mode, load the next. Learn more on the [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter][How to get
+started with tree-sitter article]] on /Mastering Emacs/ site.
 
 #+begin_src emacs-lisp
   (setq major-mode-remap-alist
@@ -488,10 +551,14 @@ Speaking of treesit and treesitter, I do want Emacs to use the =-ts-mode= versio
 #+end_src
 
 :NOTE:
-Using =treesit-auto= is a common tool for doing the mapping above, but it also has code to download TreeSit parsers if they are not available. Nix already has those parsers - so I control adding through that. Thus, =treesit-auto= does more than I need and I can just keep it simple here.
+Using =treesit-auto= is a common tool for doing the mapping above, but it also
+has code to download TreeSit parsers if they are not available. Nix already
+has those parsers - so I control adding through that. Thus, =treesit-auto=
+does more than I need and I can just keep it simple here.
 :END:
 
-Next up, there are some treesit modes that are available, but they do not autoload when visiting a buffer. So we shall address that next.
+Next up, there are some treesit modes that are available, but they do not
+autoload when visiting a buffer. So we shall address that next.
 
 #+begin_src emacs-lisp
   (use-package go-ts-mode
@@ -502,7 +569,11 @@ Next up, there are some treesit modes that are available, but they do not autolo
 
 ** LSP support with Eglot
 
-For better code complete and code searching, we can use an LSP. =Eglot= gives us that library for doing the integration, and most things work right out of the box - especially for the =-mode= languages. But because I'm doing with the =-ts-mode= versions, there is some tweaking I need to do to properly map the ts-mode version to an LSP.
+For better code complete and code searching, we can use an LSP. =Eglot= gives
+us that library for doing the integration, and most things work right out of
+the box - especially for the =-mode= languages. But because I'm doing with the
+=-ts-mode= versions, there is some tweaking I need to do to properly map the
+ts-mode version to an LSP.
 
 #+begin_src emacs-lisp
   (with-eval-after-load 'eglot
@@ -524,7 +595,11 @@ And we can auto-start =eglot= when some modes activate
 
 ** Direnv support
 
-I don't only use Nix for my config files - I also use it for all of my projects. Many/most of those projects use =direnv= to create a local environment where the tools needed to build the project are made available - including LSP servers. So to make things easy, we can have Emacs bring in those configurations automatically.
+I don't only use Nix for my config files - I also use it for all of my
+projects. Many/most of those projects use =direnv= to create a local
+environment where the tools needed to build the project are made available -
+including LSP servers. So to make things easy, we can have Emacs bring in
+those configurations automatically.
 
 #+begin_src emacs-lisp
   (use-package direnv
@@ -533,7 +608,16 @@ I don't only use Nix for my config files - I also use it for all of my projects.
 
 ** A Terminal
 
-I have a complex terminal setup - it's where I tend to do most of my work, and so I use fancy (overlay complicated) TUIs and icons and settings - all of which can make =vterm= have problems displaying everything unless we tweak a few things. Some of the properties above like showing line numbers or a visual line don't make sense for a vterm session - so those get disable. The odd one though is =toggle-truncate-lines=. The Oh-My-Posh prompt can cause the line (which should be on just one line) break to another line. Then there are TUI apps like =lazygit= which can also exibit this longer-than-one-line issue. Truncating - while not perfect, does a better job of making things readible and usable.
+I have a complex terminal setup - it's where I tend to do most of my work, and
+so I use fancy (overlay complicated) TUIs and icons and settings - all of
+which can make =vterm= have problems displaying everything unless we tweak a
+few things. Some of the properties above like showing line numbers or a visual
+line don't make sense for a vterm session - so those get disable. The odd one
+though is =toggle-truncate-lines=. The Oh-My-Posh prompt can cause the line
+(which should be on just one line) break to another line. Then there are TUI
+apps like =lazygit= which can also exibit this longer-than-one-line
+issue. Truncating - while not perfect, does a better job of making things
+readible and usable.
 
 #+begin_src emacs-lisp
   (use-package vterm
