@@ -69,6 +69,8 @@
         };
       };
     };
+
+    streamlink.enable = true;
   };
 
   my.home = {
