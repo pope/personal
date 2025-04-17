@@ -116,6 +116,7 @@ in
         treesit-grammars.with-all-grammars
         vertico
         vterm
+        web-mode
         xclip
         zig-mode
         zig-ts-mode
