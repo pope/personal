@@ -10,11 +10,6 @@ in
     enable = mkEnableOption "Anyrun home options";
   };
 
-  # Pull the home-manager code from
-  # https://github.com/anyrun-org/anyrun/blob/master/nix/modules/home-manager.nix
-  # so that I don't need the whole flake.
-  imports = [ ./home-manager.nix ];
-
   config = mkIf cfg.enable {
     programs.anyrun = with config.my.home.theme.colors.withHash; {
       enable = true;
