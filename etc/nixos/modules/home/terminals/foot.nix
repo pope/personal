@@ -28,16 +28,25 @@ in
             else if colorScheme == "dracula" then "${pkgs.foot.themes}/share/foot/themes/dracula"
             else if colorScheme == "tokyonight" then "${pkgs.foot.themes}/share/foot/themes/tokyonight-storm"
             else abort "invalid theme";
+          box-drawings-uses-font-glyphs = true;
           dpi-aware = false;
           font =
             let
               fontSize = builtins.toString cfg.fontSize;
             in
             "monospace:size=${fontSize}, Symbols Nerd Font:size=${fontSize}";
-          pad = "0x10";
+          font-size-adjustment = 0.5;
+          pad = "4x10";
         };
         colors = {
-          alpha = 0.94;
+          alpha = 0.96;
+        };
+        cursor = {
+          style = "beam";
+          blink = true;
+        };
+        mouse = {
+          hide-when-typing = true;
         };
       };
     };
