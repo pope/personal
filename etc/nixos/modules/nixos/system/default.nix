@@ -48,6 +48,27 @@ in
             /media/cyberia/nix-files/fonts/*.tar.gz \
             /media/cyberia/nix-files/software/rns_344_linux_x86_64.tar.gz
       '')
+      (pkgs.writeShellScriptBin "nixos-diff" /* sh */ ''
+        # A script to select two nix generations and find the differences
+        # between them.
+        set -euo pipefail
+
+        CUT=${lib.getExe' pkgs.coreutils "cut"}
+        LS=${lib.getExe' pkgs.coreutils "ls"}
+        FZF=${lib.getExe pkgs.fzf}
+        GREP=${lib.getExe pkgs.gnugrep}
+        NVD=${lib.getExe pkgs.nvd}
+
+        GEN_CUR=$($LS /nix/var/nix/profiles/system-* -drlGg \
+          | $FZF --border --border-label "Select current generation" \
+          | $CUT -d' ' -f 7)
+        GEN_PREV=$($LS /nix/var/nix/profiles/system-* -drlGg \
+          | $GREP -v "$GEN_CUR" \
+          | $FZF --border --border-label "Select previous generation" \
+          | $CUT -d' ' -f 7)
+
+        $NVD diff "$GEN_PREV" "$GEN_CUR"
+      '')
     ];
 
     security.sudo.wheelNeedsPassword = false;
