@@ -12,11 +12,14 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
+      comic-code-ligatures
+      dank-mono
       discord
       godot_4
       intel-gpu-tools
+      lucida-grande
+      monolisa
       nvtopPackages.intel
-      stow
     ];
 
     stateVersion = "23.05";
@@ -36,7 +39,7 @@
     editors = {
       emacs.enable = true;
       neovim.enable = true;
-      vscode.enable = false;
+      vscode.enable = true;
     };
     dunst.enable = true;
     dwl.enable = true;
