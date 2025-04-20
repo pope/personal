@@ -59,10 +59,10 @@ in
         GREP=${lib.getExe pkgs.gnugrep}
         NVD=${lib.getExe pkgs.nvd}
 
-        GEN_CUR=$($LS /nix/var/nix/profiles/system-* -drlGg \
+        GEN_CUR=$($LS /nix/var/nix/profiles/system-*-link -drlGg \
           | $FZF --border --border-label "Select current generation" \
           | $CUT -d' ' -f 7)
-        GEN_PREV=$($LS /nix/var/nix/profiles/system-* -drlGg \
+        GEN_PREV=$($LS /nix/var/nix/profiles/system-*-link -drlGg \
           | $GREP -v "$GEN_CUR" \
           | $FZF --border --border-label "Select previous generation" \
           | $CUT -d' ' -f 7)
