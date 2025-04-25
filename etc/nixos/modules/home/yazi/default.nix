@@ -19,7 +19,7 @@ in
         manager.prepend_keymap = [
           {
             on = "T";
-            run = "plugin max-preview";
+            run = "plugin toggle-pane max-preview";
             desc = "Maximize or restore preview";
           }
         ];
