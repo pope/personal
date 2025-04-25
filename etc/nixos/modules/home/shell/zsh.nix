@@ -22,23 +22,27 @@ in
         path = "${config.xdg.dataHome}/zsh/history";
         size = 99999;
       };
-      initExtraBeforeCompInit = ''
-        if [ -e /opt/homebrew/bin/brew ]
-        then
-          fpath+=($(brew --prefix)/share/zsh/site-functions)
-        fi
-      '';
-      initExtra = ''
-        autoload -z edit-command-line
-        zle -N edit-command-line
-        bindkey "^X^E" edit-command-line
-      '';
-      # Add this escape hatch for Emacs remote editing with tramp.
-      # See https://www.emacswiki.org/emacs/TrampMode#h5o-9
-      initExtraFirst = ''
-        [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
-      '';
-      profileExtra = ''
+      initContent = lib.mkMerge [
+        # Add this escape hatch for Emacs remote editing with tramp.
+        # See https://www.emacswiki.org/emacs/TrampMode#h5o-9
+        (lib.mkOrder 500 /* sh */ ''
+          [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+        '')
+
+        (lib.mkOrder 550 /* sh */ ''
+          if [ -e /opt/homebrew/bin/brew ]
+          then
+            fpath+=($(brew --prefix)/share/zsh/site-functions)
+          fi
+        '')
+
+        (lib.mkOrder 1000 /* sh */ ''
+          autoload -z edit-command-line
+          zle -N edit-command-line
+          bindkey "^X^E" edit-command-line
+        '')
+      ];
+      profileExtra = /* sh */ ''
         if [ -e /opt/homebrew/bin/brew ]
         then
           eval "$(/opt/homebrew/bin/brew shellenv)"

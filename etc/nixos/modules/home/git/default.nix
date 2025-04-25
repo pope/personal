@@ -127,7 +127,7 @@ in
           source "$HOME/.config/op/plugins.sh"
         end
       '';
-      zsh.initExtra = /* sh */ ''
+      zsh.initContent = /* sh */ ''
         if [ -e "$HOME/.config/op/plugins.sh" ]; then
           source "$HOME/.config/op/plugins.sh"
         fi
