@@ -12,8 +12,8 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs.stable; [
       aseprite
-      (gimp-with-plugins.override {
-        plugins = with gimpPlugins; [
+      (pkgs.gimp3-with-plugins.override {
+        plugins = with pkgs.gimpPlugins; [
           bimp
           gimplensfun
           gmic
