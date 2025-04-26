@@ -15,27 +15,30 @@ let
     # word-wrap at width
     width = 100;
   };
-  home-manager-diff = pkgs.writeShellScriptBin "home-manager-diff" /* sh */ ''
-    # A script to select two home-manager generations and find the differences
-    # between them.
-    set -euo pipefail
+  home-manager-diff = pkgs.writeShellApplication {
+    name = "home-manager-diff";
+    runtimeInputs = with pkgs; [
+      coreutils
+      fzf
+      gnugrep
+      home-manager
+      nvd
+    ];
+    text = /* sh */ ''
+      # A script to select two home-manager generations and find the differences
+      # between them.
 
-    HM=${lib.getExe pkgs.home-manager}
-    CUT=${lib.getExe' pkgs.coreutils "cut"}
-    FZF=${lib.getExe pkgs.fzf}
-    GREP=${lib.getExe pkgs.gnugrep}
-    NVD=${lib.getExe pkgs.nvd}
+      GEN_CUR=$(home-manager generations \
+        | fzf --border --border-label "Select current generation" \
+        | cut -d' ' -f7)
+      GEN_PREV=$(home-manager generations \
+        | grep -v "$GEN_CUR" \
+        | fzf --border --border-label "Select previous generation" \
+        | cut -d' ' -f7)
 
-    GEN_CUR=$($HM generations \
-      | $FZF --border --border-label "Select current generation" \
-      | $CUT -d' ' -f 7)
-    GEN_PREV=$($HM generations \
-      | $GREP -v "$GEN_CUR" \
-      | $FZF --border --border-label "Select previous generation" \
-      | $CUT -d' ' -f 7)
-
-    $NVD diff "$GEN_PREV" "$GEN_CUR"
-  '';
+      nvd diff "$GEN_PREV" "$GEN_CUR"
+    '';
+  };
 in
 {
   options.my.home.packages = {
