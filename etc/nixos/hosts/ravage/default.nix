@@ -145,6 +145,7 @@
     onepassword.enable = true;
     sound.enable = true;
     system.enable = true;
+    users.shell = "zsh";
     xserver = {
       enable = true;
       enableAutoLogin = false;

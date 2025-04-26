@@ -60,7 +60,7 @@
     multimedia.threed.enable = true;
     packages.enable = true;
     rofi.enable = true;
-    shell.fish.enable = true;
+    shell.zsh.enable = true;
     terminals = {
       ghostty.enable = true;
       wezterm.enable = true;
