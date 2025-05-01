@@ -88,11 +88,6 @@
     systemPackages = with pkgs; [
       renoise344
     ];
-
-    sessionVariables = {
-      # Hint electron apps to use wayland. Otherwise Discord will be janky.
-      NIXOS_OZONE_WL = "1";
-    };
   };
 
   networking = {

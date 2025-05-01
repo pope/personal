@@ -32,6 +32,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    # Hint electron apps to use wayland. Otherwise Discord will be janky.
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
     services = {
       displayManager.sddm.enable = cfg.displayManager == "sddm";
       desktopManager.plasma6.enable = cfg.kde.enable;

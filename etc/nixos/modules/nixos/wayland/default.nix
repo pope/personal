@@ -27,12 +27,5 @@ in
         modesetting.enable = true;
       };
     };
-
-    environment = {
-      sessionVariables = {
-        # Hint electron apps to use wayland. Otherwise Discord will be janky.
-        NIXOS_OZONE_WL = "1";
-      };
-    };
   };
 }
