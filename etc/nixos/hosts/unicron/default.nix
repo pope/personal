@@ -21,7 +21,7 @@
   nixpkgs.overlays = [
     self.overlays.default
   ];
-  nixpkgs.config.cudaSupport = true;
+  nixpkgs.config.rocmSupport = true;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -96,6 +96,8 @@
     systemPackages = with pkgs; [
       libva-utils
       renoise344
+      rocmPackages.rocm-smi
+      rocmPackages.rocminfo
     ];
 
     sessionVariables = {
