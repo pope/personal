@@ -124,9 +124,9 @@
   systemd = {
     services.cyberia-backup = {
       description = "Cyberia rsync daily backup service";
-      path = with pkgs; [ coreutils-full rsync ];
+      path = with pkgs; [ coreutils rsync ];
       script = ''
-        LASTBACKUP=$(ls -d /mnt/Backup/Cyberia.*/ | sort | tail -1)
+        LASTBACKUP=$(find /mnt/Backup/ -maxdepth 1 -iname "Cyberia.*" -type d | sort | tail -1)
         BACKUP="/mnt/Backup/Cyberia.$(date -d today +"%Y%m%d")"
 
         if [ -d "$BACKUP" ]; then
