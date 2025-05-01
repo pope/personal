@@ -14,7 +14,7 @@
     packages = with pkgs; [
       discord
       godot_4
-      nvtopPackages.nvidia
+      nvtopPackages.amd
       zathura
     ];
 
@@ -22,7 +22,7 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "HDMI-A-1,2560x1440@120,0x0,auto"
+    "HDMI-A-2,2560x1440@120,0x0,auto"
     # "HDMI-A-1,preferred,0x0,auto"
     "DP-2,preferred,2560x0,auto"
   ];
@@ -72,7 +72,10 @@
       audio.enable = true;
       graphics.enable = true;
       photography.enable = true;
-      threed.enable = true;
+      threed = {
+        enable = true;
+        hip.enable = true;
+      };
       video.enable = false;
     };
     obs.enable = true;

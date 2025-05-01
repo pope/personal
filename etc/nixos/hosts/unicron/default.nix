@@ -10,7 +10,7 @@
       inputs.musnix.nixosModules.musnix
       inputs.nixos-hardware.nixosModules.common-cpu-amd
       inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-      inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+      inputs.nixos-hardware.nixosModules.common-gpu-amd
       inputs.nixos-hardware.nixosModules.common-pc
       inputs.nixos-hardware.nixosModules.common-pc-ssd
       self.nixosModules.default
@@ -40,11 +40,6 @@
         theme = "${pkgs.p5r-grub}/joker";
         splashImage = "${theme}/background.png";
       };
-    };
-
-    initrd = {
-      kernelModules = [ "nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
-      availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
     };
 
     # resumeDevice = (builtins.head config.swapDevices).device;
@@ -87,26 +82,26 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-    };
-
-    nvidia = {
-      nvidiaSettings = true;
-      open = true;
-      # The stable package is broken. Using beta in the meantime.
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      powerManagement.enable = false;
+      extraPackages = with pkgs; [
+        rocmPackages.clr.icd
+        # Encoding/decoding acceleration
+        libvdpau-va-gl
+        libva-vdpau-driver
+        libva
+      ];
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    libva-utils
-    renoise344
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      libva-utils
+      renoise344
+    ];
 
-  environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    sessionVariables = {
+      # Hint electron apps to use wayland. Otherwise Discord will be janky.
+      NIXOS_OZONE_WL = "1";
+    };
   };
 
   networking = {
@@ -156,39 +151,12 @@
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
-    wayland.enable = true;
     xserver = {
       enable = true;
       enableAutoLogin = false;
       displayManager = "gdm";
       gnome.enable = true;
       hyprland.enable = true;
-    };
-  };
-
-  specialisation = {
-    vfio.configuration = {
-      system.nixos.tags = [ "with-vfio" ];
-      boot = {
-        blacklistedKernelModules = [ "amdgpu" "radeon" ];
-        kernelModules = [
-          # "vfio_virqfd"
-          "vfio_pci"
-          "vfio_iommu_type1"
-          "vfio"
-        ];
-        initrd.kernelModules = [
-          # "vfio_virqfd"
-          "vfio_pci"
-          "vfio_iommu_type1"
-          "vfio"
-        ];
-        kernelParams = [
-          "amd_iommu=on"
-          "vfio-pci.ids=1002:13c0"
-        ];
-      };
-      hardware.enableRedistributableFirmware = true;
     };
   };
 
