@@ -21,7 +21,6 @@
   nixpkgs.overlays = [
     self.overlays.default
   ];
-  nixpkgs.config.rocmSupport = true;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -85,27 +84,9 @@
       ];
     };
   };
-
-  hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-      extraPackages = with pkgs; [
-        rocmPackages.clr.icd
-        # Encoding/decoding acceleration
-        libvdpau-va-gl
-        libva-vdpau-driver
-        libva
-      ];
-    };
-  };
-
   environment = {
     systemPackages = with pkgs; [
-      libva-utils
       renoise344
-      rocmPackages.rocm-smi
-      rocmPackages.rocminfo
     ];
 
     sessionVariables = {
@@ -152,8 +133,11 @@
     fah.enable = false;
     flatpak.enable = true;
     fonts.enable = true;
-    gaming.enable = true;
-    gaming.enableSteam = true;
+    gaming = {
+      enable = true;
+      enableSteam = true;
+    };
+    gpu.amd.enable = true;
     onepassword.enable = true;
     printing.enable = true;
     sound.enable = true;
