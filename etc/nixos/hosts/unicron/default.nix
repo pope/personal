@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, config, pkgs, ... }:
+{ self, inputs, pkgs, ... }:
 
 {
   imports =
@@ -32,13 +32,21 @@
       efi.canTouchEfiVariables = true;
       grub = rec {
         enable = true;
+
         configurationLimit = 10;
-        efiSupport = true;
         default = "saved";
         device = "nodev";
-        useOSProber = true;
-        theme = "${pkgs.p5r-grub}/joker";
+        efiSupport = true;
+        extraEntries = ''
+          menuentry "Firmware" { fwsetup }
+          submenu "Reboot / Shutdown" {
+            menuentry "Reboot" { reboot }
+            menuentry "Shut Down" { halt }
+          }
+        '';
         splashImage = "${theme}/background.png";
+        theme = "${pkgs.p5r-grub}/joker";
+        useOSProber = true;
       };
     };
 
