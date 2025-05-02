@@ -35,11 +35,11 @@
       chromium.enable = true;
       firefox.enable = true;
     };
+    dunst.enable = true;
     editors = {
       vscode.enable = true;
       neovim.enable = true;
     };
-    dunst.enable = true;
     gaming.enable = true;
     git.enable = true;
     gnome.enable = true;

@@ -34,10 +34,18 @@
       efi.canTouchEfiVariables = true;
       grub = rec {
         enable = true;
+
         configurationLimit = 10;
         default = "saved";
         device = "nodev";
         efiSupport = true;
+        extraEntries = ''
+          submenu "System" {
+            menuentry "Firmware" { fwsetup }
+            menuentry "Reboot" { reboot }
+            menuentry "Shut Down" { halt }
+          }
+        '';
         gfxmodeBios = "1920x1080";
         gfxmodeEfi = "1920x1080";
         gfxpayloadBios = "keep";
@@ -45,17 +53,6 @@
         splashImage = "${theme}/background.png";
         theme = "${pkgs.p5r-grub}/joker";
         useOSProber = true;
-        extraEntries = ''
-          menuentry "Reboot" {
-            reboot
-          }
-          menuentry "Shut Down" {
-            halt
-          }
-          menuentry "Firmware" {
-            fwsetup
-          }
-        '';
       };
     };
 
