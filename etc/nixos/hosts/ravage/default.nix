@@ -140,12 +140,21 @@
       polkit-1.fprintAuth = true;
       sudo.fprintAuth = true;
     };
-    wrappers.btop = {
-      capabilities = "cap_perfmon=ep";
-      group = "wheel";
-      owner = "root";
-      permissions = "0750";
-      source = lib.getExe pkgs.btop;
+    wrappers = {
+      btop = {
+        capabilities = "cap_perfmon=ep";
+        group = "wheel";
+        owner = "root";
+        permissions = "0750";
+        source = lib.getExe pkgs.btop;
+      };
+      intel_gpu_top = {
+        capabilities = "cap_perfmon=ep";
+        group = "wheel";
+        owner = "root";
+        permissions = "0750";
+        source = lib.getExe' pkgs.intel-gpu-tools "intel_gpu_top";
+      };
     };
   };
 
