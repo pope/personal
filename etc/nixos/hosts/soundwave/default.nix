@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, config, pkgs, ... }:
+{ self, inputs, pkgs, ... }:
 
 {
   imports =
@@ -21,7 +21,6 @@
   nixpkgs.overlays = [
     self.overlays.default
   ];
-  nixpkgs.config.cudaSupport = true;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -56,11 +55,6 @@
       };
     };
 
-    initrd = {
-      kernelModules = [ "nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
-      availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
-    };
-
     supportedFilesystems = [ "ntfs" ];
 
     binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -85,30 +79,9 @@
     };
   };
 
-  hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
-
-    nvidia = {
-      nvidiaSettings = true;
-      open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      powerManagement.enable = true;
-    };
-  };
-
   environment.systemPackages = with pkgs; [
-    libva-utils
     renoise344
   ];
-
-  environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  };
 
   networking = {
     hostName = "soundwave"; # Define your hostname.
@@ -146,8 +119,11 @@
     fah.enable = false;
     flatpak.enable = true;
     fonts.enable = true;
-    gaming.enable = true;
-    gaming.enableSteam = true;
+    gaming = {
+      enable = true;
+      enableSteam = true;
+    };
+    gpu.nvidia.enable = true;
     onepassword.enable = true;
     printing.enable = true;
     sound.enable = true;
@@ -155,7 +131,6 @@
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
-    wayland.enable = true;
     xserver = {
       enable = true;
       enableAutoLogin = false;
