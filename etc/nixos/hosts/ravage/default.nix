@@ -26,10 +26,15 @@
       efi.canTouchEfiVariables = true;
       grub = rec {
         enable = true;
-        efiSupport = true;
         device = "nodev";
-        theme = "${pkgs.p5r-grub}/navi";
+        efiSupport = true;
+        extraEntries = ''
+          menuentry "Reboot" { reboot }
+          menuentry "Shut Down" { halt }
+          menuentry "Firmware" { fwsetup }
+        '';
         splashImage = "${theme}/background.png";
+        theme = "${pkgs.p5r-grub}/navi";
       };
     };
 
