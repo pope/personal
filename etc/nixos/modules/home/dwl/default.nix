@@ -28,6 +28,7 @@ let
       ./dwl/patches/ipc.patch
       ./dwl/patches/gaps.patch
       ./dwl/patches/alwayscenter.patch
+      ./dwl/patches/movestack.patch
     ];
   })).override {
     configH = pkgs.substituteAll (with pkgs;
