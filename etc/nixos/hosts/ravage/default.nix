@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, ... }:
+{ self, inputs, pkgs, lib, ... }:
 
 {
   imports =
@@ -130,9 +130,18 @@
     open-fprintd.enable = true;
     python-validity.enable = true;
   };
-  security.pam.services = {
-    sudo.fprintAuth = true;
-    polkit-1.fprintAuth = true;
+  security = {
+    pam.services = {
+      polkit-1.fprintAuth = true;
+      sudo.fprintAuth = true;
+    };
+    wrappers.btop = {
+      capabilities = "cap_perfmon=ep";
+      group = "wheel";
+      owner = "root";
+      permissions = "0750";
+      source = lib.getExe pkgs.btop;
+    };
   };
 
   my.nixos = {
