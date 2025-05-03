@@ -17,8 +17,12 @@ in
       ];
       extensions = [
         {
-          # ublock origin
-          id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
+          # uBlock Origin Lite
+          id = "ddkjiahejlhfcafbddmgiahcphecmpfh";
+        }
+        {
+          # Privacy Badger
+          id = "pkehgijcmpdhfbdbbnkijodmdjhbjlgp";
         }
         {
           # 1Password
