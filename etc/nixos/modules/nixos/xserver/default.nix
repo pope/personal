@@ -36,7 +36,10 @@ in
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     services = {
-      displayManager.sddm.enable = cfg.displayManager == "sddm";
+      displayManager.sddm = {
+        enable = cfg.displayManager == "sddm";
+        wayland.enable = true;
+      };
       desktopManager.plasma6.enable = cfg.kde.enable;
 
       xserver = {
