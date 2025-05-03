@@ -84,11 +84,11 @@
       ];
     };
   };
-  environment = {
-    systemPackages = with pkgs; [
-      renoise344
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    renoise344
+  ];
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   networking = {
     hostName = "unicron"; # Define your hostname.
