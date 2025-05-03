@@ -31,22 +31,18 @@ let
       ./dwl/patches/movestack.patch
     ];
   })).override {
-    configH = pkgs.substituteAll (with pkgs;
+    configH = pkgs.replaceVars ./dwl/config.def.h (with pkgs;
       let
-        inherit (lib) getExe;
+        inherit (lib) getExe getExe';
         color = config.my.home.theme.colors.withHex;
       in
       {
         inherit (cfg) dpiScale;
-
-        src = ./dwl/config.def.h;
-
         # apps
-        anyrun = getExe config.programs.anyrun.package;
         brillo = getExe brillo;
         foot = getExe foot;
         pamixer = getExe pamixer;
-        pkill = "${procps}/bin/pkill";
+        pkill = getExe' procps "pkill";
         rofi = getExe config.programs.rofi.finalPackage;
         uwsm = getExe uwsm;
         wlogout = getExe wlogout;
@@ -55,19 +51,8 @@ let
         inherit (color) base00;
         inherit (color) base01;
         inherit (color) base02;
-        inherit (color) base03;
-        inherit (color) base04;
-        inherit (color) base05;
-        inherit (color) base06;
-        inherit (color) base07;
-        inherit (color) base08;
         inherit (color) base09;
-        inherit (color) base0A;
-        inherit (color) base0B;
-        inherit (color) base0C;
-        inherit (color) base0D;
         inherit (color) base0E;
-        inherit (color) base0F;
       });
   };
 in
