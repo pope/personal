@@ -32,7 +32,6 @@ in
         nerd-fonts.jetbrains-mono
         nerd-fonts.lilex
         nerd-fonts.symbols-only
-        noto-fonts-emoji
         open-sans
         roboto
         roboto-mono
