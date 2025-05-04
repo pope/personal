@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, ... }:
+{ self, inputs, config, pkgs, lib, ... }:
 
 {
   imports =
@@ -97,13 +97,22 @@
     # Enable networking
     networkmanager.enable = true;
 
+    enableIPv6 = false;
+
     firewall = {
       enable = true;
       # Open ports in the firewall.
       allowedTCPPorts = [ 8001 ];
       allowedUDPPorts = [ 8001 ];
     };
+
+    interfaces.enp5s0.wakeOnLan.enable = true;
   };
+
+  services.openssh.extraConfig = ''
+    Match User ${config.my.nixos.mainUser}
+      ForceCommand systemd-inhibit --who="SSH session" --why="Active user" --what=idle --mode=block ${lib.getExe pkgs.zsh}
+  '';
 
   # Set your time zone.
   time = {
