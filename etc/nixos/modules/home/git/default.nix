@@ -71,6 +71,12 @@ in
             };
           };
           log.showSignature = false;
+          push = {
+            autoSetupRemote = true;
+            default = "simple";
+            recurseSubmodules = "on-demand";
+          };
+          submodule.recurse = true;
         };
 
         signing = {
