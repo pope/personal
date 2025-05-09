@@ -34,4 +34,3 @@ _:
     yazi.enable = true;
   };
 }
-
