@@ -74,6 +74,7 @@ in
       du-dust # du
       dua # du
       duf # df 
+      dysk
       eza # ls and tree
       fd # find
       ffmpeg_6
