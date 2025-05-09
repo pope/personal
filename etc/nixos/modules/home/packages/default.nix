@@ -39,6 +39,27 @@ let
       nvd diff "$GEN_PREV" "$GEN_CUR"
     '';
   };
+  trash-helper = pkgs.writeShellApplication {
+    name = "trash-helper";
+    runtimeInputs = with pkgs; [
+      coreutils
+      findutils
+      fzf
+      gawk
+      trashy
+      util-linux
+    ];
+    text = /* sh */ ''
+      ACTION=$(printf "empty\nrestore" | fzf --header="Which action do you want to take?")
+      trash list \
+        | fzf --multi --header="Select trash to $ACTION" \
+        | awk '{$1=$1;print}' \
+        | rev \
+        | cut -d ' ' -f1 \
+        | rev \
+        | xargs trash "$ACTION" --match=exact --force
+    '';
+  };
 in
 {
   options.my.home.packages = {
@@ -73,6 +94,8 @@ in
       tree
     ] ++ optionals stdenv.isLinux [
       systemctl-tui
+      trash-helper
+      trashy
     ];
 
     programs = {
