@@ -50,9 +50,15 @@ let
       util-linux
     ];
     text = /* sh */ ''
-      ACTION=$(printf "empty\nrestore" | fzf --header="Which action do you want to take?")
+      ACTION=$(printf "empty\nrestore" | fzf \
+          --border --border-label="Trashy Helper" \
+          --header="Which action do you want to take?" \
+          --list-border --list-label="Actions")
       trash list \
-        | fzf --multi --header="Select trash to $ACTION" \
+        | fzf --multi \
+            --border --border-label="Trashy Helper" \
+            --header="Select trash to $ACTION" \
+            --list-border --list-label="Paths" \
         | awk '{$1=$1;print}' \
         | rev \
         | cut -d ' ' -f1 \
