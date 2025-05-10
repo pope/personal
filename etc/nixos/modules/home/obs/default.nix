@@ -20,6 +20,7 @@ in
     };
 
     home.packages = with pkgs; [
+      gphoto2
       gst_all_1.gst-plugins-bad
       gst_all_1.gst-plugins-base
       gst_all_1.gst-plugins-good
