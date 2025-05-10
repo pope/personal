@@ -74,7 +74,6 @@ in
       du-dust # du
       dua # du
       duf # df 
-      dysk
       eza # ls and tree
       fd # find
       ffmpeg_6
@@ -94,6 +93,7 @@ in
       tldr
       tree
     ] ++ optionals stdenv.isLinux [
+      dysk
       systemctl-tui
       trash-helper
       trashy
