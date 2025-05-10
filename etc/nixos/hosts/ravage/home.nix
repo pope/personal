@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -42,7 +42,10 @@
       vscode.enable = true;
     };
     dunst.enable = true;
-    dwl.enable = true;
+    dwl = {
+      enable = true;
+      terminalPackage = config.programs.ghostty.package;
+    };
     git.enable = true;
     gnome = {
       enable = true;

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
+  inherit (lib) literalExpression mkIf mkEnableOption mkOption types;
   cfg = config.my.home.dwl;
 
   dwlb = pkgs.dwlb.override {
@@ -40,10 +40,10 @@ let
         inherit (cfg) dpiScale;
         # apps
         brillo = getExe brillo;
-        foot = getExe foot;
         pamixer = getExe pamixer;
         pkill = getExe' procps "pkill";
         rofi = getExe config.programs.rofi.finalPackage;
+        terminal = getExe cfg.terminalPackage;
         uwsm = getExe uwsm;
         wlogout = getExe wlogout;
 
@@ -64,6 +64,14 @@ in
       default = 1;
       description = lib.mkDoc ''
         The default DPI scale to use.
+      '';
+    };
+    terminalPackage = mkOption {
+      type = types.package;
+      default = pkgs.foot;
+      defaultText = literalExpression "pkgs.foot";
+      description = lib.mkDoc ''
+        The package to use when opening a terminal with <SUPER-Enter>.
       '';
     };
   };
