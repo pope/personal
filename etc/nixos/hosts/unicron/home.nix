@@ -12,6 +12,7 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
+      amdgpu_top
       discord
       godot_4
       nvtopPackages.amd
