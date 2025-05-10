@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -12,6 +12,7 @@
     file.".face".source = ../../face.png;
 
     packages = with pkgs; [
+      amdgpu_top
       comic-code-ligatures
       discord
       godot_4
@@ -65,6 +66,7 @@
     dwl = {
       enable = true;
       dpiScale = 2;
+      terminalPackage = config.programs.ghostty.package;
     };
     git.enable = true;
     gnome.enable = true;
