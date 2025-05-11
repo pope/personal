@@ -143,7 +143,7 @@
     xserver = {
       enable = true;
       enableAutoLogin = false;
-      displayManager = "gdm";
+      displayManager = "none";
       gnome.enable = true;
       hyprland.enable = true;
     };
