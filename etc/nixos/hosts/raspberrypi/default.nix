@@ -78,10 +78,6 @@
         };
       };
     };
-    zerotierone = {
-      enable = true;
-      joinNetworks = [ "272f5eae164a4c0f" ];
-    };
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -106,6 +102,7 @@
       uid = 1002;
       initialPassword = "changeme";
     };
+    zerotierone.enable = true;
   };
 
   hardware.enableRedistributableFirmware = true;

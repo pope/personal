@@ -80,10 +80,6 @@
         };
       };
     };
-    zerotierone = {
-      enable = true;
-      joinNetworks = [ "272f5eae164a4c0f" ];
-    };
 
     owncast = {
       enable = false;
@@ -166,6 +162,7 @@
     };
     system.enable = true;
     users.shell = "zsh";
+    zerotierone.enable = true;
   };
 
   # This value determines the NixOS release from which the default
