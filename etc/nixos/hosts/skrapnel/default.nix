@@ -20,12 +20,6 @@
       self.overlays.default
     ];
     config.allowUnfree = true;
-    config.permittedInsecurePackages = [
-      "aspnetcore-runtime-6.0.36"
-      "aspnetcore-runtime-wrapped-6.0.36"
-      "dotnet-sdk-6.0.428"
-      "dotnet-sdk-wrapped-6.0.428"
-    ];
   };
 
   boot = {
@@ -92,15 +86,15 @@
     };
 
     # # Jellyfin
-    # jellyfin = {
-    #   enable = true;
-    #   openFirewall = true;
-    # };
-    # jellyseerr = {
-    #   enable = true;
-    #   port = 5055;
-    #   openFirewall = true;
-    # };
+    jellyfin = {
+      enable = false;
+      openFirewall = true;
+    };
+    jellyseerr = {
+      enable = false;
+      port = 5055;
+      openFirewall = true;
+    };
     sabnzbd = {
       enable = true;
       openFirewall = true;
