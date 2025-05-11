@@ -85,6 +85,13 @@
       joinNetworks = [ "272f5eae164a4c0f" ];
     };
 
+    owncast = {
+      enable = false;
+      listen = "0.0.0.0";
+      openFirewall = true;
+      port = 8088;
+    };
+
     # # Jellyfin
     jellyfin = {
       enable = false;
