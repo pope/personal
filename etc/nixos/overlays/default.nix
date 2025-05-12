@@ -12,6 +12,8 @@ in
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
   inherit (mypkgs) iqm rbutil hatsune-miku-cursor yazi-plugins;
 
+  tytools-latest = mypkgs.tytools;
+
   renoise344 = prev.renoise.override (
     let
       version = "344";
