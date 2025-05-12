@@ -2,13 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, config, ... }:
+{ self, inputs, pkgs, ... }:
 
 {
   imports =
     [
       self.nixosModules.default
       inputs.nixos-hardware.nixosModules.common-cpu-intel
+      inputs.nixos-hardware.nixosModules.common-gpu-intel
       inputs.nixos-hardware.nixosModules.common-pc
       inputs.nixos-hardware.nixosModules.common-pc-ssd
       # Include the results of the hardware scan.
@@ -82,7 +83,7 @@
     };
 
     owncast = {
-      enable = false;
+      enable = true;
       listen = "0.0.0.0";
       openFirewall = true;
       port = 8088;
