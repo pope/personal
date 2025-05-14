@@ -29,9 +29,11 @@
         device = "nodev";
         efiSupport = true;
         extraEntries = ''
-          menuentry "Reboot" { reboot }
-          menuentry "Shut Down" { halt }
-          menuentry "Firmware" { fwsetup }
+          submenu "System" {
+            menuentry "Firmware" { fwsetup }
+            menuentry "Reboot" { reboot }
+            menuentry "Shut Down" { halt }
+          }
         '';
         splashImage = "${theme}/background.png";
         theme = "${pkgs.p5r-grub}/navi";
@@ -176,6 +178,15 @@
       dwl.enable = true;
       gnome.enable = true;
     };
+  };
+
+  specialisation.egpu.configuration = {
+    imports = [
+      inputs.nixos-hardware.nixosModules.common-gpu-amd
+    ];
+    my.nixos.gpu.amd.enable = true;
+    services.hardware.bolt.enable = true;
+    system.nixos.tags = [ "eGPU" ];
   };
 
   # This value determines the NixOS release from which the default
