@@ -133,15 +133,15 @@
   '';
 
   # # Fingerprint
-  services = {
-    open-fprintd.enable = true;
-    python-validity.enable = true;
-  };
+  # services = {
+  #   open-fprintd.enable = true;
+  #   python-validity.enable = true;
+  # };
   security = {
-    pam.services = {
-      polkit-1.fprintAuth = true;
-      sudo.fprintAuth = true;
-    };
+    # pam.services = {
+    #   polkit-1.fprintAuth = true;
+    #   sudo.fprintAuth = true;
+    # };
     wrappers = {
       btop = {
         capabilities = "cap_perfmon=ep";
