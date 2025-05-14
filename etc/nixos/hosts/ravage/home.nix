@@ -60,7 +60,10 @@
     };
     lf.enable = false;
     mpv.enable = true;
-    multimedia.threed.enable = true;
+    multimedia = {
+      audio.enable = true;
+      threed.enable = true;
+    };
     packages.enable = true;
     rofi.enable = true;
     shell.zsh.enable = true;

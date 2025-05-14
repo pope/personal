@@ -3,32 +3,45 @@
 let
   inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.multimedia.audio;
-  convert_48khz = pkgs.writeScriptBin "convert_48khz" ''
-    set -o errexit
-    set -o pipefail
+  convert_48khz = pkgs.writeShellApplication {
+    name = "convert_48khz";
+    runtimeInputs = with pkgs; [
+      coreutils
+      gnused
+      sox
+    ];
+    text = ''
+      infile="$1"
 
-    program="$0"
-    infile="$1"
+      outdirname="out/$(dirname "$infile")"
+      outbasename="$(basename "$infile" | sed 's/\(.*\)\..*/\1/').wav"
+      outfile="$outdirname/$outbasename"
 
-    outdirname="out/$(${pkgs.coreutils}/bin/dirname "$infile")"
-    outbasename="$(${pkgs.coreutils}/bin/basename "$infile" | sed 's/\(.*\)\..*/\1/').wav"
-    outfile="$outdirname/$outbasename"
+      mkdir -p "$outdirname"
+      sox "$infile" -r 48000 -b 16 -e signed-integer "$outfile" 
+    '';
+  };
 
-    ${pkgs.coreutils}/bin/mkdir -p "$outdirname"
-    ${pkgs.sox}/bin/sox "$infile" -r 48000 -b 16 -e signed-integer "$outfile" 
-  '';
+  convert_to_opus = pkgs.writeShellApplication {
+    name = "convert_to_opus";
+    runtimeInputs = with pkgs; [
+      coreutils
+      fd
+      opusTools
+      parallel
+      sox
+    ];
+    text = ''
+      fd --hidden -e mp3 -e flac \
+        | parallel --max-args 1 \
+          'sox {} --rate 48k --type flac - | opusenc --bitrate 128 --vbr - {.}.opus'
 
-  convert_to_opus = pkgs.writeShellScriptBin "convert_to_opus" ''
-    ${lib.getExe pkgs.fd} --hidden -e mp3 -e flac\
-      | ${lib.getExe pkgs.parallel} --max-args 1 \
-        '${pkgs.sox}/bin/sox {} --rate 48k --type flac - | ${pkgs.opusTools}/bin/opusenc --bitrate 128 --vbr - {.}.opus'
-
-    # Set the same time properties for the converted file as the original. Then
-    # remove the original
-    ${lib.getExe pkgs.fd} --hidden -e mp3 -e flac \
-      | ${lib.getExe pkgs.parallel} --max-args 1 \
-        '${pkgs.coreutils}/bin/touch -r {} {.}.opus && ${pkgs.coreutils}/bin/rm {}'
-  '';
+      # Set the same time properties for the converted file as the original. Then
+      # remove the original
+      fd --hidden -e mp3 -e flac \
+        | parallel --max-args 1 'touch -r {} {.}.opus && rm {}'
+    '';
+  };
 in
 {
   options.my.home.multimedia.audio = {
