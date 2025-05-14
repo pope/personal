@@ -166,7 +166,10 @@
     bluetooth.enable = true;
     flatpak.enable = true;
     fonts.enable = true;
-    gaming.enable = true;
+    gaming = {
+      enable = true;
+      enableSteam = true;
+    };
     onepassword.enable = true;
     sound.enable = true;
     system.enable = true;
