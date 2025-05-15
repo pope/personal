@@ -56,6 +56,7 @@ in
       bitwig-studio
       easyaudiosync
       easytag
+      puddletag
       reaper
       vital
     ];
