@@ -35,7 +35,10 @@
 
   my.home = {
     anyrun.enable = false;
-    browsers.firefox.enable = true;
+    browsers = {
+      chromium.enable = true;
+      firefox.enable = true;
+    };
     editors = {
       emacs.enable = true;
       neovim.enable = true;
