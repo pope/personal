@@ -100,6 +100,8 @@ in
       tree
     ] ++ optionals stdenv.isLinux [
       dysk
+      man-pages
+      man-pages-posix
       systemctl-tui
       trash-helper
       trashy

@@ -15,6 +15,8 @@ in
   ];
 
   config = mkIf cfg.enable {
+    home.sessionVariables.MANPAGER = "nvim +Man!";
+
     programs.nixvim = _: {
       imports = [
         ../../nixvim
