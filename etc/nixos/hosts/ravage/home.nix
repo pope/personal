@@ -45,10 +45,7 @@
       vscode.enable = true;
     };
     dunst.enable = true;
-    dwl = {
-      enable = true;
-      terminalPackage = config.programs.ghostty.package;
-    };
+    dwl.enable = true;
     git.enable = true;
     gnome = {
       enable = true;
