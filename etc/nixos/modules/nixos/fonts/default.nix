@@ -27,7 +27,7 @@ in
         iosevka-comfy.comfy
         jetbrains-mono
         joypixels
-        stable.maple-mono
+        maple-mono.NF
         nerd-fonts.fira-code
         nerd-fonts.jetbrains-mono
         nerd-fonts.lilex
@@ -53,8 +53,8 @@ in
         antialias = true;
         defaultFonts = {
           emoji = [ "Joypixels" "Noto Color Emoji" ];
-          monospace = [ "Liga SFMono Nerd Font" "FiraCode Nerd Font Mono" ];
-          sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
+          monospace = [ "Liga SFMono Nerd Font" ];
+          sansSerif = [ "Work Sans" ];
           serif = [ "Source Serif" ];
         };
         hinting = {
@@ -64,7 +64,7 @@ in
         };
         subpixel = {
           rgba = "rgb";
-          lcdfilter = "light";
+          lcdfilter = "default";
         };
       };
     };
