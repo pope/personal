@@ -1,12 +1,24 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.nixos.fonts;
 in
 {
   options.my.nixos.fonts = {
     enable = mkEnableOption "font system options";
+    resolution = mkOption {
+      default = "default";
+      description = lib.mkDoc ''
+        Specifies the type of monitor resolution.
+
+        With smaller monitor resolutions, font hinting values will be increased
+        for a crisper font. For larger resolutions, the hinting can be turned
+        off completely.
+      '';
+      example = "low";
+      type = types.enum [ "default" "low" "high" ];
+    };
   };
 
   config = mkIf cfg.enable {
@@ -58,9 +70,9 @@ in
           serif = [ "Source Serif" ];
         };
         hinting = {
-          enable = true;
+          enable = cfg.resolution != "high";
           autohint = false;
-          style = "slight";
+          style = if cfg.resolution == "low" then "full" else "slight";
         };
         subpixel = {
           rgba = "rgb";

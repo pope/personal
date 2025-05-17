@@ -165,7 +165,10 @@
 
     bluetooth.enable = true;
     flatpak.enable = true;
-    fonts.enable = true;
+    fonts = {
+      enable = true;
+      resolution = "low";
+    };
     gaming = {
       enable = true;
       enableSteam = true;
