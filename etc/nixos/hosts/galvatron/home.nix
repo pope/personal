@@ -91,7 +91,6 @@
       javascript.enable = true;
       python.enable = true;
     };
-    lf.enable = true;
     mpv.enable = true;
     multimedia.audio.enable = true;
     packages.enable = true;
