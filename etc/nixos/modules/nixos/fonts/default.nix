@@ -25,7 +25,12 @@ in
     fonts = {
       fontDir.enable = true;
 
-      packages = with pkgs; [
+      packages = with pkgs; let
+        maple-mono-font =
+          if cfg.resolution == "high" then maple-mono.NF-unhinted
+          else maple-mono.NF;
+      in
+      [
         comic-mono
         fira
         fira-go
@@ -39,7 +44,7 @@ in
         iosevka-comfy.comfy
         jetbrains-mono
         joypixels
-        maple-mono.NF
+        maple-mono-font
         nerd-fonts.fira-code
         nerd-fonts.jetbrains-mono
         nerd-fonts.lilex
