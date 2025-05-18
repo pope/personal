@@ -100,6 +100,7 @@
     packages.enable = true;
     rofi.enable = true;
     shell.zsh.enable = true;
+    ssh.enable = true;
     terminals = {
       ghostty = {
         enable = true;

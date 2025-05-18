@@ -28,6 +28,7 @@ _:
     };
     packages.enable = true;
     shell.zsh.enable = true;
+    ssh.enable = true;
     terminals.ghostty.enable = true;
     tmux.enable = true;
     xdg.enable = true;

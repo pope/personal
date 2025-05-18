@@ -53,21 +53,11 @@
   programs = {
     home-manager.enable = true;
 
-    ssh = {
-      controlMaster = "auto";
-      controlPath = "/tmp/%r@%h:%p";
-      controlPersist = "5m";
-
-      matchBlocks = {
-        "shifteleven.com".user = "root";
-
-        "nix-builder" = {
-          user = "root";
-          hostname = "127.0.0.1";
-          port = 3022;
-          identityFile = "~/.ssh/insecure_rsa";
-        };
-      };
+    ssh.matchBlocks."nix-builder" = {
+      user = "root";
+      hostname = "127.0.0.1";
+      port = 3022;
+      identityFile = "~/.ssh/insecure_rsa";
     };
 
     streamlink.enable = true;
@@ -84,7 +74,6 @@
     };
     git = {
       enable = true;
-      opIdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
       opSshSignCommand = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
     };
     languages = {
@@ -95,6 +84,10 @@
     multimedia.audio.enable = true;
     packages.enable = true;
     shell.zsh.enable = true;
+    ssh = {
+      enable = true;
+      opIdentityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+    };
     terminals = {
       ghostty.enable = true;
       wezterm = {

@@ -23,13 +23,10 @@
 
   my.home = {
     editors.neovim.enable = true;
-    git = {
-      enable = true;
-    };
-    languages = {
-      c.enable = true;
-    };
+    git.enable = true;
+    languages.c.enable = true;
     packages.enable = true;
+    ssh.enable = true;
     yazi.enable = true;
   };
 }

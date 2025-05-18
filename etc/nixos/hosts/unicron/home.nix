@@ -81,9 +81,8 @@
     };
     obs.enable = true;
     packages.enable = true;
-    shell = {
-      zsh.enable = true;
-    };
+    shell.zsh.enable = true;
+    ssh.enable = true;
     terminals = {
       crt.enable = true;
       ghostty = {

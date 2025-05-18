@@ -114,18 +114,6 @@ in
         };
       };
 
-      ssh = {
-        enable = true;
-
-        matchBlocks."shifteleven.com" = {
-          addressFamily = "inet";
-        };
-
-        matchBlocks."*".extraOptions = {
-          IdentityAgent = ''"${cfg.opIdentityAgent}"'';
-        };
-      };
-
       # TODO(pope): Move this somewhere else. This is common enough for other
       # 1password plugins, but `gh` is the only one I really use now.
       fish.interactiveShellInit = /* fish */ ''

@@ -23,6 +23,7 @@ _:
     lf.enable = true;
     packages.enable = true;
     shell.fish.enable = true;
+    ssh.enable = true;
     yazi.enable = true;
   };
 }
