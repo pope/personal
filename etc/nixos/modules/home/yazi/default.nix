@@ -25,9 +25,12 @@ in
         ];
       };
       settings = settings // {
+        manager = settings.manager // {
+          ratio = [ 2 4 3 ];
+        };
         preview = settings.preview // {
           max_width = 2048;
-          max_height = 4096;
+          max_height = 2048;
         };
       };
     };
