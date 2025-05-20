@@ -34,7 +34,7 @@ in
             let
               fontSize = builtins.toString cfg.fontSize;
             in
-            "monospace:size=${fontSize}, Symbols Nerd Font:size=${fontSize}";
+            "monospace:size=${fontSize}, JetBrainsMono Nerd Font:size=${fontSize}";
           font-size-adjustment = 0.5;
           line-height = cfg.fontSize * 1.25;
           pad = "4x10";
