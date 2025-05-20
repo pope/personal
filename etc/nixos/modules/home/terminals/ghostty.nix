@@ -43,8 +43,7 @@ in
           config-file = [ "?overrides" ];
           font-family = [
             ""
-            "Liga SFMono Nerd Font"
-            "MonoLisa"
+            "monospace"
           ];
           font-size = cfg.fontSize;
         };
