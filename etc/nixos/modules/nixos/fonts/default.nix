@@ -32,17 +32,14 @@ in
       in
       [
         comic-mono
-        fira
-        fira-go
+        fragment-mono
         geist-font
         go-font
         hasklig
         helvetica-neue-lt-std
         ia-writer
         inter
-        iosevka
         iosevka-comfy.comfy
-        jetbrains-mono
         joypixels
         maple-mono-font
         nerd-fonts.fira-code
@@ -53,11 +50,9 @@ in
         roboto
         roboto-mono
         roboto-slab
-        sf-mono-font
         sf-mono-nf-liga
         source-serif
         terminus_font
-        terminus_font_ttf
         victor-mono
         work-sans
       ];
