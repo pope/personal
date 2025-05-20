@@ -184,6 +184,7 @@
       dwl.enable = true;
       gnome.enable = true;
     };
+    zerotierone.enable = true;
   };
 
   specialisation.egpu.configuration = {
