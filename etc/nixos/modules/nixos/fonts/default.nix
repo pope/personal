@@ -65,7 +65,7 @@ in
         antialias = true;
         defaultFonts = {
           emoji = [ "Joypixels" "Noto Color Emoji" ];
-          monospace = [ "Liga SFMono Nerd Font" ];
+          monospace = [ "Fragment Mono" "Symbols Nerd Font" ];
           sansSerif = [ "Work Sans" ];
           serif = [ "Source Serif" ];
         };
