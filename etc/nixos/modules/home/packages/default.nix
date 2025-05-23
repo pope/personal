@@ -4,15 +4,9 @@ let
   inherit (lib) mkIf mkEnableOption optionalAttrs optionals;
   cfg = config.my.home.packages;
   glowConfig = lib.generators.toYAML { } {
-    # style name or JSON path (default "auto")
-    style = "dracula";
-    # show local files only; no network (TUI-mode only)
-    local = false;
-    # mouse support (TUI-mode only)
-    mouse = true;
-    # use pager to display markdown
-    pager = true;
-    # word-wrap at width
+    style = "dracula"; # style name or JSON path (default "auto")
+    local = false; # show local files only; no network (TUI-mode only)
+    mouse = true; # mouse support (TUI-mode only)
     width = 100;
   };
   home-manager-diff = pkgs.writeShellApplication {
