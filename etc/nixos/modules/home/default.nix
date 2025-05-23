@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 
 let
   imports = map
@@ -15,5 +15,11 @@ in
   config.nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     registry.nixpkgs.flake = inputs.nixpkgs;
+    settings = {
+      auto-optimise-store = true;
+      builders-use-substitutes = true;
+      experimental-features = [ "nix-command" "flakes" ];
+      trusted-users = [ config.home.username ];
+    };
   };
 }

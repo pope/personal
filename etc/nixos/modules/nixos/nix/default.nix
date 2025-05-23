@@ -7,7 +7,9 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     registry = {
+      nixpkgs.flake = inputs.nixpkgs;
       nixpkgs-stable.flake = inputs.nixpkgs-stable;
     };
     settings = {
