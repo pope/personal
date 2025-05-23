@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{ inputs, config, pkgs, ... }:
 
 let
   imports = map
@@ -14,6 +14,7 @@ in
 
   config.nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    package = pkgs.nix;
     registry.nixpkgs.flake = inputs.nixpkgs;
     settings = {
       auto-optimise-store = true;
