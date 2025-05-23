@@ -9,7 +9,7 @@ in
     enable = mkEnableOption "Emacs text editor home options";
     package = mkOption {
       type = types.package;
-      default = if pkgs.stdenv.isDarwin then pkgs.emacs30 else pkgs.emacs30-pgtk;
+      default = pkgs.emacs30-pgtk;
       defaultText = lib.literalExpression "pkgs.emacs30-pgtk";
       description = lib.mkDoc "Package of Emacs to use";
     };

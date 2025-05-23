@@ -65,11 +65,7 @@
 
   my.home = {
     editors = {
-      emacs = {
-        enable = true;
-        # Workaround for 15.4. See https://github.com/NixOS/nixpkgs/issues/395169
-        package = pkgs.emacs30-pgtk.override { withNativeCompilation = false; };
-      };
+      emacs.enable = true;
       neovim.enable = true;
     };
     git = {
