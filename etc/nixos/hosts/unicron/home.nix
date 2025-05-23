@@ -33,7 +33,7 @@
   };
 
   my.home = {
-    anyrun.enable = true;
+    anyrun.enable = false;
     browsers = {
       chromium.enable = true;
       firefox.enable = true;
@@ -81,6 +81,7 @@
     };
     obs.enable = true;
     packages.enable = true;
+    rofi.enable = true;
     shell.zsh.enable = true;
     ssh.enable = true;
     terminals = {

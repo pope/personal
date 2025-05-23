@@ -6,12 +6,15 @@ let
   launcher = "${getExe pkgs.uwsm} app --";
 
   # commands
-  anyrun = "${launcher} ${getExe config.programs.anyrun.package}";
   brillo = "${getExe pkgs.brillo}";
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   nm-applet = "${launcher} ${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${getExe pkgs.pamixer}";
+  runner =
+    if config.my.home.rofi.enable
+    then "${launcher} ${getExe config.programs.rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
+    else "${launcher} ${getExe config.programs.anyrun.package}";
   screenshot = "${launcher} wayland-screenshot";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   terminal =
@@ -87,11 +90,11 @@ in
         blur = {
           enabled = true;
 
-          size = 6;
+          size = 5;
           passes = 3;
           new_optimizations = true;
           ignore_opacity = true;
-          noise = "0.1";
+          noise = "0.05";
           contrast = "1.1";
           brightness = "1.2";
           xray = false;
@@ -178,7 +181,7 @@ in
 
         "SUPER, Return, exec, ${terminal}"
         "SUPER, E, exec, ${thunar}"
-        "SUPER, Space, exec, ${anyrun}"
+        "SUPER, Space, exec, ${runner}"
         "SUPER, L, exec, ${wlogout}"
 
         "SUPER, Tab, cyclenext"
@@ -264,6 +267,10 @@ in
         "ignorezero, ^(gtk-layer-shell|anyrun|waybar)$"
         "blur, notifications"
         "blur, launcher"
+
+        "dimaround, rofi"
+        "blur, rofi"
+        "ignorezero, rofi"
       ];
     };
   };
