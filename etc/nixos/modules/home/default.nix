@@ -12,5 +12,8 @@ in
     inputs.nix-colors.homeManagerModules.default
   ] ++ imports;
 
-  config.nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  config.nix = {
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    registry.nixpkgs.flake = inputs.nixpkgs;
+  };
 }
