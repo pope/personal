@@ -106,6 +106,7 @@ in
       bitwig-studio
       easyaudiosync
       easytag
+      lrcget
       puddletag
       reaper
       vital
