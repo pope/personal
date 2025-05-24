@@ -96,6 +96,7 @@
       };
       video.enable = false;
     };
+    music.enable = true;
     obs.enable = true;
     packages.enable = true;
     rofi.enable = true;
