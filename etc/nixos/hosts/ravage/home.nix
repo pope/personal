@@ -64,6 +64,7 @@
       audio.enable = true;
       threed.enable = true;
     };
+    music.enable = true;
     packages.enable = true;
     rofi.enable = true;
     shell.zsh.enable = true;
