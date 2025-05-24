@@ -61,7 +61,9 @@ in
                 helper = "${ghWrapper}/bin/op-gh auth git-credential";
               })
             [ "https://github.com" "https://gist.github.com" ]));
+          commit.gpgSign = true;
           core.sshCommand = mkIf (cfg.sshCommand != null) cfg.sshCommand;
+          format.signOff = true;
           init.defaultBranch = "main";
           gpg = {
             format = "ssh";
@@ -77,6 +79,7 @@ in
             recurseSubmodules = "on-demand";
           };
           submodule.recurse = true;
+          tag.gpgSign = true;
         };
 
         signing = {
