@@ -61,17 +61,10 @@ in
                 helper = "${ghWrapper}/bin/op-gh auth git-credential";
               })
             [ "https://github.com" "https://gist.github.com" ]));
-          commit.gpgSign = true;
           core.sshCommand = mkIf (cfg.sshCommand != null) cfg.sshCommand;
           format.signOff = true;
+          gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
           init.defaultBranch = "main";
-          gpg = {
-            format = "ssh";
-            "ssh" = {
-              program = mkIf (!cfg.remoteOnly) cfg.opSshSignCommand;
-              allowedSignersFile = "~/.ssh/allowed_signers";
-            };
-          };
           log.showSignature = false;
           push = {
             autoSetupRemote = true;
@@ -79,12 +72,13 @@ in
             recurseSubmodules = "on-demand";
           };
           submodule.recurse = true;
-          tag.gpgSign = true;
         };
 
         signing = {
+          format = "ssh";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo";
           signByDefault = true;
+          signer = mkIf (!cfg.remoteOnly) cfg.opSshSignCommand;
         };
       };
 
