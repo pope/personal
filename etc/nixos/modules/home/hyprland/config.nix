@@ -18,8 +18,8 @@ let
   screenshot = "${launcher} wayland-screenshot";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   terminal =
-    if config.my.home.terminals.wezterm.enable
-    then "${launcher} ${getExe config.programs.wezterm.package}"
+    if config.my.home.terminals.ghostty.enable then "${launcher} ${getExe config.programs.ghostty.package}"
+    else if config.my.home.terminals.wezterm.enable then "${launcher} ${getExe config.programs.wezterm.package}"
     else "${launcher} ${getExe config.programs.kitty.package}";
   thunar = "${launcher} ${getExe pkgs.xfce.thunar}";
   wlogout = "${launcher} ${getExe pkgs.wlogout}";
