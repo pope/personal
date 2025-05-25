@@ -21,7 +21,7 @@
     },
     "fish-rose-pine": {
         "cargoLocks": null,
-        "date": "2022-09-16",
+        "date": "2025-05-06",
         "extract": null,
         "name": "fish-rose-pine",
         "passthru": null,
@@ -31,13 +31,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "38aab5baabefea1bc7e560ba3fbdb53cb91a6186",
-            "sha256": "sha256-bSGGksL/jBNqVV0cHZ8eJ03/8j3HfD9HXpDa8G/Cmi8=",
+            "rev": "b82982c55582cfaf6f220de1893c7c73dd0cb301",
+            "sha256": "sha256-Dvaw1k7XOU2NUQbTJAXPgAOPN1zTLVrc7NZDY5/KHeM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rose-pine/fish"
         },
-        "version": "38aab5baabefea1bc7e560ba3fbdb53cb91a6186"
+        "version": "b82982c55582cfaf6f220de1893c7c73dd0cb301"
     },
     "fish-tokyonight": {
         "cargoLocks": null,
@@ -350,7 +350,7 @@
     },
     "yazi-plugins": {
         "cargoLocks": null,
-        "date": "2025-04-21",
+        "date": "2025-05-11",
         "extract": null,
         "name": "yazi-plugins",
         "passthru": null,
@@ -360,12 +360,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "4b027c79371af963d4ae3a8b69e42177aa3fa6ee",
-            "sha256": "sha256-auGNSn6tX72go7kYaH16hxRng+iZWw99dKTTUN91Cow=",
+            "rev": "55bf6996ada3df4cbad331ce3be0c1090769fc7c",
+            "sha256": "sha256-v/C+ZBrF1ghDt1SXpZcDELmHMVAqfr44iWxzUWynyRk=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/yazi-rs/plugins"
         },
-        "version": "4b027c79371af963d4ae3a8b69e42177aa3fa6ee"
+        "version": "55bf6996ada3df4cbad331ce3be0c1090769fc7c"
     }
 }

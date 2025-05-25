@@ -17,17 +17,17 @@
   };
   fish-rose-pine = {
     pname = "fish-rose-pine";
-    version = "38aab5baabefea1bc7e560ba3fbdb53cb91a6186";
+    version = "b82982c55582cfaf6f220de1893c7c73dd0cb301";
     src = fetchgit {
       url = "https://github.com/rose-pine/fish";
-      rev = "38aab5baabefea1bc7e560ba3fbdb53cb91a6186";
+      rev = "b82982c55582cfaf6f220de1893c7c73dd0cb301";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-bSGGksL/jBNqVV0cHZ8eJ03/8j3HfD9HXpDa8G/Cmi8=";
+      sha256 = "sha256-Dvaw1k7XOU2NUQbTJAXPgAOPN1zTLVrc7NZDY5/KHeM=";
     };
-    date = "2022-09-16";
+    date = "2025-05-06";
   };
   fish-tokyonight = {
     pname = "fish-tokyonight";
@@ -215,16 +215,16 @@
   };
   yazi-plugins = {
     pname = "yazi-plugins";
-    version = "4b027c79371af963d4ae3a8b69e42177aa3fa6ee";
+    version = "55bf6996ada3df4cbad331ce3be0c1090769fc7c";
     src = fetchgit {
       url = "https://github.com/yazi-rs/plugins";
-      rev = "4b027c79371af963d4ae3a8b69e42177aa3fa6ee";
+      rev = "55bf6996ada3df4cbad331ce3be0c1090769fc7c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-auGNSn6tX72go7kYaH16hxRng+iZWw99dKTTUN91Cow=";
+      sha256 = "sha256-v/C+ZBrF1ghDt1SXpZcDELmHMVAqfr44iWxzUWynyRk=";
     };
-    date = "2025-04-21";
+    date = "2025-05-11";
   };
 }
