@@ -57,6 +57,8 @@ in
     mpris = {
       format = "{status_icon} {dynamic}";
       format-paused = "{status_icon} <i>{dynamic}</i>";
+      dynamic-order = [ "title" "artist" "album" ];
+      dynamic-importance-order = [ "title" "artist" "album" ];
       dynamic-separator = ''<span foreground="${color.base04}"> ) </span>'';
       max-length = 100;
       status-icons = {
