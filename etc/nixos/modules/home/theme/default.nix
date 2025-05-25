@@ -1,4 +1,4 @@
-{ config, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   inherit (lib) mkOption types mkIf;
@@ -42,9 +42,83 @@ in
     {
       my.home.theme.colors = colors;
 
-      # A helper file to view the colors to names. Borrowed from stylix.
+      home.activation.createThemePlaceholders =
+        lib.hm.dag.entryAfter [ "writeBoundary" ] /* sh */ ''
+          run mkdir -p $VERBOSE_ARG \
+              ~/.cache/wal/ \
+              ~/.config/foot/ \
+              ~/.config/hypr/
+
+          run touch -a \
+              ~/.cache/wal/colors-wal.vim \
+              ~/.config/foot/wallust.ini \
+              ~/.config/hypr/hyprland.wallust.conf
+        '';
+
+      home.packages = with pkgs; [
+        (writeShellApplication {
+          name = "wal-reset";
+          runtimeInputs = [ coreutils ];
+          text = /* sh */ ''
+            echo "" > ~/.cache/wal/colors-wal.vim
+            echo "" > ~/.config/foot/wallust.ini
+            echo "" > ~/.config/ghostty/wallust
+            echo "" > ~/.config/hypr/hyprland.wallust.conf
+
+            rm ~/.cache/colors.json
+          '';
+        })
+      ];
+
+      programs = {
+        ghostty.settings.config-file = lib.mkBefore [ "?wallust" ];
+        foot.settings.main.include = lib.mkAfter [ "~/.config/foot/wallust.ini" ];
+
+        wallust = {
+          enable = true;
+          settings = {
+            backend = "wal";
+            check_contrast = true;
+            color_space = "lch";
+            fallback_generator = "complementary";
+
+            templates = {
+              colors = {
+                template = "colors.json";
+                target = "~/.cache/colors.json";
+              };
+              foot = {
+                template = "foot.ini";
+                target = "~/.config/foot/wallust.ini";
+              };
+              ghostty = {
+                template = "ghostty";
+                target = "~/.config/ghostty/wallust";
+              };
+              hyprland = {
+                template = "hyprland.conf";
+                target = "~/.config/hypr/hyprland.wallust.conf";
+              };
+              neopywal = {
+                template = "colors.vim";
+                target = "~/.cache/wal/colors-wal.vim";
+              };
+            };
+          };
+        };
+      };
+
+      wayland.windowManager.hyprland = {
+        sourceFirst = false;
+        settings.source = "~/.config/hypr/hyprland.wallust.conf";
+      };
+
       xdg.configFile = {
+        # A helper file to view the colors to names. Borrowed from stylix.
         "nix-theme-colors.html".text = import ./colors.html.nix { inherit colors; };
+
+        "wallust/templates".source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/Code/personal/etc/nixos/modules/home/theme/templates";
       };
     }
   );
