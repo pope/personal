@@ -23,11 +23,15 @@ in
       settings = {
         main = {
           include =
-            if colorScheme == "rose-pine" then "${pkgs.foot.themes}/share/foot/themes/rose-pine"
-            else if colorScheme == "catppuccin" then "${pkgs.foot.themes}/share/foot/themes/catppuccin-mocha"
-            else if colorScheme == "dracula" then "${pkgs.foot.themes}/share/foot/themes/dracula"
-            else if colorScheme == "tokyonight" then "${pkgs.foot.themes}/share/foot/themes/tokyonight-storm"
-            else abort "invalid theme";
+            let
+              cs =
+                if colorScheme == "rose-pine" then "rose-pine"
+                else if colorScheme == "catppuccin" then "catppuccin-mocha"
+                else if colorScheme == "dracula" then "dracula"
+                else if colorScheme == "tokyonight" then "tokyonight-storm"
+                else abort "invalid theme";
+            in
+            [ "${pkgs.foot.themes}/share/foot/themes/${cs}" ];
           box-drawings-uses-font-glyphs = true;
           dpi-aware = false;
           font =
