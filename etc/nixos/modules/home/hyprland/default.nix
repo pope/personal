@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.hyprland;
 
   gamemode =
@@ -26,6 +26,13 @@ in
   options.my.home.hyprland = {
     enable = mkEnableOption "hyprland home options";
     enableVrr = mkEnableOption "variable refresh rate";
+    dpiScale = mkOption {
+      type = types.int;
+      default = 1;
+      description = lib.mkDoc ''
+        The default DPI scale to use.
+      '';
+    };
   };
 
   imports = [
@@ -58,6 +65,21 @@ in
       gamemode
       hyprpicker
     ];
+
+    services.xsettingsd.settings = mkIf (cfg.dpiScale != 1)
+      (
+        let
+          dpi = (96 * cfg.dpiScale) * 1024;
+        in
+        {
+          "Xft/DPI" = dpi;
+          "Gdk/UnscaledDPI" = dpi / cfg.dpiScale;
+          "Gdk/WindowScalingFactor" = cfg.dpiScale;
+        }
+      );
+    xresources.properties = mkIf (cfg.dpiScale != 1) {
+      "Xft.dpi" = 96 * cfg.dpiScale;
+    };
 
     services.hyprpaper = {
       # Disabling in favor of swww.

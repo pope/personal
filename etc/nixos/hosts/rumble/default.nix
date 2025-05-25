@@ -141,9 +141,9 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "gdm";
-      dwl.enable = true;
+      dwl.enable = false;
       gnome.enable = true;
-      hyprland.enable = false;
+      hyprland.enable = true;
     };
     zerotierone.enable = true;
   };
