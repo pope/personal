@@ -41,12 +41,18 @@
       opts.options = {
         section_separators = { left = ""; right = ""; };
         component_separators = { left = ""; right = ""; };
-        theme = "auto";
+        theme = "neopywal";
       };
       opts.sections.lualine_c = [
         "filename"
         (helpers.listToUnkeyedAttrs [ "navic" ] // { navic_opts = null; })
       ];
+      config = /* lua */ ''
+        function (_, opts)
+          require("neopywal.theme.plugins.lualine").setup()
+          require("lualine").setup(opts)
+        end
+      '';
     }
   ];
 }

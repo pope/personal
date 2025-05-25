@@ -3,6 +3,11 @@
 let
   inherit (lib) mkOption types optionalString;
   cfg = config.my.nixvim.theme;
+
+  # Importing this as such because for some reason, the home-module version of
+  # this doesn't work while the nixvim package does.
+  nvsrcs = pkgs.callPackage ../../../packages/_sources/generated.nix { };
+  neopywal-nvim = pkgs.callPackage ./../../../packages/neopywal-nvim { inherit nvsrcs; };
 in
 {
   options.my.nixvim.theme = {
@@ -16,6 +21,44 @@ in
   };
 
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
+    {
+      pkg = neopywal-nvim;
+      priority = 1000;
+      opts = {
+        custom_colors.all = helpers.mkRaw /* lua */ ''
+          function(C)
+            local U = require("neopywal.utils.color")
+            return {
+              cursorline = U.blend(C.background, C.foreground, 0.88),
+              nontext = U.blend(C.background, C.foreground, 0.93),
+            }
+          end
+        '';
+        custom_highlights.all = helpers.mkRaw /* lua */ ''
+          function(C)
+            return {
+              ColorColumn = { bg = C.cursorline },
+              NonText = {
+                fg = C.nontext,
+                bg = C.none,
+              },
+            }
+          end
+        '';
+        # In addition to the defaults
+        plugins = {
+          barbar = true;
+          dap = true;
+          indent_blankline = {
+            enable = true;
+            scope_color = "nontext";
+          };
+          rainbow = true;
+          surround = true;
+        };
+        transparent_background = true;
+      };
+    }
     {
       pkg = rose-pine;
       priority = 1000;

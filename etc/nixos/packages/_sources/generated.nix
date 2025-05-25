@@ -139,6 +139,20 @@
     };
     date = "2024-01-11";
   };
+  neopywal-nvim = {
+    pname = "neopywal-nvim";
+    version = "09188d79b45694141ec779d05cbcc75f994639d1";
+    src = fetchgit {
+      url = "https://github.com/RedsXDD/neopywal.nvim";
+      rev = "09188d79b45694141ec779d05cbcc75f994639d1";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-RLwxyGRmU1B8r6xO1YObF8qlNEj7qitNUArUlw092V8=";
+    };
+    date = "2025-04-12";
+  };
   p5r-grub = {
     pname = "p5r-grub";
     version = "v1.0";

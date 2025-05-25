@@ -221,6 +221,26 @@
         },
         "version": "b3f0a59d68f33b7162051ea5970a5169558f0ea2"
     },
+    "neopywal-nvim": {
+        "cargoLocks": null,
+        "date": "2025-04-12",
+        "extract": null,
+        "name": "neopywal-nvim",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "09188d79b45694141ec779d05cbcc75f994639d1",
+            "sha256": "sha256-RLwxyGRmU1B8r6xO1YObF8qlNEj7qitNUArUlw092V8=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/RedsXDD/neopywal.nvim"
+        },
+        "version": "09188d79b45694141ec779d05cbcc75f994639d1"
+    },
     "p5r-grub": {
         "cargoLocks": null,
         "date": null,

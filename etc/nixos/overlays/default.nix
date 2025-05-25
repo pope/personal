@@ -14,6 +14,8 @@ in
 
   tytools-latest = mypkgs.tytools;
 
+  vimPlugins = prev.vimPlugins // { inherit (mypkgs) neopywal-nvim; };
+
   renoise344 = prev.renoise.override (
     let
       version = "344";
