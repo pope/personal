@@ -141,7 +141,7 @@ in
           separator = base07;
           spinner = base0E;
         };
-        defaultCommand = "${pkgs.fd}/bin/fd --type file --hidden";
+        defaultCommand = "${lib.getExe pkgs.fd} --type file --hidden";
         defaultOptions = [
           "--height='80%'"
           "--marker='* '"
@@ -153,17 +153,18 @@ in
           "--bind='ctrl-f:jump'"
           "--bind='ctrl-/:change-preview-window(down|hidden|)'"
         ];
-        fileWidgetCommand = "${pkgs.fd}/bin/fd --type file --hidden";
+        fileWidgetCommand = "${lib.getExe pkgs.fd} --type file --hidden";
         fileWidgetOptions = [
-          "--preview '${pkgs.bat}/bin/bat --number --color=always --line-range=:200 {}'"
+          "--preview '${lib.getExe pkgs.bat} --number --color=always --line-range=:200 {}'"
         ];
-        changeDirWidgetCommand = "${pkgs.fd}/bin/fd --hidden --type d";
+        changeDirWidgetCommand = "${lib.getExe pkgs.fd} --hidden --type d";
         changeDirWidgetOptions = [
-          "--preview '${pkgs.eza}/bin/eza --tree --color=always --icons {} | head -200'"
+          "--preview '${lib.getExe pkgs.eza} --tree --color=always --icons {} | head -200'"
         ];
-        # TODO(pope): Why did I set the language to Fish here?
         historyWidgetOptions = [
-          "--preview 'echo {} | ${pkgs.bat}/bin/bat --language Fish --color=always --plain'"
+          ''
+            --preview 'echo {} | ${lib.getExe pkgs.gnused} \"s/^ *[0-9*]\+ *//\" | ${lib.getExe pkgs.bat} --language=sh --color=always --plain'
+          ''
           "--preview-window up:3:hidden:wrap"
         ];
         tmux.enableShellIntegration = config.my.home.tmux.enable;
