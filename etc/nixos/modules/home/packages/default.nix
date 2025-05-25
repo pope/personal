@@ -90,6 +90,7 @@ in
       procs # ps
       ripgrep
       sd # sed
+      timg
       tldr
       tree
     ] ++ optionals stdenv.isLinux [
