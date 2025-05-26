@@ -58,6 +58,17 @@ in
         };
         transparent_background = true;
       };
+      # TODO(pope): Load neopywal if a colors file is found and not empty.
+      # Otherwise, load the sent in theme.
+      config = /* lua */ ''
+        function(_, opts)
+          -- $XDG_CONFIG_HOME is more appropriate, but the lib uses $HOME
+          local config = os.getenv("HOME") .. "/.cache/wal/colors-wal.vim"
+          if vim.uv.fs_stat(config) then
+            require("neopywal").setup(opts)
+          end
+        end
+      '';
     }
     {
       pkg = rose-pine;
