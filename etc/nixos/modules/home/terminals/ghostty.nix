@@ -33,11 +33,11 @@ in
             else if colorScheme == "dracula" then "Dracula"
             else if colorScheme == "tokyonight" then "tokyonight"
             else abort "invalid colorScheme";
-          window-decoration = if pkgs.stdenv.isLinux then "false" else "true";
         in
         {
-          inherit theme window-decoration;
-          adjust-cell-height = "25%";
+          inherit theme;
+          adjust-cell-height = "40%";
+          adw-toolbar-style = "flat";
           background-opacity = 0.95;
           background-blur-radius = 20;
           config-file = [ "?overrides" ];
@@ -46,6 +46,10 @@ in
             "monospace"
           ];
           font-size = cfg.fontSize;
+          gtk-adwaita = true;
+          gtk-single-instance = true; # default is "desktop"
+          window-decoration = "auto";
+          window-theme = "ghostty";
         };
     };
   };
