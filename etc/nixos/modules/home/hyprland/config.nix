@@ -124,7 +124,7 @@ in
           "windowsOut, 1, 5, winOut, slide"
           "windowsMove, 1, 5, wind, slide"
           "border, 1, 1, liner"
-          "borderangle, 1, 30, liner, loop"
+          "borderangle, 1, 12, liner, once"
           "fade, 1, 10, default"
           "workspaces, 1, 5, wind"
         ];
