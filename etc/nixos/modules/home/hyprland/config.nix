@@ -2,6 +2,7 @@
 
 let
   inherit (lib) mkIf getExe;
+  cfg = config.my.home.hyprland;
 
   launcher = "${getExe pkgs.uwsm} app --";
 
@@ -36,7 +37,7 @@ let
     else colors.base0D;
 in
 {
-  config = mkIf config.my.home.hyprland.enable {
+  config = mkIf cfg.enable {
     wayland.windowManager.hyprland.settings = with colors; {
       monitor = lib.mkDefault [
         "eDP-1,preferred,auto,1"
@@ -90,8 +91,8 @@ in
         blur = {
           enabled = true;
 
-          size = 5;
-          passes = 3;
+          size = if cfg.enableBatterySaverMode then 8 else 5;
+          passes = if cfg.enableBatterySaverMode then 1 else 3;
           new_optimizations = true;
           ignore_opacity = true;
           noise = "0.05";
@@ -101,7 +102,7 @@ in
         };
 
         shadow = {
-          enabled = true;
+          enabled = !cfg.enableBatterySaverMode;
           ignore_window = true;
           offset = "0 8";
           range = 50;
@@ -111,14 +112,14 @@ in
       };
 
       animations = {
-        enabled = true;
-        bezier = [
+        enabled = !cfg.enableBatterySaverMode;
+        bezier = lib.optional (!cfg.enableBatterySaverMode) [
           "wind, 0.05, 0.9, 0.1, 1.05"
           "winIn, 0.1, 1.1, 0.1, 1.1"
           "winOut, 0.3, -0.3, 0, 1"
           "liner, 1, 1, 1, 1"
         ];
-        animation = [
+        animation = lib.optional (!cfg.enableBatterySaverMode) [
           "windows, 1, 6, wind, slide"
           "windowsIn, 1, 6, winIn, slide"
           "windowsOut, 1, 5, winOut, slide"
@@ -135,7 +136,7 @@ in
         disable_splash_rendering = true;
 
         vfr = true; # misc:no_vfr -> misc:vfr. bool, heavily recommended to leave at default on. Saves on CPU usage.
-        vrr = if config.my.home.hyprland.enableVrr then 1 else 0; # misc:vrr -> Adaptive sync of your monitor. 0 (off), 1 (on), 2 (fullscreen only). Default 0 to avoid white flashes on select hardware.
+        vrr = if cfg.enableVrr then 1 else 0; # misc:vrr -> Adaptive sync of your monitor. 0 (off), 1 (on), 2 (fullscreen only). Default 0 to avoid white flashes on select hardware.
       };
 
       group = {

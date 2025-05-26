@@ -60,6 +60,7 @@
     hyprland = {
       enable = true;
       dpiScale = 2;
+      enableBatterySaverMode = true;
       enableVrr = true;
     };
     keymapp.enable = true;
