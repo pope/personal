@@ -134,6 +134,7 @@
     gaming = {
       enable = true;
       enableSteam = true;
+      preferredOutput = "HDMI-A-2";
     };
     gpu.amd.enable = true;
     onepassword.enable = true;

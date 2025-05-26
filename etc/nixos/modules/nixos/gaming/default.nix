@@ -1,13 +1,20 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption;
   cfg = config.my.nixos.gaming;
 in
 {
   options.my.nixos.gaming = {
     enable = mkEnableOption "gaming system options";
     enableSteam = mkEnableOption "whether or not to enable Steam";
+    preferredOutput = mkOption {
+      type = with lib.types; nullOr str;
+      default = null;
+      description = lib.mkDoc ''
+        If specified, sets the preferred output for gamescope.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -24,6 +31,9 @@ in
         capSysNice = true;
         args = [
           "--mangoapp"
+        ] ++ lib.optionals (cfg.preferredOutput != null) [
+          "--prefer-output"
+          cfg.preferredOutput
         ];
       };
 
