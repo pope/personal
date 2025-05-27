@@ -23,7 +23,7 @@ in
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
       pkg = neopywal-nvim;
-      priority = 1000;
+      priority = 999;
       opts = {
         custom_colors.all = helpers.mkRaw /* lua */ ''
           function(C)
@@ -31,6 +31,49 @@ in
             return {
               cursorline = U.blend(C.background, C.foreground, 0.88),
               nontext = U.blend(C.background, C.foreground, 0.93),
+
+              -- Variable types:
+              variable = C.foreground, -- (preferred) any variable.
+              constant = U.blend(C.color1, C.color3, 0.5), -- (preferred) any constant
+              string = C.color2, -- a string constant: "this is a string"
+              character = C.color10, -- a character constant: 'c', '\n'
+              number = C.color3, -- a number constant: 234, 0xff
+              boolean = C.color3, -- a boolean constant: TRUE, FALSE
+              float = C.color3, -- a floating point constant: 2.3e10
+              identifier = C.color3, -- (preferred) any variable name
+              func = C.color4, -- function name (also: methods for classes)
+
+              member = U.blend(C.color4, C.color6, 0.5),
+
+              -- Statements:
+              statement = C.color1, -- (preferred) any statement
+              conditional = C.color5, -- if, then, else, endif, switch, etc.
+              loop = C.color5, -- for, do, while, etc.
+              label = C.color5, -- case, default, etc.
+              exception = C.color5, -- try, catch, throw
+              operator = C.color6, -- "sizeof", "+", "*", etc.
+              keyword = C.color13, -- any other keyword
+              debug = C.color3, -- debugging statements.
+
+              -- Preprocessors:
+              preproc = C.color6, -- (preferred) generic Preprocessor
+              include = C.color6, -- preprocessor #include
+              define = C.color6, -- preprocessor #define
+              macro = C.color6, -- same as Define
+              precondit = C.color6, -- preprocessor #if, #else, #endif, etc.
+
+              -- Type definitions:
+              type = C.color4, -- (preferred) int, long, char, etc.
+              structure = C.color4, -- struct, union, enum, etc.
+              storageclass = C.color4, -- static, register, volatile, etc.
+              typedef = C.color4, -- A typedef
+
+              -- Special:
+              special = C.color5, -- (preferred) any special symbol
+              secialchar = C.color5, -- special character in a constant
+              tag = U.blend(C.color1, C.color3, 0.5), -- you can use CTRL-] on this
+              delimiter = C.foreground, -- character that needs attention
+              specialcomment = C.color8, -- special things inside a comment
             }
           end
         '';
@@ -38,6 +81,7 @@ in
           function(C)
             return {
               ColorColumn = { bg = C.cursorline },
+              ["@variable.member"] = { fg = C.color12 },
               NonText = {
                 fg = C.nontext,
                 bg = C.none,
@@ -66,6 +110,7 @@ in
           local config = os.getenv("HOME") .. "/.cache/wal/colors-wal.vim"
           if vim.uv.fs_stat(config) then
             require("neopywal").setup(opts)
+            vim.cmd("colorscheme neopywal")
           end
         end
       '';
