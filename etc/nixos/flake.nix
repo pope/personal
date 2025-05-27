@@ -170,8 +170,8 @@
           system = "aarch64-darwin";
         })
       ];
-      nixosModules.default = { ... }: { imports = [ ./modules/nixos ]; };
-      homeManagerModules.default = import ./modules/home self;
+      nixosModules.default = _: { imports = [ ./modules/nixos ]; };
+      homeManagerModules.default = _: { imports = [ ./modules/home ]; };
       packages = eachSystem (system:
         let
           pkgs = import nixpkgs {
