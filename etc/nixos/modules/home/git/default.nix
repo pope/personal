@@ -129,6 +129,7 @@ in
         pope@shifteleven.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo
       '';
       packages = with pkgs; [
+        serie
         (writeShellApplication {
           name = "git-code-maintenance";
           runtimeInputs = [
