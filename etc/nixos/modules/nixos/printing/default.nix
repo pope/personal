@@ -22,9 +22,9 @@ in
       printing.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [
-      pkgs.stable.canon-cups-ufr2
-      stable.cnijfilter2
+    environment.systemPackages = with pkgs.stable; [
+      canon-cups-ufr2
+      cnijfilter2
     ];
 
     hardware.printers = {
