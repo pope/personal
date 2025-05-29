@@ -1,13 +1,20 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib) mkIf mkEnableOption mkOption types;
   inherit (config.lib.formats.rasi) mkLiteral;
   cfg = config.my.home.rofi;
 in
 {
   options.my.home.rofi = {
     enable = mkEnableOption "rofi home options";
+    fontSize = mkOption {
+      type = types.number;
+      default = 10;
+      description = lib.mkDoc ''
+        The font size to use
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -18,7 +25,7 @@ in
         rofi-emoji-wayland
         rofi-calc
       ];
-      font = "mono 10";
+      font = "mono ${builtins.toString cfg.fontSize}";
       extraConfig = {
         display-drun = "🔍 ";
         display-run = "🏃 ";
