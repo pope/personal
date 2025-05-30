@@ -1,20 +1,19 @@
 { config, lib, inputs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.editors.neovim;
   inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.editors.neovim = {
-    enable = mkEnableOption "Neovim text editor home options";
+    enable = lib.mkEnableOption "Neovim text editor home options";
   };
 
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.sessionVariables.MANPAGER = "nvim +Man!";
 
     programs.nixvim = _: {

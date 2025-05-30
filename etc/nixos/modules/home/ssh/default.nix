@@ -1,15 +1,14 @@
 { lib, config, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.ssh;
 in
 {
   options.my.home.ssh = {
-    enable = mkEnableOption "SSH home options";
+    enable = lib.mkEnableOption "SSH home options";
 
-    opIdentityAgent = mkOption {
-      type = types.str;
+    opIdentityAgent = lib.mkOption {
+      type = lib.types.str;
       default = "~/.1password/agent.sock";
       description = lib.mkDoc ''
         The location of the 1Password agent socket used for SSH.
@@ -17,7 +16,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.ssh = {
       enable = true;
 

@@ -1,15 +1,14 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.nixos.system;
 in
 {
   options.my.nixos.system = {
-    enable = mkEnableOption "basic system options";
+    enable = lib.mkEnableOption "basic system options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     nixpkgs.config = {
       # Allow unfree packages
       allowUnfree = true;

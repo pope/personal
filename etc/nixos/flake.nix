@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-24.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-25.05";
 
     home-manager = {
       # The stable URL
@@ -170,8 +170,8 @@
           system = "aarch64-darwin";
         })
       ];
-      nixosModules.default = { ... }: { imports = [ ./modules/nixos ]; };
-      homeManagerModules.default = import ./modules/home self;
+      nixosModules.default = _: { imports = [ ./modules/nixos ]; };
+      homeManagerModules.default = _: { imports = [ ./modules/home ]; };
       packages = eachSystem (system:
         let
           pkgs = import nixpkgs {

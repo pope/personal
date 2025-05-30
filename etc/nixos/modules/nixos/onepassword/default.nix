@@ -1,16 +1,15 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   inherit (config.my.nixos) mainUser;
   cfg = config.my.nixos.onepassword;
 in
 {
   options.my.nixos.onepassword = {
-    enable = mkEnableOption "onepassword system options";
+    enable = lib.mkEnableOption "onepassword system options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
       _1password.enable = true;
       _1password-gui = {

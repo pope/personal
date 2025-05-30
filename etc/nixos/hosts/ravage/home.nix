@@ -66,7 +66,10 @@
     };
     music.enable = true;
     packages.enable = true;
-    rofi.enable = true;
+    rofi = {
+      enable = true;
+      fontSize = 12;
+    };
     shell.zsh.enable = true;
     ssh.enable = true;
     terminals = {

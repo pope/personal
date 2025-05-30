@@ -1,13 +1,12 @@
 { config, scale, lib }:
 
 let
-  inherit (lib) isFloat strings;
   color = config.my.home.theme.colors.withHash;
 
   baseFontSize =
-    if isFloat scale then strings.floatToString (1 * scale)
+    if lib.isFloat scale then lib.strings.floatToString (1 * scale)
     else builtins.toString (1 * scale);
-  smallFontSize = strings.floatToString (0.9 * scale);
+  smallFontSize = lib.strings.floatToString (0.9 * scale);
 in
   /* css */ ''
   @define-color base00 ${color.base00};

@@ -1,15 +1,14 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.browsers.chromium;
 in
 {
   options.my.home.browsers.chromium = {
-    enable = mkEnableOption "Chromium browser home options";
+    enable = lib.mkEnableOption "Chromium browser home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.chromium = {
       enable = true;
       dictionaries = [

@@ -1,7 +1,6 @@
 { pkgs, helpers, lib, config, ... }:
 
 let
-  inherit (lib) mkOption types optionalString;
   cfg = config.my.nixvim.theme;
 
   # Importing this as such because for some reason, the home-module version of
@@ -11,8 +10,8 @@ let
 in
 {
   options.my.nixvim.theme = {
-    colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
+    colorScheme = lib.mkOption {
+      type = lib.types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
@@ -146,7 +145,7 @@ in
       config = ''
         function(_, opts)
           require('rose-pine').setup(opts)
-      '' + (optionalString (cfg.colorScheme == "rose-pine") ''
+      '' + (lib.optionalString (cfg.colorScheme == "rose-pine") ''
         vim.cmd('colorscheme rose-pine')
       '') + ''
         end
@@ -185,7 +184,7 @@ in
       config = ''
         function(_, opts)
           require("catppuccin").setup(opts)
-      '' + (optionalString (cfg.colorScheme == "catppuccin") ''
+      '' + (lib.optionalString (cfg.colorScheme == "catppuccin") ''
         vim.cmd("colorscheme catppuccin")
       '') + ''
         end
@@ -206,7 +205,7 @@ in
       config = ''
         function(_, opts)
           require("dracula").setup(opts)
-      '' + (optionalString (cfg.colorScheme == "dracula") ''
+      '' + (lib.optionalString (cfg.colorScheme == "dracula") ''
         vim.cmd("colorscheme dracula")
       '') + ''
         end
@@ -224,7 +223,7 @@ in
       config = ''
         function(_, opts)
           require("tokyonight").setup(opts)
-      '' + (optionalString (cfg.colorScheme == "tokyonight") ''
+      '' + (lib.optionalString (cfg.colorScheme == "tokyonight") ''
         vim.cmd("colorscheme tokyonight")
       '') + ''
         end

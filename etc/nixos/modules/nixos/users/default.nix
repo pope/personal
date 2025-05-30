@@ -1,22 +1,21 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkOption types;
   inherit (config.my.nixos) mainUser;
   cfg = config.my.nixos.users;
 in
 {
   options.my.nixos.users = {
-    uid = mkOption {
-      type = with types; nullOr int;
+    uid = lib.mkOption {
+      type = with lib.types; nullOr int;
       default = null;
       description = lib.mdDoc ''
         The account UID. If the UID is null, a free UID is picked on
         activation.
       '';
     };
-    initialPassword = mkOption {
-      type = with types; nullOr str;
+    initialPassword = lib.mkOption {
+      type = with lib.types; nullOr str;
       default = null;
       description = lib.mdDoc ''
         Specifies the initial password for the user, i.e. the
@@ -34,11 +33,11 @@ in
         option if both are set.
       '';
     };
-    shell = mkOption {
+    shell = lib.mkOption {
       default = "fish";
       description = "Which shell to use";
       example = "zsh";
-      type = types.enum [ "fish" "zsh" ];
+      type = lib.types.enum [ "fish" "zsh" ];
     };
   };
 

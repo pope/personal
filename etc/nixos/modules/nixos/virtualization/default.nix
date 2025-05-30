@@ -1,8 +1,5 @@
 { lib, ... }:
 
-let
-  inherit (lib) mkEnableOption mkOption types;
-in
 {
   imports = [
     ./guest.nix
@@ -10,13 +7,13 @@ in
   ];
 
   options.my.nixos.virtualization = {
-    enable = mkEnableOption "virtualization system options";
+    enable = lib.mkEnableOption "virtualization system options";
 
-    kind = mkOption {
+    kind = lib.mkOption {
       default = "host";
       description = "Which kind of virtualization settings to use";
       example = "guest";
-      type = types.enum [ "host" "guest" ];
+      type = lib.types.enum [ "host" "guest" ];
     };
   };
 }

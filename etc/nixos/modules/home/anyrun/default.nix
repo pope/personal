@@ -1,16 +1,15 @@
 { config, pkgs, lib, inputs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.anyrun;
   anyrun = inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins;
 in
 {
   options.my.home.anyrun = {
-    enable = mkEnableOption "Anyrun home options";
+    enable = lib.mkEnableOption "Anyrun home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.anyrun = with config.my.home.theme.colors.withHash; {
       enable = true;
       package = anyrun;

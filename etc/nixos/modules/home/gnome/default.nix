@@ -1,16 +1,15 @@
 { pkgs, lib, config, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.gnome;
 in
 {
   options.my.home.gnome = {
-    enable = mkEnableOption "GNOME home options";
-    disableGnomeShellExtensions = mkEnableOption "GNOME shell extension options";
+    enable = lib.mkEnableOption "GNOME home options";
+    disableGnomeShellExtensions = lib.mkEnableOption "GNOME shell extension options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = (with pkgs; [
       adwaita-icon-theme
       gnome-themes-extra

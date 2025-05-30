@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf;
   inherit (config.my.nixos) mainUser;
   cfg = config.my.nixos.xserver;
 
@@ -21,7 +20,7 @@ let
   '';
 in
 {
-  config = mkIf (cfg.enable && cfg.dwl.enable) {
+  config = lib.mkIf (cfg.enable && cfg.dwl.enable) {
     environment.systemPackages = [ dwl-run ];
 
     programs = {

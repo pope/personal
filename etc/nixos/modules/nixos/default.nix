@@ -1,7 +1,6 @@
 { lib, ... }:
 
 let
-  inherit (lib) mkOption types;
   imports = map
     (p: ./. + "/${p}")
     (builtins.filter
@@ -12,11 +11,11 @@ in
   inherit imports;
 
   options.my.nixos = {
-    mainUser = mkOption {
+    mainUser = lib.mkOption {
       default = "pope";
       description = "The main user of the machine";
       example = "pi";
-      type = types.str;
+      type = lib.types.str;
     };
   };
 

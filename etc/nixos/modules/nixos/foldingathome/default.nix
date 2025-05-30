@@ -1,15 +1,14 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkEnableOption mkIf mdDoc;
   cfg = config.my.nixos.fah;
 in
 {
   options.my.nixos.fah = {
-    enable = mkEnableOption (mdDoc "Folding@Home");
+    enable = lib.mkEnableOption (lib.mdDoc "Folding@Home");
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.foldingathome = {
       enable = true;
       user = "ShiftEleven";

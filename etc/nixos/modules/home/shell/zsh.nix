@@ -1,15 +1,14 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.shell.zsh;
 in
 {
   options.my.home.shell.zsh = {
-    enable = mkEnableOption "zsh shell home options";
+    enable = lib.mkEnableOption "zsh shell home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.zsh = {
       enable = true;
       defaultKeymap = "emacs";
@@ -79,4 +78,3 @@ in
     programs.yazi.enableZshIntegration = true;
   };
 }
-

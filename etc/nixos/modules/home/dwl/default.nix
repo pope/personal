@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) literalExpression mkIf mkEnableOption mkOption types;
   cfg = config.my.home.dwl;
 
   dwlb = pkgs.dwlb.override {
@@ -58,25 +57,25 @@ let
 in
 {
   options.my.home.dwl = {
-    enable = mkEnableOption "dwl home options";
-    dpiScale = mkOption {
-      type = types.int;
+    enable = lib.mkEnableOption "dwl home options";
+    dpiScale = lib.mkOption {
+      type = lib.types.int;
       default = 1;
       description = lib.mkDoc ''
         The default DPI scale to use.
       '';
     };
-    terminalPackage = mkOption {
-      type = types.package;
+    terminalPackage = lib.mkOption {
+      type = lib.types.package;
       default = pkgs.foot;
-      defaultText = literalExpression "pkgs.foot";
+      defaultText = lib.literalExpression "pkgs.foot";
       description = lib.mkDoc ''
         The package to use when opening a terminal with <SUPER-Enter>.
       '';
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       brillo
       dwl

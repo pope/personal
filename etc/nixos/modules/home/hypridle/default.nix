@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption optionalString;
   cfg = config.my.home.hypridle;
 
   caffeinemode = pkgs.writeShellScriptBin "caffeinemode" ''
@@ -13,23 +12,23 @@ let
 in
 {
   options.my.home.hypridle = {
-    enable = mkEnableOption "hypridle options";
-    forDesktop = mkEnableOption "desktop version of hypeidle configs";
-    withPowerProfiles = mkEnableOption "to enable power profile adjustments on idle";
+    enable = lib.mkEnableOption "hypridle options";
+    forDesktop = lib.mkEnableOption "desktop version of hypeidle configs";
+    withPowerProfiles = lib.mkEnableOption "to enable power profile adjustments on idle";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ caffeinemode ];
 
     services.hypridle = {
       enable = true;
       settings = {
         general = {
-          after_sleep_cmd = optionalString
+          after_sleep_cmd = lib.optionalString
             config.my.home.hyprland.enable
             "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
           before_sleep_cmd =
-            (optionalString
+            (lib.optionalString
               config.my.home.hyprland.enable
               "${pkgs.hyprland}/bin/hyprctl dispatch dpms off;")
             + "${pkgs.systemd}/bin/loginctl lock-session";

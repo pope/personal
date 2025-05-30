@@ -1,29 +1,28 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf getExe;
   cfg = config.my.home.hyprland;
 
-  launcher = "${getExe pkgs.uwsm} app --";
+  launcher = "${lib.getExe pkgs.uwsm} app --";
 
   # commands
-  brillo = "${getExe pkgs.brillo}";
+  brillo = "${lib.getExe pkgs.brillo}";
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   nm-applet = "${launcher} ${pkgs.networkmanagerapplet}/bin/nm-applet";
-  pamixer = "${getExe pkgs.pamixer}";
+  pamixer = "${lib.getExe pkgs.pamixer}";
   runner =
     if config.my.home.rofi.enable
-    then "${launcher} ${getExe config.programs.rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
-    else "${launcher} ${getExe config.programs.anyrun.package}";
+    then "${launcher} ${lib.getExe config.programs.rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
+    else "${launcher} ${lib.getExe config.programs.anyrun.package}";
   screenshot = "${launcher} wayland-screenshot";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   terminal =
-    if config.my.home.terminals.ghostty.enable then "${launcher} ${getExe config.programs.ghostty.package}"
-    else if config.my.home.terminals.wezterm.enable then "${launcher} ${getExe config.programs.wezterm.package}"
-    else "${launcher} ${getExe config.programs.kitty.package}";
-  thunar = "${launcher} ${getExe pkgs.xfce.thunar}";
-  wlogout = "${launcher} ${getExe pkgs.wlogout}";
+    if config.my.home.terminals.ghostty.enable then "${launcher} ${lib.getExe config.programs.ghostty.package}"
+    else if config.my.home.terminals.wezterm.enable then "${launcher} ${lib.getExe config.programs.wezterm.package}"
+    else "${launcher} ${lib.getExe config.programs.kitty.package}";
+  thunar = "${launcher} ${lib.getExe pkgs.xfce.thunar}";
+  wlogout = "${launcher} ${lib.getExe pkgs.wlogout}";
 
   #color overrides
   inherit (config.my.home.theme) colorScheme;
@@ -37,7 +36,7 @@ let
     else colors.base0D;
 in
 {
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland.settings = with colors; {
       monitor = lib.mkDefault [
         "eDP-1,preferred,auto,1"

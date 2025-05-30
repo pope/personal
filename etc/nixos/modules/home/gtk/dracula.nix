@@ -1,12 +1,11 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
   cfg = config.my.home.gtk;
   inherit (config.my.home.theme) colorScheme;
 in
 {
-  config = mkIf (cfg.enable && colorScheme == "dracula") rec {
+  config = lib.mkIf (cfg.enable && colorScheme == "dracula") rec {
     home.pointerCursor = {
       name = "catppuccin-mocha-mauve-cursors";
       size = 32;

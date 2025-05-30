@@ -1,15 +1,14 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.nixos.firewall.nfs;
 in
 {
   options.my.nixos.firewall.nfs = {
-    enable = mkEnableOption "nfs firewall options";
+    enable = lib.mkEnableOption "nfs firewall options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     networking = {
       firewall = {
         allowedTCPPorts = [

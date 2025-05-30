@@ -1,7 +1,6 @@
 { config, lib, inputs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   inherit (config.my.nixos) mainUser;
   cfg = config.my.nixos.sops;
 in
@@ -11,10 +10,10 @@ in
   ];
 
   options.my.nixos.sops = {
-    enable = mkEnableOption "SOPS Nix options";
+    enable = lib.mkEnableOption "SOPS Nix options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     sops = {
       defaultSopsFile = ../../../secrets/default.yaml;
       defaultSopsFormat = "yaml";

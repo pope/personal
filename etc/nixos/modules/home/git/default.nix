@@ -1,7 +1,6 @@
 { pkgs, lib, config, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption map mkOption types;
   cfg = config.my.home.git;
   ghWrapper = pkgs.writeShellScriptBin "op-gh" ''
     if [ -e "$HOME/.config/op/plugins/gh.json" ]; then
@@ -13,10 +12,10 @@ let
 in
 {
   options.my.home.git = {
-    enable = mkEnableOption "Git home options";
+    enable = lib.mkEnableOption "Git home options";
 
-    opSshSignCommand = mkOption {
-      type = types.str;
+    opSshSignCommand = lib.mkOption {
+      type = lib.types.str;
       default = "${pkgs._1password-gui}/bin/op-ssh-sign";
       description = lib.mdDoc ''
         The location of the 1Password SSH sign app used for signing Git
@@ -24,26 +23,26 @@ in
       '';
     };
 
-    opIdentityAgent = mkOption {
-      type = types.str;
+    opIdentityAgent = lib.mkOption {
+      type = lib.types.str;
       default = "~/.1password/agent.sock";
       description = lib.mkDoc ''
         The location of the 1Password agent socket used for SSH.
       '';
     };
 
-    sshCommand = mkOption {
-      type = with types; nullOr str;
+    sshCommand = lib.mkOption {
+      type = with lib.types; nullOr str;
       default = null;
       description = lib.mkDoc ''
         Specifies an override for the SSH command to use with Git.
       '';
     };
 
-    remoteOnly = mkEnableOption "if the config is on a remote machine only";
+    remoteOnly = lib.mkEnableOption "if the config is on a remote machine only";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
       git = {
         enable = true;
@@ -55,13 +54,13 @@ in
         diff-so-fancy.enable = true;
 
         extraConfig = {
-          credential = mkIf (!cfg.remoteOnly) (builtins.listToAttrs (map
+          credential = lib.mkIf (!cfg.remoteOnly) (builtins.listToAttrs (lib.map
             (host:
               lib.nameValuePair host {
                 helper = "${ghWrapper}/bin/op-gh auth git-credential";
               })
             [ "https://github.com" "https://gist.github.com" ]));
-          core.sshCommand = mkIf (cfg.sshCommand != null) cfg.sshCommand;
+          core.sshCommand = lib.mkIf (cfg.sshCommand != null) cfg.sshCommand;
           format.signOff = true;
           gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
           init.defaultBranch = "main";
@@ -78,7 +77,7 @@ in
           format = "ssh";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo";
           signByDefault = true;
-          signer = mkIf (!cfg.remoteOnly) cfg.opSshSignCommand;
+          signer = lib.mkIf (!cfg.remoteOnly) cfg.opSshSignCommand;
         };
       };
 
@@ -129,6 +128,7 @@ in
         pope@shifteleven.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo
       '';
       packages = with pkgs; [
+        serie
         (writeShellApplication {
           name = "git-code-maintenance";
           runtimeInputs = [
