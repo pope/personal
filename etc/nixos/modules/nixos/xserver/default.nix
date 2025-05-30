@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.nixos.xserver;
 in
 {
@@ -13,25 +12,25 @@ in
   ];
 
   options.my.nixos.xserver = {
-    enable = mkEnableOption "xserver system options";
+    enable = lib.mkEnableOption "xserver system options";
 
-    displayManager = mkOption {
+    displayManager = lib.mkOption {
       default = "gdm";
       description = "Which display manager to use";
       example = "kde";
-      type = types.enum [ "gdm" "sddm" "lightdm" "none" ];
+      type = lib.types.enum [ "gdm" "sddm" "lightdm" "none" ];
     };
 
-    enableAutoLogin = mkEnableOption "auto login of display manager";
+    enableAutoLogin = lib.mkEnableOption "auto login of display manager";
 
-    dwl.enable = mkEnableOption "DWL";
-    hyprland.enable = mkEnableOption "Hyprland";
-    gnome.enable = mkEnableOption "GNOME";
-    kde.enable = mkEnableOption "KDE";
-    pantheon.enable = mkEnableOption "Pantheon";
+    dwl.enable = lib.mkEnableOption "DWL";
+    hyprland.enable = lib.mkEnableOption "Hyprland";
+    gnome.enable = lib.mkEnableOption "GNOME";
+    kde.enable = lib.mkEnableOption "KDE";
+    pantheon.enable = lib.mkEnableOption "Pantheon";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     # Hint electron apps to use wayland. Otherwise Discord will be janky.
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 

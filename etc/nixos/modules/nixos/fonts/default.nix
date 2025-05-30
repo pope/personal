@@ -1,13 +1,12 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.nixos.fonts;
 in
 {
   options.my.nixos.fonts = {
-    enable = mkEnableOption "font system options";
-    resolution = mkOption {
+    enable = lib.mkEnableOption "font system options";
+    resolution = lib.mkOption {
       default = "default";
       description = lib.mkDoc ''
         Specifies the type of monitor resolution.
@@ -17,11 +16,11 @@ in
         off completely.
       '';
       example = "low";
-      type = types.enum [ "default" "low" "high" ];
+      type = lib.types.enum [ "default" "low" "high" ];
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     fonts = {
       fontDir.enable = true;
 

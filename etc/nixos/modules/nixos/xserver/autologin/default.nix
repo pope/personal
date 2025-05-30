@@ -1,12 +1,11 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
   inherit (config.my.nixos) mainUser;
   cfg = config.my.nixos.xserver;
 in
 {
-  config = mkIf (cfg.enable && cfg.enableAutoLogin) {
+  config = lib.mkIf (cfg.enable && cfg.enableAutoLogin) {
     services.xserver.displayManager.autoLogin = {
       enable = true;
       user = mainUser;

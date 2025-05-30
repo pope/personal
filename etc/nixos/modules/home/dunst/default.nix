@@ -1,14 +1,13 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.dunst;
 in
 {
   options.my.home.dunst = {
-    enable = mkEnableOption "Dunst home options";
-    font = mkOption {
-      type = types.str;
+    enable = lib.mkEnableOption "Dunst home options";
+    font = lib.mkOption {
+      type = lib.types.str;
       default = "Sans 8";
       example = "monospace 10";
       description = lib.mkDoc ''
@@ -17,7 +16,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     # Taken from https://github.com/linuxmobile/kaku
     services.dunst = with config.my.home.theme.colors.withHash; {
       enable = true;

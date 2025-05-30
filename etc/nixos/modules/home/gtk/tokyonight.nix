@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
   cfg = config.my.home.gtk;
   inherit (config.my.home.theme) colorScheme;
 
@@ -13,7 +12,7 @@ let
   };
 in
 {
-  config = mkIf (cfg.enable && colorScheme == "tokyonight") rec {
+  config = lib.mkIf (cfg.enable && colorScheme == "tokyonight") rec {
     home.pointerCursor = {
       name = "Bibata-Modern-Ice";
       size = 24;
@@ -50,4 +49,3 @@ in
     };
   };
 }
-

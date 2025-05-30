@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.multimedia.audio;
 
   an-album-cover = pkgs.writeShellApplication {
@@ -94,10 +93,10 @@ let
 in
 {
   options.my.home.multimedia.audio = {
-    enable = mkEnableOption "Audio tool home options";
+    enable = lib.mkEnableOption "Audio tool home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       convert_48khz
       convert_to_opus

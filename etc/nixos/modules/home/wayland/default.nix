@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) getExe mkIf;
   inherit (config.my.home) dwl hyprland;
 
   ExecCondition = ''
@@ -9,13 +8,13 @@ let
   '';
 
   wayland-screenshot = pkgs.writeShellScriptBin "wayland-screenshot" ''
-    ${getExe pkgs.slurp} \
-      | ${getExe pkgs.grim} -g - - \
-      | ${getExe pkgs.swappy} -f -
+    ${lib.getExe pkgs.slurp} \
+      | ${lib.getExe pkgs.grim} -g - - \
+      | ${lib.getExe pkgs.swappy} -f -
   '';
 in
 {
-  config = mkIf (dwl.enable || hyprland.enable) {
+  config = lib.mkIf (dwl.enable || hyprland.enable) {
     home = {
       packages = with pkgs; [
         alsa-utils

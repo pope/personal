@@ -1,14 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption;
   cfg = config.my.nixos.gaming;
 in
 {
   options.my.nixos.gaming = {
-    enable = mkEnableOption "gaming system options";
-    enableSteam = mkEnableOption "whether or not to enable Steam";
-    preferredOutput = mkOption {
+    enable = lib.mkEnableOption "gaming system options";
+    enableSteam = lib.mkEnableOption "whether or not to enable Steam";
+    preferredOutput = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
       description = lib.mkDoc ''
@@ -17,7 +16,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     # Hardware support from Steam
     hardware = {
       steam-hardware.enable = true;

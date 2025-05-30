@@ -1,12 +1,11 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
   cfg = config.my.home.gtk;
   inherit (config.my.home.theme) colorScheme;
 in
 {
-  config = mkIf (cfg.enable && colorScheme == "catppuccin") rec {
+  config = lib.mkIf (cfg.enable && colorScheme == "catppuccin") rec {
     home.pointerCursor = {
       name = "macOS-White";
       size = 24;

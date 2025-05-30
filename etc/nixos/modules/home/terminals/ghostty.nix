@@ -1,16 +1,15 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.terminals.ghostty;
 
   inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.terminals.ghostty = {
-    enable = mkEnableOption "Ghostty terminal home options";
-    fontSize = mkOption {
-      type = types.number;
+    enable = lib.mkEnableOption "Ghostty terminal home options";
+    fontSize = lib.mkOption {
+      type = lib.types.number;
       default = 12;
       description = lib.mkDoc ''
         The font size to use
@@ -18,7 +17,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
       package = if pkgs.stdenv.isDarwin then pkgs.bashInteractive else pkgs.ghostty;

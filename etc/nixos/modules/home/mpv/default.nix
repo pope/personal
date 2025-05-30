@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkMerge mkOption optionalAttrs;
   inherit (pkgs) anime4k modernx fsrcnnx;
   krigBilateral = "${pkgs.krigBilateral}/KrigBilateral.glsl";
   ssimDownscaler = "${pkgs.ssimDownscaler}/SSimDownscaler.glsl";
@@ -13,9 +12,9 @@ let
 in
 {
   options.my.home.mpv = {
-    enable = mkEnableOption "mpv options";
-    enableHqAnimeSettings = mkEnableOption "use the HQ Anime4K shaders";
-    enableVulkan = mkOption {
+    enable = lib.mkEnableOption "mpv options";
+    enableHqAnimeSettings = lib.mkEnableOption "use the HQ Anime4K shaders";
+    enableVulkan = lib.mkOption {
       default = pkgs.stdenv.isLinux;
       example = true;
       description = "Whether to enable Vulkan GPU API.";
@@ -23,7 +22,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       modernx
       streamlink
@@ -58,11 +57,11 @@ in
         cscale = "spline36";
         linear-downscaling = "no";
         correct-downscaling = "yes";
-      } // optionalAttrs cfg.enableVulkan {
+      } // lib.optionalAttrs cfg.enableVulkan {
         gpu-api = "vulkan";
       };
 
-      bindings = mkMerge [
+      bindings = lib.mkMerge [
         {
           "CTRL+7" = setShader {
             files = [ ssimSuperRes krigBilateral ];
@@ -79,8 +78,8 @@ in
 
           "CTRL+0" = ''no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"'';
         }
-        (mkIf cfg.enableHqAnimeSettings anime4khqbindings)
-        (mkIf (!cfg.enableHqAnimeSettings) anime4kfastbindings)
+        (lib.mkIf cfg.enableHqAnimeSettings anime4khqbindings)
+        (lib.mkIf (!cfg.enableHqAnimeSettings) anime4kfastbindings)
       ];
 
       profiles = {
@@ -95,14 +94,14 @@ in
           scale = "nearest";
         };
       };
-    } // optionalAttrs pkgs.stdenv.isLinux {
+    } // lib.optionalAttrs pkgs.stdenv.isLinux {
       scripts = with pkgs.mpvScripts; [
         modernx
         mpris
         thumbfast
         visualizer
       ];
-    } // optionalAttrs pkgs.stdenv.isDarwin {
+    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
       scripts = with pkgs.mpvScripts; [
         modernx
         thumbfast

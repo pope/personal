@@ -1,15 +1,14 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.multimedia.graphics;
 in
 {
   options.my.home.multimedia.graphics = {
-    enable = mkEnableOption "Graphics and imaging multimedia home options";
+    enable = lib.mkEnableOption "Graphics and imaging multimedia home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs.stable; [
       aseprite
       (gimp3-with-plugins.override {

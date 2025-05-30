@@ -1,15 +1,14 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.nixos.gpu.amd;
 in
 {
   options.my.nixos.gpu.amd = {
-    enable = mkEnableOption "Common AMD GPU NixOS options";
+    enable = lib.mkEnableOption "Common AMD GPU NixOS options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     nixpkgs.config.rocmSupport = true;
 

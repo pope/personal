@@ -1,15 +1,14 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.nixos.bluetooth;
 in
 {
   options.my.nixos.bluetooth = {
-    enable = mkEnableOption "bluetooth system options";
+    enable = lib.mkEnableOption "bluetooth system options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     # enable bluetooth & gui paring tools - blueman
     # or you can use cli:
     # $ bluetoothctl

@@ -1,21 +1,20 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption optionalString types;
   cfg = config.my.home.editors.emacs;
 in
 {
   options.my.home.editors.emacs = {
-    enable = mkEnableOption "Emacs text editor home options";
-    package = mkOption {
-      type = types.package;
+    enable = lib.mkEnableOption "Emacs text editor home options";
+    package = lib.mkOption {
+      type = lib.types.package;
       default = pkgs.emacs30-pgtk;
       defaultText = lib.literalExpression "pkgs.emacs30-pgtk";
       description = lib.mkDoc "Package of Emacs to use";
     };
-    useSymlink = mkEnableOption "Use a symlink for the init.el file";
-    extraConfig = mkOption {
-      type = types.lines;
+    useSymlink = lib.mkEnableOption "Use a symlink for the init.el file";
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
       default = "";
       example = ''
         (setq standard-indent 2)
@@ -30,8 +29,8 @@ in
         initialization file.
       '';
     };
-    extraInit = mkOption {
-      type = types.lines;
+    extraInit = lib.mkOption {
+      type = lib.types.lines;
       default = "";
       example = ''
         (setq standard-indent 2)
@@ -42,7 +41,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     assertions = [
       {
         assertion = (cfg.useSymlink && cfg.extraInit == "") || (!cfg.useSymlink);
@@ -57,13 +56,13 @@ in
       '';
 
       file.".emacs.d/init.el" = {
-        source = mkIf (cfg.useSymlink || cfg.extraInit == "")
+        source = lib.mkIf (cfg.useSymlink || cfg.extraInit == "")
           (if cfg.useSymlink then
             (config.lib.file.mkOutOfStoreSymlink
               "${config.home.homeDirectory}/Code/personal/etc/nixos/modules/home/editors/emacs/init.el")
           else ./init.el);
 
-        text = optionalString (cfg.extraInit != "") ''
+        text = lib.optionalString (cfg.extraInit != "") ''
           ${builtins.readFile ./init.el}
           ${cfg.extraInit}
         '';

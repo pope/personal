@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.gtk;
 in
 {
@@ -13,10 +12,10 @@ in
   ];
 
   options.my.home.gtk = {
-    enable = mkEnableOption "GTK home options";
+    enable = lib.mkEnableOption "GTK home options";
   };
 
-  config = mkIf cfg.enable rec {
+  config = lib.mkIf cfg.enable rec {
     gtk = {
       enable = true;
 

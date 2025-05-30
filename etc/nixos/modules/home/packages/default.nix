@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption optionalAttrs optionals;
   cfg = config.my.home.packages;
   glowConfig = lib.generators.toYAML { } {
     style = "dracula"; # style name or JSON path (default "auto")
@@ -63,10 +62,10 @@ let
 in
 {
   options.my.home.packages = {
-    enable = mkEnableOption "Common packages/app home options";
+    enable = lib.mkEnableOption "Common packages/app home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       cheat
       choose # cut + awk
@@ -93,7 +92,7 @@ in
       timg
       tldr
       tree
-    ] ++ optionals stdenv.isLinux [
+    ] ++ lib.optionals stdenv.isLinux [
       dysk
       man-pages
       man-pages-posix
@@ -175,7 +174,7 @@ in
         ];
       };
       zoxide.enable = true;
-    } // optionalAttrs pkgs.stdenv.isLinux {
+    } // lib.optionalAttrs pkgs.stdenv.isLinux {
       cava = {
         enable = true;
         settings = {
@@ -212,10 +211,10 @@ in
       };
     };
 
-    xdg.configFile = optionalAttrs pkgs.stdenv.isLinux {
+    xdg.configFile = lib.optionalAttrs pkgs.stdenv.isLinux {
       "glow/glow.yml".text = glowConfig;
     };
-    home.file = optionalAttrs pkgs.stdenv.isDarwin {
+    home.file = lib.optionalAttrs pkgs.stdenv.isDarwin {
       "/Library/Preferences/glow/glow.yml".text = glowConfig;
     };
   };

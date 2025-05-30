@@ -1,14 +1,13 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.nixos.gpu.nvidia;
 in
 {
   options.my.nixos.gpu.nvidia = {
-    enable = mkEnableOption "Common NVidia GPU NixOS options";
+    enable = lib.mkEnableOption "Common NVidia GPU NixOS options";
   };
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     boot = {
       # I don't believe this is needed if we enable modesetting below.
       # kernelParams = [ "nvidia_drm.modeset=1" ];

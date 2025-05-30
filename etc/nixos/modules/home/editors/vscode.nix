@@ -1,15 +1,14 @@
 { pkgs, lib, config, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.editors.vscode;
 in
 {
   options.my.home.editors.vscode = {
-    enable = mkEnableOption "VSCode home options";
+    enable = lib.mkEnableOption "VSCode home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = true;
       package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib ]);

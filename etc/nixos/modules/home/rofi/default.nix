@@ -1,15 +1,14 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   inherit (config.lib.formats.rasi) mkLiteral;
   cfg = config.my.home.rofi;
 in
 {
   options.my.home.rofi = {
-    enable = mkEnableOption "rofi home options";
-    fontSize = mkOption {
-      type = types.number;
+    enable = lib.mkEnableOption "rofi home options";
+    fontSize = lib.mkOption {
+      type = lib.types.number;
       default = 10;
       description = lib.mkDoc ''
         The font size to use
@@ -17,7 +16,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;

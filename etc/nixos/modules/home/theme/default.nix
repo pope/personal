@@ -1,27 +1,26 @@
 { config, lib, inputs, ... }:
 
 let
-  inherit (lib) mkOption types mkIf;
   cfg = config.my.home.theme;
 in
 {
   options.my.home.theme = {
-    colorScheme = mkOption {
-      type = types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
+    colorScheme = lib.mkOption {
+      type = lib.types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which theme to use with UI elements.
       '';
     };
-    colors = mkOption {
-      type = with types; attrs;
+    colors = lib.mkOption {
+      type = lib.types.attrs;
     };
   };
 
   # Using `mkIf` here since the usage is predicated on a lazy-evaluated
   # colorScheme option. So while the `colorScheme` should never be null (not
   # allowed as a type), this check works for lazy eval.
-  config = mkIf (cfg.colorScheme != null) (
+  config = lib.mkIf (cfg.colorScheme != null) (
     let
       colorScheme =
         if cfg.colorScheme == "rose-pine" then

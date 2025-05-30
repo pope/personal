@@ -1,15 +1,14 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.nixos.sound;
 in
 {
   options.my.nixos.sound = {
-    enable = mkEnableOption "sound system options";
+    enable = lib.mkEnableOption "sound system options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services = {
       pipewire = {
         enable = true;

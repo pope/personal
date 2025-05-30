@@ -1,11 +1,10 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
   cfg = config.my.nixos.xserver;
 in
 {
-  config = mkIf (cfg.enable && cfg.hyprland.enable) {
+  config = lib.mkIf (cfg.enable && cfg.hyprland.enable) {
     services = {
       dbus.packages = with pkgs; [ gcr ];
       gnome.gnome-keyring.enable = true;

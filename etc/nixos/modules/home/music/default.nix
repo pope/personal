@@ -1,15 +1,14 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.music;
 in
 {
   options.my.home.music = {
-    enable = mkEnableOption "music listening home options";
+    enable = lib.mkEnableOption "music listening home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.rmpc = {
       enable = true;
       config = /* ron */ ''

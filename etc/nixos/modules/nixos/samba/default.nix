@@ -1,18 +1,17 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.nixos.samba;
 in
 {
   options.my.nixos.samba = {
-    enable = mkEnableOption "samba system options";
-    shares = mkOption {
+    enable = lib.mkEnableOption "samba system options";
+    shares = lib.mkOption {
       default = { };
       description = "Samba shares";
-      type = with types; attrsOf (submodule {
+      type = with lib.types; attrsOf (submodule {
         options = {
-          path = mkOption {
+          path = lib.mkOption {
             type = str;
           };
         };
@@ -20,7 +19,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     networking = {
       firewall = {
         allowedTCPPorts = [

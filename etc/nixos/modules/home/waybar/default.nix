@@ -1,21 +1,20 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.waybar;
 in
 {
   options.my.home.waybar = {
-    enable = mkEnableOption "waybar home options";
-    theme = mkOption {
-      type = types.enum [ "bubble" "hyprland" ];
+    enable = lib.mkEnableOption "waybar home options";
+    theme = lib.mkOption {
+      type = lib.types.enum [ "bubble" "hyprland" ];
       default = "hyprland";
       description = lib.mkDoc ''
         Which waybar theme to use.
       '';
     };
-    scale = mkOption {
-      type = types.number;
+    scale = lib.mkOption {
+      type = lib.types.number;
       default = 1;
       example = 0.8;
       description = lib.mkDoc ''
@@ -24,7 +23,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     home.packages = with pkgs; [
       libcanberra-gtk3

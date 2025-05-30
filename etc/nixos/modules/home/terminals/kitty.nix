@@ -1,16 +1,15 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.terminals.kitty;
   inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.terminals.kitty = {
-    enable = mkEnableOption "Kitty terminal home options";
+    enable = lib.mkEnableOption "Kitty terminal home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.kitty = with config.my.home.theme.colors.withHash; {
       enable = true;
       font = {

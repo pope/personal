@@ -1,12 +1,11 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
   cfg = config.my.home.gtk;
   inherit (config.my.home.theme) colorScheme;
 in
 {
-  config = mkIf (cfg.enable && colorScheme == "rose-pine") rec {
+  config = lib.mkIf (cfg.enable && colorScheme == "rose-pine") rec {
     home.pointerCursor = {
       name = "BreezeX-RosePine-Linux";
       size = 24;

@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.my.home.hyprland;
 
   gamemode =
@@ -24,11 +23,11 @@ let
 in
 {
   options.my.home.hyprland = {
-    enable = mkEnableOption "hyprland home options";
-    enableBatterySaverMode = mkEnableOption "battery saving options";
-    enableVrr = mkEnableOption "variable refresh rate";
-    dpiScale = mkOption {
-      type = types.int;
+    enable = lib.mkEnableOption "hyprland home options";
+    enableBatterySaverMode = lib.mkEnableOption "battery saving options";
+    enableVrr = lib.mkEnableOption "variable refresh rate";
+    dpiScale = lib.mkOption {
+      type = lib.types.int;
       default = 1;
       description = lib.mkDoc ''
         The default DPI scale to use.
@@ -40,7 +39,7 @@ in
     ./config.nix
   ];
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = false; # Using UWSM
@@ -67,7 +66,7 @@ in
       hyprpicker
     ];
 
-    services.xsettingsd.settings = mkIf (cfg.dpiScale != 1)
+    services.xsettingsd.settings = lib.mkIf (cfg.dpiScale != 1)
       (
         let
           dpi = (96 * cfg.dpiScale) * 1024;
@@ -78,7 +77,7 @@ in
           "Gdk/WindowScalingFactor" = cfg.dpiScale;
         }
       );
-    xresources.properties = mkIf (cfg.dpiScale != 1) {
+    xresources.properties = lib.mkIf (cfg.dpiScale != 1) {
       "Xft.dpi" = 96 * cfg.dpiScale;
     };
 

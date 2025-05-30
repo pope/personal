@@ -1,15 +1,14 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.obs;
 in
 {
   options.my.home.obs = {
-    enable = mkEnableOption "OBS Studio home options";
+    enable = lib.mkEnableOption "OBS Studio home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [

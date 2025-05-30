@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.packages;
 
   keymap = builtins.fromTOML (builtins.readFile ./keymap.toml);
@@ -9,10 +8,10 @@ let
 in
 {
   options.my.home.yazi = {
-    enable = mkEnableOption "Yazi options";
+    enable = lib.mkEnableOption "Yazi options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.yazi = {
       enable = true;
       keymap = keymap // {
@@ -44,4 +43,3 @@ in
     };
   };
 }
-

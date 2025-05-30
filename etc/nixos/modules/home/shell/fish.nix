@@ -1,21 +1,20 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption mkMerge;
   cfg = config.my.home.shell.fish;
   inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.shell.fish = {
-    enable = mkEnableOption "Fish shell home options";
+    enable = lib.mkEnableOption "Fish shell home options";
   };
 
-  config = mkMerge [
-    (mkIf cfg.enable {
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
       programs.fish.enable = true;
     })
 
-    (mkIf (cfg.enable && colorScheme == "rose-pine") {
+    (lib.mkIf (cfg.enable && colorScheme == "rose-pine") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "Rosé Pine"
       '';
@@ -25,7 +24,7 @@ in
       };
     })
 
-    (mkIf (cfg.enable && colorScheme == "catppuccin") {
+    (lib.mkIf (cfg.enable && colorScheme == "catppuccin") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "Catppuccin Mocha"
       '';
@@ -35,13 +34,13 @@ in
       };
     })
 
-    (mkIf (cfg.enable && colorScheme == "dracula") {
+    (lib.mkIf (cfg.enable && colorScheme == "dracula") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "Dracula"
       '';
     })
 
-    (mkIf (cfg.enable && colorScheme == "tokyonight") {
+    (lib.mkIf (cfg.enable && colorScheme == "tokyonight") {
       programs.fish.interactiveShellInit = ''
         fish_config theme choose "TokyoNight Storm"
       '';
@@ -50,6 +49,5 @@ in
         recursive = true;
       };
     })
-
   ];
 }

@@ -1,15 +1,14 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.nixos.printing;
 in
 {
   options.my.nixos.printing = {
-    enable = mkEnableOption "printing system options";
+    enable = lib.mkEnableOption "printing system options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services = {
       # For network discovery.
       avahi = {

@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.xdg;
   mimetypes = {
     "application/x-extension-htm" = "firefox.desktop";
@@ -23,10 +22,10 @@ let
 in
 {
   options.my.home.xdg = {
-    enable = mkEnableOption "XDG home options";
+    enable = lib.mkEnableOption "XDG home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       xdg-utils
       xdg-user-dirs

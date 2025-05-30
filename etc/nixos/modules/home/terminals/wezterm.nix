@@ -1,21 +1,20 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  inherit (lib) boolToString mkIf mkEnableOption;
   cfg = config.my.home.terminals.wezterm;
   inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.terminals.wezterm = {
-    enable = mkEnableOption "WezTerm terminal home options";
-    useUnstable = mkEnableOption "the latest (unstable) version of WezTerm";
+    enable = lib.mkEnableOption "WezTerm terminal home options";
+    useUnstable = lib.mkEnableOption "the latest (unstable) version of WezTerm";
     # See https://www.reddit.com/r/archlinux/comments/18rf5t1/psa_on_hyprland_wezterm_will_not_start_anymore/
-    useWayland = mkEnableOption "the use of Wayland";
-    installExtraFonts = mkEnableOption "the installation of extra fonts used by the config";
+    useWayland = lib.mkEnableOption "the use of Wayland";
+    installExtraFonts = lib.mkEnableOption "the installation of extra fonts used by the config";
   };
 
-  config = mkIf cfg.enable {
-    home.packages = mkIf cfg.installExtraFonts (with pkgs;[
+  config = lib.mkIf cfg.enable {
+    home.packages = lib.mkIf cfg.installExtraFonts (with pkgs;[
       iosevka
       joypixels
       nerd-fonts.symbols-only
@@ -49,7 +48,7 @@ in
           config.color_scheme = '${cs}'
           config.default_cursor_style = "SteadyBar"
           config.default_prog = { '${shell}', '-l'}
-          config.enable_wayland = ${boolToString cfg.useWayland}
+          config.enable_wayland = ${lib.boolToString cfg.useWayland}
 
           -- Without front_end, just blocks appear in nixpkgs version of WezTerm.
           -- See: https://github.com/wez/wezterm/issues/5990

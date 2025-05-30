@@ -1,16 +1,15 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.lf;
 in
 {
   options.my.home.lf = {
-    enable = mkEnableOption "lf home options";
-    enableSixel = mkEnableOption "whether or not to enable Sixel images";
+    enable = lib.mkEnableOption "lf home options";
+    enableSixel = lib.mkEnableOption "whether or not to enable Sixel images";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       ctpv
       chafa
@@ -44,7 +43,7 @@ in
       };
     };
 
-    xdg.configFile."ctpv/config" = mkIf cfg.enableSixel {
+    xdg.configFile."ctpv/config" = lib.mkIf cfg.enableSixel {
       text = ''
         set chafasixel
       '';

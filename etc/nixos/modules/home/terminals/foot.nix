@@ -1,15 +1,14 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkOption mkEnableOption types;
   cfg = config.my.home.terminals.foot;
   inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.terminals.foot = {
-    enable = mkEnableOption "Foot terminal home options";
-    fontSize = mkOption {
-      type = types.number;
+    enable = lib.mkEnableOption "Foot terminal home options";
+    fontSize = lib.mkOption {
+      type = lib.types.number;
       default = 12;
       description = lib.mkDoc ''
         The font size to use
@@ -17,7 +16,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.foot = {
       enable = true;
       settings = {

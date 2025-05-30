@@ -1,15 +1,14 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.home.gaming;
 in
 {
   options.my.home.gaming = {
-    enable = mkEnableOption "Gaming home options";
+    enable = lib.mkEnableOption "Gaming home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       goverlay
       lutris

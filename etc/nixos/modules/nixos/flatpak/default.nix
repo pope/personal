@@ -1,15 +1,14 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption;
   cfg = config.my.nixos.flatpak;
 in
 {
   options.my.nixos.flatpak = {
-    enable = mkEnableOption "flatpak options";
+    enable = lib.mkEnableOption "flatpak options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.flatpak.enable = true;
 
     environment.systemPackages = with pkgs; [

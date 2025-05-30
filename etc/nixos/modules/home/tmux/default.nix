@@ -1,16 +1,15 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (lib) mkIf mkEnableOption optionals;
   cfg = config.my.home.tmux;
   inherit (config.my.home.theme) colorScheme;
 in
 {
   options.my.home.tmux = {
-    enable = mkEnableOption "tmux home options";
+    enable = lib.mkEnableOption "tmux home options";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.tmux = {
       enable = true;
 
@@ -36,7 +35,7 @@ in
         { plugin = tmux-fzf; }
         { plugin = yank; }
         { plugin = tmux-thumbs; extraConfig = "set -g @thumbs-osc52 1"; }
-      ] ++ optionals (colorScheme == "rose-pine") [
+      ] ++ lib.optionals (colorScheme == "rose-pine") [
         {
           plugin = rose-pine;
           extraConfig = ''
@@ -47,7 +46,7 @@ in
             set -g @rose_pine_bar_bg_disabled_color_option 'default'
           '';
         }
-      ] ++ optionals (colorScheme == "catppuccin") [
+      ] ++ lib.optionals (colorScheme == "catppuccin") [
         {
           plugin = catppuccin;
           extraConfig = ''
@@ -72,7 +71,7 @@ in
             set -g @catppuccin_directory_text "#{pane_current_path}"
           '';
         }
-      ] ++ optionals (colorScheme == "dracula") [
+      ] ++ lib.optionals (colorScheme == "dracula") [
         {
           plugin = dracula;
           extraConfig = ''
