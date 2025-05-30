@@ -104,7 +104,6 @@
       };
       wezterm = {
         enable = false;
-        useUnstable = true;
         useWayland = true;
       };
     };
