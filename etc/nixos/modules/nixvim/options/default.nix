@@ -83,10 +83,15 @@
         list = true;
 
         completeopt = [
+          "fuzzy"
           "menu"
           "menuone"
           "noselect"
+          "popup"
         ];
+
+        laststatus = 3;
+        winborder = "rounded";
 
         timeout = true;
         timeoutlen = 500;

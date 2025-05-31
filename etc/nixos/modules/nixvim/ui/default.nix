@@ -151,12 +151,6 @@ in
       pkg = noice-nvim;
       dependencies = [ nui-nvim nvim-notify ];
       event = [ "VeryLazy" ];
-      opts.lsp.progress.enabled = true;
-      opts.lsp.override = {
-        "vim.lsp.util.convert_input_to_markdown_lines" = true;
-        "vim.lsp.util.stylize_markdown" = true;
-        "cmp.entry.get_documentation" = true;
-      };
       opts.routes = [
         {
           filter = {
