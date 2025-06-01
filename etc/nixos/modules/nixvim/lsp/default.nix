@@ -16,10 +16,14 @@
       pkg = blink-cmp;
       dependencies = [ friendly-snippets ];
       opts = {
-        appearance.nerd_font_variant = "mono";
+        appearance.nerd_font_variant = "normal";
         completion.documentation.auto_show = true;
         fuzzy.implementation = "prefer_rust_with_warning";
-        keymap.preset = "default";
+        keymap = {
+          preset = "super-tab";
+          "<CR>" = [ "accept" "fallback" ];
+          "<C-y>" = [ "select_and_accept" ];
+        };
         sources.default = [ "lsp" "path" "snippets" "buffer" ];
       };
       event = [ "BufReadPre" "BufNewFile" ];
