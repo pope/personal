@@ -13,11 +13,6 @@
       config = true;
     }
     {
-      pkg = neodev-nvim;
-      ft = [ "lua" ];
-      opts.pathStrict = true;
-    }
-    {
       pkg = blink-cmp;
       dependencies = [ friendly-snippets ];
       opts = {
