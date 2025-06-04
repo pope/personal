@@ -44,7 +44,7 @@ in
 
       (pkgs.writeShellScriptBin "add-files-to-nix-store" ''
         nix-store --add-fixed sha256 \
-            /media/cyberia/nix-files/fonts/*.tar.gz \
+            /media/cyberia/nix-files/fonts/*.tar.{gz,xz} \
             /media/cyberia/nix-files/software/rns_344_linux_x86_64.tar.gz
       '')
       (pkgs.writeShellApplication {
