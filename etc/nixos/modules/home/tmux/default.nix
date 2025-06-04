@@ -50,7 +50,7 @@ in
 
         # Theme: borders
         set -g pane-border-indicators both
-        set -g pane-border-lines heavy
+        set -g pane-border-lines single
         set -g pane-border-style fg=black,bright
         set -g pane-active-border-style fg=magenta
 
