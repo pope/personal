@@ -99,6 +99,25 @@ in
       systemctl-tui
       trash-helper
       trashy
+
+      (pkgs.writeShellApplication {
+        name = "add-files-to-nix-store";
+        text = /* sh */ ''
+          nix-store --add-fixed sha256 \
+              /media/cyberia/nix-files/fonts/*.tar.{gz,xz} \
+              /media/cyberia/nix-files/software/rns_344_linux_x86_64.tar.gz
+        '';
+      })
+    ] ++ lib.optionals stdenv.isDarwin [
+      (pkgs.writeShellApplication {
+        name = "add-files-to-nix-store";
+        text = /* sh */ ''
+          osascript -e 'mount volume "smb://skrapnel.local/Cyberia"'
+          nix-store --add-fixed sha256 \
+              /Volumes/Cyberia/nix-files/fonts/*.tar.{gz,xz}
+          diskutil unmount /Volumes/Cyberia
+        '';
+      })
     ];
 
     programs = {
