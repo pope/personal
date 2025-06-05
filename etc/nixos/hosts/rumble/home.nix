@@ -13,12 +13,8 @@
 
     packages = with pkgs; [
       amdgpu_top
-      berkeley-mono
-      comic-code-ligatures
       discord
       godot_4
-      lucida-grande
-      monolisa
       nvtopPackages.amd
       rbutil
     ];
