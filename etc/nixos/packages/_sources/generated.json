@@ -318,6 +318,27 @@
         },
         "version": "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea"
     },
+    "shflags": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "shflags",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kward",
+            "repo": "shflags",
+            "rev": "v1.3.0",
+            "sha256": "sha256-qOFPSYglb6p8GxagXVHdJW2namUCxi3REuR55On8QEo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.3.0"
+    },
     "ssimDownscaler": {
         "cargoLocks": null,
         "date": null,

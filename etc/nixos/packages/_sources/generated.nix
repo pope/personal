@@ -197,6 +197,17 @@
     };
     date = "2023-07-01";
   };
+  shflags = {
+    pname = "shflags";
+    version = "v1.3.0";
+    src = fetchFromGitHub {
+      owner = "kward";
+      repo = "shflags";
+      rev = "v1.3.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-qOFPSYglb6p8GxagXVHdJW2namUCxi3REuR55On8QEo=";
+    };
+  };
   ssimDownscaler = {
     pname = "ssimDownscaler";
     version = "575d13567bbe3caa778310bd3b2a4c516c445039";
