@@ -1,11 +1,11 @@
 { config, lib, ... }:
 
 let
-  cfg = config.my.nixos.aars;
+  cfg = config.my.nixos.arrs;
 in
 {
-  options.my.nixos.aars = {
-    enable = lib.mkEnableOption "*aar system options";
+  options.my.nixos.arrs = {
+    enable = lib.mkEnableOption "*arr system options";
   };
 
   config = lib.mkIf cfg.enable {

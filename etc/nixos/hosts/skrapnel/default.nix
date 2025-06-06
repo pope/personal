@@ -100,7 +100,7 @@
   my.nixos = {
     mainUser = "pope";
 
-    aars.enable = true;
+    arrs.enable = true;
     firewall.nfs.enable = true;
     samba = {
       enable = true;
