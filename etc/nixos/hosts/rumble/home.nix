@@ -46,7 +46,7 @@
     };
     dunst.enable = true;
     dwl = {
-      enable = false;
+      enable = true;
       dpiScale = 2;
       terminalPackage = config.programs.ghostty.package;
     };
@@ -55,7 +55,7 @@
     gtk.enable = true;
     hypridle.enable = true;
     hyprland = {
-      enable = true;
+      enable = false;
       dpiScale = 2;
       enableBatterySaverMode = true;
       enableVrr = true;
