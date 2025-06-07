@@ -6,7 +6,7 @@ let
 in
 {
   inherit (mypkgs) fish-rose-pine fish-catppuccin fish-tokyonight;
-  inherit (mypkgs) fsrcnnx modernx plow p5r-grub;
+  inherit (mypkgs) fsrcnnx modernx plow p5r-grub shflags;
   inherit (mypkgs) comic-code-ligatures lucida-grande berkeley-mono;
   inherit (mypkgs) monolisa dank-mono ia-writer sf-mono-font sf-mono-nf-liga;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
