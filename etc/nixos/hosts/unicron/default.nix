@@ -148,6 +148,7 @@
       gnome.enable = true;
       hyprland.enable = true;
     };
+    zerotierone.enable = true;
   };
 
   # This value determines the NixOS release from which the default
