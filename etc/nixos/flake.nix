@@ -187,9 +187,12 @@
       devShells = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          updatePackages = pkgs.writeShellScriptBin "updatePackages" ''
+          update-my-packages = pkgs.writeShellScriptBin "update-my-packages" ''
             cd packages
             ${pkgs.nvfetcher}/bin/nvfetcher
+          '';
+          wake-up-unicron = pkgs.writeShellScriptBin "wake-up-unicron" ''
+            ${pkgs.wakelan}/bin/wakelan 58:11:22:d1:9c:0c
           '';
         in
         {
@@ -199,7 +202,8 @@
               nixpkgs-fmt
               nvfetcher
               statix
-              updatePackages
+              update-my-packages
+              wake-up-unicron
             ];
           };
         });
