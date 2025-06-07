@@ -2,6 +2,8 @@
 
 let
   cfg = config.my.nixos.arrs;
+  user = config.my.nixos.mainUser;
+  group = "wheel";
 in
 {
   options.my.nixos.arrs = {
@@ -10,23 +12,39 @@ in
 
   config = lib.mkIf cfg.enable {
     services = {
-      sabnzbd = {
+      lidarr = {
+        inherit group user;
         enable = true;
-        openFirewall = true;
-        user = "pope";
-        group = "wheel";
+        openFirewall = true; # 8686
       };
-      sonarr = {
+      prowlarr = {
         enable = true;
-        openFirewall = true;
-        user = "pope";
-        group = "wheel";
+        openFirewall = true; # 9696
       };
       radarr = {
+        inherit group user;
         enable = true;
-        openFirewall = true;
-        user = "pope";
-        group = "wheel";
+        openFirewall = true; # 7878
+      };
+      readarr = {
+        inherit group user;
+        enable = false;
+        openFirewall = true; # 8787
+      };
+      sabnzbd = {
+        inherit group user;
+        enable = true;
+        openFirewall = true; # 8080
+      };
+      sonarr = {
+        inherit group user;
+        enable = true;
+        openFirewall = true; # 8989
+      };
+      whisparr = {
+        inherit group user;
+        enable = false;
+        openFirewall = true; # 6969
       };
     };
   };
