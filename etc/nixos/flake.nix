@@ -191,6 +191,9 @@
             cd packages
             ${pkgs.nvfetcher}/bin/nvfetcher
           '';
+          wake-up-soundwave = pkgs.writeShellScriptBin "wake-up-soundwave" ''
+            ${pkgs.wakelan}/bin/wakelan 18:c0:4d:06:5c:15
+          '';
           wake-up-unicron = pkgs.writeShellScriptBin "wake-up-unicron" ''
             ${pkgs.wakelan}/bin/wakelan 58:11:22:d1:9c:0c
           '';
@@ -203,6 +206,7 @@
               nvfetcher
               statix
               update-my-packages
+              wake-up-soundwave
               wake-up-unicron
             ];
           };
