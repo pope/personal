@@ -27,7 +27,7 @@ in
   @define-color base0F ${color.base0F};
 
   * {
-    font-family: monospace;
+    font-family: sans-serif, monospace;
     font-size: ${baseFontSize}rem;
     font-weight: normal;
   }
@@ -118,7 +118,6 @@ in
     color: @base05;
     min-width: 20px;
     /* font-size: 0.9rem; */
-    font-weight: lighter;
     padding-left: 1rem;
     padding-right: 0.5rem;
   }
@@ -126,7 +125,6 @@ in
   .modules-right .module {
     color: @base05;
     font-size: ${smallFontSize}rem;
-    font-weight: lighter;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
