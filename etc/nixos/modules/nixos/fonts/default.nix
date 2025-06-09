@@ -59,6 +59,7 @@ in
         roboto-mono
         roboto-slab
         sf-mono-nf-liga
+        sf-pro
         source-serif
         terminus_font
         victor-mono
@@ -74,8 +75,8 @@ in
         defaultFonts = {
           emoji = [ "Joypixels" "Noto Color Emoji" ];
           monospace = [ "Berkeley Mono" "Symbols Nerd Font" ];
-          sansSerif = [ "IBM Plex Sans" ];
-          serif = [ "IBM Plex Serif" ];
+          sansSerif = [ "SF Pro Display" ];
+          serif = [ "Source Serif 4" ];
         };
         hinting = {
           enable = cfg.resolution != "high";

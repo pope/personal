@@ -161,6 +161,20 @@
       sha256 = "sha256-q9k5GzhYPOP8p8VKrqpoHc3B9Qak+4DtZAZZuFlkED0=";
     };
   };
+  prchann-font-collection = {
+    pname = "prchann-font-collection";
+    version = "e99955f794eb1f1375a5cb677d129758f51cbc3d";
+    src = fetchgit {
+      url = "https://github.com/prchann/fonts";
+      rev = "e99955f794eb1f1375a5cb677d129758f51cbc3d";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-GlfGnaXNdvTLpwEssxzPyJwclgVi6iNp8hEGuy/rC5o=";
+    };
+    date = "2022-09-02";
+  };
   rbutil = {
     pname = "rbutil";
     version = "1.5.1";

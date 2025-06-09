@@ -60,6 +60,10 @@ fetch.git = "https://github.com/supercomputra/SF-Mono-Font"
 src.git = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
 fetch.git = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
 
+[prchann-font-collection]
+src.git = "https://github.com/prchann/fonts"
+fetch.git = "https://github.com/prchann/fonts"
+
 # Shaders
 
 [fsrcnnx-lineart]

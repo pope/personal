@@ -263,6 +263,26 @@
         },
         "version": "v1.3.2"
     },
+    "prchann-font-collection": {
+        "cargoLocks": null,
+        "date": "2022-09-02",
+        "extract": null,
+        "name": "prchann-font-collection",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e99955f794eb1f1375a5cb677d129758f51cbc3d",
+            "sha256": "sha256-GlfGnaXNdvTLpwEssxzPyJwclgVi6iNp8hEGuy/rC5o=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/prchann/fonts"
+        },
+        "version": "e99955f794eb1f1375a5cb677d129758f51cbc3d"
+    },
     "rbutil": {
         "cargoLocks": null,
         "date": null,
