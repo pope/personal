@@ -34,6 +34,10 @@ fetch.github = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 src.manual = "1.5.1"
 fetch.url = "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_$ver.tar.gz"
 
+[shflags]
+src.github_tag = "kward/shflags"
+fetch.github = "kward/shflags"
+
 [iqm]
 src.git = "https://github.com/lsalzman/iqm"
 fetch.git = "https://github.com/lsalzman/iqm"
@@ -59,6 +63,10 @@ fetch.git = "https://github.com/supercomputra/SF-Mono-Font"
 [sf-mono-nf-liga]
 src.git = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
 fetch.git = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
+
+[prchann-font-collection]
+src.git = "https://github.com/prchann/fonts"
+fetch.git = "https://github.com/prchann/fonts"
 
 # Shaders
 

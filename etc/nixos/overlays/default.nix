@@ -6,9 +6,10 @@ let
 in
 {
   inherit (mypkgs) fish-rose-pine fish-catppuccin fish-tokyonight;
-  inherit (mypkgs) fsrcnnx modernx plow p5r-grub;
-  inherit (mypkgs) comic-code-ligatures lucida-grande monolisa;
-  inherit (mypkgs) dank-mono ia-writer sf-mono-font sf-mono-nf-liga;
+  inherit (mypkgs) fsrcnnx modernx plow p5r-grub shflags;
+  inherit (mypkgs) comic-code-ligatures lucida-grande berkeley-mono;
+  inherit (mypkgs) monolisa dank-mono ia-writer;
+  inherit (mypkgs) sf-mono-font sf-mono-nf-liga sf-pro;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
   inherit (mypkgs) iqm rbutil hatsune-miku-cursor yazi-plugins;
 
@@ -34,19 +35,6 @@ in
     in
     { inherit releasePath; }
   );
-
-  owncast = prev.owncast.override {
-    buildGoModule = args: final.buildGoModule (args // {
-      version = "0.2.3-dev";
-      src = final.fetchFromGitHub {
-        owner = "owncast";
-        repo = "owncast";
-        rev = "92584e8306aadfa53c85c8d05473b7279a0aff2a";
-        sha256 = "qbIqulRZxQEc1kflnVyUvhtogDEMxcOCWWb6yUlxTCY=";
-      };
-      vendorHash = "sha256-dwYch4ZFy1B6JC7kJPuV6C9gjxT7giIJNjnSffy9hBM=";
-    });
-  };
 
   stable = import self.inputs.nixpkgs-stable {
     inherit (prev) system;

@@ -11,13 +11,17 @@
 
     packages = with pkgs; [
       # Fonts
+      berkeley-mono
+      comic-code-ligatures
       dank-mono
       go-font
+      ia-writer
       iosevka
       iosevka-comfy.comfy
       jetbrains-mono
+      lucida-grande
       monolisa
-      nerd-fonts.fira-code
+      nerd-fonts.gohufont
       nerd-fonts.lilex
       nerd-fonts.symbols-only
       nerd-fonts.terminess-ttf

@@ -50,10 +50,6 @@
       url = "github:sents/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -191,9 +187,16 @@
       devShells = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          updatePackages = pkgs.writeShellScriptBin "updatePackages" ''
+          getExe = pkgs.lib.getExe;
+          update-my-packages = pkgs.writeShellScriptBin "update-my-packages" ''
             cd packages
-            ${pkgs.nvfetcher}/bin/nvfetcher
+            ${getExe pkgs.nvfetcher}
+          '';
+          wake-up-soundwave = pkgs.writeShellScriptBin "wake-up-soundwave" ''
+            ${getExe pkgs.wakelan} 18:c0:4d:06:5c:15
+          '';
+          wake-up-unicron = pkgs.writeShellScriptBin "wake-up-unicron" ''
+            ${getExe pkgs.wakelan} 58:11:22:d1:9c:0c
           '';
         in
         {
@@ -203,7 +206,9 @@
               nixpkgs-fmt
               nvfetcher
               statix
-              updatePackages
+              update-my-packages
+              wake-up-soundwave
+              wake-up-unicron
             ];
           };
         });

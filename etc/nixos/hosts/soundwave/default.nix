@@ -124,6 +124,7 @@
   my.nixos = {
     mainUser = "pope";
 
+    arrs.enable = true;
     bluetooth.enable = true;
     fah.enable = false;
     flatpak.enable = true;

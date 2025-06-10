@@ -13,12 +13,9 @@
 
     packages = with pkgs; [
       comic-code-ligatures
-      dank-mono
       discord
       godot_4
       intel-gpu-tools
-      lucida-grande
-      monolisa
       nvtopPackages.intel
     ];
 

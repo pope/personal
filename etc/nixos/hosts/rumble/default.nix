@@ -141,10 +141,11 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "gdm";
-      dwl.enable = false;
+      dwl.enable = true;
       gnome.enable = true;
-      hyprland.enable = true;
+      hyprland.enable = false;
     };
+    vyprvpn.enable = true;
     zerotierone.enable = true;
   };
 

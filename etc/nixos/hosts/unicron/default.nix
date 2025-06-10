@@ -106,12 +106,9 @@
 
     enableIPv6 = false;
 
-    firewall = {
-      enable = true;
-      # Open ports in the firewall.
-      allowedTCPPorts = [ 8001 ];
-      allowedUDPPorts = [ 8001 ];
-    };
+    firewall.enable = true;
+
+    interfaces.eno1.wakeOnLan.enable = true;
   };
 
   # Set your time zone.
@@ -151,6 +148,7 @@
       gnome.enable = true;
       hyprland.enable = true;
     };
+    zerotierone.enable = true;
   };
 
   # This value determines the NixOS release from which the default

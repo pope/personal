@@ -24,7 +24,10 @@ in
       controlPersist = "5m";
 
       matchBlocks = {
-        "*".identityAgent = cfg.opIdentityAgent;
+        "*" = {
+          match = ''host * exec "test -z $SSH_TTY"'';
+          identityAgent = cfg.opIdentityAgent;
+        };
 
         "*.lan *.local".forwardAgent = true;
 

@@ -95,7 +95,6 @@
       kitty.enable = true;
       wezterm = {
         enable = true;
-        useUnstable = true;
         useWayland = true;
       };
     };

@@ -35,10 +35,6 @@
         ft = [ "proto" ];
       }
       {
-        pkg = vim-startuptime;
-        cmd = "StartupTime";
-      }
-      {
         pkg = which-key-nvim;
         event = [ "VeryLazy" ];
         dependencies = [ nvim-web-devicons mini-nvim ];

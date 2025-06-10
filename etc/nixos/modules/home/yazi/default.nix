@@ -15,7 +15,7 @@ in
     programs.yazi = {
       enable = true;
       keymap = keymap // {
-        manager.prepend_keymap = [
+        mgr.prepend_keymap = [
           {
             on = "T";
             run = "plugin toggle-pane max-preview";
@@ -24,7 +24,7 @@ in
         ];
       };
       settings = settings // {
-        manager = settings.manager // {
+        mgr = settings.mgr // {
           ratio = [ 2 4 3 ];
         };
         preview = settings.preview // {

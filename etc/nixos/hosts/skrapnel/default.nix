@@ -95,29 +95,12 @@
       port = 5055;
       openFirewall = true;
     };
-    sabnzbd = {
-      enable = true;
-      openFirewall = true;
-      user = "pope";
-      group = "wheel";
-    };
-    sonarr = {
-      enable = true;
-      openFirewall = true;
-      user = "pope";
-      group = "wheel";
-    };
-    radarr = {
-      enable = true;
-      openFirewall = true;
-      user = "pope";
-      group = "wheel";
-    };
   };
 
   my.nixos = {
     mainUser = "pope";
 
+    arrs.enable = true;
     firewall.nfs.enable = true;
     samba = {
       enable = true;

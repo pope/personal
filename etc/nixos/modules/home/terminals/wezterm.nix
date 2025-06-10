@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.my.home.terminals.wezterm;
@@ -7,7 +7,6 @@ in
 {
   options.my.home.terminals.wezterm = {
     enable = lib.mkEnableOption "WezTerm terminal home options";
-    useUnstable = lib.mkEnableOption "the latest (unstable) version of WezTerm";
     # See https://www.reddit.com/r/archlinux/comments/18rf5t1/psa_on_hyprland_wezterm_will_not_start_anymore/
     useWayland = lib.mkEnableOption "the use of Wayland";
     installExtraFonts = lib.mkEnableOption "the installation of extra fonts used by the config";
@@ -23,10 +22,6 @@ in
 
     programs.wezterm = {
       enable = true;
-      package =
-        if cfg.useUnstable
-        then inputs.wezterm.packages.${pkgs.system}.default
-        else pkgs.wezterm;
       extraConfig =
         let
           opacity = if pkgs.stdenv.isDarwin then 0.94 else 0.85;

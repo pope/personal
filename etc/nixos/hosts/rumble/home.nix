@@ -13,11 +13,8 @@
 
     packages = with pkgs; [
       amdgpu_top
-      comic-code-ligatures
       discord
       godot_4
-      lucida-grande
-      monolisa
       nvtopPackages.amd
       rbutil
     ];
@@ -49,7 +46,7 @@
     };
     dunst.enable = true;
     dwl = {
-      enable = false;
+      enable = true;
       dpiScale = 2;
       terminalPackage = config.programs.ghostty.package;
     };
@@ -58,7 +55,7 @@
     gtk.enable = true;
     hypridle.enable = true;
     hyprland = {
-      enable = true;
+      enable = false;
       dpiScale = 2;
       enableBatterySaverMode = true;
       enableVrr = true;
@@ -104,7 +101,6 @@
       };
       wezterm = {
         enable = false;
-        useUnstable = true;
         useWayland = true;
       };
     };

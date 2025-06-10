@@ -62,9 +62,9 @@ in
       dynamic-separator = ''<span foreground="${color.base04}"> ) </span>'';
       max-length = 100;
       status-icons = {
-        playing = "▶";
-        paused = "⏸";
-        stopped = "◼";
+        playing = " ";
+        paused = " ";
+        stopped = " ";
       };
     };
     pulseaudio = {

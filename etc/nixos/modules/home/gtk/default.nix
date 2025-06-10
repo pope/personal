@@ -20,8 +20,8 @@ in
       enable = true;
 
       font = {
-        name = "Work Sans";
-        package = pkgs.work-sans;
+        name = "SF Pro Display";
+        package = pkgs.sf-pro;
         size = 11;
       };
 

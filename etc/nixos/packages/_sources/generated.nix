@@ -175,6 +175,20 @@
       sha256 = "sha256-q9k5GzhYPOP8p8VKrqpoHc3B9Qak+4DtZAZZuFlkED0=";
     };
   };
+  prchann-font-collection = {
+    pname = "prchann-font-collection";
+    version = "e99955f794eb1f1375a5cb677d129758f51cbc3d";
+    src = fetchgit {
+      url = "https://github.com/prchann/fonts";
+      rev = "e99955f794eb1f1375a5cb677d129758f51cbc3d";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-GlfGnaXNdvTLpwEssxzPyJwclgVi6iNp8hEGuy/rC5o=";
+    };
+    date = "2022-09-02";
+  };
   rbutil = {
     pname = "rbutil";
     version = "1.5.1";
@@ -211,6 +225,17 @@
     };
     date = "2023-07-01";
   };
+  shflags = {
+    pname = "shflags";
+    version = "v1.3.0";
+    src = fetchFromGitHub {
+      owner = "kward";
+      repo = "shflags";
+      rev = "v1.3.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-qOFPSYglb6p8GxagXVHdJW2namUCxi3REuR55On8QEo=";
+    };
+  };
   ssimDownscaler = {
     pname = "ssimDownscaler";
     version = "575d13567bbe3caa778310bd3b2a4c516c445039";
@@ -229,16 +254,16 @@
   };
   yazi-plugins = {
     pname = "yazi-plugins";
-    version = "55bf6996ada3df4cbad331ce3be0c1090769fc7c";
+    version = "63f9650e522336e0010261dcd0ffb0bf114cf912";
     src = fetchgit {
       url = "https://github.com/yazi-rs/plugins";
-      rev = "55bf6996ada3df4cbad331ce3be0c1090769fc7c";
+      rev = "63f9650e522336e0010261dcd0ffb0bf114cf912";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-v/C+ZBrF1ghDt1SXpZcDELmHMVAqfr44iWxzUWynyRk=";
+      sha256 = "sha256-ZCLJ6BjMAj64/zM606qxnmzl2la4dvO/F5QFicBEYfU=";
     };
-    date = "2025-05-11";
+    date = "2025-05-31";
   };
 }

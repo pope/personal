@@ -35,30 +35,30 @@ in
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     services = {
-      displayManager.sddm = {
-        enable = cfg.displayManager == "sddm";
-        wayland.enable = true;
+      displayManager = {
+        gdm = {
+          enable = cfg.displayManager == "gdm";
+          wayland = true;
+        };
+        sddm = {
+          enable = cfg.displayManager == "sddm";
+          wayland.enable = true;
+        };
       };
-      desktopManager.plasma6.enable = cfg.kde.enable;
+      desktopManager = {
+        gnome.enable = cfg.gnome.enable;
+        plasma6.enable = cfg.kde.enable;
+      };
 
       xserver = {
         enable = true;
 
-        displayManager = {
-          gdm = {
-            enable = cfg.displayManager == "gdm";
-            wayland = true;
-          };
-          lightdm = {
-            enable = cfg.displayManager == "lightdm";
-            greeters.pantheon.enable = cfg.pantheon.enable;
-          };
+        displayManager.lightdm = {
+          enable = cfg.displayManager == "lightdm";
+          greeters.pantheon.enable = cfg.pantheon.enable;
         };
 
-        desktopManager = {
-          gnome.enable = cfg.gnome.enable;
-          pantheon.enable = cfg.pantheon.enable;
-        };
+        desktopManager.pantheon.enable = cfg.pantheon.enable;
 
         # Configure keymap in X11
         xkb = {

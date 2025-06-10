@@ -11,16 +11,6 @@ in
       config = true;
     }
     {
-      pkg = comment-nvim;
-      config = true;
-      keys = mkLazyKeys [
-        { lhs = "gb"; mode = "v"; desc = "Toggle blockwise comment"; }
-        { lhs = "gc"; mode = "v"; desc = "Toggle linewise comment"; }
-        { lhs = "gbb"; desc = "Toggle blockwise comment"; }
-        { lhs = "gcc"; desc = "Toggle linewise comment"; }
-      ];
-    }
-    {
       pkg = nvim-osc52;
       opts = {
         max_length = 0;

@@ -24,7 +24,7 @@ in
         rofi-emoji-wayland
         rofi-calc
       ];
-      font = "mono ${builtins.toString cfg.fontSize}";
+      font = "sans-serif ${builtins.toString cfg.fontSize}";
       extraConfig = {
         display-drun = "🔍 ";
         display-run = "🏃 ";

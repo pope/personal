@@ -1,13 +1,13 @@
 { stdenvNoCC, requireFile }:
 
 stdenvNoCC.mkDerivation {
-  pname = "dank-mono";
-  version = "0.0.1";
+  pname = "berkeley-mono";
+  version = "2.002";
 
   src = requireFile rec {
-    name = "dank-mono.tar.gz";
+    name = "berkeley-mono.tar.xz";
     url = "file:///media/cyberia/nix-files/fonts/${name}";
-    sha256 = "1jjhp76s0n924vr2jg6ab0h4skcasxgklb6p50b3qps8wrdw2gkw";
+    sha256 = "1hphd75n23d80v13306qmaqklwkbqi2g7f4rxrmwj7i3pbs6v3h9";
   };
 
   dontPatch = true;
@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -Dm644 -t $out/share/fonts/truetype/ OpenType-TT/*.ttf
+    install -Dm644 -t $out/share/fonts/opentype/ TX-02/*.otf
     runHook postInstall
   '';
 }
