@@ -187,15 +187,16 @@
       devShells = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          getExe = pkgs.lib.getExe;
           update-my-packages = pkgs.writeShellScriptBin "update-my-packages" ''
             cd packages
-            ${pkgs.nvfetcher}/bin/nvfetcher
+            ${getExe pkgs.nvfetcher}
           '';
           wake-up-soundwave = pkgs.writeShellScriptBin "wake-up-soundwave" ''
-            ${pkgs.wakelan}/bin/wakelan 18:c0:4d:06:5c:15
+            ${getExe pkgs.wakelan} 18:c0:4d:06:5c:15
           '';
           wake-up-unicron = pkgs.writeShellScriptBin "wake-up-unicron" ''
-            ${pkgs.wakelan}/bin/wakelan 58:11:22:d1:9c:0c
+            ${getExe pkgs.wakelan} 58:11:22:d1:9c:0c
           '';
         in
         {
