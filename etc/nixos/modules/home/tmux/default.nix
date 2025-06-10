@@ -37,7 +37,7 @@ in
         { plugin = resurrect; extraConfig = "set -g @resurrect-strategy-nvim 'session'"; }
         { plugin = continuum; extraConfig = "set -g @continuum-restore 'on'"; }
       ];
-      extraConfig = ''
+      extraConfig = /* tmux */ ''
         set-option -sa terminal-features ',alacritty*:RGB,foot*:RGB,xterm-*:RGB'
 
         set -g allow-passthrough on
@@ -57,7 +57,6 @@ in
         # Theme: status
         set -g status-style bg=default,fg=white
         set -g status-left ""
-        set -g status-right "#[fg=white,bright]#S"
 
         # Theme: status (windows)
         set -g window-status-format " ○ #W "
@@ -70,5 +69,13 @@ in
         bind R source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
       '';
     };
+
+    # Moving this out of the config since the `status-right` value needs to be
+    # set before the plugins code is added. This is so that continuum can add
+    # it's save script to `status-right`. With `extraConfig`, it's added to
+    # the end of the tmux.conf file, and thus blows away the continuum saving.
+    xdg.configFile."tmux/tmux.conf".text = lib.mkOrder 550 /* tmux */ ''
+      set -g status-right "#[fg=white,bright]#S "
+    '';
   };
 }
