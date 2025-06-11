@@ -187,7 +187,7 @@
       devShells = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          getExe = pkgs.lib.getExe;
+          inherit (pkgs.lib) getExe;
           update-my-packages = pkgs.writeShellScriptBin "update-my-packages" ''
             cd packages
             ${getExe pkgs.nvfetcher}
