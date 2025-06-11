@@ -36,6 +36,7 @@
 
   networking = {
     hostName = "skrapnel"; # Define your hostname.
+    enableIPv6 = false;
     firewall = {
       enable = true;
       allowPing = true;
@@ -108,8 +109,10 @@
         Cyberia.path = "/mnt/Cyberia";
       };
     };
+    sops.enable = true;
     system.enable = true;
     users.shell = "zsh";
+    vyprvpn.enable = true;
     zerotierone.enable = true;
   };
 

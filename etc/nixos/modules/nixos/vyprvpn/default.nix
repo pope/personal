@@ -9,6 +9,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = config.my.nixos.sops.enable;
+        message = "sops must be enabled to use VyprVPN";
+      }
+    ];
+
     services.openvpn.servers.vyprvpn = {
       autoStart = false;
       config = ''
