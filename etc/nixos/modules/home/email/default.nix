@@ -2,6 +2,8 @@
 
 let
   cfg = config.my.home.email;
+  admin-user = "admin";
+  domain = "shifteleven.com";
 in
 {
   options.my.home.email = {
@@ -18,7 +20,7 @@ in
 
     accounts.email.accounts.shifteleven-admin = {
       primary = true;
-      address = "admin@shifteleven.com";
+      address = "${admin-user}@${domain}";
       flavor = "gmail.com";
       realName = "K. Adam Christensen";
       passwordCommand = "${pkgs.coreutils}/bin/cat ${config.sops.secrets.shifteleven-email-password.path}";
