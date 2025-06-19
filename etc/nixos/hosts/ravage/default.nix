@@ -174,9 +174,11 @@
       enableSteam = true;
     };
     onepassword.enable = true;
+    sops.enable = true;
     sound.enable = true;
     system.enable = true;
     users.shell = "zsh";
+    vyprvpn.enable = true;
     xserver = {
       enable = true;
       enableAutoLogin = false;
