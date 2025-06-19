@@ -79,14 +79,18 @@
             modules = [
               (./hosts + "/${name}")
               home-manager.nixosModules.home-manager
+              { imports = [ inputs.sops-nix.nixosModules.sops ]; }
               {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = { inherit inputs self; };
-                home-manager.backupFileExtension = "hm-backup";
-
-                home-manager.users.${user} =
-                  import (./hosts + "/${name}/home.nix");
+                home-manager = {
+                  backupFileExtension = "hm-backup";
+                  extraSpecialArgs = { inherit inputs self; };
+                  sharedModules = [
+                    inputs.sops-nix.homeManagerModules.sops
+                  ];
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users.${user} = import (./hosts + "/${name}/home.nix");
+                };
               }
             ];
           };
@@ -114,6 +118,7 @@
             };
             extraSpecialArgs = { inherit inputs self; };
             modules = [
+              { imports = [ inputs.sops-nix.homeManagerModules.sops ]; }
               (./hosts + "/${hostname}/home.nix")
             ];
           };

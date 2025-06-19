@@ -41,6 +41,7 @@
       neovim.enable = true;
       vscode.enable = true;
     };
+    email.enable = true;
     dunst.enable = true;
     dwl.enable = true;
     git.enable = true;
@@ -68,6 +69,7 @@
       fontSize = 12;
     };
     shell.zsh.enable = true;
+    sops.enable = true;
     ssh.enable = true;
     terminals = {
       ghostty.enable = true;
