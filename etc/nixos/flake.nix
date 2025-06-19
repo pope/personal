@@ -203,12 +203,16 @@
           wake-up-unicron = pkgs.writeShellScriptBin "wake-up-unicron" ''
             ${getExe pkgs.wakelan} 58:11:22:d1:9c:0c
           '';
+          nixos-rebuild-remote = pkgs.writeShellScriptBin "nixos-rebuild-remote" ''
+            nixos-rebuild --flake .#$1 --target-host $1.lan --sudo boot |& nom
+          '';
         in
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
               deadnix
               nixpkgs-fmt
+              nixos-rebuild-remote
               nvfetcher
               statix
               update-my-packages
