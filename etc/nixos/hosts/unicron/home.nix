@@ -38,15 +38,16 @@
       chromium.enable = true;
       firefox.enable = true;
     };
+    dunst = {
+      enable = true;
+      font = "Sans 10";
+    };
     editors = {
       emacs.enable = true;
       vscode.enable = true;
       neovim.enable = true;
     };
-    dunst = {
-      enable = true;
-      font = "Sans 10";
-    };
+    email.enable = true;
     gaming.enable = true;
     git.enable = true;
     gnome.enable = true;
@@ -84,6 +85,7 @@
     packages.enable = true;
     rofi.enable = true;
     shell.zsh.enable = true;
+    sops.enable = true;
     ssh.enable = true;
     terminals = {
       crt.enable = true;
