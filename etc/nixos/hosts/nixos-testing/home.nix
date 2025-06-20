@@ -11,7 +11,7 @@ _:
 
     file.".face".source = ../../face.png;
 
-    stateVersion = "23.05";
+    stateVersion = "25.05";
   };
 
   programs = {
@@ -19,11 +19,32 @@ _:
   };
 
   my.home = {
-    gnome.enable = true;
-    lf.enable = true;
+    browsers = {
+      chromium.enable = true;
+      firefox.enable = true;
+    };
+    editors = {
+      emacs.enable = true;
+      vscode.enable = true;
+      neovim.enable = true;
+    };
+    git.enable = true;
+    gnome.enable = false;
+    gtk.enable = false;
+    languages = {
+      javascript.enable = true;
+      python.enable = true;
+    };
     packages.enable = true;
-    shell.fish.enable = true;
+    shell.zsh.enable = true;
     ssh.enable = true;
+    terminals = {
+      ghostty.enable = true;
+      kitty.enable = true;
+    };
+    theme.colorScheme = "tokyonight";
+    tmux.enable = true;
+    xdg.enable = true;
     yazi.enable = true;
   };
 }
