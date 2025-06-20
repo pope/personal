@@ -21,9 +21,15 @@ in
     accounts.email.accounts.shifteleven-admin = {
       primary = true;
       address = "${admin-user}@${domain}";
-      flavor = "gmail.com";
       realName = "K. Adam Christensen";
       passwordCommand = "${pkgs.coreutils}/bin/cat ${config.sops.secrets.shifteleven-email-password.path}";
+
+      flavor = "gmail.com";
+      folders = {
+        drafts = "[Gmail]/Drafts";
+        sent = "[Gmail]/Sent Mail";
+        trash = "[Gmail]/Trash";
+      };
 
       aerc.enable = true;
       meli.enable = true;
