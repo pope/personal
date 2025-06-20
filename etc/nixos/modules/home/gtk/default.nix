@@ -13,6 +13,7 @@ in
 
   options.my.home.gtk = {
     enable = lib.mkEnableOption "GTK home options";
+    disableQt = lib.mkEnableOption "Disable QT settings";
   };
 
   config = lib.mkIf cfg.enable rec {
@@ -48,7 +49,7 @@ in
     # When this is enabled, KDE and Plasma don't work for Wayland.
     # But this is the style I like for non-KDE stuff, so will re-work later.
     qt = {
-      enable = true;
+      enable = !cfg.disableQt;
       platformTheme.name = "gtk3";
     };
 
