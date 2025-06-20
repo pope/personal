@@ -3,8 +3,9 @@
 let
   cfg = config.my.home.packages;
 
-  keymap = builtins.fromTOML (builtins.readFile ./keymap.toml);
-  settings = builtins.fromTOML (builtins.readFile ./yazi.toml);
+  mkDefaultAttrs = lib.mapAttrsRecursive (_: v: lib.mkDefault v);
+  keymap = mkDefaultAttrs (builtins.fromTOML (builtins.readFile ./keymap.toml));
+  settings = mkDefaultAttrs (builtins.fromTOML (builtins.readFile ./yazi.toml));
 in
 {
   options.my.home.yazi = {
@@ -14,24 +15,28 @@ in
   config = lib.mkIf cfg.enable {
     programs.yazi = {
       enable = true;
-      keymap = keymap // {
-        mgr.prepend_keymap = [
-          {
-            on = "T";
-            run = "plugin toggle-pane max-preview";
-            desc = "Maximize or restore preview";
-          }
-        ];
-      };
-      settings = settings // {
-        mgr = settings.mgr // {
-          ratio = [ 2 4 3 ];
-        };
-        preview = settings.preview // {
-          max_width = 2048;
-          max_height = 2048;
-        };
-      };
+      keymap = lib.mkMerge [
+        keymap
+        {
+          mgr.prepend_keymap = [
+            {
+              on = "T";
+              run = "plugin toggle-pane max-preview";
+              desc = "Maximize or restore preview";
+            }
+          ];
+        }
+      ];
+      settings = lib.mkMerge [
+        settings
+        {
+          mgr.ratio = [ 2 4 3 ];
+          preview = {
+            max_width = 2048;
+            max_height = 2048;
+          };
+        }
+      ];
     };
 
     xdg.configFile = {
