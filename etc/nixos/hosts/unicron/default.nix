@@ -144,8 +144,9 @@
     xserver = {
       enable = true;
       enableAutoLogin = false;
-      displayManager = "gdm";
-      gnome.enable = true;
+      displayManager = "sddm";
+      gnome.enable = false;
+      kde.enable = true;
       hyprland.enable = true;
     };
     zerotierone.enable = true;
