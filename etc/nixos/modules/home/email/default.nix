@@ -38,7 +38,10 @@ in
         create = "maildir";
       };
       neomutt.enable = true;
-      notmuch.enable = true;
+      notmuch = {
+        enable = true;
+        neomutt.enable = true;
+      };
       msmtp.enable = true;
     };
 
@@ -88,6 +91,7 @@ in
           set pager_index_lines=10
         '';
       };
+      notmuch.enable = true;
     };
 
     sops.secrets.shifteleven-email-password = { };
