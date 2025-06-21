@@ -124,7 +124,7 @@
   my.nixos = {
     mainUser = "pope";
 
-    arrs.enable = true;
+    arrs.enable = false;
     bluetooth.enable = true;
     fah.enable = false;
     flatpak.enable = true;
@@ -145,8 +145,9 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "none";
-      gnome.enable = true;
-      hyprland.enable = true;
+      kde.enable = true;
+      gnome.enable = false;
+      hyprland.enable = false;
     };
     zerotierone.enable = true;
   };
