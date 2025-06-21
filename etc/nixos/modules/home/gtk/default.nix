@@ -30,13 +30,18 @@ in
         inherit (config.home.pointerCursor) name size package;
       };
 
-      gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-      gtk2.extraConfig = ''
-        gtk-xft-antialias=1
-        gtk-xft-hinting=1
-        gtk-xft-hintstyle="hintslight"
-        gtk-xft-rgba="rgb"
-      '';
+      gtk2 = {
+        configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+        extraConfig = ''
+          gtk-xft-antialias=1
+          gtk-xft-hinting=1
+          gtk-xft-hintstyle="hintslight"
+          gtk-xft-rgba="rgb"
+        '';
+        # Add a force here since using Plasma de-symlink-ifies this.
+        # See https://github.com/nix-community/home-manager/pull/7073
+        force = true;
+      };
 
       gtk3.extraConfig = {
         gtk-xft-antialias = 1;
