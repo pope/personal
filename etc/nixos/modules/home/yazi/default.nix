@@ -4,8 +4,8 @@ let
   cfg = config.my.home.packages;
 
   mkDefaultAttrs = lib.mapAttrsRecursive (_: v: lib.mkDefault v);
-  keymap = mkDefaultAttrs (builtins.fromTOML (builtins.readFile ./keymap.toml));
-  settings = mkDefaultAttrs (builtins.fromTOML (builtins.readFile ./yazi.toml));
+  keymap = mkDefaultAttrs (builtins.fromTOML (builtins.readFile ./keymap-default.toml));
+  settings = mkDefaultAttrs (builtins.fromTOML (builtins.readFile ./yazi-default.toml));
 in
 {
   options.my.home.yazi = {
