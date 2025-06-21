@@ -140,9 +140,10 @@
     xserver = {
       enable = true;
       enableAutoLogin = false;
-      displayManager = "gdm";
+      displayManager = "sddm";
       dwl.enable = true;
-      gnome.enable = true;
+      gnome.enable = false;
+      kde.enable = true;
       hyprland.enable = false;
     };
     vyprvpn.enable = true;

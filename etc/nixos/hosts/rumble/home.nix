@@ -52,7 +52,10 @@
     };
     git.enable = true;
     gnome.enable = true;
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+      disableQt = true;
+    };
     hypridle.enable = true;
     hyprland = {
       enable = false;
