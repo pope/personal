@@ -39,6 +39,7 @@ in
       in
       [
         comic-mono
+        commit-mono
         fragment-mono
         geist-font
         go-font
