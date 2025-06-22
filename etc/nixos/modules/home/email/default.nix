@@ -32,6 +32,12 @@ in
       };
 
       aerc.enable = true;
+      imapnotify = {
+        enable = true;
+        boxes = [ "INBOX" ];
+        onNotify = "${lib.getExe' pkgs.isync "mbsync"} shifteleven-admin";
+        onNotifyPost = "${lib.getExe pkgs.notmuch} new && ${lib.getExe' pkgs.libnotify "notify-send"} 'New mail arrived'";
+      };
       meli.enable = true;
       mbsync = {
         enable = true;
@@ -93,6 +99,8 @@ in
       };
       notmuch.enable = true;
     };
+
+    services.imapnotify.enable = true;
 
     sops.secrets.shifteleven-email-password = { };
   };
