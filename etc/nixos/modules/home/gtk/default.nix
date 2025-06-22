@@ -21,8 +21,8 @@ in
       enable = true;
 
       font = {
-        name = "SF Pro Display";
-        package = pkgs.sf-pro;
+        name = "Work Sans";
+        package = pkgs.work-sans;
         size = 11;
       };
 

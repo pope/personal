@@ -76,7 +76,7 @@ in
         defaultFonts = {
           emoji = [ "Joypixels" "Noto Color Emoji" ];
           monospace = [ "Berkeley Mono" "Symbols Nerd Font" ];
-          sansSerif = [ "SF Pro Display" ];
+          sansSerif = [ "Work Sans" ];
           serif = [ "Source Serif 4" ];
         };
         hinting = {
