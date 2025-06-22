@@ -140,7 +140,7 @@
     xserver = {
       enable = true;
       enableAutoLogin = false;
-      displayManager = "sddm";
+      displayManager = "gdm";
       dwl.enable = true;
       gnome.enable = false;
       kde.enable = true;
