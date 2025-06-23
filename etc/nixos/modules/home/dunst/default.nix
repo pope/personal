@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.my.home.dunst;
@@ -97,5 +97,9 @@ in
         };
       };
     };
+
+    systemd.user.services.dunst.Service.ExecCondition = ''
+      ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
+    '';
   };
 }
