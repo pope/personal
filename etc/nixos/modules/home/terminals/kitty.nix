@@ -22,6 +22,7 @@ in
         bold_italic_font = "auto";
 
         background_opacity = "0.85";
+        background_blur = 64;
         clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
         dynamic_background_opacity = "yes";
         # shell = "${pkgs.fish}/bin/fish --login";
