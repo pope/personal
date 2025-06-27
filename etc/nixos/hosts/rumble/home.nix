@@ -50,6 +50,7 @@
       dpiScale = 2;
       terminalPackage = config.programs.ghostty.package;
     };
+    email.enable = true;
     git.enable = true;
     gnome.enable = true;
     gtk = {
@@ -91,6 +92,7 @@
     packages.enable = true;
     rofi.enable = true;
     shell.zsh.enable = true;
+    sops.enable = true;
     ssh.enable = true;
     terminals = {
       ghostty = {
