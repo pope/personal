@@ -125,6 +125,8 @@
     logind.lidSwitch = "suspend-then-hibernate";
     logind.lidSwitchExternalPower = "suspend";
     power-profiles-daemon.enable = true;
+
+    hardware.bolt.enable = true;
   };
 
   powerManagement = {
