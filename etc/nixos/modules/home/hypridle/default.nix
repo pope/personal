@@ -63,6 +63,10 @@ in
       };
     };
 
+    systemd.user.services.hypridle.Service.ExecCondition = ''
+      ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
+    '';
+
     programs.hyprlock = {
       enable = true;
       settings = {
