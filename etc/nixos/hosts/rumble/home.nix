@@ -17,6 +17,8 @@
       godot_4
       nvtopPackages.amd
       rbutil
+      kdePackages.breeze-gtk
+      hatsune-miku-cursor
     ];
 
     stateVersion = "24.05";
