@@ -11,7 +11,7 @@ in
   inherit (mypkgs) monolisa dank-mono ia-writer;
   inherit (mypkgs) sf-mono-font sf-mono-nf-liga sf-pro;
   inherit (mypkgs) krigBilateral ssimDownscaler ssimSuperRes;
-  inherit (mypkgs) iqm rbutil hatsune-miku-cursor yazi-plugins;
+  inherit (mypkgs) iqm rbutil hatsune-miku-cursor;
 
   tytools-latest = mypkgs.tytools;
 

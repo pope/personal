@@ -13,6 +13,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ mediainfo ];
+
     programs.yazi = {
       enable = true;
       keymap = lib.mkMerge [
@@ -27,10 +29,23 @@ in
           ];
         }
       ];
+      plugins = {
+        inherit (pkgs.yaziPlugins) mediainfo toggle-pane;
+      };
       settings = lib.mkMerge [
         settings
         {
           mgr.ratio = [ 2 4 3 ];
+          plugin = {
+            prepend_preloaders = [
+              { mime = "{audio,video,image}/*"; run = "mediainfo"; }
+              { mime = "application/{subrip,postscript}"; run = "mediainfo"; }
+            ];
+            prepend_previewers = [
+              { mime = "{audio,video,image}/*"; run = "mediainfo"; }
+              { mime = "application/{subrip,postscript}"; run = "mediainfo"; }
+            ];
+          };
           preview = {
             max_width = 2048;
             max_height = 2048;
@@ -40,8 +55,6 @@ in
     };
 
     xdg.configFile = {
-      "yazi/plugins".source = "${pkgs.yazi-plugins}/share/yazi/plugins";
-
       # Not really needed, but good for reference.
       "yazi/theme-dark.toml".source = ./theme-dark.toml;
       "yazi/theme-light.toml".source = ./theme-light.toml;

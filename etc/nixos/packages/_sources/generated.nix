@@ -238,18 +238,4 @@
       sha256 = "sha256-qLJxFYQMYARSUEEbN14BiAACFyWK13butRckyXgVRg8=";
     };
   };
-  yazi-plugins = {
-    pname = "yazi-plugins";
-    version = "3d1efb706924112daed986a4eef634e408bad65e";
-    src = fetchgit {
-      url = "https://github.com/yazi-rs/plugins";
-      rev = "3d1efb706924112daed986a4eef634e408bad65e";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-GgEg1A5sxaH7hR1CUOO9WV21kH8B2YUGAtOapcWLP7Y=";
-    };
-    date = "2025-06-21";
-  };
 }
