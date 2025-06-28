@@ -78,7 +78,7 @@
   hardware = {
     framework = {
       enableKmod = true;
-      laptop13.audioEnhancement.enable = true;
+      laptop13.audioEnhancement.enable = false;
     };
 
     framework.amd-7040.preventWakeOnAC = true;
