@@ -114,6 +114,17 @@
     framework.amd-7040.preventWakeOnAC = true;
   };
 
+  security = {
+    polkit.enable = true;
+    pam.services = {
+      login.fprintAuth = false;
+      sddm = {
+        fprintAuth = false;
+        kwallet.enable = true;
+      };
+    };
+  };
+
   services = {
     fwupd = {
       enable = true;
@@ -174,7 +185,7 @@
     xserver = {
       enable = true;
       enableAutoLogin = false;
-      displayManager = "gdm";
+      displayManager = "sddm";
       dwl.enable = true;
       gnome.enable = false;
       kde.enable = true;
