@@ -204,7 +204,9 @@
             ${getExe pkgs.wakelan} 58:11:22:d1:9c:0c
           '';
           nixos-rebuild-remote = pkgs.writeShellScriptBin "nixos-rebuild-remote" ''
-            nixos-rebuild --flake .#$1 --target-host $1.lan --sudo boot |& nom
+            host="$1"
+            cmd="''${2:-boot}"
+            nixos-rebuild --flake .#$host --target-host $host.lan --sudo $cmd |& nom
           '';
         in
         {
