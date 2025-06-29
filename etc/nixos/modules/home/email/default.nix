@@ -74,7 +74,7 @@ in
             icon-deleted = "";
           };
           filters = {
-            "text/plain" = "wrap -w 80 | colorize";
+            "text/plain" = "colorize";
             "text/html" = "html";
             "text/calendar" = "calendar";
             "message/delivery-status" = "colorize";
