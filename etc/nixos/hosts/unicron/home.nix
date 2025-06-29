@@ -54,6 +54,7 @@
     gtk = {
       enable = true;
       disableQt = true;
+      theme = "breeze";
     };
     hyprland = {
       enable = true;

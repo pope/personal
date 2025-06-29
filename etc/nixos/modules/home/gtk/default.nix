@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./breeze.nix
     ./catppuccin.nix
     ./dracula.nix
     ./rose-pine.nix
@@ -17,7 +18,7 @@ in
 
     darkTheme = lib.mkEnableOption "dark theme settings";
     theme = lib.mkOption {
-      type = lib.types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
+      type = lib.types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" "breeze" ];
       default = config.my.home.theme.colorScheme;
       description = lib.mkDoc ''
         Which theme to use with GTK.
