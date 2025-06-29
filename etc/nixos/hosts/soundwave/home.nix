@@ -46,6 +46,7 @@
     gtk = {
       enable = true;
       disableQt = true;
+      theme = "breeze";
     };
     hypridle = {
       enable = false;
