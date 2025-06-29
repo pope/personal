@@ -2,18 +2,9 @@
 
 let
   cfg = config.my.home.gtk;
-  inherit (config.my.home.theme) colorScheme;
 in
 {
-  config = lib.mkIf (cfg.enable && colorScheme == "rose-pine") rec {
-    home.pointerCursor = {
-      name = "BreezeX-RosePine-Linux";
-      size = 24;
-      package = pkgs.rose-pine-cursor;
-      gtk.enable = true;
-      x11.enable = true;
-    };
-
+  config = lib.mkIf (cfg.enable && cfg.theme == "rose-pine") rec {
     gtk = {
       iconTheme = {
         name = "rose-pine";
@@ -24,22 +15,15 @@ in
         name = "rose-pine";
         package = pkgs.rose-pine-gtk-theme;
       };
-
-      gtk3.extraConfig = {
-        gtk-application-prefer-dark-theme = 0;
-      };
-
-      gtk4.extraConfig = {
-        gtk-application-prefer-dark-theme = 0;
-      };
     };
 
-    services.xsettingsd = {
-      settings = {
-        "Net/IconThemeName" = "${gtk.iconTheme.name}";
-        "Net/ThemeName" = "${gtk.theme.name}";
-      };
+    home.pointerCursor = {
+      name = "BreezeX-RosePine-Linux";
+      size = 24;
+      package = pkgs.rose-pine-cursor;
     };
+
+    my.home.gtk.darkTheme = false;
 
     xdg =
       let

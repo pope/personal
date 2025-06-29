@@ -14,20 +14,29 @@ in
   options.my.home.gtk = {
     enable = lib.mkEnableOption "GTK home options";
     disableQt = lib.mkEnableOption "Disable QT settings";
+
+    darkTheme = lib.mkEnableOption "dark theme settings";
+    theme = lib.mkOption {
+      type = lib.types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
+      default = config.my.home.theme.colorScheme;
+      description = lib.mkDoc ''
+        Which theme to use with GTK.
+      '';
+    };
   };
 
-  config = lib.mkIf cfg.enable rec {
+  config = lib.mkIf cfg.enable {
     gtk = {
       enable = true;
+
+      cursorTheme = {
+        inherit (config.home.pointerCursor) name size package;
+      };
 
       font = {
         name = "Work Sans";
         package = pkgs.work-sans;
         size = 11;
-      };
-
-      cursorTheme = {
-        inherit (config.home.pointerCursor) name size package;
       };
 
       gtk2 = {
@@ -48,7 +57,18 @@ in
         gtk-xft-hinting = 1;
         gtk-xft-hintstyle = "hintslight";
         gtk-xft-rgba = "rgb";
+
+        gtk-application-prefer-dark-theme = if cfg.darkTheme then 1 else 0;
       };
+
+      gtk4.extraConfig = {
+        gtk-application-prefer-dark-theme = if cfg.darkTheme then 1 else 0;
+      };
+    };
+
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
     };
 
     # When this is enabled, KDE and Plasma don't work for Wayland.
@@ -61,7 +81,9 @@ in
     services.xsettingsd = {
       enable = true;
       settings = {
-        "Gtk/CursorThemeName" = "${gtk.cursorTheme.name}";
+        "Gtk/CursorThemeName" = "${config.gtk.cursorTheme.name}";
+        "Net/IconThemeName" = "${config.gtk.iconTheme.name}";
+        "Net/ThemeName" = "${config.gtk.theme.name}";
       };
     };
   };
