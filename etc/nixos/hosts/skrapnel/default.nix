@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, ... }:
+{ self, inputs, config, ... }:
 
 {
   imports =
@@ -56,6 +56,92 @@
   };
 
   services = {
+    glances.enable = true;
+    homepage-dashboard = {
+      enable = true;
+      allowedHosts =
+        let
+          port = toString config.services.homepage-dashboard.listenPort;
+        in
+        "localhost:${port},127.0.0.1:${port},skrapnel.zero:${port}";
+      openFirewall = true;
+      settings = {
+        title = "Skrapnel Homepage";
+        layout = [
+          {
+            Glances = {
+              header = true;
+              style = "row";
+              columns = 4;
+            };
+          }
+          {
+            Arrs = {
+              header = true;
+              style = "row";
+              columns = 4;
+            };
+          }
+        ];
+      };
+      services = [
+        {
+          Glances =
+            let
+              port = toString config.services.glances.port;
+              graphs = [
+                # Row 1
+                { name = "Info"; metric = "info"; }
+                { name = "CPU"; metric = "cpu"; }
+                { name = "CPU Temp"; metric = "sensor:Package id 0"; }
+                { name = "Processes"; metric = "process"; }
+                # Row 2
+                { name = "Network"; metric = "network:enp2s0"; }
+                { name = "Memory"; metric = "memory"; }
+                { name = "Cyberia I/O"; metric = "disk:sda"; }
+                { name = "Cyberia Space"; metric = "fs:/mnt/Cyberia"; }
+              ];
+            in
+            map
+              ({ name, metric }: {
+                "${name}" = {
+                  widget = {
+                    inherit metric;
+                    type = "glances";
+                    url = "http://localhost:${port}";
+                    version = 4;
+                    chart = true;
+                  };
+                };
+              })
+              graphs;
+        }
+        {
+          Arrs =
+            let
+              links = [
+                { name = "Prowlarr"; service = "prowlarr"; }
+                { name = "Radarr"; service = "radarr"; }
+                { name = "Lidarr"; service = "lidarr"; }
+                { name = "Sonarr"; service = "sonarr"; }
+              ];
+            in
+            map
+              ({ name, service }:
+                let
+                  inherit (config.services.${service}.settings.server) port;
+                in
+                {
+                  "${name}" = rec {
+                    href = "http://skrapnel.zero:${toString port}";
+                    icon = service;
+                    siteMonitor = href;
+                  };
+                })
+              links;
+        }
+      ];
+    };
     nfs.server = {
       enable = true;
       exports = ''
