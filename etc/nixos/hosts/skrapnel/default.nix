@@ -67,19 +67,25 @@
       openFirewall = true;
       settings = {
         title = "Skrapnel Homepage";
+        background = {
+          # Shout out to Pawel Czerwinski
+          image = "https://images.unsplash.com/photo-1613327986042-63d4425a1a5d?auto=format&fit=crop&w=2560&q=80";
+          blur = "md";
+        };
+        cardBlur = "sm";
         layout = [
           {
             Glances = {
+              columns = 4;
               header = true;
               style = "row";
-              columns = 4;
             };
           }
           {
             Arrs = {
+              columns = 4;
               header = true;
               style = "row";
-              columns = 4;
             };
           }
         ];
@@ -108,9 +114,10 @@
                   widget = {
                     inherit metric;
                     type = "glances";
+                    chart = true;
+                    refreshInterval = 5000;
                     url = "http://localhost:${port}";
                     version = 4;
-                    chart = true;
                   };
                 };
               })
