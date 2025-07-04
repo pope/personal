@@ -14,17 +14,18 @@
       _1password-gui
     ];
 
-    stateVersion = "23.11";
+    stateVersion = "25.11";
   };
 
   programs = {
     home-manager.enable = true;
   };
 
+  # targets.genericLinux.enable = true;
+
   my.home = {
     editors.neovim.enable = true;
     git.enable = true;
-    languages.c.enable = true;
     packages.enable = true;
     ssh.enable = true;
     yazi.enable = true;

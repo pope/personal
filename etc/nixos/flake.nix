@@ -99,11 +99,12 @@
         { name
         , system
         , extraOverlays ? [ ]
+        , hostnameOverride ? null
         }:
         let
           inherit (nixpkgs.lib) last;
           inherit (nixpkgs.lib.strings) toLower splitString;
-          hostname = toLower (last (splitString "@" name));
+          hostname = if hostnameOverride != null then hostnameOverride else toLower (last (splitString "@" name));
         in
         {
           inherit name;
@@ -163,12 +164,13 @@
           extraOverlays = [ nixgl.overlay ];
         })
         (mkHomeManagerConfig {
-          name = "deck@poopdeck";
-          system = "x86_64-linux";
-        })
-        (mkHomeManagerConfig {
           name = "pope@galvatron";
           system = "aarch64-darwin";
+        })
+        (mkHomeManagerConfig {
+          name = "deck";
+          hostnameOverride = "steamdeck";
+          system = "x86_64-linux";
         })
       ];
       nixosModules.default = _: { imports = [ ./modules/nixos ]; };
