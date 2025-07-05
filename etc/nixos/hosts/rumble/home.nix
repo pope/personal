@@ -17,7 +17,6 @@
       godot_4
       nvtopPackages.amd
       rbutil
-      kdePackages.breeze-gtk
       hatsune-miku-cursor
     ];
 
@@ -58,6 +57,7 @@
     gtk = {
       enable = true;
       disableQt = true;
+      theme = "breeze";
     };
     hypridle.enable = true;
     hyprland = {
