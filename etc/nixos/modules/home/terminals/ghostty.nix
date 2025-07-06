@@ -3,6 +3,19 @@
 let
   cfg = config.my.home.terminals.ghostty;
 
+  # TODO(pope): Update this hack when all things settled.
+  # Linux Kernel update made Ghostty janky. This should be a temporary settings
+  # See:
+  #   - https://github.com/ghostty-org/ghostty/issues/7724
+  #   - https://github.com/nixos/nixpkgs/issues/421442
+  ghostty = pkgs.ghostty.overrideAttrs (_: {
+    preBuild = /* sh */ ''
+      shopt -s globstar
+      sed -i 's/^const xev = @import("xev");$/const xev = @import("xev").Epoll;/' **/*.zig
+      shopt -u globstar
+    '';
+  });
+
   inherit (config.my.home.theme) colorScheme;
 in
 {
@@ -20,7 +33,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.bashInteractive else pkgs.ghostty;
+      package = if pkgs.stdenv.isDarwin then pkgs.bashInteractive else ghostty;
       enableFishIntegration = config.my.home.shell.fish.enable;
       enableZshIntegration = config.my.home.shell.zsh.enable;
       installBatSyntax = !pkgs.stdenv.isDarwin;
