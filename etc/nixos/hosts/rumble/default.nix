@@ -127,7 +127,7 @@
 
   environment.systemPackages = with pkgs; [
     fw-ectool
-    renoise344
+    renoise350
   ];
 
   my.nixos = {

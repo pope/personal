@@ -94,7 +94,7 @@
 
   environment.systemPackages = with pkgs; [
     libva-utils
-    renoise344
+    renoise350
   ];
 
   # Power management

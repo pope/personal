@@ -80,7 +80,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    renoise344
+    renoise350
   ];
 
   networking = {

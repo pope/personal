@@ -15,20 +15,20 @@ in
 
   tytools-latest = mypkgs.tytools;
 
-  renoise344 = prev.renoise.override (
+  renoise350 = prev.renoise.override (
     let
-      version = "344";
+      version = "350";
       releasePath =
         if prev.system == "x86_64-linux" then
           (prev.requireFile rec {
             name = "rns_${version}_linux_x86_64.tar.gz";
             url = "file:///media/cyberia/nix-files/software/${name}";
-            sha256 = "0qdvqdr5whqmsbiaqw5933p728ckcq3cigzh57bk4hydrrxy22cn";
+            sha256 = "0li11vdg8cm8l3434lwrlmys78fac7ipfgsnd9ng6wmwdppwgqd0";
           }) else
           (prev.requireFile rec {
             name = "rns_${version}_linux_arm64.tar.gz";
             url = "file:///media/cyberia/nix-files/software/${name}";
-            sha256 = "0dkmsp5v0rvlppnl1s2hwnfw2ccnhav6rbv1lrck818jprzibjdh";
+            sha256 = "06i1nqzyhqrb7zh0d1mmy6wdkgp0sc13xkjy43ksc669k50cnjm5";
           });
     in
     { inherit releasePath; }
