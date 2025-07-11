@@ -5,7 +5,12 @@ let
 in
 {
   config = lib.mkIf (cfg.enable && (cfg.dwl.enable || cfg.hyprland.enable)) {
-    hardware.graphics.enable = true;
+    assertions = [
+      {
+        assertion = config.hardware.graphics.enable;
+        message = "Hardware Graphics must be enabled";
+      }
+    ];
 
     programs = {
       dconf.enable = true;

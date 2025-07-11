@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, lib, ... }:
+{ self, inputs, pkgs, ... }:
 
 {
   imports =
@@ -142,22 +142,6 @@
     #   polkit-1.fprintAuth = true;
     #   sudo.fprintAuth = true;
     # };
-    wrappers = {
-      btop = {
-        capabilities = "cap_perfmon=ep";
-        group = "wheel";
-        owner = "root";
-        permissions = "0750";
-        source = lib.getExe pkgs.btop;
-      };
-      intel_gpu_top = {
-        capabilities = "cap_perfmon=ep";
-        group = "wheel";
-        owner = "root";
-        permissions = "0750";
-        source = lib.getExe' pkgs.intel-gpu-tools "intel_gpu_top";
-      };
-    };
   };
 
   my.nixos = {
@@ -173,6 +157,7 @@
       enable = true;
       enableSteam = true;
     };
+    gpu.intel.enable = true;
     onepassword.enable = true;
     sops.enable = true;
     sound.enable = true;

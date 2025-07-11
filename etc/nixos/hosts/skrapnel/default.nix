@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, config, pkgs, lib, ... }:
+{ self, inputs, config, ... }:
 
 {
   imports =
@@ -46,15 +46,6 @@
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
-
-  hardware.graphics.enable = true;
-  security.wrappers.btop = {
-    capabilities = "cap_perfmon=ep";
-    group = "wheel";
-    owner = "root";
-    permissions = "0750";
-    source = lib.getExe pkgs.btop;
-  };
 
   fileSystems = {
     "/mnt/Cyberia" = {
@@ -230,6 +221,7 @@
 
     arrs.enable = true;
     firewall.nfs.enable = true;
+    gpu.intel.enable = true;
     samba = {
       enable = true;
       shares = {
