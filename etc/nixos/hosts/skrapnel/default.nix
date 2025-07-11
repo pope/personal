@@ -97,6 +97,13 @@
               style = "row";
             };
           }
+          {
+            Misc = {
+              columns = 2;
+              header = true;
+              style = "row";
+            };
+          }
         ];
       };
       services = [
@@ -155,6 +162,24 @@
                   };
                 })
               links;
+        }
+        {
+          Misc = [
+            {
+              Jellyfin = rec {
+                href = "http://skrapnel.zero:8096";
+                icon = "jellyfin";
+                siteMonitor = href;
+              };
+            }
+            {
+              Sabnzbd = rec {
+                href = "http://skrapnel.zero:8080";
+                icon = "sabnzbd";
+                siteMonitor = href;
+              };
+            }
+          ];
         }
       ];
     };
