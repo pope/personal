@@ -190,7 +190,7 @@
 
     # # Jellyfin
     jellyfin = {
-      enable = false;
+      enable = true;
       openFirewall = true;
     };
     jellyseerr = {
