@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  inherit (pkgs) anime4k modernx fsrcnnx;
+  inherit (pkgs) anime4k fsrcnnx;
   krigBilateral = "${pkgs.krigBilateral}/KrigBilateral.glsl";
   ssimDownscaler = "${pkgs.ssimDownscaler}/SSimDownscaler.glsl";
   ssimSuperRes = "${pkgs.ssimSuperRes}/SSimSuperRes.glsl";
@@ -24,7 +24,6 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      modernx
       streamlink
       yt-dlp
     ];
@@ -37,9 +36,9 @@ in
       # https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/#auto-profiles
       config = {
         # UI
-        keep-open = "yes";
-        osc = "no";
-        border = "no";
+        keep-open = true;
+        osc = false;
+        border = false;
 
         # Video
         profile = "gpu-hq";
@@ -55,8 +54,8 @@ in
         scale = "ewa_lanczossharp";
         dscale = "lanczos";
         cscale = "spline36";
-        linear-downscaling = "no";
-        correct-downscaling = "yes";
+        linear-downscaling = false;
+        correct-downscaling = true;
       } // lib.optionalAttrs cfg.enableVulkan {
         gpu-api = "vulkan";
       };
@@ -94,19 +93,22 @@ in
           scale = "nearest";
         };
       };
-    } // lib.optionalAttrs pkgs.stdenv.isLinux {
-      scripts = with pkgs.mpvScripts; [
-        modernx
-        mpris
-        thumbfast
-        visualizer
-      ];
-    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      scripts = with pkgs.mpvScripts; [
+
+      scripts = (with pkgs.mpvScripts; [
         modernx
         thumbfast
         visualizer
+      ]) ++ lib.optionals pkgs.stdenv.isLinux [
+        pkgs.mpvScripts.mpris
       ];
+
+      scriptOpts = {
+        osc = {
+          scalefullscreen = 1.5;
+          scalewindowed = 1.5;
+          vidscale = false;
+        };
+      };
     };
   };
 }

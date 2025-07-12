@@ -10,10 +10,6 @@ fetch.git = "https://github.com/catppuccin/fish"
 src.github_tag = "vitallium/tokyonight-fish"
 fetch.github = "vitallium/tokyonight-fish"
 
-[modernx]
-src.github_tag = "cyl0/ModernX"
-fetch.github = "cyl0/ModernX"
-
 [mpv-prescalers]
 src.git = "https://github.com/bjin/mpv-prescalers"
 fetch.git = "https://github.com/bjin/mpv-prescalers"

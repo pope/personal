@@ -180,27 +180,6 @@
         },
         "version": "038064821c5f768dfc6c00261535018d5932cdd5"
     },
-    "modernx": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "modernx",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "cyl0",
-            "repo": "ModernX",
-            "rev": "0.6.1",
-            "sha256": "sha256-q7DwyfmOIM7K1L7vvCpq1EM0RVpt9E/drhAa9rLYb1k=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0.6.1"
-    },
     "mpv-prescalers": {
         "cargoLocks": null,
         "date": "2024-01-11",

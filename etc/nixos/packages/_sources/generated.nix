@@ -114,17 +114,6 @@
       sha256 = "sha256-ikeYq7d7g2Rvzg1xmF3f0UyYBuO+SG6Px/WlqL2UDLA=";
     };
   };
-  modernx = {
-    pname = "modernx";
-    version = "0.6.1";
-    src = fetchFromGitHub {
-      owner = "cyl0";
-      repo = "ModernX";
-      rev = "0.6.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-q7DwyfmOIM7K1L7vvCpq1EM0RVpt9E/drhAa9rLYb1k=";
-    };
-  };
   mpv-prescalers = {
     pname = "mpv-prescalers";
     version = "b3f0a59d68f33b7162051ea5970a5169558f0ea2";
