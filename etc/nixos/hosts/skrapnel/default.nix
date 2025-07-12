@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, config, ... }:
+{ self, inputs, config, lib, ... }:
 
 {
   imports =
@@ -59,11 +59,15 @@
     glances.enable = true;
     homepage-dashboard = {
       enable = true;
-      allowedHosts =
-        let
-          port = toString config.services.homepage-dashboard.listenPort;
-        in
-        "localhost:${port},127.0.0.1:${port},skrapnel.zero:${port}";
+      allowedHosts = lib.strings.concatMapStringsSep ","
+        (x: "${x}:${toString config.services.homepage-dashboard.listenPort}")
+        [
+          "localhost"
+          "127.0.0.1"
+          "skrapnel.zero"
+          "skrapnel.lan"
+          "skrapnel.local"
+        ];
       openFirewall = true;
       settings = {
         title = "Skrapnel Homepage";
