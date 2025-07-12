@@ -171,7 +171,6 @@
           name = "deck";
           hostnameOverride = "steamdeck";
           system = "x86_64-linux";
-          extraOverlays = [ nixgl.overlay ];
         })
       ];
       nixosModules.default = _: { imports = [ ./modules/nixos ]; };

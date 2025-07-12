@@ -26,6 +26,7 @@
   nixGL = {
     vulkan.enable = true;
     packages = inputs.nixgl.packages;
+    installScripts = [ "mesa" ];
   };
 
   my.home = {
