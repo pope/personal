@@ -12,9 +12,27 @@
     packages = with pkgs; [
       _1password-cli
       _1password-gui
+      nerd-fonts.hack
     ];
 
     stateVersion = "25.11";
+  };
+
+  my.home = {
+    editors.neovim.enable = true;
+    git.enable = true;
+    packages.enable = true;
+    shell.zsh.enable = true;
+    ssh.enable = true;
+    terminals.ghostty.enable = true;
+    tmux.enable = true;
+    yazi.enable = true;
+  };
+
+  nixGL = {
+    installScripts = [ "mesa" ];
+    packages = inputs.nixgl.packages;
+    vulkan.enable = true;
   };
 
   programs = {
@@ -22,19 +40,4 @@
   };
 
   targets.genericLinux.enable = true;
-
-  nixGL = {
-    vulkan.enable = true;
-    packages = inputs.nixgl.packages;
-    installScripts = [ "mesa" ];
-  };
-
-  my.home = {
-    editors.neovim.enable = true;
-    git.enable = true;
-    packages.enable = true;
-    ssh.enable = true;
-    terminals.ghostty.enable = true;
-    yazi.enable = true;
-  };
 }
