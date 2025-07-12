@@ -20,7 +20,10 @@ in
   config = lib.mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.bashInteractive else pkgs.ghostty;
+      package =
+        if pkgs.stdenv.isDarwin then pkgs.bashInteractive
+        else if config.nixGL.packages != null then config.lib.nixGL.wrap pkgs.ghostty
+        else pkgs.ghostty;
       enableFishIntegration = config.my.home.shell.fish.enable;
       enableZshIntegration = config.my.home.shell.zsh.enable;
       installBatSyntax = !pkgs.stdenv.isDarwin;
