@@ -10,10 +10,6 @@ fetch.git = "https://github.com/catppuccin/fish"
 src.github_tag = "vitallium/tokyonight-fish"
 fetch.github = "vitallium/tokyonight-fish"
 
-[mpv-prescalers]
-src.git = "https://github.com/bjin/mpv-prescalers"
-fetch.git = "https://github.com/bjin/mpv-prescalers"
-
 [p5r-grub]
 src.github_tag = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 fetch.github = "SiriusAhu/Persona_5_Royal_Grub_Themes"
@@ -69,6 +65,10 @@ fetch.url = "https://github.com/igv/FSRCNN-TensorFlow/releases/download/$ver/FSR
 [krigBilateral]
 src.manual = "038064821c5f768dfc6c00261535018d5932cdd5"
 fetch.url = "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/$ver/KrigBilateral.glsl"
+
+[mpv-prescalers]
+src.git = "https://github.com/bjin/mpv-prescalers"
+fetch.git = "https://github.com/bjin/mpv-prescalers"
 
 [ssimDownscaler]
 src.manual = "575d13567bbe3caa778310bd3b2a4c516c445039"
