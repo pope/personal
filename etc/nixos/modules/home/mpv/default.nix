@@ -24,6 +24,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      mpvScripts.modernx # Included here so that the font is installed
       streamlink
       yt-dlp
     ];
@@ -42,7 +43,7 @@ in
 
         # Video
         profile = "gpu-hq";
-        vo = if pkgs.stdenv.isLinux then "gpu-next" else "libmpv";
+        vo = "gpu-next";
         hwdec = "auto-safe";
 
         # Shaders
