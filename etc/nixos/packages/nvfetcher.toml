@@ -14,10 +14,6 @@ fetch.github = "vitallium/tokyonight-fish"
 src.git = "https://github.com/bjin/mpv-prescalers"
 fetch.git = "https://github.com/bjin/mpv-prescalers"
 
-[plow]
-src.github_tag = "six-ddc/plow"
-fetch.github = "six-ddc/plow"
-
 [p5r-grub]
 src.github_tag = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 fetch.github = "SiriusAhu/Persona_5_Royal_Grub_Themes"

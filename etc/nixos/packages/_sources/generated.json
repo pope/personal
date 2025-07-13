@@ -221,27 +221,6 @@
         },
         "version": "v1.0"
     },
-    "plow": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "plow",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "six-ddc",
-            "repo": "plow",
-            "rev": "v1.3.2",
-            "sha256": "sha256-q9k5GzhYPOP8p8VKrqpoHc3B9Qak+4DtZAZZuFlkED0=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v1.3.2"
-    },
     "prchann-font-collection": {
         "cargoLocks": null,
         "date": "2022-09-02",

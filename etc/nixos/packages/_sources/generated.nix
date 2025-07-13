@@ -139,17 +139,6 @@
       sha256 = "sha256-YnTBgUWWsR0W8eTtg3oa2MIXSqj7HW555xSEhV7/74w=";
     };
   };
-  plow = {
-    pname = "plow";
-    version = "v1.3.2";
-    src = fetchFromGitHub {
-      owner = "six-ddc";
-      repo = "plow";
-      rev = "v1.3.2";
-      fetchSubmodules = false;
-      sha256 = "sha256-q9k5GzhYPOP8p8VKrqpoHc3B9Qak+4DtZAZZuFlkED0=";
-    };
-  };
   prchann-font-collection = {
     pname = "prchann-font-collection";
     version = "e99955f794eb1f1375a5cb677d129758f51cbc3d";
