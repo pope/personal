@@ -9,7 +9,6 @@ in
   inherit (mypkgs) comic-code-ligatures lucida-grande berkeley-mono;
   inherit (mypkgs) monolisa dank-mono ia-writer;
   inherit (mypkgs) sf-mono-font sf-mono-nf-liga sf-pro;
-  inherit (mypkgs) fsrcnnx krigBilateral ssimDownscaler ssimSuperRes;
   inherit (mypkgs) iqm rbutil hatsune-miku-cursor p5r-grub shflags;
 
   tytools-latest = mypkgs.tytools;

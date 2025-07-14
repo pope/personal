@@ -60,51 +60,6 @@
         },
         "version": "v4.8.0"
     },
-    "fsrcnnx-lineart": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "fsrcnnx-lineart",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-h5B7DU0W5B39rGaqC9pEqgTTza5dKvUHTFlEZM1mfqo=",
-            "type": "url",
-            "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/checkpoints_params.7z"
-        },
-        "version": "1.1"
-    },
-    "fsrcnnx16": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "fsrcnnx16",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-1aJKJx5dmj9/egU7FQxGCkTCWzz393CFfVfMOi4cmWU=",
-            "type": "url",
-            "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_16-0-4-1.glsl"
-        },
-        "version": "1.1"
-    },
-    "fsrcnnx8": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "fsrcnnx8",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-6ADbxcHJUYXMgiFsWXckUz/18ogBefJW7vYA8D6Nwq4=",
-            "type": "url",
-            "url": "https://github.com/igv/FSRCNN-TensorFlow/releases/download/1.1/FSRCNNX_x2_8-0-4-1.glsl"
-        },
-        "version": "1.1"
-    },
     "hatsune-miku-cursor": {
         "cargoLocks": null,
         "date": "2025-03-13",
@@ -164,41 +119,6 @@
             "url": "https://github.com/lsalzman/iqm"
         },
         "version": "e5004bb3f46eafece81376ecafccc7f3ae747b59"
-    },
-    "krigBilateral": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "krigBilateral",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-ikeYq7d7g2Rvzg1xmF3f0UyYBuO+SG6Px/WlqL2UDLA=",
-            "type": "url",
-            "url": "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/038064821c5f768dfc6c00261535018d5932cdd5/KrigBilateral.glsl"
-        },
-        "version": "038064821c5f768dfc6c00261535018d5932cdd5"
-    },
-    "mpv-prescalers": {
-        "cargoLocks": null,
-        "date": "2024-01-11",
-        "extract": null,
-        "name": "mpv-prescalers",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "b3f0a59d68f33b7162051ea5970a5169558f0ea2",
-            "sha256": "sha256-KfCFU3fa8Fr5G5zVqKS35CJBzTYMY72kep8+Kd0YIu4=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/bjin/mpv-prescalers"
-        },
-        "version": "b3f0a59d68f33b7162051ea5970a5169558f0ea2"
     },
     "p5r-grub": {
         "cargoLocks": null,
@@ -316,35 +236,5 @@
             "type": "github"
         },
         "version": "v1.3.0"
-    },
-    "ssimDownscaler": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "ssimDownscaler",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-AEq2wv/Nxo9g6Y5e4I9aIin0plTcMqBG43FuOxbnR1w=",
-            "type": "url",
-            "url": "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/575d13567bbe3caa778310bd3b2a4c516c445039/SSimDownscaler.glsl"
-        },
-        "version": "575d13567bbe3caa778310bd3b2a4c516c445039"
-    },
-    "ssimSuperRes": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "ssimSuperRes",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-qLJxFYQMYARSUEEbN14BiAACFyWK13butRckyXgVRg8=",
-            "type": "url",
-            "url": "https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/15d93440d0a24fc4b8770070be6a9fa2af6f200b/SSimSuperRes.glsl"
-        },
-        "version": "15d93440d0a24fc4b8770070be6a9fa2af6f200b"
     }
 }
