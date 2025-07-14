@@ -31,7 +31,7 @@
 
   nixGL = {
     installScripts = [ "mesa" ];
-    packages = inputs.nixgl.packages;
+    inherit (inputs.nixgl) packages;
     vulkan.enable = true;
   };
 
