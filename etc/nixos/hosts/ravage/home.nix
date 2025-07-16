@@ -57,7 +57,10 @@
       python.enable = true;
     };
     lf.enable = false;
-    mpv.enable = true;
+    mpv = {
+      enable = true;
+      scale = 1;
+    };
     multimedia = {
       audio.enable = true;
       threed.enable = true;

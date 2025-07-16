@@ -1,5 +1,11 @@
 { pkgs, config, lib, ... }:
 
+# References
+#
+# - https://kokomins.wordpress.com/2019/10/14/mpv-config-guide/
+# - https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/#auto-profiles
+# - https://kohana.fi/article/mpv-for-anime
+
 let
   defs = import ./defs.nix { inherit pkgs; };
   cfg = config.my.home.mpv;
@@ -13,6 +19,12 @@ in
       example = true;
       description = "Whether to enable Vulkan GPU API.";
       type = lib.types.bool;
+    };
+    scale = lib.mkOption {
+      type = lib.types.number;
+      default = 1.5;
+      example = 1;
+      description = lib.mkDoc ''Scaling to apply to controls.'';
     };
   };
 
@@ -28,7 +40,6 @@ in
     programs.mpv = {
       enable = true;
 
-      # https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/#auto-profiles
       config = {
         # UI
         border = false;
@@ -126,8 +137,8 @@ in
 
       scriptOpts = {
         osc = {
-          scalefullscreen = 1.5;
-          scalewindowed = 1.5;
+          scalefullscreen = cfg.scale;
+          scalewindowed = cfg.scale;
           vidscale = false;
         };
       };
