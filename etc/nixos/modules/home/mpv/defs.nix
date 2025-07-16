@@ -24,10 +24,10 @@ let
     };
 
   defaultConfigValues = {
-    cscale = "ewa_lanczos";
+    cscale = "ewa_lanczossoft";
     dscale = "ewa_lanczos";
     linear-downscaling = true;
-    scale = "ewa_lanczos";
+    scale = "ewa_lanczossharp";
     shaders = [ ];
   };
   staticGrainDefault = {
@@ -37,13 +37,13 @@ let
     ];
   };
   fsrcnnxHigh = {
-    scale = "ewa_lanczos";
+    scale = "ewa_lanczossharp";
     shaders = [
       (getDefaultShader "FSRCNNX_x2_16-0-4-1.glsl")
     ];
   };
   fsrcnnx = {
-    scale = "ewa_lanczos";
+    scale = "ewa_lanczossharp";
     shaders = [
       (getDefaultShader "FSRCNNX_x2_8-0-4-1.glsl")
     ];
@@ -56,7 +56,7 @@ let
     ];
   };
   krigBilateral = {
-    cscale = "mitchell";
+    cscale = "spline64";
     shaders = [
       (getDefaultShader "KrigBilateral.glsl")
     ];
