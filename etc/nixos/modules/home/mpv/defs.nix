@@ -115,6 +115,15 @@ in
     ];
   };
 
+  artcnn = mkProfileDef {
+    name = "artcnn";
+    desc = "ArtCNN";
+    shortcut = "CTRL+7";
+    settings.shaders = [
+      "${pkgs.artcnn}/share/artcnn/GLSL/ArtCNN_C4F16_DS.glsl"
+    ];
+  };
+
   # Anime 4k HQ
 
   anime4kAHq = mkProfileDef {

@@ -92,6 +92,7 @@ in
           (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kAAHq))
           (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kBBHq))
           (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kCAHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.artcnn))
 
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kAFast))
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kBFast))
@@ -118,6 +119,7 @@ in
           (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kAAHq))
           (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kBBHq))
           (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kCAHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.artcnn))
 
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kAFast))
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kBFast))
