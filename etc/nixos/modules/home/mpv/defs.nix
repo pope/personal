@@ -24,10 +24,10 @@ let
     };
 
   defaultConfigValues = {
-    cscale = "ewa_lanczossoft";
-    dscale = "ewa_lanczos";
+    cscale = "spline64";
+    dscale = "mitchell";
     linear-downscaling = true;
-    scale = "ewa_lanczossharp";
+    scale = "ewa_lanczos";
     shaders = [ ];
   };
   staticGrainDefault = {
