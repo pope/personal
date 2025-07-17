@@ -14,6 +14,7 @@ in
   options.my.home.mpv = {
     enable = lib.mkEnableOption "mpv options";
     enableHqAnimeSettings = lib.mkEnableOption "use the HQ Anime4K shaders";
+    enableFsr = lib.mkEnableOption "use FSR and make it the default profile";
     enableVulkan = lib.mkOption {
       default = pkgs.stdenv.isLinux;
       example = true;
@@ -66,7 +67,7 @@ in
         slang = "en,eng";
         alang = "en,eng,ja,jp,jpn";
 
-        profile = defs.generic.name;
+        profile = if cfg.enableFsr then defs.fsr.name else defs.generic.name;
       } // lib.optionalAttrs cfg.enableVulkan {
         gpu-api = "vulkan";
       };
@@ -82,7 +83,7 @@ in
 
           (mkBinding defs.generic)
           (mkBinding defs.genericHigh)
-          (mkBinding defs.fsr)
+          (lib.mkIf cfg.enableFsr (mkBinding defs.fsr))
 
           (mkBinding defs.crtGuestAdvancedNtsc)
           (mkBinding defs.crtLottes)
@@ -110,7 +111,7 @@ in
         lib.mkMerge [
           (mkProfile defs.generic)
           (mkProfile defs.genericHigh)
-          (mkProfile defs.fsr)
+          (lib.mkIf cfg.enableFsr (mkProfile defs.fsr))
 
           (mkProfile defs.crtGuestAdvancedNtsc)
           (mkProfile defs.crtLottes)
