@@ -82,6 +82,7 @@ in
 
           (mkBinding defs.generic)
           (mkBinding defs.genericHigh)
+          (mkBinding defs.fsr)
 
           (mkBinding defs.crtGuestAdvancedNtsc)
           (mkBinding defs.crtLottes)
@@ -109,6 +110,7 @@ in
         lib.mkMerge [
           (mkProfile defs.generic)
           (mkProfile defs.genericHigh)
+          (mkProfile defs.fsr)
 
           (mkProfile defs.crtGuestAdvancedNtsc)
           (mkProfile defs.crtLottes)

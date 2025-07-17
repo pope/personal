@@ -87,6 +87,16 @@ in
     ];
   };
 
+  fsr = mkProfileDef {
+    name = "fsr";
+    desc = "FRS";
+    shortcut = "CTRL+9";
+    settings.shaders = [
+      (getDefaultShader "FSR.glsl")
+      (getDefaultShader "CAS-scaled.glsl")
+    ];
+  };
+
   # CRT
 
   crtGuestAdvancedNtsc = mkProfileDef {
@@ -114,6 +124,8 @@ in
       "${./shaders/crt-lottes.glsl}"
     ];
   };
+
+  # Animation
 
   artcnn = mkProfileDef {
     name = "artcnn";
