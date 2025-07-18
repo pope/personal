@@ -34,7 +34,10 @@ in
     # Hint electron apps to use wayland. Otherwise Discord will be janky.
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    programs.kdeconnect.enable = cfg.kde.enable;
+    programs = lib.mkIf cfg.kde.enable {
+      kdeconnect.enable = true;
+      partition-manager.enable = true;
+    };
 
     services = {
       displayManager = {
