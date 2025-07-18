@@ -36,14 +36,7 @@ in
 
     xdg.portal = {
       wlr.enable = true;
-      # TODO(pope): This is mainly sticking around as an example.
-      # The XDG portal stuff should probably be extracted out.
-      config.dwl.default = [ "wlr" "gtk" ];
-      config.common.default = [ "wlr" "gtk" ];
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
-      ];
+      xdgOpenUsePortal = true;
     };
 
     services = {
