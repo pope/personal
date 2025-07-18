@@ -22,6 +22,7 @@ in
       })
       inkscape
       krita
+      synfigstudio
     ];
   };
 }
