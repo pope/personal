@@ -162,6 +162,7 @@
     sops.enable = true;
     sound.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
     vyprvpn.enable = true;
     xserver = {
@@ -171,7 +172,6 @@
       dwl.enable = true;
       gnome.enable = true;
     };
-    zerotierone.enable = true;
   };
 
   specialisation.egpu.configuration = {
