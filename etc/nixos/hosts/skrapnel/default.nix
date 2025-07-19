@@ -64,9 +64,9 @@
         [
           "localhost"
           "127.0.0.1"
-          "skrapnel.zero"
-          "skrapnel.lan"
-          "skrapnel.local"
+          config.networking.hostName
+          "${config.networking.hostName}.lan"
+          "${config.networking.hostName}.local"
         ];
       openFirewall = true;
       settings = {
@@ -151,7 +151,7 @@
                 in
                 {
                   "${name}" = rec {
-                    href = "http://skrapnel.zero:${toString port}";
+                    href = "http://${config.networking.hostName}:${toString port}";
                     icon = service;
                     siteMonitor = href;
                   };
@@ -162,14 +162,14 @@
           Misc = [
             {
               Jellyfin = rec {
-                href = "http://skrapnel.zero:8096";
+                href = "http://${config.networking.hostName}:8096";
                 icon = "jellyfin";
                 siteMonitor = href;
               };
             }
             {
               Sabnzbd = rec {
-                href = "http://skrapnel.zero:8080";
+                href = "http://${config.networking.hostName}:8080";
                 icon = "sabnzbd";
                 siteMonitor = href;
               };
