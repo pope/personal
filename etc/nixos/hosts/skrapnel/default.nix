@@ -234,6 +234,7 @@
     };
     sops.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
     vyprvpn.enable = true;
     zerotierone.enable = true;

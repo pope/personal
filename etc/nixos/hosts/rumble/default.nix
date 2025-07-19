@@ -149,6 +149,7 @@
     sops.enable = true;
     sound.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
