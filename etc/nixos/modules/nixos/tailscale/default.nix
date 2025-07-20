@@ -8,6 +8,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = config.my.nixos.sops.enable;
+        message = "sops must be enabled to use tailscale";
+      }
+    ];
+
     services.tailscale = {
       enable = true;
       authKeyFile = config.sops.secrets.tailscale-auth-key.path;
