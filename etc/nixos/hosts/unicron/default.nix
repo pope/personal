@@ -136,8 +136,10 @@
     gpu.amd.enable = true;
     onepassword.enable = true;
     printing.enable = true;
+    sops.enable = true;
     sound.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
@@ -149,7 +151,6 @@
       kde.enable = true;
       hyprland.enable = true;
     };
-    zerotierone.enable = true;
   };
 
   # This value determines the NixOS release from which the default
