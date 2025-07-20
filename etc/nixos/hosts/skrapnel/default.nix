@@ -237,7 +237,6 @@
     tailscale.enable = true;
     users.shell = "zsh";
     vyprvpn.enable = true;
-    zerotierone.enable = true;
   };
 
   # This value determines the NixOS release from which the default

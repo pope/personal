@@ -163,7 +163,6 @@
       hyprland.enable = false;
     };
     vyprvpn.enable = true;
-    zerotierone.enable = true;
   };
 
   specialisation = {
