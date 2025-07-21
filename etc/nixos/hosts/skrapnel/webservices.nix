@@ -3,11 +3,27 @@
 {
   my.nixos.arrs.enable = true;
 
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 80 443 ];
+
   services = {
+    caddy = {
+      enable = true;
+      virtualHosts."skrapnel.gumiho-matrix.ts.net".extraConfig = ''
+        encode
+        reverse_proxy localhost:8082
+
+        redir /radarr /radarr/
+        handle /radarr/* {
+          uri strip_prefix /radarr
+          reverse_proxy localhost:${toString config.services.radarr.settings.server.port}
+        }
+      '';
+    };
+
     glances.enable = true;
     homepage-dashboard = {
       enable = true;
-      allowedHosts = lib.strings.concatMapStringsSep ","
+      allowedHosts = (lib.strings.concatMapStringsSep ","
         (x: "${x}:${toString config.services.homepage-dashboard.listenPort}")
         [
           "localhost"
@@ -15,7 +31,7 @@
           config.networking.hostName
           "${config.networking.hostName}.lan"
           "${config.networking.hostName}.local"
-        ];
+        ]) + ",${config.networking.hostName}.gumiho-matrix.ts.net";
       openFirewall = true;
       settings = {
         title = "Skrapnel Homepage";
@@ -145,4 +161,6 @@
       openFirewall = true;
     };
   };
+
+  systemd.services.tailscaled.environment.TS_PERMIT_CERT_UID = config.services.caddy.user;
 }
