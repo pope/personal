@@ -64,21 +64,6 @@
       '';
     };
     rpcbind.enable = true;
-    syncthing = {
-      enable = true;
-      openDefaultPorts = true;
-      settings = {
-        gui = {
-          user = "pope";
-          password = "$2y$10$y83beuzfDJ3L5D/HI2okLe6WXnvj.lNMG7oc27v3Ei/3S4MuZIJou";
-        };
-        folders = {
-          "Sync" = {
-            path = "/mnt/Cyberia/Sync";
-          };
-        };
-      };
-    };
   };
 
   my.nixos = {

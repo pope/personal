@@ -17,6 +17,12 @@
           uri strip_prefix /radarr
           reverse_proxy localhost:${toString config.services.radarr.settings.server.port}
         }
+
+        redir /syncthing /syncthing/
+        handle /syncthing/* {
+          uri strip_prefix /syncthing
+          reverse_proxy localhost:8384
+        }
       '';
     };
 
@@ -160,7 +166,26 @@
       port = 5055;
       openFirewall = true;
     };
+
+    syncthing = {
+      enable = true;
+      guiAddress = "0.0.0.0:8384";
+      openDefaultPorts = true;
+      settings = {
+        gui = {
+          user = "pope";
+          password = config.sops.secrets.syncthing-password;
+        };
+        folders = {
+          "Sync" = {
+            path = "/mnt/Cyberia/Sync";
+          };
+        };
+      };
+    };
   };
+
+  sops.secrets.syncthing-password = { };
 
   systemd.services.tailscaled.environment.TS_PERMIT_CERT_UID = config.services.caddy.user;
 }
