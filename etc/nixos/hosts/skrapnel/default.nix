@@ -59,9 +59,13 @@
   services = {
     nfs.server = {
       enable = true;
-      exports = ''
-        /mnt/Cyberia    192.168.86.0/24(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1000,anongid=100)
-      '';
+      exports =
+        let
+          opts = "rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1000,anongid=100";
+        in
+        ''
+          /mnt/Cyberia 192.168.86.0/24(${opts}) 100.0.0.0/8(${opts})
+        '';
     };
     rpcbind.enable = true;
   };
