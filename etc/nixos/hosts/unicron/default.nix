@@ -73,16 +73,6 @@
       fsType = "ntfs-3g";
       options = [ "rw" "uid=pope" ];
     };
-    "/media/cyberia" = {
-      device = "skrapnel.lan:/mnt/Cyberia";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.after=network-online.target"
-        "x-systemd.idle-timeout=300"
-      ];
-    };
   };
   environment.systemPackages = with pkgs; [
     renoise350
@@ -134,6 +124,7 @@
       preferredOutput = "HDMI-A-2";
     };
     gpu.amd.enable = true;
+    nfs.client.enable = true;
     onepassword.enable = true;
     printing.enable = true;
     sops.enable = true;

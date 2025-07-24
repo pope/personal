@@ -62,19 +62,6 @@
 
   time.timeZone = "America/Los_Angeles";
 
-  fileSystems = {
-    "/media/cyberia" = {
-      device = "skrapnel.lan:/mnt/Cyberia";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.after=network-online.target"
-        "x-systemd.idle-timeout=300"
-      ];
-    };
-  };
-
   hardware = {
     framework = {
       enableKmod = true;
@@ -144,6 +131,10 @@
       enableSteam = true;
     };
     gpu.amd.enable = true;
+    nfs.client = {
+      enable = true;
+      host = "skrapnel";
+    };
     onepassword.enable = true;
     printing.enable = true;
     sops.enable = true;

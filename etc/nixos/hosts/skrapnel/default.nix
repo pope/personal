@@ -56,25 +56,11 @@
     };
   };
 
-  services = {
-    nfs.server = {
-      enable = true;
-      exports =
-        let
-          opts = "rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1000,anongid=100";
-        in
-        ''
-          /mnt/Cyberia 192.168.86.0/24(${opts}) 100.0.0.0/8(${opts})
-        '';
-    };
-    rpcbind.enable = true;
-  };
-
   my.nixos = {
     mainUser = "pope";
 
-    firewall.nfs.enable = true;
     gpu.intel.enable = true;
+    nfs.host.enable = true;
     samba = {
       enable = true;
       shares = {

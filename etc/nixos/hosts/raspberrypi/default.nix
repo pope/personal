@@ -90,7 +90,6 @@
   my.nixos = {
     mainUser = "pi";
 
-    firewall.nfs.enable = true;
     samba = {
       enable = true;
       shares = {

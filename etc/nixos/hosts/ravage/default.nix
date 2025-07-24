@@ -79,19 +79,6 @@
     hardwareClockInLocalTime = true;
   };
 
-  fileSystems = {
-    "/media/cyberia" = {
-      device = "skrapnel.lan:/mnt/Cyberia";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.after=network-online.target"
-        "x-systemd.idle-timeout=300"
-      ];
-    };
-  };
-
   environment.systemPackages = with pkgs; [
     libva-utils
     renoise350
@@ -158,6 +145,7 @@
       enableSteam = true;
     };
     gpu.intel.enable = true;
+    nfs.client.enable = true;
     onepassword.enable = true;
     sops.enable = true;
     sound.enable = true;
