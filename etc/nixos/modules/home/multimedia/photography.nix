@@ -10,12 +10,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      # See https://github.com/NixOS/nixpkgs/pull/426650
-      # So defaulting back to the stable version
-      (stable.darktable.override {
-        # While we are at it, why not try using native optimizations?
-        stdenv = impureUseNativeOptimizations stdenv;
-      })
+      darktable
       dnglab
       geeqie
       rawtherapee
