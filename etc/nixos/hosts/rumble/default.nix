@@ -131,6 +131,7 @@
       enableSteam = true;
     };
     gpu.amd.enable = true;
+    ndi.enable = true;
     nfs.client = {
       enable = true;
       host = "skrapnel";

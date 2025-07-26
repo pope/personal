@@ -121,6 +121,7 @@
       enableSteam = true;
     };
     gpu.nvidia.enable = true;
+    ndi.enable = true;
     nfs.client.enable = true;
     onepassword.enable = true;
     printing.enable = true;
