@@ -71,7 +71,9 @@
     multimedia = {
       audio.enable = true;
       graphics.enable = true;
-      photography.enable = true;
+      # Re-enable when CUDA support is fixed
+      # https://github.com/NixOS/nixpkgs/issues/426836
+      photography.enable = false;
       threed.enable = true;
       video.enable = false;
     };
