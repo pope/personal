@@ -97,6 +97,15 @@ in
     ];
   };
 
+  nvscaler = mkProfileDef {
+    name = "nvscaler";
+    desc = "NVidia Scaler";
+    shortcut = "CTRL+8";
+    settings.shaders = [
+      (getDefaultShader "NVScaler.glsl")
+    ];
+  };
+
   # CRT
 
   crtGuestAdvancedNtsc = mkProfileDef {

@@ -67,6 +67,8 @@
     mpv = {
       enable = true;
       enableHqAnimeSettings = true;
+      enableFsr = true;
+      enableNvscaler = true;
     };
     multimedia = {
       audio.enable = true;

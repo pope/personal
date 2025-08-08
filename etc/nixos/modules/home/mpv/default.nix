@@ -15,6 +15,7 @@ in
     enable = lib.mkEnableOption "mpv options";
     enableHqAnimeSettings = lib.mkEnableOption "use the HQ Anime4K shaders";
     enableFsr = lib.mkEnableOption "use FSR and make it the default profile";
+    enableNvscaler = lib.mkEnableOption "use NVScaler and make it the default profile";
     enableVulkan = lib.mkOption {
       default = pkgs.stdenv.isLinux;
       example = true;
@@ -84,6 +85,7 @@ in
           (mkBinding defs.generic)
           (mkBinding defs.genericHigh)
           (lib.mkIf cfg.enableFsr (mkBinding defs.fsr))
+          (lib.mkIf cfg.enableNvscaler (mkBinding defs.nvscaler))
 
           (mkBinding defs.crtGuestAdvancedNtsc)
           (mkBinding defs.crtLottes)
@@ -112,6 +114,7 @@ in
           (mkProfile defs.generic)
           (mkProfile defs.genericHigh)
           (lib.mkIf cfg.enableFsr (mkProfile defs.fsr))
+          (lib.mkIf cfg.enableNvscaler (mkProfile defs.nvscaler))
 
           (mkProfile defs.crtGuestAdvancedNtsc)
           (mkProfile defs.crtLottes)
