@@ -47,8 +47,8 @@
         '';
         gfxmodeBios = "1920x1080";
         gfxmodeEfi = "1920x1080";
-        gfxpayloadBios = "keep";
-        gfxpayloadEfi = "keep";
+        gfxpayloadBios = "auto";
+        gfxpayloadEfi = "auto";
         splashImage = "${theme}/background.png";
         theme = "${pkgs.p5r-grub}/joker";
         useOSProber = true;
@@ -64,6 +64,12 @@
     #     This will cause the `mdmon` service to crash.
     # See https://github.com/NixOS/nixpkgs/issues/254807
     swraid.enable = false;
+  };
+
+  console = {
+    earlySetup = true;
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u32n.psf.gz";
+    packages = with pkgs; [ terminus_font ];
   };
 
   environment.systemPackages = with pkgs; [
