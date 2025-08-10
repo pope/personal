@@ -19,9 +19,12 @@
 
   config = {
     extraPackages = with pkgs; [
+      fd
+      fzf
       lua-language-server
       nixd
       nixpkgs-fmt
+      ripgrep
       tree-sitter
       wget
     ];
