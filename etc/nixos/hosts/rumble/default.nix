@@ -33,10 +33,8 @@
       efi.canTouchEfiVariables = true;
     };
 
-    initrd = {
-      luks.devices."luks-b3a5fbc2-0e7e-4b6a-9019-37629c91d744" = {
-        device = "/dev/disk/by-uuid/b3a5fbc2-0e7e-4b6a-9019-37629c91d744";
-      };
+    initrd.luks.devices."luks-3ff44097-7f44-4cca-854b-6f4577a00bcc" = {
+      device = "/dev/disk/by-uuid/3ff44097-7f44-4cca-854b-6f4577a00bcc";
     };
 
     supportedFilesystems = [ "ntfs" ];
@@ -171,5 +169,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }

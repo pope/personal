@@ -20,7 +20,7 @@
       hatsune-miku-cursor
     ];
 
-    stateVersion = "24.05";
+    stateVersion = "25.05";
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
