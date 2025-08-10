@@ -34,7 +34,7 @@
   my.home = {
     anyrun.enable = false;
     browsers = {
-      firefox.enable = true;
+      librewolf.enable = true;
       chromium.enable = true;
     };
     editors = {
