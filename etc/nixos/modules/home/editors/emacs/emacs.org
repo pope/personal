@@ -38,8 +38,8 @@ we increase the amount of GC temporarily at the start. At the end of this doc,
 we can reset it (though not quite as low). The default is 800kb.
 
 References:
-  - https://emacsconf.org/2023/talks/gc/
-  - https://github.com/protesilaos/dotfiles/blob/master/emacs/.emacs.d/prot-emacs.org
+- https://emacsconf.org/2023/talks/gc/
+- https://github.com/protesilaos/dotfiles/blob/master/emacs/.emacs.d/prot-emacs.org
 
 #+begin_src emacs-lisp
   ;; Measured in bytes.
@@ -193,8 +193,8 @@ turn it on.
 Adding some modern completion code for Emacs
 
 Sources:
-  - https://protesilaos.com/codelog/2024-02-17-emacs-modern-minibuffer-packages/
-  - https://www.youtube.com/watch?v=SOxlQ7ogplA
+- https://protesilaos.com/codelog/2024-02-17-emacs-modern-minibuffer-packages/
+- https://www.youtube.com/watch?v=SOxlQ7ogplA
 
 ** Minibuffer
 
@@ -277,13 +277,13 @@ will revisit to see if I want to add more.
 #+begin_src emacs-lisp
   (use-package consult
     :bind (:map global-map
-           ("M-s M-r" . consult-recent-file)
-           ("M-s M-g" . consult-ripgrep)
-           ("M-s M-f" . consult-fd)
-           ("M-s M-o" . consult-outline)
-           ("M-s M-i" . consult-imenu)
-           ("M-s M-l" . consult-line)
-           ("M-s M-b" . consult-buffer)))
+                ("M-s M-r" . consult-recent-file)
+                ("M-s M-g" . consult-ripgrep)
+                ("M-s M-f" . consult-fd)
+                ("M-s M-o" . consult-outline)
+                ("M-s M-i" . consult-imenu)
+                ("M-s M-l" . consult-line)
+                ("M-s M-b" . consult-buffer)))
 #+end_src
 
 *** Embark
@@ -296,8 +296,8 @@ will revisit to see if I want to add more.
            ("C-;"    . embark-dwim)      ;; good alternative: M-.
            ("C-h B"  . embark-bindings)) ;; alternative for `describe-bindings'
     :init
-     ;; Optionally replace the key help with a completing-read interface
-     (setq prefix-help-command #'embark-prefix-help-command)
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
     :config
     ;; Hide the mode line of the Embark live/completions buffers
     (add-to-list 'display-buffer-alist

@@ -107,21 +107,21 @@
 
 (use-package consult
   :bind (:map global-map
-         ("M-s M-r" . consult-recent-file)
-         ("M-s M-g" . consult-ripgrep)
-         ("M-s M-f" . consult-fd)
-         ("M-s M-o" . consult-outline)
-         ("M-s M-i" . consult-imenu)
-         ("M-s M-l" . consult-line)
-         ("M-s M-b" . consult-buffer)))
+              ("M-s M-r" . consult-recent-file)
+              ("M-s M-g" . consult-ripgrep)
+              ("M-s M-f" . consult-fd)
+              ("M-s M-o" . consult-outline)
+              ("M-s M-i" . consult-imenu)
+              ("M-s M-l" . consult-line)
+              ("M-s M-b" . consult-buffer)))
 
 (use-package embark
   :bind (("C-."    . embark-act)       ;; pick some comfortable binding
          ("C-;"    . embark-dwim)      ;; good alternative: M-.
          ("C-h B"  . embark-bindings)) ;; alternative for `describe-bindings'
   :init
-   ;; Optionally replace the key help with a completing-read interface
-   (setq prefix-help-command #'embark-prefix-help-command)
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
   :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
