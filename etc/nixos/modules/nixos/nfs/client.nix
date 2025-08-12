@@ -31,8 +31,13 @@ in
         options = [
           "x-systemd.automount"
           "noauto"
-          "x-systemd.after=network-online.target"
           "x-systemd.idle-timeout=300"
+        ] ++ lib.optionals (cfg.host == "skrapnel") [
+          "x-systemd.after=tailscaled.service"
+          "x-systemd.requires=tailscaled.service"
+        ] ++ lib.optionals (cfg.host == "skrapnel.lan") [
+          "x-systemd.after=network-online.target"
+          "x-systemd.requires=network-online.target"
         ];
       };
     };
