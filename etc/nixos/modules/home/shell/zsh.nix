@@ -61,8 +61,9 @@ in
         CLICOLOR = 1;
       };
       shellAliases = {
-        "eza" = "eza --group-directories-first";
-        "ls" = "eza --group-directories-first";
+        "l" = "eza";
+        "ls" = "ls --color=auto";
+        "tree" = "eza -T";
       };
       syntaxHighlighting = {
         enable = true;

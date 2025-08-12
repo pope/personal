@@ -73,7 +73,6 @@ in
       du-dust # du
       dua # du
       duf # df 
-      eza # ls and tree
       fd # find
       ffmpeg
       glow
@@ -91,7 +90,6 @@ in
       sd # sed
       timg
       tldr
-      tree
     ] ++ lib.optionals stdenv.isLinux [
       dysk
       man-pages
@@ -139,6 +137,17 @@ in
       direnv = {
         enable = true;
         nix-direnv.enable = true;
+      };
+
+      eza = {
+        enable = true;
+        colors = "auto";
+        extraOptions = [
+          "--group"
+          "--group-directories-first"
+          "--header"
+        ];
+        icons = "auto";
       };
 
       fzf = {
