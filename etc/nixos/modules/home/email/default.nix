@@ -42,6 +42,7 @@ in
       mbsync = {
         enable = true;
         create = "maildir";
+        expunge = "both";
       };
       neomutt.enable = true;
       notmuch = {
