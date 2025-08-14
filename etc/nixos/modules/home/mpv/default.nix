@@ -14,13 +14,18 @@ in
   options.my.home.mpv = {
     enable = lib.mkEnableOption "mpv options";
     enableHqAnimeSettings = lib.mkEnableOption "use the HQ Anime4K shaders";
-    enableFsr = lib.mkEnableOption "use FSR and make it the default profile";
-    enableNvscaler = lib.mkEnableOption "use NVScaler and make it the default profile";
     enableVulkan = lib.mkOption {
       default = pkgs.stdenv.isLinux;
       example = true;
       description = "Whether to enable Vulkan GPU API.";
       type = lib.types.bool;
+    };
+    defaultProfile = lib.mkOption {
+      type = lib.types.enum [ "generic" "fsr" ];
+      default = "generic";
+      description = lib.mkDoc ''
+        The starting default profile to use
+      '';
     };
     scale = lib.mkOption {
       type = lib.types.number;
@@ -68,7 +73,10 @@ in
         slang = "en,eng";
         alang = "en,eng,ja,jp,jpn";
 
-        profile = if cfg.enableFsr then defs.fsr.name else defs.generic.name;
+        profile =
+          if (cfg.defaultProfile == "fsr") then defs.fsr.name
+          else if (cfg.defaultProfile == "generic") then defs.generic.name
+          else abort "defaultProfile is invalid";
       } // lib.optionalAttrs cfg.enableVulkan {
         gpu-api = "vulkan";
       };
@@ -84,8 +92,8 @@ in
 
           (mkBinding defs.generic)
           (mkBinding defs.genericHigh)
-          (lib.mkIf cfg.enableFsr (mkBinding defs.fsr))
-          (lib.mkIf cfg.enableNvscaler (mkBinding defs.nvscaler))
+          (mkBinding defs.fsr)
+          (mkBinding defs.nvscaler)
 
           (mkBinding defs.crtGuestAdvancedNtsc)
           (mkBinding defs.crtLottes)
@@ -113,8 +121,8 @@ in
         lib.mkMerge [
           (mkProfile defs.generic)
           (mkProfile defs.genericHigh)
-          (lib.mkIf cfg.enableFsr (mkProfile defs.fsr))
-          (lib.mkIf cfg.enableNvscaler (mkProfile defs.nvscaler))
+          (mkProfile defs.fsr)
+          (mkProfile defs.nvscaler)
 
           (mkProfile defs.crtGuestAdvancedNtsc)
           (mkProfile defs.crtLottes)

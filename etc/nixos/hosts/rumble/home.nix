@@ -72,10 +72,7 @@
       python.enable = true;
     };
     lf.enable = true;
-    mpv = {
-      enable = true;
-      enableFsr = true;
-    };
+    mpv.enable = true;
     multimedia = {
       audio.enable = true;
       graphics.enable = true;
