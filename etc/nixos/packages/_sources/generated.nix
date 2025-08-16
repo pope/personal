@@ -79,6 +79,14 @@
     };
     date = "2023-06-16";
   };
+  idrive = {
+    pname = "idrive";
+    version = "1.3.0";
+    src = fetchurl {
+      url = "https://www.idrivedownloads.com/downloads/linux/linux-desktop/IDriveForLinux.deb?ctag=07192025";
+      sha256 = "sha256-LijFYYxJbV3JJGN0slvKbzDOLpBjPW91eqI5CJ9uvDI=";
+    };
+  };
   iqm = {
     pname = "iqm";
     version = "8554dca2b86dc3845981fad6758d3829ce0d4a56";
