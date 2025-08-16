@@ -81,17 +81,17 @@
   };
   iqm = {
     pname = "iqm";
-    version = "e5004bb3f46eafece81376ecafccc7f3ae747b59";
+    version = "8554dca2b86dc3845981fad6758d3829ce0d4a56";
     src = fetchgit {
       url = "https://github.com/lsalzman/iqm";
-      rev = "e5004bb3f46eafece81376ecafccc7f3ae747b59";
+      rev = "8554dca2b86dc3845981fad6758d3829ce0d4a56";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-M7cn/TEG7hP6U9JpaAVp2vLAQxHNxnBvAU39vFnRiEM=";
+      sha256 = "sha256-zR3AdHg0f2g14ZHVgTREYheXcHr6evnZxP3HEo7byRI=";
     };
-    date = "2024-06-23";
+    date = "2025-07-24";
   };
   p5r-grub = {
     pname = "p5r-grub";

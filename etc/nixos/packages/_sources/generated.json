@@ -123,7 +123,7 @@
     },
     "iqm": {
         "cargoLocks": null,
-        "date": "2024-06-23",
+        "date": "2025-07-24",
         "extract": null,
         "name": "iqm",
         "passthru": null,
@@ -133,13 +133,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e5004bb3f46eafece81376ecafccc7f3ae747b59",
-            "sha256": "sha256-M7cn/TEG7hP6U9JpaAVp2vLAQxHNxnBvAU39vFnRiEM=",
+            "rev": "8554dca2b86dc3845981fad6758d3829ce0d4a56",
+            "sha256": "sha256-zR3AdHg0f2g14ZHVgTREYheXcHr6evnZxP3HEo7byRI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/lsalzman/iqm"
         },
-        "version": "e5004bb3f46eafece81376ecafccc7f3ae747b59"
+        "version": "8554dca2b86dc3845981fad6758d3829ce0d4a56"
     },
     "p5r-grub": {
         "cargoLocks": null,
