@@ -79,14 +79,6 @@
     };
     date = "2023-06-16";
   };
-  idrive = {
-    pname = "idrive";
-    version = "3.10.0";
-    src = fetchurl {
-      url = "https://www.idrivedownloads.com/downloads/linux/linux-bin/idriveforlinux.bin?ctag=08122025";
-      sha256 = "sha256-wgPvKb+/zYGjcMJIaNKvFTW/JChEz80MSkgNZJdQV0c=";
-    };
-  };
   iqm = {
     pname = "iqm";
     version = "8554dca2b86dc3845981fad6758d3829ce0d4a56";

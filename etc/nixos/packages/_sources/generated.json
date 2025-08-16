@@ -121,21 +121,6 @@
         },
         "version": "f32c04c3058a75d7ce28919ce70fe8800817491b"
     },
-    "idrive": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "idrive",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-wgPvKb+/zYGjcMJIaNKvFTW/JChEz80MSkgNZJdQV0c=",
-            "type": "url",
-            "url": "https://www.idrivedownloads.com/downloads/linux/linux-bin/idriveforlinux.bin?ctag=08122025"
-        },
-        "version": "3.10.0"
-    },
     "iqm": {
         "cargoLocks": null,
         "date": "2025-07-24",

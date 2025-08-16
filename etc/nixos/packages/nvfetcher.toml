@@ -34,10 +34,6 @@ fetch.git = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors
 src.github_tag = "Artoriuz/ArtCNN"
 fetch.github = "Artoriuz/ArtCNN"
 
-[idrive]
-src.manual = "3.10.0"
-fetch.url = "https://www.idrivedownloads.com/downloads/linux/linux-bin/idriveforlinux.bin?ctag=08122025"
-
 # Fonts
 
 [ia-writer]
