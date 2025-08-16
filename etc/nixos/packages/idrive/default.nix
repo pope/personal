@@ -1,14 +1,7 @@
 { stdenv
 , autoPatchelfHook
-, dpkg
-, nss
 , nvsrcs
-, libdrm
-, libgbm
-, alsa-lib
-, gtk3
-, expat
-, wrapGAppsHook
+, popt
 }:
 
 let
@@ -18,18 +11,11 @@ stdenv.mkDerivation {
   inherit (source) pname version src;
 
   nativeBuildInputs = [
-    dpkg
     autoPatchelfHook
-    wrapGAppsHook
   ];
 
   buildInputs = [
-    alsa-lib
-    gtk3
-    expat
-    libdrm
-    libgbm
-    nss
+    popt
   ];
 
   dontConfigure = true;
@@ -37,18 +23,20 @@ stdenv.mkDerivation {
 
   unpackPhase = ''
     runHook preUnpack
-    dpkg -x $src .
+
+    tail -n+$(awk '/^__idrive__/ { print NR + 1; exit 0; }' $src) $src | tar xz
+    tar xzf IDriveForLinux/bin/Idrivelib/dependencies/linuxbin/k3/x86_64/idrive.tar.gz
+    tar xzf IDriveForLinux/bin/Idrivelib/dependencies/evsbin/IDrive_linux_64bit.tar.gz
+
     runHook postUnpack
   '';
 
   installPhase = ''
     runHook preInstall
 
-    cp -r usr $out/
-
-    addAutoPatchelfSearchPath opt/IDriveForLinux/
     mkdir -p $out/bin
-    cp -r opt $out/opt
+    cp idrive $out/bin/
+    cp IDrive_linux_64bit/* $out/bin/
 
     runHook postInstall
   '';

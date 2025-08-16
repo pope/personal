@@ -81,10 +81,10 @@
   };
   idrive = {
     pname = "idrive";
-    version = "1.3.0";
+    version = "3.10.0";
     src = fetchurl {
-      url = "https://www.idrivedownloads.com/downloads/linux/linux-desktop/IDriveForLinux.deb?ctag=07192025";
-      sha256 = "sha256-LijFYYxJbV3JJGN0slvKbzDOLpBjPW91eqI5CJ9uvDI=";
+      url = "https://www.idrivedownloads.com/downloads/linux/linux-bin/idriveforlinux.bin?ctag=08122025";
+      sha256 = "sha256-wgPvKb+/zYGjcMJIaNKvFTW/JChEz80MSkgNZJdQV0c=";
     };
   };
   iqm = {
