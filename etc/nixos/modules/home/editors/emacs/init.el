@@ -13,7 +13,7 @@
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-one t)
+  (load-theme 'doom-feather-dark t)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
@@ -265,6 +265,7 @@
 
 (use-package eglot
   :hook ((c-ts-mode     . eglot-ensure)
+         (c++-ts-mode   . eglot-ensure)
          (go-ts-mode    . eglot-ensure)
          (nix-ts-mode   . eglot-ensure)
          (rust-ts-mode  . eglot-ensure)
