@@ -19,7 +19,7 @@ in
           image = "ghcr.io/snorre-k/idrive-docker:3.10.0";
           volumes = [
             "idrive:/opt/IDriveForLinux/idriveIt"
-            "/mnt/Cyberia:/media/cyberia:ro"
+            "/mnt/Cyberia:/N:ro"
           ];
           autoRemoveOnStop = false;
           autoStart = true;

@@ -9,6 +9,8 @@
     };
   };
 
+  my.nixos.idrive.enable = true;
+
   systemd = {
     services.cyberia-backup = {
       description = "Cyberia rsync daily backup service";
