@@ -9,6 +9,7 @@
     [
       inputs.fingerprint-sensor.nixosModules.open-fprintd
       inputs.fingerprint-sensor.nixosModules.python-validity
+      inputs.nixos-hardware.nixosModules.common-gpu-amd # eGPU
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
       self.nixosModules.default
       # Include the results of the hardware scan.
@@ -131,6 +132,8 @@
     # };
   };
 
+  services.hardware.bolt.enable = true;
+
   my.nixos = {
     mainUser = "pope";
 
@@ -144,7 +147,10 @@
       enable = true;
       enableSteam = true;
     };
-    gpu.intel.enable = true;
+    gpu = {
+      amd.enable = true; # eGPU
+      intel.enable = true;
+    };
     nfs.client.enable = true;
     onepassword.enable = true;
     sops.enable = true;
@@ -160,15 +166,6 @@
       dwl.enable = true;
       gnome.enable = true;
     };
-  };
-
-  specialisation.egpu.configuration = {
-    imports = [
-      inputs.nixos-hardware.nixosModules.common-gpu-amd
-    ];
-    my.nixos.gpu.amd.enable = true;
-    services.hardware.bolt.enable = true;
-    system.nixos.tags = [ "eGPU" ];
   };
 
   # This value determines the NixOS release from which the default
