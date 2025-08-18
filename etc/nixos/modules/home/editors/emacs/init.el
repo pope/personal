@@ -271,6 +271,14 @@
          (rust-ts-mode  . eglot-ensure)
          (zig-ts-mode   . eglot-ensure)))
 
+(with-eval-after-load 'eglot
+  (defun pope--eglot-ensure-formatting ()
+    (if (eglot-managed-p)
+        (add-hook 'before-save-hook #'eglot-format-buffer nil t)
+      (remove-hook 'before-save-hook #'eglot-format-buffer t)))
+
+  (add-hook 'eglot-managed-mode-hook #'pope--eglot-ensure-formatting))
+
 (use-package direnv
   :custom (direnv-mode t))
 
