@@ -41,7 +41,7 @@
   (global-auto-revert-mode t))
 
 (use-package expand-region
-  :bind ("C-c SPC" . er/expand-region))
+  :bind ("M-SPC" . er/expand-region))
 
 (use-package multiple-cursors
   :bind
