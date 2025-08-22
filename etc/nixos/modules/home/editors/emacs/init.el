@@ -134,10 +134,19 @@
   (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package corfu
-  :custom (global-corfu-mode t))
+  :custom
+  (corfu-cycle t)
+  (corfu-preselect 'prompt) ;; Fixes a bug for me where the first item is wonky
+  :init
+  (global-corfu-mode t)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode))
 
 (use-package emacs
-  :custom (tab-always-indent 'complete))
+  :custom
+  (tab-always-indent 'complete)
+  (text-mode-ispell-word-completion nil)
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
 (unless (display-graphic-p)
   (use-package corfu-terminal

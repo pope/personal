@@ -108,6 +108,7 @@ in
       lrcget
       puddletag
       reaper
+      tytools-latest
       vital
     ];
   };

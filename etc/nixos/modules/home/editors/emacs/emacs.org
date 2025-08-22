@@ -322,7 +322,13 @@ Then we can join embark and consult together
 
 #+begin_src emacs-lisp
   (use-package corfu
-    :custom (global-corfu-mode t))
+    :custom
+    (corfu-cycle t)
+    (corfu-preselect 'prompt) ;; Fixes a bug for me where the first item is wonky
+    :init
+    (global-corfu-mode t)
+    (corfu-history-mode)
+    (corfu-popupinfo-mode))
 #+end_src
 
 In the regular Emacs config, we can make the =<TAB>= key trigger an
@@ -330,7 +336,10 @@ autocomplete.
 
 #+begin_src emacs-lisp
   (use-package emacs
-    :custom (tab-always-indent 'complete))
+    :custom
+    (tab-always-indent 'complete)
+    (text-mode-ispell-word-completion nil)
+    (read-extended-command-predicate #'command-completion-default-include-p))
 #+end_src
 
 The settings above work fine in GUI mode, but for terminal, we need a separate
