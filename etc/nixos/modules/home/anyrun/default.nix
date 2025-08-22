@@ -1,8 +1,8 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.my.home.anyrun;
-  anyrun = inputs.anyrun.packages.${pkgs.system}.anyrun-with-all-plugins;
+  anyrun = pkgs.anyrun;
 in
 {
   options.my.home.anyrun = {
