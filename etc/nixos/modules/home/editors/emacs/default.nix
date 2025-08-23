@@ -111,7 +111,10 @@ in
         nix-ts-mode
         notmuch
         nyan-mode
+        olivetti
         orderless
+        org-modern
+        org-superstar
         rg
         treesit-grammars.with-all-grammars
         vertico

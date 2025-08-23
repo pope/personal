@@ -13,7 +13,7 @@
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-feather-dark t)
+  (load-theme 'doom-nord t)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
@@ -68,7 +68,8 @@
   (completions-detailed t)
   (completions-max-height 20)
   (completions-sort 'historical)
-  (enable-recursive-minibuffers t)) ;; Yo dawg, I heard you like minibuffers.
+  ;; Yo dawg, I heard you like minibuffers.
+  (enable-recursive-minibuffers t))
 
 (use-package vertico
   :custom
@@ -102,7 +103,8 @@
 ;; Do not allow the cursor in the minibuffer prompt
 (use-package emacs
   :custom
-  (minibuffer-prompt-properties '(read-only-mode t cursor-intangible-mode t face minibuffer-prompt))
+  (minibuffer-prompt-properties
+   '(read-only-mode t cursor-intangible-mode t face minibuffer-prompt))
   :hook
   (minibuffer-setup-hook . cursor-intangible-mode))
 
@@ -116,7 +118,8 @@
   :custom
   ;; These are minibuffer custom variables, but tailored for orderless
   (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (completion-category-overrides
+   '((file (styles basic partial-completion)))))
 
 (use-package consult
   :bind (:map global-map
@@ -149,7 +152,8 @@
 (use-package corfu
   :custom
   (corfu-cycle t)
-  (corfu-preselect 'prompt) ;; Fixes a bug for me where the first item is wonky
+  ;; Fixes a bug for me where the first item is wonky
+  (corfu-preselect 'prompt)
   :init
   (global-corfu-mode t)
   (corfu-history-mode)
@@ -196,12 +200,14 @@
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 (use-package nerd-icons-corfu
   :after corfu
-  :config (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+  :config (add-to-list 'corfu-margin-formatters
+                       #'nerd-icons-corfu-formatter))
 (use-package nerd-icons-completion
   :after marginalia
   :config
   (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+  (add-hook 'marginalia-mode-hook
+            #'nerd-icons-completion-marginalia-setup))
 
 (use-package ligature
   :config
@@ -312,3 +318,53 @@
               (display-line-numbers-mode -1)
               (visual-line-mode -1)
               (toggle-truncate-lines 1))))
+
+(use-package org
+  :custom-face
+  (default (nil (:font "Monospace")))
+  (fixed-pitch (nil (:font "Monospace")))
+  (variable-pitch (nil (:family "Sans Serif") (:height 1.2)))
+  :custom
+  (org-hide-leading-stars t)
+  (org-hide-emphasis-markers t)
+  (org-pretty-entities t)
+  :hook
+  (org-mode . variable-pitch-mode)
+  (org-mode . (lambda ()
+                (olivetti-mode t)
+                (org-modern-mode t)
+                (indent-bars-mode -1)
+                (visual-line-mode -1)
+                (diff-hl-margin-mode -1)))
+  :config
+  (dolist (face '((org-level-1 . 1.35)
+                  (org-level-2 . 1.3)
+                  (org-level-3 . 1.2)
+                  (org-level-4 . 1.1)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+  (set-face-attribute 'org-document-title nil :weight 'bold :height 1.8)
+  (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil
+                      :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil
+                      :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+  
+  (set-face-attribute 'line-number nil :inherit 'fixed-pitch :height 0.9)
+  (set-face-attribute 'line-number-current-line nil
+                      :inherit 'fixed-pitch :height 0.9))
+
+(use-package org-indent
+  :config
+  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
+
+(use-package olivetti
+  :custom
+  (olivetti-style nil)
+  (olivetti-body-width 80))
