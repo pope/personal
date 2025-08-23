@@ -59,6 +59,17 @@
 (use-package evil
   :commands (evil-mode))
 
+(use-package minibuffer
+  :custom
+  (completion-auto-help 'visible)
+  (completion-auto-select t) ;; Show completion on first call
+  (completion-show-help nil) ;; Skip docs for M-<down>, M-<up>, M-<RET>
+  (completion-show-inline-help t)
+  (completions-detailed t)
+  (completions-max-height 20)
+  (completions-sort 'historical)
+  (enable-recursive-minibuffers t)) ;; Yo dawg, I heard you like minibuffers.
+
 (use-package vertico
   :custom
   (vertico-cycle t)
@@ -67,15 +78,15 @@
 
 ;; Enable saving of minibuffer history
 (use-package savehist
+  :custom (history-delete-duplicates t)
   :hook (after-init . savehist-mode))
 
-(use-package emacs
+(use-package simple
   :custom
-  ;; Yo dawg, I heard you like minibuffers.
-  (enable-recursive-minibuffers t)
   ;; Hide commands in M-x that are incompatible for the current mode.
-  (read-extended-command-predicate #'command-completion-default-include-p)
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
+(use-package crm
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
@@ -86,12 +97,14 @@
                    crm-separator)
                   (car args))
           (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator))
 
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only-mode t cursor-intangible-mode t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
+;; Do not allow the cursor in the minibuffer prompt
+(use-package emacs
+  :custom
+  (minibuffer-prompt-properties '(read-only-mode t cursor-intangible-mode t face minibuffer-prompt))
+  :hook
+  (minibuffer-setup-hook . cursor-intangible-mode))
 
 (use-package marginalia
   :demand 1
@@ -101,6 +114,7 @@
 
 (use-package orderless
   :custom
+  ;; These are minibuffer custom variables, but tailored for orderless
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
