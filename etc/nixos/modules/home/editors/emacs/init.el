@@ -334,7 +334,6 @@
                 (olivetti-mode t)
                 (org-modern-mode t)
                 (indent-bars-mode -1)
-                (visual-line-mode -1)
                 (diff-hl-margin-mode -1)))
   :config
   (dolist (face '((org-level-1 . 1.35)
@@ -366,5 +365,4 @@
 
 (use-package olivetti
   :custom
-  (olivetti-style nil)
-  (olivetti-body-width 80))
+  (olivetti-style nil))
