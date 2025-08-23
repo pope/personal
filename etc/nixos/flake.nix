@@ -214,10 +214,16 @@
             cmd="''${2:-boot}"
             nixos-rebuild --flake .#$host --target-host $host.lan --sudo $cmd |& nom
           '';
+          backup-git-repos = pkgs.writeShellScriptBin "backup-git-repos" ''
+            ${getExe pkgs.rsync} -zav --no-links --delete \
+                root@shifteleven.com:/home/git/ \
+                /media/cyberia/code/git/
+          '';
         in
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
+              backup-git-repos
               deadnix
               nixpkgs-fmt
               nixos-rebuild-remote
