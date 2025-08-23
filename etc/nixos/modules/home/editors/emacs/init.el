@@ -102,8 +102,7 @@
 (use-package orderless
   :custom
   (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package consult
   :bind (:map global-map
