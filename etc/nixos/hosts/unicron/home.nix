@@ -44,7 +44,10 @@
       font = "Sans 10";
     };
     editors = {
-      emacs.enable = true;
+      emacs = {
+        enable = true;
+        useSymlink = true;
+      };
       vscode.enable = true;
       neovim.enable = true;
     };
