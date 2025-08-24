@@ -10,7 +10,7 @@ To configure emacs while also commenting and documenting the process for the set
 
 * Methodology
 
-My idea for this config is one part Nix, one part Emacs with [[elisp:(describe-function 'use-package)][=use-package=]]. Nix will supply all of the dependency emacs packages, and =use-pacakge= will be used to configure things.
+My idea for this config is one part Nix, one part Emacs with [[elisp:(describe-function 'use-package)][use-package]]. Nix will supply all of the dependency emacs packages, and =use-pacakge= will be used to configure things.
 
 While Emacs can run in server-mode, I still want the editor to load as quickly as possible. So I will try to lazy load as much as possible when I can - even to the point it may be aggressive.
 
@@ -46,7 +46,7 @@ References:
 
 ** Color Theme
 
-Using the [[https://github.com/doomemacs/themes][=doom-themes=]]. It's a nice set of themes, though it doesn't contain Catppuccin or Rose-Pine. This is in the core settings and not UI primarily because we want this to happen as early as possible. If not, we can get a flash of white as Emacs loads.
+Using [[https://github.com/doomemacs/themes][doom-themes]]. It's a nice set of themes, though it doesn't contain Catppuccin or Rose-Pine. This is in the core settings and not UI primarily because we want this to happen as early as possible. If not, we can get a flash of white as Emacs loads.
 
 #+begin_src emacs-lisp
   (use-package doom-themes
@@ -189,7 +189,7 @@ The minibuffer package, which is built into Emacs, allows for all sort of comple
 
 *** Vertico
 
-[[https://github.com/minad/vertico][=vertico=]] positions completions in a vertical column in the minibuffer.
+[[https://github.com/minad/vertico][Vertico]] positions completions in a vertical column in the minibuffer.
 
 #+begin_src emacs-lisp
   (use-package vertico
@@ -236,7 +236,7 @@ The vertico docs also recommend the following configs
 
 *** Marginalia
 
-[[https://github.com/minad/marginalia][=marginalia=]] adds extra context in the minibuffer for whatever is being completed.
+[[https://github.com/minad/marginalia][Marginalia]] adds extra context in the minibuffer for whatever is being completed.
 
 #+begin_src emacs-lisp
   (use-package marginalia
@@ -248,7 +248,7 @@ The vertico docs also recommend the following configs
 
 *** Orderless
 
-[[https://github.com/oantolin/orderless][=orderless=]] is a package that divides completion patterns by spaces to match the components in order.
+[[https://github.com/oantolin/orderless][Orderless]] is a package that divides completion patterns by spaces to match the components in order.
 
 #+begin_src emacs-lisp
   (use-package orderless
@@ -261,7 +261,7 @@ The vertico docs also recommend the following configs
 
 *** Consult
 
-[[https://github.com/minad/consult][=consult=]] provides search and navigation with completion functions. The consult documentation includes a lot more options than I'm using now - so I will revisit to see if I want to add more.
+[[https://github.com/minad/consult][Consult]] provides search and navigation with completion functions. The consult documentation includes a lot more options than I'm using now - so I will revisit to see if I want to add more.
 
 #+begin_src emacs-lisp
   (use-package consult
@@ -277,7 +277,7 @@ The vertico docs also recommend the following configs
 
 *** Embark
 
-[[https://github.com/oantolin/embark][=embark=]] provides mini-buffer actions for a target point.
+[[https://github.com/oantolin/embark][Embark]] provides mini-buffer actions for a target point.
 
 #+begin_src emacs-lisp
   (use-package embark
@@ -307,7 +307,7 @@ Then we can join embark and consult together
 
 *** Corfu
 
-[[https://github.com/minad/corfu][=corfu=]] does in-buffer completions with a pop-up.
+[[https://github.com/minad/corfu][Corfu]] does in-buffer completions with a pop-up.
 
 #+begin_src emacs-lisp
   (use-package corfu
@@ -344,7 +344,7 @@ The settings above work fine in GUI mode, but for terminal, we need a separate p
 
 *** Cape
 
-[[https://github.com/minad/cape][=cape=]] provides additional =capf= backends. This is something to consider adding to my configuration.
+[[https://github.com/minad/cape][cape]] provides additional =capf= backends. This is something to consider adding to my configuration.
 
 * The UI
 
