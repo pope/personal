@@ -597,18 +597,42 @@ I have a complex terminal setup - it's where I tend to do most of my work, and s
                 (toggle-truncate-lines 1))))
 #+end_src
 
-* Org Mode
+* Documents
+
+For documents, I want them to look like text documents and not fixed-width blocks of code (that is, unless we are showing off code). To that end, Org and Markdown docs will get a little special formatting with =variable-pitch-mode=.
+
+There is some setup that can apply to both. So the first thing to do, set the default variable fonts. This is part of the =:custom-face= part of =use-package= so that they can still be customized per device.
+
+I did try to set =fixed-pitch= to inherit from =default=, but that didn't seem to work. So if customizing one, customize the other to match.
+
+#+begin_src emacs-lisp
+  (use-package emacs
+    :custom-face
+    (default (nil (:font "Monospace")))
+    (fixed-pitch (nil (:font "Monospace")))
+    (variable-pitch (nil (:family "Sans Serif") (:height 1.2)))
+    :config
+    (set-face-attribute 'line-number nil :inherit 'fixed-pitch :height 0.9)
+    (set-face-attribute 'line-number-current-line nil
+                        :inherit 'fixed-pitch :height 0.9))
+#+end_src
+
+:NOTE:
+The line number fonts also needed to be set to a fixed-pitch so that when they are present, they doesn't start creating wavy lines when aligning the fonts.
+:END:
+
+With that out of the way, we can get to our modes.
+
+** Org Mode
 
 This section is /heavily/ influenced by [[https://sophiebos.io/posts/beautifying-emacs-org-mode/][Beautifying Emacs Org Mode]] post. It adds some extra font goodness when using the GUI.
 
-** The setup
+*** The setup
 
 This is the basic structure that we will follow to fill out the =org-mode= settings.
 
 #+begin_src emacs-lisp :noweb yes
   (use-package org
-    :custom-face
-    <<set-fonts>>
     :custom
     <<text-tweaks>>
     :hook
@@ -623,20 +647,9 @@ This is the basic structure that we will follow to fill out the =org-mode= setti
 =noweb= is a feature of =org-tangle= that does the replacement for values inside of the backets, referenced by name. Each reference has a =:cache no= so that the expression isn't evaluated - and thus substituted right in.
 :END:
 
-** Fonts
+*** Fonts
 
-So the first thing to do, set the default variable fonts. This is part of the =:custom-face= part of =use-package= so that they can still be customized per device.
-
-I did try to set =fixed-pitch= to inherit from =default=, but that didn't seem to work. So if customizing one, customize the other to match.
-
-#+name: set-fonts
-#+begin_src emacs-lisp :cache no :tangle no
-  (default (nil (:font "Monospace")))
-  (fixed-pitch (nil (:font "Monospace")))
-  (variable-pitch (nil (:family "Sans Serif") (:height 1.2)))
-#+end_src
-
-After that, we can set custom font sizes for each org heading level and document title.
+We can set custom font sizes for each org heading level and document title.
 
 #+name: org-headings
 #+begin_src emacs-lisp :cache no :tangle no
@@ -664,10 +677,6 @@ Next up, let's make code blocks fixed pitched
   (set-face-attribute 'org-meta-line nil
                       :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-
-  (set-face-attribute 'line-number nil :inherit 'fixed-pitch :height 0.9)
-  (set-face-attribute 'line-number-current-line nil
-                      :inherit 'fixed-pitch :height 0.9)
 #+end_src
 
 If =org-indent= mode is used, we need to inherit from fixed-pitch as to not have funky alignment issues with mixed font widths.
@@ -685,7 +694,7 @@ Lastly, make sure these fonts get set when org-mode starts
   (org-mode . variable-pitch-mode)
 #+end_src
 
-** Customization
+*** Text Tweaks
 
 #+name: text-tweaks
 #+begin_src emacs-lisp :cache no :tangle no
@@ -694,17 +703,9 @@ Lastly, make sure these fonts get set when org-mode starts
   (org-pretty-entities t)
 #+end_src
 
-** UI
+*** UI
 
-=olivetti= will center the org document in the window. And =org-modern-mode= to apply some interesting styles to things.
-
-#+begin_src emacs-lisp
-  (use-package olivetti
-    :custom
-    (olivetti-style nil))
-#+end_src
-
-Now when =org-mode= is activated, we can enable those two libraries, but there are some modes that need to be disabled.
+=olivetti= will center the org document in the window. And =org-modern-mode= to apply some interesting styles to things. Now when =org-mode= is activated, we can enable those two libraries, but there are some modes that need to be disabled.
 
 - =diff-hl-margin-mode=  :: funky in both visuals and in performance, though it does conflict some with org-modern-mode visuals right now.
 - =indent-bars-mode= :: Disabling this doesn't really feel like it's working, but it does add a little bit of visual noise.
@@ -716,4 +717,31 @@ Now when =org-mode= is activated, we can enable those two libraries, but there a
                 (org-modern-mode t)
                 (indent-bars-mode -1)
                 (diff-hl-margin-mode -1)))
+#+end_src
+
+** Markdown
+
+And then for the Markdown files, it's much the same thing, so details will be light since it's mainly the equivilent of above.
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :custom
+    (markdown-enable-highlighting-syntax t)
+    (markdown-fontify-code-blocks-natively t)
+    (markdown-hide-markup t)
+    :config
+    (dolist (face '((markdown-header-face-1 . 1.35)
+                    (markdown-header-face-2 . 1.3)
+                    (markdown-header-face-3 . 1.2)
+                    (markdown-header-face-4 . 1.1)
+                    (markdown-header-face-5 . 1.1)
+                    (markdown-header-face-6 . 1.1)))
+      (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+    (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)
+    :hook
+    (markdown-mode . (lambda ()
+                       (variable-pitch-mode t)
+                       (olivetti-mode t)
+                       (indent-bars-mode -1)
+                       (diff-hl-margin-mode -1))))
 #+end_src

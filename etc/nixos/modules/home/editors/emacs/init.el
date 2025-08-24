@@ -319,11 +319,17 @@
               (visual-line-mode -1)
               (toggle-truncate-lines 1))))
 
-(use-package org
+(use-package emacs
   :custom-face
   (default (nil (:font "Monospace")))
   (fixed-pitch (nil (:font "Monospace")))
   (variable-pitch (nil (:family "Sans Serif") (:height 1.2)))
+  :config
+  (set-face-attribute 'line-number nil :inherit 'fixed-pitch :height 0.9)
+  (set-face-attribute 'line-number-current-line nil
+                      :inherit 'fixed-pitch :height 0.9))
+
+(use-package org
   :custom
   (org-hide-leading-stars t)
   (org-hide-emphasis-markers t)
@@ -353,16 +359,29 @@
                       :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-meta-line nil
                       :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-  
-  (set-face-attribute 'line-number nil :inherit 'fixed-pitch :height 0.9)
-  (set-face-attribute 'line-number-current-line nil
-                      :inherit 'fixed-pitch :height 0.9))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 (use-package org-indent
   :config
   (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
 
-(use-package olivetti
+(use-package markdown-mode
   :custom
-  (olivetti-style nil))
+  (markdown-enable-highlighting-syntax t)
+  (markdown-fontify-code-blocks-natively t)
+  (markdown-hide-markup t)
+  :config
+  (dolist (face '((markdown-header-face-1 . 1.35)
+                  (markdown-header-face-2 . 1.3)
+                  (markdown-header-face-3 . 1.2)
+                  (markdown-header-face-4 . 1.1)
+                  (markdown-header-face-5 . 1.1)
+                  (markdown-header-face-6 . 1.1)))
+    (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+  (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)
+  :hook
+  (markdown-mode . (lambda ()
+                     (variable-pitch-mode t)
+                     (olivetti-mode t)
+                     (indent-bars-mode -1)
+                     (diff-hl-margin-mode -1))))
