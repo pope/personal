@@ -610,15 +610,36 @@ I did try to set =fixed-pitch= to inherit from =default=, but that didn't seem t
     :custom-face
     (default (nil (:font "Monospace")))
     (fixed-pitch (nil (:font "Monospace")))
-    (variable-pitch (nil (:family "Sans Serif") (:height 1.2)))
-    :config
+    (variable-pitch (nil (:family "Sans Serif") (:height 1.2))))
+#+end_src
+
+** Prework: Font Faces
+
+For any =set-face-attribute= calls that we add below, we are going to capture those in a new function. This is because there are times when I try loading a theme that the theme overwrites what I have. By keeping them in a function we recall those settings.
+
+#+begin_src emacs-lisp :noweb yes
+  (defun pope-set-document-faces (&optional theme)
+    (interactive)
+    ;; Ensure line numbers have fixed pitchs so that left alignment
+    ;; isn't wonky
     (set-face-attribute 'line-number nil :inherit 'fixed-pitch :height 0.9)
     (set-face-attribute 'line-number-current-line nil
-                        :inherit 'fixed-pitch :height 0.9))
+                        :inherit 'fixed-pitch :height 0.9)
+
+    ;; org-mode faces. If one face exists, set them all
+    (when (facep 'org-default)
+      <<org-headings>>
+      <<org-fixed-pitch-faces>>)
+
+    ;; markdown-mode faces
+    (when (facep 'markdown-header-face)
+      <<markdown-faces>>))
+
+  (add-hook 'enable-theme-functions #'pope-set-document-faces)
 #+end_src
 
 :NOTE:
-The line number fonts also needed to be set to a fixed-pitch so that when they are present, they doesn't start creating wavy lines when aligning the fonts.
+=noweb= is a feature of =org-tangle= that does the replacement for values inside of the backets, referenced by name. Each reference has a =:cache no= so that the expression isn't evaluated - and thus substituted right in.
 :END:
 
 With that out of the way, we can get to our modes.
@@ -639,13 +660,8 @@ This is the basic structure that we will follow to fill out the =org-mode= setti
     <<font-hooks>>
     <<ui-hooks>>
     :config
-    <<org-headings>>
-    <<org-fixed-pitch-faces>>)
+    (pope-set-document-faces))
 #+end_src
-
-:NOTE:
-=noweb= is a feature of =org-tangle= that does the replacement for values inside of the backets, referenced by name. Each reference has a =:cache no= so that the expression isn't evaluated - and thus substituted right in.
-:END:
 
 *** Fonts
 
@@ -723,25 +739,30 @@ Lastly, make sure these fonts get set when org-mode starts
 
 And then for the Markdown files, it's much the same thing, so details will be light since it's mainly the equivilent of above.
 
+#+name: markdown-faces
+#+begin_src emacs-lisp :cache no :tangle no
+  (dolist (face '((markdown-header-face-1 . 1.35)
+                  (markdown-header-face-2 . 1.3)
+                  (markdown-header-face-3 . 1.2)
+                  (markdown-header-face-4 . 1.1)
+                  (markdown-header-face-5 . 1.1)
+                  (markdown-header-face-6 . 1.1)))
+    (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+  (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)
+#+end_src
+
 #+begin_src emacs-lisp
   (use-package markdown-mode
     :custom
     (markdown-enable-highlighting-syntax t)
     (markdown-fontify-code-blocks-natively t)
     (markdown-hide-markup t)
-    :config
-    (dolist (face '((markdown-header-face-1 . 1.35)
-                    (markdown-header-face-2 . 1.3)
-                    (markdown-header-face-3 . 1.2)
-                    (markdown-header-face-4 . 1.1)
-                    (markdown-header-face-5 . 1.1)
-                    (markdown-header-face-6 . 1.1)))
-      (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
-    (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)
     :hook
     (markdown-mode . (lambda ()
                        (variable-pitch-mode t)
                        (olivetti-mode t)
                        (indent-bars-mode -1)
-                       (diff-hl-margin-mode -1))))
+                       (diff-hl-margin-mode -1)))
+    :config
+    (pope-set-document-faces))
 #+end_src

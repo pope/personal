@@ -323,11 +323,49 @@
   :custom-face
   (default (nil (:font "Monospace")))
   (fixed-pitch (nil (:font "Monospace")))
-  (variable-pitch (nil (:family "Sans Serif") (:height 1.2)))
-  :config
+  (variable-pitch (nil (:family "Sans Serif") (:height 1.2))))
+
+(defun pope-set-document-faces (&optional theme)
+  (interactive)
+  ;; Ensure line numbers have fixed pitchs so that left alignment
+  ;; isn't wonky
   (set-face-attribute 'line-number nil :inherit 'fixed-pitch :height 0.9)
   (set-face-attribute 'line-number-current-line nil
-                      :inherit 'fixed-pitch :height 0.9))
+                      :inherit 'fixed-pitch :height 0.9)
+
+  ;; org-mode faces. If one face exists, set them all
+  (when (facep 'org-default)
+    (dolist (face '((org-level-1 . 1.35)
+                    (org-level-2 . 1.3)
+                    (org-level-3 . 1.2)
+                    (org-level-4 . 1.1)
+                    (org-level-5 . 1.1)
+                    (org-level-6 . 1.1)
+                    (org-level-7 . 1.1)
+                    (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+    (set-face-attribute 'org-document-title nil :weight 'bold :height 1.8)
+    (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil
+                        :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil
+                        :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
+
+  ;; markdown-mode faces
+  (when (facep 'markdown-header-face)
+    (dolist (face '((markdown-header-face-1 . 1.35)
+                    (markdown-header-face-2 . 1.3)
+                    (markdown-header-face-3 . 1.2)
+                    (markdown-header-face-4 . 1.1)
+                    (markdown-header-face-5 . 1.1)
+                    (markdown-header-face-6 . 1.1)))
+      (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+    (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)))
+
+(add-hook 'enable-theme-functions #'pope-set-document-faces)
 
 (use-package org
   :custom
@@ -342,24 +380,7 @@
                 (indent-bars-mode -1)
                 (diff-hl-margin-mode -1)))
   :config
-  (dolist (face '((org-level-1 . 1.35)
-                  (org-level-2 . 1.3)
-                  (org-level-3 . 1.2)
-                  (org-level-4 . 1.1)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
-  (set-face-attribute 'org-document-title nil :weight 'bold :height 1.8)
-  (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil
-                      :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil
-                      :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
+  (pope-set-document-faces))
 
 (use-package org-indent
   :config
@@ -370,18 +391,11 @@
   (markdown-enable-highlighting-syntax t)
   (markdown-fontify-code-blocks-natively t)
   (markdown-hide-markup t)
-  :config
-  (dolist (face '((markdown-header-face-1 . 1.35)
-                  (markdown-header-face-2 . 1.3)
-                  (markdown-header-face-3 . 1.2)
-                  (markdown-header-face-4 . 1.1)
-                  (markdown-header-face-5 . 1.1)
-                  (markdown-header-face-6 . 1.1)))
-    (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
-  (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)
   :hook
   (markdown-mode . (lambda ()
                      (variable-pitch-mode t)
                      (olivetti-mode t)
                      (indent-bars-mode -1)
-                     (diff-hl-margin-mode -1))))
+                     (diff-hl-margin-mode -1)))
+  :config
+  (pope-set-document-faces))
