@@ -8,8 +8,8 @@ in
     enable = lib.mkEnableOption "Emacs text editor home options";
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.emacs30-pgtk;
-      defaultText = lib.literalExpression "pkgs.emacs30-pgtk";
+      default = pkgs.emacs-pgtk;
+      defaultText = lib.literalExpression "pkgs.emacs-nox";
       description = lib.mkDoc "Package of Emacs to use";
     };
     useSymlink = lib.mkEnableOption "Use a symlink for the init.el file";
