@@ -93,7 +93,7 @@
     terminals = {
       ghostty = {
         enable = true;
-        fontSize = 9;
+        fontSize = 10;
       };
       kitty.enable = false;
       foot = {
