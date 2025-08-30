@@ -31,7 +31,9 @@
   (save-place-mode t)
   :init
   (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
-        backup-directory-alist         `(("." . "~/.emacs.d/backups/"))))
+        backup-directory-alist         `(("." . "~/.emacs.d/backups/")))
+  :hook
+  (after-init . which-key-mode))
 
 (use-package emacs
   :custom
@@ -254,8 +256,7 @@
   (indent-bars-treesit-support t)
   (indent-bars-width-frac 0.1)
   (indent-bars-zigzag nil)
-  :config (require 'indent-bars-ts)
-  :hook (prog-mode . indent-bars-mode))
+  :config (require 'indent-bars-ts))
 
 (use-package doom-modeline
   :custom
