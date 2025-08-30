@@ -38,7 +38,6 @@ in
         onNotify = "${lib.getExe' pkgs.isync "mbsync"} shifteleven-admin";
         onNotifyPost = "${lib.getExe pkgs.notmuch} new && ${lib.getExe' pkgs.libnotify "notify-send"} 'New mail arrived'";
       };
-      meli.enable = true;
       mbsync = {
         enable = true;
         create = "maildir";
@@ -85,7 +84,6 @@ in
         };
       };
       mbsync.enable = true;
-      meli.enable = true;
       msmtp.enable = true;
       neomutt = {
         enable = true;

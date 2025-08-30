@@ -20,12 +20,11 @@ in
     programs.ssh = {
       enable = true;
 
-      controlMaster = "auto";
-      controlPersist = "5m";
-
       matchBlocks = {
         "*" = {
           match = ''host * exec "test -z $SSH_TTY"'';
+          controlMaster = "auto";
+          controlPersist = "5m";
           identityAgent = cfg.opIdentityAgent;
         };
 
