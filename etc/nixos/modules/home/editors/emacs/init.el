@@ -378,6 +378,7 @@
   (org-mode . (lambda ()
                 (olivetti-mode t)
                 (org-modern-mode t)
+                (display-line-numbers-mode -1)
                 (indent-bars-mode -1)
                 (diff-hl-margin-mode -1)))
   :config
