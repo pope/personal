@@ -31,7 +31,6 @@ in
         pkief.material-icon-theme
         pkief.material-product-icons
         rust-lang.rust-analyzer
-        twxs.cmake
         vscode-icons-team.vscode-icons
         vscodevim.vim
         yzhang.markdown-all-in-one
