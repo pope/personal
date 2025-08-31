@@ -19,13 +19,22 @@ in
   config = lib.mkIf cfg.enable {
     programs.ssh = {
       enable = true;
+      enableDefaultConfig = false;
 
       matchBlocks = {
         "*" = {
           match = ''host * exec "test -z $SSH_TTY"'';
+          addKeysToAgent = "no";
+          compression = false;
           controlMaster = "auto";
+          controlPath = "~/.ssh/master-%r@%n:%p";
           controlPersist = "5m";
+          forwardAgent = false;
+          hashKnownHosts = false;
           identityAgent = cfg.opIdentityAgent;
+          serverAliveCountMax = 3;
+          serverAliveInterval = 0;
+          userKnownHostsFile = "~/.ssh/known_hosts";
         };
 
         "*.lan *.local".forwardAgent = true;
