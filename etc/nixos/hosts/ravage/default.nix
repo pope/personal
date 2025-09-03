@@ -87,7 +87,7 @@
 
   # Power management
   services = {
-    logind.lidSwitch = "suspend-then-hibernate";
+    logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
     thermald.enable = true;
     tlp = {
       enable = true;

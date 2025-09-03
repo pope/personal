@@ -88,8 +88,10 @@
 
     # Must be explicitly false otherwise there's infinite recursion going on.
     tlp.enable = false;
-    logind.lidSwitch = "suspend-then-hibernate";
-    logind.lidSwitchExternalPower = "suspend";
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend-then-hibernate";
+      HandleLidSwitchExternalPower = "suspend";
+    };
     power-profiles-daemon.enable = true;
 
     hardware.bolt.enable = true;
