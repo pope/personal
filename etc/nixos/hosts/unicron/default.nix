@@ -121,6 +121,7 @@
     gaming = {
       enable = true;
       enableSteam = true;
+      ntsync = true;
       preferredOutput = "HDMI-A-2";
     };
     gpu.amd.enable = true;
