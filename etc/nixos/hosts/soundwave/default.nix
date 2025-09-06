@@ -125,6 +125,7 @@
     gaming = {
       enable = true;
       enableSteam = true;
+      ntsync = true;
     };
     gpu.nvidia.enable = true;
     ndi.enable = true;

@@ -46,9 +46,21 @@ in
         ];
       };
 
+      gamemode.enable = true;
+
       steam = {
         enable = cfg.enableSteam;
+        package = lib.mkIf cfg.ntsync (pkgs.steam.override {
+          extraEnv = {
+            MANGOHUD = true;
+            PROTON_ENABLE_WAYLAND = 1;
+            PROTON_USE_NTSYNC = 1;
+          };
+        });
         dedicatedServer.openFirewall = true;
+        extraCompatPackages = lib.mkIf cfg.ntsync (with pkgs; [
+          proton-ge-bin
+        ]);
         extraPackages = with pkgs; [
           gamemode
           gamescope
@@ -61,6 +73,7 @@ in
           };
         };
         localNetworkGameTransfers.openFirewall = true;
+        protontricks.enable = true;
         remotePlay.openFirewall = true;
       };
     };
