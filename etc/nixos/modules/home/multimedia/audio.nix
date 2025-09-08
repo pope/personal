@@ -107,6 +107,7 @@ in
       easytag
       lrcget
       puddletag
+      qpwgraph
       reaper
       tytools-latest
       vital
