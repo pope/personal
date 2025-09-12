@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.my.nixos.tailscale;
 in
@@ -18,6 +18,8 @@ in
     services.tailscale = {
       enable = true;
       authKeyFile = config.sops.secrets.tailscale-auth-key.path;
+      # TODO(pope): Remove. See https://github.com/NixOS/nixpkgs/issues/438765
+      package = pkgs.tailscale.overrideAttrs { doCheck = false; };
     };
     sops.secrets.tailscale-auth-key = { };
   };
