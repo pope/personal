@@ -19,9 +19,9 @@ in
   config = lib.mkIf cfg.enable {
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
       plugins = with pkgs; [
-        rofi-emoji-wayland
+        rofi-emoji
         rofi-calc
       ];
       font = "sans-serif ${builtins.toString cfg.fontSize}";

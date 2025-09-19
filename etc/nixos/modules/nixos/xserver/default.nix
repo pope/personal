@@ -52,6 +52,7 @@ in
       };
       desktopManager = {
         gnome.enable = cfg.gnome.enable;
+        pantheon.enable = cfg.pantheon.enable;
         plasma6.enable = cfg.kde.enable;
       };
 
@@ -62,8 +63,6 @@ in
           enable = cfg.displayManager == "lightdm";
           greeters.pantheon.enable = cfg.pantheon.enable;
         };
-
-        desktopManager.pantheon.enable = cfg.pantheon.enable;
 
         # Configure keymap in X11
         xkb = {
