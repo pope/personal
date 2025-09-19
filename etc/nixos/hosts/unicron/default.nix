@@ -107,6 +107,9 @@
     hardwareClockInLocalTime = true;
   };
 
+  virtualisation.docker.enable = true;
+  users.users.pope.extraGroups = [ "docker" ];
+
   musnix.enable = true;
   my.nixos = {
     mainUser = "pope";
