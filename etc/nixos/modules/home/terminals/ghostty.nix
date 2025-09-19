@@ -29,16 +29,16 @@ in
       settings =
         let
           theme =
-            if colorScheme == "rose-pine" then "rose-pine"
-            else if colorScheme == "catppuccin" then "catppuccin-mocha"
+            if colorScheme == "rose-pine" then "Rose Pine"
+            else if colorScheme == "catppuccin" then "Catppuccin Mocha"
             else if colorScheme == "dracula" then "Dracula"
-            else if colorScheme == "tokyonight" then "tokyonight"
+            else if colorScheme == "tokyonight" then "TokyoNight"
             else abort "invalid colorScheme";
         in
         {
           inherit theme;
           adjust-cell-height = "40%";
-          adw-toolbar-style = "flat";
+          gtk-toolbar-style = "flat";
           background-opacity = 0.95;
           background-blur-radius = 20;
           config-file = [ "?overrides" ];
@@ -47,8 +47,6 @@ in
             "monospace"
           ];
           font-size = cfg.fontSize;
-          gtk-adwaita = true;
-          gtk-single-instance = true; # default is "desktop"
           window-decoration = "auto";
           window-theme = "ghostty";
         };
