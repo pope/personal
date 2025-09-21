@@ -16,18 +16,18 @@ in
 
   renoise350 = prev.renoise.override (
     let
-      version = "350";
+      version = "352";
       releasePath =
         if prev.system == "x86_64-linux" then
           (prev.requireFile rec {
             name = "rns_${version}_linux_x86_64.tar.gz";
             url = "file:///media/cyberia/nix-files/software/${name}";
-            sha256 = "0li11vdg8cm8l3434lwrlmys78fac7ipfgsnd9ng6wmwdppwgqd0";
+            sha256 = "14ncyi3pzsbl5hy3gdrq62rk6r17mmxl7arnwxapaywz62j6gh2c";
           }) else
           (prev.requireFile rec {
             name = "rns_${version}_linux_arm64.tar.gz";
             url = "file:///media/cyberia/nix-files/software/${name}";
-            sha256 = "06i1nqzyhqrb7zh0d1mmy6wdkgp0sc13xkjy43ksc669k50cnjm5";
+            sha256 = "19jzjvnhic1nndj7xdphl5r79pc3qjbkjrxm0rbl0zjp8s73ici8";
           });
     in
     { inherit releasePath; }
