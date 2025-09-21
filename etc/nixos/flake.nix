@@ -219,6 +219,7 @@
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
+              self.packages.${system}.add-files-to-nix-store
               backup-git-repos
               deadnix
               nixpkgs-fmt

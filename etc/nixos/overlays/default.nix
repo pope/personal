@@ -10,6 +10,7 @@ in
   inherit (mypkgs) monolisa dank-mono ia-writer;
   inherit (mypkgs) sf-mono-font sf-mono-nf-liga sf-pro;
   inherit (mypkgs) iqm rbutil hatsune-miku-cursor p5r-grub shflags artcnn;
+  inherit (mypkgs) add-files-to-nix-store;
 
   tytools-latest = mypkgs.tytools;
 
