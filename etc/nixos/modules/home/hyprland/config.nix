@@ -163,10 +163,6 @@ in
         new_status = "master";
       };
 
-      gestures = {
-        workspace_swipe = false;
-      };
-
       bind = [
         "SUPER, Q, killactive"
         "SUPER SHIFT, Escape, exit"

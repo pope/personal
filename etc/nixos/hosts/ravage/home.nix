@@ -31,7 +31,6 @@
   };
 
   my.home = {
-    anyrun.enable = false;
     browsers = {
       chromium.enable = true;
       firefox.enable = true;
@@ -43,7 +42,7 @@
     };
     email.enable = true;
     dunst.enable = true;
-    dwl.enable = true;
+    dwl.enable = false;
     git.enable = true;
     gnome = {
       enable = true;
@@ -51,12 +50,15 @@
     };
     gtk.enable = true;
     hypridle.enable = true;
+    hyprland = {
+      enable = true;
+      enableBatterySaverMode = true;
+    };
     keymapp.enable = true;
     languages = {
       javascript.enable = true;
       python.enable = true;
     };
-    lf.enable = false;
     mpv = {
       enable = true;
       scale = 1;
