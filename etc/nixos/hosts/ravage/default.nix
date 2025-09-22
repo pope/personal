@@ -117,7 +117,13 @@
   };
   powerManagement.powertop.enable = true;
   systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
+    AllowHibernation=yes
+    AllowHybridSleep=yes
+    AllowSuspend=yes
+    AllowSuspendThenHibernate=yes
+    HibernateDelaySec=1h
+    SuspendEstimationSec=1h
+    SuspendState=mem
   '';
 
   # # Fingerprint
