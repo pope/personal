@@ -55,6 +55,7 @@ in
       };
     };
     mpris = {
+      player = "mpd";
       format = "{status_icon} {dynamic}";
       format-paused = "{status_icon} <i>{dynamic}</i>";
       dynamic-order = [ "title" "artist" "album" ];
