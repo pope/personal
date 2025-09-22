@@ -169,7 +169,8 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "gdm";
-      dwl.enable = true;
+      dwl.enable = false;
+      hyprland.enable = true;
       gnome.enable = true;
     };
   };
