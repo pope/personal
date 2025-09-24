@@ -2,7 +2,7 @@
 
 let
   cfg = config.my.home.anyrun;
-  anyrun = pkgs.anyrun;
+  inherit (pkgs) anyrun;
 in
 {
   options.my.home.anyrun = {
