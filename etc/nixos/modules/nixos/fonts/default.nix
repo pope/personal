@@ -40,6 +40,7 @@ in
       [
         comic-mono
         commit-mono
+        departure-mono
         fragment-mono
         geist-font
         go-font
@@ -48,6 +49,7 @@ in
         ia-writer
         ibm-plex
         inter
+        iosevka
         iosevka-comfy.comfy
         joypixels
         maple-mono-font
@@ -56,6 +58,8 @@ in
         nerd-fonts.lilex
         nerd-fonts.symbols-only
         open-sans
+        pixel-code
+        quinze
         roboto
         roboto-mono
         roboto-slab
@@ -65,6 +69,7 @@ in
         terminus_font
         victor-mono
         work-sans
+        zpix-pixel-font
       ] ++ custom-fonts;
 
       enableDefaultPackages = true;

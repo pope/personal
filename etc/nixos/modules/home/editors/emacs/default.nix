@@ -97,11 +97,13 @@ in
         fzf
         goto-chg
         indent-bars
+        kanagawa-themes
         ligature
         magit
         marginalia
         markdown-mode
         multiple-cursors
+        nano-theme
         nerd-icons
         nerd-icons-completion
         nerd-icons-corfu
@@ -115,8 +117,11 @@ in
         orderless
         org-modern
         org-superstar
+        pink-bliss-uwu-theme
         rg
+        sakura-theme
         treesit-grammars.with-all-grammars
+        uwu-theme
         vertico
         vterm
         web-mode
