@@ -282,6 +282,8 @@
         (yaml-mode        . yaml-ts-mode)
         (zig-mode         . zig-ts-mode)))
 
+(use-package cmake-ts-mode
+  :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 (use-package go-ts-mode
   :mode "\\.go\\'")
 (use-package rust-ts-mode

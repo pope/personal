@@ -531,6 +531,8 @@ Using =treesit-auto= is a common tool for doing the mapping above, but it also h
 Next up, there are some treesit modes that are available, but they do not autoload when visiting a buffer. So we shall address that next.
 
 #+begin_src emacs-lisp
+  (use-package cmake-ts-mode
+    :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
   (use-package go-ts-mode
     :mode "\\.go\\'")
   (use-package rust-ts-mode
