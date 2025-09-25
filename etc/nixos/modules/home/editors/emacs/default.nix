@@ -81,6 +81,7 @@ in
       inherit (cfg) package;
       extraPackages = epkgs: (with epkgs; [
         cape
+        catppuccin-theme
         clipetty
         consult
         corfu
