@@ -89,10 +89,7 @@
       ghostty.enable = true;
       foot.enable = true;
       kitty.enable = true;
-      wezterm = {
-        enable = true;
-        useWayland = true;
-      };
+      wezterm.enable = true;
     };
     theme.colorScheme = "tokyonight";
     tmux.enable = true;

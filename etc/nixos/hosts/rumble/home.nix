@@ -98,12 +98,9 @@
       kitty.enable = false;
       foot = {
         enable = true;
-        fontSize = 9;
+        fontSize = 10;
       };
-      wezterm = {
-        enable = false;
-        useWayland = true;
-      };
+      wezterm.enable = true;
     };
     theme.colorScheme = "catppuccin";
     tmux.enable = true;
