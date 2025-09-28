@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (config.my.nixos) mainUser;
   cfg = config.my.nixos.gaming;
 in
 {
@@ -52,7 +53,7 @@ in
         enable = cfg.enableSteam;
         package = lib.mkIf cfg.ntsync (pkgs.steam.override {
           extraEnv = {
-            MANGOHUD = true;
+            MANGOHUD = false;
             PROTON_ENABLE_WAYLAND = 1;
             PROTON_USE_NTSYNC = 1;
           };
@@ -79,14 +80,20 @@ in
     };
 
     # make ntsync device accessible
-    services.udev.packages =
-      lib.mkIf cfg.ntsync
-        [
-          (pkgs.writeTextFile {
-            name = "ntsync-udev-rules";
-            text = ''KERNEL=="ntsync", MODE="0660", TAG+="uaccess"'';
-            destination = "/etc/udev/rules.d/70-ntsync.rules";
-          })
-        ];
+    services = {
+      scx.enable = true;
+
+      udev.packages =
+        lib.mkIf cfg.ntsync
+          [
+            (pkgs.writeTextFile {
+              name = "ntsync-udev-rules";
+              text = ''KERNEL=="ntsync", MODE="0660", TAG+="uaccess"'';
+              destination = "/etc/udev/rules.d/70-ntsync.rules";
+            })
+          ];
+    };
+
+    users.users."${mainUser}".extraGroups = [ "gamemode" ];
   };
 }
