@@ -103,8 +103,10 @@ in
     ] ++ lib.optionals stdenv.isLinux [
       an-album-cover
       bitwig-studio
+      deadbeef-with-plugins
       easyaudiosync
       easytag
+      fooyin
       lrcget
       puddletag
       qpwgraph

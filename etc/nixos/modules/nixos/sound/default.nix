@@ -14,6 +14,14 @@ in
         enable = true;
         alsa.enable = true;
         alsa.support32Bit = true;
+        extraConfig.pipewire = {
+          "10-clock-rate" = {
+            "context.properties" = {
+              "default.clock.rate" = 48000;
+              "default.clock.allowed-rates" = [ 44100 48000 88200 96000 192000 ];
+            };
+          };
+        };
         jack.enable = true;
         pulse.enable = true;
         wireplumber.enable = true;
