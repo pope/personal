@@ -1,6 +1,7 @@
 { pkgs }:
 let
-  inherit (builtins) map filter attrNames readDir listToAttrs;
+  inherit ((import ../lib/umport.nix { inherit (pkgs) lib; })) umport;
+  inherit (builtins) map listToAttrs;
   augmentCallPackage = callPackage: defaultArgs: fn: extraArgs:
     let
       f = if builtins.isFunction fn then fn else import fn;
@@ -11,10 +12,15 @@ let
   callPackage = augmentCallPackage pkgs.callPackage { inherit nvsrcs; };
 in
 listToAttrs (map
-  (f: {
-    name = f;
-    value = callPackage (./. + "/${f}") { };
+  (f:
+  let
+    value = callPackage "${f}" { };
+  in
+  {
+    name = value.pname or value.name;
+    inherit value;
   })
-  (filter
-    (f: f != "default.nix" && f != "_sources" && f != "nvfetcher.toml")
-    (attrNames (readDir ./.))))
+  (umport {
+    path = ./.;
+    exclude = [ ./default.nix ./_sources ];
+  }))
