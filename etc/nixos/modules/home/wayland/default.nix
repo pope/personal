@@ -36,7 +36,53 @@ in
     # allow fontconfig to discover fonts and configurations installed through home.packages
     fonts.fontconfig.enable = true;
 
-    programs.wlogout.enable = true;
+    programs.wlogout = {
+      enable = true;
+      layout =
+        let
+          loginctl = lib.getExe' pkgs.systemd "loginctl";
+          systemctl = lib.getExe' pkgs.systemd "systemctl";
+          wayland-logout = lib.getExe pkgs.wayland-logout;
+        in
+        [
+          {
+            label = "lock";
+            action = "${loginctl} lock-session";
+            text = "Lock";
+            keybind = "l";
+          }
+          {
+            label = "hibernate";
+            action = "${systemctl} hibernate";
+            text = "Hibernate";
+            keybind = "h";
+          }
+          {
+            label = "logout";
+            action = "${wayland-logout}";
+            text = "Logout";
+            keybind = "e";
+          }
+          {
+            label = "shutdown";
+            action = "${systemctl} poweroff";
+            text = "Shutdown";
+            keybind = "s";
+          }
+          {
+            label = "suspend";
+            action = "${systemctl} suspend";
+            text = "Suspend";
+            keybind = "u";
+          }
+          {
+            label = "reboot";
+            action = "${systemctl} reboot";
+            text = "Reboot";
+            keybind = "r";
+          }
+        ];
+    };
 
     systemd.user.services = {
       polkit-gnome-authentication-agent-1 = {
