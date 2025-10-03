@@ -1,18 +1,25 @@
 { self }:
 
-(final: prev:
+(_final: prev:
 let
-  mypkgs = self.packages.${final.system};
-in
-{
-  inherit (mypkgs) fish-rose-pine fish-catppuccin fish-tokyonight;
-  inherit (mypkgs) comic-code-ligatures lucida-grande berkeley-mono;
-  inherit (mypkgs) monolisa dank-mono ia-writer;
-  inherit (mypkgs) sf-mono-font sf-mono-nf-liga sf-pro;
-  inherit (mypkgs) iqm rbutil hatsune-miku-cursor p5r-grub shflags artcnn;
-  inherit (mypkgs) add-files-to-nix-store;
+  inherit ((import ../lib/umport.nix { inherit (prev) lib; })) umport;
 
-  tytools-latest = mypkgs.tytools;
+  mypkgs = self.packages.${prev.system};
+
+  names = builtins.map
+    (f: prev.lib.strings.removeSuffix ".nix" (builtins.baseNameOf f))
+    (umport {
+      path = ../packages;
+      exclude = [ ../packages/default.nix ../packages/_sources ];
+    });
+  packages = builtins.listToAttrs (builtins.map
+    (name: {
+      inherit name;
+      value = mypkgs.${name};
+    })
+    names);
+in
+packages // {
 
   renoise350 = prev.renoise.override (
     let

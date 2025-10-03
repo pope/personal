@@ -1,7 +1,6 @@
 { pkgs }:
 let
   inherit ((import ../lib/umport.nix { inherit (pkgs) lib; })) umport;
-  inherit (builtins) map listToAttrs;
   augmentCallPackage = callPackage: defaultArgs: fn: extraArgs:
     let
       f = if builtins.isFunction fn then fn else import fn;
@@ -11,13 +10,13 @@ let
   nvsrcs = pkgs.callPackage ./_sources/generated.nix { };
   callPackage = augmentCallPackage pkgs.callPackage { inherit nvsrcs; };
 in
-listToAttrs (map
+builtins.listToAttrs (map
   (f:
   let
     value = callPackage "${f}" { };
   in
   {
-    name = value.pname or value.name;
+    name = pkgs.lib.strings.removeSuffix ".nix" (builtins.baseNameOf f);
     inherit value;
   })
   (umport {
