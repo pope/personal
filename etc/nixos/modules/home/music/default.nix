@@ -6,6 +6,19 @@ in
 {
   options.my.home.music = {
     enable = lib.mkEnableOption "music listening home options";
+    musicDirectory = lib.mkOption {
+      type = with lib.types; either path str;
+      default = config.xdg.userDirs.music;
+      defaultText = "\${config.xdg.userDirs.music}";
+      apply = toString; # Prevent copies to Nix store.
+      description = lib.mkDoc ''
+        The music directory for songs and lyrics.
+
+        If [](#opt-xdg.userDirs.enable) is
+        `true` then the defined XDG music directory is used.
+        Otherwise, you must explicitly specify a value.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -23,7 +36,7 @@ in
           ),
           cache_dir: Some("${config.xdg.dataHome}/rmpc"),
           enable_mouse: true,
-          lyrics_dir: Some("${config.xdg.userDirs.music}"),
+          lyrics_dir: Some("${cfg.musicDirectory}"),
           tabs: [
             (
               name: "Queue",
@@ -79,6 +92,7 @@ in
             name "PipeWire Output"
           }
         '';
+        inherit (cfg) musicDirectory;
         network.startWhenNeeded = true;
       };
       mpd-mpris.enable = true;

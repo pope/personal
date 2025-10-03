@@ -83,7 +83,10 @@
       };
       video.enable = false;
     };
-    music.enable = true;
+    music = {
+      enable = true;
+      musicDirectory = "/media/cyberia/Public/Hi-Fi Music/";
+    };
     obs.enable = true;
     packages.enable = true;
     rofi.enable = true;
