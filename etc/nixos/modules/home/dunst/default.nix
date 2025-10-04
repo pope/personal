@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.dunst;
@@ -74,7 +79,9 @@ in
           mouse_right_click = "close_current";
         };
 
-        fullscreen_delay_everything = { fullscreen = "delay"; };
+        fullscreen_delay_everything = {
+          fullscreen = "delay";
+        };
         # logger = {
         #   summary = "*";
         #   body = "*";

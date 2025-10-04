@@ -1,4 +1,10 @@
-{ getopt, nvsrcs, runtimeShell, stdenvNoCC, ... }:
+{
+  getopt,
+  nvsrcs,
+  runtimeShell,
+  stdenvNoCC,
+  ...
+}:
 
 let
   source = nvsrcs.shflags;

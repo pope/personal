@@ -1,10 +1,11 @@
 # From https://github.com/NixOS/nixpkgs/pull/385393
 # This was rolled-back due to MacOS issues. Going to roll with it for now
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, qt6
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  qt6,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,16 +1,21 @@
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  imports = map
-    (p: ./. + "/${p}")
-    (builtins.filter
-      (p: p != "default.nix")
-      (builtins.attrNames (builtins.readDir ./.)));
+  imports = map (p: ./. + "/${p}") (
+    builtins.filter (p: p != "default.nix") (builtins.attrNames (builtins.readDir ./.))
+  );
 in
 {
   imports = [
     inputs.nix-colors.homeManagerModules.default
-  ] ++ imports;
+  ]
+  ++ imports;
 
   config.nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
@@ -19,7 +24,10 @@ in
     settings = {
       auto-optimise-store = true;
       builders-use-substitutes = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       extra-substituters = [
         "https://nix-community.cachix.org"
         "https://nixpkgs-wayland.cachix.org"

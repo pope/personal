@@ -93,21 +93,35 @@ in
             desc = "Goto buffer ${toString num}";
           };
         in
-        mkLazyKeys ([
-          (bufferkeymap "Goto previous buffer" "," "BufferPrevious")
-          (bufferkeymap "Goto next buffer" "." "BufferNext")
-          (bufferkeymap "Goto last buffer" "0" "BufferLast")
+        mkLazyKeys (
+          [
+            (bufferkeymap "Goto previous buffer" "," "BufferPrevious")
+            (bufferkeymap "Goto next buffer" "." "BufferNext")
+            (bufferkeymap "Goto last buffer" "0" "BufferLast")
 
-          (bufferkeymap "Reorder to previous buffer" "<" "BufferMovePrevious")
-          (bufferkeymap "Reorder to next buffer" ">" "BufferMoveNext")
+            (bufferkeymap "Reorder to previous buffer" "<" "BufferMovePrevious")
+            (bufferkeymap "Reorder to next buffer" ">" "BufferMoveNext")
 
-          (bufferkeymap "Close buffer" "c" "BufferClose")
-        ] ++ (map gotokeymap [ 1 2 3 4 5 6 7 8 9 ]));
-      init = /* lua */ ''
-        function()
-          vim.g.barbar_auto_setup = false
-        end
-      '';
+            (bufferkeymap "Close buffer" "c" "BufferClose")
+          ]
+          ++ (map gotokeymap [
+            1
+            2
+            3
+            4
+            5
+            6
+            7
+            8
+            9
+          ])
+        );
+      init = # lua
+        ''
+          function()
+            vim.g.barbar_auto_setup = false
+          end
+        '';
       config = true;
       lazy = false;
     }
@@ -123,12 +137,18 @@ in
     }
     {
       pkg = nvim-colorizer-lua;
-      event = [ "BufReadPost" "BufNewFile" ];
+      event = [
+        "BufReadPost"
+        "BufNewFile"
+      ];
       opts.user_default_options.mode = "virtualtext";
     }
     {
       pkg = indent-blankline-nvim;
-      event = [ "BufReadPost" "BufNewFile" ];
+      event = [
+        "BufReadPost"
+        "BufNewFile"
+      ];
       main = "ibl";
       opts.indent.char = "┊";
       opts.whitespace.remove_blankline_trail = false;
@@ -149,7 +169,10 @@ in
     }
     {
       pkg = noice-nvim;
-      dependencies = [ nui-nvim nvim-notify ];
+      dependencies = [
+        nui-nvim
+        nvim-notify
+      ];
       event = [ "VeryLazy" ];
       opts.routes = [
         {

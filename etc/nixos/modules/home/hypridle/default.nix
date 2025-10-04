@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.hypridle;
@@ -24,42 +29,40 @@ in
       enable = true;
       settings = {
         general = {
-          after_sleep_cmd = lib.optionalString
-            config.my.home.hyprland.enable
-            "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+          after_sleep_cmd = lib.optionalString config.my.home.hyprland.enable "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
           before_sleep_cmd =
-            (lib.optionalString
-              config.my.home.hyprland.enable
-              "${pkgs.hyprland}/bin/hyprctl dispatch dpms off;")
+            (lib.optionalString config.my.home.hyprland.enable "${pkgs.hyprland}/bin/hyprctl dispatch dpms off;")
             + "${pkgs.systemd}/bin/loginctl lock-session";
           ignore_dbus_inhibit = false;
           ignore_systemd_inhibit = false;
           lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         };
-        listener = lib.optionals cfg.withPowerProfiles [
-          {
-            timeout = 180;
-            on-timeout = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver";
-            on-resume = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced";
-          }
-        ] ++ lib.optionals (!cfg.forDesktop) [
-          {
-            # Dim the brightness of the screen.
-            # The current value is stored so that when resumed, the brightness
-            # will go back up to the original value - animated over time.
-            timeout = 180;
-            on-timeout = "${pkgs.brillo}/bin/brillo -O; ${pkgs.brillo}/bin/brillo -u 1000000 -S 10";
-            on-resume = "${pkgs.brillo}/bin/brillo -I -u 500000";
-          }
-          {
-            timeout = 300;
-            on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
-          }
-          {
-            timeout = 360;
-            on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
-          }
-        ];
+        listener =
+          lib.optionals cfg.withPowerProfiles [
+            {
+              timeout = 180;
+              on-timeout = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver";
+              on-resume = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced";
+            }
+          ]
+          ++ lib.optionals (!cfg.forDesktop) [
+            {
+              # Dim the brightness of the screen.
+              # The current value is stored so that when resumed, the brightness
+              # will go back up to the original value - animated over time.
+              timeout = 180;
+              on-timeout = "${pkgs.brillo}/bin/brillo -O; ${pkgs.brillo}/bin/brillo -u 1000000 -S 10";
+              on-resume = "${pkgs.brillo}/bin/brillo -I -u 500000";
+            }
+            {
+              timeout = 300;
+              on-timeout = "${pkgs.systemd}/bin/loginctl lock-session";
+            }
+            {
+              timeout = 360;
+              on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
+            }
+          ];
       };
     };
 

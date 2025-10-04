@@ -5,20 +5,20 @@
 # This notice must be retained in all copies of this function, including modified versions!
 # The MIT License can be found here:
 # https://github.com/yunfachi/nypkgs/blob/master/LICENSE
-{ lib, ... }: {
+{ lib, ... }:
+{
   umport =
-    { path ? null
-    , paths ? [ ]
-    , include ? [ ]
-    , exclude ? [ ]
-    , recursive ? true
-    ,
+    {
+      path ? null,
+      paths ? [ ],
+      include ? [ ],
+      exclude ? [ ],
+      recursive ? true,
     }:
     let
       recursively =
         let
-          inherit
-            (lib.fileset)
+          inherit (lib.fileset)
             unions
             union
             difference
@@ -52,7 +52,5 @@
         in
         nixOnly;
     in
-    if recursive
-    then recursively
-    else nonRecursively;
+    if recursive then recursively else nonRecursively;
 }

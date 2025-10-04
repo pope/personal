@@ -1,4 +1,10 @@
-{ pkgs, helpers, lib, config, ... }:
+{
+  pkgs,
+  helpers,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.nixvim.theme;
@@ -6,7 +12,12 @@ in
 {
   options.my.nixvim.theme = {
     colorScheme = lib.mkOption {
-      type = lib.types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
+      type = lib.types.enum [
+        "rose-pine"
+        "catppuccin"
+        "dracula"
+        "tokyonight"
+      ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which color theme to use.
@@ -18,37 +29,41 @@ in
     {
       pkg = rose-pine;
       priority = 1000;
-      opts = helpers.mkRaw /* lua */ ''
-        function()
-          local p = require("rose-pine.palette")
-          return {
-            dark_variant = "main",
-            dim_inactive_windows = false,
-            extend_background_behind_borders = true,
-            styles = {
-              bold = true,
-              italic = true,
-              transparency = true,
-            },
-            highlight_groups = {
-              ColorColumn = { bg = p.highlight_low },
-              NonText = {
-                fg = p.highlight_med,
-                bg = p.none,
-              },
-              NotifyBackground = {
-                bg = p.overlay,
-              },
-            },
-          }
-        end
-      '';
+      opts =
+        helpers.mkRaw # lua
+          ''
+            function()
+              local p = require("rose-pine.palette")
+              return {
+                dark_variant = "main",
+                dim_inactive_windows = false,
+                extend_background_behind_borders = true,
+                styles = {
+                  bold = true,
+                  italic = true,
+                  transparency = true,
+                },
+                highlight_groups = {
+                  ColorColumn = { bg = p.highlight_low },
+                  NonText = {
+                    fg = p.highlight_med,
+                    bg = p.none,
+                  },
+                  NotifyBackground = {
+                    bg = p.overlay,
+                  },
+                },
+              }
+            end
+          '';
       config = ''
         function(_, opts)
           require('rose-pine').setup(opts)
-      '' + (lib.optionalString (cfg.colorScheme == "rose-pine") ''
+      ''
+      + (lib.optionalString (cfg.colorScheme == "rose-pine") ''
         vim.cmd('colorscheme rose-pine')
-      '') + ''
+      '')
+      + ''
         end
       '';
     }
@@ -74,20 +89,24 @@ in
         ufo = true;
         which_key = true;
       };
-      opts.custom_highlights = helpers.mkRaw /* lua */ ''
-        function(colors)
-          return {
-            ColorColumn = { bg = colors.surface0 },
-            NonText = { fg = colors.surface0 },
-          }
-        end
-      '';
+      opts.custom_highlights =
+        helpers.mkRaw # lua
+          ''
+            function(colors)
+              return {
+                ColorColumn = { bg = colors.surface0 },
+                NonText = { fg = colors.surface0 },
+              }
+            end
+          '';
       config = ''
         function(_, opts)
           require("catppuccin").setup(opts)
-      '' + (lib.optionalString (cfg.colorScheme == "catppuccin") ''
+      ''
+      + (lib.optionalString (cfg.colorScheme == "catppuccin") ''
         vim.cmd("colorscheme catppuccin")
-      '') + ''
+      '')
+      + ''
         end
       '';
     }
@@ -96,19 +115,23 @@ in
       priority = 1000;
       opts.transparent_bg = true;
       opts.italic_comment = true;
-      opts.overrides = helpers.mkRaw /* lua */ ''
-        function(colors)
-          return {
-            NotifyBackground = { bg = colors.bg },
-          }
-        end
-      '';
+      opts.overrides =
+        helpers.mkRaw # lua
+          ''
+            function(colors)
+              return {
+                NotifyBackground = { bg = colors.bg },
+              }
+            end
+          '';
       config = ''
         function(_, opts)
           require("dracula").setup(opts)
-      '' + (lib.optionalString (cfg.colorScheme == "dracula") ''
+      ''
+      + (lib.optionalString (cfg.colorScheme == "dracula") ''
         vim.cmd("colorscheme dracula")
-      '') + ''
+      '')
+      + ''
         end
       '';
     }
@@ -124,9 +147,11 @@ in
       config = ''
         function(_, opts)
           require("tokyonight").setup(opts)
-      '' + (lib.optionalString (cfg.colorScheme == "tokyonight") ''
+      ''
+      + (lib.optionalString (cfg.colorScheme == "tokyonight") ''
         vim.cmd("colorscheme tokyonight")
-      '') + ''
+      '')
+      + ''
         end
       '';
     }

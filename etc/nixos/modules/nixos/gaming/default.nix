@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.my.nixos) mainUser;
@@ -41,7 +46,8 @@ in
         capSysNice = true;
         args = [
           "--mangoapp"
-        ] ++ lib.optionals (cfg.preferredOutput != null) [
+        ]
+        ++ lib.optionals (cfg.preferredOutput != null) [
           "--prefer-output"
           cfg.preferredOutput
         ];
@@ -51,17 +57,22 @@ in
 
       steam = {
         enable = cfg.enableSteam;
-        package = lib.mkIf cfg.ntsync (pkgs.steam.override {
-          extraEnv = {
-            MANGOHUD = false;
-            PROTON_ENABLE_WAYLAND = 1;
-            PROTON_USE_NTSYNC = 1;
-          };
-        });
+        package = lib.mkIf cfg.ntsync (
+          pkgs.steam.override {
+            extraEnv = {
+              MANGOHUD = false;
+              PROTON_ENABLE_WAYLAND = 1;
+              PROTON_USE_NTSYNC = 1;
+            };
+          }
+        );
         dedicatedServer.openFirewall = true;
-        extraCompatPackages = lib.mkIf cfg.ntsync (with pkgs; [
-          proton-ge-bin
-        ]);
+        extraCompatPackages = lib.mkIf cfg.ntsync (
+          with pkgs;
+          [
+            proton-ge-bin
+          ]
+        );
         extraPackages = with pkgs; [
           gamemode
           gamescope
@@ -83,15 +94,13 @@ in
     services = {
       scx.enable = true;
 
-      udev.packages =
-        lib.mkIf cfg.ntsync
-          [
-            (pkgs.writeTextFile {
-              name = "ntsync-udev-rules";
-              text = ''KERNEL=="ntsync", MODE="0660", TAG+="uaccess"'';
-              destination = "/etc/udev/rules.d/70-ntsync.rules";
-            })
-          ];
+      udev.packages = lib.mkIf cfg.ntsync [
+        (pkgs.writeTextFile {
+          name = "ntsync-udev-rules";
+          text = ''KERNEL=="ntsync", MODE="0660", TAG+="uaccess"'';
+          destination = "/etc/udev/rules.d/70-ntsync.rules";
+        })
+      ];
     };
 
     users.users."${mainUser}".extraGroups = [ "gamemode" ];

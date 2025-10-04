@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.my.home.terminals.foot;
@@ -24,11 +29,16 @@ in
           include =
             let
               cs =
-                if colorScheme == "rose-pine" then "rose-pine"
-                else if colorScheme == "catppuccin" then "catppuccin-mocha"
-                else if colorScheme == "dracula" then "dracula"
-                else if colorScheme == "tokyonight" then "tokyonight-storm"
-                else abort "invalid theme";
+                if colorScheme == "rose-pine" then
+                  "rose-pine"
+                else if colorScheme == "catppuccin" then
+                  "catppuccin-mocha"
+                else if colorScheme == "dracula" then
+                  "dracula"
+                else if colorScheme == "tokyonight" then
+                  "tokyonight-storm"
+                else
+                  abort "invalid theme";
             in
             [ "${pkgs.foot.themes}/share/foot/themes/${cs}" ];
           box-drawings-uses-font-glyphs = true;

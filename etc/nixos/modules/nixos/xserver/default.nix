@@ -18,7 +18,12 @@ in
       default = "gdm";
       description = "Which display manager to use";
       example = "kde";
-      type = lib.types.enum [ "gdm" "sddm" "lightdm" "none" ];
+      type = lib.types.enum [
+        "gdm"
+        "sddm"
+        "lightdm"
+        "none"
+      ];
     };
 
     enableAutoLogin = lib.mkEnableOption "auto login of display manager";

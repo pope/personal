@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.gtk;
@@ -18,7 +23,13 @@ in
 
     darkTheme = lib.mkEnableOption "dark theme settings";
     theme = lib.mkOption {
-      type = lib.types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" "breeze" ];
+      type = lib.types.enum [
+        "rose-pine"
+        "catppuccin"
+        "dracula"
+        "tokyonight"
+        "breeze"
+      ];
       default = config.my.home.theme.colorScheme;
       description = lib.mkDoc ''
         Which theme to use with GTK.

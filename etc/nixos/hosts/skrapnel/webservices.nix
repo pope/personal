@@ -3,7 +3,10 @@
 {
   my.nixos.arrs.enable = true;
 
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 80 443 ];
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
+    80
+    443
+  ];
 
   services = {
     caddy = {
@@ -29,15 +32,18 @@
     glances.enable = true;
     homepage-dashboard = {
       enable = true;
-      allowedHosts = (lib.strings.concatMapStringsSep ","
-        (x: "${x}:${toString config.services.homepage-dashboard.listenPort}")
-        [
-          "localhost"
-          "127.0.0.1"
-          config.networking.hostName
-          "${config.networking.hostName}.lan"
-          "${config.networking.hostName}.local"
-        ]) + ",${config.networking.hostName}.gumiho-matrix.ts.net";
+      allowedHosts =
+        (lib.strings.concatMapStringsSep ","
+          (x: "${x}:${toString config.services.homepage-dashboard.listenPort}")
+          [
+            "localhost"
+            "127.0.0.1"
+            config.networking.hostName
+            "${config.networking.hostName}.lan"
+            "${config.networking.hostName}.local"
+          ]
+        )
+        + ",${config.networking.hostName}.gumiho-matrix.ts.net";
       openFirewall = true;
       settings = {
         title = "Skrapnel Homepage";
@@ -78,19 +84,44 @@
               port = toString config.services.glances.port;
               graphs = [
                 # Row 1
-                { name = "Info"; metric = "info"; }
-                { name = "CPU"; metric = "cpu"; }
-                { name = "CPU Temp"; metric = "sensor:Package id 0"; }
-                { name = "Processes"; metric = "process"; }
+                {
+                  name = "Info";
+                  metric = "info";
+                }
+                {
+                  name = "CPU";
+                  metric = "cpu";
+                }
+                {
+                  name = "CPU Temp";
+                  metric = "sensor:Package id 0";
+                }
+                {
+                  name = "Processes";
+                  metric = "process";
+                }
                 # Row 2
-                { name = "Network"; metric = "network:enp2s0"; }
-                { name = "Memory"; metric = "memory"; }
-                { name = "Cyberia I/O"; metric = "disk:sda"; }
-                { name = "Cyberia Space"; metric = "fs:/mnt/Cyberia"; }
+                {
+                  name = "Network";
+                  metric = "network:enp2s0";
+                }
+                {
+                  name = "Memory";
+                  metric = "memory";
+                }
+                {
+                  name = "Cyberia I/O";
+                  metric = "disk:sda";
+                }
+                {
+                  name = "Cyberia Space";
+                  metric = "fs:/mnt/Cyberia";
+                }
               ];
             in
-            map
-              ({ name, metric }: {
+            map (
+              { name, metric }:
+              {
                 "${name}" = {
                   widget = {
                     inherit metric;
@@ -101,32 +132,44 @@
                     version = 4;
                   };
                 };
-              })
-              graphs;
+              }
+            ) graphs;
         }
         {
           Arrs =
             let
               links = [
-                { name = "Prowlarr"; service = "prowlarr"; }
-                { name = "Radarr"; service = "radarr"; }
-                { name = "Lidarr"; service = "lidarr"; }
-                { name = "Sonarr"; service = "sonarr"; }
+                {
+                  name = "Prowlarr";
+                  service = "prowlarr";
+                }
+                {
+                  name = "Radarr";
+                  service = "radarr";
+                }
+                {
+                  name = "Lidarr";
+                  service = "lidarr";
+                }
+                {
+                  name = "Sonarr";
+                  service = "sonarr";
+                }
               ];
             in
-            map
-              ({ name, service }:
-                let
-                  inherit (config.services.${service}.settings.server) port;
-                in
-                {
-                  "${name}" = rec {
-                    href = "http://${config.networking.hostName}:${toString port}";
-                    icon = service;
-                    siteMonitor = href;
-                  };
-                })
-              links;
+            map (
+              { name, service }:
+              let
+                inherit (config.services.${service}.settings.server) port;
+              in
+              {
+                "${name}" = rec {
+                  href = "http://${config.networking.hostName}:${toString port}";
+                  icon = service;
+                  siteMonitor = href;
+                };
+              }
+            ) links;
         }
         {
           Misc = [

@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.multimedia.audio;
@@ -97,22 +102,25 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      convert_48khz
-      convert_to_opus
-    ] ++ lib.optionals stdenv.isLinux [
-      an-album-cover
-      bitwig-studio
-      deadbeef-with-plugins
-      easyaudiosync
-      easytag
-      fooyin
-      lrcget
-      puddletag
-      qpwgraph
-      reaper
-      tytools-latest
-      vital
-    ];
+    home.packages =
+      with pkgs;
+      [
+        convert_48khz
+        convert_to_opus
+      ]
+      ++ lib.optionals stdenv.isLinux [
+        an-album-cover
+        bitwig-studio
+        deadbeef-with-plugins
+        easyaudiosync
+        easytag
+        fooyin
+        lrcget
+        puddletag
+        qpwgraph
+        reaper
+        tytools-latest
+        vital
+      ];
   };
 }

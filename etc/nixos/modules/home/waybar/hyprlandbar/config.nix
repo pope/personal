@@ -1,4 +1,8 @@
-{ config, pkgs, hyprland }:
+{
+  config,
+  pkgs,
+  hyprland,
+}:
 
 let
   color = config.my.home.theme.colors.withHash;
@@ -84,7 +88,13 @@ in
       format-alt = "{icon} {time}";
       # "format-good"= "", # An empty format will hide the module
       # "format-full"= "";
-      format-icons = [ " " " " " " " " " " ];
+      format-icons = [
+        " "
+        " "
+        " "
+        " "
+        " "
+      ];
     };
 
     memory = {
@@ -144,7 +154,13 @@ in
     pulseaudio = {
       format = "{icon} {volume}%";
       format-muted = "";
-      format-icons = { default = [ "" "" "" ]; };
+      format-icons = {
+        default = [
+          ""
+          ""
+          ""
+        ];
+      };
       scroll-step = 1;
       on-click-right = pavucontrol;
       tooltip = false;

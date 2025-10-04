@@ -2,21 +2,25 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.musnix.nixosModules.musnix
-      inputs.nixos-hardware.nixosModules.common-cpu-amd
-      inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-      inputs.nixos-hardware.nixosModules.common-gpu-amd
-      inputs.nixos-hardware.nixosModules.common-pc
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.musnix.nixosModules.musnix
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.overlays = [
     self.overlays.default
@@ -71,7 +75,10 @@
     "/media/games" = {
       device = "/dev/nvme1n1p4";
       fsType = "ntfs-3g";
-      options = [ "rw" "uid=pope" ];
+      options = [
+        "rw"
+        "uid=pope"
+      ];
     };
   };
   environment.systemPackages = with pkgs; [

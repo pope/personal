@@ -15,4 +15,3 @@ stdenvNoCC.mkDerivation {
     install -D -t $out/share/fish/themes $src/themes/*
   '';
 }
-

@@ -1,16 +1,17 @@
-{ nvsrcs
-, lib
-, bzip2
-, cmake
-, espeak
-, kdePackages
-, libusb1
-, makeWrapper
-, ninja
-, pkg-config
-, speex
-, stdenv
-, ...
+{
+  nvsrcs,
+  lib,
+  bzip2,
+  cmake,
+  espeak,
+  kdePackages,
+  libusb1,
+  makeWrapper,
+  ninja,
+  pkg-config,
+  speex,
+  stdenv,
+  ...
 }:
 
 let
@@ -57,9 +58,7 @@ stdenv.mkDerivation {
     install -Dm 644 ../rbutilqt/RockboxUtility.desktop -t $out/share/applications/
     install -Dm 644 ../../docs/logo/rockbox-clef.svg -t $out/share/pixmaps/
 
-    wrapProgram $out/bin/RockboxUtility --prefix PATH ${
-      lib.makeBinPath [ espeak ]
-    }
+    wrapProgram $out/bin/RockboxUtility --prefix PATH ${lib.makeBinPath [ espeak ]}
 
     runHook postInstall
   '';

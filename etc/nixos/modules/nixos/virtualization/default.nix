@@ -13,8 +13,10 @@
       default = "host";
       description = "Which kind of virtualization settings to use";
       example = "guest";
-      type = lib.types.enum [ "host" "guest" ];
+      type = lib.types.enum [
+        "host"
+        "guest"
+      ];
     };
   };
 }
-

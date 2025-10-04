@@ -16,7 +16,13 @@ in
         alsa.support32Bit = true;
         extraConfig.pipewire.noresample = {
           "context.properties" = {
-            "default.clock.allowed-rates" = [ 44100 48000 88200 96000 192000 ];
+            "default.clock.allowed-rates" = [
+              44100
+              48000
+              88200
+              96000
+              192000
+            ];
           };
         };
         jack.enable = true;

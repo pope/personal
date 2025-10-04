@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.lib.formats.rasi) mkLiteral;
@@ -30,10 +35,16 @@ in
         display-run = "🏃 ";
         display-emoji = "🤓 ";
         display-calc = "🧮 ";
-        modes = [ "drun" "emoji" "calc" "run" ];
+        modes = [
+          "drun"
+          "emoji"
+          "calc"
+          "run"
+        ];
         show-icons = true;
       };
-      theme = with config.my.home.theme.colors.withHash;
+      theme =
+        with config.my.home.theme.colors.withHash;
         let
           transparency = if config.my.home.hyprland.enable then "B2" else "F2";
           fixedHeight = lib.boolToString config.my.home.hyprland.enable;

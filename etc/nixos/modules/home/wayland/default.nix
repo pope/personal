@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.my.home) dwl hyprland;
@@ -137,16 +142,18 @@ in
     };
 
     xdg.configFile = {
-      "swappy/config".text = /* ini */ ''
-        [Default]
-        save_dir=$HOME/Pictures/Screenshots
-      '';
+      "swappy/config".text = # ini
+        ''
+          [Default]
+          save_dir=$HOME/Pictures/Screenshots
+        '';
 
-      "uwsm/env".text = /* sh */ ''
-        export WLR_NO_HARDWARE_CURSORS=1
-        # Hint electron apps to use wayland
-        export NIXOS_OZONE_WL=1
-      '';
+      "uwsm/env".text = # sh
+        ''
+          export WLR_NO_HARDWARE_CURSORS=1
+          # Hint electron apps to use wayland
+          export NIXOS_OZONE_WL=1
+        '';
     };
   };
 }

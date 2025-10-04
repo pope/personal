@@ -23,7 +23,7 @@
       fzf
       lua-language-server
       nixd
-      nixpkgs-fmt
+      nixfmt-rfc-style
       ripgrep
       tree-sitter
       wget
@@ -40,7 +40,10 @@
       {
         pkg = which-key-nvim;
         event = [ "VeryLazy" ];
-        dependencies = [ nvim-web-devicons mini-nvim ];
+        dependencies = [
+          nvim-web-devicons
+          mini-nvim
+        ];
       }
       {
         pkg = toggleterm-nvim;
@@ -58,20 +61,21 @@
     ];
 
     autoGroups.restoreCursorPosition = { };
-    autoCmd =
-      [
-        {
-          group = "restoreCursorPosition";
-          event = "BufReadPost";
-          pattern = "*";
-          callback = helpers.mkRaw /* lua */ ''
-            function()
-              if vim.fn.line "'\"" > 0 and vim.fn.line "'\"" <= vim.fn.line "$" then
-                vim.cmd [[execute "normal! g'\""]]
+    autoCmd = [
+      {
+        group = "restoreCursorPosition";
+        event = "BufReadPost";
+        pattern = "*";
+        callback =
+          helpers.mkRaw # lua
+            ''
+              function()
+                if vim.fn.line "'\"" > 0 and vim.fn.line "'\"" <= vim.fn.line "$" then
+                  vim.cmd [[execute "normal! g'\""]]
+                end
               end
-            end
-          '';
-        }
-      ];
+            '';
+      }
+    ];
   };
 }

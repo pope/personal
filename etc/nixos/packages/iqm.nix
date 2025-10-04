@@ -1,6 +1,7 @@
-{ nvsrcs
-, lib
-, stdenv
+{
+  nvsrcs,
+  lib,
+  stdenv,
 }:
 
 let

@@ -12,7 +12,10 @@ in
         Specifies the NFS server host.
       '';
       example = "skrapnel";
-      type = lib.types.enum [ "skrapnel" "skrapnel.lan" ];
+      type = lib.types.enum [
+        "skrapnel"
+        "skrapnel.lan"
+      ];
     };
   };
 
@@ -32,10 +35,12 @@ in
           "x-systemd.automount"
           "noauto"
           "x-systemd.idle-timeout=300"
-        ] ++ lib.optionals (cfg.host == "skrapnel") [
+        ]
+        ++ lib.optionals (cfg.host == "skrapnel") [
           "x-systemd.after=tailscaled.service"
           "x-systemd.requires=tailscaled.service"
-        ] ++ lib.optionals (cfg.host == "skrapnel.lan") [
+        ]
+        ++ lib.optionals (cfg.host == "skrapnel.lan") [
           "x-systemd.after=network-online.target"
           "x-systemd.requires=network-online.target"
         ];

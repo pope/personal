@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.my.home.terminals.wezterm;
@@ -11,12 +16,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.mkIf cfg.installExtraFonts (with pkgs;[
-      iosevka
-      joypixels
-      nerd-fonts.symbols-only
-      noto-fonts-emoji
-    ]);
+    home.packages = lib.mkIf cfg.installExtraFonts (
+      with pkgs;
+      [
+        iosevka
+        joypixels
+        nerd-fonts.symbols-only
+        noto-fonts-emoji
+      ]
+    );
 
     programs.wezterm = {
       enable = true;
@@ -24,18 +32,21 @@ in
         let
           opacity = 0.94;
           line_height = if pkgs.stdenv.isDarwin then 1.6 else 1.25;
-          shell =
-            if config.my.home.shell.zsh.enable
-            then "${pkgs.zsh}/bin/zsh"
-            else "${pkgs.fish}/bin/fish";
+          shell = if config.my.home.shell.zsh.enable then "${pkgs.zsh}/bin/zsh" else "${pkgs.fish}/bin/fish";
           cs =
-            if colorScheme == "rose-pine" then "rose-pine"
-            else if colorScheme == "catppuccin" then "catppuccin-mocha"
-            else if colorScheme == "dracula" then "Dracula (Official)"
-            else if colorScheme == "tokyonight" then "Tokyo Night"
-            else abort "invalid colorScheme";
+            if colorScheme == "rose-pine" then
+              "rose-pine"
+            else if colorScheme == "catppuccin" then
+              "catppuccin-mocha"
+            else if colorScheme == "dracula" then
+              "Dracula (Official)"
+            else if colorScheme == "tokyonight" then
+              "Tokyo Night"
+            else
+              abort "invalid colorScheme";
         in
-          /* lua */ ''
+        # lua
+        ''
           local config = wezterm.config_builder()
 
           config.color_scheme = '${cs}'

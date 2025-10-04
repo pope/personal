@@ -1,10 +1,18 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.gtk;
 
   package = pkgs.tokyonight-gtk-theme.override {
-    sizeVariants = [ "standard" "compact" ];
+    sizeVariants = [
+      "standard"
+      "compact"
+    ];
     themeVariants = [ "all" ];
     tweakVariants = [ "moon" ];
     iconVariants = [ "Moon" ];

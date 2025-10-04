@@ -2,19 +2,23 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.fingerprint-sensor.nixosModules.open-fprintd
-      inputs.fingerprint-sensor.nixosModules.python-validity
-      inputs.nixos-hardware.nixosModules.common-gpu-amd # eGPU
-      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.fingerprint-sensor.nixosModules.open-fprintd
+    inputs.fingerprint-sensor.nixosModules.python-validity
+    inputs.nixos-hardware.nixosModules.common-gpu-amd # eGPU
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.overlays = [
     self.overlays.default

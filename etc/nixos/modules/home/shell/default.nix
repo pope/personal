@@ -11,8 +11,8 @@ in
 
   programs.oh-my-posh = lib.mkIf (cfg.zsh.enable || cfg.fish.enable) {
     enable = true;
-    settings = builtins.fromJSON
-      (builtins.unsafeDiscardStringContext
-        (builtins.readFile ./p10k.omp.json));
+    settings = builtins.fromJSON (
+      builtins.unsafeDiscardStringContext (builtins.readFile ./p10k.omp.json)
+    );
   };
 }

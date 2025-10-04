@@ -41,17 +41,18 @@ in
         (searchmap "Search workspace symbols" "sdw" "lsp_dynamic_workspace_symbols")
         (searchmap "Search undo tree" "su" "undo")
       ];
-      config = /* lua */ ''
-        function (_, opts)
-          require("telescope").setup(opts)
-          require("telescope").load_extension("file_browser")
-          require("telescope").load_extension("live_grep_args")
-          require("telescope").load_extension("media_files")
-          require("telescope").load_extension("ui-select")
-          require("telescope").load_extension("undo")
-          require("telescope").load_extension("noice")
-        end
-      '';
+      config = # lua
+        ''
+          function (_, opts)
+            require("telescope").setup(opts)
+            require("telescope").load_extension("file_browser")
+            require("telescope").load_extension("live_grep_args")
+            require("telescope").load_extension("media_files")
+            require("telescope").load_extension("ui-select")
+            require("telescope").load_extension("undo")
+            require("telescope").load_extension("noice")
+          end
+        '';
     }
   ];
 }

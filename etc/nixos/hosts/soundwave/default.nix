@@ -2,21 +2,27 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, config, pkgs, lib, ... }:
+{
+  self,
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.musnix.nixosModules.musnix
-      inputs.nixos-hardware.nixosModules.common-cpu-amd
-      inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-      inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-      inputs.nixos-hardware.nixosModules.common-pc
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.musnix.nixosModules.musnix
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.overlays = [
     self.overlays.default

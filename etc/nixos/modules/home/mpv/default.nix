@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 # References
 #
@@ -21,7 +26,10 @@ in
       type = lib.types.bool;
     };
     defaultProfile = lib.mkOption {
-      type = lib.types.enum [ "generic" "fsr" ];
+      type = lib.types.enum [
+        "generic"
+        "fsr"
+      ];
       default = "generic";
       description = lib.mkDoc ''
         The starting default profile to use
@@ -74,16 +82,22 @@ in
         alang = "en,eng,ja,jp,jpn";
 
         profile =
-          if (cfg.defaultProfile == "fsr") then defs.fsr.name
-          else if (cfg.defaultProfile == "generic") then defs.generic.name
-          else abort "defaultProfile is invalid";
-      } // lib.optionalAttrs cfg.enableVulkan {
+          if (cfg.defaultProfile == "fsr") then
+            defs.fsr.name
+          else if (cfg.defaultProfile == "generic") then
+            defs.generic.name
+          else
+            abort "defaultProfile is invalid";
+      }
+      // lib.optionalAttrs cfg.enableVulkan {
         gpu-api = "vulkan";
       };
 
       bindings =
         let
-          mkBinding = def: { "${def.shortcut}" = ''apply-profile ${def.name}; show-text "Profile: ${def.desc}"''; };
+          mkBinding = def: {
+            "${def.shortcut}" = ''apply-profile ${def.name}; show-text "Profile: ${def.desc}"'';
+          };
         in
         lib.mkMerge [
           {
@@ -143,13 +157,15 @@ in
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kCAFast))
         ];
 
-      scripts = (with pkgs.mpvScripts; [
-        modernx
-        thumbfast
-        visualizer
-      ]) ++ lib.optionals pkgs.stdenv.isLinux [
-        pkgs.mpvScripts.mpris
-      ];
+      scripts =
+        (with pkgs.mpvScripts; [
+          modernx
+          thumbfast
+          visualizer
+        ])
+        ++ lib.optionals pkgs.stdenv.isLinux [
+          pkgs.mpvScripts.mpris
+        ];
 
       scriptOpts = {
         osc = {

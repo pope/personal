@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.packages;
@@ -35,15 +40,31 @@ in
       settings = lib.mkMerge [
         settings
         {
-          mgr.ratio = [ 2 4 3 ];
+          mgr.ratio = [
+            2
+            4
+            3
+          ];
           plugin = {
             prepend_preloaders = [
-              { mime = "{audio,video,image}/*"; run = "mediainfo"; }
-              { mime = "application/{subrip,postscript}"; run = "mediainfo"; }
+              {
+                mime = "{audio,video,image}/*";
+                run = "mediainfo";
+              }
+              {
+                mime = "application/{subrip,postscript}";
+                run = "mediainfo";
+              }
             ];
             prepend_previewers = [
-              { mime = "{audio,video,image}/*"; run = "mediainfo"; }
-              { mime = "application/{subrip,postscript}"; run = "mediainfo"; }
+              {
+                mime = "{audio,video,image}/*";
+                run = "mediainfo";
+              }
+              {
+                mime = "application/{subrip,postscript}";
+                run = "mediainfo";
+              }
             ];
           };
           preview = {

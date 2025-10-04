@@ -1,4 +1,9 @@
-{ config, pkgs, lib, scale }:
+{
+  config,
+  pkgs,
+  lib,
+  scale,
+}:
 
 let
   color = config.my.home.theme.colors.withHash;
@@ -13,10 +18,12 @@ in
     spacing = 4;
     modules-left = [
       "custom/nixos"
-    ] ++ lib.optionals config.my.home.dwl.enable [
+    ]
+    ++ lib.optionals config.my.home.dwl.enable [
       "dwl/tags"
       "dwl/window"
-    ] ++ lib.optionals config.my.home.hyprland.enable [
+    ]
+    ++ lib.optionals config.my.home.hyprland.enable [
       "hyprland/workspaces"
       "hyprland/window"
     ];
@@ -45,7 +52,8 @@ in
       format = "{title} <small>{layout}</small>";
       rewrite = {
         # When no window is present, show this message
-        "^ <small>.*?</small>$" = ''<span foreground="${color.base04}">Get ready for a new challenger</span>'';
+        "^ <small>.*?</small>$" =
+          ''<span foreground="${color.base04}">Get ready for a new challenger</span>'';
       };
     };
     "hyprland/window" = {
@@ -58,8 +66,16 @@ in
       player = "mpd";
       format = "{status_icon} {dynamic}";
       format-paused = "{status_icon} <i>{dynamic}</i>";
-      dynamic-order = [ "title" "artist" "album" ];
-      dynamic-importance-order = [ "title" "artist" "album" ];
+      dynamic-order = [
+        "title"
+        "artist"
+        "album"
+      ];
+      dynamic-importance-order = [
+        "title"
+        "artist"
+        "album"
+      ];
       dynamic-separator = ''<span foreground="${color.base04}"> ) </span>'';
       max-length = 100;
       status-icons = {
@@ -83,7 +99,11 @@ in
         phone = "";
         portable = "";
         car = "";
-        default = [ "" "" "" ];
+        default = [
+          ""
+          ""
+          ""
+        ];
       };
       on-click = "${pavucontrol}";
     };
@@ -116,7 +136,13 @@ in
       format-alt = "{time} {icon}";
       # format-good = ""; # An empty format will hide the module
       # format-full = "";
-      format-icons = [ " " " " " " " " " " ];
+      format-icons = [
+        " "
+        " "
+        " "
+        " "
+        " "
+      ];
     };
     "battery#bat1" = {
       bat = "BAT1";

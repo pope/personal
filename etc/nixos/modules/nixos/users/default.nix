@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   inherit (config.my.nixos) mainUser;
@@ -37,7 +42,10 @@ in
       default = "fish";
       description = "Which shell to use";
       example = "zsh";
-      type = lib.types.enum [ "fish" "zsh" ];
+      type = lib.types.enum [
+        "fish"
+        "zsh"
+      ];
     };
   };
 
@@ -64,9 +72,12 @@ in
       ];
       packages = [ ];
       shell =
-        if cfg.shell == "fish" then pkgs.fish
-        else if cfg.shell == "zsh" then pkgs.zsh
-        else abort "shell is invalid";
+        if cfg.shell == "fish" then
+          pkgs.fish
+        else if cfg.shell == "zsh" then
+          pkgs.zsh
+        else
+          abort "shell is invalid";
     };
 
     users.groups.plugdev = { };

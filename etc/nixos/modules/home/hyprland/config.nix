@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.hyprland;
@@ -12,15 +17,19 @@ let
   nm-applet = "${launcher} ${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${lib.getExe pkgs.pamixer}";
   runner =
-    if config.my.home.rofi.enable
-    then "${launcher} ${lib.getExe config.programs.rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
-    else "${launcher} ${lib.getExe config.programs.anyrun.package}";
+    if config.my.home.rofi.enable then
+      "${launcher} ${lib.getExe config.programs.rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
+    else
+      "${launcher} ${lib.getExe config.programs.anyrun.package}";
   screenshot = "${launcher} wayland-screenshot";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   terminal =
-    if config.my.home.terminals.ghostty.enable then "${launcher} ${lib.getExe config.programs.ghostty.package}"
-    else if config.my.home.terminals.wezterm.enable then "${launcher} ${lib.getExe config.programs.wezterm.package}"
-    else "${launcher} ${lib.getExe config.programs.kitty.package}";
+    if config.my.home.terminals.ghostty.enable then
+      "${launcher} ${lib.getExe config.programs.ghostty.package}"
+    else if config.my.home.terminals.wezterm.enable then
+      "${launcher} ${lib.getExe config.programs.wezterm.package}"
+    else
+      "${launcher} ${lib.getExe config.programs.kitty.package}";
   thunar = "${launcher} ${lib.getExe pkgs.xfce.thunar}";
   wlogout = "${launcher} ${lib.getExe pkgs.wlogout}";
 
@@ -28,12 +37,8 @@ let
   inherit (config.my.home.theme) colorScheme;
   inherit (config.my.home.theme) colors;
 
-  color_active_border_a =
-    if colorScheme == "tokyonight" then colors.base0E
-    else colors.base0B;
-  color_active_border_b =
-    if colorScheme == "tokyonight" then colors.base0F
-    else colors.base0D;
+  color_active_border_a = if colorScheme == "tokyonight" then colors.base0E else colors.base0B;
+  color_active_border_b = if colorScheme == "tokyonight" then colors.base0F else colors.base0D;
 in
 {
   config = lib.mkIf cfg.enable {

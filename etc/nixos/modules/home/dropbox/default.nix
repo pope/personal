@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.dropbox;
@@ -13,11 +18,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      maestral
-    ] ++ lib.optionals cfg.gui.enable (with pkgs; [
-      maestral-gui
-    ]);
+    home.packages =
+      with pkgs;
+      [
+        maestral
+      ]
+      ++ lib.optionals cfg.gui.enable (
+        with pkgs;
+        [
+          maestral-gui
+        ]
+      );
 
     systemd.user.services = lib.mkIf cfg.service.enable {
       maestral = {

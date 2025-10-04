@@ -1,4 +1,9 @@
-{ config, lib, inputs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   cfg = config.my.home.theme;
@@ -6,7 +11,12 @@ in
 {
   options.my.home.theme = {
     colorScheme = lib.mkOption {
-      type = lib.types.enum [ "rose-pine" "catppuccin" "dracula" "tokyonight" ];
+      type = lib.types.enum [
+        "rose-pine"
+        "catppuccin"
+        "dracula"
+        "tokyonight"
+      ];
       default = "rose-pine";
       description = lib.mkDoc ''
         Which theme to use with UI elements.
@@ -31,7 +41,8 @@ in
           inputs.nix-colors.colorSchemes.dracula
         else if cfg.colorScheme == "tokyonight" then
           inputs.nix-colors.colorSchemes.tokyo-night-storm
-        else abort "colorScheme is invalid";
+        else
+          abort "colorScheme is invalid";
       inherit (colorScheme) palette;
       colors = palette // {
         withHash = builtins.mapAttrs (_k: v: "#${v}") palette;

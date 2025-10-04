@@ -5,18 +5,17 @@
 { self, inputs, ... }:
 
 {
-  imports =
-    [
-      self.nixosModules.default
-      inputs.nixos-hardware.nixosModules.common-cpu-intel
-      inputs.nixos-hardware.nixosModules.common-gpu-intel
-      inputs.nixos-hardware.nixosModules.common-pc
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./backup.nix
-      ./webservices.nix
-    ];
+  imports = [
+    self.nixosModules.default
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-gpu-intel
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./backup.nix
+    ./webservices.nix
+  ];
 
   nixpkgs = {
     overlays = [
@@ -52,7 +51,11 @@
     "/mnt/Cyberia" = {
       device = "/dev/disk/by-label/T5-EVO";
       fsType = "ext4";
-      options = [ "rw" "users" "noatime" ];
+      options = [
+        "rw"
+        "users"
+        "noatime"
+      ];
     };
   };
 

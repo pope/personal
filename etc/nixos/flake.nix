@@ -49,14 +49,15 @@
   };
 
   outputs =
-    { self
-    , home-manager
-    , nix-formatter-pack
-    , nixpkgs
-    , nixgl
-    , nixvim
-    , ...
-    } @ inputs:
+    {
+      self,
+      home-manager,
+      nix-formatter-pack,
+      nixpkgs,
+      nixgl,
+      nixvim,
+      ...
+    }@inputs:
     let
       eachSystem = nixpkgs.lib.genAttrs [
         "aarch64-darwin"
@@ -64,10 +65,12 @@
         "x86_64-linux"
       ];
       mkNixosSystem =
-        { name
-        , system
-        , user ? "pope"
-        }: {
+        {
+          name,
+          system,
+          user ? "pope",
+        }:
+        {
           inherit name;
           value = nixpkgs.lib.nixosSystem {
             inherit system;
@@ -92,15 +95,17 @@
           };
         };
       mkHomeManagerConfig =
-        { name
-        , system
-        , extraOverlays ? [ ]
-        , hostnameOverride ? null
+        {
+          name,
+          system,
+          extraOverlays ? [ ],
+          hostnameOverride ? null,
         }:
         let
           inherit (nixpkgs.lib) last;
           inherit (nixpkgs.lib.strings) toLower splitString;
-          hostname = if hostnameOverride != null then hostnameOverride else toLower (last (splitString "@" name));
+          hostname =
+            if hostnameOverride != null then hostnameOverride else toLower (last (splitString "@" name));
         in
         {
           inherit name;
@@ -171,7 +176,8 @@
       ];
       nixosModules.default = _: { imports = [ ./modules/nixos ]; };
       homeManagerModules.default = _: { imports = [ ./modules/home ]; };
-      packages = eachSystem (system:
+      packages = eachSystem (
+        system:
         let
           pkgs = import nixpkgs {
             inherit system;
@@ -182,11 +188,15 @@
             module = import ./modules/nixvim;
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;
-          mypkgs = import ./packages { inherit pkgs; } // { inherit nvim; };
+          mypkgs = import ./packages { inherit pkgs; } // {
+            inherit nvim;
+          };
         in
-        mypkgs);
+        mypkgs
+      );
       overlays.default = import ./overlays { inherit self; };
-      devShells = eachSystem (system:
+      devShells = eachSystem (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
           inherit (pkgs.lib) getExe;
@@ -217,7 +227,7 @@
               self.packages.${system}.add-files-to-nix-store
               backup-git-repos
               deadnix
-              nixpkgs-fmt
+              nixfmt-rfc-style
               nixos-rebuild-remote
               nvfetcher
               statix
@@ -226,8 +236,10 @@
               wake-up-unicron
             ];
           };
-        });
-      checks = eachSystem (system:
+        }
+      );
+      checks = eachSystem (
+        system:
         let
           pkgs = import nixpkgs {
             inherit system;
@@ -241,15 +253,18 @@
         in
         {
           nixvim = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
-        });
-      formatter = eachSystem (system:
+        }
+      );
+      formatter = eachSystem (
+        system:
         nix-formatter-pack.lib.mkFormatter {
           pkgs = nixpkgs.legacyPackages.${system};
           config.tools = {
             deadnix.enable = true;
-            nixpkgs-fmt.enable = true;
+            nixfmt.enable = true;
             statix.enable = true;
           };
-        });
+        }
+      );
     };
 }

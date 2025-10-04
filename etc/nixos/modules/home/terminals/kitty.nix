@@ -54,11 +54,16 @@ in
         "map cmd+0" = "change_font_size all 0";
       };
       themeFile =
-        if colorScheme == "rose-pine" then "rose-pine"
-        else if colorScheme == "catppuccin" then "Catppuccin-Mocha"
-        else if colorScheme == "dracula" then "Dracula"
-        else if colorScheme == "tokyonight" then "tokyo_night_night"
-        else abort "invalid theme";
+        if colorScheme == "rose-pine" then
+          "rose-pine"
+        else if colorScheme == "catppuccin" then
+          "Catppuccin-Mocha"
+        else if colorScheme == "dracula" then
+          "Dracula"
+        else if colorScheme == "tokyonight" then
+          "tokyo_night_night"
+        else
+          abort "invalid theme";
     };
   };
 }

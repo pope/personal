@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.my.nixos) mainUser;
@@ -18,6 +23,9 @@ in
       };
       spiceUSBRedirection.enable = true;
     };
-    users.users."${mainUser}".extraGroups = [ "libvirtd" "kvm" ];
+    users.users."${mainUser}".extraGroups = [
+      "libvirtd"
+      "kvm"
+    ];
   };
 }

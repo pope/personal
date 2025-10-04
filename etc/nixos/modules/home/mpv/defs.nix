@@ -1,12 +1,14 @@
 { pkgs }:
 let
-  getDefaultShader = x: "${pkgs.mpv-shim-default-shaders}/share/mpv-shim-default-shaders/shaders/${x}";
+  getDefaultShader =
+    x: "${pkgs.mpv-shim-default-shaders}/share/mpv-shim-default-shaders/shaders/${x}";
   mkProfileDef =
-    { name
-    , shortcut
-    , desc
-    , settingGroups ? [ ]
-    , settings ? { }
+    {
+      name,
+      shortcut,
+      desc,
+      settingGroups ? [ ],
+      settings ? { },
     }:
     let
       unmerged = [ defaultConfigValues ] ++ settingGroups ++ [ settings ];
@@ -18,7 +20,12 @@ let
       inherit name desc shortcut;
       profile = {
         profile-desc = desc;
-        inherit (merged) cscale dscale linear-downscaling scale;
+        inherit (merged)
+          cscale
+          dscale
+          linear-downscaling
+          scale
+          ;
         inherit glsl-shaders;
       };
     };

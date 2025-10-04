@@ -5,12 +5,11 @@
 { self, pkgs, ... }:
 
 {
-  imports =
-    [
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.overlays = [
     self.overlays.default
@@ -43,7 +42,10 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
-  services.xserver.videoDrivers = [ "qxl" "amdgpu" ];
+  services.xserver.videoDrivers = [
+    "qxl"
+    "amdgpu"
+  ];
 
   fileSystems."/home/pope/Code/personal" = {
     device = "code_personal";

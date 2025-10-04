@@ -2,17 +2,22 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, lib, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.musnix.nixosModules.musnix
-      inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.musnix.nixosModules.musnix
+    inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nix.settings.system-features = [ "gccarch-znver4" ];
   # nixpkgs.hostPlatform = {
@@ -55,7 +60,10 @@
     networkmanager.enable = true;
 
     enableIPv6 = false;
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
   };
 
   time.timeZone = "America/Los_Angeles";

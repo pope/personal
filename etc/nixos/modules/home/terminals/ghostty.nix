@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.terminals.ghostty;
@@ -20,20 +25,23 @@ in
   config = lib.mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package =
-        if pkgs.stdenv.isDarwin then pkgs.bashInteractive
-        else config.lib.nixGL.wrap pkgs.ghostty;
+      package = if pkgs.stdenv.isDarwin then pkgs.bashInteractive else config.lib.nixGL.wrap pkgs.ghostty;
       enableFishIntegration = config.my.home.shell.fish.enable;
       enableZshIntegration = config.my.home.shell.zsh.enable;
       installBatSyntax = !pkgs.stdenv.isDarwin;
       settings =
         let
           theme =
-            if colorScheme == "rose-pine" then "Rose Pine"
-            else if colorScheme == "catppuccin" then "Catppuccin Mocha"
-            else if colorScheme == "dracula" then "Dracula"
-            else if colorScheme == "tokyonight" then "TokyoNight"
-            else abort "invalid colorScheme";
+            if colorScheme == "rose-pine" then
+              "Rose Pine"
+            else if colorScheme == "catppuccin" then
+              "Catppuccin Mocha"
+            else if colorScheme == "dracula" then
+              "Dracula"
+            else if colorScheme == "tokyonight" then
+              "TokyoNight"
+            else
+              abort "invalid colorScheme";
         in
         {
           inherit theme;

@@ -16,7 +16,10 @@
       auto-optimise-store = true;
       builders-use-substitutes = true;
       # Enable Flakes and the new command-line tool
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       extra-substituters = [
         "https://nix-community.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
