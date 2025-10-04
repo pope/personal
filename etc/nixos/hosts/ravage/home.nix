@@ -68,9 +68,9 @@
     };
     multimedia = {
       audio.enable = true;
+      music.enable = true;
       threed.enable = true;
     };
-    music.enable = true;
     packages.enable = true;
     rofi = {
       enable = true;

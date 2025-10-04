@@ -82,6 +82,7 @@
     multimedia = {
       audio.enable = true;
       graphics.enable = true;
+      music.enable = true;
       photography.enable = true;
       threed = {
         enable = true;
@@ -89,7 +90,6 @@
       };
       video.enable = false;
     };
-    music.enable = true;
     obs.enable = true;
     packages.enable = true;
     rofi.enable = true;

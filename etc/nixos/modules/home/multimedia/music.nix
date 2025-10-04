@@ -1,10 +1,15 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  cfg = config.my.home.music;
+  cfg = config.my.home.multimedia.music;
 in
 {
-  options.my.home.music = {
+  options.my.home.multimedia.music = {
     enable = lib.mkEnableOption "music listening home options";
     musicDirectory = lib.mkOption {
       type = with lib.types; either path str;
@@ -22,6 +27,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      deadbeef-with-plugins
+      easyaudiosync
+      easytag
+      fooyin
+      an-album-cover
+      lrcget
+      puddletag
+    ];
+
     programs.rmpc = {
       enable = true;
       config = # ron

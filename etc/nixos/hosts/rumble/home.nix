@@ -76,16 +76,16 @@
     multimedia = {
       audio.enable = true;
       graphics.enable = true;
+      music = {
+        enable = true;
+        musicDirectory = "/media/cyberia/Public/Hi-Fi Music/";
+      };
       photography.enable = true;
       threed = {
         enable = true;
         hip.enable = true;
       };
       video.enable = false;
-    };
-    music = {
-      enable = true;
-      musicDirectory = "/media/cyberia/Public/Hi-Fi Music/";
     };
     obs.enable = true;
     packages.enable = true;
