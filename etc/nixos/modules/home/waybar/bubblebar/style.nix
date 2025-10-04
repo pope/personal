@@ -133,17 +133,11 @@ in
     margin-right: 0.5rem;
   }
 
-  #pulseaudio,
-  #cpu,
-  #memory,
-  #disk,
-  #battery,
-  #power-profiles-daemon,
-  #idle_inhibitor {
-    font-size: ${smallFontSize}rem;
+  #wireplumber.source {
+    margin-left: 0;
   }
 
-  #pulseaudio { color: @base07; }
+  #wireplumber { color: @base07; }
   #cpu { color: @base08; }
   #memory { color: @base09; }
   #disk { color: @base0A; }

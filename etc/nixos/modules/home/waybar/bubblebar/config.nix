@@ -6,9 +6,13 @@
 }:
 
 let
+  launcher = "${lib.getExe pkgs.uwsm} app --";
+
   color = config.my.home.theme.colors.withHash;
-  pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
-  wlogout = "${pkgs.wlogout}/bin/wlogout";
+  coppwr = "${launcher} ${lib.getExe pkgs.coppwr}";
+  pwvucontrol = "${launcher} ${lib.getExe pkgs.pwvucontrol}";
+  wlogout = "${launcher} ${lib.getExe pkgs.wlogout}";
+  wpctl = lib.getExe' pkgs.wireplumber "wpctl";
 in
 {
   dwlBar = {
@@ -31,7 +35,8 @@ in
       "mpris"
     ];
     modules-right = [
-      "pulseaudio"
+      "wireplumber#sink"
+      "wireplumber#source"
       "cpu"
       "memory"
       "disk"
@@ -84,28 +89,28 @@ in
         stopped = " ";
       };
     };
-    pulseaudio = {
-      # scroll-step = 1; # %, can be a float
-      format = "{volume}% {icon} {format_source}";
-      format-bluetooth = "{volume}% {icon} {format_source}";
-      format-bluetooth-muted = " {icon} {format_source}";
-      format-muted = " {format_source}";
-      format-source = "{volume}% ";
-      format-source-muted = "";
-      format-icons = {
-        headphone = "";
-        hands-free = "";
-        headset = "";
-        phone = "";
-        portable = "";
-        car = "";
-        default = [
-          ""
-          ""
-          ""
-        ];
-      };
-      on-click = "${pavucontrol}";
+    "wireplumber#sink" = {
+      node-type = "Audio/Sink";
+      format = "{volume}% {icon}";
+      format-muted = "";
+      format-icons = [
+        ""
+        ""
+        ""
+      ];
+      on-click = pwvucontrol;
+      on-click-middle = coppwr;
+      on-click-right = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      scroll-step = 5;
+    };
+    "wireplumber#source" = {
+      node-type = "Audio/Source";
+      format = "{volume}% ";
+      format-muted = "";
+      on-click = pwvucontrol;
+      on-click-middle = coppwr;
+      on-click-right = "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+      scroll-step = 5;
     };
     cpu = {
       format = "{usage}% ";
