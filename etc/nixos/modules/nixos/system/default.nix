@@ -48,37 +48,9 @@ in
     environment.systemPackages = with pkgs; [
       git
       gparted
+      nixos-diff
       ntfs3g
       wget
-
-      (pkgs.writeShellApplication {
-        name = "nixos-diff";
-        runtimeInputs = with pkgs; [
-          coreutils
-          findutils
-          fzf
-          gnugrep
-          nvd
-        ];
-        text = # sh
-          ''
-            GEN_CUR=$(find /nix/var/nix/profiles \
-                -name "system-*-link" \
-                -printf "%CF %CH:%CM : %f -> %l\n" \
-              | sort -r \
-              | fzf --border --border-label "Select current generation" \
-              | cut -d' ' -f6)
-            GEN_PREV=$(find /nix/var/nix/profiles \
-                -name "system-*-link" \
-                -printf "%CF %CH:%CM : %f -> %l\n" \
-              | sort -r \
-              | grep -v "$GEN_CUR" \
-              | fzf --border --border-label "Select previous generation" \
-              | cut -d' ' -f6)
-
-            nvd diff "$GEN_PREV" "$GEN_CUR"
-          '';
-      })
     ];
 
     security.sudo.wheelNeedsPassword = false;

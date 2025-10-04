@@ -13,59 +13,6 @@ let
     mouse = true; # mouse support (TUI-mode only)
     width = 100;
   };
-  home-manager-diff = pkgs.writeShellApplication {
-    name = "home-manager-diff";
-    runtimeInputs = with pkgs; [
-      coreutils
-      fzf
-      gnugrep
-      home-manager
-      nvd
-    ];
-    text = # sh
-      ''
-        # A script to select two home-manager generations and find the differences
-        # between them.
-
-        GEN_CUR=$(home-manager generations \
-          | fzf --border --border-label "Select current generation" \
-          | cut -d' ' -f7)
-        GEN_PREV=$(home-manager generations \
-          | grep -v "$GEN_CUR" \
-          | fzf --border --border-label "Select previous generation" \
-          | cut -d' ' -f7)
-
-        nvd diff "$GEN_PREV" "$GEN_CUR"
-      '';
-  };
-  trash-helper = pkgs.writeShellApplication {
-    name = "trash-helper";
-    runtimeInputs = with pkgs; [
-      coreutils
-      findutils
-      fzf
-      gawk
-      trashy
-      util-linux
-    ];
-    text = # sh
-      ''
-        ACTION=$(printf "empty\nrestore" | fzf \
-            --border --border-label="Trashy Helper" \
-            --header="Which action do you want to take?" \
-            --list-border --list-label="Actions")
-        trash list \
-          | fzf --multi \
-              --border --border-label="Trashy Helper" \
-              --header="Select trash to $ACTION" \
-              --list-border --list-label="Paths" \
-          | awk '{$1=$1;print}' \
-          | rev \
-          | cut -d ' ' -f1 \
-          | rev \
-          | xargs trash "$ACTION" --match=exact --force
-      '';
-  };
 in
 {
   options.my.home.packages = {
@@ -108,6 +55,7 @@ in
         systemctl-tui
         trash-helper
         trashy
+        wiremix
       ];
 
     programs = {

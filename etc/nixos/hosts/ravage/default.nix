@@ -161,7 +161,10 @@
       amd.enable = true; # eGPU
       intel.enable = true;
     };
-    nfs.client.enable = true;
+    nfs.client = {
+      enable = true;
+      host = "skrapnel";
+    };
     onepassword.enable = true;
     sops.enable = true;
     sound.enable = true;
