@@ -199,42 +199,25 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          inherit (pkgs.lib) getExe;
-          update-my-packages = pkgs.writeShellScriptBin "update-my-packages" ''
-            cd packages
-            ${getExe pkgs.nvfetcher}
-          '';
-          wake-up-soundwave = pkgs.writeShellScriptBin "wake-up-soundwave" ''
-            ${getExe pkgs.wakelan} 18:c0:4d:06:5c:15
-          '';
-          wake-up-unicron = pkgs.writeShellScriptBin "wake-up-unicron" ''
-            ${getExe pkgs.wakelan} 58:11:22:d1:9c:0c
-          '';
-          nixos-rebuild-remote = pkgs.writeShellScriptBin "nixos-rebuild-remote" ''
-            host="$1"
-            cmd="''${2:-boot}"
-            nixos-rebuild --flake .#$host --target-host $host.lan --sudo $cmd |& nom
-          '';
-          backup-git-repos = pkgs.writeShellScriptBin "backup-git-repos" ''
-            ${getExe pkgs.rsync} -zav --no-links --delete \
-                root@shifteleven.com:/home/git/ \
-                /media/cyberia/code/git/
-          '';
+          mypkgs = self.packages.${system};
         in
         {
           default = pkgs.mkShell {
-            packages = with pkgs; [
-              self.packages.${system}.add-files-to-nix-store
-              backup-git-repos
-              deadnix
-              nixfmt-rfc-style
-              nixos-rebuild-remote
-              nvfetcher
-              statix
-              update-my-packages
-              wake-up-soundwave
-              wake-up-unicron
-            ];
+            packages =
+              with pkgs;
+              with mypkgs;
+              [
+                add-files-to-nix-store
+                backup-git-repos
+                deadnix
+                nixfmt-rfc-style
+                nixos-rebuild-remote
+                nvfetcher
+                statix
+                update-my-packages
+                wake-up-soundwave
+                wake-up-unicron
+              ];
           };
         }
       );
