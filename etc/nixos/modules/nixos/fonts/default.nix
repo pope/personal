@@ -62,6 +62,7 @@ in
           iosevka-comfy.comfy
           joypixels
           maple-mono-font
+          monaspace
           nerd-fonts.fira-code
           nerd-fonts.jetbrains-mono
           nerd-fonts.lilex
