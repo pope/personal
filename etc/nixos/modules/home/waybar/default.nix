@@ -11,6 +11,9 @@ in
 {
   options.my.home.waybar = {
     enable = lib.mkEnableOption "waybar home options";
+    # TODO(pope): Figure out why wireplumber + waybar doesn't work for Unicron.
+    # Maybe multiple monitors?
+    forcePulseaudio = lib.mkEnableOption "forcing pulseaudio over pipewire";
     theme = lib.mkOption {
       type = lib.types.enum [
         "bubble"
@@ -43,7 +46,7 @@ in
         let
           bubble_config = import ./bubblebar/config.nix {
             inherit config pkgs lib;
-            inherit (cfg) scale;
+            inherit (cfg) scale forcePulseaudio;
           };
           bubble_style = import ./bubblebar/style.nix {
             inherit config lib;

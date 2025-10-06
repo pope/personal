@@ -137,7 +137,7 @@ in
     margin-left: 0;
   }
 
-  #wireplumber { color: @base07; }
+  #pulseaudio, #wireplumber { color: @base07; }
   #cpu { color: @base08; }
   #memory { color: @base09; }
   #disk { color: @base0A; }

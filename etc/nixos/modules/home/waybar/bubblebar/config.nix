@@ -1,5 +1,6 @@
 {
   config,
+  forcePulseaudio,
   pkgs,
   lib,
   scale,
@@ -34,20 +35,26 @@ in
     modules-center = [
       "mpris"
     ];
-    modules-right = [
-      "wireplumber#sink"
-      "wireplumber#source"
-      "cpu"
-      "memory"
-      "disk"
-      "battery"
-      # "battery#bat1"
-      "power-profiles-daemon"
-      "idle_inhibitor"
-      "tray"
-      "clock"
-      "custom/power"
-    ];
+    modules-right =
+      lib.optionals forcePulseaudio [
+        "pulseaudio"
+      ]
+      ++ lib.optionals (!forcePulseaudio) [
+        "wireplumber#sink"
+        "wireplumber#source"
+      ]
+      ++ [
+        "cpu"
+        "memory"
+        "disk"
+        "battery"
+        # "battery#bat1"
+        "power-profiles-daemon"
+        "idle_inhibitor"
+        "tray"
+        "clock"
+        "custom/power"
+      ];
     # Module s
     "custom/nixos" = {
       format = "";
@@ -88,6 +95,19 @@ in
         paused = " ";
         stopped = " ";
       };
+    };
+    "pulseaudio" = {
+      format = "{volume}% {icon}";
+      format-muted = "";
+      format-icons = [
+        ""
+        ""
+        ""
+      ];
+      on-click = pwvucontrol;
+      on-click-middle = coppwr;
+      on-click-right = pwvucontrol;
+      scroll-step = 5;
     };
     "wireplumber#sink" = {
       node-type = "Audio/Sink";

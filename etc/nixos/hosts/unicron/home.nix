@@ -110,6 +110,7 @@
     tmux.enable = true;
     waybar = {
       enable = true;
+      forcePulseaudio = true;
       theme = "bubble";
     };
     xdg.enable = true;
