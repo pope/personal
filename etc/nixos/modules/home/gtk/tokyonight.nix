@@ -1,26 +1,25 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.gtk;
-  inherit (config.my.home.theme) colorScheme;
 
   package = pkgs.tokyonight-gtk-theme.override {
-    sizeVariants = [ "standard" "compact" ];
+    sizeVariants = [
+      "standard"
+      "compact"
+    ];
     themeVariants = [ "all" ];
     tweakVariants = [ "moon" ];
     iconVariants = [ "Moon" ];
   };
 in
 {
-  config = lib.mkIf (cfg.enable && colorScheme == "tokyonight") rec {
-    home.pointerCursor = {
-      name = "Bibata-Modern-Ice";
-      size = 24;
-      package = pkgs.bibata-cursors;
-      gtk.enable = true;
-      x11.enable = true;
-    };
-
+  config = lib.mkIf (cfg.enable && cfg.theme == "tokyonight") {
     gtk = {
       iconTheme = {
         inherit package;
@@ -31,21 +30,14 @@ in
         inherit package;
         name = "Tokyonight-Purple-Dark-Moon";
       };
-
-      gtk3.extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
-
-      gtk4.extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
     };
 
-    services.xsettingsd = {
-      settings = {
-        "Net/IconThemeName" = "${gtk.iconTheme.name}";
-        "Net/ThemeName" = "${gtk.theme.name}";
-      };
+    home.pointerCursor = {
+      name = "Bibata-Modern-Ice";
+      size = 24;
+      package = pkgs.bibata-cursors;
     };
+
+    my.home.gtk.darkTheme = true;
   };
 }

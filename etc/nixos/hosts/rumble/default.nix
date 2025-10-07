@@ -2,17 +2,22 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, lib, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.musnix.nixosModules.musnix
-      inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.musnix.nixosModules.musnix
+    inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nix.settings.system-features = [ "gccarch-znver4" ];
   # nixpkgs.hostPlatform = {
@@ -27,15 +32,14 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
 
-    initrd = {
-      luks.devices."luks-b3a5fbc2-0e7e-4b6a-9019-37629c91d744" = {
-        device = "/dev/disk/by-uuid/b3a5fbc2-0e7e-4b6a-9019-37629c91d744";
-      };
+    initrd.luks.devices."luks-3ff44097-7f44-4cca-854b-6f4577a00bcc" = {
+      device = "/dev/disk/by-uuid/3ff44097-7f44-4cca-854b-6f4577a00bcc";
     };
 
     supportedFilesystems = [ "ntfs" ];
@@ -56,31 +60,32 @@
     networkmanager.enable = true;
 
     enableIPv6 = false;
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
   };
 
   time.timeZone = "America/Los_Angeles";
 
-  fileSystems = {
-    "/media/cyberia" = {
-      device = "skrapnel.lan:/mnt/Cyberia";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.after=network-online.target"
-        "x-systemd.idle-timeout=300"
-      ];
-    };
-  };
-
   hardware = {
     framework = {
       enableKmod = true;
-      laptop13.audioEnhancement.enable = true;
+      laptop13.audioEnhancement.enable = false;
     };
 
     framework.amd-7040.preventWakeOnAC = true;
+  };
+
+  security = {
+    polkit.enable = true;
+    pam.services = {
+      login.fprintAuth = false;
+      sddm = {
+        fprintAuth = false;
+        kwallet.enable = true;
+      };
+    };
   };
 
   services = {
@@ -91,9 +96,13 @@
 
     # Must be explicitly false otherwise there's infinite recursion going on.
     tlp.enable = false;
-    logind.lidSwitch = "suspend-then-hibernate";
-    logind.lidSwitchExternalPower = "suspend";
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend-then-hibernate";
+      HandleLidSwitchExternalPower = "suspend";
+    };
     power-profiles-daemon.enable = true;
+
+    hardware.bolt.enable = true;
   };
 
   powerManagement = {
@@ -112,7 +121,8 @@
   '';
 
   environment.systemPackages = with pkgs; [
-    renoise344
+    fw-ectool
+    renoise350
   ];
 
   my.nixos = {
@@ -129,24 +139,30 @@
       enableSteam = true;
     };
     gpu.amd.enable = true;
+    ndi.enable = true;
+    nfs.client = {
+      enable = true;
+      host = "skrapnel";
+    };
     onepassword.enable = true;
     printing.enable = true;
     sops.enable = true;
     sound.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
     xserver = {
       enable = true;
       enableAutoLogin = false;
-      displayManager = "gdm";
-      dwl.enable = true;
-      gnome.enable = true;
-      hyprland.enable = false;
+      displayManager = "sddm";
+      dwl.enable = false;
+      gnome.enable = false;
+      kde.enable = true;
+      hyprland.enable = true;
     };
     vyprvpn.enable = true;
-    zerotierone.enable = true;
   };
 
   specialisation = {
@@ -163,5 +179,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }

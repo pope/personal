@@ -1,9 +1,19 @@
-{ config, pkgs, lib, scale }:
+{
+  config,
+  forcePulseaudio,
+  pkgs,
+  lib,
+  scale,
+}:
 
 let
+  launcher = "${lib.getExe pkgs.uwsm} app --";
+
   color = config.my.home.theme.colors.withHash;
-  pavucontrol = "${pkgs.pavucontrol}/bin/pavucontrol";
-  wlogout = "${pkgs.wlogout}/bin/wlogout";
+  coppwr = "${launcher} ${lib.getExe pkgs.coppwr}";
+  pwvucontrol = "${launcher} ${lib.getExe pkgs.pwvucontrol}";
+  wlogout = "${launcher} ${lib.getExe pkgs.wlogout}";
+  wpctl = lib.getExe' pkgs.wireplumber "wpctl";
 in
 {
   dwlBar = {
@@ -13,29 +23,38 @@ in
     spacing = 4;
     modules-left = [
       "custom/nixos"
-    ] ++ lib.optionals config.my.home.dwl.enable [
+    ]
+    ++ lib.optionals config.my.home.dwl.enable [
       "dwl/tags"
       "dwl/window"
-    ] ++ lib.optionals config.my.home.hyprland.enable [
+    ]
+    ++ lib.optionals config.my.home.hyprland.enable [
       "hyprland/workspaces"
       "hyprland/window"
     ];
     modules-center = [
       "mpris"
     ];
-    modules-right = [
-      "pulseaudio"
-      "cpu"
-      "memory"
-      "disk"
-      "battery"
-      # "battery#bat1"
-      "power-profiles-daemon"
-      "idle_inhibitor"
-      "tray"
-      "clock"
-      "custom/power"
-    ];
+    modules-right =
+      lib.optionals forcePulseaudio [
+        "pulseaudio"
+      ]
+      ++ lib.optionals (!forcePulseaudio) [
+        "wireplumber#sink"
+        "wireplumber#source"
+      ]
+      ++ [
+        "cpu"
+        "memory"
+        "disk"
+        "battery"
+        # "battery#bat1"
+        "power-profiles-daemon"
+        "idle_inhibitor"
+        "tray"
+        "clock"
+        "custom/power"
+      ];
     # Module s
     "custom/nixos" = {
       format = "";
@@ -45,7 +64,8 @@ in
       format = "{title} <small>{layout}</small>";
       rewrite = {
         # When no window is present, show this message
-        "^ <small>.*?</small>$" = ''<span foreground="${color.base04}">Get ready for a new challenger</span>'';
+        "^ <small>.*?</small>$" =
+          ''<span foreground="${color.base04}">Get ready for a new challenger</span>'';
       };
     };
     "hyprland/window" = {
@@ -55,10 +75,19 @@ in
       };
     };
     mpris = {
+      player = "mpd";
       format = "{status_icon} {dynamic}";
       format-paused = "{status_icon} <i>{dynamic}</i>";
-      dynamic-order = [ "title" "artist" "album" ];
-      dynamic-importance-order = [ "title" "artist" "album" ];
+      dynamic-order = [
+        "title"
+        "artist"
+        "album"
+      ];
+      dynamic-importance-order = [
+        "title"
+        "artist"
+        "album"
+      ];
       dynamic-separator = ''<span foreground="${color.base04}"> ) </span>'';
       max-length = 100;
       status-icons = {
@@ -67,24 +96,41 @@ in
         stopped = " ";
       };
     };
-    pulseaudio = {
-      # scroll-step = 1; # %, can be a float
-      format = "{volume}% {icon} {format_source}";
-      format-bluetooth = "{volume}% {icon} {format_source}";
-      format-bluetooth-muted = " {icon} {format_source}";
-      format-muted = " {format_source}";
-      format-source = "{volume}% ";
-      format-source-muted = "";
-      format-icons = {
-        headphone = "";
-        hands-free = "";
-        headset = "";
-        phone = "";
-        portable = "";
-        car = "";
-        default = [ "" "" "" ];
-      };
-      on-click = "${pavucontrol}";
+    "pulseaudio" = {
+      format = "{volume}% {icon}";
+      format-muted = "";
+      format-icons = [
+        ""
+        ""
+        ""
+      ];
+      on-click = pwvucontrol;
+      on-click-middle = coppwr;
+      on-click-right = pwvucontrol;
+      scroll-step = 5;
+    };
+    "wireplumber#sink" = {
+      node-type = "Audio/Sink";
+      format = "{volume}% {icon}";
+      format-muted = "";
+      format-icons = [
+        ""
+        ""
+        ""
+      ];
+      on-click = pwvucontrol;
+      on-click-middle = coppwr;
+      on-click-right = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      scroll-step = 5;
+    };
+    "wireplumber#source" = {
+      node-type = "Audio/Source";
+      format = "{volume}% ";
+      format-muted = "";
+      on-click = pwvucontrol;
+      on-click-middle = coppwr;
+      on-click-right = "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+      scroll-step = 5;
     };
     cpu = {
       format = "{usage}% ";
@@ -115,7 +161,13 @@ in
       format-alt = "{time} {icon}";
       # format-good = ""; # An empty format will hide the module
       # format-full = "";
-      format-icons = [ " " " " " " " " " " ];
+      format-icons = [
+        " "
+        " "
+        " "
+        " "
+        " "
+      ];
     };
     "battery#bat1" = {
       bat = "BAT1";

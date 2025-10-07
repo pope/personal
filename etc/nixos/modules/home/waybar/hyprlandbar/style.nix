@@ -3,7 +3,8 @@
 let
   color = config.my.home.theme.colors.withHash;
 in
-  /* css */ ''
+# css
+''
   @define-color base00 ${color.base00};
   @define-color base01 ${color.base01};
   @define-color base02 ${color.base02};

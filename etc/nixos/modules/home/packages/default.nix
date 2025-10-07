@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.packages;
@@ -8,57 +13,6 @@ let
     mouse = true; # mouse support (TUI-mode only)
     width = 100;
   };
-  home-manager-diff = pkgs.writeShellApplication {
-    name = "home-manager-diff";
-    runtimeInputs = with pkgs; [
-      coreutils
-      fzf
-      gnugrep
-      home-manager
-      nvd
-    ];
-    text = /* sh */ ''
-      # A script to select two home-manager generations and find the differences
-      # between them.
-
-      GEN_CUR=$(home-manager generations \
-        | fzf --border --border-label "Select current generation" \
-        | cut -d' ' -f7)
-      GEN_PREV=$(home-manager generations \
-        | grep -v "$GEN_CUR" \
-        | fzf --border --border-label "Select previous generation" \
-        | cut -d' ' -f7)
-
-      nvd diff "$GEN_PREV" "$GEN_CUR"
-    '';
-  };
-  trash-helper = pkgs.writeShellApplication {
-    name = "trash-helper";
-    runtimeInputs = with pkgs; [
-      coreutils
-      findutils
-      fzf
-      gawk
-      trashy
-      util-linux
-    ];
-    text = /* sh */ ''
-      ACTION=$(printf "empty\nrestore" | fzf \
-          --border --border-label="Trashy Helper" \
-          --header="Which action do you want to take?" \
-          --list-border --list-label="Actions")
-      trash list \
-        | fzf --multi \
-            --border --border-label="Trashy Helper" \
-            --header="Select trash to $ACTION" \
-            --list-border --list-label="Paths" \
-        | awk '{$1=$1;print}' \
-        | rev \
-        | cut -d ' ' -f1 \
-        | rev \
-        | xargs trash "$ACTION" --match=exact --force
-    '';
-  };
 in
 {
   options.my.home.packages = {
@@ -66,59 +20,43 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      cheat
-      choose # cut + awk
-      curlie # curl + httpie
-      du-dust # du
-      dua # du
-      duf # df 
-      eza # ls and tree
-      fd # find
-      ffmpeg_6
-      glow
-      home-manager-diff
-      htop
-      hyperfine # benchmark util
-      imagemagick
-      jq
-      nh
-      nix-output-monitor
-      nvd
-      parallel
-      procs # ps
-      ripgrep
-      sd # sed
-      timg
-      tldr
-      tree
-    ] ++ lib.optionals stdenv.isLinux [
-      dysk
-      man-pages
-      man-pages-posix
-      systemctl-tui
-      trash-helper
-      trashy
-
-      (pkgs.writeShellApplication {
-        name = "add-files-to-nix-store";
-        text = /* sh */ ''
-          nix-store --add-fixed sha256 \
-              /media/cyberia/nix-files/fonts/*.tar.{gz,xz} \
-              /media/cyberia/nix-files/software/rns_344_linux_x86_64.tar.gz
-        '';
-      })
-    ] ++ lib.optionals stdenv.isDarwin [
-      (pkgs.writeShellApplication {
-        name = "add-files-to-nix-store";
-        text = /* sh */ ''
-          osascript -e 'mount volume "smb://skrapnel.local/Cyberia"'
-          nix-store --add-fixed sha256 \
-              /Volumes/Cyberia/nix-files/fonts/*.tar.{gz,xz}
-          diskutil unmount /Volumes/Cyberia
-        '';
-      })
-    ];
+    home.packages =
+      with pkgs;
+      [
+        add-files-to-nix-store
+        cheat
+        choose # cut + awk
+        curlie # curl + httpie
+        du-dust # du
+        dua # du
+        duf # df
+        fd # find
+        ffmpeg
+        glow
+        home-manager-diff
+        htop
+        hyperfine # benchmark util
+        imagemagick
+        jq
+        nh
+        nix-output-monitor
+        nvd
+        parallel
+        procs # ps
+        ripgrep
+        sd # sed
+        timg
+        tldr
+      ]
+      ++ lib.optionals stdenv.isLinux [
+        dysk
+        man-pages
+        man-pages-posix
+        systemctl-tui
+        trash-helper
+        trashy
+        wiremix
+      ];
 
     programs = {
       bat = {
@@ -139,6 +77,17 @@ in
       direnv = {
         enable = true;
         nix-direnv.enable = true;
+      };
+
+      eza = {
+        enable = true;
+        colors = "auto";
+        extraOptions = [
+          "--group"
+          "--group-directories-first"
+          "--header"
+        ];
+        icons = "auto";
       };
 
       fzf = {
@@ -193,25 +142,28 @@ in
         ];
       };
       zoxide.enable = true;
-    } // lib.optionalAttrs pkgs.stdenv.isLinux {
+    }
+    // lib.optionalAttrs pkgs.stdenv.isLinux {
       cava = {
         enable = true;
         settings = {
-          color = with config.my.home.theme.colors.withHash; let
-            toStr = color: "\"${color}\"";
-          in
-          {
-            background = "default";
-            foreground = "default";
-            gradient = 1;
-            gradient_count = 6;
-            gradient_color_1 = toStr base0B;
-            gradient_color_2 = toStr base0C;
-            gradient_color_3 = toStr base0D;
-            gradient_color_4 = toStr base08;
-            gradient_color_5 = toStr base0E;
-            gradient_color_6 = toStr base0A;
-          };
+          color =
+            with config.my.home.theme.colors.withHash;
+            let
+              toStr = color: "\"${color}\"";
+            in
+            {
+              background = "default";
+              foreground = "default";
+              gradient = 1;
+              gradient_count = 6;
+              gradient_color_1 = toStr base0B;
+              gradient_color_2 = toStr base0C;
+              gradient_color_3 = toStr base0D;
+              gradient_color_4 = toStr base08;
+              gradient_color_5 = toStr base0E;
+              gradient_color_6 = toStr base0A;
+            };
           general = {
             framerate = 60;
             lower_cutoff_freq = 20;

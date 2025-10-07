@@ -2,21 +2,25 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.musnix.nixosModules.musnix
-      inputs.nixos-hardware.nixosModules.common-cpu-amd
-      inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-      inputs.nixos-hardware.nixosModules.common-gpu-amd
-      inputs.nixos-hardware.nixosModules.common-pc
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.musnix.nixosModules.musnix
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.overlays = [
     self.overlays.default
@@ -71,21 +75,14 @@
     "/media/games" = {
       device = "/dev/nvme1n1p4";
       fsType = "ntfs-3g";
-      options = [ "rw" "uid=pope" ];
-    };
-    "/media/cyberia" = {
-      device = "skrapnel.lan:/mnt/Cyberia";
-      fsType = "nfs";
       options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.after=network-online.target"
-        "x-systemd.idle-timeout=300"
+        "rw"
+        "uid=pope"
       ];
     };
   };
   environment.systemPackages = with pkgs; [
-    renoise344
+    renoise350
   ];
 
   services.xserver.videoDrivers = [ "amdgpu" ];
@@ -117,6 +114,9 @@
     hardwareClockInLocalTime = true;
   };
 
+  virtualisation.docker.enable = true;
+  users.users.pope.extraGroups = [ "docker" ];
+
   musnix.enable = true;
   my.nixos = {
     mainUser = "pope";
@@ -131,24 +131,28 @@
     gaming = {
       enable = true;
       enableSteam = true;
+      ntsync = true;
       preferredOutput = "HDMI-A-2";
     };
     gpu.amd.enable = true;
+    nfs.client.enable = true;
     onepassword.enable = true;
     printing.enable = true;
+    sops.enable = true;
     sound.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
     xserver = {
       enable = true;
       enableAutoLogin = false;
-      displayManager = "gdm";
-      gnome.enable = true;
+      displayManager = "sddm";
+      gnome.enable = false;
+      kde.enable = true;
       hyprland.enable = true;
     };
-    zerotierone.enable = true;
   };
 
   # This value determines the NixOS release from which the default

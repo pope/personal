@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.my.home.dwl;
@@ -22,38 +27,42 @@ let
     text = ./status.sh;
   };
 
-  dwl = (pkgs.dwl.overrideAttrs (_oldAttrs: {
-    patches = [
-      ./dwl/patches/ipc.patch
-      ./dwl/patches/gaps.patch
-      ./dwl/patches/alwayscenter.patch
-      ./dwl/patches/movestack.patch
-    ];
-  })).override {
-    configH = pkgs.replaceVars ./dwl/config.def.h (with pkgs;
-      let
-        inherit (lib) getExe getExe';
-        color = config.my.home.theme.colors.withHex;
-      in
+  dwl =
+    (pkgs.dwl.overrideAttrs (_oldAttrs: {
+      patches = [
+        ./dwl/patches/ipc.patch
+        ./dwl/patches/gaps.patch
+        ./dwl/patches/alwayscenter.patch
+        ./dwl/patches/movestack.patch
+      ];
+    })).override
       {
-        inherit (cfg) dpiScale;
-        # apps
-        brillo = getExe brillo;
-        pamixer = getExe pamixer;
-        pkill = getExe' procps "pkill";
-        rofi = getExe config.programs.rofi.finalPackage;
-        terminal = getExe cfg.terminalPackage;
-        uwsm = getExe uwsm;
-        wlogout = getExe wlogout;
+        configH = pkgs.replaceVars ./dwl/config.def.h (
+          with pkgs;
+          let
+            inherit (lib) getExe getExe';
+            color = config.my.home.theme.colors.withHex;
+          in
+          {
+            inherit (cfg) dpiScale;
+            # apps
+            brillo = getExe brillo;
+            pamixer = getExe pamixer;
+            pkill = getExe' procps "pkill";
+            rofi = getExe config.programs.rofi.finalPackage;
+            terminal = getExe cfg.terminalPackage;
+            uwsm = getExe uwsm;
+            wlogout = getExe wlogout;
 
-        # colors
-        inherit (color) base00;
-        inherit (color) base01;
-        inherit (color) base02;
-        inherit (color) base09;
-        inherit (color) base0E;
-      });
-  };
+            # colors
+            inherit (color) base00;
+            inherit (color) base01;
+            inherit (color) base02;
+            inherit (color) base09;
+            inherit (color) base0E;
+          }
+        );
+      };
 in
 {
   options.my.home.dwl = {

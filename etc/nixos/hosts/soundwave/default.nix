@@ -2,21 +2,27 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, config, pkgs, lib, ... }:
+{
+  self,
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.musnix.nixosModules.musnix
-      inputs.nixos-hardware.nixosModules.common-cpu-amd
-      inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-      inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-      inputs.nixos-hardware.nixosModules.common-pc
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.musnix.nixosModules.musnix
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.overlays = [
     self.overlays.default
@@ -47,8 +53,8 @@
         '';
         gfxmodeBios = "1920x1080";
         gfxmodeEfi = "1920x1080";
-        gfxpayloadBios = "keep";
-        gfxpayloadEfi = "keep";
+        gfxpayloadBios = "auto";
+        gfxpayloadEfi = "auto";
         splashImage = "${theme}/background.png";
         theme = "${pkgs.p5r-grub}/joker";
         useOSProber = true;
@@ -66,21 +72,14 @@
     swraid.enable = false;
   };
 
-  fileSystems = {
-    "/media/cyberia" = {
-      device = "skrapnel.lan:/mnt/Cyberia";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.after=network-online.target"
-        "x-systemd.idle-timeout=300"
-      ];
-    };
+  console = {
+    earlySetup = true;
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u32n.psf.gz";
+    packages = with pkgs; [ terminus_font ];
   };
 
   environment.systemPackages = with pkgs; [
-    renoise344
+    renoise350
   ];
 
   networking = {
@@ -124,7 +123,7 @@
   my.nixos = {
     mainUser = "pope";
 
-    arrs.enable = true;
+    arrs.enable = false;
     bluetooth.enable = true;
     fah.enable = false;
     flatpak.enable = true;
@@ -132,12 +131,17 @@
     gaming = {
       enable = true;
       enableSteam = true;
+      ntsync = true;
     };
     gpu.nvidia.enable = true;
+    ndi.enable = true;
+    nfs.client.enable = true;
     onepassword.enable = true;
     printing.enable = true;
+    sops.enable = true;
     sound.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
@@ -145,10 +149,10 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "none";
-      gnome.enable = true;
-      hyprland.enable = true;
+      kde.enable = true;
+      gnome.enable = false;
+      hyprland.enable = false;
     };
-    zerotierone.enable = true;
   };
 
   # This value determines the NixOS release from which the default

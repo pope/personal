@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.my.home) dwl hyprland;
@@ -36,7 +41,53 @@ in
     # allow fontconfig to discover fonts and configurations installed through home.packages
     fonts.fontconfig.enable = true;
 
-    programs.wlogout.enable = true;
+    programs.wlogout = {
+      enable = true;
+      layout =
+        let
+          loginctl = lib.getExe' pkgs.systemd "loginctl";
+          systemctl = lib.getExe' pkgs.systemd "systemctl";
+          wayland-logout = lib.getExe pkgs.wayland-logout;
+        in
+        [
+          {
+            label = "lock";
+            action = "${loginctl} lock-session";
+            text = "Lock";
+            keybind = "l";
+          }
+          {
+            label = "hibernate";
+            action = "${systemctl} hibernate";
+            text = "Hibernate";
+            keybind = "h";
+          }
+          {
+            label = "logout";
+            action = "${wayland-logout}";
+            text = "Logout";
+            keybind = "e";
+          }
+          {
+            label = "shutdown";
+            action = "${systemctl} poweroff";
+            text = "Shutdown";
+            keybind = "s";
+          }
+          {
+            label = "suspend";
+            action = "${systemctl} suspend";
+            text = "Suspend";
+            keybind = "u";
+          }
+          {
+            label = "reboot";
+            action = "${systemctl} reboot";
+            text = "Reboot";
+            keybind = "r";
+          }
+        ];
+    };
 
     systemd.user.services = {
       polkit-gnome-authentication-agent-1 = {
@@ -91,16 +142,18 @@ in
     };
 
     xdg.configFile = {
-      "swappy/config".text = /* ini */ ''
-        [Default]
-        save_dir=$HOME/Pictures/Screenshots
-      '';
+      "swappy/config".text = # ini
+        ''
+          [Default]
+          save_dir=$HOME/Pictures/Screenshots
+        '';
 
-      "uwsm/env".text = /* sh */ ''
-        export WLR_NO_HARDWARE_CURSORS=1
-        # Hint electron apps to use wayland
-        export NIXOS_OZONE_WL=1
-      '';
+      "uwsm/env".text = # sh
+        ''
+          export WLR_NO_HARDWARE_CURSORS=1
+          # Hint electron apps to use wayland
+          export NIXOS_OZONE_WL=1
+        '';
     };
   };
 }

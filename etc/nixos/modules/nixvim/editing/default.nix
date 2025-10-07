@@ -7,7 +7,10 @@ in
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
       pkg = guess-indent-nvim;
-      event = [ "BufReadPost" "BufNewFile" ];
+      event = [
+        "BufReadPost"
+        "BufNewFile"
+      ];
       config = true;
     }
     {
@@ -20,7 +23,9 @@ in
       keys = mkLazyKeys [
         {
           lhs = "<leader>y";
-          rhs = helpers.mkRaw /* lua */ "function() require('osc52').copy_visual() end";
+          rhs =
+            helpers.mkRaw # lua
+              "function() require('osc52').copy_visual() end";
           mode = "v";
         }
       ];
@@ -34,7 +39,10 @@ in
         check_ts = true; # enable tree-sitter
         ts_config = {
           lua = [ "string" ];
-          javascript = [ "string" "template_string" ];
+          javascript = [
+            "string"
+            "template_string"
+          ];
         };
       };
     }

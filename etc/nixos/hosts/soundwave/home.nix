@@ -30,12 +30,12 @@
   };
 
   my.home = {
-    anyrun.enable = true;
+    anyrun.enable = false;
     browsers = {
       chromium.enable = true;
       firefox.enable = true;
     };
-    dunst.enable = true;
+    dunst.enable = false;
     editors = {
       vscode.enable = true;
       neovim.enable = true;
@@ -43,13 +43,17 @@
     gaming.enable = true;
     git.enable = true;
     gnome.enable = true;
-    gtk.enable = true;
-    hypridle = {
+    gtk = {
       enable = true;
+      disableQt = true;
+      theme = "breeze";
+    };
+    hypridle = {
+      enable = false;
       forDesktop = true;
       withPowerProfiles = true;
     };
-    hyprland.enable = true;
+    hyprland.enable = false;
     keymapp.enable = true;
     languages = {
       c.enable = true;
@@ -63,11 +67,14 @@
     mpv = {
       enable = true;
       enableHqAnimeSettings = true;
+      defaultProfile = "fsr";
     };
     multimedia = {
       audio.enable = true;
       graphics.enable = true;
-      photography.enable = true;
+      # Re-enable when CUDA support is fixed
+      # https://github.com/NixOS/nixpkgs/issues/426836
+      photography.enable = false;
       threed.enable = true;
       video.enable = false;
     };
@@ -82,14 +89,11 @@
       ghostty.enable = true;
       foot.enable = true;
       kitty.enable = true;
-      wezterm = {
-        enable = true;
-        useWayland = true;
-      };
+      wezterm.enable = true;
     };
     theme.colorScheme = "tokyonight";
     tmux.enable = true;
-    waybar.enable = true;
+    waybar.enable = false;
     xdg.enable = true;
     yazi.enable = true;
   };

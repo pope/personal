@@ -4,20 +4,15 @@
 
 ### `modules/nixos/`
 
-These are NixOS specific modules. Including it sets up a main user and can
-include subsets of common things I use with a
-`my.nixos.system.<module>.enable`. Some modules are also configurable.
+These are NixOS specific modules. Including it sets up a main user and can include subsets of common things I use with a `my.nixos.system.<module>.enable`. Some modules are also configurable.
 
 ### `home/`
 
-These are home-manager modules. Right now, each home module must be imported.
-But soon it will behave just like `modules/nixos`.
+These are home-manager modules. Right now, each home module must be imported. But soon it will behave just like `modules/nixos`.
 
 ### `hosts/`
 
-These are the files for each host. If the host runs on NixOS, then the
-`default.nix` file will configure the system. For home-manager files, those
-will be loaded by the `home.nix` file.
+These are the files for each host. If the host runs on NixOS, then the `default.nix` file will configure the system. For home-manager files, those will be loaded by the `home.nix` file.
 
 ### `overlays/`
 
@@ -25,8 +20,7 @@ These are Nix overlays which can be loaded up and used.
 
 ## SOPS Nix
 
-In order to use the SOPS nix secrets, the key needs to be stored in
-`~/.config/sops/age/keys.txt`. It can be extracted from 1Password.
+In order to use the SOPS nix secrets, the key needs to be stored in `~/.config/sops/age/keys.txt`. It can be extracted from 1Password.
 
 ```sh
 mkdir -p ~/.config/sops/age
@@ -41,8 +35,7 @@ How to build the SD card:
   2. `nix-shell -p zstd`
   3. `zstd -d $(readlink -f result) -c | sudo dd of=/dev/sdg bs=4096 conv=fsync status=progress`
 
-Where `/dev/sdg` is the location of the SD card. And the command above assumes
-Bash shell.
+Where `/dev/sdg` is the location of the SD card. And the command above assumes Bash shell.
 
 After the server starts, make sure change the password and to add a Samba user:
 
@@ -52,19 +45,16 @@ sudo smbpasswd -a pi
 
 ### Remote deployment
 
-It's also easy enough to build on a local machine the Pi dependencies and then
-copy those files over to the Pi for quick updates. The local machine will
-need `boot.binfmt.emulatedSystems = [ "aarch64-linux" ];` set up in order to
-be able to build for the ARM architecture.
+It's also easy enough to build on a local machine the Pi dependencies and then copy those files over to the Pi for quick updates. The local machine will need `boot.binfmt.emulatedSystems = [ "aarch64-linux" ];` set up in order to be able to build for the ARM architecture.
 
 ```sh
-nixos-rebuild --flake .#raspberrypi --target-host pi@raspberrypi.lan --use-remote-sudo switch
+nixos-rebuild --flake .#raspberrypi --target-host pi@raspberrypi.lan \
+    --use-remote-sudo switch
 ```
 
 ## Remote builders
 
-It's possible to use another machine to do building when trying to update the
-system. 
+It's possible to use another machine to do building when trying to update the system.
 
 ```sh
 sudo nixos-rebuild --build-host pope@soundwave.lan switch

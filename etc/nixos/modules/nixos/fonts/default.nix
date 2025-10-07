@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.nixos.fonts;
@@ -16,7 +21,11 @@ in
         off completely.
       '';
       example = "low";
-      type = lib.types.enum [ "default" "low" "high" ];
+      type = lib.types.enum [
+        "default"
+        "low"
+        "high"
+      ];
     };
   };
 
@@ -24,47 +33,55 @@ in
     fonts = {
       fontDir.enable = true;
 
-      packages = with pkgs; let
-        maple-mono-font =
-          if cfg.resolution == "high" then maple-mono.NF-unhinted
-          else maple-mono.NF;
+      packages =
+        with pkgs;
+        let
+          maple-mono-font = if cfg.resolution == "high" then maple-mono.NF-unhinted else maple-mono.NF;
 
-        custom-fonts = [
-          berkeley-mono
-          comic-code-ligatures
-          dank-mono
-          lucida-grande
-          monolisa
-        ];
-      in
-      [
-        comic-mono
-        fragment-mono
-        geist-font
-        go-font
-        hasklig
-        helvetica-neue-lt-std
-        ia-writer
-        ibm-plex
-        inter
-        iosevka-comfy.comfy
-        joypixels
-        maple-mono-font
-        nerd-fonts.fira-code
-        nerd-fonts.jetbrains-mono
-        nerd-fonts.lilex
-        nerd-fonts.symbols-only
-        open-sans
-        roboto
-        roboto-mono
-        roboto-slab
-        sf-mono-nf-liga
-        sf-pro
-        source-serif
-        terminus_font
-        victor-mono
-        work-sans
-      ] ++ custom-fonts;
+          custom-fonts = [
+            berkeley-mono
+            comic-code-ligatures
+            dank-mono
+            lucida-grande
+            monolisa
+          ];
+        in
+        [
+          comic-mono
+          commit-mono
+          departure-mono
+          fragment-mono
+          geist-font
+          go-font
+          hasklig
+          helvetica-neue-lt-std
+          ia-writer
+          ibm-plex
+          inter
+          iosevka
+          iosevka-comfy.comfy
+          joypixels
+          maple-mono-font
+          monaspace
+          nerd-fonts.fira-code
+          nerd-fonts.jetbrains-mono
+          nerd-fonts.lilex
+          nerd-fonts.symbols-only
+          open-sans
+          pixel-code
+          quinze
+          roboto
+          roboto-mono
+          roboto-slab
+          sf-mono-nf-liga
+          sf-pro
+          source-serif
+          terminus_font
+          victor-mono
+          work-sans
+          zpix-pixel-font
+        ]
+        ++ custom-fonts;
 
       enableDefaultPackages = true;
 
@@ -73,9 +90,15 @@ in
 
         antialias = true;
         defaultFonts = {
-          emoji = [ "Joypixels" "Noto Color Emoji" ];
-          monospace = [ "Berkeley Mono" "Symbols Nerd Font" ];
-          sansSerif = [ "SF Pro Display" ];
+          emoji = [
+            "Joypixels"
+            "Noto Color Emoji"
+          ];
+          monospace = [
+            "Berkeley Mono"
+            "Symbols Nerd Font"
+          ];
+          sansSerif = [ "Work Sans" ];
           serif = [ "Source Serif 4" ];
         };
         hinting = {
@@ -89,7 +112,6 @@ in
         };
       };
     };
-
 
     environment = {
       sessionVariables = {

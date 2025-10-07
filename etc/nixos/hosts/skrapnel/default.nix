@@ -5,17 +5,17 @@
 { self, inputs, ... }:
 
 {
-  imports =
-    [
-      self.nixosModules.default
-      inputs.nixos-hardware.nixosModules.common-cpu-intel
-      inputs.nixos-hardware.nixosModules.common-gpu-intel
-      inputs.nixos-hardware.nixosModules.common-pc
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./backup.nix
-    ];
+  imports = [
+    self.nixosModules.default
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-gpu-intel
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./backup.nix
+    ./webservices.nix
+  ];
 
   nixpkgs = {
     overlays = [
@@ -36,6 +36,7 @@
 
   networking = {
     hostName = "skrapnel"; # Define your hostname.
+    enableIPv6 = false;
     firewall = {
       enable = true;
       allowPing = true;
@@ -50,67 +51,30 @@
     "/mnt/Cyberia" = {
       device = "/dev/disk/by-label/T5-EVO";
       fsType = "ext4";
-      options = [ "rw" "users" "noatime" ];
-    };
-  };
-
-  services = {
-    nfs.server = {
-      enable = true;
-      exports = ''
-        /mnt/Cyberia    192.168.86.0/24(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1000,anongid=100)
-      '';
-    };
-    rpcbind.enable = true;
-    syncthing = {
-      enable = true;
-      openDefaultPorts = true;
-      settings = {
-        gui = {
-          user = "pope";
-          password = "$2y$10$y83beuzfDJ3L5D/HI2okLe6WXnvj.lNMG7oc27v3Ei/3S4MuZIJou";
-        };
-        folders = {
-          "Sync" = {
-            path = "/mnt/Cyberia/Sync";
-          };
-        };
-      };
-    };
-
-    owncast = {
-      enable = true;
-      listen = "0.0.0.0";
-      openFirewall = true;
-      port = 8088;
-    };
-
-    # # Jellyfin
-    jellyfin = {
-      enable = false;
-      openFirewall = true;
-    };
-    jellyseerr = {
-      enable = false;
-      port = 5055;
-      openFirewall = true;
+      options = [
+        "rw"
+        "users"
+        "noatime"
+      ];
     };
   };
 
   my.nixos = {
     mainUser = "pope";
 
-    arrs.enable = true;
-    firewall.nfs.enable = true;
+    gpu.intel.enable = true;
+    nfs.host.enable = true;
     samba = {
       enable = true;
       shares = {
         Cyberia.path = "/mnt/Cyberia";
       };
     };
+    sops.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
-    zerotierone.enable = true;
+    vyprvpn.enable = true;
   };
 
   # This value determines the NixOS release from which the default

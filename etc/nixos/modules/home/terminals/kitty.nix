@@ -22,6 +22,7 @@ in
         bold_italic_font = "auto";
 
         background_opacity = "0.85";
+        background_blur = 64;
         clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
         dynamic_background_opacity = "yes";
         # shell = "${pkgs.fish}/bin/fish --login";
@@ -53,11 +54,16 @@ in
         "map cmd+0" = "change_font_size all 0";
       };
       themeFile =
-        if colorScheme == "rose-pine" then "rose-pine"
-        else if colorScheme == "catppuccin" then "Catppuccin-Mocha"
-        else if colorScheme == "dracula" then "Dracula"
-        else if colorScheme == "tokyonight" then "tokyo_night_night"
-        else abort "invalid theme";
+        if colorScheme == "rose-pine" then
+          "rose-pine"
+        else if colorScheme == "catppuccin" then
+          "Catppuccin-Mocha"
+        else if colorScheme == "dracula" then
+          "Dracula"
+        else if colorScheme == "tokyonight" then
+          "tokyo_night_night"
+        else
+          abort "invalid theme";
     };
   };
 }

@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.multimedia.photography;
@@ -11,6 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       darktable
+      digikam
       dnglab
       geeqie
       rawtherapee

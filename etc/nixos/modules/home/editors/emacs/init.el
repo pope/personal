@@ -13,7 +13,7 @@
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-one t)
+  (load-theme 'doom-nord t)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
@@ -31,7 +31,9 @@
   (save-place-mode t)
   :init
   (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-saves/" t))
-        backup-directory-alist         `(("." . "~/.emacs.d/backups/"))))
+        backup-directory-alist         `(("." . "~/.emacs.d/backups/")))
+  :hook
+  (after-init . which-key-mode))
 
 (use-package emacs
   :custom
@@ -41,7 +43,7 @@
   (global-auto-revert-mode t))
 
 (use-package expand-region
-  :bind ("C-c SPC" . er/expand-region))
+  :bind ("M-SPC" . er/expand-region))
 
 (use-package multiple-cursors
   :bind
@@ -59,6 +61,18 @@
 (use-package evil
   :commands (evil-mode))
 
+(use-package minibuffer
+  :custom
+  (completion-auto-help 'visible)
+  (completion-auto-select t) ;; Show completion on first call
+  (completion-show-help nil) ;; Skip docs for M-<down>, M-<up>, M-<RET>
+  (completion-show-inline-help t)
+  (completions-detailed t)
+  (completions-max-height 20)
+  (completions-sort 'historical)
+  ;; Yo dawg, I heard you like minibuffers.
+  (enable-recursive-minibuffers t))
+
 (use-package vertico
   :custom
   (vertico-cycle t)
@@ -67,15 +81,15 @@
 
 ;; Enable saving of minibuffer history
 (use-package savehist
+  :custom (history-delete-duplicates t)
   :hook (after-init . savehist-mode))
 
-(use-package emacs
+(use-package simple
   :custom
-  ;; Yo dawg, I heard you like minibuffers.
-  (enable-recursive-minibuffers t)
   ;; Hide commands in M-x that are incompatible for the current mode.
-  (read-extended-command-predicate #'command-completion-default-include-p)
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
+(use-package crm
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
@@ -86,12 +100,15 @@
                    crm-separator)
                   (car args))
           (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator))
 
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only-mode t cursor-intangible-mode t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
+;; Do not allow the cursor in the minibuffer prompt
+(use-package emacs
+  :custom
+  (minibuffer-prompt-properties
+   '(read-only-mode t cursor-intangible-mode t face minibuffer-prompt))
+  :hook
+  (minibuffer-setup-hook . cursor-intangible-mode))
 
 (use-package marginalia
   :demand 1
@@ -101,27 +118,28 @@
 
 (use-package orderless
   :custom
+  ;; These are minibuffer custom variables, but tailored for orderless
   (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  (completion-category-overrides
+   '((file (styles basic partial-completion)))))
 
 (use-package consult
   :bind (:map global-map
-         ("M-s M-r" . consult-recent-file)
-         ("M-s M-g" . consult-ripgrep)
-         ("M-s M-f" . consult-fd)
-         ("M-s M-o" . consult-outline)
-         ("M-s M-i" . consult-imenu)
-         ("M-s M-l" . consult-line)
-         ("M-s M-b" . consult-buffer)))
+              ("M-s M-r" . consult-recent-file)
+              ("M-s M-g" . consult-ripgrep)
+              ("M-s M-f" . consult-fd)
+              ("M-s M-o" . consult-outline)
+              ("M-s M-i" . consult-imenu)
+              ("M-s M-l" . consult-line)
+              ("M-s M-b" . consult-buffer)))
 
 (use-package embark
   :bind (("C-."    . embark-act)       ;; pick some comfortable binding
          ("C-;"    . embark-dwim)      ;; good alternative: M-.
          ("C-h B"  . embark-bindings)) ;; alternative for `describe-bindings'
   :init
-   ;; Optionally replace the key help with a completing-read interface
-   (setq prefix-help-command #'embark-prefix-help-command)
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
   :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
@@ -134,10 +152,20 @@
   (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package corfu
-  :custom (global-corfu-mode t))
+  :custom
+  (corfu-cycle t)
+  ;; Fixes a bug for me where the first item is wonky
+  (corfu-preselect 'prompt)
+  :init
+  (global-corfu-mode t)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode))
 
 (use-package emacs
-  :custom (tab-always-indent 'complete))
+  :custom
+  (tab-always-indent 'complete)
+  (text-mode-ispell-word-completion nil)
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
 (unless (display-graphic-p)
   (use-package corfu-terminal
@@ -174,12 +202,14 @@
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 (use-package nerd-icons-corfu
   :after corfu
-  :config (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+  :config (add-to-list 'corfu-margin-formatters
+                       #'nerd-icons-corfu-formatter))
 (use-package nerd-icons-completion
   :after marginalia
   :config
   (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+  (add-hook 'marginalia-mode-hook
+            #'nerd-icons-completion-marginalia-setup))
 
 (use-package ligature
   :config
@@ -226,8 +256,7 @@
   (indent-bars-treesit-support t)
   (indent-bars-width-frac 0.1)
   (indent-bars-zigzag nil)
-  :config (require 'indent-bars-ts)
-  :hook (prog-mode . indent-bars-mode))
+  :config (require 'indent-bars-ts))
 
 (use-package doom-modeline
   :custom
@@ -253,6 +282,8 @@
         (yaml-mode        . yaml-ts-mode)
         (zig-mode         . zig-ts-mode)))
 
+(use-package cmake-ts-mode
+  :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 (use-package go-ts-mode
   :mode "\\.go\\'")
 (use-package rust-ts-mode
@@ -265,10 +296,19 @@
 
 (use-package eglot
   :hook ((c-ts-mode     . eglot-ensure)
+         (c++-ts-mode   . eglot-ensure)
          (go-ts-mode    . eglot-ensure)
          (nix-ts-mode   . eglot-ensure)
          (rust-ts-mode  . eglot-ensure)
          (zig-ts-mode   . eglot-ensure)))
+
+(with-eval-after-load 'eglot
+  (defun pope--eglot-ensure-formatting ()
+    (if (eglot-managed-p)
+        (add-hook 'before-save-hook #'eglot-format-buffer nil t)
+      (remove-hook 'before-save-hook #'eglot-format-buffer t)))
+
+  (add-hook 'eglot-managed-mode-hook #'pope--eglot-ensure-formatting))
 
 (use-package direnv
   :custom (direnv-mode t))
@@ -281,3 +321,85 @@
               (display-line-numbers-mode -1)
               (visual-line-mode -1)
               (toggle-truncate-lines 1))))
+
+(use-package emacs
+  :custom-face
+  (default (nil (:font "Monospace")))
+  (fixed-pitch (nil (:font "Monospace")))
+  (variable-pitch (nil (:family "Sans Serif") (:height 1.2))))
+
+(defun pope-set-document-faces (&optional theme)
+  (interactive)
+  ;; Ensure line numbers have fixed pitchs so that left alignment
+  ;; isn't wonky
+  (set-face-attribute 'line-number nil :inherit 'fixed-pitch :height 0.9)
+  (set-face-attribute 'line-number-current-line nil
+                      :inherit 'fixed-pitch :height 0.9)
+
+  ;; org-mode faces. If one face exists, set them all
+  (when (facep 'org-default)
+    (dolist (face '((org-level-1 . 1.35)
+                    (org-level-2 . 1.3)
+                    (org-level-3 . 1.2)
+                    (org-level-4 . 1.1)
+                    (org-level-5 . 1.1)
+                    (org-level-6 . 1.1)
+                    (org-level-7 . 1.1)
+                    (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+    (set-face-attribute 'org-document-title nil :weight 'bold :height 1.8)
+    (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil
+                        :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil
+                        :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
+
+  ;; markdown-mode faces
+  (when (facep 'markdown-header-face)
+    (dolist (face '((markdown-header-face-1 . 1.35)
+                    (markdown-header-face-2 . 1.3)
+                    (markdown-header-face-3 . 1.2)
+                    (markdown-header-face-4 . 1.1)
+                    (markdown-header-face-5 . 1.1)
+                    (markdown-header-face-6 . 1.1)))
+      (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
+    (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)))
+
+(add-hook 'enable-theme-functions #'pope-set-document-faces)
+
+(use-package org
+  :custom
+  (org-hide-leading-stars t)
+  (org-hide-emphasis-markers t)
+  (org-pretty-entities t)
+  :hook
+  (org-mode . variable-pitch-mode)
+  (org-mode . (lambda ()
+                (olivetti-mode t)
+                (org-modern-mode t)
+                (display-line-numbers-mode -1)
+                (indent-bars-mode -1)
+                (diff-hl-margin-mode -1)))
+  :config
+  (pope-set-document-faces))
+
+(use-package org-indent
+  :config
+  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
+
+(use-package markdown-mode
+  :custom
+  (markdown-enable-highlighting-syntax t)
+  (markdown-fontify-code-blocks-natively t)
+  (markdown-hide-markup t)
+  :hook
+  (markdown-mode . (lambda ()
+                     (variable-pitch-mode t)
+                     (olivetti-mode t)
+                     (indent-bars-mode -1)
+                     (diff-hl-margin-mode -1)))
+  :config
+  (pope-set-document-faces))

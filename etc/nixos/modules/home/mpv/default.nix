@@ -1,13 +1,18 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+
+# References
+#
+# - https://kokomins.wordpress.com/2019/10/14/mpv-config-guide/
+# - https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/#auto-profiles
+# - https://kohana.fi/article/mpv-for-anime
 
 let
-  inherit (pkgs) anime4k modernx fsrcnnx;
-  krigBilateral = "${pkgs.krigBilateral}/KrigBilateral.glsl";
-  ssimDownscaler = "${pkgs.ssimDownscaler}/SSimDownscaler.glsl";
-  ssimSuperRes = "${pkgs.ssimSuperRes}/SSimSuperRes.glsl";
-  setShader = { files, message }: ''no-osd change-list glsl-shaders set "${builtins.concatStringsSep ":" files}"; show-text "${message}"'';
-  anime4khqbindings = import ./anime4k-hq-bindings.nix { inherit anime4k setShader; };
-  anime4kfastbindings = import ./anime4k-fast-bindings.nix { inherit anime4k setShader; };
+  defs = import ./defs.nix { inherit pkgs; };
   cfg = config.my.home.mpv;
 in
 {
@@ -20,11 +25,27 @@ in
       description = "Whether to enable Vulkan GPU API.";
       type = lib.types.bool;
     };
+    defaultProfile = lib.mkOption {
+      type = lib.types.enum [
+        "generic"
+        "fsr"
+      ];
+      default = "generic";
+      description = lib.mkDoc ''
+        The starting default profile to use
+      '';
+    };
+    scale = lib.mkOption {
+      type = lib.types.number;
+      default = 1.5;
+      example = 1;
+      description = lib.mkDoc ''Scaling to apply to controls.'';
+    };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      modernx
+      mpvScripts.modernx # Included here so that the font is installed
       streamlink
       yt-dlp
     ];
@@ -34,79 +55,125 @@ in
     programs.mpv = {
       enable = true;
 
-      # https://iamscum.wordpress.com/guides/videoplayback-guide/mpv-conf/#auto-profiles
       config = {
         # UI
-        keep-open = "yes";
-        osc = "no";
-        border = "no";
+        border = false;
+        keep-open = true;
+        osc = false;
 
         # Video
-        profile = "gpu-hq";
-        vo = if pkgs.stdenv.isLinux then "gpu-next" else "libmpv";
+        vo = "gpu-next";
         hwdec = "auto-safe";
+        fbo-format = "rgba16f";
 
-        # Shaders
-        glsl-shaders = builtins.concatStringsSep ":" [
-          ssimSuperRes
-          ssimDownscaler
-          krigBilateral
-        ];
-        scale = "ewa_lanczossharp";
-        dscale = "lanczos";
-        cscale = "spline36";
-        linear-downscaling = "no";
-        correct-downscaling = "yes";
-      } // lib.optionalAttrs cfg.enableVulkan {
+        # Deband
+        deband = true;
+        deband-grain = 0;
+        deband-iterations = 1;
+        deband-range = 12;
+        deband-threshold = 32;
+
+        # Dithering
+        dither-depth = "auto";
+        dither = "fruit";
+
+        # Track Selection
+        slang = "en,eng";
+        alang = "en,eng,ja,jp,jpn";
+
+        profile =
+          if (cfg.defaultProfile == "fsr") then
+            defs.fsr.name
+          else if (cfg.defaultProfile == "generic") then
+            defs.generic.name
+          else
+            abort "defaultProfile is invalid";
+      }
+      // lib.optionalAttrs cfg.enableVulkan {
         gpu-api = "vulkan";
       };
 
-      bindings = lib.mkMerge [
-        {
-          "CTRL+7" = setShader {
-            files = [ ssimSuperRes krigBilateral ];
-            message = "SuperRes";
+      bindings =
+        let
+          mkBinding = def: {
+            "${def.shortcut}" = ''apply-profile ${def.name}; show-text "Profile: ${def.desc}"'';
           };
-          "CTRL+8" = setShader {
-            files = [ "${fsrcnnx}/FSRCNNX_x2_8-0-4-1_LineArt.glsl" krigBilateral ];
-            message = "FSRCNNX 8 LineArt";
-          };
-          "CTRL+9" = setShader {
-            files = [ "${fsrcnnx}/FSRCNNX_x2_16-0-4-1.glsl" krigBilateral ];
-            message = "FSRCNNX 16";
-          };
+        in
+        lib.mkMerge [
+          {
+            "CTRL+0" = ''no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"'';
+          }
 
-          "CTRL+0" = ''no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"'';
-        }
-        (lib.mkIf cfg.enableHqAnimeSettings anime4khqbindings)
-        (lib.mkIf (!cfg.enableHqAnimeSettings) anime4kfastbindings)
-      ];
+          (mkBinding defs.generic)
+          (mkBinding defs.genericHigh)
+          (mkBinding defs.fsr)
+          (mkBinding defs.nvscaler)
 
-      profiles = {
-        crt-guest-advanced-ntsc = {
-          glsl-shaders = "${./shaders/crt-guest-advanced-ntsc.glsl}";
-        };
-        crt-lottes = {
-          glsl-shaders = "${./shaders/crt-lottes.glsl}";
-        };
-        gba = {
-          glsl-shaders = "${./shaders/gba.glsl}";
-          scale = "nearest";
+          (mkBinding defs.crtGuestAdvancedNtsc)
+          (mkBinding defs.crtLottes)
+
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kAHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kBHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kCHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kAAHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kBBHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kCAHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.artcnn))
+
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kAFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kBFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kCFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kAAFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kBBFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kCAFast))
+        ];
+
+      profiles =
+        let
+          mkProfile = def: { "${def.name}" = def.profile; };
+        in
+        lib.mkMerge [
+          (mkProfile defs.generic)
+          (mkProfile defs.genericHigh)
+          (mkProfile defs.fsr)
+          (mkProfile defs.nvscaler)
+
+          (mkProfile defs.crtGuestAdvancedNtsc)
+          (mkProfile defs.crtLottes)
+
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kAHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kBHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kCHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kAAHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kBBHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kCAHq))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.artcnn))
+
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kAFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kBFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kCFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kAAFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kBBFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kCAFast))
+        ];
+
+      scripts =
+        (with pkgs.mpvScripts; [
+          modernx
+          thumbfast
+          visualizer
+        ])
+        ++ lib.optionals pkgs.stdenv.isLinux [
+          pkgs.mpvScripts.mpris
+        ];
+
+      scriptOpts = {
+        osc = {
+          scalefullscreen = cfg.scale;
+          scalewindowed = cfg.scale;
+          vidscale = false;
         };
       };
-    } // lib.optionalAttrs pkgs.stdenv.isLinux {
-      scripts = with pkgs.mpvScripts; [
-        modernx
-        mpris
-        thumbfast
-        visualizer
-      ];
-    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      scripts = with pkgs.mpvScripts; [
-        modernx
-        thumbfast
-        visualizer
-      ];
     };
   };
 }

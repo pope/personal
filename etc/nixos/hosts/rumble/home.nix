@@ -17,13 +17,14 @@
       godot_4
       nvtopPackages.amd
       rbutil
+      hatsune-miku-cursor
     ];
 
-    stateVersion = "24.05";
+    stateVersion = "25.05";
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "eDP-1,preferred,auto,2,vrr,1"
+    "eDP-1,preferred,auto,1.6666666666,vrr,1"
   ];
 
   programs = {
@@ -33,7 +34,7 @@
   my.home = {
     anyrun.enable = false;
     browsers = {
-      firefox.enable = true;
+      librewolf.enable = true;
       chromium.enable = true;
     };
     editors = {
@@ -46,17 +47,22 @@
     };
     dunst.enable = true;
     dwl = {
-      enable = true;
+      enable = false;
       dpiScale = 2;
       terminalPackage = config.programs.ghostty.package;
     };
+    email.enable = true;
     git.enable = true;
     gnome.enable = true;
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+      disableQt = true;
+      theme = "breeze";
+    };
     hypridle.enable = true;
     hyprland = {
-      enable = false;
-      dpiScale = 2;
+      enable = true;
+      # dpiScale = 2;
       enableBatterySaverMode = true;
       enableVrr = true;
     };
@@ -66,16 +72,14 @@
       python.enable = true;
     };
     lf.enable = true;
-    mpv = {
-      enable = true;
-      enableHqAnimeSettings = true;
-      # Disabled because MPV won't play videos otherwise. My current thought is
-      # that when I added amdvlk, it stopped working.
-      enableVulkan = false;
-    };
+    mpv.enable = true;
     multimedia = {
       audio.enable = true;
       graphics.enable = true;
+      music = {
+        enable = true;
+        musicDirectory = "/media/cyberia/Public/Hi-Fi Music/";
+      };
       photography.enable = true;
       threed = {
         enable = true;
@@ -83,32 +87,29 @@
       };
       video.enable = false;
     };
-    music.enable = true;
     obs.enable = true;
     packages.enable = true;
     rofi.enable = true;
     shell.zsh.enable = true;
+    sops.enable = true;
     ssh.enable = true;
     terminals = {
       ghostty = {
         enable = true;
-        fontSize = 9;
+        fontSize = 10;
       };
       kitty.enable = false;
       foot = {
         enable = true;
-        fontSize = 9;
+        fontSize = 10;
       };
-      wezterm = {
-        enable = false;
-        useWayland = true;
-      };
+      wezterm.enable = true;
     };
     theme.colorScheme = "catppuccin";
     tmux.enable = true;
     waybar = {
       enable = true;
-      scale = 0.7;
+      scale = 0.9;
       theme = "bubble";
     };
     xdg.enable = true;

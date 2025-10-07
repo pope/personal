@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.terminals.ghostty;
@@ -20,23 +25,28 @@ in
   config = lib.mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.bashInteractive else pkgs.ghostty;
+      package = if pkgs.stdenv.isDarwin then pkgs.bashInteractive else config.lib.nixGL.wrap pkgs.ghostty;
       enableFishIntegration = config.my.home.shell.fish.enable;
       enableZshIntegration = config.my.home.shell.zsh.enable;
       installBatSyntax = !pkgs.stdenv.isDarwin;
       settings =
         let
           theme =
-            if colorScheme == "rose-pine" then "rose-pine"
-            else if colorScheme == "catppuccin" then "catppuccin-mocha"
-            else if colorScheme == "dracula" then "Dracula"
-            else if colorScheme == "tokyonight" then "tokyonight"
-            else abort "invalid colorScheme";
+            if colorScheme == "rose-pine" then
+              "Rose Pine"
+            else if colorScheme == "catppuccin" then
+              "Catppuccin Mocha"
+            else if colorScheme == "dracula" then
+              "Dracula"
+            else if colorScheme == "tokyonight" then
+              "TokyoNight"
+            else
+              abort "invalid colorScheme";
         in
         {
           inherit theme;
           adjust-cell-height = "40%";
-          adw-toolbar-style = "flat";
+          gtk-toolbar-style = "flat";
           background-opacity = 0.95;
           background-blur-radius = 20;
           config-file = [ "?overrides" ];
@@ -45,8 +55,6 @@ in
             "monospace"
           ];
           font-size = cfg.fontSize;
-          gtk-adwaita = true;
-          gtk-single-instance = true; # default is "desktop"
           window-decoration = "auto";
           window-theme = "ghostty";
         };

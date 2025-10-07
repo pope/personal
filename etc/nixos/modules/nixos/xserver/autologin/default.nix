@@ -6,7 +6,7 @@ let
 in
 {
   config = lib.mkIf (cfg.enable && cfg.enableAutoLogin) {
-    services.xserver.displayManager.autoLogin = {
+    services.displayManager.autoLogin = {
       enable = true;
       user = mainUser;
     };

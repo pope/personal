@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.home.editors.vscode;
@@ -31,7 +36,6 @@ in
         pkief.material-icon-theme
         pkief.material-product-icons
         rust-lang.rust-analyzer
-        twxs.cmake
         vscode-icons-team.vscode-icons
         vscodevim.vim
         yzhang.markdown-all-in-one

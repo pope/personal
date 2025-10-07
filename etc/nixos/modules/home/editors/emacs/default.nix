@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.my.home.editors.emacs;
@@ -8,8 +13,8 @@ in
     enable = lib.mkEnableOption "Emacs text editor home options";
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.emacs30-pgtk;
-      defaultText = lib.literalExpression "pkgs.emacs30-pgtk";
+      default = pkgs.emacs-pgtk;
+      defaultText = lib.literalExpression "pkgs.emacs-nox";
       description = lib.mkDoc "Package of Emacs to use";
     };
     useSymlink = lib.mkEnableOption "Use a symlink for the init.el file";
@@ -49,18 +54,21 @@ in
       }
     ];
     home = {
-      activation.createEmacsDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] /* sh */ ''
-        run mkdir -m 700 -p $VERBOSE_ARG \
-            ${config.home.homeDirectory}/.emacs.d/auto-saves \
-            ${config.home.homeDirectory}/.emacs.d/backups
-      '';
+      activation.createEmacsDirectories =
+        lib.hm.dag.entryAfter [ "writeBoundary" ] # sh
+          ''
+            run mkdir -m 700 -p $VERBOSE_ARG \
+                ${config.home.homeDirectory}/.emacs.d/auto-saves \
+                ${config.home.homeDirectory}/.emacs.d/backups
+          '';
 
       file.".emacs.d/init.el" = {
-        source = lib.mkIf (cfg.useSymlink || cfg.extraInit == "")
-          (if cfg.useSymlink then
-            (config.lib.file.mkOutOfStoreSymlink
-              "${config.home.homeDirectory}/Code/personal/etc/nixos/modules/home/editors/emacs/init.el")
-          else ./init.el);
+        source = lib.mkIf (cfg.useSymlink || cfg.extraInit == "") (
+          if cfg.useSymlink then
+            (config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Code/personal/etc/nixos/modules/home/editors/emacs/init.el")
+          else
+            ./init.el
+        );
 
         text = lib.optionalString (cfg.extraInit != "") ''
           ${builtins.readFile ./init.el}
@@ -79,47 +87,59 @@ in
 
       enable = true;
       inherit (cfg) package;
-      extraPackages = epkgs: (with epkgs; [
-        cape
-        clipetty
-        consult
-        corfu
-        corfu-terminal
-        diff-hl
-        direnv
-        doom-modeline
-        doom-themes
-        editorconfig
-        embark
-        embark-consult
-        evil
-        expand-region
-        fzf
-        goto-chg
-        indent-bars
-        ligature
-        magit
-        marginalia
-        markdown-mode
-        multiple-cursors
-        nerd-icons
-        nerd-icons-completion
-        nerd-icons-corfu
-        nerd-icons-dired
-        nerd-icons-ibuffer
-        nix-mode
-        nix-ts-mode
-        nyan-mode
-        orderless
-        rg
-        treesit-grammars.with-all-grammars
-        vertico
-        vterm
-        web-mode
-        xclip
-        zig-mode
-        zig-ts-mode
-      ]);
+      extraPackages =
+        epkgs:
+        (with epkgs; [
+          cape
+          catppuccin-theme
+          clipetty
+          consult
+          corfu
+          corfu-terminal
+          diff-hl
+          direnv
+          doom-modeline
+          doom-themes
+          editorconfig
+          embark
+          embark-consult
+          evil
+          expand-region
+          fzf
+          goto-chg
+          indent-bars
+          kanagawa-themes
+          ligature
+          magit
+          marginalia
+          markdown-mode
+          multiple-cursors
+          nano-theme
+          nerd-icons
+          nerd-icons-completion
+          nerd-icons-corfu
+          nerd-icons-dired
+          nerd-icons-ibuffer
+          nix-mode
+          nix-ts-mode
+          notmuch
+          nyan-mode
+          olivetti
+          orderless
+          org-modern
+          org-superstar
+          pink-bliss-uwu-theme
+          rg
+          sakura-theme
+          treesit-grammars.with-all-grammars
+          uwu-theme
+          vertico
+          vterm
+          web-mode
+          xclip
+          zig-mode
+          zig-ts-mode
+        ]);
     };
   };
 }

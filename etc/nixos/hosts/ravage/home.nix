@@ -31,18 +31,21 @@
   };
 
   my.home = {
-    anyrun.enable = false;
     browsers = {
       chromium.enable = true;
       firefox.enable = true;
     };
     editors = {
-      emacs.enable = true;
+      emacs = {
+        enable = true;
+        useSymlink = true;
+      };
       neovim.enable = true;
       vscode.enable = true;
     };
+    email.enable = true;
     dunst.enable = true;
-    dwl.enable = true;
+    dwl.enable = false;
     git.enable = true;
     gnome = {
       enable = true;
@@ -50,24 +53,31 @@
     };
     gtk.enable = true;
     hypridle.enable = true;
+    hyprland = {
+      enable = true;
+      enableBatterySaverMode = true;
+    };
     keymapp.enable = true;
     languages = {
       javascript.enable = true;
       python.enable = true;
     };
-    lf.enable = false;
-    mpv.enable = true;
+    mpv = {
+      enable = true;
+      scale = 1;
+    };
     multimedia = {
       audio.enable = true;
+      music.enable = true;
       threed.enable = true;
     };
-    music.enable = true;
     packages.enable = true;
     rofi = {
       enable = true;
       fontSize = 12;
     };
     shell.zsh.enable = true;
+    sops.enable = true;
     ssh.enable = true;
     terminals = {
       ghostty.enable = true;

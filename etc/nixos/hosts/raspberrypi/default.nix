@@ -1,17 +1,25 @@
-{ self, inputs, pkgs, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      # With this, we can build an SD card for the PI.
-      # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
-      inputs.nixos-generators.nixosModules.all-formats
-      self.nixosModules.default
-    ];
+  imports = [
+    # With this, we can build an SD card for the PI.
+    # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
+    inputs.nixos-generators.nixosModules.all-formats
+    self.nixosModules.default
+  ];
 
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
-    initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "usbhid"
+      "usb_storage"
+    ];
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
@@ -27,8 +35,7 @@
     # See: https://github.com/NixOS/nixpkgs/issues/126755
     # Also: https://github.com/NixOS/nixpkgs/issues/154163
     (_final: super: {
-      makeModulesClosure = x:
-        super.makeModulesClosure (x // { allowMissing = true; });
+      makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
     })
   ];
 
@@ -90,7 +97,6 @@
   my.nixos = {
     mainUser = "pi";
 
-    firewall.nfs.enable = true;
     samba = {
       enable = true;
       shares = {

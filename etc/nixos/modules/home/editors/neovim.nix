@@ -1,4 +1,9 @@
-{ config, lib, inputs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   cfg = config.my.home.editors.neovim;
@@ -10,7 +15,7 @@ in
   };
 
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
   ];
 
   config = lib.mkIf cfg.enable {
@@ -23,6 +28,8 @@ in
       ];
       enable = true;
       defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
     };
   };
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.my.home.terminals.wezterm;
@@ -7,56 +12,49 @@ in
 {
   options.my.home.terminals.wezterm = {
     enable = lib.mkEnableOption "WezTerm terminal home options";
-    # See https://www.reddit.com/r/archlinux/comments/18rf5t1/psa_on_hyprland_wezterm_will_not_start_anymore/
-    useWayland = lib.mkEnableOption "the use of Wayland";
     installExtraFonts = lib.mkEnableOption "the installation of extra fonts used by the config";
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = lib.mkIf cfg.installExtraFonts (with pkgs;[
-      iosevka
-      joypixels
-      nerd-fonts.symbols-only
-      noto-fonts-emoji
-    ]);
+    home.packages = lib.mkIf cfg.installExtraFonts (
+      with pkgs;
+      [
+        iosevka
+        joypixels
+        nerd-fonts.symbols-only
+        noto-fonts-emoji
+      ]
+    );
 
     programs.wezterm = {
       enable = true;
       extraConfig =
         let
-          opacity = if pkgs.stdenv.isDarwin then 0.94 else 0.85;
+          opacity = 0.94;
           line_height = if pkgs.stdenv.isDarwin then 1.6 else 1.25;
-          shell =
-            if config.my.home.shell.zsh.enable
-            then "${pkgs.zsh}/bin/zsh"
-            else "${pkgs.fish}/bin/fish";
+          shell = if config.my.home.shell.zsh.enable then "${pkgs.zsh}/bin/zsh" else "${pkgs.fish}/bin/fish";
           cs =
-            if colorScheme == "rose-pine" then "rose-pine"
-            else if colorScheme == "catppuccin" then "catppuccin-mocha"
-            else if colorScheme == "dracula" then "Dracula (Official)"
-            else if colorScheme == "tokyonight" then "Tokyo Night"
-            else abort "invalid colorScheme";
+            if colorScheme == "rose-pine" then
+              "rose-pine"
+            else if colorScheme == "catppuccin" then
+              "catppuccin-mocha"
+            else if colorScheme == "dracula" then
+              "Dracula (Official)"
+            else if colorScheme == "tokyonight" then
+              "Tokyo Night"
+            else
+              abort "invalid colorScheme";
         in
-          /* lua */ ''
+        # lua
+        ''
           local config = wezterm.config_builder()
 
           config.color_scheme = '${cs}'
           config.default_cursor_style = "SteadyBar"
           config.default_prog = { '${shell}', '-l'}
-          config.enable_wayland = ${lib.boolToString cfg.useWayland}
-
-          -- Without front_end, just blocks appear in nixpkgs version of WezTerm.
-          -- See: https://github.com/wez/wezterm/issues/5990
-          -- So pick the a GPU and enable the WebGpu frontend.
-          for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
-            if (gpu.backend == 'Vulkan' or gpu.backend == 'Metal') then
-              config.webgpu_preferred_adapter = gpu
-              config.front_end = 'WebGpu'
-              break
-            end
-          end
 
           config.font = wezterm.font_with_fallback {
+            { family = 'monospace' },
             { family = 'Iosevka' },
             { family = 'JoyPixels' },
             { family = 'Noto Color Emoji' },

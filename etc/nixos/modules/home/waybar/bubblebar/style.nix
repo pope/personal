@@ -1,14 +1,18 @@
-{ config, scale, lib }:
+{
+  config,
+  scale,
+  lib,
+}:
 
 let
   color = config.my.home.theme.colors.withHash;
 
   baseFontSize =
-    if lib.isFloat scale then lib.strings.floatToString (1 * scale)
-    else builtins.toString (1 * scale);
+    if lib.isFloat scale then lib.strings.floatToString (1 * scale) else builtins.toString (1 * scale);
   smallFontSize = lib.strings.floatToString (0.9 * scale);
 in
-  /* css */ ''
+# css
+''
   @define-color base00 ${color.base00};
   @define-color base01 ${color.base01};
   @define-color base02 ${color.base02};
@@ -129,17 +133,11 @@ in
     margin-right: 0.5rem;
   }
 
-  #pulseaudio,
-  #cpu,
-  #memory,
-  #disk,
-  #battery,
-  #power-profiles-daemon,
-  #idle_inhibitor {
-    font-size: ${smallFontSize}rem;
+  #wireplumber.source {
+    margin-left: 0;
   }
 
-  #pulseaudio { color: @base07; }
+  #pulseaudio, #wireplumber { color: @base07; }
   #cpu { color: @base08; }
   #memory { color: @base09; }
   #disk { color: @base0A; }

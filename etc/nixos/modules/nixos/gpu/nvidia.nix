@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.nixos.gpu.nvidia;
@@ -12,8 +17,18 @@ in
       # I don't believe this is needed if we enable modesetting below.
       # kernelParams = [ "nvidia_drm.modeset=1" ];
       initrd = {
-        kernelModules = [ "nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
-        availableKernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+        kernelModules = [
+          "nvidia"
+          "nvidia_drm"
+          "nvidia_uvm"
+          "nvidia_modeset"
+        ];
+        availableKernelModules = [
+          "nvidia"
+          "nvidia_modeset"
+          "nvidia_uvm"
+          "nvidia_drm"
+        ];
       };
     };
 

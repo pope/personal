@@ -2,18 +2,23 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, pkgs, lib, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.fingerprint-sensor.nixosModules.open-fprintd
-      inputs.fingerprint-sensor.nixosModules.python-validity
-      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    inputs.fingerprint-sensor.nixosModules.open-fprintd
+    inputs.fingerprint-sensor.nixosModules.python-validity
+    inputs.nixos-hardware.nixosModules.common-gpu-amd # eGPU
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.overlays = [
     self.overlays.default
@@ -79,27 +84,14 @@
     hardwareClockInLocalTime = true;
   };
 
-  fileSystems = {
-    "/media/cyberia" = {
-      device = "skrapnel.lan:/mnt/Cyberia";
-      fsType = "nfs";
-      options = [
-        "x-systemd.automount"
-        "noauto"
-        "x-systemd.after=network-online.target"
-        "x-systemd.idle-timeout=300"
-      ];
-    };
-  };
-
   environment.systemPackages = with pkgs; [
     libva-utils
-    renoise344
+    renoise350
   ];
 
   # Power management
   services = {
-    logind.lidSwitch = "suspend-then-hibernate";
+    logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
     thermald.enable = true;
     tlp = {
       enable = true;
@@ -129,7 +121,13 @@
   };
   powerManagement.powertop.enable = true;
   systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
+    AllowHibernation=yes
+    AllowHybridSleep=yes
+    AllowSuspend=yes
+    AllowSuspendThenHibernate=yes
+    HibernateDelaySec=1h
+    SuspendEstimationSec=1h
+    SuspendState=mem
   '';
 
   # # Fingerprint
@@ -142,23 +140,9 @@
     #   polkit-1.fprintAuth = true;
     #   sudo.fprintAuth = true;
     # };
-    wrappers = {
-      btop = {
-        capabilities = "cap_perfmon=ep";
-        group = "wheel";
-        owner = "root";
-        permissions = "0750";
-        source = lib.getExe pkgs.btop;
-      };
-      intel_gpu_top = {
-        capabilities = "cap_perfmon=ep";
-        group = "wheel";
-        owner = "root";
-        permissions = "0750";
-        source = lib.getExe' pkgs.intel-gpu-tools "intel_gpu_top";
-      };
-    };
   };
+
+  services.hardware.bolt.enable = true;
 
   my.nixos = {
     mainUser = "pope";
@@ -173,27 +157,29 @@
       enable = true;
       enableSteam = true;
     };
+    gpu = {
+      amd.enable = true; # eGPU
+      intel.enable = true;
+    };
+    nfs.client = {
+      enable = true;
+      host = "skrapnel";
+    };
     onepassword.enable = true;
+    sops.enable = true;
     sound.enable = true;
     system.enable = true;
+    tailscale.enable = true;
     users.shell = "zsh";
+    vyprvpn.enable = true;
     xserver = {
       enable = true;
       enableAutoLogin = false;
       displayManager = "gdm";
-      dwl.enable = true;
+      dwl.enable = false;
+      hyprland.enable = true;
       gnome.enable = true;
     };
-    zerotierone.enable = true;
-  };
-
-  specialisation.egpu.configuration = {
-    imports = [
-      inputs.nixos-hardware.nixosModules.common-gpu-amd
-    ];
-    my.nixos.gpu.amd.enable = true;
-    services.hardware.bolt.enable = true;
-    system.nixos.tags = [ "eGPU" ];
   };
 
   # This value determines the NixOS release from which the default

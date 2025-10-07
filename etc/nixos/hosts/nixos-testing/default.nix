@@ -2,15 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, ... }:
+{ self, pkgs, ... }:
 
 {
-  imports =
-    [
-      self.nixosModules.default
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    self.nixosModules.default
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.overlays = [
     self.overlays.default
@@ -19,6 +18,7 @@
   hardware.enableRedistributableFirmware = true;
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     # Bootloader.
     loader = {
       grub = {
@@ -40,15 +40,12 @@
   };
 
   # Set your time zone.
-  time = {
-    timeZone = "America/Los_Angeles";
-    hardwareClockInLocalTime = true;
-  };
+  time.timeZone = "America/Los_Angeles";
 
-  services = {
-    openssh.enable = true;
-    xserver.videoDrivers = [ "qxl" "amdgpu" ];
-  };
+  services.xserver.videoDrivers = [
+    "qxl"
+    "amdgpu"
+  ];
 
   fileSystems."/home/pope/Code/personal" = {
     device = "code_personal";
@@ -59,20 +56,25 @@
     mainUser = "pope";
 
     bluetooth.enable = true;
+    flatpak.enable = true;
     fonts.enable = true;
     onepassword.enable = true;
+    printing.enable = true;
     sound.enable = true;
     system.enable = true;
+    v4l2loopback.enable = true;
     virtualization = {
       enable = true;
       kind = "guest";
     };
     xserver = {
       enable = true;
-      displayManager = "gdm";
-      gnome.enable = true;
+      enableAutoLogin = false;
+      displayManager = "sddm";
+      kde.enable = true;
     };
     users = {
+      shell = "zsh";
       initialPassword = "changeme";
     };
   };
@@ -83,5 +85,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }

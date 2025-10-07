@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.my.nixos) mainUser;
@@ -36,12 +41,7 @@ in
 
     xdg.portal = {
       wlr.enable = true;
-      config.dwl.default = [ "wlr" "gtk" ];
-      config.common.default = [ "wlr" ];
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
-      ];
+      xdgOpenUsePortal = true;
     };
 
     services = {

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.lib.formats.rasi) mkLiteral;
@@ -19,9 +24,9 @@ in
   config = lib.mkIf cfg.enable {
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
       plugins = with pkgs; [
-        rofi-emoji-wayland
+        rofi-emoji
         rofi-calc
       ];
       font = "sans-serif ${builtins.toString cfg.fontSize}";
@@ -30,10 +35,16 @@ in
         display-run = "🏃 ";
         display-emoji = "🤓 ";
         display-calc = "🧮 ";
-        modes = [ "drun" "emoji" "calc" "run" ];
+        modes = [
+          "drun"
+          "emoji"
+          "calc"
+          "run"
+        ];
         show-icons = true;
       };
-      theme = with config.my.home.theme.colors.withHash;
+      theme =
+        with config.my.home.theme.colors.withHash;
         let
           transparency = if config.my.home.hyprland.enable then "B2" else "F2";
           fixedHeight = lib.boolToString config.my.home.hyprland.enable;

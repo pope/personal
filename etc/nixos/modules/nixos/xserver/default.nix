@@ -18,7 +18,12 @@ in
       default = "gdm";
       description = "Which display manager to use";
       example = "kde";
-      type = lib.types.enum [ "gdm" "sddm" "lightdm" "none" ];
+      type = lib.types.enum [
+        "gdm"
+        "sddm"
+        "lightdm"
+        "none"
+      ];
     };
 
     enableAutoLogin = lib.mkEnableOption "auto login of display manager";
@@ -34,6 +39,11 @@ in
     # Hint electron apps to use wayland. Otherwise Discord will be janky.
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+    programs = lib.mkIf cfg.kde.enable {
+      kdeconnect.enable = true;
+      partition-manager.enable = true;
+    };
+
     services = {
       displayManager = {
         gdm = {
@@ -47,6 +57,7 @@ in
       };
       desktopManager = {
         gnome.enable = cfg.gnome.enable;
+        pantheon.enable = cfg.pantheon.enable;
         plasma6.enable = cfg.kde.enable;
       };
 
@@ -57,8 +68,6 @@ in
           enable = cfg.displayManager == "lightdm";
           greeters.pantheon.enable = cfg.pantheon.enable;
         };
-
-        desktopManager.pantheon.enable = cfg.pantheon.enable;
 
         # Configure keymap in X11
         xkb = {

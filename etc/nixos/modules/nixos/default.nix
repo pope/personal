@@ -1,11 +1,9 @@
 { lib, ... }:
 
 let
-  imports = map
-    (p: ./. + "/${p}")
-    (builtins.filter
-      (p: p != "default.nix")
-      (builtins.attrNames (builtins.readDir ./.)));
+  imports = map (p: ./. + "/${p}") (
+    builtins.filter (p: p != "default.nix") (builtins.attrNames (builtins.readDir ./.))
+  );
 in
 {
   inherit imports;

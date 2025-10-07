@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.home.git;
@@ -54,12 +59,21 @@ in
         diff-so-fancy.enable = true;
 
         extraConfig = {
-          credential = lib.mkIf (!cfg.remoteOnly) (builtins.listToAttrs (lib.map
-            (host:
-              lib.nameValuePair host {
-                helper = "${ghWrapper}/bin/op-gh auth git-credential";
-              })
-            [ "https://github.com" "https://gist.github.com" ]));
+          credential = lib.mkIf (!cfg.remoteOnly) (
+            builtins.listToAttrs (
+              lib.map
+                (
+                  host:
+                  lib.nameValuePair host {
+                    helper = "${ghWrapper}/bin/op-gh auth git-credential";
+                  }
+                )
+                [
+                  "https://github.com"
+                  "https://gist.github.com"
+                ]
+            )
+          );
           core.sshCommand = lib.mkIf (cfg.sshCommand != null) cfg.sshCommand;
           format.signOff = true;
           gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
@@ -112,42 +126,26 @@ in
 
       # TODO(pope): Move this somewhere else. This is common enough for other
       # 1password plugins, but `gh` is the only one I really use now.
-      fish.interactiveShellInit = /* fish */ ''
-        if test -e "$HOME/.config/op/plugins.sh"
-          source "$HOME/.config/op/plugins.sh"
-        end
-      '';
-      zsh.initContent = /* sh */ ''
-        if [ -e "$HOME/.config/op/plugins.sh" ]; then
-          source "$HOME/.config/op/plugins.sh"
-        fi
-      '';
+      fish.interactiveShellInit = # fish
+        ''
+          if test -e "$HOME/.config/op/plugins.sh"
+            source "$HOME/.config/op/plugins.sh"
+          end
+        '';
+      zsh.initContent = # sh
+        ''
+          if [ -e "$HOME/.config/op/plugins.sh" ]; then
+            source "$HOME/.config/op/plugins.sh"
+          fi
+        '';
     };
     home = {
       file.".ssh/allowed_signers".text = ''
         pope@shifteleven.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILseU33TteTzteZ3/DLD8GDPje3STusw6HrckI0ozEPo
       '';
       packages = with pkgs; [
+        git-code-maintenance
         serie
-        (writeShellApplication {
-          name = "git-code-maintenance";
-          runtimeInputs = [
-            git
-          ];
-          text = /* sh */ ''
-            for repo in "$HOME"/Code/*/.git; do
-              pushd "$(dirname "$repo")"
-              git maintenance run \
-                --task commit-graph \
-                --task prefetch \
-                --task loose-objects \
-                --task incremental-repack \
-                --task pack-refs \
-                --task gc;
-              popd
-            done
-          '';
-        })
       ];
     };
   };

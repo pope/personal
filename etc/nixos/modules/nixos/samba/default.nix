@@ -9,13 +9,15 @@ in
     shares = lib.mkOption {
       default = { };
       description = "Samba shares";
-      type = with lib.types; attrsOf (submodule {
-        options = {
-          path = lib.mkOption {
-            type = str;
+      type =
+        with lib.types;
+        attrsOf (submodule {
+          options = {
+            path = lib.mkOption {
+              type = str;
+            };
           };
-        };
-      });
+        });
     };
   };
 
@@ -49,8 +51,14 @@ in
 
       samba =
         let
-          inherit (builtins) listToAttrs map getAttr attrNames;
-          shareConfig = name:
+          inherit (builtins)
+            listToAttrs
+            map
+            getAttr
+            attrNames
+            ;
+          shareConfig =
+            name:
             let
               share = getAttr name cfg.shares;
             in
@@ -81,7 +89,8 @@ in
               "guest account" = "nobody";
               "map to guest" = "bad user";
             };
-          } // shares;
+          }
+          // shares;
         };
     };
   };

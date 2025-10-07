@@ -9,12 +9,19 @@ in
       pkg = vim-fugitive;
       cmd = "Git";
       keys = mkLazyKeys [
-        { lhs = "<leader>gs"; rhs = "<cmd>Git<cr>"; desc = "Git status"; }
+        {
+          lhs = "<leader>gs";
+          rhs = "<cmd>Git<cr>";
+          desc = "Git status";
+        }
       ];
     }
     {
       pkg = gitsigns-nvim;
-      event = [ "BufReadPre" "BufNewFile" ];
+      event = [
+        "BufReadPre"
+        "BufNewFile"
+      ];
       config = true;
     }
     {
@@ -29,7 +36,11 @@ in
       ];
       dependencies = [ plenary-nvim ];
       keys = mkLazyKeys [
-        { lhs = "<leader>lg"; rhs = "<cmd>LazyGit<cr>"; desc = "Lazy Git"; }
+        {
+          lhs = "<leader>lg";
+          rhs = "<cmd>LazyGit<cr>";
+          desc = "Lazy Git";
+        }
       ];
     }
   ];

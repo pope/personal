@@ -1,14 +1,10 @@
-{ config, lib, inputs, ... }:
+{ config, lib, ... }:
 
 let
   inherit (config.my.nixos) mainUser;
   cfg = config.my.nixos.sops;
 in
 {
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-  ];
-
   options.my.nixos.sops = {
     enable = lib.mkEnableOption "SOPS Nix options";
   };

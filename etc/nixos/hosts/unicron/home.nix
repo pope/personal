@@ -15,6 +15,7 @@
       amdgpu_top
       discord
       godot_4
+      handbrake
       nvtopPackages.amd
       zathura
     ];
@@ -38,19 +39,27 @@
       chromium.enable = true;
       firefox.enable = true;
     };
-    editors = {
-      emacs.enable = true;
-      vscode.enable = true;
-      neovim.enable = true;
-    };
     dunst = {
       enable = true;
       font = "Sans 10";
     };
+    editors = {
+      emacs = {
+        enable = true;
+        useSymlink = true;
+      };
+      vscode.enable = true;
+      neovim.enable = true;
+    };
+    email.enable = true;
     gaming.enable = true;
     git.enable = true;
     gnome.enable = true;
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+      disableQt = true;
+      theme = "breeze";
+    };
     hyprland = {
       enable = true;
       enableVrr = false;
@@ -68,10 +77,12 @@
     mpv = {
       enable = true;
       enableHqAnimeSettings = true;
+      defaultProfile = "fsr";
     };
     multimedia = {
       audio.enable = true;
       graphics.enable = true;
+      music.enable = true;
       photography.enable = true;
       threed = {
         enable = true;
@@ -79,11 +90,11 @@
       };
       video.enable = false;
     };
-    music.enable = true;
     obs.enable = true;
     packages.enable = true;
     rofi.enable = true;
     shell.zsh.enable = true;
+    sops.enable = true;
     ssh.enable = true;
     terminals = {
       crt.enable = true;
@@ -93,15 +104,13 @@
       };
       foot.enable = true;
       kitty.enable = true;
-      wezterm = {
-        enable = true;
-        useWayland = true;
-      };
+      wezterm.enable = true;
     };
     theme.colorScheme = "tokyonight";
     tmux.enable = true;
     waybar = {
       enable = true;
+      forcePulseaudio = true;
       theme = "bubble";
     };
     xdg.enable = true;

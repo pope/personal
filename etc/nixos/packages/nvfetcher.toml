@@ -10,22 +10,6 @@ fetch.git = "https://github.com/catppuccin/fish"
 src.github_tag = "vitallium/tokyonight-fish"
 fetch.github = "vitallium/tokyonight-fish"
 
-[yazi-plugins]
-src.git = "https://github.com/yazi-rs/plugins"
-fetch.git = "https://github.com/yazi-rs/plugins"
-
-[modernx]
-src.github_tag = "cyl0/ModernX"
-fetch.github = "cyl0/ModernX"
-
-[mpv-prescalers]
-src.git = "https://github.com/bjin/mpv-prescalers"
-fetch.git = "https://github.com/bjin/mpv-prescalers"
-
-[plow]
-src.github_tag = "six-ddc/plow"
-fetch.github = "six-ddc/plow"
-
 [p5r-grub]
 src.github_tag = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 fetch.github = "SiriusAhu/Persona_5_Royal_Grub_Themes"
@@ -50,6 +34,10 @@ fetch.git = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors
 src.git = "https://github.com/RedsXDD/neopywal.nvim"
 fetch.git = "https://github.com/RedsXDD/neopywal.nvim"
 
+[artcnn]
+src.github_tag = "Artoriuz/ArtCNN"
+fetch.github = "Artoriuz/ArtCNN"
+
 # Fonts
 
 [ia-writer]
@@ -67,29 +55,3 @@ fetch.git = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
 [prchann-font-collection]
 src.git = "https://github.com/prchann/fonts"
 fetch.git = "https://github.com/prchann/fonts"
-
-# Shaders
-
-[fsrcnnx-lineart]
-src.github_tag = "igv/FSRCNN-TensorFlow"
-fetch.url = "https://github.com/igv/FSRCNN-TensorFlow/releases/download/$ver/checkpoints_params.7z"
-
-[fsrcnnx8]
-src.github_tag = "igv/FSRCNN-TensorFlow"
-fetch.url = "https://github.com/igv/FSRCNN-TensorFlow/releases/download/$ver/FSRCNNX_x2_8-0-4-1.glsl"
-
-[fsrcnnx16]
-src.github_tag = "igv/FSRCNN-TensorFlow"
-fetch.url = "https://github.com/igv/FSRCNN-TensorFlow/releases/download/$ver/FSRCNNX_x2_16-0-4-1.glsl"
-
-[krigBilateral]
-src.manual = "038064821c5f768dfc6c00261535018d5932cdd5"
-fetch.url = "https://gist.githubusercontent.com/igv/a015fc885d5c22e6891820ad89555637/raw/$ver/KrigBilateral.glsl"
-
-[ssimDownscaler]
-src.manual = "575d13567bbe3caa778310bd3b2a4c516c445039"
-fetch.url = "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/$ver/SSimDownscaler.glsl"
-
-[ssimSuperRes]
-src.manual = "15d93440d0a24fc4b8770070be6a9fa2af6f200b"
-fetch.url = "https://gist.githubusercontent.com/igv/2364ffa6e81540f29cb7ab4c9bc05b6b/raw/$ver/SSimSuperRes.glsl"
