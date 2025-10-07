@@ -16,16 +16,9 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.stable; [
       aseprite
-      (gimp3-with-plugins.override {
-        plugins = with gimpPlugins; [
-          bimp
-          gimplensfun
-          gmic
-          lqrPlugin
-          waveletSharpen
-        ];
-      })
+      gimp3-with-plugins
       inkscape
+      jxrlib
       krita
       synfigstudio
     ];
