@@ -24,7 +24,7 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "eDP-1,preferred,auto,2,vrr,1"
+    "eDP-1,preferred,auto,1.6666666666,vrr,1"
   ];
 
   programs = {
@@ -47,7 +47,7 @@
     };
     dunst.enable = true;
     dwl = {
-      enable = true;
+      enable = false;
       dpiScale = 2;
       terminalPackage = config.programs.ghostty.package;
     };
@@ -61,8 +61,8 @@
     };
     hypridle.enable = true;
     hyprland = {
-      enable = false;
-      dpiScale = 2;
+      enable = true;
+      # dpiScale = 2;
       enableBatterySaverMode = true;
       enableVrr = true;
     };
@@ -109,7 +109,7 @@
     tmux.enable = true;
     waybar = {
       enable = true;
-      scale = 0.7;
+      scale = 0.9;
       theme = "bubble";
     };
     xdg.enable = true;

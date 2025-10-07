@@ -157,10 +157,10 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "sddm";
-      dwl.enable = true;
+      dwl.enable = false;
       gnome.enable = false;
       kde.enable = true;
-      hyprland.enable = false;
+      hyprland.enable = true;
     };
     vyprvpn.enable = true;
   };
