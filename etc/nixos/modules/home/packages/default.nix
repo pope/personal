@@ -13,6 +13,8 @@ let
     mouse = true; # mouse support (TUI-mode only)
     width = 100;
   };
+  fzfDirPreviewOpt = "--preview='${lib.getExe pkgs.eza} --tree --color=always --icons {} | head -200'";
+  fzfFilePreviewOpt = "--preview='${lib.getExe pkgs.fzf-preview} {}'";
 in
 {
   options.my.home.packages = {
@@ -61,6 +63,8 @@ in
         ];
 
       sessionVariables = {
+        FZF_COMPLETION_DIR_OPTS = fzfDirPreviewOpt;
+        FZF_COMPLETION_PATH_OPTS = fzfFilePreviewOpt;
         FZF_PREVIEW_IMAGE_HANDLER = "symbols";
       };
     };
@@ -125,18 +129,14 @@ in
           "--bind='ctrl-/:change-preview-window(down|hidden|)'"
         ];
         fileWidgetCommand = config.programs.fzf.defaultCommand;
-        fileWidgetOptions = [
-          "--preview '${lib.getExe pkgs.fzf-preview} {}'"
-        ];
+        fileWidgetOptions = [ fzfFilePreviewOpt ];
         changeDirWidgetCommand = "${lib.getExe pkgs.fd} --type directory --hidden";
-        changeDirWidgetOptions = [
-          "--preview '${lib.getExe pkgs.eza} --tree --color=always --icons {} | head -200'"
-        ];
+        changeDirWidgetOptions = [ fzfDirPreviewOpt ];
         historyWidgetOptions = [
           ''
-            --preview 'echo {} | ${lib.getExe pkgs.gnused} \"s/^ *[0-9*]\+ *//\" | ${lib.getExe pkgs.bat} --language=sh --color=always --plain'
+            --preview='echo {} | ${lib.getExe pkgs.gnused} \"s/^ *[0-9*]\+ *//\" | ${lib.getExe pkgs.bat} --language=sh --color=always --plain'
           ''
-          "--preview-window up:3:hidden:wrap"
+          "--preview-window=up:3:hidden:wrap"
         ];
         tmux.enableShellIntegration = config.my.home.tmux.enable;
         tmux.shellIntegrationOptions = [
