@@ -20,43 +20,50 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      with pkgs;
-      [
-        add-files-to-nix-store
-        cheat
-        choose # cut + awk
-        curlie # curl + httpie
-        du-dust # du
-        dua # du
-        duf # df
-        fd # find
-        ffmpeg
-        glow
-        home-manager-diff
-        htop
-        hyperfine # benchmark util
-        imagemagick
-        jq
-        nh
-        nix-output-monitor
-        nvd
-        parallel
-        procs # ps
-        ripgrep
-        sd # sed
-        timg
-        tldr
-      ]
-      ++ lib.optionals stdenv.isLinux [
-        dysk
-        man-pages
-        man-pages-posix
-        systemctl-tui
-        trash-helper
-        trashy
-        wiremix
-      ];
+    home = {
+      packages =
+        with pkgs;
+        [
+          add-files-to-nix-store
+          cheat
+          choose # cut + awk
+          curlie # curl + httpie
+          du-dust # du
+          dua # du
+          duf # df
+          fd # find
+          ffmpeg
+          fzf-preview
+          glow
+          home-manager-diff
+          htop
+          hyperfine # benchmark util
+          imagemagick
+          jq
+          nh
+          nix-output-monitor
+          nvd
+          parallel
+          procs # ps
+          ripgrep
+          sd # sed
+          timg
+          tldr
+        ]
+        ++ lib.optionals stdenv.isLinux [
+          dysk
+          man-pages
+          man-pages-posix
+          systemctl-tui
+          trash-helper
+          trashy
+          wiremix
+        ];
+
+      sessionVariables = {
+        FZF_PREVIEW_IMAGE_HANDLER = "symbols";
+      };
+    };
 
     programs = {
       bat = {
@@ -111,21 +118,17 @@ in
         };
         defaultCommand = "${lib.getExe pkgs.fd} --type file --hidden";
         defaultOptions = [
-          "--height='80%'"
-          "--marker='* '"
-          "--pointer='▶'"
-          "--preview-window='right:60%'"
           "--bind='ctrl-p:toggle-preview'"
           "--bind='alt-a:select-all'"
           "--bind='alt-n:deselect-all'"
           "--bind='ctrl-f:jump'"
           "--bind='ctrl-/:change-preview-window(down|hidden|)'"
         ];
-        fileWidgetCommand = "${lib.getExe pkgs.fd} --type file --hidden";
+        fileWidgetCommand = config.programs.fzf.defaultCommand;
         fileWidgetOptions = [
-          "--preview '${lib.getExe pkgs.bat} --number --color=always --line-range=:200 {}'"
+          "--preview '${lib.getExe pkgs.fzf-preview} {}'"
         ];
-        changeDirWidgetCommand = "${lib.getExe pkgs.fd} --hidden --type d";
+        changeDirWidgetCommand = "${lib.getExe pkgs.fd} --type directory --hidden";
         changeDirWidgetOptions = [
           "--preview '${lib.getExe pkgs.eza} --tree --color=always --icons {} | head -200'"
         ];
