@@ -30,7 +30,7 @@ in
         extraPackages = with pkgs; [
           rocmPackages.clr.icd
           # Encoding/decoding acceleration
-          libvdpau-va-gl
+          stable.libvdpau-va-gl
           libva-vdpau-driver
           libva
         ];

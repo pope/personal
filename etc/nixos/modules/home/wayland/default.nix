@@ -26,7 +26,7 @@ in
         grim
         imv
         libnotify
-        pamixer
+        stable.pamixer
         slurp
         swappy
         swww

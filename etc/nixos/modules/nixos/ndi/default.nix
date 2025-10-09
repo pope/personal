@@ -5,7 +5,7 @@ let
 in
 {
   options.my.nixos.ndi = {
-    enable = lib.mkEnableOption "NDI system options";
+    enable = lib.mkEnableOption "NDI/distroav system options";
   };
 
   config = lib.mkIf cfg.enable {

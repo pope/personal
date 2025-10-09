@@ -121,7 +121,9 @@
   '';
 
   environment.systemPackages = with pkgs; [
-    fw-ectool
+    (fw-ectool.overrideAttrs {
+      cmakeFlags = [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
+    })
     renoise350
   ];
 

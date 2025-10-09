@@ -28,7 +28,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      deadbeef-with-plugins
+      stable.deadbeef-with-plugins
       easyaudiosync
       easytag
       fooyin
