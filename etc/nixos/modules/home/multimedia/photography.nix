@@ -16,7 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       darktable
-      stable.digikam
+      digikam
       dnglab
       geeqie
       rawtherapee

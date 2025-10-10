@@ -84,7 +84,7 @@ in
             "text/calendar" = "calendar";
             "message/delivery-status" = "colorize";
             "message/rfc822" = "colorize";
-            "image/*" = "${lib.getExe pkgs.stable.catimg} -";
+            "image/*" = "${lib.getExe pkgs.catimg} -";
           };
         };
       };

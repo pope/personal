@@ -19,7 +19,7 @@ let
       coreutils
       gawk
       gnused
-      stable.pamixer
+      pamixer
       playerctl
       procps
       upower
@@ -47,7 +47,7 @@ let
             inherit (cfg) dpiScale;
             # apps
             brillo = getExe brillo;
-            pamixer = getExe stable.pamixer;
+            pamixer = getExe pamixer;
             pkill = getExe' procps "pkill";
             rofi = getExe config.programs.rofi.finalPackage;
             terminal = getExe cfg.terminalPackage;

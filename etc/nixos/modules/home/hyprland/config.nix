@@ -15,7 +15,7 @@ let
   dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   nm-applet = "${launcher} ${pkgs.networkmanagerapplet}/bin/nm-applet";
-  pamixer = "${lib.getExe pkgs.stable.pamixer}";
+  pamixer = "${lib.getExe pkgs.pamixer}";
   runner =
     if config.my.home.rofi.enable then
       "${launcher} ${lib.getExe config.programs.rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""

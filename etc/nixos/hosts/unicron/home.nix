@@ -15,7 +15,7 @@
       amdgpu_top
       discord
       godot_4
-      stable.handbrake
+      handbrake
       nvtopPackages.amd
       zathura
     ];
