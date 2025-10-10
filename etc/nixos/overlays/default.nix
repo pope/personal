@@ -7,6 +7,11 @@
 
     mypkgs = self.packages.${prev.system};
 
+    stable = import self.inputs.nixpkgs-stable {
+      inherit (prev) system;
+      config.allowUnfree = true;
+    };
+
     names = builtins.map (f: prev.lib.strings.removeSuffix ".nix" (builtins.baseNameOf f)) (umport {
       path = ../packages;
       exclude = [
@@ -23,6 +28,7 @@
   in
   packages
   // {
+    inherit stable;
 
     renoise350 = prev.renoise.override (
       let
@@ -46,10 +52,7 @@
       }
     );
 
-    stable = import self.inputs.nixpkgs-stable {
-      inherit (prev) system;
-      config.allowUnfree = true;
-    };
+    deadbeef = stable.deadbeef;
   }
   // prev.lib.optionalAttrs prev.stdenv.isDarwin {
 
