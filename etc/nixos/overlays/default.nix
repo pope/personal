@@ -52,7 +52,7 @@
       }
     );
 
-    deadbeef = stable.deadbeef;
+    inherit (stable) deadbeef;
   }
   // prev.lib.optionalAttrs prev.stdenv.isDarwin {
 

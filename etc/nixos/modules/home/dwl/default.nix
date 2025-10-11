@@ -74,14 +74,7 @@ in
         The default DPI scale to use.
       '';
     };
-    terminalPackage = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.foot;
-      defaultText = lib.literalExpression "pkgs.foot";
-      description = lib.mkDoc ''
-        The package to use when opening a terminal with <SUPER-Enter>.
-      '';
-    };
+    terminalPackage = lib.mkPackageOption pkgs "foot" { example = "pkgs.ghostty"; };
   };
 
   config = lib.mkIf cfg.enable {

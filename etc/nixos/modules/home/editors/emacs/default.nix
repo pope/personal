@@ -11,12 +11,7 @@ in
 {
   options.my.home.editors.emacs = {
     enable = lib.mkEnableOption "Emacs text editor home options";
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.emacs-pgtk;
-      defaultText = lib.literalExpression "pkgs.emacs-nox";
-      description = lib.mkDoc "Package of Emacs to use";
-    };
+    package = lib.mkPackageOption pkgs "emacs-pgtk" { example = "pkgs.emacs-nox"; };
     useSymlink = lib.mkEnableOption "Use a symlink for the init.el file";
     extraConfig = lib.mkOption {
       type = lib.types.lines;
