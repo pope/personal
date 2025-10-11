@@ -17,10 +17,7 @@ in
     ];
     programs.virt-manager.enable = true;
     virtualisation = {
-      libvirtd = {
-        enable = true;
-        qemu.ovmf.enable = true;
-      };
+      libvirtd.enable = true;
       spiceUSBRedirection.enable = true;
     };
     users.users."${mainUser}".extraGroups = [

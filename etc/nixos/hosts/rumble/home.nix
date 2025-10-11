@@ -45,7 +45,10 @@
       neovim.enable = true;
       vscode.enable = true;
     };
-    dunst.enable = true;
+    dunst = {
+      enable = true;
+      font = "Sans 10";
+    };
     dwl = {
       enable = false;
       dpiScale = 2;

@@ -7,6 +7,11 @@
 
     mypkgs = self.packages.${prev.system};
 
+    stable = import self.inputs.nixpkgs-stable {
+      inherit (prev) system;
+      config.allowUnfree = true;
+    };
+
     names = builtins.map (f: prev.lib.strings.removeSuffix ".nix" (builtins.baseNameOf f)) (umport {
       path = ../packages;
       exclude = [
@@ -23,6 +28,9 @@
   in
   packages
   // {
+    inherit stable;
+    inherit (stable) deadbeef;
+
     vimPlugins = prev.vimPlugins // {
       inherit (mypkgs) neopywal-nvim;
     };
@@ -48,11 +56,6 @@
         inherit releasePath;
       }
     );
-
-    stable = import self.inputs.nixpkgs-stable {
-      inherit (prev) system;
-      config.allowUnfree = true;
-    };
   }
   // prev.lib.optionalAttrs prev.stdenv.isDarwin {
 

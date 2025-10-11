@@ -18,18 +18,20 @@ writeShellApplication {
   ];
   text = # sh
     ''
+      FZF_OPTS=(--border --layout=reverse --height 40% --tmux "100%,40%" --margin 2)
+
       GEN_CUR=$(find /nix/var/nix/profiles \
           -name "system-*-link" \
           -printf "%CF %CH:%CM : %f -> %l\n" \
         | sort -r \
-        | fzf --border --border-label "Select current generation" \
+        | fzf "''${FZF_OPTS[@]}" --border-label "Select current generation" \
         | cut -d' ' -f6)
       GEN_PREV=$(find /nix/var/nix/profiles \
           -name "system-*-link" \
           -printf "%CF %CH:%CM : %f -> %l\n" \
         | sort -r \
         | grep -v "$GEN_CUR" \
-        | fzf --border --border-label "Select previous generation" \
+        | fzf "''${FZF_OPTS[@]}" --border-label "Select previous generation" \
         | cut -d' ' -f6)
 
       nvd diff "$GEN_PREV" "$GEN_CUR"

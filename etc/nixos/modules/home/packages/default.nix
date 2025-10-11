@@ -13,6 +13,8 @@ let
     mouse = true; # mouse support (TUI-mode only)
     width = 100;
   };
+  fzfDirPreviewOpt = "--preview='${lib.getExe pkgs.eza} --tree --color=always --icons {} | head -200'";
+  fzfFilePreviewOpt = "--preview='${lib.getExe pkgs.fzf-preview} {}'";
 in
 {
   options.my.home.packages = {
@@ -20,43 +22,52 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      with pkgs;
-      [
-        add-files-to-nix-store
-        cheat
-        choose # cut + awk
-        curlie # curl + httpie
-        du-dust # du
-        dua # du
-        duf # df
-        fd # find
-        ffmpeg
-        glow
-        home-manager-diff
-        htop
-        hyperfine # benchmark util
-        imagemagick
-        jq
-        nh
-        nix-output-monitor
-        nvd
-        parallel
-        procs # ps
-        ripgrep
-        sd # sed
-        timg
-        tldr
-      ]
-      ++ lib.optionals stdenv.isLinux [
-        dysk
-        man-pages
-        man-pages-posix
-        systemctl-tui
-        trash-helper
-        trashy
-        wiremix
-      ];
+    home = {
+      packages =
+        with pkgs;
+        [
+          add-files-to-nix-store
+          cheat
+          choose # cut + awk
+          curlie # curl + httpie
+          du-dust # du
+          dua # du
+          duf # df
+          fd # find
+          ffmpeg
+          fzf-preview
+          glow
+          home-manager-diff
+          htop
+          hyperfine # benchmark util
+          imagemagick
+          jq
+          nh
+          nix-output-monitor
+          nvd
+          parallel
+          procs # ps
+          ripgrep
+          sd # sed
+          timg
+          tldr
+        ]
+        ++ lib.optionals stdenv.isLinux [
+          dysk
+          man-pages
+          man-pages-posix
+          systemctl-tui
+          trash-helper
+          trashy
+          wiremix
+        ];
+
+      sessionVariables = {
+        FZF_COMPLETION_DIR_OPTS = fzfDirPreviewOpt;
+        FZF_COMPLETION_PATH_OPTS = fzfFilePreviewOpt;
+        FZF_PREVIEW_IMAGE_HANDLER = "symbols";
+      };
+    };
 
     programs = {
       bat = {
@@ -111,29 +122,21 @@ in
         };
         defaultCommand = "${lib.getExe pkgs.fd} --type file --hidden";
         defaultOptions = [
-          "--height='80%'"
-          "--marker='* '"
-          "--pointer='▶'"
-          "--preview-window='right:60%'"
           "--bind='ctrl-p:toggle-preview'"
           "--bind='alt-a:select-all'"
           "--bind='alt-n:deselect-all'"
           "--bind='ctrl-f:jump'"
           "--bind='ctrl-/:change-preview-window(down|hidden|)'"
         ];
-        fileWidgetCommand = "${lib.getExe pkgs.fd} --type file --hidden";
-        fileWidgetOptions = [
-          "--preview '${lib.getExe pkgs.bat} --number --color=always --line-range=:200 {}'"
-        ];
-        changeDirWidgetCommand = "${lib.getExe pkgs.fd} --hidden --type d";
-        changeDirWidgetOptions = [
-          "--preview '${lib.getExe pkgs.eza} --tree --color=always --icons {} | head -200'"
-        ];
+        fileWidgetCommand = config.programs.fzf.defaultCommand;
+        fileWidgetOptions = [ fzfFilePreviewOpt ];
+        changeDirWidgetCommand = "${lib.getExe pkgs.fd} --type directory --hidden";
+        changeDirWidgetOptions = [ fzfDirPreviewOpt ];
         historyWidgetOptions = [
           ''
-            --preview 'echo {} | ${lib.getExe pkgs.gnused} \"s/^ *[0-9*]\+ *//\" | ${lib.getExe pkgs.bat} --language=sh --color=always --plain'
+            --preview='echo {} | ${lib.getExe pkgs.gnused} \"s/^ *[0-9*]\+ *//\" | ${lib.getExe pkgs.bat} --language=sh --color=always --plain'
           ''
-          "--preview-window up:3:hidden:wrap"
+          "--preview-window=up:3:hidden:wrap"
         ];
         tmux.enableShellIntegration = config.my.home.tmux.enable;
         tmux.shellIntegrationOptions = [
