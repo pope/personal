@@ -13,61 +13,57 @@ let
     mouse = true; # mouse support (TUI-mode only)
     width = 100;
   };
-  fzfDirPreviewOpt = "--preview='${lib.getExe pkgs.eza} --tree --color=always --icons {} | head -200'";
-  fzfFilePreviewOpt = "--preview='${lib.getExe pkgs.fzf-preview} {}'";
 in
 {
   options.my.home.packages = {
     enable = lib.mkEnableOption "Common packages/app home options";
+    enableBashIntegration = lib.hm.shell.mkBashIntegrationOption { inherit config; };
+    enableFishIntegration = lib.hm.shell.mkFishIntegrationOption { inherit config; };
+    enableZshIntegration = lib.hm.shell.mkZshIntegrationOption { inherit config; };
   };
 
-  config = lib.mkIf cfg.enable {
-    home = {
-      packages =
-        with pkgs;
-        [
-          add-files-to-nix-store
-          cheat
-          choose # cut + awk
-          curlie # curl + httpie
-          du-dust # du
-          dua # du
-          duf # df
-          fd # find
-          ffmpeg
-          fzf-preview
-          glow
-          home-manager-diff
-          htop
-          hyperfine # benchmark util
-          imagemagick
-          jq
-          nh
-          nix-output-monitor
-          nvd
-          parallel
-          procs # ps
-          ripgrep
-          sd # sed
-          timg
-          tldr
-        ]
-        ++ lib.optionals stdenv.isLinux [
-          dysk
-          man-pages
-          man-pages-posix
-          systemctl-tui
-          trash-helper
-          trashy
-          wiremix
-        ];
+  imports = [
+    ./fzf.nix
+  ];
 
-      sessionVariables = {
-        FZF_COMPLETION_DIR_OPTS = fzfDirPreviewOpt;
-        FZF_COMPLETION_PATH_OPTS = fzfFilePreviewOpt;
-        FZF_PREVIEW_IMAGE_HANDLER = "symbols";
-      };
-    };
+  config = lib.mkIf cfg.enable {
+    home.packages =
+      with pkgs;
+      [
+        add-files-to-nix-store
+        cheat
+        choose # cut + awk
+        curlie # curl + httpie
+        du-dust # du
+        dua # du
+        duf # df
+        fd # find
+        ffmpeg
+        glow
+        home-manager-diff
+        htop
+        hyperfine # benchmark util
+        imagemagick
+        jq
+        nh
+        nix-output-monitor
+        nvd
+        parallel
+        procs # ps
+        ripgrep
+        sd # sed
+        timg
+        tldr
+      ]
+      ++ lib.optionals stdenv.isLinux [
+        dysk
+        man-pages
+        man-pages-posix
+        systemctl-tui
+        trash-helper
+        trashy
+        wiremix
+      ];
 
     programs = {
       bat = {
@@ -101,49 +97,6 @@ in
         icons = "auto";
       };
 
-      fzf = {
-        enable = true;
-        colors = with config.my.home.theme.colors.withHash; {
-          "bg+" = base02;
-          "fg+" = base05;
-          "hl+" = base0A;
-          bg = base00;
-          border = base07;
-          fg = base04;
-          gutter = base00;
-          header = base0B;
-          hl = base08;
-          info = base0C;
-          marker = base0E;
-          pointer = base0D;
-          prompt = base04;
-          separator = base07;
-          spinner = base0E;
-        };
-        defaultCommand = "${lib.getExe pkgs.fd} --type file --hidden";
-        defaultOptions = [
-          "--bind='ctrl-p:toggle-preview'"
-          "--bind='alt-a:select-all'"
-          "--bind='alt-n:deselect-all'"
-          "--bind='ctrl-f:jump'"
-          "--bind='ctrl-/:change-preview-window(down|hidden|)'"
-        ];
-        fileWidgetCommand = config.programs.fzf.defaultCommand;
-        fileWidgetOptions = [ fzfFilePreviewOpt ];
-        changeDirWidgetCommand = "${lib.getExe pkgs.fd} --type directory --hidden";
-        changeDirWidgetOptions = [ fzfDirPreviewOpt ];
-        historyWidgetOptions = [
-          ''
-            --preview='echo {} | ${lib.getExe pkgs.gnused} \"s/^ *[0-9*]\+ *//\" | ${lib.getExe pkgs.bat} --language=sh --color=always --plain'
-          ''
-          "--preview-window=up:3:hidden:wrap"
-        ];
-        tmux.enableShellIntegration = config.my.home.tmux.enable;
-        tmux.shellIntegrationOptions = [
-          "-p"
-          "75%"
-        ];
-      };
       zoxide.enable = true;
     }
     // lib.optionalAttrs pkgs.stdenv.isLinux {
