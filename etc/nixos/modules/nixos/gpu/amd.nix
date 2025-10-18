@@ -24,11 +24,12 @@ in
     ];
 
     hardware = {
+      amdgpu.opencl.enable = true;
+
       graphics = {
         enable = true;
         enable32Bit = true;
         extraPackages = with pkgs; [
-          rocmPackages.clr.icd
           # Encoding/decoding acceleration
           libvdpau-va-gl
           libva-vdpau-driver
