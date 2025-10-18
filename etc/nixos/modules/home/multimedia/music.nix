@@ -28,13 +28,14 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      an-album-cover
       deadbeef-with-plugins
       easyaudiosync
       easytag
       fooyin
-      an-album-cover
       lrcget
       puddletag
+      tidal-hifi
     ];
 
     programs.rmpc = {
