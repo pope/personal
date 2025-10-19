@@ -30,9 +30,12 @@
       hey
       jpeg-archive
       marksman
+      moonlight-qt
       my-jpeg-archive
+      obsidian
       tut
       vale
+      vscode
     ];
 
     stateVersion = "23.05";
