@@ -29,6 +29,13 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     # Real-time audio
     musnix = {
       url = "github:musnix/musnix";
@@ -52,6 +59,7 @@
     {
       self,
       home-manager,
+      mac-app-util,
       nix-formatter-pack,
       nixpkgs,
       nixgl,
@@ -99,6 +107,7 @@
           name,
           system,
           extraOverlays ? [ ],
+          extraModules ? [ ],
           hostnameOverride ? null,
         }:
         let
@@ -122,7 +131,8 @@
             modules = [
               { imports = [ inputs.sops-nix.homeManagerModules.sops ]; }
               (./hosts + "/${hostname}/home.nix")
-            ];
+            ]
+            ++ extraModules;
           };
         };
     in
@@ -167,6 +177,7 @@
         (mkHomeManagerConfig {
           name = "pope@galvatron";
           system = "aarch64-darwin";
+          extraModules = [ mac-app-util.homeManagerModules.default ];
         })
         (mkHomeManagerConfig {
           name = "deck";
