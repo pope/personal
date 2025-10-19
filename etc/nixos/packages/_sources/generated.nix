@@ -7,13 +7,13 @@
 {
   artcnn = {
     pname = "artcnn";
-    version = "v1.3.1";
+    version = "v1.4.1";
     src = fetchFromGitHub {
       owner = "Artoriuz";
       repo = "ArtCNN";
-      rev = "v1.3.1";
+      rev = "v1.4.1";
       fetchSubmodules = false;
-      sha256 = "sha256-is+oWnNBSu/fu5pQEXq1B/Mhruuy7A3W+vL5XGmlNew=";
+      sha256 = "sha256-hJBJya8Xmr/Lx1iUNFsZjs6cmXrAlPxaJx2X1WRX5AY=";
     };
   };
   fish-catppuccin = {

@@ -13,12 +13,12 @@
             "name": null,
             "owner": "Artoriuz",
             "repo": "ArtCNN",
-            "rev": "v1.3.1",
-            "sha256": "sha256-is+oWnNBSu/fu5pQEXq1B/Mhruuy7A3W+vL5XGmlNew=",
+            "rev": "v1.4.1",
+            "sha256": "sha256-hJBJya8Xmr/Lx1iUNFsZjs6cmXrAlPxaJx2X1WRX5AY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.3.1"
+        "version": "v1.4.1"
     },
     "fish-catppuccin": {
         "cargoLocks": null,
