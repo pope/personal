@@ -65,7 +65,7 @@
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-HCHo4GwWLvjjnKWNiHb156Z+NQqliqLX1T1qNxMEMfE=";
+      sha256 = "sha256-Bf4yPTPThEqp0zgLFNQWkHHQnT9WXjM2G9ESihXk1Qs=";
     };
     date = "2025-03-13";
   };
@@ -96,6 +96,14 @@
       sha256 = "sha256-zR3AdHg0f2g14ZHVgTREYheXcHr6evnZxP3HEo7byRI=";
     };
     date = "2025-07-24";
+  };
+  ocenaudio-bin = {
+    pname = "ocenaudio-bin";
+    version = "3.16.1";
+    src = fetchurl {
+      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.16.1";
+      sha256 = "sha256-vJ9wszLcPvSNeuGhff4Ug3lCG3B5Qyvqf6Ht4BMy8X0=";
+    };
   };
   p5r-grub = {
     pname = "p5r-grub";

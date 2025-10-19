@@ -94,7 +94,7 @@
             "leaveDotGit": false,
             "name": null,
             "rev": "471ff88156e9a3dc8542d23e8cae4e1c9de6e732",
-            "sha256": "sha256-HCHo4GwWLvjjnKWNiHb156Z+NQqliqLX1T1qNxMEMfE=",
+            "sha256": "sha256-Bf4yPTPThEqp0zgLFNQWkHHQnT9WXjM2G9ESihXk1Qs=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors"
@@ -140,6 +140,21 @@
             "url": "https://github.com/lsalzman/iqm"
         },
         "version": "8554dca2b86dc3845981fad6758d3829ce0d4a56"
+    },
+    "ocenaudio-bin": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "ocenaudio-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-vJ9wszLcPvSNeuGhff4Ug3lCG3B5Qyvqf6Ht4BMy8X0=",
+            "type": "url",
+            "url": "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.16.1"
+        },
+        "version": "3.16.1"
     },
     "p5r-grub": {
         "cargoLocks": null,

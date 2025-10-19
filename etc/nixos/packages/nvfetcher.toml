@@ -14,6 +14,10 @@ fetch.github = "vitallium/tokyonight-fish"
 src.github_tag = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 fetch.github = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 
+[ocenaudio-bin]
+src.cmd = "curl --silent https://www.ocenaudio.com/changelog | sed -n 's%.*href=\"/download?version=v\\([^\"]*\\).*%\\1%p' | head -1"
+fetch.url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v$ver"
+
 [rbutil]
 src.manual = "1.5.1"
 fetch.url = "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_$ver.tar.gz"
