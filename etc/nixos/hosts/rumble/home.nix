@@ -16,7 +16,6 @@
       discord
       godot_4
       nvtopPackages.amd
-      rbutil
       hatsune-miku-cursor
     ];
 

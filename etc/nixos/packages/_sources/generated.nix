@@ -127,14 +127,6 @@
     };
     date = "2022-09-02";
   };
-  rbutil = {
-    pname = "rbutil";
-    version = "1.5.1";
-    src = fetchurl {
-      url = "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_1.5.1.tar.gz";
-      sha256 = "sha256-XtiCXrROtJfNCcXDxwvtyxKzrSk0GGY/bDtimr3Iu50=";
-    };
-  };
   sf-mono-font = {
     pname = "sf-mono-font";
     version = "1409ae79074d204c284507fef9e479248d5367c1";

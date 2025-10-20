@@ -198,21 +198,6 @@
         },
         "version": "e99955f794eb1f1375a5cb677d129758f51cbc3d"
     },
-    "rbutil": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "rbutil",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-XtiCXrROtJfNCcXDxwvtyxKzrSk0GGY/bDtimr3Iu50=",
-            "type": "url",
-            "url": "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_1.5.1.tar.gz"
-        },
-        "version": "1.5.1"
-    },
     "sf-mono-font": {
         "cargoLocks": null,
         "date": "2018-06-08",

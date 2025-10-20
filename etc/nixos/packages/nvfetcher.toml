@@ -18,10 +18,6 @@ fetch.github = "SiriusAhu/Persona_5_Royal_Grub_Themes"
 src.cmd = "curl --silent https://www.ocenaudio.com/changelog | sed -n 's%.*href=\"/download?version=v\\([^\"]*\\).*%\\1%p' | head -1"
 fetch.url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v$ver"
 
-[rbutil]
-src.manual = "1.5.1"
-fetch.url = "https://git.rockbox.org/cgit/rockbox.git/snapshot/rockbox-rbutil_$ver.tar.gz"
-
 [shflags]
 src.github_tag = "kward/shflags"
 fetch.github = "kward/shflags"
