@@ -83,7 +83,7 @@
     },
     "hatsune-miku-cursor": {
         "cargoLocks": null,
-        "date": "2025-03-13",
+        "date": null,
         "extract": null,
         "name": "hatsune-miku-cursor",
         "passthru": null,
@@ -93,13 +93,14 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "471ff88156e9a3dc8542d23e8cae4e1c9de6e732",
-            "sha256": "sha256-Bf4yPTPThEqp0zgLFNQWkHHQnT9WXjM2G9ESihXk1Qs=",
+            "owner": "supermariofps",
+            "repo": "hatsune-miku-windows-linux-cursors",
+            "rev": "1.2.6",
+            "sha256": "sha256-OQjjOc9VnxJ7tWNmpHIMzNWX6WsavAOkgPwK1XAMwtE=",
             "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors"
+            "type": "github"
         },
-        "version": "471ff88156e9a3dc8542d23e8cae4e1c9de6e732"
+        "version": "1.2.6"
     },
     "ia-writer": {
         "cargoLocks": null,
