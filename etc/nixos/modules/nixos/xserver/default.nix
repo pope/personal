@@ -36,8 +36,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Hint electron apps to use wayland. Otherwise Discord will be janky.
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    environment.sessionVariables = {
+      # Hint electron apps to use wayland. Otherwise Discord will be janky.
+      NIXOS_OZONE_WL = "1";
+
+      CLUTTER_BACKEND = "wayland";
+      GDK_BACKEND = "wayland";
+      QT_QPA_PLATFORM = "wayland";
+      SDL_VIDEODRIVER = "wayland";
+    };
 
     programs = lib.mkIf cfg.kde.enable {
       kdeconnect.enable = true;
