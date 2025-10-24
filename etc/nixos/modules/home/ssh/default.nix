@@ -28,7 +28,8 @@ in
           compression = false;
           controlMaster = "auto";
           controlPath = "~/.ssh/master-%r@%n:%p";
-          controlPersist = "5m";
+          # TODO(pope): Figure out why controlPersist hangs my SSH connections
+          # controlPersist = "5m";
           forwardAgent = false;
           hashKnownHosts = false;
           identityAgent = cfg.opIdentityAgent;
