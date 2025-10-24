@@ -49,16 +49,15 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
+      diff-so-fancy = {
+        enable = true;
+        enableGitIntegration = true;
+      };
+
       git = {
         enable = true;
         lfs.enable = true;
-
-        userName = "K. Adam Christensen";
-        userEmail = "pope@shifteleven.com";
-
-        diff-so-fancy.enable = true;
-
-        extraConfig = {
+        settings = {
           credential = lib.mkIf (!cfg.remoteOnly) (
             builtins.listToAttrs (
               lib.map
@@ -85,6 +84,10 @@ in
             recurseSubmodules = "on-demand";
           };
           submodule.recurse = true;
+          user = {
+            name = "K. Adam Christensen";
+            email = "pope@shifteleven.com";
+          };
         };
 
         signing = {

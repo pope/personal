@@ -32,7 +32,11 @@ in
       deadbeef-with-plugins
       easyaudiosync
       easytag
-      fooyin
+      (fooyin.overrideAttrs (oldAttrs: {
+        patches = oldAttrs.patches ++ [
+          ./7b171c0da2b9289468696424fe51f76e1c365bb5.patch
+        ];
+      }))
       lrcget
       puddletag
       tidal-hifi
