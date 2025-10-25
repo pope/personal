@@ -127,6 +127,7 @@ in
           rg
           sakura-theme
           treesit-grammars.with-all-grammars
+          ultra-scroll
           uwu-theme
           vertico
           vterm

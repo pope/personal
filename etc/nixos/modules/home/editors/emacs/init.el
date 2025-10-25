@@ -231,16 +231,13 @@
      "\\\\" "://"))
   (global-ligature-mode t))
 
-(use-package nyan-mode
-  :custom (nyan-cat-face-number 4))
-
-(use-package emacs
+(use-package ultra-scroll
   :custom
-  (mouse-wheel-tilt-scroll t)
-  (scroll-conservatively 101)
-  (scroll-margin 0)
+  (scroll-conservatively 3)
+  (scroll-margin 0) ;; Required for smooth scrolling
   (scroll-bar-mode nil)
-  (pixel-scroll-precision-mode t))
+  :config
+  (ultra-scroll-mode 1))
 
 (unless (display-graphic-p)
   (use-package emacs
