@@ -40,6 +40,9 @@ in
       # Hint electron apps to use wayland. Otherwise Discord will be janky.
       NIXOS_OZONE_WL = "1";
 
+      # Trying this out to see if Plasma requires less power
+      KWIN_USE_OVERLAYS = "1";
+
       CLUTTER_BACKEND = "wayland";
       GDK_BACKEND = "wayland";
       QT_QPA_PLATFORM = "wayland";
