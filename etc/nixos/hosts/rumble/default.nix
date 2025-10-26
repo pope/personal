@@ -100,6 +100,7 @@
       HandleLidSwitch = "suspend-then-hibernate";
       HandleLidSwitchExternalPower = "suspend";
     };
+    auto-epp.enable = true;
     power-profiles-daemon.enable = true;
 
     hardware.bolt.enable = true;
