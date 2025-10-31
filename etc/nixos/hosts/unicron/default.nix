@@ -74,7 +74,7 @@
     # };
     "/media/games" = {
       device = "/dev/nvme1n1p4";
-      fsType = "ntfs-3g";
+      fsType = "ntfs";
       options = [
         "rw"
         "uid=pope"
