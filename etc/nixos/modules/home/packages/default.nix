@@ -34,9 +34,9 @@ in
         cheat
         choose # cut + awk
         curlie # curl + httpie
-        du-dust # du
         dua # du
         duf # df
+        dust # du
         fd # find
         ffmpeg
         glow
