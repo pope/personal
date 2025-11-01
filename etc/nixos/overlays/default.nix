@@ -5,10 +5,10 @@
   let
     inherit ((import ../lib/umport.nix { inherit (prev) lib; })) umport;
 
-    mypkgs = self.packages.${prev.system};
+    mypkgs = self.packages.${prev.stdenv.hostPlatform.system};
 
     stable = import self.inputs.nixpkgs-stable {
-      inherit (prev) system;
+      inherit (prev.stdenv.hostPlatform) system;
       config.allowUnfree = true;
     };
 
@@ -34,7 +34,7 @@
       let
         version = "352";
         releasePath =
-          if prev.system == "x86_64-linux" then
+          if prev.stdenv.hostPlatform.system == "x86_64-linux" then
             (prev.requireFile rec {
               name = "rns_${version}_linux_x86_64.tar.gz";
               url = "file:///media/cyberia/nix-files/software/${name}";
