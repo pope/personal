@@ -85,10 +85,7 @@
     renoise350
   ];
 
-  services = {
-    fwupd.enable = true;
-    xserver.videoDrivers = [ "amdgpu" ];
-  };
+  services.fwupd.enable = true;
 
   networking = {
     hostName = "unicron"; # Define your hostname.

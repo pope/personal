@@ -39,5 +39,7 @@ in
         source = lib.getExe' pkgs.intel-gpu-tools "intel_gpu_top";
       };
     };
+
+    services.xserver.videoDrivers = [ "modesetting" ];
   };
 }

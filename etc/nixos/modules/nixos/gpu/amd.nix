@@ -37,5 +37,7 @@ in
         ];
       };
     };
+
+    services.xserver.videoDrivers = [ "amdgpu" ];
   };
 }
