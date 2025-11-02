@@ -12,7 +12,6 @@ let
 
   # commands
   brillo = "${lib.getExe pkgs.brillo}";
-  dbus-update-activation-environment = "${pkgs.dbus}/bin/dbus-update-activation-environment";
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   nm-applet = "${launcher} ${pkgs.networkmanagerapplet}/bin/nm-applet";
   pamixer = "${lib.getExe pkgs.pamixer}";
@@ -47,8 +46,6 @@ in
         "eDP-1,preferred,auto,1"
       ];
       exec-once = [
-        "${dbus-update-activation-environment} --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "${systemctl} --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "${systemctl} --user start tile-manager-session.target"
         "${nm-applet} --indicator"
       ];
