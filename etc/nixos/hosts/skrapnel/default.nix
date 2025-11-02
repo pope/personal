@@ -66,6 +66,8 @@
     };
   };
 
+  services.fwupd.enable = true;
+
   my.nixos = {
     mainUser = "pope";
 
