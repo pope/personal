@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, inputs, ... }:
+{
+  self,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -25,6 +30,8 @@
   };
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
     # Bootloader.
     loader = {
       systemd-boot.enable = true;
