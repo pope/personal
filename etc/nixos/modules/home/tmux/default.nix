@@ -40,7 +40,11 @@ in
         { plugin = yank; }
         {
           plugin = tmux-thumbs;
-          extraConfig = "set -g @thumbs-osc52 1";
+          extraConfig = ''
+            set -g @thumbs-osc52 0
+            set -g @thumbs-command 'tmux set-buffer -w -- {} && tmux display-message \"Copied {}\"'
+            set -g @thumbs-upcase-command 'tmux set-buffer -w -- {} && tmux paste-buffer && tmux display-message \"Copied {}\"'
+          '';
         }
         {
           plugin = resurrect;
