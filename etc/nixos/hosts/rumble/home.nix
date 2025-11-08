@@ -68,6 +68,7 @@
       enableBatterySaverMode = true;
       enableVrr = true;
     };
+    kde.enable = true;
     keymapp.enable = true;
     languages = {
       javascript.enable = true;

@@ -32,6 +32,15 @@ in
           # 1Password
           id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";
         }
+      ]
+      ++ lib.optionals config.my.home.kde.enable [
+        {
+          # Plasma Integration
+          id = "cimiefiiaegbelhefglklhhakcgmhkai";
+        }
+      ];
+      nativeMessagingHosts = lib.mkIf config.my.home.kde.enable [
+        pkgs.kdePackages.plasma-browser-integration
       ];
     };
   };

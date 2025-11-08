@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.home.browsers.librewolf;
@@ -11,6 +16,9 @@ in
   config = lib.mkIf cfg.enable {
     programs.librewolf = {
       enable = true;
+      nativeMessagingHosts = lib.mkIf config.my.home.kde.enable [
+        pkgs.kdePackages.plasma-browser-integration
+      ];
       profiles.default = {
         isDefault = true;
       };
