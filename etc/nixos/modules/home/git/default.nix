@@ -119,10 +119,12 @@ in
           git = {
             commit.signOff = true;
             parseEmoji = true;
-            paging = {
-              color = "always";
-              pager = "diff-so-fancy";
-            };
+            pagers = [
+              {
+                color = "always";
+                pager = "diff-so-fancy";
+              }
+            ];
           };
         };
       };
