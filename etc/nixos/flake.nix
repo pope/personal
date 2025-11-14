@@ -32,6 +32,8 @@
     mac-app-util = {
       url = "github:hraban/mac-app-util";
       inputs = {
+        # See https://github.com/hraban/mac-app-util/issues/39
+        cl-nix-lite.url = "github:r4v3n6101/cl-nix-lite/url-fix";
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
