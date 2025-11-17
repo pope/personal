@@ -27,7 +27,6 @@ in
           appindicator
           blur-my-shell
           caffeine
-          custom-accent-colors
           forge
           pop-shell
           rounded-window-corners-reborn
