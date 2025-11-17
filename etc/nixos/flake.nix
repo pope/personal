@@ -17,10 +17,6 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-colors.url = "github:misterio77/nix-colors";
-    nix-formatter-pack = {
-      url = "github:Gerschtli/nix-formatter-pack";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,13 +55,13 @@
 
   outputs =
     {
-      self,
       home-manager,
       mac-app-util,
-      nix-formatter-pack,
-      nixpkgs,
       nixgl,
+      nixpkgs,
       nixvim,
+      self,
+      treefmt-nix,
       ...
     }@inputs:
     let
@@ -74,6 +70,17 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
+      treefmtEval =
+        system:
+        treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} (_: {
+          projectRootFile = "flake.nix";
+          programs = {
+            deadnix.enable = true;
+            mdformat.enable = true;
+            nixfmt.enable = true;
+            statix.enable = true;
+          };
+        });
       mkNixosSystem =
         {
           name,
@@ -192,9 +199,7 @@
       packages = eachSystem (
         system:
         let
-          pkgs = import nixpkgs {
-            inherit system;
-          };
+          pkgs = nixpkgs.legacyPackages.${system};
           nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
             inherit pkgs;
@@ -213,6 +218,7 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           mypkgs = self.packages.${system};
+          treefmt = (treefmtEval system).config.build.wrapper;
         in
         {
           default = pkgs.mkShell {
@@ -227,6 +233,7 @@
                 nixos-rebuild-remote
                 nvfetcher
                 statix
+                treefmt
                 update-my-packages
                 wake-up-soundwave
                 wake-up-unicron
@@ -237,10 +244,7 @@
       checks = eachSystem (
         system:
         let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ self.overlays.default ];
-          };
+          pkgs = nixpkgs.legacyPackages.${system};
           nixvimLib = nixvim.lib.${system};
           nixvimModule = {
             inherit pkgs;
@@ -248,19 +252,10 @@
           };
         in
         {
+          formatting = (treefmtEval system).config.build.check self;
           nixvim = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
         }
       );
-      formatter = eachSystem (
-        system:
-        nix-formatter-pack.lib.mkFormatter {
-          pkgs = nixpkgs.legacyPackages.${system};
-          config.tools = {
-            deadnix.enable = true;
-            nixfmt.enable = true;
-            statix.enable = true;
-          };
-        }
-      );
+      formatter = eachSystem (system: (treefmtEval system).config.build.wrapper);
     };
 }
