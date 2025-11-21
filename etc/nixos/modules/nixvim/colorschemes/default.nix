@@ -1,6 +1,5 @@
 {
   pkgs,
-  helpers,
   lib,
   config,
   ...
@@ -30,7 +29,7 @@ in
       pkg = rose-pine;
       priority = 1000;
       opts =
-        helpers.mkRaw # lua
+        lib.nixvim.mkRaw # lua
           ''
             function()
               local p = require("rose-pine.palette")
@@ -90,7 +89,7 @@ in
         which_key = true;
       };
       opts.custom_highlights =
-        helpers.mkRaw # lua
+        lib.nixvim.mkRaw # lua
           ''
             function(colors)
               return {
@@ -116,7 +115,7 @@ in
       opts.transparent_bg = true;
       opts.italic_comment = true;
       opts.overrides =
-        helpers.mkRaw # lua
+        lib.nixvim.mkRaw # lua
           ''
             function(colors)
               return {

@@ -1,4 +1,4 @@
-{ pkgs, helpers, ... }:
+{ pkgs, lib, ... }:
 
 # Shout outs to
 #   - https://lugh.ch/switching-to-neovim-native-lsp.html
@@ -458,7 +458,7 @@
             desc: key: cmd:
             (rawMapping desc key "vim.lsp.buf.${cmd}");
         in
-        helpers.mkRaw # lua
+        lib.nixvim.mkRaw # lua
           ''
             function(opts)
               local bufnr = opts.buf

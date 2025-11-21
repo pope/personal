@@ -1,7 +1,7 @@
-{ pkgs, helpers, ... }:
+{ pkgs, lib, ... }:
 
 let
-  inherit (import ../lib.nix { inherit helpers; }) mkLazyKeys;
+  inherit (import ../lib.nix { inherit lib; }) mkLazyKeys;
 in
 {
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
@@ -24,7 +24,7 @@ in
         {
           lhs = "<leader>y";
           rhs =
-            helpers.mkRaw # lua
+            lib.nixvim.mkRaw # lua
               "function() require('osc52').copy_visual() end";
           mode = "v";
         }

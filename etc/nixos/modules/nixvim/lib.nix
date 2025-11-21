@@ -1,4 +1,4 @@
-{ helpers }:
+{ lib }:
 
 let
   mkLazyKey =
@@ -14,8 +14,8 @@ let
         rhs
       ];
     in
-    (helpers.listToUnkeyedAttrs posArgs) // { inherit mode desc; };
-  mkLazyKeys = bindings: helpers.mkRaw (helpers.toLuaObject (builtins.map mkLazyKey bindings));
+    (lib.nixvim.listToUnkeyedAttrs posArgs) // { inherit mode desc; };
+  mkLazyKeys = bindings: lib.nixvim.mkRaw (lib.nixvim.toLuaObject (builtins.map mkLazyKey bindings));
 in
 {
   inherit mkLazyKey mkLazyKeys;

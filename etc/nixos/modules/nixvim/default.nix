@@ -1,4 +1,4 @@
-{ pkgs, helpers, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -67,7 +67,7 @@
         event = "BufReadPost";
         pattern = "*";
         callback =
-          helpers.mkRaw # lua
+          lib.nixvim.mkRaw # lua
             ''
               function()
                 if vim.fn.line "'\"" > 0 and vim.fn.line "'\"" <= vim.fn.line "$" then

@@ -1,4 +1,4 @@
-{ pkgs, helpers, ... }:
+{ pkgs, lib, ... }:
 
 {
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
@@ -10,7 +10,7 @@
         "BufNewFile"
       ];
       opts =
-        helpers.mkRaw # lua
+        lib.nixvim.mkRaw # lua
           ''
             function(_, opts)
               local handler = function(virtText, lnum, endLnum, width, truncate)

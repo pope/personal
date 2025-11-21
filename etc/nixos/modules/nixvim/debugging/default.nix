@@ -1,7 +1,7 @@
-{ pkgs, helpers, ... }:
+{ pkgs, lib, ... }:
 
 let
-  inherit (import ../lib.nix { inherit helpers; }) mkLazyKeys;
+  inherit (import ../lib.nix { inherit lib; }) mkLazyKeys;
   ezkeymap = desc: key: cmd: {
     lhs = "${key}";
     rhs = "<cmd>lua require('dap').${cmd}()<cr>";
@@ -19,7 +19,7 @@ let
   uikeymap = desc: key: cmd: {
     lhs = "${key}";
     rhs =
-      helpers.mkRaw # lua
+      lib.nixvim.mkRaw # lua
         ''
           function()
             local widgets = require('dap.ui.widgets')

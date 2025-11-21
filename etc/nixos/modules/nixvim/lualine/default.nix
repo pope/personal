@@ -1,4 +1,4 @@
-{ pkgs, helpers, ... }:
+{ pkgs, lib, ... }:
 
 {
   config.autoGroups.cursorColor = { };
@@ -7,7 +7,7 @@
       group = "cursorColor";
       event = "ModeChanged";
       callback =
-        helpers.mkRaw # lua
+        lib.nixvim.mkRaw # lua
           ''
             function()
               local auto = require("lualine.themes.auto")
@@ -60,7 +60,7 @@
       };
       opts.sections.lualine_c = [
         "filename"
-        (helpers.listToUnkeyedAttrs [ "navic" ] // { navic_opts = null; })
+        (lib.nixvim.listToUnkeyedAttrs [ "navic" ] // { navic_opts = null; })
       ];
     }
   ];
