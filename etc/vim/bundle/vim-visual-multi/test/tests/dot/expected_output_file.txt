@@ -1,7 +1,0 @@
-changed_word word	text
-TEXT
-TEXT
-TEXT
-
-let g:VM_maps['change']                = 'g/'
-let g:VM_maps['change']                  = '<leader>A'

@@ -1,8 +1,0 @@
-*.elc
-*.pyc
-.ninja_deps
-.ninja_log
-build.ninja
-init.el
-loaddefs.el
-org-mode/lisp/org-loaddefs.el
