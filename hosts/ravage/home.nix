@@ -51,12 +51,17 @@
       enable = true;
       disableGnomeShellExtensions = true;
     };
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+      disableQt = true;
+      theme = "breeze";
+    };
     hypridle.enable = true;
     hyprland = {
       enable = true;
       enableBatterySaverMode = true;
     };
+    kde.enable = true;
     keymapp.enable = true;
     languages = {
       javascript.enable = true;

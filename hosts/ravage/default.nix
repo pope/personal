@@ -178,10 +178,11 @@
     xserver = {
       enable = true;
       enableAutoLogin = false;
-      displayManager = "gdm";
+      displayManager = "sddm";
       dwl.enable = false;
+      gnome.enable = false;
       hyprland.enable = true;
-      gnome.enable = true;
+      kde.enable = true;
     };
   };
 

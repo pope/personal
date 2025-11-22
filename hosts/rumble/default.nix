@@ -160,8 +160,8 @@
       displayManager = "sddm";
       dwl.enable = false;
       gnome.enable = false;
-      kde.enable = true;
       hyprland.enable = true;
+      kde.enable = true;
     };
     vyprvpn.enable = true;
   };
