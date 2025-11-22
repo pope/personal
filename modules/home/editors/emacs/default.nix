@@ -60,7 +60,7 @@ in
       file.".emacs.d/init.el" = {
         source = lib.mkIf (cfg.useSymlink || cfg.extraInit == "") (
           if cfg.useSymlink then
-            (config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Code/personal/etc/nixos/modules/home/editors/emacs/init.el")
+            (config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Code/personal/modules/home/editors/emacs/init.el")
           else
             ./init.el
         );

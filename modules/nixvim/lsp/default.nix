@@ -152,10 +152,10 @@
                 },
                 options = {
                   nixos = {
-                    expr = 'let configs = (builtins.getFlake ((builtins.getEnv "HOME") + "/Code/personal/etc/nixos")).nixosConfigurations; in (builtins.head (builtins.attrValues configs)).options',
+                    expr = 'let configs = (builtins.getFlake ((builtins.getEnv "HOME") + "/Code/personal")).nixosConfigurations; in (builtins.head (builtins.attrValues configs)).options',
                   },
                   home_manager = {
-                    expr = 'let configs = (builtins.getFlake ((builtins.getEnv "HOME") + "/Code/personal/etc/nixos")).homeConfigurations; in (builtins.head (builtins.attrValues configs)).options',
+                    expr = 'let configs = (builtins.getFlake ((builtins.getEnv "HOME") + "/Code/personal")).homeConfigurations; in (builtins.head (builtins.attrValues configs)).options',
                   },
                 },
               },
