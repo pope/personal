@@ -82,6 +82,7 @@
         installExtraFonts = true;
       };
     };
+    theme.colorScheme = "tokyonight";
     tmux.enable = true;
     yazi.enable = true;
   };
