@@ -7,6 +7,7 @@
 
 let
   cfg = config.my.home.multimedia.photography;
+  cpuArch = config.my.home.cpu.arch;
 in
 {
   options.my.home.multimedia.photography = {
@@ -14,12 +15,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      darktable
-      digikam
-      dnglab
-      geeqie
-      rawtherapee
-    ];
+    home.packages =
+      with pkgs;
+      [
+        digikam
+        dnglab
+        geeqie
+        rawtherapee
+      ]
+      ++ (lib.optionals (cpuArch == "unspecified") [
+        darktable
+      ])
+      ++ (lib.optionals (cpuArch == "znver4") [
+        (darktable.override { inherit (znver4) stdenv; })
+      ]);
   };
 }

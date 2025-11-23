@@ -12,6 +12,18 @@
       config.allowUnfree = true;
     };
 
+    znver4 = import self.inputs.nixpkgs {
+      config = {
+        allowUnfree = true;
+        rocmSupport = true;
+      };
+      localSystem = {
+        gcc.arch = "znver4";
+        gcc.tune = "znver4";
+        system = "x86_64-linux";
+      };
+    };
+
     names = builtins.map (f: prev.lib.strings.removeSuffix ".nix" (builtins.baseNameOf f)) (umport {
       path = ../packages;
       exclude = [
@@ -28,7 +40,7 @@
   in
   packages
   // {
-    inherit stable;
+    inherit znver4 stable;
 
     renoise350 = prev.renoise.override (
       let
