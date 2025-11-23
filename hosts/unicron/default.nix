@@ -22,6 +22,10 @@
     ./hardware-configuration.nix
   ];
 
+  nix.settings.system-features = [
+    "gccarch-znver5"
+    "gccarch-znver4"
+  ];
   nixpkgs.overlays = [
     self.overlays.default
   ];

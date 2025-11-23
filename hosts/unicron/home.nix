@@ -39,6 +39,7 @@
       chromium.enable = true;
       firefox.enable = true;
     };
+    cpu.arch = "znver4";
     dunst = {
       enable = true;
       font = "Sans 10";
@@ -46,6 +47,7 @@
     editors = {
       emacs = {
         enable = true;
+        package = pkgs.emacs-pgtk.override { inherit (pkgs.znver4) stdenv; };
         useSymlink = true;
       };
       vscode.enable = true;
