@@ -30,8 +30,8 @@ in
       ++ (lib.optionals (cpuArch == "znver4") [
         (pkgs.gimp-with-plugins.override {
           gimpPlugins = pkgs.gimpPlugins // {
-            gimp = (pkgs.gimpPlugins.gimp.override { inherit (pkgs.znver4) stdenv; });
-            gmic = (pkgs.gimpPlugins.gmic.override { inherit (pkgs.znver4) stdenv; });
+            gimp = pkgs.gimpPlugins.gimp.override { inherit (pkgs.znver4) stdenv; };
+            gmic = pkgs.gimpPlugins.gmic.override { inherit (pkgs.znver4) stdenv; };
           };
         })
       ]);
