@@ -29,10 +29,17 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       an-album-cover
-      stable.deadbeef-with-plugins
-      stable.easyaudiosync
+      (easyaudiosync.overrideAttrs (oldAttrs: {
+        patches = oldAttrs.patches ++ [
+          ./easyaudiosync.patch
+        ];
+      }))
       easytag
-      fooyin
+      (fooyin.overrideAttrs (oldAttrs: {
+        patches = oldAttrs.patches ++ [
+          ./fooyin.patch
+        ];
+      }))
       lrcget
       puddletag
       tidal-hifi

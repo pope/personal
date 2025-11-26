@@ -2,13 +2,10 @@
   description = "NixOS Flake for pope";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
 
     home-manager = {
-      # The stable URL
-      # url = "github:nix-community/home-manager/release-23.05";
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-generators = {

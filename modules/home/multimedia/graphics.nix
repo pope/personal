@@ -16,7 +16,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages =
-      with pkgs.stable;
+      with pkgs;
       [
         aseprite
         inkscape
