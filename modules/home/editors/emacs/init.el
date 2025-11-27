@@ -175,12 +175,14 @@
 (use-package emacs
   :custom
   (display-line-numbers-grow-only t)
+  (display-line-numbers-width 3)
   (inhibit-startup-screen t)     ; Don't show startup message
   (confirm-kill-emacs 'y-or-n-p) ; Less typing when quitting
   (column-number-mode t)
   (global-display-line-numbers-mode t)
   (global-hl-line-mode t)
   (global-visual-line-mode t)
+  (menu-bar-mode nil)
   (tool-bar-mode nil)
   (winner-mode t))
 
@@ -230,6 +232,10 @@
      "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
      "\\\\" "://"))
   (global-ligature-mode t))
+
+(use-package emacs
+  :custom
+  (fast-but-imprecise-scrolling t))
 
 (use-package ultra-scroll
   :custom

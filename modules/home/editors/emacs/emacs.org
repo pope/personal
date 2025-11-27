@@ -360,12 +360,14 @@ Some basic emacs stuff to add/remove UI to emacs.
   (use-package emacs
     :custom
     (display-line-numbers-grow-only t)
+    (display-line-numbers-width 3)
     (inhibit-startup-screen t)     ; Don't show startup message
     (confirm-kill-emacs 'y-or-n-p) ; Less typing when quitting
     (column-number-mode t)
     (global-display-line-numbers-mode t)
     (global-hl-line-mode t)
     (global-visual-line-mode t)
+    (menu-bar-mode nil)
     (tool-bar-mode nil)
     (winner-mode t))
 #+end_src
@@ -444,6 +446,10 @@ I like ligatures. So this sets those up for all programming modes.
 We could rely on the scrollbars provided by Emacs, but for whatever reason, I want to have more fun - and =nyan-mode= does that. It doesn't auto activate, but it's there! Also, scrolling is a little stiff by default, so we can enable pixel-level scrolling for a bit of smoothness.
 
 #+begin_src emacs-lisp
+  (use-package emacs
+    :custom
+    (fast-but-imprecise-scrolling t))
+
   (use-package ultra-scroll
     :custom
     (scroll-conservatively 3)
