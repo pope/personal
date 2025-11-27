@@ -11,8 +11,6 @@
 
 {
   imports = [
-    inputs.fingerprint-sensor.nixosModules.open-fprintd
-    inputs.fingerprint-sensor.nixosModules.python-validity
     inputs.nixos-hardware.nixosModules.common-gpu-amd # eGPU
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
     self.nixosModules.default
@@ -91,8 +89,11 @@
     renoise350
   ];
 
-  # Power management
   services = {
+    fwupd.enable = true;
+    hardware.bolt.enable = true;
+
+    # Power management
     logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
     thermald.enable = true;
     tlp = {
@@ -131,21 +132,6 @@
     SuspendEstimationSec=1h
     SuspendState=mem
   '';
-
-  # # Fingerprint
-  # services = {
-  #   open-fprintd.enable = true;
-  #   python-validity.enable = true;
-  # };
-  security = {
-    # pam.services = {
-    #   polkit-1.fprintAuth = true;
-    #   sudo.fprintAuth = true;
-    # };
-  };
-
-  services.fwupd.enable = true;
-  services.hardware.bolt.enable = true;
 
   my.nixos = {
     mainUser = "pope";
