@@ -24,7 +24,7 @@
         redir /syncthing /syncthing/
         handle /syncthing/* {
           uri strip_prefix /syncthing
-          reverse_proxy localhost:8384
+          reverse_proxy ${config.services.syncthing.guiAddress}
         }
       '';
     };
@@ -70,7 +70,7 @@
           }
           {
             Misc = {
-              columns = 2;
+              columns = 3;
               header = true;
               style = "row";
             };
@@ -187,6 +187,13 @@
                 siteMonitor = href;
               };
             }
+            {
+              "Resilio Sync" = rec {
+                href = "http://${config.networking.hostName}:${toString config.services.resilio.httpListenPort}";
+                icon = "resiliosync";
+                siteMonitor = href;
+              };
+            }
           ];
         }
       ];
@@ -208,6 +215,13 @@
       enable = false;
       port = 5055;
       openFirewall = true;
+    };
+
+    resilio = {
+      enable = true;
+      enableWebUI = true;
+      httpListenAddr = "0.0.0.0";
+      httpListenPort = 8383;
     };
 
     syncthing = {
