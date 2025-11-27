@@ -63,10 +63,7 @@
     };
     kde.enable = true;
     keymapp.enable = true;
-    languages = {
-      javascript.enable = true;
-      python.enable = true;
-    };
+    languages.python.enable = true;
     mpv = {
       enable = true;
       scale = 1;
