@@ -19,6 +19,14 @@
       };
     };
 
+    skylake = import self.inputs.nixpkgs {
+      localSystem = {
+        gcc.arch = "skylake";
+        gcc.tune = "skylake";
+        system = "x86_64-linux";
+      };
+    };
+
     names = builtins.map (f: prev.lib.strings.removeSuffix ".nix" (builtins.baseNameOf f)) (umport {
       path = ../packages;
       exclude = [
@@ -35,7 +43,7 @@
   in
   packages
   // {
-    inherit znver4;
+    inherit skylake znver4;
 
     renoise350 = prev.renoise.override (
       let

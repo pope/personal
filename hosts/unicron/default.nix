@@ -23,6 +23,7 @@
   ];
 
   nix.settings.system-features = [
+    "gccarch-skylake"
     "gccarch-znver5"
     "gccarch-znver4"
   ];

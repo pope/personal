@@ -18,6 +18,10 @@
     ./hardware-configuration.nix
   ];
 
+  nix.settings.system-features = [
+    "gccarch-skylake"
+  ];
+
   nixpkgs.overlays = [
     self.overlays.default
   ];
