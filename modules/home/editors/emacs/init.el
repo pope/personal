@@ -191,7 +191,9 @@
   (diff-hl-update-async t)
   (diff-hl-margin-mode t)
   :hook
-  (after-init . global-diff-hl-mode))
+  (after-init . global-diff-hl-mode)
+  (magit-pre-refresh . diff-hl-magit-pre-refresh)
+  (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package nerd-icons
   :config
