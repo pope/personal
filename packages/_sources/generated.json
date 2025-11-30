@@ -13,16 +13,16 @@
             "name": null,
             "owner": "Artoriuz",
             "repo": "ArtCNN",
-            "rev": "v1.4.1",
-            "sha256": "sha256-hJBJya8Xmr/Lx1iUNFsZjs6cmXrAlPxaJx2X1WRX5AY=",
+            "rev": "v1.4.2",
+            "sha256": "sha256-te+Sl+LwGnFI7l6/DKTJAYt/sfmIv6B8QzCt/hCM1YM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.4.1"
+        "version": "v1.4.2"
     },
     "fish-catppuccin": {
         "cargoLocks": null,
-        "date": "2025-03-01",
+        "date": "2025-11-28",
         "extract": null,
         "name": "fish-catppuccin",
         "passthru": null,
@@ -32,17 +32,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed",
-            "sha256": "sha256-Oc0emnIUI4LV7QJLs4B2/FQtCFewRFVp7EDv8GawFsA=",
+            "rev": "af622a6e247806f6260c00c6d261aa22680e5201",
+            "sha256": "sha256-KD/sWXSXYVlV+n7ft4vKFYpIMBB3PSn6a6jz+ZIMZvQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/catppuccin/fish"
         },
-        "version": "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed"
+        "version": "af622a6e247806f6260c00c6d261aa22680e5201"
     },
     "fish-rose-pine": {
         "cargoLocks": null,
-        "date": "2025-05-06",
+        "date": "2025-11-05",
         "extract": null,
         "name": "fish-rose-pine",
         "passthru": null,
@@ -52,13 +52,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b82982c55582cfaf6f220de1893c7c73dd0cb301",
-            "sha256": "sha256-Dvaw1k7XOU2NUQbTJAXPgAOPN1zTLVrc7NZDY5/KHeM=",
+            "rev": "0749331afd4be6bc8035a812a20e489efe1d616f",
+            "sha256": "sha256-hOcsGt0IMoX1a02t85qeoE381XEca0F2x0AtFNwOqj0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rose-pine/fish"
         },
-        "version": "b82982c55582cfaf6f220de1893c7c73dd0cb301"
+        "version": "0749331afd4be6bc8035a812a20e489efe1d616f"
     },
     "fish-tokyonight": {
         "cargoLocks": null,
@@ -151,11 +151,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vJ9wszLcPvSNeuGhff4Ug3lCG3B5Qyvqf6Ht4BMy8X0=",
+            "sha256": "sha256-t3iWQUqmMtIVYIV58xPKBBUgoX4Hz0Wj/AECwMzeXFo=",
             "type": "url",
-            "url": "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.16.1"
+            "url": "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.16.4"
         },
-        "version": "3.16.1"
+        "version": "3.16.4"
     },
     "p5r-grub": {
         "cargoLocks": null,

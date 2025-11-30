@@ -7,42 +7,42 @@
 {
   artcnn = {
     pname = "artcnn";
-    version = "v1.4.1";
+    version = "v1.4.2";
     src = fetchFromGitHub {
       owner = "Artoriuz";
       repo = "ArtCNN";
-      rev = "v1.4.1";
+      rev = "v1.4.2";
       fetchSubmodules = false;
-      sha256 = "sha256-hJBJya8Xmr/Lx1iUNFsZjs6cmXrAlPxaJx2X1WRX5AY=";
+      sha256 = "sha256-te+Sl+LwGnFI7l6/DKTJAYt/sfmIv6B8QzCt/hCM1YM=";
     };
   };
   fish-catppuccin = {
     pname = "fish-catppuccin";
-    version = "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed";
+    version = "af622a6e247806f6260c00c6d261aa22680e5201";
     src = fetchgit {
       url = "https://github.com/catppuccin/fish";
-      rev = "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed";
+      rev = "af622a6e247806f6260c00c6d261aa22680e5201";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Oc0emnIUI4LV7QJLs4B2/FQtCFewRFVp7EDv8GawFsA=";
+      sha256 = "sha256-KD/sWXSXYVlV+n7ft4vKFYpIMBB3PSn6a6jz+ZIMZvQ=";
     };
-    date = "2025-03-01";
+    date = "2025-11-28";
   };
   fish-rose-pine = {
     pname = "fish-rose-pine";
-    version = "b82982c55582cfaf6f220de1893c7c73dd0cb301";
+    version = "0749331afd4be6bc8035a812a20e489efe1d616f";
     src = fetchgit {
       url = "https://github.com/rose-pine/fish";
-      rev = "b82982c55582cfaf6f220de1893c7c73dd0cb301";
+      rev = "0749331afd4be6bc8035a812a20e489efe1d616f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Dvaw1k7XOU2NUQbTJAXPgAOPN1zTLVrc7NZDY5/KHeM=";
+      sha256 = "sha256-hOcsGt0IMoX1a02t85qeoE381XEca0F2x0AtFNwOqj0=";
     };
-    date = "2025-05-06";
+    date = "2025-11-05";
   };
   fish-tokyonight = {
     pname = "fish-tokyonight";
@@ -96,10 +96,10 @@
   };
   ocenaudio-bin = {
     pname = "ocenaudio-bin";
-    version = "3.16.1";
+    version = "3.16.4";
     src = fetchurl {
-      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.16.1";
-      sha256 = "sha256-vJ9wszLcPvSNeuGhff4Ug3lCG3B5Qyvqf6Ht4BMy8X0=";
+      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.16.4";
+      sha256 = "sha256-t3iWQUqmMtIVYIV58xPKBBUgoX4Hz0Wj/AECwMzeXFo=";
     };
   };
   p5r-grub = {
