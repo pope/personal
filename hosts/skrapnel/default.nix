@@ -81,7 +81,10 @@
     };
     sops.enable = true;
     system.enable = true;
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      enableAsExitNode = true;
+    };
     users.shell = "zsh";
     vyprvpn.enable = true;
   };
