@@ -8,7 +8,7 @@
   nix = {
     gc = {
       automatic = true;
-      frequency = "weekly";
+      dates = "weekly";
       options = "--delete-older-than 7d";
     };
     package = pkgs.nix;
@@ -28,6 +28,11 @@
     homeDirectory = "/home/pope";
 
     packages = with pkgs; [
+      nerd-fonts.gohufont
+      nerd-fonts.lilex
+      nerd-fonts.symbols-only
+      nerd-fonts.terminess-ttf
+
       nixgl.nixGLIntel
       nixgl.nixVulkanIntel
     ];
@@ -42,11 +47,17 @@
   };
 
   my.home = {
-    editors.neovim.enable = true;
+    editors = {
+      emacs = {
+        enable = true;
+        package = pkgs.emacs;
+      };
+      neovim.enable = true;
+    };
     git = {
       enable = true;
       sshCommand = "ssh.exe";
-      opSshSignCommand = "/mnt/c/Users/pope/AppData/Local/1Password/app/8/op-ssh-sign-wsl";
+      opSshSignCommand = "/mnt/c/Users/pope/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe";
     };
     languages.python.enable = true;
     packages.enable = true;
