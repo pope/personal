@@ -124,6 +124,8 @@ in
           org-modern
           org-superstar
           pink-bliss-uwu-theme
+          protobuf-mode
+          protobuf-ts-mode
           rg
           sakura-theme
           treesit-grammars.with-all-grammars

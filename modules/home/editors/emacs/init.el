@@ -282,6 +282,7 @@
         (json-mode        . json-ts-mode)
         (ruby-mode        . ruby-ts-mode)
         (nix-mode         . nix-ts-mode)
+        (protobuf-mode    . protobuf-ts-mode)
         (python-mode      . python-ts-mode)
         (typescript-mode  . typescript-ts-mode)
         (yaml-mode        . yaml-ts-mode)
