@@ -108,9 +108,9 @@ in
           magit
           marginalia
           markdown-mode
+          minimap
           minions
           multiple-cursors
-          nano-theme
           nerd-icons
           nerd-icons-completion
           nerd-icons-corfu

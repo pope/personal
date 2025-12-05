@@ -175,11 +175,12 @@
 (use-package emacs
   :custom
   (display-line-numbers-grow-only t)
+  (display-line-numbers-type 'relative)
   (display-line-numbers-width 3)
   (inhibit-startup-screen t)     ; Don't show startup message
   (confirm-kill-emacs 'y-or-n-p) ; Less typing when quitting
   (column-number-mode t)
-  (global-display-line-numbers-mode t)
+  (global-display-line-numbers-mode +1)
   (global-hl-line-mode t)
   (global-visual-line-mode t)
   (menu-bar-mode nil)
@@ -407,6 +408,7 @@
   (markdown-mode . (lambda ()
                      (variable-pitch-mode t)
                      (olivetti-mode t)
+                     (display-line-numbers-mode -1)
                      (indent-bars-mode -1)
                      (diff-hl-margin-mode -1)))
   :config
