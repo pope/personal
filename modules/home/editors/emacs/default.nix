@@ -108,6 +108,7 @@ in
           magit
           marginalia
           markdown-mode
+          minions
           multiple-cursors
           nano-theme
           nerd-icons

@@ -265,9 +265,11 @@
 
 (use-package doom-modeline
   :custom
-  (doom-modeline-minor-modes nil)
+  (doom-modeline-buffer-encoding 'nondefault)
+  (doom-modeline-minor-modes t)
   :hook
-  (after-init . doom-modeline-mode))
+  (after-init . doom-modeline-mode)
+  (after-init . minions-mode))
 
 (setq major-mode-remap-alist
       '(

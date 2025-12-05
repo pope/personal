@@ -498,9 +498,11 @@ Using =doom-modeline= to have a fancier looking modeline bar at the bottom of th
 #+begin_src emacs-lisp
   (use-package doom-modeline
     :custom
-    (doom-modeline-minor-modes nil)
+    (doom-modeline-buffer-encoding 'nondefault)
+    (doom-modeline-minor-modes t)
     :hook
-    (after-init . doom-modeline-mode))
+    (after-init . doom-modeline-mode)
+    (after-init . minions-mode))
 #+end_src
 
 * Programming
