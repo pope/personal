@@ -18,7 +18,7 @@
   hardware.enableRedistributableFirmware = true;
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_17;
     # Bootloader.
     loader = {
       grub = {
