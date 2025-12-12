@@ -27,8 +27,6 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_17;
-
     # Bootloader.
     loader = {
       systemd-boot.enable = false;

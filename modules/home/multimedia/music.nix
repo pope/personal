@@ -35,11 +35,7 @@ in
         ];
       }))
       easytag
-      (fooyin.overrideAttrs (oldAttrs: {
-        patches = oldAttrs.patches ++ [
-          ./fooyin.patch
-        ];
-      }))
+      fooyin
       lrcget
       puddletag
       tidal-hifi

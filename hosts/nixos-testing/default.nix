@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ self, pkgs, ... }:
+{ self, ... }:
 
 {
   imports = [
@@ -18,7 +18,6 @@
   hardware.enableRedistributableFirmware = true;
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_17;
     # Bootloader.
     loader = {
       grub = {
