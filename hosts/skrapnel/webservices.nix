@@ -1,5 +1,43 @@
 { config, lib, ... }:
 
+let
+  arrsConfig =
+    map
+      (name: rec {
+        inherit name;
+        service = lib.strings.toLower name;
+        inherit (config.services."${service}".settings.server) port;
+      })
+      [
+        "Prowlarr"
+        "Radarr"
+        "Lidarr"
+        "Sonarr"
+      ];
+  jellyfinConfig = {
+    name = "Jellyfin";
+    service = "jellyfin";
+    port = 8096;
+  };
+  sabnzbdConfig = {
+    name = "SABnzbd";
+    service = "sabnzbd";
+    port = 8080;
+  };
+
+  tailscaleHost = "${config.networking.hostName}.gumiho-matrix.ts.net";
+
+  configToLink =
+    { name, service, ... }:
+    {
+      "${name}" = rec {
+        href = "https://${tailscaleHost}/${service}/";
+        icon = service;
+        siteMonitor = href;
+      };
+
+    };
+in
 {
   my.nixos.arrs.enable = true;
 
@@ -11,15 +49,30 @@
   services = {
     caddy = {
       enable = true;
-      virtualHosts."skrapnel.gumiho-matrix.ts.net".extraConfig = ''
+      virtualHosts."${tailscaleHost}".extraConfig = ''
         encode
         reverse_proxy localhost:8082
 
-        redir /radarr /radarr/
-        handle /radarr/* {
-          uri strip_prefix /radarr
-          reverse_proxy localhost:${toString config.services.radarr.settings.server.port}
-        }
+      ''
+      + (lib.strings.concatMapStrings
+        (
+          { service, port, ... }:
+          ''
+            redir /${service} /${service}/
+            handle /${service}/* {
+              reverse_proxy localhost:${toString port}
+            }
+          ''
+        )
+        (
+          arrsConfig
+          ++ [
+            jellyfinConfig
+            sabnzbdConfig
+          ]
+        )
+      )
+      + ''
 
         redir /syncthing /syncthing/
         handle /syncthing/* {
@@ -43,7 +96,7 @@
             "${config.networking.hostName}.local"
           ]
         )
-        + ",${config.networking.hostName}.gumiho-matrix.ts.net";
+        + ",${tailscaleHost}";
       openFirewall = true;
       settings = {
         title = "Skrapnel Homepage";
@@ -136,65 +189,27 @@
             ) graphs;
         }
         {
-          Arrs =
-            let
-              links = [
-                {
-                  name = "Prowlarr";
-                  service = "prowlarr";
-                }
-                {
-                  name = "Radarr";
-                  service = "radarr";
-                }
-                {
-                  name = "Lidarr";
-                  service = "lidarr";
-                }
-                {
-                  name = "Sonarr";
-                  service = "sonarr";
-                }
-              ];
-            in
-            map (
-              { name, service }:
-              let
-                inherit (config.services.${service}.settings.server) port;
-              in
-              {
-                "${name}" = rec {
-                  href = "http://${config.networking.hostName}:${toString port}";
-                  icon = service;
-                  siteMonitor = href;
-                };
-              }
-            ) links;
+          Arrs = map configToLink arrsConfig;
         }
         {
-          Misc = [
-            {
-              Jellyfin = rec {
-                href = "http://${config.networking.hostName}:8096";
-                icon = "jellyfin";
-                siteMonitor = href;
-              };
-            }
-            {
-              Sabnzbd = rec {
-                href = "http://${config.networking.hostName}:8080";
-                icon = "sabnzbd";
-                siteMonitor = href;
-              };
-            }
-            {
-              "Resilio Sync" = rec {
-                href = "http://${config.networking.hostName}:${toString config.services.resilio.httpListenPort}";
-                icon = "resiliosync";
-                siteMonitor = href;
-              };
-            }
-          ];
+          Misc =
+            (map configToLink [
+              jellyfinConfig
+              sabnzbdConfig
+            ])
+            ++ [
+              {
+                "Resilio Sync" =
+                  let
+                    port = config.services.resilio.httpListenPort;
+                  in
+                  rec {
+                    href = "http://${config.networking.hostName}:${toString port}";
+                    icon = "resiliosync";
+                    siteMonitor = href;
+                  };
+              }
+            ];
         }
       ];
     };
