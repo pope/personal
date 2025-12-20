@@ -125,6 +125,7 @@
     mainUser = "pope";
 
     bluetooth.enable = true;
+    displaycal.enable = true;
     fah.enable = false;
     flatpak.enable = true;
     fonts = {
