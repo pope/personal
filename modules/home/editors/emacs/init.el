@@ -322,6 +322,9 @@
 (use-package direnv
   :custom (direnv-mode t))
 
+(use-package ansi-color
+  :hook (compilation-filter . ansi-color-compilation-filter))
+
 (use-package vterm
   :commands (vterm)
   :config

@@ -594,6 +594,15 @@ I don't only use Nix for my config files - I also use it for all of my projects.
     :custom (direnv-mode t))
 #+end_src
 
+** Ansi Colors in Compilation
+
+Using the =compile= (or better yet, =project-compile=) command is really handy for running and re-running compilation of code or just a one-off command. But one thing that can suck is that ansi colors from some commands show up as escape characters in that buffer. Well, =ansi-colors= to the rescue
+
+#+begin_src emacs-lisp
+  (use-package ansi-color
+    :hook (compilation-filter . ansi-color-compilation-filter))
+#+end_src
+
 ** A Terminal
 
 I have a complex terminal setup - it's where I tend to do most of my work, and so I use fancy (overlay complicated) TUIs and icons and settings - all of which can make =vterm= have problems displaying everything unless we tweak a few things. Some of the properties above like showing line numbers or a visual line don't make sense for a vterm session - so those get disable. The odd one though is =toggle-truncate-lines=. The Oh-My-Posh prompt can cause the line (which should be on just one line) break to another line. Then there are TUI apps like =lazygit= which can also exibit this longer-than-one-line issue. Truncating - while not perfect, does a better job of making things readible and usable.
