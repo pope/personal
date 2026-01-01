@@ -54,6 +54,7 @@ in
         neomutt.enable = true;
       };
       msmtp.enable = true;
+      mu.enable = true;
     };
 
     programs = {
@@ -90,6 +91,7 @@ in
       };
       mbsync.enable = true;
       msmtp.enable = true;
+      mu.enable = true;
       neomutt = {
         enable = true;
         sidebar = {

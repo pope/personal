@@ -416,3 +416,13 @@
                      (diff-hl-margin-mode -1)))
   :config
   (pope-set-document-faces))
+
+(use-package mu4e
+  :custom
+  (mu4e-drafts-folder "/shifteleven-admin/[Gmail]/Drafts")
+  (mu4e-sent-folder "/shifteleven-admin/[Gmail]/Sent Mail")
+  (mu4e-trash-folder "/shifteleven-admin/[Gmail]/Trash")
+
+  (mu4e-sent-messages-behavior 'delete)
+
+  (mu4e-get-mail-command "mbsync -ax"))

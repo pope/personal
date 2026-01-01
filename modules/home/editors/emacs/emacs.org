@@ -789,3 +789,19 @@ And then for the Markdown files, it's much the same thing, so details will be li
     :config
     (pope-set-document-faces))
 #+end_src
+
+* Email
+
+Emacs can do all the things - like read mail. So, why not? I have =mu= configured through my Nix email configs. So I will have =mu4e= re-use those configs. It should be noted that =mu index= needs to be run before any of that email gets processed my =mu4e=.
+
+#+begin_src emacs-lisp
+  (use-package mu4e
+    :custom
+    (mu4e-drafts-folder "/shifteleven-admin/[Gmail]/Drafts")
+    (mu4e-sent-folder "/shifteleven-admin/[Gmail]/Sent Mail")
+    (mu4e-trash-folder "/shifteleven-admin/[Gmail]/Trash")
+
+    (mu4e-sent-messages-behavior 'delete)
+
+    (mu4e-get-mail-command "mbsync -ax"))
+#+end_src
