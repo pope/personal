@@ -70,6 +70,7 @@
 
     gpu.intel.enable = true;
     nfs.host.enable = true;
+    nix.enable = true;
     samba = {
       enable = true;
       shares = {

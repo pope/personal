@@ -97,6 +97,7 @@
   my.nixos = {
     mainUser = "pi";
 
+    nix.enable = true;
     samba = {
       enable = true;
       shares = {

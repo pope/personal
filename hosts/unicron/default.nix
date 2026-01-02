@@ -140,6 +140,7 @@
     };
     gpu.amd.enable = true;
     nfs.client.enable = true;
+    nix.enable = true;
     onepassword.enable = true;
     printing.enable = true;
     sops.enable = true;

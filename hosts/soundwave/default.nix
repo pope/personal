@@ -134,6 +134,7 @@
     gpu.nvidia.enable = true;
     ndi.enable = true;
     nfs.client.enable = true;
+    nix.enable = true;
     onepassword.enable = true;
     printing.enable = true;
     sops.enable = true;

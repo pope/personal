@@ -255,9 +255,15 @@ in
         };
       };
     };
+
+    nix-serve = {
+      enable = true;
+      secretKeyFile = config.sops.secrets.cache-priv-key.path;
+    };
   };
 
   sops.secrets.syncthing-password = { };
+  sops.secrets.cache-priv-key = { };
 
   systemd.services.tailscaled.environment.TS_PERMIT_CERT_UID = config.services.caddy.user;
 }

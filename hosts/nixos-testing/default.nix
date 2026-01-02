@@ -57,6 +57,7 @@
     bluetooth.enable = true;
     flatpak.enable = true;
     fonts.enable = true;
+    nix.enable = true;
     onepassword.enable = true;
     printing.enable = true;
     sound.enable = true;

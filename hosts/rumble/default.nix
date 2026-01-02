@@ -143,6 +143,10 @@
       enable = true;
       host = "skrapnel";
     };
+    nix = {
+      enable = true;
+      enableBinaryCacheSubstitutor = true;
+    };
     onepassword.enable = true;
     printing.enable = true;
     sops.enable = true;

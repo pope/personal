@@ -156,6 +156,7 @@
       enable = true;
       host = "skrapnel";
     };
+    nix.enable = true;
     onepassword.enable = true;
     sops.enable = true;
     sound.enable = true;
