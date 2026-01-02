@@ -74,6 +74,7 @@ in
       packages = with pkgs; [
         fd
         nixd
+        nixfmt-rfc-style
         ripgrep
         sops
       ];
@@ -120,6 +121,7 @@ in
           nerd-icons-ibuffer
           nix-mode
           nix-ts-mode
+          nixfmt
           nyan-mode
           olivetti
           orderless
