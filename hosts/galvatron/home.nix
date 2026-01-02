@@ -16,8 +16,7 @@
       dank-mono
       go-font
       ia-writer
-      iosevka
-      iosevka-comfy.comfy
+      iosevka-bin
       jetbrains-mono
       lucida-grande
       monolisa

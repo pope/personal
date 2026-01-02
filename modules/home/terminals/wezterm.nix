@@ -19,7 +19,7 @@ in
     home.packages = lib.mkIf cfg.installExtraFonts (
       with pkgs;
       [
-        iosevka
+        iosevka-bin
         joypixels
         nerd-fonts.symbols-only
         noto-fonts-color-emoji

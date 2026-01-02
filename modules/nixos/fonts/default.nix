@@ -58,8 +58,9 @@ in
           ia-writer
           ibm-plex
           inter
-          iosevka
-          iosevka-comfy.comfy
+          iosevka-bin
+          (iosevka-bin.override { variant = "Aile"; })
+          (iosevka-bin.override { variant = "Etoile"; })
           joypixels
           maple-mono-font
           monaspace
