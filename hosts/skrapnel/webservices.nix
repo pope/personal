@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   arrsConfig =
@@ -258,6 +263,7 @@ in
 
     nix-serve = {
       enable = true;
+      package = pkgs.nix-serve-ng;
       secretKeyFile = config.sops.secrets.cache-priv-key.path;
     };
   };
