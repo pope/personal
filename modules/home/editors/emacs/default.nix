@@ -73,8 +73,9 @@ in
 
       packages = with pkgs; [
         fd
-        ripgrep
         nixd
+        ripgrep
+        sops
       ];
     };
     programs.emacs = {
@@ -129,6 +130,7 @@ in
           protobuf-ts-mode
           rg
           sakura-theme
+          sops
           treesit-grammars.with-all-grammars
           ultra-scroll
           uwu-theme
