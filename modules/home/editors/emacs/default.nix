@@ -119,7 +119,6 @@ in
           nerd-icons-ibuffer
           nix-mode
           nix-ts-mode
-          notmuch
           nyan-mode
           olivetti
           orderless

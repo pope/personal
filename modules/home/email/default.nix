@@ -41,17 +41,12 @@ in
         enable = true;
         boxes = [ "INBOX" ];
         onNotify = "${lib.getExe' pkgs.isync "mbsync"} shifteleven-admin";
-        onNotifyPost = "${lib.getExe pkgs.notmuch} new && ${lib.getExe' pkgs.libnotify "notify-send"} 'New mail arrived'";
+        onNotifyPost = "${lib.getExe pkgs.mu} index && ${lib.getExe' pkgs.libnotify "notify-send"} 'New mail arrived'";
       };
       mbsync = {
         enable = true;
         create = "maildir";
         expunge = "both";
-      };
-      neomutt.enable = true;
-      notmuch = {
-        enable = true;
-        neomutt.enable = true;
       };
       msmtp.enable = true;
       mu.enable = true;
@@ -92,18 +87,6 @@ in
       mbsync.enable = true;
       msmtp.enable = true;
       mu.enable = true;
-      neomutt = {
-        enable = true;
-        sidebar = {
-          enable = true;
-        };
-        sort = "reverse-last-date-received";
-        vimKeys = true;
-        extraConfig = ''
-          set pager_index_lines=10
-        '';
-      };
-      notmuch.enable = true;
     };
 
     services.imapnotify.enable = true;
