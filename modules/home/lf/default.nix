@@ -25,7 +25,7 @@ in
       lf = {
         enable = true;
         commands = {
-          drag-out = ''%${pkgs.ripdrag}/bin/ripdrag -x -a $fx'';
+          drag-out = "%${pkgs.ripdrag}/bin/ripdrag -x -a $fx";
           mkdir = ''
             ''${{
               printf "Directory name: "

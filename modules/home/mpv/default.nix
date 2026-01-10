@@ -39,7 +39,7 @@ in
       type = lib.types.number;
       default = 1.5;
       example = 1;
-      description = lib.mkDoc ''Scaling to apply to controls.'';
+      description = lib.mkDoc "Scaling to apply to controls.";
     };
   };
 
