@@ -7,8 +7,57 @@
 
 let
   cfg = config.my.home.email;
-  admin-user = "admin";
-  domain = "shifteleven.com";
+  realName = "K. Adam Christensen";
+
+  mkGmailAccount =
+    {
+      name,
+      user,
+      domain,
+      passwordPath,
+      primary ? false,
+      patterns ? [ "*" ],
+    }:
+    {
+      inherit primary realName;
+      address = "${user}@${domain}";
+      passwordCommand = "${pkgs.coreutils}/bin/cat ${passwordPath}";
+
+      flavor = "gmail.com";
+      folders = {
+        drafts = "[Gmail]/Drafts";
+        sent = "[Gmail]/Sent Mail";
+        trash = "[Gmail]/Trash";
+      };
+
+      aerc = {
+        enable = true;
+        extraAccounts = {
+          source = "notmuch://${config.accounts.email.maildirBasePath}";
+          maildir-store = config.accounts.email.maildirBasePath;
+          maildir-account-path = name;
+        };
+      };
+      imapnotify = {
+        enable = true;
+        boxes = [ "INBOX" ];
+        onNotify = "${lib.getExe' pkgs.isync "mbsync"} ${name}";
+        onNotifyPost = ''
+          ${lib.getExe pkgs.mu} index && \
+            ${lib.getExe pkgs.notmuch} new && \
+            ${lib.getExe' pkgs.libnotify "notify-send"} 'New mail arrived from ${name}'
+        '';
+      };
+      mbsync = {
+        enable = true;
+        create = "maildir";
+        expunge = "both";
+        inherit patterns;
+      };
+      msmtp.enable = true;
+      mu.enable = true;
+      notmuch.enable = true;
+    };
 in
 {
   options.my.home.email = {
@@ -23,33 +72,27 @@ in
       }
     ];
 
-    accounts.email.accounts.shifteleven-admin = {
-      primary = true;
-      address = "${admin-user}@${domain}";
-      realName = "K. Adam Christensen";
-      passwordCommand = "${pkgs.coreutils}/bin/cat ${config.sops.secrets.shifteleven-email-password.path}";
-
-      flavor = "gmail.com";
-      folders = {
-        drafts = "[Gmail]/Drafts";
-        sent = "[Gmail]/Sent Mail";
-        trash = "[Gmail]/Trash";
+    accounts.email.accounts = {
+      personal = mkGmailAccount {
+        name = "personal";
+        user = lib.strings.toLower (builtins.replaceStrings [ "." " " ] [ "" "." ] realName);
+        domain = "gmail.com";
+        passwordPath = config.sops.secrets.personal-email-password.path;
+        primary = true;
+        patterns = [
+          "INBOX"
+          "[Gmail]/Drafts"
+          "[Gmail]/Sent Mail"
+          "[Gmail]/Trash"
+        ];
       };
 
-      aerc.enable = true;
-      imapnotify = {
-        enable = true;
-        boxes = [ "INBOX" ];
-        onNotify = "${lib.getExe' pkgs.isync "mbsync"} shifteleven-admin";
-        onNotifyPost = "${lib.getExe pkgs.mu} index && ${lib.getExe' pkgs.libnotify "notify-send"} 'New mail arrived'";
+      shifteleven-admin = mkGmailAccount {
+        name = "shifteleven-admin";
+        user = "admin";
+        domain = "shifteleven.com";
+        passwordPath = config.sops.secrets.shifteleven-email-password.path;
       };
-      mbsync = {
-        enable = true;
-        create = "maildir";
-        expunge = "both";
-      };
-      msmtp.enable = true;
-      mu.enable = true;
     };
 
     programs = {
@@ -87,10 +130,14 @@ in
       mbsync.enable = true;
       msmtp.enable = true;
       mu.enable = true;
+      notmuch.enable = true;
     };
 
     services.imapnotify.enable = true;
 
-    sops.secrets.shifteleven-email-password = { };
+    sops.secrets = {
+      personal-email-password = { };
+      shifteleven-email-password = { };
+    };
   };
 }

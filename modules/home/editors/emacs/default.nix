@@ -122,6 +122,7 @@ in
           nix-mode
           nix-ts-mode
           nixfmt
+          notmuch
           nyan-mode
           olivetti
           orderless
