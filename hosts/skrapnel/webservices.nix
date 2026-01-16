@@ -264,6 +264,7 @@ in
     nix-serve = {
       enable = true;
       package = pkgs.nix-serve-ng;
+      openFirewall = true;
       secretKeyFile = config.sops.secrets.cache-priv-key.path;
     };
   };
