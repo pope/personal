@@ -29,15 +29,16 @@
     yazi.enable = true;
   };
 
-  nixGL = {
-    installScripts = [ "mesa" ];
-    inherit (inputs.nixgl) packages;
-    vulkan.enable = true;
-  };
-
   programs = {
     home-manager.enable = true;
   };
 
-  targets.genericLinux.enable = true;
+  targets.genericLinux = {
+    enable = true;
+    nixGL = {
+      installScripts = [ "mesa" ];
+      inherit (inputs.nixgl) packages;
+      vulkan.enable = true;
+    };
+  };
 }
