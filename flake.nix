@@ -249,9 +249,10 @@
           formatting = (treefmtEval system).config.build.check self;
           nixvim = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
         }
-        // (lib.mapAttrs' (name: drv: lib.nameValuePair "${name}_home" drv.activationPackage) (
-          lib.filterAttrs (_name: drv: drv.pkgs.stdenv.hostPlatform.system == system) self.homeConfigurations
-        ))
+        // lib.trivial.pipe self.homeConfigurations [
+          (lib.filterAttrs (_name: drv: drv.pkgs.stdenv.hostPlatform.system == system))
+          (lib.mapAttrs' (name: drv: lib.nameValuePair "homeConfigurations.${name}" drv.activationPackage))
+        ]
       );
       formatter = eachSystem (system: (treefmtEval system).config.build.wrapper);
     };
