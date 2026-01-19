@@ -54,7 +54,6 @@
       withPowerProfiles = true;
     };
     hyprland.enable = false;
-    keymapp.enable = true;
     languages = {
       c.enable = true;
       go.enable = true;

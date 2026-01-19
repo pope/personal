@@ -132,6 +132,7 @@
       ntsync = true;
     };
     gpu.nvidia.enable = true;
+    keyboards.enable = true;
     ndi.enable = true;
     nfs.client.enable = true;
     nix.enable = true;

@@ -152,6 +152,7 @@
       amd.enable = true; # eGPU
       intel.enable = true;
     };
+    keyboards.enable = true;
     nfs.client = {
       enable = true;
       host = "skrapnel";

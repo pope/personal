@@ -139,6 +139,7 @@
       preferredOutput = "HDMI-A-2";
     };
     gpu.amd.enable = true;
+    keyboards.enable = true;
     nfs.client.enable = true;
     nix.enable = true;
     onepassword.enable = true;

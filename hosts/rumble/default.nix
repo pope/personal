@@ -138,6 +138,7 @@
       enableSteam = true;
     };
     gpu.amd.enable = true;
+    keyboards.enable = true;
     ndi.enable = true;
     nfs.client = {
       enable = true;

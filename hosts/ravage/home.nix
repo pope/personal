@@ -63,7 +63,6 @@
       enableBatterySaverMode = true;
     };
     kde.enable = true;
-    keymapp.enable = true;
     languages.python.enable = true;
     mpv = {
       enable = true;
