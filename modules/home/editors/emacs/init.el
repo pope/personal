@@ -77,7 +77,9 @@
   :custom
   (vertico-cycle t)
   (vertico-resize nil)
-  (vertico-mode t))
+  (vertico-mode t)
+  :hook
+  (rfn-eshadow-update-overlay-hook . vertico-directory-tidy))
 
 ;; Enable saving of minibuffer history
 (use-package savehist
@@ -271,6 +273,12 @@
   :hook
   (after-init . doom-modeline-mode)
   (after-init . minions-mode))
+
+(use-package dired
+  :custom
+  (dired-dwim-target t)
+  :hook
+  (dired-mode-hook . dired-hide-details-mode))
 
 (setq major-mode-remap-alist
       '(

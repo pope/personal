@@ -198,7 +198,9 @@ The minibuffer package, which is built into Emacs, allows for all sort of comple
     :custom
     (vertico-cycle t)
     (vertico-resize nil)
-    (vertico-mode t))
+    (vertico-mode t)
+    :hook
+    (rfn-eshadow-update-overlay-hook . vertico-directory-tidy))
 #+end_src
 
 The vertico docs also recommend the following configs
@@ -505,6 +507,24 @@ Using =doom-modeline= to have a fancier looking modeline bar at the bottom of th
     (after-init . doom-modeline-mode)
     (after-init . minions-mode))
 #+end_src
+
+** Directory / file navigation
+
+=dired= is a mode that allows for navigation of directories along with file manipulation. Configured above, icons have been enabled, but there are a few extra tweaks we can do.
+
+The variable =dired-dwim-target= means that Dired will try to guess what I might want to do. So I can mark a file in one directory, navigate to a new one, and when I try to rename the file, it will assume I want to move the marked files into that directory.
+
+On the UI side, I use =dired-hide-details-mode= so that I'm just looking at the file names, and not all of the other data like permissions and owners.
+
+#+begin_src emacs-lisp
+  (use-package dired
+    :custom
+    (dired-dwim-target t)
+    :hook
+    (dired-mode-hook . dired-hide-details-mode))
+#+end_src
+
+[[https://protesilaos.com/codelog/2023-06-26-emacs-file-dired-basics/][Emacs: file and Dired basics]] has a nice video and other options.
 
 * Programming
 
