@@ -38,7 +38,6 @@
     editors = {
       emacs = {
         enable = true;
-        package = pkgs.emacs-pgtk.override { inherit (pkgs.skylake) stdenv; };
         useSymlink = true;
       };
       neovim.enable = true;

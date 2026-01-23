@@ -36,11 +36,9 @@
       librewolf.enable = true;
       chromium.enable = true;
     };
-    cpu.arch = "znver4";
     editors = {
       emacs = {
         enable = true;
-        package = pkgs.emacs-pgtk.override { inherit (pkgs.znver4) stdenv; };
         useSymlink = true;
       };
       neovim.enable = true;
