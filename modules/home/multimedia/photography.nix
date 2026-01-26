@@ -24,10 +24,10 @@ in
         rawtherapee
       ]
       ++ (lib.optionals (cpuArch == "unspecified") [
-        darktable
+        unstable.darktable
       ])
       ++ (lib.optionals (cpuArch == "znver4") [
-        (darktable.override { inherit (znver4) stdenv; })
+        (unstable.darktable.override { inherit (znver4) stdenv; })
       ]);
   };
 }

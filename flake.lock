@@ -345,6 +345,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1769343416,
+        "narHash": "sha256-5SoVQIHVRz2YYNSWVM6TdcCKTaoDhxN2S55XPs8l4Gg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "16036e94014363dd8e12a26a38b071bcc1e41b41",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -402,6 +418,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "sops-nix": "sops-nix",
         "treefmt-nix": "treefmt-nix"
