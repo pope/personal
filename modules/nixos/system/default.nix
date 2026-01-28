@@ -20,10 +20,6 @@ in
       firefox.speechSynthesisSupport = true;
       # Accept the joypixels license
       joypixels.acceptLicense = true;
-      # TODO(pope): Remove when https://github.com/NixOS/nixpkgs/issues/429268 is resolved.
-      permittedInsecurePackages = [
-        "libsoup-2.74.3"
-      ];
     };
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
