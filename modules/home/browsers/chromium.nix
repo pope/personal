@@ -16,6 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.chromium = {
       enable = true;
+      package = pkgs.unstable.chromium;
       dictionaries = [
         pkgs.hunspellDictsChromium.en_US
       ];
