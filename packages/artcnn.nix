@@ -12,6 +12,6 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/share/${source.pname}
-    cp -r GLSL Legacy $out/share/${source.pname}
+    cp -r GLSL $out/share/${source.pname}
   '';
 }
