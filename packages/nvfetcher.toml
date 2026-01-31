@@ -57,3 +57,17 @@ fetch.git = "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
 [prchann-font-collection]
 src.git = "https://github.com/prchann/fonts"
 fetch.git = "https://github.com/prchann/fonts"
+
+# Emacs
+
+[acp]
+src.github_tag = "xenodium/acp.el"
+fetch.github = "xenodium/acp.el"
+
+[agent-shell]
+src.github_tag = "xenodium/agent-shell"
+fetch.github = "xenodium/agent-shell"
+
+[shell-maker]
+src.github_tag = "xenodium/shell-maker"
+fetch.github = "xenodium/shell-maker"

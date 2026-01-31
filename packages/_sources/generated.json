@@ -1,4 +1,46 @@
 {
+    "acp": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "acp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xenodium",
+            "repo": "acp.el",
+            "rev": "v0.8.3",
+            "sha256": "sha256-MX7fVVldR/du7nT+YOdSCKKKdqsr/LsfuG7uPiLN5VE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.8.3"
+    },
+    "agent-shell": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "agent-shell",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xenodium",
+            "repo": "agent-shell",
+            "rev": "v0.32.2",
+            "sha256": "sha256-ZsNb2MsrAFGilc5x/XyPFAopoJLcEmAYAAAWYbuvrMM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.32.2"
+    },
     "artcnn": {
         "cargoLocks": null,
         "date": null,
@@ -257,6 +299,27 @@
             "url": "https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized"
         },
         "version": "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea"
+    },
+    "shell-maker": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "shell-maker",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xenodium",
+            "repo": "shell-maker",
+            "rev": "v0.84.9",
+            "sha256": "sha256-dXcR6Q8TykEWqHMPm2y73Kbd9cKp0ke2lpjExNb3MIo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.84.9"
     },
     "shflags": {
         "cargoLocks": null,

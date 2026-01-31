@@ -5,6 +5,28 @@
   fetchFromGitHub,
 }:
 {
+  acp = {
+    pname = "acp";
+    version = "v0.8.3";
+    src = fetchFromGitHub {
+      owner = "xenodium";
+      repo = "acp.el";
+      rev = "v0.8.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-MX7fVVldR/du7nT+YOdSCKKKdqsr/LsfuG7uPiLN5VE=";
+    };
+  };
+  agent-shell = {
+    pname = "agent-shell";
+    version = "v0.32.2";
+    src = fetchFromGitHub {
+      owner = "xenodium";
+      repo = "agent-shell";
+      rev = "v0.32.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-ZsNb2MsrAFGilc5x/XyPFAopoJLcEmAYAAAWYbuvrMM=";
+    };
+  };
   artcnn = {
     pname = "artcnn";
     version = "v1.5.1";
@@ -168,6 +190,17 @@
       sha256 = "sha256-AYjKrVLISsJWXN6Cj74wXmbJtREkFDYOCRw1t2nVH2w=";
     };
     date = "2023-07-01";
+  };
+  shell-maker = {
+    pname = "shell-maker";
+    version = "v0.84.9";
+    src = fetchFromGitHub {
+      owner = "xenodium";
+      repo = "shell-maker";
+      rev = "v0.84.9";
+      fetchSubmodules = false;
+      sha256 = "sha256-dXcR6Q8TykEWqHMPm2y73Kbd9cKp0ke2lpjExNb3MIo=";
+    };
   };
   shflags = {
     pname = "shflags";
