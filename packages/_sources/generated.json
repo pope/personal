@@ -142,6 +142,26 @@
         },
         "version": "8554dca2b86dc3845981fad6758d3829ce0d4a56"
     },
+    "mpv-retro-shaders": {
+        "cargoLocks": null,
+        "date": "2025-07-24",
+        "extract": null,
+        "name": "mpv-retro-shaders",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "f4ea211db4e2afb5f5dc5a3daf816749c9cd7f03",
+            "sha256": "sha256-Y3R4GDDJl5Tles4SYRYDXnrjnKQelfXkS2g0McHLIV0=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/hhirtz/mpv-retro-shaders"
+        },
+        "version": "f4ea211db4e2afb5f5dc5a3daf816749c9cd7f03"
+    },
     "ocenaudio-bin": {
         "cargoLocks": null,
         "date": null,

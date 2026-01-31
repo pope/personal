@@ -2,6 +2,7 @@
 let
   getDefaultShader =
     x: "${pkgs.mpv-shim-default-shaders}/share/mpv-shim-default-shaders/shaders/${x}";
+  getRetroShader = x: "${pkgs.mpv-retro-shaders}/share/mpv-retro-shaders/GLSL/${x}";
   mkProfileDef =
     {
       name,
@@ -116,15 +117,15 @@ in
   # CRT
 
   crtGuestAdvancedNtsc = mkProfileDef {
-    name = "crt-guest-advanced-ntsc";
-    desc = "CRT (Guest Advanced NTSC)";
+    name = "crt-hyllian";
+    desc = "CRT (Hyllian)";
     shortcut = "g-V";
     settingGroups = [
       krigBilateral
       staticGrainDefault
     ];
     settings.shaders = [
-      "${./shaders/crt-guest-advanced-ntsc.glsl}"
+      (getRetroShader "crt-hyllian.glsl")
     ];
   };
 
@@ -137,7 +138,7 @@ in
       staticGrainDefault
     ];
     settings.shaders = [
-      "${./shaders/crt-lottes.glsl}"
+      (getRetroShader "crt-lottes.glsl")
     ];
   };
 

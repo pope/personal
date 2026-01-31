@@ -30,9 +30,15 @@ fetch.git = "https://github.com/lsalzman/iqm"
 src.github_tag = "supermariofps/hatsune-miku-windows-linux-cursors"
 fetch.github = "supermariofps/hatsune-miku-windows-linux-cursors"
 
+# Shaders
+
 [artcnn]
 src.github_tag = "Artoriuz/ArtCNN"
 fetch.github = "Artoriuz/ArtCNN"
+
+[mpv-retro-shaders]
+src.git = "https://github.com/hhirtz/mpv-retro-shaders"
+fetch.git = "https://github.com/hhirtz/mpv-retro-shaders"
 
 # Fonts
 

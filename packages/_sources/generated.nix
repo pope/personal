@@ -94,6 +94,20 @@
     };
     date = "2025-07-24";
   };
+  mpv-retro-shaders = {
+    pname = "mpv-retro-shaders";
+    version = "f4ea211db4e2afb5f5dc5a3daf816749c9cd7f03";
+    src = fetchgit {
+      url = "https://github.com/hhirtz/mpv-retro-shaders";
+      rev = "f4ea211db4e2afb5f5dc5a3daf816749c9cd7f03";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-Y3R4GDDJl5Tles4SYRYDXnrjnKQelfXkS2g0McHLIV0=";
+    };
+    date = "2025-07-24";
+  };
   ocenaudio-bin = {
     pname = "ocenaudio-bin";
     version = "3.17.1";
