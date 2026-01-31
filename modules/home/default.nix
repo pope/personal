@@ -20,7 +20,10 @@ in
   config.nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     package = lib.mkDefault pkgs.nix;
-    registry.nixpkgs.flake = inputs.nixpkgs;
+    registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+      nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
+    };
     settings = {
       auto-optimise-store = true;
       builders-use-substitutes = true;
