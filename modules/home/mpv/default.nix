@@ -63,7 +63,7 @@ in
 
         # Video
         vo = "gpu-next";
-        hwdec = "auto-safe";
+        hwdec = if cfg.enableVulkan then "vulkan" else "auto-safe";
         fbo-format = "rgba16f";
 
         # Deband
@@ -118,7 +118,7 @@ in
           (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kAAHq))
           (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kBBHq))
           (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kCAHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.artcnn))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.artcnnHq))
 
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kAFast))
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kBFast))
@@ -126,6 +126,7 @@ in
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kAAFast))
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kBBFast))
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kCAFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.artcnn))
         ];
 
       profiles =
@@ -147,7 +148,7 @@ in
           (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kAAHq))
           (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kBBHq))
           (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kCAHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.artcnn))
+          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.artcnnHq))
 
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kAFast))
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kBFast))
@@ -155,6 +156,7 @@ in
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kAAFast))
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kBBFast))
           (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kCAFast))
+          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.artcnn))
         ];
 
       scripts =

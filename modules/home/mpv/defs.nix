@@ -145,10 +145,19 @@ in
 
   artcnn = mkProfileDef {
     name = "artcnn";
-    desc = "ArtCNN";
+    desc = "ArtCNN (C4F16 DS)";
     shortcut = "CTRL+7";
     settings.shaders = [
       "${pkgs.artcnn}/share/artcnn/GLSL/ArtCNN_C4F16_DS.glsl"
+    ];
+  };
+
+  artcnnHq = mkProfileDef {
+    name = "artcnn";
+    desc = "ArtCNN (C4F32 DS)";
+    shortcut = "CTRL+7";
+    settings.shaders = [
+      "${pkgs.artcnn}/share/artcnn/GLSL/ArtCNN_C4F32_DS.glsl"
     ];
   };
 
