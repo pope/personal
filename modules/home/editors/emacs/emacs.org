@@ -42,6 +42,16 @@ References:
                     gc-cons-percentage 0.1)))
 #+end_src
 
+* Running as a server
+
+If ever we run Emacs in daemon/server mode, a lot of the lazy loading and deferred loading which can kinda counteract the benefit of running an Emacs server. So if running as a daemon, we can force all =use-package= calls to immediately load.
+
+#+begin_src emacs-lisp
+  (use-package use-package
+    :if (daemonp)
+    :custom (use-package-always-demand t))
+#+end_src
+
 * Core Settings
 
 ** Color Theme

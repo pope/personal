@@ -8,6 +8,10 @@
             (setq gc-cons-threshold (* 8 1000 1000)
                   gc-cons-percentage 0.1)))
 
+(use-package use-package
+  :if (daemonp)
+  :custom (use-package-always-demand t))
+
 (use-package doom-themes
   :custom
   (doom-themes-enable-bold t)
