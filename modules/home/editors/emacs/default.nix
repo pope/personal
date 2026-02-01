@@ -120,6 +120,7 @@ in
             direnv
             doom-modeline
             doom-themes
+            eat
             editorconfig
             embark
             embark-consult

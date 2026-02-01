@@ -92,17 +92,16 @@
   (read-extended-command-predicate #'command-completion-default-include-p))
 
 (use-package crm
+  :if (< emacs-major-version 31)
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator))
+  (advice-add #'completing-read-multiple :filter-args
+              (lambda (args)
+                (cons (format "[CRM%s] %s"
+                              (string-replace "[ \t]*" "" crm-separator)
+                              (car args))
+                      (cdr args)))))
 
 ;; Do not allow the cursor in the minibuffer prompt
 (use-package emacs
@@ -113,7 +112,7 @@
   (minibuffer-setup-hook . cursor-intangible-mode))
 
 (use-package marginalia
-  :demand 1
+  :demand t
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
   :custom (marginalia-mode t))
@@ -169,10 +168,10 @@
   (text-mode-ispell-word-completion nil)
   (read-extended-command-predicate #'command-completion-default-include-p))
 
-(unless (display-graphic-p)
-  (use-package corfu-terminal
-    :after corfu
-    :custom (corfu-terminal-mode t)))
+(use-package corfu-terminal
+  :if (not (display-graphic-p))
+  :after corfu
+  :custom (corfu-terminal-mode t))
 
 (use-package emacs
   :custom
@@ -199,24 +198,26 @@
   (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package nerd-icons
-  :config
-  (when (display-graphic-p)
-    (nerd-icons-set-font)))
+  :if (display-graphic-p)
+  :config (nerd-icons-set-font))
 
 (use-package nerd-icons-dired
+  :after nerd-icons
   :hook (dired-mode . nerd-icons-dired-mode))
+
 (use-package nerd-icons-ibuffer
+  :after nerd-icons
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+
 (use-package nerd-icons-corfu
-  :after corfu
+  :after (nerd-icons corfu)
   :config (add-to-list 'corfu-margin-formatters
                        #'nerd-icons-corfu-formatter))
+
 (use-package nerd-icons-completion
-  :after marginalia
-  :config
-  (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook
-            #'nerd-icons-completion-marginalia-setup))
+  :after (nerd-icons marginalia)
+  :hook (marginalia-mode-hook . nerd-icons-completion-marginalia-setup)
+  :config (nerd-icons-completion-mode))
 
 (use-package ligature
   :config
@@ -250,9 +251,9 @@
   :config
   (ultra-scroll-mode 1))
 
-(unless (display-graphic-p)
-  (use-package emacs
-    :config (xterm-mouse-mode 1)))
+(use-package emacs
+  :if (not (display-graphic-p))
+  :config (xterm-mouse-mode 1))
 
 (use-package indent-bars
   :custom
@@ -335,12 +336,11 @@
 
 (use-package vterm
   :commands (vterm)
-  :config
-  (add-hook 'vterm-mode-hook
-            (lambda ()
-              (display-line-numbers-mode -1)
-              (visual-line-mode -1)
-              (toggle-truncate-lines 1))))
+  :hook
+  (vterm-mode-hook . (lambda ()
+                       (display-line-numbers-mode -1)
+                       (visual-line-mode -1)
+                       (toggle-truncate-lines 1))))
 
 (use-package emacs
   :custom-face
@@ -407,6 +407,7 @@
   (pope-set-document-faces))
 
 (use-package org-indent
+  :after org
   :config
   (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
 
@@ -426,6 +427,7 @@
   (pope-set-document-faces))
 
 (use-package mu4e
+  :commands (mu4e)
   :custom
   (mu4e-drafts-folder "/shifteleven-admin/[Gmail]/Drafts")
   (mu4e-sent-folder "/shifteleven-admin/[Gmail]/Sent Mail")
