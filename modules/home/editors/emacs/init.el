@@ -193,11 +193,13 @@
   (winner-mode t))
 
 (use-package diff-hl
+  :defer t
   :custom
   (diff-hl-update-async t)
   (diff-hl-margin-mode t)
+  :config
+  (global-diff-hl-mode)
   :hook
-  (after-init . global-diff-hl-mode)
   (magit-pre-refresh . diff-hl-magit-pre-refresh)
   (magit-post-refresh . diff-hl-magit-post-refresh))
 

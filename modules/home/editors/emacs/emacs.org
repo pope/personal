@@ -390,11 +390,13 @@ Some basic emacs stuff to add/remove UI to emacs.
 
 #+begin_src emacs-lisp
   (use-package diff-hl
+    :defer t
     :custom
     (diff-hl-update-async t)
     (diff-hl-margin-mode t)
+    :config
+    (global-diff-hl-mode)
     :hook
-    (after-init . global-diff-hl-mode)
     (magit-pre-refresh . diff-hl-magit-pre-refresh)
     (magit-post-refresh . diff-hl-magit-post-refresh))
 #+end_src
@@ -521,6 +523,10 @@ Using =doom-modeline= to have a fancier looking modeline bar at the bottom of th
     (after-init . doom-modeline-mode)
     (after-init . minions-mode))
 #+end_src
+
+:NOTE:
+This config uses =after-init= hook instead of a deferred as the =doom-modeline-mode= gets activated; but it doesn't show the modeline. For whatever reason, not an issue with the hook
+:END:
 
 ** Directory / file navigation
 
