@@ -809,6 +809,7 @@ And then for the Markdown files, it's much the same thing, so details will be li
 
 #+begin_src emacs-lisp
   (use-package markdown-mode
+    :mode "\\.md\\'"
     :custom
     (markdown-enable-highlighting-syntax t)
     (markdown-fontify-code-blocks-natively t)

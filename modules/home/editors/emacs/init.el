@@ -419,6 +419,7 @@
   (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch)))
 
 (use-package markdown-mode
+  :mode "\\.md\\'"
   :custom
   (markdown-enable-highlighting-syntax t)
   (markdown-fontify-code-blocks-natively t)
