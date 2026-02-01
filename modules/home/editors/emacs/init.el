@@ -199,23 +199,25 @@
 
 (use-package nerd-icons
   :if (display-graphic-p)
+  :defer t
   :config (nerd-icons-set-font))
 
 (use-package nerd-icons-dired
-  :after nerd-icons
+  :after (dired nerd-icons)
   :hook (dired-mode . nerd-icons-dired-mode))
 
 (use-package nerd-icons-ibuffer
-  :after nerd-icons
+  :after (ibuffer nerd-icons)
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (use-package nerd-icons-corfu
-  :after (nerd-icons corfu)
+  :after (corfu nerd-icons)
   :config (add-to-list 'corfu-margin-formatters
                        #'nerd-icons-corfu-formatter))
 
 (use-package nerd-icons-completion
-  :after (nerd-icons marginalia)
+  :demand t  ;; nerd-icons-completion-mode needs to run before hooks
+  :after (marginalia nerd-icons)
   :hook (marginalia-mode-hook . nerd-icons-completion-marginalia-setup)
   :config (nerd-icons-completion-mode))
 
@@ -256,6 +258,7 @@
   :config (xterm-mouse-mode 1))
 
 (use-package indent-bars
+  :commands (indent-bars-mode)
   :custom
   (indent-bars-color '(highlight :face-bg t :blend 0.2))
   (indent-bars-highlight-current-depth '(:blend 0.5))
