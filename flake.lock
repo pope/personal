@@ -300,11 +300,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1769302137,
-        "narHash": "sha256-QEDtctEkOsbx8nlFh4yqPEOtr4tif6KTqWwJ37IM2ds=",
+        "lastModified": 1771423359,
+        "narHash": "sha256-yRKJ7gpVmXbX2ZcA8nFi6CMPkJXZGjie2unsiMzj3Ig=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "a351494b0e35fd7c0b7a1aae82f0afddf4907aa8",
+        "rev": "740a22363033e9f1bb6270fbfb5a9574067af15b",
         "type": "github"
       },
       "original": {
@@ -316,11 +316,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1770422096,
-        "narHash": "sha256-B77+iI/lwoHFcbhfGIhg0wNx28moI7hHqZyKAuoOgcU=",
+        "lastModified": 1771547800,
+        "narHash": "sha256-OhhcRdh4skCCul+Kp1Tgv4ZnmxO5w/Ciu2BK6szJgnE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3f6aea94bebc142cff1f7a9dd531c91013ef1129",
+        "rev": "2ead6e14325ed17ee98e610de3602e00a272da25",
         "type": "github"
       },
       "original": {
@@ -347,11 +347,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1770398797,
-        "narHash": "sha256-AObUEzzloeGW9wxNlmtTTALJHezfOh3DgLVwYlYAsG0=",
+        "lastModified": 1771526103,
+        "narHash": "sha256-kMZsnjd35ASUDUkTsOrZ6EkVONSmJrxDz0NghF6rVpo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0af2c0b3f070fafd88b87165c2c2c66290a0580f",
+        "rev": "a4f6b5cded7849ff365be8cffc464fa6321e6174",
         "type": "github"
       },
       "original": {
@@ -431,11 +431,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770145881,
-        "narHash": "sha256-ktjWTq+D5MTXQcL9N6cDZXUf9kX8JBLLBLT0ZyOTSYY=",
+        "lastModified": 1771524872,
+        "narHash": "sha256-eksVUcUsfS9mQx4D9DrYu88u9w70bAf+n6KmTDuIGEE=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "17eea6f3816ba6568b8c81db8a4e6ca438b30b7c",
+        "rev": "e85540ffe97322dc1fea14dd11cdc2f59d540ac7",
         "type": "github"
       },
       "original": {
