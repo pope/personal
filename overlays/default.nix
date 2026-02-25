@@ -49,10 +49,6 @@
   // {
     inherit unstable skylake znver4;
 
-    # The tests are flaky: https://github.com/NixOS/nixpkgs/pull/489828
-    # TODO(pope): Revert this when migrating to next stable version.
-    openvswitch = unstable.openvswitch;
-
     renoise350 = prev.renoise.override (
       let
         version = "352";
