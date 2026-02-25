@@ -141,7 +141,10 @@
     gpu.amd.enable = true;
     keyboards.enable = true;
     nfs.client.enable = true;
-    nix.enable = true;
+    nix = {
+      enable = true;
+      enableBinaryCacheSubstitutor = true;
+    };
     onepassword.enable = true;
     printing.enable = true;
     sops.enable = true;
