@@ -169,8 +169,7 @@
 (use-package emacs
   :custom
   (tab-always-indent 'complete)
-  (text-mode-ispell-word-completion nil)
-  (read-extended-command-predicate #'command-completion-default-include-p))
+  (text-mode-ispell-word-completion nil))
 
 (use-package corfu-terminal
   :if (not (display-graphic-p))

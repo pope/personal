@@ -340,8 +340,7 @@ In the regular Emacs config, we can make the =<TAB>= key trigger an autocomplete
   (use-package emacs
     :custom
     (tab-always-indent 'complete)
-    (text-mode-ispell-word-completion nil)
-    (read-extended-command-predicate #'command-completion-default-include-p))
+    (text-mode-ispell-word-completion nil))
 #+end_src
 
 The settings above work fine in GUI mode, but for terminal, we need a separate package for that.
