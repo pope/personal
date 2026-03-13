@@ -21,7 +21,7 @@ in
         convert-to-opus
       ]
       ++ lib.optionals stdenv.isLinux [
-        bitwig-studio
+        bitwig-studio6
         qpwgraph
         reaper
         tytools-latest
