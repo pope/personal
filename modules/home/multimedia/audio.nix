@@ -24,6 +24,7 @@ in
         bitwig-studio6
         qpwgraph
         reaper
+        surge
         tytools-latest
         vital
       ];
