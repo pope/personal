@@ -17,6 +17,7 @@
     self.nixosModules.default
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./sleep.nix
   ];
 
   nix.settings.system-features = [ "gccarch-znver4" ];
@@ -31,6 +32,8 @@
   ];
 
   boot = {
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
+
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -41,8 +44,6 @@
     };
 
     supportedFilesystems = [ "ntfs" ];
-
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   networking = {
@@ -71,8 +72,6 @@
       enableKmod = true;
       laptop13.audioEnhancement.enable = false;
     };
-
-    framework.amd-7040.preventWakeOnAC = true;
   };
 
   security = {
@@ -94,10 +93,6 @@
 
     # Must be explicitly false otherwise there's infinite recursion going on.
     tlp.enable = false;
-    logind.settings.Login = {
-      HandleLidSwitch = "suspend-then-hibernate";
-      HandleLidSwitchExternalPower = "suspend";
-    };
     auto-epp.enable = true;
     power-profiles-daemon.enable = true;
 
@@ -109,15 +104,6 @@
     cpuFreqGovernor = lib.mkDefault "powersave";
     powertop.enable = true; # Run powertop on boot
   };
-
-  systemd.sleep.extraConfig = ''
-    AllowHibernation=yes
-    AllowHybridSleep=yes
-    AllowSuspend=yes
-    AllowSuspendThenHibernate=yes
-    HibernateDelaySec=4h
-    MemorySleepMode=s2idle
-  '';
 
   environment.systemPackages = with pkgs; [
     fw-ectool
@@ -171,9 +157,9 @@
 
   specialisation = {
     music.configuration = {
-      system.nixos.tags = [ "music" ];
-      musnix.enable = true;
       boot.extraModprobeConfig = "options snd-virmidi index=-2 midi_devs=1";
+      musnix.enable = true;
+      system.nixos.tags = [ "music" ];
     };
   };
 
