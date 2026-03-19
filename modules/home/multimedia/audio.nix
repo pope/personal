@@ -25,7 +25,7 @@ in
         qpwgraph
         reaper
         surge
-        tytools-latest
+        tytools
         vital
       ];
   };
