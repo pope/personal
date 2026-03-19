@@ -7,64 +7,64 @@
 {
   acp = {
     pname = "acp";
-    version = "v0.8.3";
+    version = "v0.11.2";
     src = fetchFromGitHub {
       owner = "xenodium";
       repo = "acp.el";
-      rev = "v0.8.3";
+      rev = "v0.11.2";
       fetchSubmodules = false;
-      sha256 = "sha256-MX7fVVldR/du7nT+YOdSCKKKdqsr/LsfuG7uPiLN5VE=";
+      sha256 = "sha256-P3E3CQJde0pn0BHM3liZ/F7mCxoAXzKp8dF8/p2Wf9A=";
     };
   };
   agent-shell = {
     pname = "agent-shell";
-    version = "v0.32.2";
+    version = "v0.50.1";
     src = fetchFromGitHub {
       owner = "xenodium";
       repo = "agent-shell";
-      rev = "v0.32.2";
+      rev = "v0.50.1";
       fetchSubmodules = false;
-      sha256 = "sha256-ZsNb2MsrAFGilc5x/XyPFAopoJLcEmAYAAAWYbuvrMM=";
+      sha256 = "sha256-y3WKd7w9zNebNlP3phMLmMbrFd+MHqwwJH/dUP6VSlo=";
     };
   };
   artcnn = {
     pname = "artcnn";
-    version = "v1.5.1";
+    version = "v1.6.2";
     src = fetchFromGitHub {
       owner = "Artoriuz";
       repo = "ArtCNN";
-      rev = "v1.5.1";
+      rev = "v1.6.2";
       fetchSubmodules = false;
-      sha256 = "sha256-NKEGTLfxM5K42C6SUY+Ot2e4iIxYmF+xL+o/XRsGd9M=";
+      sha256 = "sha256-/cNJj7ah2Jux8pWGngPEjdhKRG1JsPBmb6EsJnQCCAM=";
     };
   };
   fish-catppuccin = {
     pname = "fish-catppuccin";
-    version = "521560ce2075ca757473816aa31914215332bac9";
+    version = "5fc5ae9c2ec22eb376cb03ce76f0d262a38960f3";
     src = fetchgit {
       url = "https://github.com/catppuccin/fish";
-      rev = "521560ce2075ca757473816aa31914215332bac9";
+      rev = "5fc5ae9c2ec22eb376cb03ce76f0d262a38960f3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-5CXdzym6Vp+FbKTVBtVdWoh3dODudADIzOLXIyIIxgQ=";
+      sha256 = "sha256-3KNWYXfOMzZovdjwjBpjSH8cVlD4CO2QmQcCyQE4Dac=";
     };
-    date = "2026-01-06";
+    date = "2026-03-13";
   };
   fish-rose-pine = {
     pname = "fish-rose-pine";
-    version = "6cfc508e81b231e955690dc9723c631374f468eb";
+    version = "127a990e5ad4688118c950123787fb0686afa4c8";
     src = fetchgit {
       url = "https://github.com/rose-pine/fish";
-      rev = "6cfc508e81b231e955690dc9723c631374f468eb";
+      rev = "127a990e5ad4688118c950123787fb0686afa4c8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-NgfZnaik5OAur53y3WA0Hqu6f332aVdhhMWnEtDxmNs=";
+      sha256 = "sha256-3heI6nhItw5WfKGQT1FRQKfv+lONyn+DzwYjYqJjzLE=";
     };
-    date = "2026-01-27";
+    date = "2026-03-09";
   };
   fish-tokyonight = {
     pname = "fish-tokyonight";
@@ -132,10 +132,10 @@
   };
   ocenaudio-bin = {
     pname = "ocenaudio-bin";
-    version = "3.17.1";
+    version = "3.17.3";
     src = fetchurl {
-      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.17.1";
-      sha256 = "sha256-YM9opanJcIBh7ZNqApP/yKUfNMQ1uf5S8VucZAk1jVU=";
+      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.17.3";
+      sha256 = "sha256-m0dW/Xqv2B2TXxGS3lk6voAgWJjDnibJL1k+ScfeOUU=";
     };
   };
   p5r-grub = {
@@ -193,13 +193,13 @@
   };
   shell-maker = {
     pname = "shell-maker";
-    version = "v0.84.9";
+    version = "v0.89.2";
     src = fetchFromGitHub {
       owner = "xenodium";
       repo = "shell-maker";
-      rev = "v0.84.9";
+      rev = "v0.89.2";
       fetchSubmodules = false;
-      sha256 = "sha256-dXcR6Q8TykEWqHMPm2y73Kbd9cKp0ke2lpjExNb3MIo=";
+      sha256 = "sha256-E1dOVyWBfC6IqDYEpj8JrstEMYiH/fSPilm0jyLyfTM=";
     };
   };
   shflags = {

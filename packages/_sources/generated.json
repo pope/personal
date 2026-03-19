@@ -13,12 +13,12 @@
             "name": null,
             "owner": "xenodium",
             "repo": "acp.el",
-            "rev": "v0.8.3",
-            "sha256": "sha256-MX7fVVldR/du7nT+YOdSCKKKdqsr/LsfuG7uPiLN5VE=",
+            "rev": "v0.11.2",
+            "sha256": "sha256-P3E3CQJde0pn0BHM3liZ/F7mCxoAXzKp8dF8/p2Wf9A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.8.3"
+        "version": "v0.11.2"
     },
     "agent-shell": {
         "cargoLocks": null,
@@ -34,12 +34,12 @@
             "name": null,
             "owner": "xenodium",
             "repo": "agent-shell",
-            "rev": "v0.32.2",
-            "sha256": "sha256-ZsNb2MsrAFGilc5x/XyPFAopoJLcEmAYAAAWYbuvrMM=",
+            "rev": "v0.50.1",
+            "sha256": "sha256-y3WKd7w9zNebNlP3phMLmMbrFd+MHqwwJH/dUP6VSlo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.32.2"
+        "version": "v0.50.1"
     },
     "artcnn": {
         "cargoLocks": null,
@@ -55,16 +55,16 @@
             "name": null,
             "owner": "Artoriuz",
             "repo": "ArtCNN",
-            "rev": "v1.5.1",
-            "sha256": "sha256-NKEGTLfxM5K42C6SUY+Ot2e4iIxYmF+xL+o/XRsGd9M=",
+            "rev": "v1.6.2",
+            "sha256": "sha256-/cNJj7ah2Jux8pWGngPEjdhKRG1JsPBmb6EsJnQCCAM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.5.1"
+        "version": "v1.6.2"
     },
     "fish-catppuccin": {
         "cargoLocks": null,
-        "date": "2026-01-06",
+        "date": "2026-03-13",
         "extract": null,
         "name": "fish-catppuccin",
         "passthru": null,
@@ -74,17 +74,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "521560ce2075ca757473816aa31914215332bac9",
-            "sha256": "sha256-5CXdzym6Vp+FbKTVBtVdWoh3dODudADIzOLXIyIIxgQ=",
+            "rev": "5fc5ae9c2ec22eb376cb03ce76f0d262a38960f3",
+            "sha256": "sha256-3KNWYXfOMzZovdjwjBpjSH8cVlD4CO2QmQcCyQE4Dac=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/catppuccin/fish"
         },
-        "version": "521560ce2075ca757473816aa31914215332bac9"
+        "version": "5fc5ae9c2ec22eb376cb03ce76f0d262a38960f3"
     },
     "fish-rose-pine": {
         "cargoLocks": null,
-        "date": "2026-01-27",
+        "date": "2026-03-09",
         "extract": null,
         "name": "fish-rose-pine",
         "passthru": null,
@@ -94,13 +94,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6cfc508e81b231e955690dc9723c631374f468eb",
-            "sha256": "sha256-NgfZnaik5OAur53y3WA0Hqu6f332aVdhhMWnEtDxmNs=",
+            "rev": "127a990e5ad4688118c950123787fb0686afa4c8",
+            "sha256": "sha256-3heI6nhItw5WfKGQT1FRQKfv+lONyn+DzwYjYqJjzLE=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rose-pine/fish"
         },
-        "version": "6cfc508e81b231e955690dc9723c631374f468eb"
+        "version": "127a990e5ad4688118c950123787fb0686afa4c8"
     },
     "fish-tokyonight": {
         "cargoLocks": null,
@@ -213,11 +213,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YM9opanJcIBh7ZNqApP/yKUfNMQ1uf5S8VucZAk1jVU=",
+            "sha256": "sha256-m0dW/Xqv2B2TXxGS3lk6voAgWJjDnibJL1k+ScfeOUU=",
             "type": "url",
-            "url": "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.17.1"
+            "url": "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.17.3"
         },
-        "version": "3.17.1"
+        "version": "3.17.3"
     },
     "p5r-grub": {
         "cargoLocks": null,
@@ -314,12 +314,12 @@
             "name": null,
             "owner": "xenodium",
             "repo": "shell-maker",
-            "rev": "v0.84.9",
-            "sha256": "sha256-dXcR6Q8TykEWqHMPm2y73Kbd9cKp0ke2lpjExNb3MIo=",
+            "rev": "v0.89.2",
+            "sha256": "sha256-E1dOVyWBfC6IqDYEpj8JrstEMYiH/fSPilm0jyLyfTM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.84.9"
+        "version": "v0.89.2"
     },
     "shflags": {
         "cargoLocks": null,
