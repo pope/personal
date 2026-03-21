@@ -26,6 +26,10 @@ in
         reaper
         stable.surge
         tytools
+        (vcv-rack-pro.override {
+          # Doing this to by-pass the unfree checks
+          inherit steam-run;
+        })
         vital
       ];
   };
