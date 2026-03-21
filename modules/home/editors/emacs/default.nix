@@ -74,7 +74,7 @@ in
       packages = with pkgs; [
         fd
         nixd
-        nixfmt-rfc-style
+        nixfmt
         ripgrep
         sops
       ];

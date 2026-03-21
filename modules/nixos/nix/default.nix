@@ -24,7 +24,7 @@ in
       nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       registry = {
         nixpkgs.flake = inputs.nixpkgs;
-        nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
+        nixpkgs-stable.flake = inputs.nixpkgs-stable;
       };
       settings = {
         auto-optimise-store = true;

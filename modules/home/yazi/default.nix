@@ -73,6 +73,7 @@ in
           };
         }
       ];
+      shellWrapperName = "y";
     };
 
     xdg.configFile = {

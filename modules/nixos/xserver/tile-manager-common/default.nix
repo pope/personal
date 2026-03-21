@@ -17,9 +17,10 @@ in
       }
     ];
 
+    hardware.acpilight.enable = true;
+
     programs = {
       dconf.enable = true;
-      light.enable = true;
       xwayland.enable = true;
     };
 

@@ -2,11 +2,11 @@
   description = "NixOS Flake for pope";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-25.11";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-generators = {
@@ -20,7 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mac-app-util = {
@@ -223,7 +223,7 @@
                 add-files-to-nix-store
                 backup-git-repos
                 deadnix
-                nixfmt-rfc-style
+                nixfmt
                 nixos-rebuild-remote
                 nvfetcher
                 statix

@@ -12,14 +12,14 @@
   };
 
   systemd = {
-    sleep.extraConfig = ''
-      AllowHibernation=yes
-      AllowHybridSleep=yes
-      AllowSuspend=yes
-      AllowSuspendThenHibernate=yes
-      HibernateDelaySec=4h
-      MemorySleepMode=s2idle
-    '';
+    sleep.settings.Sleep = {
+      AllowHibernation = "yes";
+      AllowHybridSleep = "yes";
+      AllowSuspend = "yes";
+      AllowSuspendThenHibernate = "yes";
+      HibernateDelaySec = "4h";
+      MemorySleepMode = "s2idle";
+    };
 
     services = {
       clear-rtc-alarm = {

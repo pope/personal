@@ -23,7 +23,7 @@
       fzf
       lua-language-server
       nixd
-      nixfmt-rfc-style
+      nixfmt
       ripgrep
       tree-sitter
       wget

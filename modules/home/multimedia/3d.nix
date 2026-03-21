@@ -16,7 +16,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      (if cfg.hip.enable then blender-hip else blender)
+      blender
     ];
   };
 }

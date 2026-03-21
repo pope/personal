@@ -1,7 +1,7 @@
 {
   coreutils,
   fd,
-  opusTools,
+  opus-tools,
   parallel,
   sox,
   writeShellApplication,
@@ -12,7 +12,7 @@ writeShellApplication {
   runtimeInputs = [
     coreutils
     fd
-    opusTools
+    opus-tools
     parallel
     sox
   ];

@@ -119,21 +119,21 @@
         START_CHARGE_THRESH_BAT1 = 85;
         STOP_CHARGE_THRESH_BAT1 = 95;
 
-        MEM_SLEEP_ON_AC = "s2idle";
+        MEM_SLEEPON_AC = "s2idle";
         MEM_SLEEP_ON_BAT = "deep";
       };
     };
   };
   powerManagement.powertop.enable = true;
-  systemd.sleep.extraConfig = ''
-    AllowHibernation=yes
-    AllowHybridSleep=yes
-    AllowSuspend=yes
-    AllowSuspendThenHibernate=yes
-    HibernateDelaySec=1h
-    SuspendEstimationSec=1h
-    SuspendState=mem
-  '';
+  systemd.sleep.settings.Sleep = {
+    AllowHibernation = "yes";
+    AllowHybridSleep = "yes";
+    AllowSuspend = "yes";
+    AllowSuspendThenHibernate = "yes";
+    HibernateDelaySec = "1h";
+    SuspendEstimationSec = "1h";
+    SuspendState = "mem";
+  };
 
   my.nixos = {
     mainUser = "pope";

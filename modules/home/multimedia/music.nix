@@ -29,11 +29,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       an-album-cover
-      (easyaudiosync.overrideAttrs (oldAttrs: {
-        patches = oldAttrs.patches ++ [
-          ./easyaudiosync.patch
-        ];
-      }))
+      easyaudiosync
       easytag
       fooyin
       lrcget

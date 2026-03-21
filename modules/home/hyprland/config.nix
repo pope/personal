@@ -29,7 +29,7 @@ let
       "${launcher} ${lib.getExe config.programs.wezterm.package}"
     else
       "${launcher} ${lib.getExe config.programs.kitty.package}";
-  thunar = "${launcher} ${lib.getExe pkgs.xfce.thunar}";
+  thunar = "${launcher} ${lib.getExe pkgs.thunar}";
   wlogout = "${launcher} ${lib.getExe pkgs.wlogout}";
 
   #color overrides

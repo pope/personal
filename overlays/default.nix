@@ -7,7 +7,7 @@
 
     mypkgs = self.packages.${prev.stdenv.hostPlatform.system};
 
-    unstable = import self.inputs.nixpkgs-unstable {
+    stable = import self.inputs.nixpkgs-stable {
       inherit (prev.stdenv.hostPlatform) system;
     };
 
@@ -47,7 +47,7 @@
   in
   packages
   // {
-    inherit unstable skylake znver4;
+    inherit stable skylake znver4;
 
     renoise350 = prev.renoise.override (
       let
