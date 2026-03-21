@@ -76,7 +76,7 @@
     #   options = [ "rw" "noauto,uid=1000,gid=100" "noatime" ];
     # };
     "/media/games" = {
-      device = "/dev/nvme0n1p4";
+      device = "/dev/nvme1n1p4";
       fsType = "ntfs";
       options = [
         "rw"
