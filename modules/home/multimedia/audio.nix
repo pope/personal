@@ -21,6 +21,7 @@ in
         convert-to-opus
       ]
       ++ lib.optionals stdenv.isLinux [
+        amigo-sampler
         bitwig-studio6
         qpwgraph
         reaper

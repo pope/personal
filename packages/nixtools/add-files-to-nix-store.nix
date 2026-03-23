@@ -12,6 +12,7 @@ writeShellApplication {
         nix-store --add-fixed sha256 \
             /media/cyberia/nix-files/fonts/*.tar.{gz,xz} \
             /media/cyberia/nix-files/software/rns_352_linux_x86_64.tar.gz \
+            /media/cyberia/nix-files/software/Amigo_Sampler_v2_0_1.zip \
             /media/cyberia/nix-files/software/RackPro-2.6.6-lin-x64.zip
       ''
     +
