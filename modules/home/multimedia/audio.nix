@@ -23,6 +23,8 @@ in
       ++ lib.optionals stdenv.isLinux [
         amigo-sampler
         bitwig-studio6
+        chow-tape-model
+        lsp-plugins
         qpwgraph
         reaper
         stable.surge
