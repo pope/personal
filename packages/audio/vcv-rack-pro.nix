@@ -1,17 +1,24 @@
 {
+  alsa-lib,
+  autoPatchelfHook,
   copyDesktopItems,
   lib,
+  libjack2,
+  libGL,
+  libX11,
+  libpulseaudio,
   makeDesktopItem,
   makeWrapper,
   requireFile,
   stdenv,
-  steam-run,
   unzip,
+  zenity,
 }:
 
 let
   version = "2.6.6";
   zipName = "RackPro-${version}-lin-x64.zip";
+  runtimeBinaryInputs = [ zenity ];
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "vcv-rack-pro";
@@ -24,9 +31,18 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
+    autoPatchelfHook
     copyDesktopItems
     makeWrapper
     unzip
+  ];
+
+  buildInputs = [
+    alsa-lib
+    libjack2
+    libGL
+    libX11
+    libpulseaudio
   ];
 
   dontConfigure = true;
@@ -45,14 +61,17 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r Rack2Pro/* $out/opt/VCV
 
     mkdir -p $out/bin
-    makeWrapper ${lib.getExe steam-run} $out/bin/Rack \
+    makeWrapper $out/opt/VCV/Rack $out/bin/Rack \
       --chdir $out/opt/VCV \
-      --add-flag $out/opt/VCV/Rack
+      --prefix PATH : ${lib.makeBinPath runtimeBinaryInputs}
 
     mkdir -p $out/share/pixmaps
     ln -s $out/opt/VCV/res/icon.png $out/share/pixmaps/Rack.png
 
-    # TODO(pope): Figure out VST support
+    mkdir -p $out/lib/{clap,vst,vst3}
+    cp 'VCV Rack 2.so' 'VCV Rack 2 FX.so' $out/lib/vst
+    cp 'VCV Rack 2.clap' $out/lib/clap
+    cp -r 'VCV Rack 2.vst3' $out/lib/vst3
 
     runHook postInstall
   '';

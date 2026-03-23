@@ -26,11 +26,13 @@ in
         reaper
         stable.surge
         tytools
-        (vcv-rack-pro.override {
-          # Doing this to by-pass the unfree checks
-          inherit steam-run;
-        })
+        vcv-rack-pro
         vital
+        zenity # For VCV Rack plugins
       ];
+
+    home.sessionVariables = lib.mkIf pkgs.stdenv.isLinux {
+      RACK_SYSTEM_DIR = "${pkgs.vcv-rack-pro}/opt/VCV";
+    };
   };
 }
