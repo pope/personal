@@ -267,20 +267,25 @@
             ''
               vim.keymap.set({ "n", "x", "o" }, "${key}", ts_repeat_move.${cmd})
             '';
+          exprMapping =
+            key: # lua
+            ''
+              vim.keymap.set({ "n", "x", "o" }, "${key}", ts_repeat_move.builtin_${key}_expr, { expr = true })
+            '';
         in
         # lua
         ''
           function (_, opts)
-            require("nvim-treesitter.configs").setup(opts)
-            local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+            require("nvim-treesitter").setup(opts)
+            local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
             -- vim way: ; goes to the direction you were moving.
             ${mapping ";" "repeat_last_move"}
             ${mapping "," "repeat_last_move_opposite"}
             -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-            ${mapping "f" "builtin_f"}
-            ${mapping "F" "builtin_F"}
-            ${mapping "t" "builtin_t"}
-            ${mapping "T" "builtin_T"}
+            ${exprMapping "f"}
+            ${exprMapping "F"}
+            ${exprMapping "t"}
+            ${exprMapping "T"}
           end
         '';
     }
