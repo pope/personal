@@ -11,6 +11,7 @@
   makeWrapper,
   requireFile,
   stdenv,
+  steam-run-free,
   unzip,
   zenity,
 }:
@@ -61,9 +62,10 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r Rack2Pro/* $out/opt/VCV
 
     mkdir -p $out/bin
-    makeWrapper $out/opt/VCV/Rack $out/bin/Rack \
+    makeWrapper ${lib.getExe steam-run-free} $out/bin/Rack \
       --chdir $out/opt/VCV \
-      --prefix PATH : ${lib.makeBinPath runtimeBinaryInputs}
+      --prefix PATH : ${lib.makeBinPath runtimeBinaryInputs} \
+      --add-flag $out/opt/VCV/Rack
 
     mkdir -p $out/share/pixmaps
     ln -s $out/opt/VCV/res/icon.png $out/share/pixmaps/Rack.png
