@@ -77,7 +77,7 @@ in
               abort "unsupported theme";
           systemd = {
             enable = true;
-            target = "tile-manager-session.target";
+            targets = [ "tile-manager-session.target" ];
           };
         };
     };

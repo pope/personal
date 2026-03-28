@@ -73,8 +73,11 @@ in
         gtk-application-prefer-dark-theme = if cfg.darkTheme then 1 else 0;
       };
 
-      gtk4.extraConfig = {
-        gtk-application-prefer-dark-theme = if cfg.darkTheme then 1 else 0;
+      gtk4 = {
+        inherit (config.gtk) theme;
+        extraConfig = {
+          gtk-application-prefer-dark-theme = if cfg.darkTheme then 1 else 0;
+        };
       };
     };
 

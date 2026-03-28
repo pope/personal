@@ -49,6 +49,7 @@ in
         extraConfig = {
           SCREENSHOTS = "${config.xdg.userDirs.pictures}/Screenshots";
         };
+        setSessionVariables = true;
       };
     };
   };
