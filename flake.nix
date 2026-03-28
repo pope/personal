@@ -235,6 +235,13 @@
           };
         }
       );
+      templates = {
+        trivial = {
+          path = ./templates/trivial;
+          description = "A trivial development environment";
+        };
+      };
+      defaultTemplate = self.templates.trivial;
       checks = eachSystem (
         system:
         let
