@@ -31,7 +31,7 @@
       };
     };
 
-    names = builtins.map (f: prev.lib.strings.removeSuffix ".nix" (builtins.baseNameOf f)) (umport {
+    names = map (f: prev.lib.strings.removeSuffix ".nix" (baseNameOf f)) (umport {
       path = ../packages;
       exclude = [
         ../packages/default.nix
@@ -39,7 +39,7 @@
       ];
     });
     packages = builtins.listToAttrs (
-      builtins.map (name: {
+      map (name: {
         inherit name;
         value = mypkgs.${name};
       }) names
