@@ -88,7 +88,6 @@
 
   environment.systemPackages = with pkgs; [
     libva-utils
-    renoise350
   ];
 
   services = {

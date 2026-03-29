@@ -49,7 +49,7 @@
   // {
     inherit stable skylake znver4;
 
-    renoise350 = prev.renoise.override (
+    renoise-mine = prev.renoise.override (
       let
         version = "352";
         releasePath =

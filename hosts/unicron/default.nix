@@ -84,9 +84,6 @@
       ];
     };
   };
-  environment.systemPackages = with pkgs; [
-    renoise350
-  ];
 
   services.fwupd.enable = true;
 

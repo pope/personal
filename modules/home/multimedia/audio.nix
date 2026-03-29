@@ -27,6 +27,7 @@ in
         lsp-plugins
         qpwgraph
         reaper
+        renoise-mine
         stable.surge
         tytools
         vcv-rack-pro
