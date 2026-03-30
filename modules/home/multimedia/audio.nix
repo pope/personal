@@ -24,6 +24,7 @@ in
         amigo-sampler
         bitwig-studio6
         chow-tape-model
+        distrho-ports
         lsp-plugins
         qpwgraph
         reaper
