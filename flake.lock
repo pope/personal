@@ -134,7 +134,7 @@
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-stable"
         ],
         "systems": "systems",
         "treefmt-nix": [
