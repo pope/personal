@@ -231,7 +231,7 @@ in
       enable = true;
       openFirewall = true;
     };
-    jellyseerr = {
+    seerr = {
       enable = false;
       port = 5055;
       openFirewall = true;

@@ -23,13 +23,13 @@ in
     home = {
       packages = with pkgs; [
         alsa-utils
+        awww
         grim
         imv
         libnotify
         pamixer
         slurp
         swappy
-        swww
         wayland-screenshot
         wdisplays # Tool for managing displays
         wf-recorder
@@ -108,7 +108,7 @@ in
         };
       };
 
-      swww = {
+      awww = {
         Unit = {
           Description = "Efficient animated wallpaper daemon for wayland";
           PartOf = [ "graphical-session-pre.target" ];
@@ -118,8 +118,8 @@ in
         Install.WantedBy = [ "graphical-session.target" ];
         Service = {
           inherit ExecCondition;
-          ExecStart = "${pkgs.swww}/bin/swww-daemon";
-          ExecStop = "${pkgs.swww}/bin/swww kill";
+          ExecStart = "${pkgs.awww}/bin/awww-daemon";
+          ExecStop = "${pkgs.awww}/bin/awww kill";
           Restart = "always";
           RestartSec = 10;
         };

@@ -61,7 +61,6 @@
     let
       eachSystem = nixpkgs.lib.genAttrs [
         "aarch64-darwin"
-        "aarch64-linux"
         "x86_64-linux"
       ];
       treefmtEval =
@@ -78,7 +77,7 @@
       mkNixosSystem =
         {
           name,
-          system,
+          system ? "x86_64-linux",
           user ? "pope",
         }:
         {
@@ -141,35 +140,12 @@
     in
     {
       nixosConfigurations = builtins.listToAttrs [
-        (mkNixosSystem {
-          name = "soundwave";
-          system = "x86_64-linux";
-        })
-        (mkNixosSystem {
-          name = "ravage";
-          system = "x86_64-linux";
-        })
-        (mkNixosSystem {
-          name = "rumble";
-          system = "x86_64-linux";
-        })
-        (mkNixosSystem {
-          name = "unicron";
-          system = "x86_64-linux";
-        })
-        (mkNixosSystem {
-          name = "skrapnel";
-          system = "x86_64-linux";
-        })
-        (mkNixosSystem {
-          name = "nixos-testing";
-          system = "x86_64-linux";
-        })
-        (mkNixosSystem {
-          name = "raspberrypi";
-          system = "aarch64-linux";
-          user = "pi";
-        })
+        (mkNixosSystem { name = "soundwave"; })
+        (mkNixosSystem { name = "ravage"; })
+        (mkNixosSystem { name = "rumble"; })
+        (mkNixosSystem { name = "unicron"; })
+        (mkNixosSystem { name = "skrapnel"; })
+        (mkNixosSystem { name = "nixos-testing"; })
       ];
       homeConfigurations = builtins.listToAttrs [
         (mkHomeManagerConfig {
@@ -236,12 +212,13 @@
         }
       );
       templates = {
+        default = self.templates.trivial;
+
         trivial = {
           path = ./templates/trivial;
           description = "A trivial development environment";
         };
       };
-      defaultTemplate = self.templates.trivial;
       checks = eachSystem (
         system:
         let

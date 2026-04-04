@@ -3,7 +3,7 @@
   fzf,
   fzf-preview,
   kitty,
-  swww,
+  awww,
   writeShellApplication,
 }:
 
@@ -14,7 +14,7 @@ writeShellApplication {
     fzf
     fzf-preview
     kitty
-    swww
+    awww
   ];
   text = # sh
     ''
@@ -26,6 +26,6 @@ writeShellApplication {
 
       find "$HOME/Pictures/backgrounds" -regex '.*\.\(jpg\|png\)$' | \
         fzf --preview='fzf-preview {}' --margin=2 --layout=reverse --border | \
-        xargs --no-run-if-empty swww img
+        xargs --no-run-if-empty awww img
     '';
 }

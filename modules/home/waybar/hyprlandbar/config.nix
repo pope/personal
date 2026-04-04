@@ -168,7 +168,7 @@ in
 
     "custom/launcher" = {
       format = "";
-      # on-click = "notify-send -t 1 'swww' '1' & ~/.config/hypr/scripts/wall";
+      # on-click = "notify-send -t 1 'awww' '1' & ~/.config/hypr/scripts/wall";
       tooltip = false;
     };
 

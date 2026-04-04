@@ -86,8 +86,8 @@ in
     };
 
     services.hyprpaper = {
-      # Disabling in favor of swww.
-      # With swww, I can change the background easily after the fact.
+      # Disabling in favor of awww.
+      # With awww, I can change the background easily after the fact.
       enable = false;
       settings = {
         ipc = "on";
