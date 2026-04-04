@@ -22,6 +22,7 @@ in
         inkscape
         jxrlib
         krita
+        pixieditor
         synfigstudio
       ]
       ++ (lib.optionals (cpuArch == "unspecified") [
