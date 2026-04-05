@@ -1,6 +1,6 @@
 {
     "acp": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "acp",
@@ -13,15 +13,15 @@
             "name": null,
             "owner": "xenodium",
             "repo": "acp.el",
-            "rev": "v0.11.2",
-            "sha256": "sha256-P3E3CQJde0pn0BHM3liZ/F7mCxoAXzKp8dF8/p2Wf9A=",
+            "rev": "v0.11.3",
+            "sha256": "sha256-mqNOHzlWGwUHRDy3hrA6W4cqG9+1KTy56bkjr80JIUM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.11.2"
+        "version": "v0.11.3"
     },
     "agent-shell": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "agent-shell",
@@ -42,7 +42,7 @@
         "version": "v0.50.1"
     },
     "artcnn": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "artcnn",
@@ -63,7 +63,7 @@
         "version": "v1.6.2"
     },
     "fish-catppuccin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-03-13",
         "extract": null,
         "name": "fish-catppuccin",
@@ -83,7 +83,7 @@
         "version": "5fc5ae9c2ec22eb376cb03ce76f0d262a38960f3"
     },
     "fish-rose-pine": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2026-03-09",
         "extract": null,
         "name": "fish-rose-pine",
@@ -103,7 +103,7 @@
         "version": "127a990e5ad4688118c950123787fb0686afa4c8"
     },
     "fish-tokyonight": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "fish-tokyonight",
@@ -124,7 +124,7 @@
         "version": "v4.8.0"
     },
     "hatsune-miku-cursor": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "hatsune-miku-cursor",
@@ -145,7 +145,7 @@
         "version": "1.2.6"
     },
     "ia-writer": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-06-16",
         "extract": null,
         "name": "ia-writer",
@@ -165,7 +165,7 @@
         "version": "f32c04c3058a75d7ce28919ce70fe8800817491b"
     },
     "iqm": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-07-24",
         "extract": null,
         "name": "iqm",
@@ -185,7 +185,7 @@
         "version": "8554dca2b86dc3845981fad6758d3829ce0d4a56"
     },
     "mpv-retro-shaders": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-07-24",
         "extract": null,
         "name": "mpv-retro-shaders",
@@ -205,7 +205,7 @@
         "version": "f4ea211db4e2afb5f5dc5a3daf816749c9cd7f03"
     },
     "ocenaudio-bin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "ocenaudio-bin",
@@ -220,7 +220,7 @@
         "version": "3.17.3"
     },
     "p5r-grub": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "p5r-grub",
@@ -241,7 +241,7 @@
         "version": "v1.0"
     },
     "prchann-font-collection": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2022-09-02",
         "extract": null,
         "name": "prchann-font-collection",
@@ -261,7 +261,7 @@
         "version": "e99955f794eb1f1375a5cb677d129758f51cbc3d"
     },
     "sf-mono-font": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2018-06-08",
         "extract": null,
         "name": "sf-mono-font",
@@ -281,7 +281,7 @@
         "version": "1409ae79074d204c284507fef9e479248d5367c1"
     },
     "sf-mono-nf-liga": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2023-07-01",
         "extract": null,
         "name": "sf-mono-nf-liga",
@@ -301,7 +301,7 @@
         "version": "dc5a3e6fcc2e16ad476b7be3c3c17c2273b260ea"
     },
     "shell-maker": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "shell-maker",
@@ -322,7 +322,7 @@
         "version": "v0.89.2"
     },
     "shflags": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "shflags",

@@ -71,6 +71,7 @@
             nixfmt.enable = true;
             statix.enable = true;
           };
+          settings.global.excludes = [ "packages/_sources/generated.nix" ];
         });
       mkNixosSystem =
         {

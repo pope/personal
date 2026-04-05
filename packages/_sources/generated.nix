@@ -3,17 +3,18 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
+  dockerTools,
 }:
 {
   acp = {
     pname = "acp";
-    version = "v0.11.2";
+    version = "v0.11.3";
     src = fetchFromGitHub {
       owner = "xenodium";
       repo = "acp.el";
-      rev = "v0.11.2";
+      rev = "v0.11.3";
       fetchSubmodules = false;
-      sha256 = "sha256-P3E3CQJde0pn0BHM3liZ/F7mCxoAXzKp8dF8/p2Wf9A=";
+      sha256 = "sha256-mqNOHzlWGwUHRDy3hrA6W4cqG9+1KTy56bkjr80JIUM=";
     };
   };
   agent-shell = {
