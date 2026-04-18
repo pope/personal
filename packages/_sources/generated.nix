@@ -133,10 +133,10 @@
   };
   ocenaudio-bin = {
     pname = "ocenaudio-bin";
-    version = "3.17.3";
+    version = "3.18.0";
     src = fetchurl {
-      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.17.3";
-      sha256 = "sha256-m0dW/Xqv2B2TXxGS3lk6voAgWJjDnibJL1k+ScfeOUU=";
+      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.18.0";
+      sha256 = "sha256-MaQ3Te4OAblkx4PJvZjRXPcgxbIHGRaTE4QpU87fnNI=";
     };
   };
   p5r-grub = {
