@@ -22,7 +22,7 @@ in
       ]
       ++ lib.optionals stdenv.isLinux [
         amigo-sampler
-        bitwig-studio6
+        bitwig-studio
         chow-tape-model
         distrho-ports
         lsp-plugins
