@@ -48,6 +48,7 @@ in
         nh
         nix-output-monitor
         nvd
+        ouch # compress/decompress
         parallel
         procs # ps
         ripgrep
