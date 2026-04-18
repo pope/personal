@@ -10,7 +10,6 @@
     # With this, we can build an SD card for the PI.
     # nix build .#nixosConfigurations.raspberrypi.config.formats.sd-aarch64
     inputs.nixos-generators.nixosModules.all-formats
-    self.nixosModules.default
   ];
 
   boot = {

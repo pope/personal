@@ -3,14 +3,12 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  self,
   inputs,
   ...
 }:
 
 {
   imports = [
-    self.nixosModules.default
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-intel
     inputs.nixos-hardware.nixosModules.common-pc
@@ -20,13 +18,6 @@
     ./backup.nix
     ./webservices.nix
   ];
-
-  nixpkgs = {
-    overlays = [
-      self.overlays.default
-    ];
-    config.allowUnfree = true;
-  };
 
   boot = {
     # Bootloader.

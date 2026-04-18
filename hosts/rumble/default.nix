@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  self,
   inputs,
   pkgs,
   ...
@@ -13,7 +12,6 @@
   imports = [
     inputs.musnix.nixosModules.musnix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-    self.nixosModules.default
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./sleep.nix
@@ -25,10 +23,6 @@
   #   gcc.tune = "znver4";
   #   system = "x86_64-linux";
   # };
-
-  nixpkgs.overlays = [
-    self.overlays.default
-  ];
 
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];

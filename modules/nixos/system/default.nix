@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  self,
   ...
 }:
 
@@ -14,12 +15,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.config = {
-      # Allow unfree packages
-      allowUnfree = true;
-      firefox.speechSynthesisSupport = true;
-      # Accept the joypixels license
-      joypixels.acceptLicense = true;
+    nixpkgs = {
+      overlays = [
+        self.overlays.default
+      ];
+      config = {
+        # Allow unfree packages
+        allowUnfree = true;
+        firefox.speechSynthesisSupport = true;
+        # Accept the joypixels license
+        joypixels.acceptLicense = true;
+      };
     };
 
     boot.kernelPackages = pkgs.linuxPackages_latest;

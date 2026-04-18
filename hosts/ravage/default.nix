@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  self,
   inputs,
   pkgs,
   ...
@@ -13,17 +12,12 @@
   imports = [
     inputs.nixos-hardware.nixosModules.common-gpu-amd # eGPU
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
-    self.nixosModules.default
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
   nix.settings.system-features = [
     "gccarch-skylake"
-  ];
-
-  nixpkgs.overlays = [
-    self.overlays.default
   ];
 
   boot = {

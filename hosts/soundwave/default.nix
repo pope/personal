@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  self,
   inputs,
   config,
   pkgs,
@@ -19,13 +18,8 @@
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    self.nixosModules.default
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-  ];
-
-  nixpkgs.overlays = [
-    self.overlays.default
   ];
 
   boot = {

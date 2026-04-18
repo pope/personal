@@ -53,6 +53,7 @@
       nixpkgs,
       nixvim,
       self,
+      sops-nix,
       treefmt-nix,
       ...
     }@inputs:
@@ -85,15 +86,16 @@
             inherit system;
             specialArgs = { inherit inputs self; };
             modules = [
+              self.nixosModules.default
               (./hosts + "/${name}")
               home-manager.nixosModules.home-manager
-              { imports = [ inputs.sops-nix.nixosModules.sops ]; }
+              { imports = [ sops-nix.nixosModules.sops ]; }
               {
                 home-manager = {
                   backupFileExtension = "hm-backup";
                   extraSpecialArgs = { inherit inputs self; };
                   sharedModules = [
-                    inputs.sops-nix.homeManagerModules.sops
+                    sops-nix.homeManagerModules.sops
                   ];
                   useGlobalPkgs = true;
                   useUserPackages = true;
@@ -130,7 +132,7 @@
             };
             extraSpecialArgs = { inherit inputs self; };
             modules = [
-              { imports = [ inputs.sops-nix.homeManagerModules.sops ]; }
+              { imports = [ sops-nix.homeManagerModules.sops ]; }
               (./hosts + "/${hostname}/home.nix")
             ]
             ++ extraModules;
