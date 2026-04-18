@@ -6,7 +6,6 @@
   self,
   inputs,
   pkgs,
-  lib,
   ...
 }:
 
@@ -101,7 +100,6 @@
 
   powerManagement = {
     enable = true;
-    cpuFreqGovernor = lib.mkDefault "powersave";
     powertop.enable = true; # Run powertop on boot
   };
 
