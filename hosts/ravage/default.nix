@@ -27,6 +27,8 @@
   ];
 
   boot = {
+    kernelParams = [ "mem_sleep_default=deep" ];
+
     # Bootloader.
     loader = {
       systemd-boot.enable = false;
@@ -95,7 +97,11 @@
     hardware.bolt.enable = true;
 
     # Power management
-    logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend-then-hibernate";
+      PowerKey = "hibernate";
+      PowerKeyLongPress = "poweroff";
+    };
     thermald.enable = true;
     tlp = {
       enable = true;
