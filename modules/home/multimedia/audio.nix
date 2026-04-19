@@ -32,7 +32,7 @@ in
         stable.surge
         tytools
         vcv-rack-pro
-        vital
+        vital-latest
         zenity # For VCV Rack plugins
       ];
 

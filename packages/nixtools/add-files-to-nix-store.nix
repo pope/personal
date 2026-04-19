@@ -13,7 +13,9 @@ writeShellApplication {
             /media/cyberia/nix-files/fonts/*.tar.{gz,xz} \
             /media/cyberia/nix-files/software/rns_352_linux_x86_64.tar.gz \
             /media/cyberia/nix-files/software/Amigo_Sampler_v2_0_1.zip \
-            /media/cyberia/nix-files/software/RackPro-2.6.6-lin-x64.zip
+            /media/cyberia/nix-files/software/RackPro-2.6.6-lin-x64.zip \
+            /media/cyberia/nix-files/software/VitalInstaller-1.6.0.zip \
+            /media/cyberia/nix-files/software/VitalInstaller-1.6.0.exe
       ''
     +
       lib.optionalString stdenv.hostPlatform.isDarwin # sh
