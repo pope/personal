@@ -40,6 +40,13 @@ fetch.github = "Artoriuz/ArtCNN"
 src.git = "https://github.com/hhirtz/mpv-retro-shaders"
 fetch.git = "https://github.com/hhirtz/mpv-retro-shaders"
 
+# Audio Plugins
+
+[valhalla-supermassive]
+src.webpage = "https://valhalladsp.com/demos-downloads/"
+src.regex = "ValhallaSupermassiveWin_V([0-9_.-]*).zip"
+fetch.url = "https://valhallaproduction.s3.us-west-2.amazonaws.com/supermassive/ValhallaSupermassiveWin_V$ver.zip"
+
 # Fonts
 
 [ia-writer]

@@ -198,6 +198,26 @@
         "type": "github"
       }
     },
+    "nix-automatic-windows-vsts": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774858905,
+        "narHash": "sha256-GX7aSTH8TBqpB9/rn7rjXnqyPn/LW4pr20vxTYmgSvY=",
+        "owner": "yaanae",
+        "repo": "nix-automatic-windows-vsts",
+        "rev": "ac0a53a60cf2a3ac452fd1caa814bc04af924ee2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yaanae",
+        "repo": "nix-automatic-windows-vsts",
+        "type": "github"
+      }
+    },
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
@@ -411,6 +431,7 @@
         "home-manager": "home-manager",
         "mac-app-util": "mac-app-util",
         "musnix": "musnix",
+        "nix-automatic-windows-vsts": "nix-automatic-windows-vsts",
         "nix-colors": "nix-colors",
         "nixgl": "nixgl",
         "nixos-generators": "nixos-generators",

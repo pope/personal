@@ -144,6 +144,7 @@
       kde.enable = true;
     };
     vyprvpn.enable = true;
+    yabridge.enable = true;
   };
 
   specialisation = {

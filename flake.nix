@@ -35,6 +35,10 @@
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-automatic-windows-vsts = {
+      url = "github:yaanae/nix-automatic-windows-vsts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixgl = {
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,6 +53,7 @@
     {
       home-manager,
       mac-app-util,
+      nix-automatic-windows-vsts,
       nixgl,
       nixpkgs,
       nixvim,
@@ -89,6 +94,7 @@
               self.nixosModules.default
               (./hosts + "/${name}")
               home-manager.nixosModules.home-manager
+              nix-automatic-windows-vsts.nixosModules.nix-automatic-windows-vsts
               { imports = [ sops-nix.nixosModules.sops ]; }
               {
                 home-manager = {

@@ -341,5 +341,20 @@
             "type": "github"
         },
         "version": "v1.3.0"
+    },
+    "valhalla-supermassive": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "valhalla-supermassive",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Z+DO2+2eaAsR37WCYY3SV+LbqLjRAYnVmBHkwQQUkR0=",
+            "type": "url",
+            "url": "https://valhallaproduction.s3.us-west-2.amazonaws.com/supermassive/ValhallaSupermassiveWin_V5_0_0.zip"
+        },
+        "version": "5_0_0"
     }
 }

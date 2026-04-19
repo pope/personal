@@ -214,4 +214,12 @@
       sha256 = "sha256-qOFPSYglb6p8GxagXVHdJW2namUCxi3REuR55On8QEo=";
     };
   };
+  valhalla-supermassive = {
+    pname = "valhalla-supermassive";
+    version = "5_0_0";
+    src = fetchurl {
+      url = "https://valhallaproduction.s3.us-west-2.amazonaws.com/supermassive/ValhallaSupermassiveWin_V5_0_0.zip";
+      sha256 = "sha256-Z+DO2+2eaAsR37WCYY3SV+LbqLjRAYnVmBHkwQQUkR0=";
+    };
+  };
 }
