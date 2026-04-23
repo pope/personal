@@ -29,7 +29,7 @@ let
   zipName = "VitalInstaller-${version}.zip";
 in
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "vital";
   inherit version;
 
