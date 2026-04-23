@@ -88,7 +88,14 @@ in
 
     systemd.user.services = lib.mkIf cfg.service.enable {
       maestral = {
-        Unit.Description = "Maestral (Dropbox)";
+        Unit = {
+          Description = "Maestral (Dropbox)";
+          # Restarts if any option - other than the account_id - changes.
+          X-Restart-Triggers = [
+            (builtins.hashString "md5" config.sops.templates."maestral.ini".content)
+          ];
+        };
+
         Install.WantedBy = [ "default.target" ];
 
         Service = {
