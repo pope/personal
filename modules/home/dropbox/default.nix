@@ -16,6 +16,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = config.my.home.sops.enable;
+        message = "sops must be enabled to use dropbox module";
+      }
+    ];
+
     home.packages =
       with pkgs;
       [
@@ -28,39 +35,56 @@ in
         ]
       );
 
-    # The Config file
-    sops.secrets.maestral-account-id = { };
-    sops.templates."maestral.ini".content = lib.generators.toINI { } {
-      auth = {
-        account_id = config.sops.placeholder.maestral-account-id;
-        keyring = "keyrings.alt.file.PlaintextKeyring";
-        token_access_type = "offline";
-      };
-      app = {
-        notification_level = 15;
-        log_level = 20;
-        update_notification_interval = 604800;
-        bandwidth_limit_up = 0.0;
-        bandwidth_limit_down = 0.0;
-        max_parallel_uploads = 6;
-        max_parallel_downloads = 6;
-      };
-      sync = {
-        path = "/mnt/Cyberia/Dropbox";
-        # TODO(pope): Support lists
-        excluded_items = "[]";
-        max_cpu_percent = 20.0;
-        keep_history = 604800;
-        upload = true;
-        download = true;
-      };
-      main = {
-        version = "20.0";
+    sops = {
+      secrets.maestral-account-id = { };
+      templates."maestral.ini" = {
+        content =
+          lib.generators.toINI
+            {
+              mkKeyValue = lib.generators.mkKeyValueDefault {
+                mkValueString =
+                  v:
+                  if v == true then
+                    "True"
+                  else if v == false then
+                    "False"
+                  else
+                    lib.generators.mkValueStringDefault { } v;
+              } " = ";
+            }
+            {
+              auth = {
+                account_id = config.sops.placeholder.maestral-account-id;
+                keyring = "keyrings.alt.file.PlaintextKeyring";
+                token_access_type = "offline";
+              };
+              app = {
+                notification_level = 15;
+                log_level = 20;
+                update_notification_interval = 604800;
+                bandwidth_limit_up = 0.0;
+                bandwidth_limit_down = 0.0;
+                max_parallel_uploads = 6;
+                max_parallel_downloads = 6;
+              };
+              sync = {
+                path = "/mnt/Cyberia/Dropbox";
+                # TODO(pope): Support lists
+                excluded_items = "[]";
+                max_cpu_percent = 20.0;
+                keep_history = 604800;
+                upload = true;
+                download = true;
+              };
+              main = {
+                version = "20.0";
+              };
+            };
+        path = "${config.xdg.configHome}/maestral/maestral.ini";
+        # Needs to be writable since exe does try to save settings
+        mode = "0600";
       };
     };
-    xdg.configFile."maestral/maestral.ini".source =
-      config.lib.file.mkOutOfStoreSymlink
-        config.sops.templates."maestral.ini".path;
 
     systemd.user.services = lib.mkIf cfg.service.enable {
       maestral = {
