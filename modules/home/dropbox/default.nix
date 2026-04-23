@@ -44,7 +44,13 @@ in
               mkKeyValue = lib.generators.mkKeyValueDefault {
                 mkValueString =
                   v:
-                  if v == true then
+                  if lib.isList v then
+                    lib.strings.concatStrings [
+                      "["
+                      (lib.strings.concatMapStringsSep ", " (x: "'${lib.escape [ "'" ] x}'") v)
+                      "]"
+                    ]
+                  else if v == true then
                     "True"
                   else if v == false then
                     "False"
@@ -69,8 +75,7 @@ in
               };
               sync = {
                 path = "/mnt/Cyberia/Dropbox";
-                # TODO(pope): Support lists
-                excluded_items = "[]";
+                excluded_items = [ ];
                 max_cpu_percent = 20.0;
                 keep_history = 604800;
                 upload = true;
