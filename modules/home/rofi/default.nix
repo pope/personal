@@ -29,20 +29,20 @@ in
         rofi-emoji
         rofi-calc
       ];
-      font = "sans-serif ${builtins.toString cfg.fontSize}";
+      font = "sans-serif ${toString cfg.fontSize}";
       extraConfig = {
         display-drun = "🔍 ";
         display-run = "🏃 ";
         display-emoji = "🤓 ";
         display-calc = "🧮 ";
-        modes = [
-          "drun"
-          "emoji"
-          "calc"
-          "run"
-        ];
         show-icons = true;
       };
+      modes = [
+        "drun"
+        "emoji"
+        "calc"
+        "run"
+      ];
       theme =
         with config.my.home.theme.colors.withHash;
         let
