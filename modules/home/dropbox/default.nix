@@ -44,16 +44,14 @@ in
               mkKeyValue = lib.generators.mkKeyValueDefault {
                 mkValueString =
                   v:
-                  if lib.isList v then
+                  if builtins.isList v then
                     lib.strings.concatStrings [
                       "["
                       (lib.strings.concatMapStringsSep ", " (x: "'${lib.escape [ "'" ] x}'") v)
                       "]"
                     ]
-                  else if v == true then
-                    "True"
-                  else if v == false then
-                    "False"
+                  else if builtins.isBool v then
+                    if v then "True" else "False"
                   else
                     lib.generators.mkValueStringDefault { } v;
               } " = ";
