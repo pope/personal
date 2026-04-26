@@ -3,11 +3,21 @@
 let
   cfg = config.my.nixos.arrs;
   user = config.my.nixos.mainUser;
-  group = "wheel";
+  inherit (cfg) group;
 in
 {
+  imports = [
+    ./sabnzbd.nix
+  ];
+
   options.my.nixos.arrs = {
     enable = lib.mkEnableOption "*arr system options";
+
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = "wheel";
+      description = "The user group to use for the servers";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -30,11 +40,6 @@ in
         inherit group user;
         enable = false;
         openFirewall = true; # 8787
-      };
-      sabnzbd = {
-        inherit group user;
-        enable = true;
-        openFirewall = true; # 8080
       };
       sonarr = {
         inherit group user;
