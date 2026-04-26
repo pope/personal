@@ -19,7 +19,7 @@ builtins.listToAttrs (
         value = callPackage "${f}" { };
       in
       {
-        name = pkgs.lib.strings.removeSuffix ".nix" (builtins.baseNameOf f);
+        name = pkgs.lib.strings.removeSuffix ".nix" (baseNameOf f);
         inherit value;
       }
     )

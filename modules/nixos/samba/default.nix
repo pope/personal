@@ -53,7 +53,6 @@ in
         let
           inherit (builtins)
             listToAttrs
-            map
             getAttr
             attrNames
             ;

@@ -15,7 +15,7 @@ let
       ];
     in
     (lib.nixvim.listToUnkeyedAttrs posArgs) // { inherit mode desc; };
-  mkLazyKeys = bindings: lib.nixvim.mkRaw (lib.nixvim.toLuaObject (builtins.map mkLazyKey bindings));
+  mkLazyKeys = bindings: lib.nixvim.mkRaw (lib.nixvim.toLuaObject (map mkLazyKey bindings));
 in
 {
   inherit mkLazyKey mkLazyKeys;

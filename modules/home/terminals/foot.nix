@@ -45,7 +45,7 @@ in
           dpi-aware = false;
           font =
             let
-              fontSize = builtins.toString cfg.fontSize;
+              fontSize = toString cfg.fontSize;
             in
             "monospace:size=${fontSize}, JetBrainsMono Nerd Font:size=${fontSize}";
           font-size-adjustment = 0.5;
