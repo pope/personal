@@ -28,7 +28,10 @@ in
           mgr.prepend_keymap = [
             {
               on = "T";
-              run = "plugin toggle-pane max-preview";
+              run = [
+                "plugin toggle-pane max-preview"
+                "plugin mediainfo -- toggle-metadata"
+              ];
               desc = "Maximize or restore preview";
             }
           ];
