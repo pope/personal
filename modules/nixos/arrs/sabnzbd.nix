@@ -395,71 +395,35 @@ let
       nscript_script = "";
     };
 
-    categories = {
-      "*" = {
-        name = "*";
-        order = 0;
-        pp = 3;
-        script = "None";
-        dir = "";
-        newzbin = "";
-        priority = 0;
-      };
-      movies = {
-        name = "movies";
-        order = 1;
-        pp = "";
-        script = "Default";
-        dir = "";
-        newzbin = "";
-        priority = -100;
-      };
-      tv = {
-        name = "tv";
-        order = 2;
-        pp = "";
-        script = "Default";
-        dir = "";
-        newzbin = "";
-        priority = -100;
-      };
-      audio = {
-        name = "audio";
-        order = 3;
-        pp = "";
-        script = "Default";
-        dir = "";
-        newzbin = "";
-        priority = -100;
-      };
-      software = {
-        name = "software";
-        order = 4;
-        pp = "";
-        script = "Default";
-        dir = "";
-        newzbin = "";
-        priority = -100;
-      };
-      prowlarr = {
-        name = "prowlarr";
-        order = 5;
-        pp = "";
-        script = "Default";
-        dir = "";
-        newzbin = "";
-        priority = -100;
-      };
-      music = {
-        name = "music";
-        order = 6;
-        pp = "";
-        script = "Default";
-        dir = "";
-        newzbin = "";
-        priority = -100;
-      };
-    };
+    categories = builtins.listToAttrs (
+      lib.imap0
+        (order: category: {
+          name = category.name;
+          value = {
+            inherit order;
+            pp = "";
+            script = "Default";
+            dir = "";
+            newzbin = "";
+            priority = -100;
+          }
+          // category;
+        })
+        [
+          {
+            name = "*";
+            pp = 3;
+            script = "None";
+            priority = 0;
+          }
+          { name = "movies"; }
+          { name = "tv"; }
+          { name = "audio"; }
+          { name = "software"; }
+          { name = "prowlarr"; }
+          { name = "music"; }
+        ]
+    );
   };
 
   privateSettings = {
