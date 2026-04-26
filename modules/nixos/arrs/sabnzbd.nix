@@ -398,7 +398,7 @@ let
     categories = builtins.listToAttrs (
       lib.imap0
         (order: category: {
-          name = category.name;
+          inherit (category) name;
           value = {
             inherit order;
             pp = "";
