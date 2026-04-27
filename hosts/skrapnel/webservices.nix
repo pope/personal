@@ -27,7 +27,7 @@ let
   sabnzbdConfig = {
     name = "SABnzbd";
     service = "sabnzbd";
-    port = 8080;
+    inherit (config.my.nixos.arrs.sabnzbd) port;
   };
 
   tailscaleHost = "${config.networking.hostName}.gumiho-matrix.ts.net";
