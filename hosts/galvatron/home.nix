@@ -51,7 +51,9 @@
       identityFile = "~/.ssh/insecure_rsa";
     };
 
-    streamlink.enable = true;
+    # TODO(pope): Re-enable when
+    # https://github.com/streamlink/streamlink/issues/6903 is released
+    streamlink.enable = false;
   };
 
   my.home = {
