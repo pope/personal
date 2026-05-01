@@ -26,7 +26,7 @@ in
       printing.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs.stable; [
       canon-cups-ufr2
       cnijfilter2
     ];

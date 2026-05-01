@@ -9,6 +9,7 @@
 
     stable = import self.inputs.nixpkgs-stable {
       inherit (prev.stdenv.hostPlatform) system;
+      config.allowUnfree = true;
     };
 
     znver4 = import self.inputs.nixpkgs {
