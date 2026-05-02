@@ -74,14 +74,15 @@ in
 
         # Deband
         deband = true;
-        deband-grain = 0;
-        deband-iterations = 1;
-        deband-range = 12;
-        deband-threshold = 32;
+        deband-grain = 5;
+        deband-iterations = 2;
+        deband-range = 20;
+        deband-threshold = 35;
 
         # Dithering
         dither-depth = "auto";
-        dither = "fruit";
+        dither = "error-diffusion";
+        error-diffusion = "sierra-lite";
 
         # Track Selection
         slang = "en,eng";

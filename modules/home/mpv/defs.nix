@@ -23,19 +23,23 @@ let
         profile-desc = desc;
         inherit (merged)
           cscale
+          cscale-antiring
           dscale
           linear-downscaling
           scale
+          scale-antiring
           ;
         inherit glsl-shaders;
       };
     };
 
   defaultConfigValues = {
-    cscale = "spline64";
+    cscale = "ewa_lanczossharp";
+    cscale-antiring = 0.6;
     dscale = "mitchell";
     linear-downscaling = true;
-    scale = "ewa_lanczos";
+    scale = "ewa_lanczossharp";
+    scale-antiring = 0.6;
     shaders = [ ];
   };
   staticGrainDefault = {
@@ -45,26 +49,16 @@ let
     ];
   };
   fsrcnnxHigh = {
-    scale = "ewa_lanczossharp";
     shaders = [
       (getDefaultShader "FSRCNNX_x2_16-0-4-1.glsl")
     ];
   };
   fsrcnnx = {
-    scale = "ewa_lanczossharp";
     shaders = [
       (getDefaultShader "FSRCNNX_x2_8-0-4-1.glsl")
     ];
   };
-  ssimDownscaler = {
-    dscale = "mitchell";
-    linear-downscaling = false;
-    shaders = [
-      (getDefaultShader "SSimDownscaler.glsl")
-    ];
-  };
   krigBilateral = {
-    cscale = "spline64";
     shaders = [
       (getDefaultShader "KrigBilateral.glsl")
     ];
@@ -77,7 +71,6 @@ in
     desc = "FSRCNNX";
     settingGroups = [
       fsrcnnx
-      ssimDownscaler
       krigBilateral
       staticGrainDefault
     ];
@@ -89,7 +82,6 @@ in
     shortcut = "g-G";
     settingGroups = [
       fsrcnnxHigh
-      ssimDownscaler
       krigBilateral
       staticGrainDefault
     ];
@@ -97,7 +89,7 @@ in
 
   fsr = mkProfileDef {
     name = "fsr";
-    desc = "FRS";
+    desc = "FSR";
     shortcut = "CTRL+9";
     settings.shaders = [
       (getDefaultShader "FSR.glsl")
