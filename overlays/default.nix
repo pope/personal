@@ -52,7 +52,7 @@
 
     # TODO(pope): Remove when https://github.com/NixOS/nixpkgs/issues/513245
     # is resolved.
-    openldap = stable.openldap;
+    inherit (stable) openldap;
 
     renoise-mine = prev.renoise.override (
       let
