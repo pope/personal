@@ -50,6 +50,10 @@
   // {
     inherit stable skylake znver4;
 
+    # TODO(pope): Remove when https://github.com/NixOS/nixpkgs/issues/513245
+    # is resolved.
+    openldap = stable.openldap;
+
     renoise-mine = prev.renoise.override (
       let
         version = "352";

@@ -25,6 +25,14 @@ in
       imports = [
         ../../nixvim
         { config.my.nixvim.theme.colorScheme = colorScheme; }
+        {
+          nixpkgs.config.allowUnfreePredicate =
+            pkg:
+            builtins.elem (lib.getName pkg) [
+              "barbar.nvim"
+              "vim-protobuf"
+            ];
+        }
       ];
       enable = true;
       defaultEditor = true;

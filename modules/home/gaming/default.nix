@@ -16,7 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       goverlay
-      stable.lutris
+      lutris
       mangohud
       vkbasalt
     ];
