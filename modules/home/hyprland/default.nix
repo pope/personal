@@ -46,6 +46,7 @@ in
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "hyprlang";
       systemd.enable = false; # Using UWSM
       xwayland.enable = true;
     };

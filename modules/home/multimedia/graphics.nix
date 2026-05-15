@@ -21,7 +21,7 @@ in
         aseprite
         inkscape
         jxrlib
-        krita
+        stable.krita
         pixieditor
         synfigstudio
       ]

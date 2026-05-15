@@ -54,6 +54,18 @@
     # is resolved.
     inherit (stable) openldap;
 
+    # TODO(pope): Remove this override after the NDI updater script runs
+    obs-studio-plugins = prev.obs-studio-plugins // {
+      distroav = prev.obs-studio-plugins.distroav.override {
+        ndi-6 = prev.ndi-6.overrideAttrs (_: {
+          src = prev.fetchurl {
+            url = "https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz";
+            hash = "sha256-8DFPJFRG3vxIi2POtGiazxqWWu79ray3BXG7IWqMwYM=";
+          };
+        });
+      };
+    };
+
     renoise-mine = prev.renoise.override (
       let
         version = "352";
