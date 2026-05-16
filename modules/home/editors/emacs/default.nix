@@ -136,7 +136,6 @@ in
             markdown-mode
             minimap
             minions
-            mu4e
             multiple-cursors
             nerd-icons
             nerd-icons-completion
