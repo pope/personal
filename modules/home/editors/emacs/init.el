@@ -17,7 +17,7 @@
   (doom-themes-enable-bold t)
   (doom-themes-enable-italic t)
   :config
-  (load-theme 'doom-nord t)
+  (load-theme 'catppuccin t)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 

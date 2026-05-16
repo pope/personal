@@ -64,7 +64,7 @@ Using [[https://github.com/doomemacs/themes][doom-themes]]. It's a nice set of t
     (doom-themes-enable-bold t)
     (doom-themes-enable-italic t)
     :config
-    (load-theme 'doom-nord t)
+    (load-theme 'catppuccin t)
     ;; Corrects (and improves) org-mode's native fontification.
     (doom-themes-org-config))
 #+end_src
