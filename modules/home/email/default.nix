@@ -91,6 +91,13 @@ in
         domain = "shifteleven.com";
         passwordPath = config.sops.secrets.shifteleven-email-password.path;
       };
+
+      shifteleven-pope = mkGmailAccount {
+        name = "shifteleven-pope";
+        user = "pope";
+        domain = "shifteleven.com";
+        passwordPath = config.sops.secrets.pope-shifteleven-email-password.path;
+      };
     };
 
     programs = {
@@ -134,6 +141,7 @@ in
 
     sops.secrets = {
       personal-email-password = { };
+      pope-shifteleven-email-password = { };
       shifteleven-email-password = { };
     };
   };
