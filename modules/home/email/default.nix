@@ -43,8 +43,7 @@ let
         boxes = [ "INBOX" ];
         onNotify = "${lib.getExe' pkgs.isync "mbsync"} ${name}";
         onNotifyPost = ''
-          ${lib.getExe pkgs.mu} index && \
-            ${lib.getExe pkgs.notmuch} new && \
+          ${lib.getExe pkgs.notmuch} new && \
             ${lib.getExe' pkgs.libnotify "notify-send"} 'New mail arrived from ${name}'
         '';
       };
@@ -55,7 +54,6 @@ let
         inherit patterns;
       };
       msmtp.enable = true;
-      mu.enable = true;
       notmuch.enable = true;
     };
 in
@@ -129,7 +127,6 @@ in
       };
       mbsync.enable = true;
       msmtp.enable = true;
-      mu.enable = true;
       notmuch.enable = true;
     };
 
