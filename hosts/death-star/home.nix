@@ -32,9 +32,6 @@
       nerd-fonts.lilex
       nerd-fonts.symbols-only
       nerd-fonts.terminess-ttf
-
-      nixgl.nixGLIntel
-      nixgl.nixVulkanIntel
     ];
 
     stateVersion = "24.11";

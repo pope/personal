@@ -54,7 +54,6 @@
       home-manager,
       mac-app-util,
       nix-automatic-windows-vsts,
-      nixgl,
       nixpkgs,
       nixvim,
       self,
@@ -158,7 +157,6 @@
         (mkHomeManagerConfig {
           name = "pope@Death-Star";
           system = "x86_64-linux";
-          extraOverlays = [ nixgl.overlay ];
         })
         (mkHomeManagerConfig {
           name = "pope@galvatron";
