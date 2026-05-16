@@ -82,6 +82,13 @@
 
   services.fwupd.enable = true;
 
+  services.sunshine = {
+    enable = true;
+    autoStart = false;
+    capSysAdmin = true;
+    openFirewall = true;
+  };
+
   networking = {
     hostName = "unicron"; # Define your hostname.
 
