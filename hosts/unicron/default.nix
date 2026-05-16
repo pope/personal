@@ -154,6 +154,7 @@
       kde.enable = true;
       hyprland.enable = true;
     };
+    yabridge.enable = true;
   };
 
   # This value determines the NixOS release from which the default
