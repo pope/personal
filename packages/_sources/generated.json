@@ -213,11 +213,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MaQ3Te4OAblkx4PJvZjRXPcgxbIHGRaTE4QpU87fnNI=",
+            "sha256": "sha256-b6BV+FMi+AZkTNoUMPMZQKIbsyezjhAWXteV5xiz4hI=",
             "type": "url",
-            "url": "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.18.0"
+            "url": "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.18.2"
         },
-        "version": "3.18.0"
+        "version": "3.18.2"
     },
     "p5r-grub": {
         "cargoLock": null,
@@ -314,12 +314,12 @@
             "name": null,
             "owner": "xenodium",
             "repo": "shell-maker",
-            "rev": "v0.89.2",
-            "sha256": "sha256-E1dOVyWBfC6IqDYEpj8JrstEMYiH/fSPilm0jyLyfTM=",
+            "rev": "v0.91.2",
+            "sha256": "sha256-4xJ4X7CuosPA0PEjiKRcfdR8mj7vUkGnajUIDBV+oEk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.89.2"
+        "version": "v0.91.2"
     },
     "shflags": {
         "cargoLock": null,

@@ -133,10 +133,10 @@
   };
   ocenaudio-bin = {
     pname = "ocenaudio-bin";
-    version = "3.18.0";
+    version = "3.18.2";
     src = fetchurl {
-      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.18.0";
-      sha256 = "sha256-MaQ3Te4OAblkx4PJvZjRXPcgxbIHGRaTE4QpU87fnNI=";
+      url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v3.18.2";
+      sha256 = "sha256-b6BV+FMi+AZkTNoUMPMZQKIbsyezjhAWXteV5xiz4hI=";
     };
   };
   p5r-grub = {
@@ -194,13 +194,13 @@
   };
   shell-maker = {
     pname = "shell-maker";
-    version = "v0.89.2";
+    version = "v0.91.2";
     src = fetchFromGitHub {
       owner = "xenodium";
       repo = "shell-maker";
-      rev = "v0.89.2";
+      rev = "v0.91.2";
       fetchSubmodules = false;
-      sha256 = "sha256-E1dOVyWBfC6IqDYEpj8JrstEMYiH/fSPilm0jyLyfTM=";
+      sha256 = "sha256-4xJ4X7CuosPA0PEjiKRcfdR8mj7vUkGnajUIDBV+oEk=";
     };
   };
   shflags = {
