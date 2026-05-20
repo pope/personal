@@ -307,6 +307,7 @@
         (typescript-mode  . typescript-ts-mode)
         (yaml-mode        . yaml-ts-mode)
         (zig-mode         . zig-ts-mode)))
+(add-to-list 'treesit-extra-load-path "~/.emacs.d/tree-sitter")
 
 (use-package cmake-ts-mode
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
