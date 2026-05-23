@@ -21,28 +21,28 @@ in
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = {
+      settings = {
         "*" = {
-          match = ''host * exec "test -z $SSH_TTY"'';
-          addKeysToAgent = "no";
-          compression = false;
-          controlMaster = "auto";
-          controlPath = "~/.ssh/master-%r@%n:%p";
+          header = ''Match host * exec "test -z $SSH_TTY"'';
+          AddKeysToAgent = "no";
+          Compression = false;
+          ControlMaster = "auto";
+          ControlPath = "~/.ssh/master-%r@%n:%p";
           # TODO(pope): Figure out why controlPersist hangs my SSH connections
           # controlPersist = "5m";
-          forwardAgent = false;
-          hashKnownHosts = false;
-          identityAgent = cfg.opIdentityAgent;
-          serverAliveCountMax = 3;
-          serverAliveInterval = 0;
-          userKnownHostsFile = "~/.ssh/known_hosts";
+          ForwardAgent = false;
+          HashKnownHosts = false;
+          IdentityAgent = cfg.opIdentityAgent;
+          ServerAliveCountMax = 3;
+          ServerAliveInterval = 0;
+          UserKnownHostsFile = "~/.ssh/known_hosts";
         };
 
-        "*.lan *.local".forwardAgent = true;
+        "*.lan *.local".ForwardAgent = true;
 
         "shifteleven.com" = {
-          addressFamily = "inet";
-          user = "root";
+          AddressFamily = "inet";
+          User = "root";
         };
       };
     };

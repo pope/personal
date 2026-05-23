@@ -58,7 +58,6 @@ in
       displayManager = {
         gdm = {
           enable = cfg.displayManager == "gdm";
-          wayland = true;
         };
         sddm = {
           enable = cfg.displayManager == "sddm";

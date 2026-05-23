@@ -52,7 +52,27 @@
 
     # TODO(pope): Remove when https://github.com/NixOS/nixpkgs/issues/513245
     # is resolved.
-    inherit (stable) openldap;
+    openldap = prev.openldap.overrideAttrs (_: {
+      doCheck = !prev.stdenv.hostPlatform.isi686;
+    });
+
+    # TODO(pope): Remove this when hashes are updated
+    _1password-gui = prev._1password-gui.overrideAttrs (_: {
+      src = prev.fetchurl {
+        url = "https://downloads.1password.com/linux/tar/stable/x86_64/1password-8.12.21.x64.tar.gz";
+        hash = "sha256-JwiMi2iozP6jWSIUtgXla86aSAhuUob7snqtUbeXPpI=";
+      };
+    });
+
+    # TODO(pope): Remove when jedi is updated
+    python313Packages = prev.python313Packages // {
+      inherit (stable.python313Packages) pyls-isort python-lsp-server;
+    };
+    vscode-extensions = prev.vscode-extensions // {
+      ms-python = prev.vscode-extensions.ms-python // {
+        inherit (stable.vscode-extensions.ms-python) python;
+      };
+    };
 
     # TODO(pope): Remove this override after the NDI updater script runs
     obs-studio-plugins = prev.obs-studio-plugins // {
