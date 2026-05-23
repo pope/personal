@@ -56,6 +56,10 @@
       doCheck = !prev.stdenv.hostPlatform.isi686;
     });
 
+    # TODO(pope): Remove when https://github.com/NixOS/nixpkgs/issues/523200
+    # is resolved.
+    inherit (stable) bubblewrap;
+
     # TODO(pope): Remove this when hashes are updated
     _1password-gui = prev._1password-gui.overrideAttrs (_: {
       src = prev.fetchurl {
