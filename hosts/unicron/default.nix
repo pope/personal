@@ -20,6 +20,8 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.config.rocmTargets = [ "gfx1201" ];
+
   nix.settings.system-features = [
     "gccarch-skylake"
     "gccarch-znver5"

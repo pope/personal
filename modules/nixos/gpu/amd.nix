@@ -18,6 +18,7 @@ in
     nixpkgs.config.rocmSupport = true;
 
     environment.systemPackages = with pkgs; [
+      clinfo
       libva-utils
       rocmPackages.rocm-smi
       rocmPackages.rocminfo
