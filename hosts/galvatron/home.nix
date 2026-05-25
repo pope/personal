@@ -44,11 +44,11 @@
   programs = {
     home-manager.enable = true;
 
-    ssh.matchBlocks."nix-builder" = {
-      user = "root";
-      hostname = "127.0.0.1";
-      port = 3022;
-      identityFile = "~/.ssh/insecure_rsa";
+    ssh.settings."nix-builder" = {
+      User = "root";
+      HostName = "127.0.0.1";
+      Port = 3022;
+      IdentityFile = "~/.ssh/insecure_rsa";
     };
 
     streamlink.enable = true;
