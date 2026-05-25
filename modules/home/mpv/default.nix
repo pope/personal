@@ -44,17 +44,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      with pkgs;
-      [
-        mpvScripts.modernx # Included here so that the font is installed
-        yt-dlp
-      ]
-      ++ lib.optionals pkgs.stdenv.isLinux [
-        # TODO(pope): Re-enable when
-        # https://github.com/streamlink/streamlink/issues/6903 is released
-        streamlink
-      ];
+    home.packages = with pkgs; [
+      mpvScripts.modernx # Included here so that the font is installed
+      streamlink
+      yt-dlp
+    ];
 
     fonts.fontconfig.enable = true;
 
