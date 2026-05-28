@@ -20,6 +20,9 @@ let
     "image/png" = "imv.desktop";
     "image/webp" = "imv.desktop";
     "text/html" = "firefox.desktop";
+    "video/mp4" = "mpv.desktop";
+    "video/webm" = "mpv.desktop";
+    "video/x-matroska" = "mpv.desktop";
     "x-scheme-handler/chrome" = "firefox.desktop";
     "x-scheme-handler/http" = "firefox.desktop";
     "x-scheme-handler/https" = "firefox.desktop";
