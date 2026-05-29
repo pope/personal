@@ -14,7 +14,7 @@
     package = pkgs.nix;
     settings = {
       # Add trusted-users to /etc/nix/nix.conf to make the warnings go away
-      auto-optimise-store = true;
+      auto-optimise-store = false;
       builders-use-substitutes = true;
       experimental-features = [
         "nix-command"
