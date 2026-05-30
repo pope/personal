@@ -52,7 +52,7 @@ in
           line-height = cfg.fontSize * 1.25;
           pad = "4x10";
         };
-        colors = {
+        colors-dark = {
           alpha = 0.96;
         };
         cursor = {
