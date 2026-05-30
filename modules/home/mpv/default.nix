@@ -27,8 +27,9 @@ in
     };
     defaultProfile = lib.mkOption {
       type = lib.types.enum [
-        "generic"
+        "fast"
         "fsr"
+        "generic"
       ];
       default = "generic";
       description = lib.mkDoc ''
@@ -63,7 +64,8 @@ in
 
         # Video
         vo = "gpu-next";
-        hwdec = if cfg.enableVulkan then "vulkan" else "auto-safe";
+        hwdec = "auto-safe";
+        hwdec-codecs = "all";
         fbo-format = "rgba16f";
 
         # Deband
@@ -87,11 +89,14 @@ in
             defs.fsr.name
           else if (cfg.defaultProfile == "generic") then
             defs.generic.name
+          else if (cfg.defaultProfile == "fast") then
+            "fast"
           else
             abort "defaultProfile is invalid";
       }
       // lib.optionalAttrs cfg.enableVulkan {
         gpu-api = "vulkan";
+        gpu-context = "waylandvk";
       };
 
       bindings =

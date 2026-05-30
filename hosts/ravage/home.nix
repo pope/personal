@@ -65,6 +65,7 @@
     languages.python.enable = true;
     mpv = {
       enable = true;
+      defaultProfile = "fast";
       scale = 1;
     };
     multimedia = {
