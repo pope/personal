@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.nixos.bluetooth;
@@ -9,6 +14,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      bluetui
+    ];
+
     # enable bluetooth & gui paring tools - blueman
     # or you can use cli:
     # $ bluetoothctl
@@ -27,6 +36,5 @@ in
         General.Enable = "Source,Sink,Media,Socket";
       };
     };
-    services.blueman.enable = true;
   };
 }
