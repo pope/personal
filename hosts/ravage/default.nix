@@ -70,7 +70,10 @@
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Enable networking
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
 
     enableIPv6 = false;
     firewall.allowedTCPPorts = [ 8001 ];
@@ -83,6 +86,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    impala
     libva-utils
   ];
 
