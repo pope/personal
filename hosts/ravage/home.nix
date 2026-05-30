@@ -45,7 +45,7 @@
     };
     email.enable = true;
     dunst.enable = true;
-    dwl.enable = false;
+    dwl.enable = true;
     git.enable = true;
     gnome = {
       enable = true;
@@ -58,7 +58,7 @@
     };
     hypridle.enable = true;
     hyprland = {
-      enable = true;
+      enable = false;
       enableBatterySaverMode = true;
     };
     kde.enable = true;

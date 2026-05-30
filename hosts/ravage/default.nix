@@ -171,9 +171,9 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "sddm";
-      dwl.enable = false;
+      dwl.enable = true;
       gnome.enable = false;
-      hyprland.enable = true;
+      hyprland.enable = false;
       kde.enable = true;
     };
   };

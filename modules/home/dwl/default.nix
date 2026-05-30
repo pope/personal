@@ -28,7 +28,7 @@ let
   };
 
   dwl =
-    (pkgs.dwl.overrideAttrs (_oldAttrs: {
+    (pkgs.stable.dwl.overrideAttrs (_oldAttrs: {
       patches = [
         ./dwl/patches/ipc.patch
         ./dwl/patches/gaps.patch
