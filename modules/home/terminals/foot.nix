@@ -47,12 +47,14 @@ in
             let
               fontSize = toString cfg.fontSize;
             in
-            "monospace:size=${fontSize}, JetBrainsMono Nerd Font:size=${fontSize}";
+            "Liga SFMono Nerd Font:size=${fontSize}, monospace:size=${fontSize}";
           font-size-adjustment = 0.5;
-          line-height = cfg.fontSize * 1.25;
           pad = "4x10";
         };
         colors-dark = {
+          alpha = 0.96;
+        };
+        colors-light = {
           alpha = 0.96;
         };
         cursor = {
