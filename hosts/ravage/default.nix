@@ -90,6 +90,19 @@
     libva-utils
   ];
 
+  services.kmscon = {
+    enable = true;
+    hwRender = true;
+    useXkbConfig = true;
+    fonts = [
+      {
+        name = "JetBrainsMono Nerd Font";
+        package = pkgs.nerd-fonts.jetbrains-mono;
+      }
+    ];
+    term = "xterm-256color";
+  };
+
   services = {
     fwupd.enable = true;
     hardware.bolt.enable = true;
