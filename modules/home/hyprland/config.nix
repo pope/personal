@@ -203,6 +203,7 @@ in
           # commands
           brillo = getExe pkgs.brillo;
           playerctrl = getExe pkgs.playerctl;
+          pkill = "${pkgs.procps}/bin/pkill";
           runner =
             if config.my.home.rofi.enable then
               "${launcher} ${getExe rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
@@ -254,6 +255,8 @@ in
           (b "SUPER + P" (mkLuaInline "hl.dsp.window.pseudo()"))
           (b "SUPER + J" (mkLuaInline "hl.dsp.layout('togglesplit')")) # dwindle only
           (b "SUPER + C" (mkLuaInline "hl.dsp.window.center()"))
+
+          (b "SUPER + B" (execCmd "${pkill} -SIGUSR1 waybar"))
 
           (b "SUPER + Return" (execCmd terminal))
           (b "SUPER + E" (execCmd thunar))
