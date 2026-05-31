@@ -39,14 +39,11 @@ in
     };
   };
 
-  imports = [
-    ./config.nix
-  ];
-
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
       configType = "lua";
+      settings = import ./settings.nix { inherit config pkgs lib; };
       systemd.enable = false; # Using UWSM
       xwayland.enable = true;
     };
