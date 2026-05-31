@@ -8,29 +8,11 @@
 let
   cfg = config.my.home.hyprland;
 
-  launcher = "${lib.getExe pkgs.uwsm} app --";
+  inherit (lib.generators) mkLuaInline;
+  inherit (lib) getExe;
+  toLua' = lib.generators.toLua { };
 
-  # commands
-  brillo = "${lib.getExe pkgs.brillo}";
-  hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-  nm-applet = "${launcher} ${pkgs.networkmanagerapplet}/bin/nm-applet";
-  pamixer = "${lib.getExe pkgs.pamixer}";
-  runner =
-    if config.my.home.rofi.enable then
-      "${launcher} ${lib.getExe config.programs.rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
-    else
-      "${launcher} ${lib.getExe config.programs.anyrun.package}";
-  screenshot = "${launcher} wayland-screenshot";
-  systemctl = "${pkgs.systemd}/bin/systemctl";
-  terminal =
-    if config.my.home.terminals.ghostty.enable then
-      "${launcher} ${lib.getExe config.programs.ghostty.package}"
-    else if config.my.home.terminals.wezterm.enable then
-      "${launcher} ${lib.getExe config.programs.wezterm.package}"
-    else
-      "${launcher} ${lib.getExe config.programs.kitty.package}";
-  thunar = "${launcher} ${lib.getExe pkgs.thunar}";
-  wlogout = "${launcher} ${lib.getExe pkgs.wlogout}";
+  launcher = "${getExe pkgs.uwsm} app --";
 
   #color overrides
   inherit (config.my.home.theme) colorScheme;
@@ -42,233 +24,532 @@ in
 {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland.settings = with colors; {
-      monitor = lib.mkDefault [
-        "eDP-1,preferred,auto,1"
-      ];
-      exec-once = [
-        "${systemctl} --user start tile-manager-session.target"
-        "${nm-applet} --indicator"
-      ];
+      # Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
+      config = {
+        # Look and feel
+        general = {
+          gaps_in = 5;
+          gaps_out = 10;
 
-      xwayland.force_zero_scaling = true;
+          border_size = 2;
 
-      input = {
-        kb_layout = "us";
-        kb_variant = "";
-        kb_model = "";
-        kb_options = "ctrl:nocaps";
-        kb_rules = "";
+          col = {
+            active_border = {
+              colors = [
+                "rgba(${color_active_border_a}ee)"
+                "rgba(${color_active_border_b}ee)"
+              ];
+              angle = 45;
+            };
+            inactive_border = "rgba(${base02}aa)";
+          };
+        };
+        decoration = {
+          rounding = 10;
+          rounding_power = 2;
 
-        follow_mouse = 1;
+          active_opacity = 1.0;
+          inactive_opacity = 0.8;
 
-        accel_profile = "flat";
-        force_no_accel = 1;
-        numlock_by_default = 1;
-        repeat_delay = 160;
-        repeat_rate = 25;
-        sensitivity = 0;
+          shadow = {
+            enabled = !cfg.enableBatterySaverMode;
+            range = 4;
+            render_power = 3;
+            color = "rgba(${base00}99)";
+            # color = "0xee1a1a1a";
+          };
 
-        touchpad = {
-          natural_scroll = true;
-          tap-to-click = false;
+          blur = {
+            enabled = true;
+            size = if cfg.enableBatterySaverMode then 8 else 3;
+            passes = if cfg.enableBatterySaverMode then 1 else 4;
+            vibrancy = 0.1696;
+          };
+        };
+        animations.enabled = !cfg.enableBatterySaverMode;
+
+        # See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
+        dwindle.preserve_split = true;
+        # See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
+        master.new_status = "master";
+        # See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
+        scrolling.fullscreen_on_one_column = true;
+
+        # Misc
+        misc = {
+          force_default_wallpaper = -1;
+          disable_hyprland_logo = false;
+          vrr = cfg.enableVrr;
+        };
+
+        # Input
+        input = {
+          kb_layout = "us";
+          kb_variant = "";
+          kb_model = "";
+          kb_options = "ctrl:nocaps";
+          kb_rules = "";
+
+          accel_profile = "flat";
+          repeat_delay = 160;
+          repeat_rate = 25;
+
+          follow_mouse = 1;
+          sensitivity = 0;
+          touchpad = {
+            natural_scroll = true;
+            tap_to_click = false;
+          };
         };
       };
 
-      general = {
-        gaps_in = 5;
-        gaps_out = 5;
-        border_size = 2;
-        "col.active_border" = "rgb(${color_active_border_a}) rgb(${color_active_border_b}) 45deg";
-        "col.inactive_border" = "rgb(${base02})";
-        layout = "dwindle";
+      gesture = {
+        fingers = 3;
+        direction = "horizontal";
+        action = "workspace";
       };
+      # Can add per-device configs here.
+      # See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
 
-      cursor = {
-        no_warps = true;
-      };
+      # See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
+      # and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+      window_rule = map (x: { _args = [ x ]; }) [
+        {
+          name = "suppress-maximize-events";
+          match = {
+            class = ".*";
+          };
+          suppress_event = "maximize";
+        }
+        {
+          name = "fix-xwayland-drags";
+          match = {
+            class = "^$";
+            title = "^$";
+            xwayland = true;
+            float = true;
+            fullscreen = false;
+            pin = false;
+          };
+          no_focus = true;
+        }
+        {
+          match = {
+            class = "^(Emacs)$";
+          };
+          opacity = "0.9 0.8";
+        }
+      ];
+      layer_rule = map (x: { _args = [ x ]; }) [
+        {
+          name = "rofi-layer";
+          match = {
+            namespace = "rofi";
+          };
+          blur = true;
+          dim_around = true;
+          ignore_alpha = true;
+        }
+        {
+          name = "bar-layer";
+          match = {
+            namespace = "^(gtk-layer-shell|anyrun|waybar)$";
+          };
+          blur = true;
+          ignore_alpha = true;
+        }
+        {
+          name = "notif-layer";
+          match = {
+            namespace = "notifications";
+          };
+          blur = true;
+        }
+        {
+          name = "launcher-layer";
+          match = {
+            namespace = "launcher";
+          };
+          blur = true;
+        }
+      ];
 
-      decoration = {
-        rounding = 6;
-        blur = {
+      on =
+        let
+          nm-applet = "${launcher} ${getExe pkgs.networkmanagerapplet}";
+          systemctl = "${pkgs.systemd}/bin/systemctl";
+        in
+        map (x: { _args = x; }) [
+          [
+            "hyprland.start"
+            (mkLuaInline ''
+              function ()
+                hl.exec_cmd("${systemctl} --user start tile-manager-session.target")
+                hl.exec_cmd("${nm-applet} --indicator")
+              end'')
+          ]
+        ];
+
+      bind =
+        let
+          inherit (config.programs)
+            rofi
+            anyrun
+            ghostty
+            wezterm
+            kitty
+            ;
+
+          # commands
+          brillo = getExe pkgs.brillo;
+          playerctrl = getExe pkgs.playerctl;
+          runner =
+            if config.my.home.rofi.enable then
+              "${launcher} ${getExe rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
+            else
+              "${launcher} ${getExe anyrun.package}";
+          screenshot = "${launcher} wayland-screenshot";
+          terminal =
+            if config.my.home.terminals.ghostty.enable then
+              "${launcher} ${getExe ghostty.package}"
+            else if config.my.home.terminals.wezterm.enable then
+              "${launcher} ${getExe wezterm.package}"
+            else
+              "${launcher} ${getExe kitty.package}";
+          thunar = "${launcher} ${getExe pkgs.thunar}";
+          wlogout = "${launcher} ${getExe pkgs.wlogout}";
+          wpctl = "${pkgs.wireplumber}/bin/wpctl";
+
+          execCmd = cmd: mkLuaInline "hl.dsp.exec_cmd(${toLua' cmd})";
+
+          # Simple bind functions to keep line formatting in check
+          b = k: c: [
+            k
+            c
+          ];
+          b' = k: c: a: [
+            k
+            c
+            a
+          ];
+          workspace =
+            num:
+            let
+              n = toString num;
+            in
+            b "SUPER + ${n}" (mkLuaInline "hl.dsp.focus({ workspace = ${n} })");
+          workspaceMove =
+            num:
+            let
+              n = toString num;
+            in
+            b "SUPER + ${n}" (mkLuaInline "hl.dsp.window.move({ workspace = ${n} })");
+        in
+        map (x: { _args = x; }) [
+          (b "SUPER + Q" (mkLuaInline "hl.dsp.window.close()"))
+          (b "SUPER + SHIFT + Escape" (mkLuaInline "hl.dsp.exit()"))
+
+          (b "SUPER + F" (mkLuaInline "hl.dsp.window.fullscreen()"))
+          (b "SUPER + V" (mkLuaInline "hl.dsp.window.float({ action = 'toggle' })"))
+          (b "SUPER + P" (mkLuaInline "hl.dsp.window.pseudo()"))
+          (b "SUPER + J" (mkLuaInline "hl.dsp.layout('togglesplit')")) # dwindle only
+          (b "SUPER + C" (mkLuaInline "hl.dsp.window.center()"))
+
+          (b "SUPER + Return" (execCmd terminal))
+          (b "SUPER + E" (execCmd thunar))
+          (b "SUPER + Space" (execCmd runner))
+          (b "SUPER + L" (execCmd wlogout))
+
+          (b "SUPER + left" (mkLuaInline "hl.dsp.focus({ direction = 'left' })"))
+          (b "SUPER + right" (mkLuaInline "hl.dsp.focus({ direction = 'right' })"))
+          (b "SUPER + up" (mkLuaInline "hl.dsp.focus({ direction = 'up' })"))
+          (b "SUPER + down" (mkLuaInline "hl.dsp.focus({ direction = 'down' })"))
+
+          (b "SUPER + SHIFT + left" (mkLuaInline "hl.dsp.window.move({ direction = 'left' })"))
+          (b "SUPER + SHIFT + right" (mkLuaInline "hl.dsp.window.move({ direction = 'right' })"))
+          (b "SUPER + SHIFT + up" (mkLuaInline "hl.dsp.window.move({ direction = 'up' })"))
+          (b "SUPER + SHIFT + down" (mkLuaInline "hl.dsp.window.move({ direction = 'down' })"))
+
+          (b "SUPER + ALT + left" (mkLuaInline "hl.dsp.window.resize({ x = 50, y = 0 })"))
+          (b "SUPER + ALT + right" (mkLuaInline "hl.dsp.window.resize({ x = -50, y = 0 })"))
+          (b "SUPER + ALT + up" (mkLuaInline "hl.dsp.window.resize({ x = 0, y = -50 })"))
+          (b "SUPER + ALT + down" (mkLuaInline "hl.dsp.window.resize({ x = 0, y = 50 })"))
+
+          (b "SUPER + Tab" (mkLuaInline ''
+            function()
+              hl.dispatch(hl.dsp.window.cycle_next())
+              hl.dispatch(hl.dsp.window.bring_to_top())
+            end''))
+
+          (b "SUPER + A" (mkLuaInline "hl.dsp.workspace.toggle_special('magic')"))
+          (b "SUPER + SHIFT + A" (mkLuaInline "hl.dsp.window.move({ workspace = 'special:magic' })"))
+
+          (workspace 1)
+          (workspace 2)
+          (workspace 3)
+          (workspace 4)
+          (workspace 5)
+          (workspace 6)
+          (workspace 7)
+          (workspace 8)
+          (workspace 9)
+          (workspace 0)
+
+          (workspaceMove 1)
+          (workspaceMove 2)
+          (workspaceMove 3)
+          (workspaceMove 4)
+          (workspaceMove 5)
+          (workspaceMove 6)
+          (workspaceMove 7)
+          (workspaceMove 8)
+          (workspaceMove 9)
+          (workspaceMove 0)
+
+          (b "SUPER + mouse_down" (mkLuaInline "hl.dsp.focus({ workspace = 'e+1' })"))
+          (b "SUPER + mouse_up" (mkLuaInline "hl.dsp.focus({ workspace = 'e-1' })"))
+
+          (b' "SUPER + mouse:272" (mkLuaInline "hl.dsp.window.drag()") { mouse = true; })
+          (b' "SUPER + mouse:273" (mkLuaInline "hl.dsp.window.resize()") { mouse = true; })
+
+          # Monitor Brightness
+          (b' "XF86MonBrightnessUp" (execCmd "${brillo} -A 5") {
+            locked = true;
+            repeating = true;
+          })
+          (b' "XF86MonBrightnessDown" (execCmd "${brillo} -U 5") {
+            locked = true;
+            repeating = true;
+          })
+          # Autio levels
+          (b' "XF86AudioRaiseVolume" (execCmd "${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+") {
+            locked = true;
+            repeating = true;
+          })
+          (b' "XF86AudioLowerVolume" (execCmd "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-") {
+            locked = true;
+            repeating = true;
+          })
+          (b' "XF86AudioMute" (execCmd "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle") {
+            locked = true;
+            repeating = true;
+          })
+          (b' "XF86AudioMicMute" (execCmd "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle") {
+            locked = true;
+            repeating = true;
+          })
+          # Screenshot
+          (b' "Print" (execCmd "${screenshot}") { locked = true; })
+          # Audio Playback
+          (b' "XF86AudioNext" (execCmd "${playerctrl} next") { locked = true; })
+          (b' "XF86AudioPause" (execCmd "${playerctrl} play-pause") { locked = true; })
+          (b' "XF86AudioPlay" (execCmd "${playerctrl} play-pause") { locked = true; })
+          (b' "XF86AudioPrev" (execCmd "${playerctrl} previous") { locked = true; })
+        ];
+
+      # Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
+      curve = map (x: { _args = x; }) [
+        [
+          "easeOutQuint"
+          {
+            type = "bezier";
+            points = [
+              [
+                0.23
+                1
+              ]
+              [
+                0.32
+                1
+              ]
+            ];
+          }
+        ]
+        [
+          "easeInOutCubic"
+          {
+            type = "bezier";
+            points = [
+              [
+                0.65
+                0.05
+              ]
+              [
+                0.36
+                1
+              ]
+            ];
+          }
+        ]
+        [
+          "linear"
+          {
+            type = "bezier";
+            points = [
+              [
+                0
+                0
+              ]
+              [
+                1
+                1
+              ]
+            ];
+          }
+        ]
+        [
+          "almostLinear"
+          {
+            type = "bezier";
+            points = [
+              [
+                0.5
+                0.5
+              ]
+              [
+                0.75
+                1
+              ]
+            ];
+          }
+        ]
+        [
+          "quick"
+          {
+            type = "bezier";
+            points = [
+              [
+                0.15
+                0
+              ]
+              [
+                0.1
+                1
+              ]
+            ];
+          }
+        ]
+        # Default springs
+        [
+          "easy"
+          {
+            type = "spring";
+            mass = 1;
+            stiffness = 71.2633;
+            dampening = 15.8273644;
+          }
+        ]
+      ];
+      animation = [
+        {
+          leaf = "global";
           enabled = true;
-
-          size = if cfg.enableBatterySaverMode then 8 else 5;
-          passes = if cfg.enableBatterySaverMode then 1 else 3;
-          new_optimizations = true;
-          ignore_opacity = true;
-          noise = "0.05";
-          contrast = "1.1";
-          brightness = "1.2";
-          xray = false;
-        };
-
-        shadow = {
-          enabled = !cfg.enableBatterySaverMode;
-          ignore_window = true;
-          offset = "0 8";
-          range = 50;
-          render_power = 3;
-          color = "rgba(${base00}99)";
-        };
-      };
-
-      animations = {
-        enabled = !cfg.enableBatterySaverMode;
-        bezier = lib.optionals (!cfg.enableBatterySaverMode) [
-          "wind, 0.05, 0.9, 0.1, 1.05"
-          "winIn, 0.1, 1.1, 0.1, 1.1"
-          "winOut, 0.3, -0.3, 0, 1"
-          "liner, 1, 1, 1, 1"
-        ];
-        animation = lib.optionals (!cfg.enableBatterySaverMode) [
-          "windows, 1, 6, wind, slide"
-          "windowsIn, 1, 6, winIn, slide"
-          "windowsOut, 1, 5, winOut, slide"
-          "windowsMove, 1, 5, wind, slide"
-          "border, 1, 1, liner"
-          "borderangle, 1, 12, liner, once"
-          "fade, 1, 10, default"
-          "workspaces, 1, 5, wind"
-        ];
-      };
-
-      misc = {
-        disable_hyprland_logo = true;
-        disable_splash_rendering = true;
-
-        vfr = true; # misc:no_vfr -> misc:vfr. bool, heavily recommended to leave at default on. Saves on CPU usage.
-        vrr = if cfg.enableVrr then 1 else 0; # misc:vrr -> Adaptive sync of your monitor. 0 (off), 1 (on), 2 (fullscreen only). Default 0 to avoid white flashes on select hardware.
-      };
-
-      group = {
-        "col.border_active" = "rgb(${base0A})";
-        "col.border_inactive" = "rgb(${base03})";
-
-        groupbar = {
-          font_size = 12;
-          gradients = false;
-        };
-      };
-
-      dwindle = {
-        default_split_ratio = 1.0;
-        force_split = 0;
-        preserve_split = true;
-        pseudotile = true; # enable pseudotiling on dwindle
-        special_scale_factor = 0.8;
-        split_width_multiplier = 1.0;
-        use_active_for_splits = true;
-      };
-
-      master = {
-        # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-        new_status = "master";
-      };
-
-      bind = [
-        "SUPER, Q, killactive"
-        "SUPER SHIFT, Escape, exit"
-
-        "SUPER, F, fullscreen"
-        "SUPER, V, togglefloating"
-        "SUPER, P, pseudo" # dwindle
-        "SUPER, J, togglesplit" # dwindle
-        "SUPER, G, togglegroup"
-        "SUPER SHIFT, N, changegroupactive, f"
-        "SUPER SHIFT, P, changegroupactive, b"
-
-        "SUPER, Return, exec, ${terminal}"
-        "SUPER, E, exec, ${thunar}"
-        "SUPER, Space, exec, ${runner}"
-        "SUPER, L, exec, ${wlogout}"
-
-        "SUPER, Tab, cyclenext"
-        "SUPER, Tab, bringactivetotop"
-
-        "SUPER, A, togglespecialworkspace"
-        "SUPER SHIFT, A, movetoworkspace, special"
-        "SUPER, C, exec, ${hyprctl} dispatch centerwindow"
-
-        "SUPER, left, movefocus, l"
-        "SUPER, right, movefocus, r"
-        "SUPER, up, movefocus, u"
-        "SUPER, down, movefocus, d"
-
-        "SUPER SHIFT, left, movewindow, l"
-        "SUPER SHIFT, right, movewindow, r"
-        "SUPER SHIFT, up, movewindow, u"
-        "SUPER SHIFT, down, movewindow, d"
-
-        "SUPER ALT, right, resizeactive, 50 0"
-        "SUPER ALT, left, resizeactive, -50 0"
-        "SUPER ALT, up, resizeactive, 0 -50"
-        "SUPER ALT, down, resizeactive, 0 50"
-
-        "SUPER, 1, workspace, 1"
-        "SUPER, 2, workspace, 2"
-        "SUPER, 3, workspace, 3"
-        "SUPER, 4, workspace, 4"
-        "SUPER, 5, workspace, 5"
-        "SUPER, 6, workspace, 6"
-        "SUPER, 7, workspace, 7"
-        "SUPER, 8, workspace, 8"
-
-        "SUPER SHIFT, 1, movetoworkspace, 1"
-        "SUPER SHIFT, 2, movetoworkspace, 2"
-        "SUPER SHIFT, 3, movetoworkspace, 3"
-        "SUPER SHIFT, 4, movetoworkspace, 4"
-        "SUPER SHIFT, 5, movetoworkspace, 5"
-        "SUPER SHIFT, 6, movetoworkspace, 6"
-        "SUPER SHIFT, 7, movetoworkspace, 7"
-        "SUPER SHIFT, 8, movetoworkspace, 8"
-
-        "SUPER, mouse_down, workspace, e+1"
-        "SUPER, mouse_up, workspace, e-1"
-
-        # Brightness Control Bindings
-        ", XF86MonBrightnessUp, exec, ${brillo} -A 10"
-        ", XF86MonBrightnessDown, exec, ${brillo} -U 10"
-        # Audio levels
-        ", XF86AudioRaiseVolume, exec, ${pamixer} -u -i 10"
-        ", XF86AudioLowerVolume, exec, ${pamixer} -u -d 10"
-        ", XF86AudioMute, exec, ${pamixer} -t"
-        # Screenshot
-        ", Print, exec, ${screenshot}"
-      ];
-
-      bindm = [
-        "SUPER, mouse:272, movewindow"
-        "SUPER, mouse:273, resizewindow"
-      ];
-
-      workspace = [
-        # # For no gaps when only one Window. Also requires windowrulev2.
-        # # Ref https://wiki.hyprland.org/Configuring/Workspace-Rules/
-        # "w[t1], gapsout:0, gapsin:0"
-        # "w[tg1], gapsout:0, gapsin:0"
-        # "f[1], gapsout:0, gapsin:0"
-      ];
-
-      windowrulev2 = [
-        "float,class:^(pavucontrol)$"
-
-        # # For no gaps when only one Window
-        # "bordersize 0, floating:0, onworkspace:w[t1]"
-        # "rounding 0, floating:0, onworkspace:w[t1]"
-        # "bordersize 0, floating:0, onworkspace:w[tg1]"
-        # "rounding 0, floating:0, onworkspace:w[tg1]"
-        # "bordersize 0, floating:0, onworkspace:f[1]"
-        # "rounding 0, floating:0, onworkspace:f[1]"
-      ];
-      layerrule = [
-        "blur, ^(gtk-layer-shell|anyrun|waybar)$"
-        "ignorezero, ^(gtk-layer-shell|anyrun|waybar)$"
-        "blur, notifications"
-        "blur, launcher"
-
-        "dimaround, rofi"
-        "blur, rofi"
-        "ignorezero, rofi"
+          speed = 10;
+          bezier = "default";
+        }
+        {
+          leaf = "border";
+          enabled = true;
+          speed = 5.39;
+          bezier = "easeOutQuint";
+        }
+        {
+          leaf = "windows";
+          enabled = true;
+          speed = 4.79;
+          spring = "easy";
+        }
+        {
+          leaf = "windowsIn";
+          enabled = true;
+          speed = 4.1;
+          spring = "easy";
+          style = "popin 87%";
+        }
+        {
+          leaf = "windowsOut";
+          enabled = true;
+          speed = 1.49;
+          bezier = "linear";
+          style = "popin 87%";
+        }
+        {
+          leaf = "fadeIn";
+          enabled = true;
+          speed = 1.73;
+          bezier = "almostLinear";
+        }
+        {
+          leaf = "fadeOut";
+          enabled = true;
+          speed = 1.46;
+          bezier = "almostLinear";
+        }
+        {
+          leaf = "fade";
+          enabled = true;
+          speed = 3.03;
+          bezier = "quick";
+        }
+        {
+          leaf = "layers";
+          enabled = true;
+          speed = 3.81;
+          bezier = "easeOutQuint";
+        }
+        {
+          leaf = "layersIn";
+          enabled = true;
+          speed = 4;
+          bezier = "easeOutQuint";
+          style = "fade";
+        }
+        {
+          leaf = "layersOut";
+          enabled = true;
+          speed = 1.5;
+          bezier = "linear";
+          style = "fade";
+        }
+        {
+          leaf = "fadeLayersIn";
+          enabled = true;
+          speed = 1.79;
+          bezier = "almostLinear";
+        }
+        {
+          leaf = "fadeLayersOut";
+          enabled = true;
+          speed = 1.39;
+          bezier = "almostLinear";
+        }
+        {
+          leaf = "workspaces";
+          enabled = true;
+          speed = 1.94;
+          bezier = "almostLinear";
+          style = "fade";
+        }
+        {
+          leaf = "workspacesIn";
+          enabled = true;
+          speed = 1.21;
+          bezier = "almostLinear";
+          style = "fade";
+        }
+        {
+          leaf = "workspacesOut";
+          enabled = true;
+          speed = 1.94;
+          bezier = "almostLinear";
+          style = "fade";
+        }
+        {
+          leaf = "zoomFactor";
+          enabled = true;
+          speed = 7;
+          bezier = "quick";
+        }
       ];
     };
   };

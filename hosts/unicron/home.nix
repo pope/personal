@@ -23,12 +23,6 @@
     stateVersion = "24.05";
   };
 
-  wayland.windowManager.hyprland.settings.monitor = [
-    "HDMI-A-2,2560x1440@120,0x0,auto"
-    # "HDMI-A-1,preferred,0x0,auto"
-    "DP-2,preferred,2560x0,auto"
-  ];
-
   programs = {
     home-manager.enable = true;
   };

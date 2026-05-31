@@ -22,10 +22,6 @@
     stateVersion = "23.05";
   };
 
-  wayland.windowManager.hyprland.settings.monitor = [
-    "eDP-1,preferred,auto,1"
-  ];
-
   programs = {
     home-manager.enable = true;
   };

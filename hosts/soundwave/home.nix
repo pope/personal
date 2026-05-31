@@ -21,10 +21,6 @@
     stateVersion = "24.11";
   };
 
-  wayland.windowManager.hyprland.settings.monitor = [
-    ",preferred,auto,1,vrr,1"
-  ];
-
   programs = {
     home-manager.enable = true;
   };

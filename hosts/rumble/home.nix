@@ -23,7 +23,13 @@
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
-    "eDP-1,preferred,auto,1.6666666666,vrr,1"
+    {
+      output = "eDP-1";
+      mode = "preferred";
+      position = "auto";
+      vrr = true;
+      scale = 1.6666666666666;
+    }
   ];
 
   programs = {
@@ -65,7 +71,7 @@
     hyprland = {
       enable = true;
       # dpiScale = 2;
-      enableBatterySaverMode = true;
+      enableBatterySaverMode = false;
       enableVrr = true;
     };
     kde.enable = true;
