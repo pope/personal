@@ -40,8 +40,11 @@
       vscode.enable = true;
     };
     email.enable = true;
-    dunst.enable = true;
-    dwl.enable = true;
+    dunst = {
+      enable = true;
+      font = "Sans 11";
+    };
+    dwl.enable = false;
     git.enable = true;
     gnome = {
       enable = true;
@@ -54,7 +57,7 @@
     };
     hypridle.enable = true;
     hyprland = {
-      enable = false;
+      enable = true;
       enableBatterySaverMode = true;
     };
     kde.enable = true;
