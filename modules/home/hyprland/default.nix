@@ -81,20 +81,6 @@ in
       "Xft.dpi" = 96 * cfg.dpiScale;
     };
 
-    services.hyprpaper = {
-      # Disabling in favor of awww.
-      # With awww, I can change the background easily after the fact.
-      enable = false;
-      settings = {
-        ipc = "on";
-        splash = false;
-        splash_offset = 2.0;
-
-        preload = [ "~/Pictures/wallpaper-purple.png" ];
-        wallpaper = [ ",~/Pictures/wallpaper-purple.png" ];
-      };
-    };
-
     systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   };
 }
