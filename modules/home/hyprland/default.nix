@@ -9,17 +9,15 @@ let
   cfg = config.my.home.hyprland;
 
   gamemode = pkgs.writeShellScriptBin "gamemode" ''
-    HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled -j | ${pkgs.jq}/bin/jq '.int')
-    if [ "$HYPRGAMEMODE" = 1 ] ; then
-        ${pkgs.hyprland}/bin/hyprctl --batch "\
-            keyword animations:enabled 0;\
-            keyword decoration:rounding 0;\
-            keyword decoration:drop_shadow 0;\
-            keyword decoration:blur:enabled 0;\
-            keyword decoration:shadow:enabled 0;\
-            keyword general:gaps_in 0;\
-            keyword general:gaps_out 0;\
-            keyword general:border_size 1" &> /dev/null
+    HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled -j | ${pkgs.jq}/bin/jq '.bool')
+    if [[ "$HYPRGAMEMODE" == "true" ]] ; then
+        ${pkgs.hyprland}/bin/hyprctl eval 'hl.config({
+          animations = { enabled = false },
+          decoration = {
+            blur = { enabled = false },
+            shadow = { enabled = false}
+          }
+        })' &> /dev/null
         exit
     fi
     ${pkgs.hyprland}/bin/hyprctl reload
