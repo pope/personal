@@ -22,6 +22,16 @@
     stateVersion = "23.05";
   };
 
+  wayland.windowManager.hyprland.settings.monitor = [
+    {
+      output = "eDP-1";
+      mode = "preferred";
+      position = "auto";
+      icc = ./LP140WF6_SPB7.icm;
+      scale = 1;
+    }
+  ];
+
   programs = {
     home-manager.enable = true;
   };
