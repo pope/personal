@@ -6,10 +6,10 @@
 }:
 
 let
-  inherit (config.my.home) dwl hyprland;
+  inherit (config.my.home) hyprland;
 
   ExecCondition = ''
-    ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
+    ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:Hyprland" ""
   '';
 
   wayland-screenshot = pkgs.writeShellScriptBin "wayland-screenshot" ''
@@ -19,7 +19,7 @@ let
   '';
 in
 {
-  config = lib.mkIf (dwl.enable || hyprland.enable) {
+  config = lib.mkIf hyprland.enable {
     home = {
       packages = with pkgs; [
         alsa-utils

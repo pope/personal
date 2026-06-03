@@ -6,7 +6,6 @@ in
 {
   imports = [
     ./autologin
-    ./dwl
     ./hyprland
     ./tile-manager-common
   ];
@@ -28,7 +27,6 @@ in
 
     enableAutoLogin = lib.mkEnableOption "auto login of display manager";
 
-    dwl.enable = lib.mkEnableOption "DWL";
     hyprland.enable = lib.mkEnableOption "Hyprland";
     gnome.enable = lib.mkEnableOption "GNOME";
     kde.enable = lib.mkEnableOption "KDE";

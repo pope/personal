@@ -44,7 +44,6 @@
       enable = true;
       font = "Sans 11";
     };
-    dwl.enable = false;
     git.enable = true;
     gnome = {
       enable = true;

@@ -106,7 +106,7 @@ in
     };
 
     systemd.user.services.dunst.Service.ExecCondition = ''
-      ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:dwl-run:Hyprland" ""
+      ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:Hyprland" ""
     '';
   };
 }

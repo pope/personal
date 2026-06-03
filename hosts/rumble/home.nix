@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -53,11 +53,6 @@
     dunst = {
       enable = true;
       font = "Sans 10";
-    };
-    dwl = {
-      enable = false;
-      dpiScale = 2;
-      terminalPackage = config.programs.ghostty.package;
     };
     email.enable = true;
     git.enable = true;

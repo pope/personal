@@ -9,7 +9,7 @@ let
   cfg = config.my.nixos.xserver;
 in
 {
-  config = lib.mkIf (cfg.enable && (cfg.dwl.enable || cfg.hyprland.enable)) {
+  config = lib.mkIf (cfg.enable && cfg.hyprland.enable) {
     assertions = [
       {
         assertion = config.hardware.graphics.enable;

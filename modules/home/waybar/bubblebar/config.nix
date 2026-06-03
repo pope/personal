@@ -16,17 +16,13 @@ let
   wpctl = lib.getExe' pkgs.wireplumber "wpctl";
 in
 {
-  dwlBar = {
+  bubbleMainBar = {
     layer = "top";
     position = "top";
     height = builtins.ceil (36 * scale);
     spacing = 4;
     modules-left = [
       "custom/nixos"
-    ]
-    ++ lib.optionals config.my.home.dwl.enable [
-      "dwl/tags"
-      "dwl/window"
     ]
     ++ lib.optionals config.my.home.hyprland.enable [
       "hyprland/workspaces"
@@ -59,14 +55,6 @@ in
     "custom/nixos" = {
       format = "";
       tooltip = false;
-    };
-    "dwl/window" = {
-      format = "{title} <small>{layout}</small>";
-      rewrite = {
-        # When no window is present, show this message
-        "^ <small>.*?</small>$" =
-          ''<span foreground="${color.base04}">Get ready for a new challenger</span>'';
-      };
     };
     "hyprland/window" = {
       rewrite = {

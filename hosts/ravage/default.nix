@@ -181,7 +181,6 @@
       enable = true;
       enableAutoLogin = false;
       displayManager = "sddm";
-      dwl.enable = false;
       gnome.enable = false;
       hyprland.enable = true;
       kde.enable = true;
