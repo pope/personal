@@ -29,7 +29,7 @@ in
         qpwgraph
         reaper
         renoise-mine
-        stable.surge
+        surge
         tytools
         vcv-rack-pro
         vital-latest

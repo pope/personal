@@ -50,6 +50,10 @@
   // {
     inherit stable skylake znver4;
 
+    surge = prev.surge.overrideAttrs (oldAttrs: {
+      NIX_LDFLAGS = (oldAttrs.NIX_LDFLAGS or "") + " -z noexecstack";
+    });
+
     # TODO(pope): Remove this override after the NDI updater script runs
     obs-studio-plugins = prev.obs-studio-plugins // {
       distroav = prev.obs-studio-plugins.distroav.override {
