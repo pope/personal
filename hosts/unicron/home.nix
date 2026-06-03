@@ -23,6 +23,23 @@
     stateVersion = "24.05";
   };
 
+  wayland.windowManager.hyprland.settings.monitor = [
+    {
+      output = "DP-2";
+      mode = "preferred";
+      position = "0x0";
+      bitdepth = 10;
+      vrr = false;
+    }
+    {
+      output = "DP-1";
+      mode = "preferred";
+      position = "2560x0";
+      transform = 3;
+      vrr = true;
+    }
+  ];
+
   programs = {
     home-manager.enable = true;
   };
