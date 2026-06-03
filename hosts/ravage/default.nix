@@ -88,15 +88,12 @@
 
   services.kmscon = {
     enable = true;
-    hwRender = true;
+    config = {
+      font-name = "JetBrainsMono Nerd Font";
+      hwaccel = true;
+      term = "xterm-256color";
+    };
     useXkbConfig = true;
-    fonts = [
-      {
-        name = "JetBrainsMono Nerd Font";
-        package = pkgs.nerd-fonts.jetbrains-mono;
-      }
-    ];
-    term = "xterm-256color";
   };
 
   services = {

@@ -50,12 +50,6 @@
   // {
     inherit stable skylake znver4;
 
-    # TODO(pope): Remove when https://github.com/NixOS/nixpkgs/issues/513245
-    # is resolved.
-    openldap = prev.openldap.overrideAttrs (_: {
-      doCheck = !prev.stdenv.hostPlatform.isi686;
-    });
-
     # TODO(pope): Remove this override after the NDI updater script runs
     obs-studio-plugins = prev.obs-studio-plugins // {
       distroav = prev.obs-studio-plugins.distroav.override {

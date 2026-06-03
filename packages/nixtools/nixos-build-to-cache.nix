@@ -10,7 +10,8 @@ writeShellApplication {
   ];
   text = # sh
     ''
-      nix copy --to ssh://skrapnel.lan \
+      export NIXPKGS_ALLOW_UNFREE=1
+      nix copy --to ssh://skrapnel.lan --impure \
           .#nixosConfigurations.{unicron,rumble,skrapnel,ravage}.config.system.build.toplevel
     '';
 }
