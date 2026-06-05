@@ -12,13 +12,16 @@
 # - https://kohana.fi/article/mpv-for-anime
 
 let
-  defs = import ./defs.nix { inherit pkgs; };
+  defs = import ./defs.nix {
+    inherit pkgs;
+    inherit (config.my.home.mpv) enableHqSettings;
+  };
   cfg = config.my.home.mpv;
 in
 {
   options.my.home.mpv = {
     enable = lib.mkEnableOption "mpv options";
-    enableHqAnimeSettings = lib.mkEnableOption "use the HQ Anime4K shaders";
+    enableHqSettings = lib.mkEnableOption "use the HQ settings and shaders";
     enableVulkan = lib.mkOption {
       default = pkgs.stdenv.isLinux;
       example = true;
@@ -76,8 +79,8 @@ in
         deband-threshold = 35;
 
         # Dithering
-        dither-depth = "auto";
-        dither = "error-diffusion";
+        dither-depth = if cfg.enableHqSettings then 10 else "auto";
+        dither = if cfg.enableHqSettings then "error-diffusion" else "fruit";
         error-diffusion = "sierra-lite";
 
         # Track Selection
@@ -90,7 +93,7 @@ in
           else if (cfg.defaultProfile == "generic") then
             defs.generic.name
           else if (cfg.defaultProfile == "fast") then
-            "fast"
+            "my-fast"
           else
             abort "defaultProfile is invalid";
       }
@@ -106,10 +109,7 @@ in
           };
         in
         lib.mkMerge [
-          {
-            "CTRL+0" = ''no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"'';
-          }
-
+          (mkBinding defs.myFast)
           (mkBinding defs.generic)
           (mkBinding defs.genericHigh)
           (mkBinding defs.fsr)
@@ -118,21 +118,21 @@ in
           (mkBinding defs.crtGuestAdvancedNtsc)
           (mkBinding defs.crtLottes)
 
-          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kAHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kBHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kCHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kAAHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kBBHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.anime4kCAHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkBinding defs.artcnnHq))
+          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kAHq))
+          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kBHq))
+          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kCHq))
+          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kAAHq))
+          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kBBHq))
+          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kCAHq))
+          (lib.mkIf cfg.enableHqSettings (mkBinding defs.artcnnHq))
 
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kAFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kBFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kCFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kAAFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kBBFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.anime4kCAFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkBinding defs.artcnn))
+          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kAFast))
+          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kBFast))
+          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kCFast))
+          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kAAFast))
+          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kBBFast))
+          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kCAFast))
+          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.artcnn))
         ];
 
       profiles =
@@ -140,6 +140,7 @@ in
           mkProfile = def: { "${def.name}" = def.profile; };
         in
         lib.mkMerge [
+          (mkProfile defs.myFast)
           (mkProfile defs.generic)
           (mkProfile defs.genericHigh)
           (mkProfile defs.fsr)
@@ -148,21 +149,21 @@ in
           (mkProfile defs.crtGuestAdvancedNtsc)
           (mkProfile defs.crtLottes)
 
-          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kAHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kBHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kCHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kAAHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kBBHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.anime4kCAHq))
-          (lib.mkIf cfg.enableHqAnimeSettings (mkProfile defs.artcnnHq))
+          (mkProfile defs.anime4kAHq)
+          (mkProfile defs.anime4kBHq)
+          (mkProfile defs.anime4kCHq)
+          (mkProfile defs.anime4kAAHq)
+          (mkProfile defs.anime4kBBHq)
+          (mkProfile defs.anime4kCAHq)
+          (mkProfile defs.artcnnHq)
 
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kAFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kBFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kCFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kAAFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kBBFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.anime4kCAFast))
-          (lib.mkIf (!cfg.enableHqAnimeSettings) (mkProfile defs.artcnn))
+          (mkProfile defs.anime4kAFast)
+          (mkProfile defs.anime4kBFast)
+          (mkProfile defs.anime4kCFast)
+          (mkProfile defs.anime4kAAFast)
+          (mkProfile defs.anime4kBBFast)
+          (mkProfile defs.anime4kCAFast)
+          (mkProfile defs.artcnn)
         ];
 
       scripts =

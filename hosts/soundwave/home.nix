@@ -61,7 +61,7 @@
     lf.enable = true;
     mpv = {
       enable = true;
-      enableHqAnimeSettings = true;
+      enableHqSettings = true;
       defaultProfile = "fsr";
     };
     multimedia = {

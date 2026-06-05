@@ -76,7 +76,10 @@
       python.enable = true;
     };
     lf.enable = true;
-    mpv.enable = true;
+    mpv = {
+      enable = true;
+      defaultProfile = "fsr";
+    };
     multimedia = {
       audio.enable = true;
       graphics.enable = true;

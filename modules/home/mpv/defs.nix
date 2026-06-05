@@ -1,18 +1,19 @@
-{ pkgs }:
+{ pkgs, enableHqSettings }:
 let
   getDefaultShader =
     x: "${pkgs.mpv-shim-default-shaders}/share/mpv-shim-default-shaders/shaders/${x}";
   getRetroShader = x: "${pkgs.mpv-retro-shaders}/share/mpv-retro-shaders/GLSL/${x}";
-  mkProfileDef =
+  mkProfileDef' =
     {
       name,
       shortcut,
       desc,
+      baseSettings,
       settingGroups ? [ ],
       settings ? { },
     }:
     let
-      unmerged = [ defaultConfigValues ] ++ settingGroups ++ [ settings ];
+      unmerged = [ baseSettings ] ++ settingGroups ++ [ settings ];
       shaders = builtins.concatLists (builtins.catAttrs "shaders" unmerged);
       glsl-shaders = builtins.concatStringsSep ":" shaders;
       merged = builtins.foldl' (a: b: a // b) { } unmerged;
@@ -32,16 +33,33 @@ let
         inherit glsl-shaders;
       };
     };
+  mkHqProfileDef = args: mkProfileDef' (args // { baseSettings = hqBaseSettings; });
+  mkFastProfileDef = args: mkProfileDef' (args // { baseSettings = fastBaseSettings; });
+  mkProfileDef = args: if enableHqSettings then mkHqProfileDef args else mkFastProfileDef args;
 
-  defaultConfigValues = {
+  fastBaseSettings = {
+    # Scaling
+    cscale = "bilinear";
+    cscale-antiring = 0.6;
+    dscale = "bilinear";
+    linear-downscaling = true;
+    scale = "bilinear";
+    scale-antiring = 0.6;
+    # Shaders
+    shaders = [ ];
+  };
+  hqBaseSettings = {
+    # Scaling
     cscale = "ewa_lanczossharp";
     cscale-antiring = 0.6;
     dscale = "mitchell";
     linear-downscaling = true;
     scale = "ewa_lanczossharp";
     scale-antiring = 0.6;
+    # Shaders
     shaders = [ ];
   };
+
   staticGrainDefault = {
     shaders = [
       (getDefaultShader "noise_static_luma.hook")
@@ -65,7 +83,13 @@ let
   };
 in
 {
-  generic = mkProfileDef {
+  myFast = mkFastProfileDef {
+    name = "my-fast";
+    shortcut = "CTRL+0";
+    desc = "Fast";
+  };
+
+  generic = mkFastProfileDef {
     name = "generic";
     shortcut = "g-g";
     desc = "FSRCNNX";
@@ -76,7 +100,7 @@ in
     ];
   };
 
-  genericHigh = mkProfileDef {
+  genericHigh = mkHqProfileDef {
     name = "generic-high";
     desc = "FSRCNNX x16";
     shortcut = "g-G";
@@ -136,7 +160,7 @@ in
 
   # Animation
 
-  artcnn = mkProfileDef {
+  artcnn = mkFastProfileDef {
     name = "artcnn";
     desc = "ArtCNN (C4F16 DS)";
     shortcut = "CTRL+7";
@@ -145,8 +169,8 @@ in
     ];
   };
 
-  artcnnHq = mkProfileDef {
-    name = "artcnn";
+  artcnnHq = mkHqProfileDef {
+    name = "artcnn-hq";
     desc = "ArtCNN (C4F32 DS)";
     shortcut = "CTRL+7";
     settings.shaders = [
@@ -156,8 +180,8 @@ in
 
   # Anime 4k HQ
 
-  anime4kAHq = mkProfileDef {
-    name = "anime4k-a";
+  anime4kAHq = mkHqProfileDef {
+    name = "anime4k-a-hq";
     desc = "Anime4K: Mode A (HQ)";
     shortcut = "CTRL+1";
     settings.shaders = [
@@ -170,8 +194,8 @@ in
     ];
   };
 
-  anime4kBHq = mkProfileDef {
-    name = "anime4k-b";
+  anime4kBHq = mkHqProfileDef {
+    name = "anime4k-b-hq";
     desc = "Anime4K: Mode B (HQ)";
     shortcut = "CTRL+2";
     settings.shaders = [
@@ -184,8 +208,8 @@ in
     ];
   };
 
-  anime4kCHq = mkProfileDef {
-    name = "anime4k-c";
+  anime4kCHq = mkHqProfileDef {
+    name = "anime4k-c-hq";
     desc = "Anime4K: Mode C (HQ)";
     shortcut = "CTRL+3";
     settings.shaders = [
@@ -197,8 +221,8 @@ in
     ];
   };
 
-  anime4kAAHq = mkProfileDef {
-    name = "anime4k-a-a";
+  anime4kAAHq = mkHqProfileDef {
+    name = "anime4k-a-a-hq";
     desc = "Anime4K: Mode A+A (HQ)";
     shortcut = "CTRL+4";
     settings.shaders = [
@@ -212,8 +236,8 @@ in
     ];
   };
 
-  anime4kBBHq = mkProfileDef {
-    name = "anime4k-b-b";
+  anime4kBBHq = mkHqProfileDef {
+    name = "anime4k-b-b-hq";
     desc = "Anime4K: Mode B+B (HQ)";
     shortcut = "CTRL+5";
     settings.shaders = [
@@ -227,8 +251,8 @@ in
     ];
   };
 
-  anime4kCAHq = mkProfileDef {
-    name = "anime4k-c-a";
+  anime4kCAHq = mkHqProfileDef {
+    name = "anime4k-c-a-hq";
     desc = "Anime4K: Mode C+A (HQ)";
     shortcut = "CTRL+6";
     settings.shaders = [
@@ -243,7 +267,7 @@ in
 
   # Anime 4k Fast
 
-  anime4kAFast = mkProfileDef {
+  anime4kAFast = mkFastProfileDef {
     name = "anime4k-a";
     desc = "Anime4K: Mode A (Fast)";
     shortcut = "CTRL+1";
@@ -257,7 +281,7 @@ in
     ];
   };
 
-  anime4kBFast = mkProfileDef {
+  anime4kBFast = mkFastProfileDef {
     name = "anime4k-b";
     desc = "Anime4K: Mode B (Fast)";
     shortcut = "CTRL+2";
@@ -271,7 +295,7 @@ in
     ];
   };
 
-  anime4kCFast = mkProfileDef {
+  anime4kCFast = mkFastProfileDef {
     name = "anime4k-c";
     desc = "Anime4K: Mode C (Fast)";
     shortcut = "CTRL+3";
@@ -284,7 +308,7 @@ in
     ];
   };
 
-  anime4kAAFast = mkProfileDef {
+  anime4kAAFast = mkFastProfileDef {
     name = "anime4k-a-a";
     desc = "Anime4K: Mode A+A (Fast)";
     shortcut = "CTRL+4";
@@ -299,7 +323,7 @@ in
     ];
   };
 
-  anime4kBBFast = mkProfileDef {
+  anime4kBBFast = mkFastProfileDef {
     name = "anime4k-b-b";
     desc = "Anime4K: Mode B+B (Fast)";
     shortcut = "CTRL+5";
@@ -314,7 +338,7 @@ in
     ];
   };
 
-  anime4kCAFast = mkProfileDef {
+  anime4kCAFast = mkFastProfileDef {
     name = "anime4k-c-a";
     desc = "Anime4K: Mode C+A (Fast)";
     shortcut = "CTRL+6";
