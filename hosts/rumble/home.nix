@@ -27,6 +27,7 @@
       output = "eDP-1";
       mode = "preferred";
       position = "auto";
+      icc = ./BOE0CB4.icm;
       vrr = true;
       scale = 1.6666666666666;
     }
