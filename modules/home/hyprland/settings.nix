@@ -114,9 +114,7 @@ with colors;
   window_rule = map (x: { _args = [ x ]; }) [
     {
       name = "suppress-maximize-events";
-      match = {
-        class = ".*";
-      };
+      match.class = ".*";
       suppress_event = "maximize";
     }
     {
@@ -132,21 +130,24 @@ with colors;
       no_focus = true;
     }
     {
-      match = {
-        class = "^(Emacs)$";
-      };
+      match.class = "^(Emacs)$";
       opacity = "0.9 0.8";
+    }
+    {
+      name = "solid-mpv";
+      match.class = "^mpv$";
+      opaque = true;
     }
   ];
   layer_rule = map (x: { _args = [ x ]; }) [
     {
       name = "rofi-layer";
       match = {
-        namespace = "rofi";
+        namespace = "^rofi$";
       };
       blur = true;
       dim_around = true;
-      ignore_alpha = true;
+      ignore_alpha = 0.5;
     }
     {
       name = "bar-layer";
