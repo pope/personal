@@ -271,10 +271,10 @@ with colors;
       (b "SUPER + SHIFT + up" (mkLuaInline "hl.dsp.window.move({ direction = 'up' })"))
       (b "SUPER + SHIFT + down" (mkLuaInline "hl.dsp.window.move({ direction = 'down' })"))
 
-      (b "SUPER + ALT + left" (mkLuaInline "hl.dsp.window.resize({ x = 50, y = 0 })"))
-      (b "SUPER + ALT + right" (mkLuaInline "hl.dsp.window.resize({ x = -50, y = 0 })"))
-      (b "SUPER + ALT + up" (mkLuaInline "hl.dsp.window.resize({ x = 0, y = -50 })"))
-      (b "SUPER + ALT + down" (mkLuaInline "hl.dsp.window.resize({ x = 0, y = 50 })"))
+      (b "SUPER + ALT + left" (mkLuaInline "hl.dsp.window.resize({ x = -50,  y = 0, relative = true })"))
+      (b "SUPER + ALT + right" (mkLuaInline "hl.dsp.window.resize({ x = 50, y = 0, relative = true })"))
+      (b "SUPER + ALT + up" (mkLuaInline "hl.dsp.window.resize({ x = 0, y = -50, relative = true })"))
+      (b "SUPER + ALT + down" (mkLuaInline "hl.dsp.window.resize({ x = 0, y = 50, relative = true })"))
 
       (b "SUPER + Tab" (mkLuaInline ''
         function()
