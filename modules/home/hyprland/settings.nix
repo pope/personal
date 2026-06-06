@@ -243,7 +243,7 @@ with colors;
         let
           n = toString num;
         in
-        b "SUPER + ${n}" (mkLuaInline "hl.dsp.window.move({ workspace = ${n} })");
+        b "SUPER + SHIFT + ${n}" (mkLuaInline "hl.dsp.window.move({ workspace = ${n} })");
     in
     map (x: { _args = x; }) [
       (b "SUPER + Q" (mkLuaInline "hl.dsp.window.close()"))
