@@ -1,11 +1,19 @@
-{ nvsrcs, stdenvNoCC }:
-let
-  source = nvsrcs.fish-tokyonight;
-in
+{
+  fetchFromGitHub,
+  stdenvNoCC,
+  nix-update-script,
+}:
 
-stdenvNoCC.mkDerivation {
-  name = source.pname;
-  inherit (source) src version;
+stdenvNoCC.mkDerivation rec {
+  pname = "fish-tokyonight";
+  version = "4.8.0";
+
+  src = fetchFromGitHub {
+    owner = "vitallium";
+    repo = "tokyonight-fish";
+    rev = "v${version}";
+    hash = "sha256-JI1kTez4CeMpSKcSikFUee15N48zkJJOvLHCi0H2PUc=";
+  };
 
   dontUnpack = true;
   dontConfigure = true;
@@ -14,4 +22,8 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     install -D -t $out/share/fish/themes $src/themes/*
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--flake" ];
+  };
 }

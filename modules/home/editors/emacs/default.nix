@@ -89,19 +89,18 @@ in
         (
           with epkgs;
           let
-            nvsrcs = pkgs.callPackage ../../../../packages/_sources/generated.nix { };
             getVersion = v: builtins.replaceStrings [ "v" ] [ "" ] v;
             acp = melpaBuild {
-              inherit (nvsrcs.acp) pname src;
-              version = getVersion nvsrcs.agent-shell.version;
+              inherit (pkgs.acp) pname src;
+              version = getVersion pkgs.agent-shell.version;
             };
             shell-maker = melpaBuild {
-              inherit (nvsrcs.shell-maker) pname src;
-              version = getVersion nvsrcs.shell-maker.version;
+              inherit (pkgs.shell-maker) pname src;
+              version = getVersion pkgs.shell-maker.version;
             };
             agent-shell = melpaBuild {
-              inherit (nvsrcs.agent-shell) pname src;
-              version = getVersion nvsrcs.agent-shell.version;
+              inherit (pkgs.agent-shell) pname src;
+              version = getVersion pkgs.agent-shell.version;
               packageRequires = [
                 acp
                 shell-maker

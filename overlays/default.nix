@@ -36,7 +36,6 @@
       path = ../packages;
       exclude = [
         ../packages/default.nix
-        ../packages/_sources
       ];
     });
     packages = builtins.listToAttrs (

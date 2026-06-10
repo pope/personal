@@ -1,16 +1,27 @@
 {
-  nvfetcher,
+  lib,
+  nix-update,
+  common-updater-scripts,
   writeShellApplication,
+  packageNames ? [ ],
 }:
 
 writeShellApplication {
   name = "update-my-packages";
   runtimeInputs = [
-    nvfetcher
+    nix-update
+    common-updater-scripts
   ];
-  text = # sh
-    ''
-      cd packages
-      nvfetcher
-    '';
+  runtimeEnv = {
+    NIXPKGS_ALLOW_UNFREE = 1;
+    NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM = 1;
+  };
+  text = ''
+    packages=(${lib.escapeShellArgs packageNames})
+
+    for pkg in "''${packages[@]}"; do
+      echo "Updating $pkg..."
+      nix-update --flake --use-update-script "$pkg" || true
+    done
+  '';
 }

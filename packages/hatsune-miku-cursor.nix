@@ -1,10 +1,19 @@
-{ nvsrcs, stdenvNoCC }:
-let
-  source = nvsrcs.hatsune-miku-cursor;
-in
+{
+  fetchFromGitHub,
+  stdenvNoCC,
+  nix-update-script,
+}:
 
-stdenvNoCC.mkDerivation {
-  inherit (source) pname src version;
+stdenvNoCC.mkDerivation rec {
+  pname = "hatsune-miku-cursor";
+  version = "1.2.6";
+
+  src = fetchFromGitHub {
+    owner = "supermariofps";
+    repo = "hatsune-miku-windows-linux-cursors";
+    rev = version;
+    hash = "sha256-OQjjOc9VnxJ7tWNmpHIMzNWX6WsavAOkgPwK1XAMwtE=";
+  };
 
   installPhase = ''
     runHook preInstall
@@ -12,4 +21,8 @@ stdenvNoCC.mkDerivation {
     cp -R miku-cursor-linux $out/share/icons
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--flake" ];
+  };
 }

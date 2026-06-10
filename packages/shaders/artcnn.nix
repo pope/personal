@@ -1,17 +1,31 @@
-{ nvsrcs, stdenvNoCC }:
-let
-  source = nvsrcs.artcnn;
-in
+{
+  fetchFromGitHub,
+  stdenvNoCC,
+  nix-update-script,
+}:
 
-stdenvNoCC.mkDerivation {
-  name = source.pname;
-  inherit (source) src version;
+stdenvNoCC.mkDerivation rec {
+  pname = "artcnn";
+  version = "1.6.2";
+
+  src = fetchFromGitHub {
+    owner = "Artoriuz";
+    repo = "ArtCNN";
+    rev = "v${version}";
+    hash = "sha256-/cNJj7ah2Jux8pWGngPEjdhKRG1JsPBmb6EsJnQCCAM=";
+  };
 
   dontConfigure = true;
   dontBuild = true;
 
   installPhase = ''
-    mkdir -p $out/share/${source.pname}
-    cp -r GLSL $out/share/${source.pname}
+    runHook preInstall
+    mkdir -p $out/share/${pname}
+    cp -r GLSL $out/share/${pname}
+    runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--flake" ];
+  };
 }

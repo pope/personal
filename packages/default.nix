@@ -1,33 +1,34 @@
 { pkgs }:
 let
   inherit ((import ../lib/umport.nix { inherit (pkgs) lib; })) umport;
-  augmentCallPackage =
-    callPackage: defaultArgs: fn: extraArgs:
-    let
-      f = if builtins.isFunction fn then fn else import fn;
-      args = builtins.intersectAttrs (builtins.functionArgs f) defaultArgs;
-    in
-    callPackage f (args // extraArgs);
-  nvsrcs = pkgs.callPackage ./_sources/generated.nix { };
-  callPackage = augmentCallPackage pkgs.callPackage { inherit nvsrcs; };
-in
-builtins.listToAttrs (
-  map
-    (
+
+  allFiles = umport {
+    path = ./.;
+    exclude = [
+      ./default.nix
+      ./nixtools/update-my-packages.nix
+    ];
+  };
+
+  allOtherPkgs = builtins.listToAttrs (
+    map (
       f:
       let
-        value = callPackage "${f}" { };
+        value = pkgs.callPackage f { };
       in
       {
         name = pkgs.lib.strings.removeSuffix ".nix" (baseNameOf f);
         inherit value;
       }
-    )
-    (umport {
-      path = ./.;
-      exclude = [
-        ./default.nix
-        ./_sources
-      ];
-    })
-)
+    ) allFiles
+  );
+
+  updatableNames = builtins.attrNames (
+    pkgs.lib.filterAttrs (_name: value: value ? updateScript) allOtherPkgs
+  );
+
+  update-my-packages = pkgs.callPackage ./nixtools/update-my-packages.nix {
+    packageNames = updatableNames;
+  };
+in
+allOtherPkgs // { inherit update-my-packages; }
