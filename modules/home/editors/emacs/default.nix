@@ -86,87 +86,65 @@ in
       inherit (cfg) package;
       extraPackages =
         epkgs:
-        (
-          with epkgs;
-          let
-            getVersion = v: builtins.replaceStrings [ "v" ] [ "" ] v;
-            acp = melpaBuild {
-              inherit (pkgs.acp) pname src;
-              version = getVersion pkgs.agent-shell.version;
-            };
-            shell-maker = melpaBuild {
-              inherit (pkgs.shell-maker) pname src;
-              version = getVersion pkgs.shell-maker.version;
-            };
-            agent-shell = melpaBuild {
-              inherit (pkgs.agent-shell) pname src;
-              version = getVersion pkgs.agent-shell.version;
-              packageRequires = [
-                acp
-                shell-maker
-              ];
-            };
-          in
-          [
-            agent-shell
-            cape
-            catppuccin-theme
-            clipetty
-            consult
-            corfu
-            corfu-terminal
-            diff-hl
-            direnv
-            doom-modeline
-            doom-themes
-            eat
-            editorconfig
-            embark
-            embark-consult
-            evil
-            expand-region
-            fzf
-            goto-chg
-            indent-bars
-            kanagawa-themes
-            ligature
-            magit
-            marginalia
-            markdown-mode
-            minimap
-            minions
-            multiple-cursors
-            nerd-icons
-            nerd-icons-completion
-            nerd-icons-corfu
-            nerd-icons-dired
-            nerd-icons-ibuffer
-            nix-mode
-            nix-ts-mode
-            nixfmt
-            notmuch
-            nyan-mode
-            olivetti
-            orderless
-            org-modern
-            org-superstar
-            pink-bliss-uwu-theme
-            protobuf-mode
-            protobuf-ts-mode
-            rg
-            sakura-theme
-            sops
-            treesit-grammars.with-all-grammars
-            ultra-scroll
-            uwu-theme
-            vertico
-            vterm
-            web-mode
-            xclip
-            zig-mode
-            zig-ts-mode
-          ]
-        );
+        (with epkgs; [
+          agent-shell
+          cape
+          catppuccin-theme
+          clipetty
+          consult
+          corfu
+          corfu-terminal
+          diff-hl
+          direnv
+          doom-modeline
+          doom-themes
+          eat
+          editorconfig
+          embark
+          embark-consult
+          evil
+          expand-region
+          fzf
+          goto-chg
+          indent-bars
+          kanagawa-themes
+          ligature
+          magit
+          marginalia
+          markdown-mode
+          minimap
+          minions
+          multiple-cursors
+          nerd-icons
+          nerd-icons-completion
+          nerd-icons-corfu
+          nerd-icons-dired
+          nerd-icons-ibuffer
+          nix-mode
+          nix-ts-mode
+          nixfmt
+          notmuch
+          nyan-mode
+          olivetti
+          orderless
+          org-modern
+          org-superstar
+          pink-bliss-uwu-theme
+          protobuf-mode
+          protobuf-ts-mode
+          rg
+          sakura-theme
+          sops
+          treesit-grammars.with-all-grammars
+          ultra-scroll
+          uwu-theme
+          vertico
+          vterm
+          web-mode
+          xclip
+          zig-mode
+          zig-ts-mode
+        ]);
     };
   };
 }
