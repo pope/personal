@@ -20,10 +20,9 @@ in
         supermassive = {
           enable = true;
           install = ''
-            unzip ${pkgs.valhalla-supermassive.src}
-            wine ValhallaSupermassiveWin_V*.exe /SP- /Silent /suppressmsgboxes
+            wine ${pkgs.valhalla-supermassive}/ValhallaSupermassive*.exe /SP- /Silent /suppressmsgboxes
           '';
-          inputs = [ pkgs.unzip ];
+          inputs = [ ];
         };
       };
     };

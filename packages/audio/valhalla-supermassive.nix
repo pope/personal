@@ -7,6 +7,7 @@
   gnused,
   python3,
   nix,
+  unzip,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -20,10 +21,12 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
+  nativeBuildInputs = [ unzip ];
+
   installPhase = ''
     runHook preInstall
     mkdir -p $out
-    cp $src $out/
+    unzip $src -d $out
     runHook postInstall
   '';
 
