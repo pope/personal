@@ -84,6 +84,13 @@ in
           uri strip_prefix /syncthing
           reverse_proxy ${config.services.syncthing.guiAddress}
         }
+
+        redir /nix-files /nix-files/
+        handle /nix-files/* {
+          uri strip_prefix /nix-files
+          root * /mnt/Cyberia/nix-files
+          file_server browse
+        }
       '';
     };
 
@@ -128,7 +135,7 @@ in
           }
           {
             Misc = {
-              columns = 3;
+              columns = 4;
               header = true;
               style = "row";
             };
@@ -203,6 +210,13 @@ in
               sabnzbdConfig
             ])
             ++ [
+              {
+                "Nix Files" = rec {
+                  href = "https://${tailscaleHost}/nix-files/";
+                  icon = "nixos";
+                  siteMonitor = href;
+                };
+              }
               {
                 "Resilio Sync" =
                   let
