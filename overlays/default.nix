@@ -67,19 +67,19 @@
 
     renoise-mine = prev.renoise.override (
       let
-        version = "352";
+        version = "354";
         releasePath =
           if prev.stdenv.hostPlatform.system == "x86_64-linux" then
             (prev.fetchurl rec {
               name = "rns_${version}_linux_x86_64.tar.gz";
               url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${name}";
-              sha256 = "14ncyi3pzsbl5hy3gdrq62rk6r17mmxl7arnwxapaywz62j6gh2c";
+              hash = "sha256-k94/d+syBSOaCy5DWRljc1TzCzRTxPaNlJD4uE5vTFM=";
             })
           else
             (prev.fetchurl rec {
               name = "rns_${version}_linux_arm64.tar.gz";
               url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${name}";
-              sha256 = "19jzjvnhic1nndj7xdphl5r79pc3qjbkjrxm0rbl0zjp8s73ici8";
+              hash = "sha256-ylykdTTW65+SCExuLBhT0gW0BfgqEuhaz3c+krWzbwc=";
             });
       in
       {
