@@ -1,12 +1,12 @@
-{ stdenvNoCC, requireFile }:
+{ stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation {
   pname = "lucida-grande";
   version = "0.0.1";
 
-  src = requireFile rec {
+  src = fetchurl rec {
     name = "lucida-grande.tar.gz";
-    url = "file:///media/cyberia/nix-files/fonts/${name}";
+    url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/fonts/${name}";
     sha256 = "0l0ba8cz4cm00d0z8qrxq1p141v4vf9ybqm34mznf2n9ya09jav7";
   };
 

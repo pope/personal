@@ -1,12 +1,12 @@
-{ stdenvNoCC, requireFile }:
+{ stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation {
   pname = "berkeley-mono";
   version = "2.002";
 
-  src = requireFile rec {
+  src = fetchurl rec {
     name = "berkeley-mono.tar.xz";
-    url = "file:///media/cyberia/nix-files/fonts/${name}";
+    url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/fonts/${name}";
     sha256 = "1hphd75n23d80v13306qmaqklwkbqi2g7f4rxrmwj7i3pbs6v3h9";
   };
 

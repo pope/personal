@@ -14,7 +14,6 @@
   libx11,
   makeBinaryWrapper,
   makeDesktopItem,
-  requireFile,
   stdenv,
   unzip,
   zenity,
@@ -33,9 +32,9 @@ stdenv.mkDerivation (_finalAttrs: {
   pname = "vital";
   inherit version;
 
-  src = requireFile {
+  src = fetchurl {
     name = zipName;
-    url = "file:///media/cyberia/nix-files/software/${zipName}";
+    url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${zipName}";
     sha256 = "0jbcladqdgnycvj7j81kc1kx36fkf567k91ar58jfmwk57y4q829";
   };
 

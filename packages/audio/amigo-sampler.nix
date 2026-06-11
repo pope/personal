@@ -1,9 +1,9 @@
 {
   autoPatchelfHook,
   curl,
+  fetchurl,
   freetype,
   lib,
-  requireFile,
   stdenv,
   unzip,
 }:
@@ -17,9 +17,9 @@ stdenv.mkDerivation {
   pname = "amigo-sampler";
   inherit version;
 
-  src = requireFile {
+  src = fetchurl {
     name = zipName;
-    url = "file:///media/cyberia/nix-files/software/${zipName}";
+    url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${zipName}";
     sha256 = "156bk0n2nqcc4q6baq2akjvfv9wrzkajyx4kbc7k0f5m84q8a0d4";
   };
 

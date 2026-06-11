@@ -1,12 +1,12 @@
-{ stdenvNoCC, requireFile }:
+{ stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation {
   pname = "dank-mono";
   version = "0.0.1";
 
-  src = requireFile rec {
+  src = fetchurl rec {
     name = "dank-mono.tar.gz";
-    url = "file:///media/cyberia/nix-files/fonts/${name}";
+    url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/fonts/${name}";
     sha256 = "1jjhp76s0n924vr2jg6ab0h4skcasxgklb6p50b3qps8wrdw2gkw";
   };
 

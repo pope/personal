@@ -2,6 +2,7 @@
   alsa-lib,
   autoPatchelfHook,
   copyDesktopItems,
+  fetchurl,
   lib,
   libjack2,
   libGL,
@@ -9,7 +10,6 @@
   libpulseaudio,
   makeDesktopItem,
   makeWrapper,
-  requireFile,
   stdenv,
   steam-run-free,
   unzip,
@@ -25,9 +25,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "vcv-rack-pro";
   inherit version;
 
-  src = requireFile {
+  src = fetchurl {
     name = zipName;
-    url = "file:///media/cyberia/nix-files/software/${zipName}";
+    url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${zipName}";
     sha256 = "0ixbwsx4pfbcg40qnmsjdq87nx99svjh4igv15x15avx4vxp1cc8";
   };
 

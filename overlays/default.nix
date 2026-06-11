@@ -70,15 +70,15 @@
         version = "352";
         releasePath =
           if prev.stdenv.hostPlatform.system == "x86_64-linux" then
-            (prev.requireFile rec {
+            (prev.fetchurl rec {
               name = "rns_${version}_linux_x86_64.tar.gz";
-              url = "file:///media/cyberia/nix-files/software/${name}";
+              url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${name}";
               sha256 = "14ncyi3pzsbl5hy3gdrq62rk6r17mmxl7arnwxapaywz62j6gh2c";
             })
           else
-            (prev.requireFile rec {
+            (prev.fetchurl rec {
               name = "rns_${version}_linux_arm64.tar.gz";
-              url = "file:///media/cyberia/nix-files/software/${name}";
+              url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${name}";
               sha256 = "19jzjvnhic1nndj7xdphl5r79pc3qjbkjrxm0rbl0zjp8s73ici8";
             });
       in
