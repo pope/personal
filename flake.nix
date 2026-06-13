@@ -155,6 +155,10 @@
       ];
       homeConfigurations = builtins.listToAttrs [
         (mkHomeManagerConfig {
+          name = "cyclonus";
+          system = "x86_64-linux";
+        })
+        (mkHomeManagerConfig {
           name = "pope@Death-Star";
           system = "x86_64-linux";
         })
