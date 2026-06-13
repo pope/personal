@@ -176,12 +176,7 @@
         let
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfreePredicate =
-              pkg:
-              builtins.elem (nixpkgs.lib.getName pkg) [
-                "barbar.nvim"
-                "vim-protobuf"
-              ];
+            config.allowUnfree = true;
           };
           nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
@@ -237,12 +232,7 @@
         let
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfreePredicate =
-              pkg:
-              builtins.elem (nixpkgs.lib.getName pkg) [
-                "barbar.nvim"
-                "vim-protobuf"
-              ];
+            config.allowUnfree = true;
           };
           inherit (pkgs) lib;
           nixvimLib = nixvim.lib.${system};
