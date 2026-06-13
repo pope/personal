@@ -22,6 +22,7 @@ in
       config = {
         # Allow unfree packages
         allowUnfree = true;
+        allowUnfreePredicate = _: true;
         firefox.speechSynthesisSupport = true;
         # Accept the joypixels license
         joypixels.acceptLicense = true;
