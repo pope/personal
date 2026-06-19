@@ -16,6 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zed-editor = {
       enable = true;
+      package = if pkgs.stdenv.isLinux then pkgs.zed-editor-fhs else pkgs.zed-editor;
       extraPackages = with pkgs; [
         cargo
         clang
@@ -29,7 +30,7 @@ in
         gopls
         jdk
         lldb
-        nil
+        neocmakelsp
         ninja
         nixd
         nodejs
@@ -53,6 +54,7 @@ in
         buffer_font_family = "Berkeley Mono";
         buffer_font_size = 15;
         icon_theme = "Zed (Default)";
+        languages.Nix.language_servers = [ "nixd" ];
         theme = {
           mode = "dark";
           light = "One Light";
