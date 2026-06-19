@@ -59,8 +59,9 @@
         enable = true;
         useSymlink = true;
       };
-      vscode.enable = true;
       neovim.enable = true;
+      vscode.enable = true;
+      zed.enable = true;
     };
     email.enable = true;
     gaming.enable = true;

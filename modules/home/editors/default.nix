@@ -5,5 +5,6 @@ _:
     ./emacs
     ./neovim.nix
     ./vscode.nix
+    ./zed.nix
   ];
 }
