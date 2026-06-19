@@ -47,7 +47,8 @@
         useSymlink = true;
       };
       neovim.enable = true;
-      vscode.enable = true;
+      vscode.enable = false;
+      zed.enable = true;
     };
     email.enable = true;
     dunst = {
