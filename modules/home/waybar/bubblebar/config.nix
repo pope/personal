@@ -25,7 +25,7 @@ in
       "custom/nixos"
     ]
     ++ lib.optionals config.my.home.hyprland.enable [
-      "hyprland/workspaces"
+      "ext/workspaces"
       "hyprland/window"
     ];
     modules-center = [
@@ -55,6 +55,10 @@ in
     "custom/nixos" = {
       format = "";
       tooltip = false;
+    };
+    "ext/workspaces" = {
+      on-click = "activate";
+      all-outputs = true;
     };
     "hyprland/window" = {
       rewrite = {
