@@ -383,6 +383,14 @@ Some basic emacs stuff to add/remove UI to emacs.
     (winner-mode t))
 #+end_src
 
+And let's highlight all the things
+
+#+begin_src emacs-lisp
+  (use-package treesit
+    :custom
+    (treesit-font-lock-level 4))
+#+end_src
+
 ** Diffs
 
 =diff-hl= provides a way to see changes to the file in the gutter/fringe of the file, and not just Git. It does require =vc-handled-backends= to be set - which is by default for my Emacs installation. Through the use of the margin-mode variant, the diff changes can be highlighted from the terminal as well.

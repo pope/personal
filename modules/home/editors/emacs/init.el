@@ -191,6 +191,10 @@
   (tool-bar-mode nil)
   (winner-mode t))
 
+(use-package treesit
+  :custom
+  (treesit-font-lock-level 4))
+
 (use-package diff-hl
   :defer t
   :custom
