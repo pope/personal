@@ -64,6 +64,7 @@ in
         "input"
         "networkmanager"
         "plugdev"
+        "render"
         "video"
         "wheel"
       ];
