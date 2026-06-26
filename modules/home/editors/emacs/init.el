@@ -5,7 +5,7 @@
       gc-cons-percentage 0.5)
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (setq gc-cons-threshold (* 8 1000 1000)
+            (setq gc-cons-threshold (* 32 1000 1000)
                   gc-cons-percentage 0.1)))
 
 (use-package use-package
@@ -255,6 +255,7 @@
   (fast-but-imprecise-scrolling t))
 
 (use-package ultra-scroll
+  :if (string-match "darwin" (prin1-to-string system-type))
   :custom
   (scroll-conservatively 3)
   (scroll-margin 0) ;; Required for smooth scrolling
