@@ -16,8 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.librewolf = {
       enable = true;
-      # TODO(pope): Go back to unstable once the build is secure
-      package = pkgs.stable.librewolf;
+      package = pkgs.librewolf;
       nativeMessagingHosts = lib.mkIf config.my.home.kde.enable [
         pkgs.kdePackages.plasma-browser-integration
       ];
