@@ -50,6 +50,7 @@
       };
       neovim.enable = true;
       vscode.enable = true;
+      zed.enable = true;
     };
     dunst = {
       enable = true;
