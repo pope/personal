@@ -41,18 +41,11 @@
       chromium.enable = true;
       firefox.enable = true;
     };
+    cpu.arch = "skylake";
     editors = {
       emacs = {
         enable = true;
-        package = pkgs.emacs.overrideAttrs (oldAttrs: {
-          NIX_CFLAGS_COMPILE = "-march=skylake -mtune=skylake -O3";
-          env = oldAttrs.env // {
-            BYTE_COMPILE_EXTRA_FLAGS = ''
-              --eval '(setq native-comp-speed 3)' \
-              --eval '(setq native-comp-compiler-options '("-march=skylake" "-mtune=skylake" "-O3"))'
-            '';
-          };
-        });
+        package = pkgs.emacs;
         useSymlink = true;
       };
       neovim.enable = true;

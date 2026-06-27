@@ -7,6 +7,7 @@
 
 let
   cfg = config.my.home.editors.emacs;
+  cpuArch = config.my.home.cpu.arch;
 in
 {
   options.my.home.editors.emacs = {
@@ -79,72 +80,88 @@ in
         sops
       ];
     };
-    programs.emacs = {
-      inherit (cfg) extraConfig;
+    programs.emacs =
+      let
+        package =
+          if cpuArch == "unspecified" then
+            cfg.package
+          else
+            (cfg.package.overrideAttrs (oldAttrs: {
+              NIX_CFLAGS_COMPILE = "-march=${cpuArch} -mtune=${cpuArch} -O3";
+              env = oldAttrs.env // {
+                BYTE_COMPILE_EXTRA_FLAGS = ''
+                  --eval '(setq native-comp-speed 3)' \
+                  --eval '(setq native-comp-compiler-options '("-march=${cpuArch}" "-mtune=${cpuArch}" "-O3"))'
+                '';
+              };
+            }));
+      in
+      {
+        inherit (cfg) extraConfig;
 
-      enable = true;
-      inherit (cfg) package;
-      extraPackages =
-        epkgs:
-        (with epkgs; [
-          agent-shell
-          cape
-          catppuccin-theme
-          clipetty
-          consult
-          corfu
-          corfu-terminal
-          diff-hl
-          direnv
-          doom-modeline
-          doom-themes
-          eat
-          editorconfig
-          embark
-          embark-consult
-          evil
-          expand-region
-          fzf
-          goto-chg
-          indent-bars
-          kanagawa-themes
-          ligature
-          magit
-          marginalia
-          markdown-mode
-          minimap
-          minions
-          multiple-cursors
-          nerd-icons
-          nerd-icons-completion
-          nerd-icons-corfu
-          nerd-icons-dired
-          nerd-icons-ibuffer
-          nix-mode
-          nix-ts-mode
-          nixfmt
-          notmuch
-          nyan-mode
-          olivetti
-          orderless
-          org-modern
-          org-superstar
-          pink-bliss-uwu-theme
-          protobuf-mode
-          protobuf-ts-mode
-          rg
-          sakura-theme
-          sops
-          treesit-grammars.with-all-grammars
-          ultra-scroll
-          uwu-theme
-          vertico
-          vterm
-          web-mode
-          xclip
-          zig-mode
-          zig-ts-mode
-        ]);
-    };
+        enable = true;
+        inherit package;
+        extraPackages =
+          epkgs:
+          (with epkgs; [
+            agent-shell
+            cape
+            catppuccin-theme
+            clipetty
+            consult
+            corfu
+            corfu-terminal
+            diff-hl
+            direnv
+            doom-modeline
+            doom-themes
+            eat
+            editorconfig
+            embark
+            embark-consult
+            evil
+            expand-region
+            fzf
+            goto-chg
+            indent-bars
+            kanagawa-themes
+            ligature
+            magit
+            marginalia
+            markdown-mode
+            minimap
+            minions
+            multiple-cursors
+            nerd-icons
+            nerd-icons-completion
+            nerd-icons-corfu
+            nerd-icons-dired
+            nerd-icons-ibuffer
+            nix-mode
+            nix-ts-mode
+            nixfmt
+            notmuch
+            nyan-mode
+            olivetti
+            orderless
+            org-modern
+            org-superstar
+            pink-bliss-uwu-theme
+            protobuf-mode
+            protobuf-ts-mode
+            rg
+            sakura-theme
+            sops
+            treesit-grammars.with-all-grammars
+            ultra-scroll
+            uwu-theme
+            vertico
+            vterm
+            web-mode
+            xclip
+            zig-mode
+            zig-ts-mode
+          ]);
+      };
   };
 }

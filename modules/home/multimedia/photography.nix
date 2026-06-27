@@ -27,7 +27,7 @@ in
         darktable
       ])
       ++ (lib.optionals (cpuArch == "znver4") [
-        (darktable.overrideAttrs (oldAttrs: {
+        (darktable.overrideAttrs (_oldAttrs: {
           CMAKE_C_FLAGS = "-march=znver4 -mtune=znver4";
           CMAKE_CXX_FLAGS = "-march=znver4 -mtune=znver4";
         }))
