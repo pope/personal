@@ -5,6 +5,7 @@
     arch = lib.mkOption {
       type = lib.types.enum [
         "unspecified"
+        "skylake"
         "znver4"
       ];
       default = "unspecified";

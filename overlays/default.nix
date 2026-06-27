@@ -49,6 +49,8 @@
   // {
     inherit stable skylake znver4;
 
+    darktable = mypkgs.darktable.override { withAi = true; };
+
     # TODO(pope): Remove this override after the NDI updater script runs
     obs-studio-plugins = prev.obs-studio-plugins // {
       distroav = prev.obs-studio-plugins.distroav.override {

@@ -50,6 +50,7 @@
       chromium.enable = true;
       firefox.enable = true;
     };
+    cpu.arch = "znver4";
     dunst = {
       enable = true;
       font = "Sans 10";

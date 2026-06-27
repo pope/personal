@@ -27,7 +27,10 @@ in
         darktable
       ])
       ++ (lib.optionals (cpuArch == "znver4") [
-        (darktable.override { inherit (znver4) stdenv; })
+        (darktable.overrideAttrs (oldAttrs: {
+          CMAKE_C_FLAGS = "-march=znver4 -mtune=znver4";
+          CMAKE_CXX_FLAGS = "-march=znver4 -mtune=znver4";
+        }))
       ]);
   };
 }
