@@ -49,9 +49,13 @@
   // {
     inherit stable skylake znver4;
 
-    emacsPackagesFor = emacs: (prev.emacsPackagesFor emacs).overrideScope (efinal: eprev: {
-      odin-ts-mode = efinal.callPackage ../packages/emacs/odin-ts-mode.nix { };
-    });
+    emacsPackagesFor =
+      emacs:
+      (prev.emacsPackagesFor emacs).overrideScope (
+        efinal: _eprev: {
+          odin-ts-mode = efinal.callPackage ../packages/emacs/odin-ts-mode.nix { };
+        }
+      );
 
     darktable = mypkgs.darktable.override { withAi = true; };
 

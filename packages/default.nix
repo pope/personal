@@ -13,18 +13,22 @@ let
 
   odin-ts-mode = pkgs.emacsPackages.callPackage ./emacs/odin-ts-mode.nix { };
 
-  allOtherPkgs = builtins.listToAttrs (
-    map (
-      f:
-      let
-        value = pkgs.callPackage f { };
-      in
-      {
-        name = pkgs.lib.strings.removeSuffix ".nix" (baseNameOf f);
-        inherit value;
-      }
-    ) allFiles
-  ) // { inherit odin-ts-mode; };
+  allOtherPkgs =
+    builtins.listToAttrs (
+      map (
+        f:
+        let
+          value = pkgs.callPackage f { };
+        in
+        {
+          name = pkgs.lib.strings.removeSuffix ".nix" (baseNameOf f);
+          inherit value;
+        }
+      ) allFiles
+    )
+    // {
+      inherit odin-ts-mode;
+    };
 
   updatableNames = builtins.attrNames (
     pkgs.lib.filterAttrs (_name: value: value ? updateScript) allOtherPkgs
