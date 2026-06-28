@@ -12,11 +12,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "ocenaudio-bin";
-  version = "3.19.4";
+  version = "3.19.5";
 
   src = fetchurl {
     url = "https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v${version}";
-    hash = "sha256-/5tGF4Kk+YQFpCuM6rjMo8Bl2n1ZOeAIKogOiYXli3s=";
+    hash = "sha256-gO+RLLnQgwyMS79ODtSuUXL8kFAvll8fH6NkUgvayjk=";
   };
 
   sourceRoot = ".";
