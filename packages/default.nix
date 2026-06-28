@@ -6,9 +6,12 @@ let
     path = ./.;
     exclude = [
       ./default.nix
+      ./emacs/odin-ts-mode.nix
       ./nixtools/update-my-packages.nix
     ];
   };
+
+  odin-ts-mode = pkgs.emacsPackages.callPackage ./emacs/odin-ts-mode.nix { };
 
   allOtherPkgs = builtins.listToAttrs (
     map (
@@ -21,7 +24,7 @@ let
         inherit value;
       }
     ) allFiles
-  );
+  ) // { inherit odin-ts-mode; };
 
   updatableNames = builtins.attrNames (
     pkgs.lib.filterAttrs (_name: value: value ? updateScript) allOtherPkgs

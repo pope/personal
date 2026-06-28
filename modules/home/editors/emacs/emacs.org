@@ -593,6 +593,8 @@ Next up, there are some treesit modes that are available, but they do not autolo
     :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
   (use-package go-ts-mode
     :mode "\\.go\\'")
+  (use-package odin-ts-mode
+    :mode "\\.odin\\'")
   (use-package rust-ts-mode
     :mode "\\.rs\\'")
 #+end_src
@@ -604,6 +606,7 @@ For better code complete and code searching, we can use an LSP. =Eglot= gives us
 #+begin_src emacs-lisp
   (with-eval-after-load 'eglot
     (dolist (el '((nix-ts-mode . ("nixd"))
+                  (odin-ts-mode . ("ols"))
                   (zig-ts-mode . ("zls"))))
       (add-to-list 'eglot-server-programs el)))
 #+end_src
@@ -616,6 +619,7 @@ And we can auto-start =eglot= when some modes activate
            (c++-ts-mode   . eglot-ensure)
            (go-ts-mode    . eglot-ensure)
            (nix-ts-mode   . eglot-ensure)
+           (odin-ts-mode  . eglot-ensure)
            (rust-ts-mode  . eglot-ensure)
            (zig-ts-mode   . eglot-ensure)))
 #+end_src

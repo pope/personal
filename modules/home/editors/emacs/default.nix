@@ -142,6 +142,7 @@ in
             nixfmt
             notmuch
             nyan-mode
+            odin-ts-mode
             olivetti
             orderless
             org-modern

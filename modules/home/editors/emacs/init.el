@@ -318,11 +318,14 @@
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 (use-package go-ts-mode
   :mode "\\.go\\'")
+(use-package odin-ts-mode
+  :mode "\\.odin\\'")
 (use-package rust-ts-mode
   :mode "\\.rs\\'")
 
 (with-eval-after-load 'eglot
   (dolist (el '((nix-ts-mode . ("nixd"))
+                (odin-ts-mode . ("ols"))
                 (zig-ts-mode . ("zls"))))
     (add-to-list 'eglot-server-programs el)))
 
@@ -331,6 +334,7 @@
          (c++-ts-mode   . eglot-ensure)
          (go-ts-mode    . eglot-ensure)
          (nix-ts-mode   . eglot-ensure)
+         (odin-ts-mode  . eglot-ensure)
          (rust-ts-mode  . eglot-ensure)
          (zig-ts-mode   . eglot-ensure)))
 
