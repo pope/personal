@@ -44,6 +44,10 @@
         value = mypkgs.${name};
       }) names
     );
+
+    emacsFiles = umport {
+      path = ../packages/emacs;
+    };
   in
   packages
   // {
@@ -52,10 +56,13 @@
     emacsPackagesFor =
       emacs:
       (prev.emacsPackagesFor emacs).overrideScope (
-        efinal: _eprev: {
-          odin-ts-mode = efinal.callPackage ../packages/emacs/odin-ts-mode.nix { };
-          soy-ts-mode = efinal.callPackage ../packages/emacs/soy-ts-mode.nix { };
-        }
+        efinal: _eprev:
+        builtins.listToAttrs (
+          map (f: {
+            name = prev.lib.strings.removeSuffix ".nix" (baseNameOf f);
+            value = efinal.callPackage f { };
+          }) emacsFiles
+        )
       );
 
     darktable = mypkgs.darktable.override { withAi = true; };

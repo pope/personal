@@ -2,35 +2,46 @@
 let
   inherit ((import ../lib/umport.nix { inherit (pkgs) lib; })) umport;
 
-  allFiles = umport {
+  emacsFiles = umport {
+    path = ./emacs;
+  };
+
+  standardFiles = umport {
     path = ./.;
     exclude = [
       ./default.nix
-      ./emacs/odin-ts-mode.nix
-      ./emacs/soy-ts-mode.nix
       ./nixtools/update-my-packages.nix
-    ];
+    ]
+    ++ emacsFiles;
   };
 
-  odin-ts-mode = pkgs.emacsPackages.callPackage ./emacs/odin-ts-mode.nix { };
-  soy-ts-mode = pkgs.emacsPackages.callPackage ./emacs/soy-ts-mode.nix { };
+  standardPkgs = builtins.listToAttrs (
+    map (
+      f:
+      let
+        value = pkgs.callPackage f { };
+      in
+      {
+        name = pkgs.lib.strings.removeSuffix ".nix" (baseNameOf f);
+        inherit value;
+      }
+    ) standardFiles
+  );
 
-  allOtherPkgs =
-    builtins.listToAttrs (
-      map (
-        f:
-        let
-          value = pkgs.callPackage f { };
-        in
-        {
-          name = pkgs.lib.strings.removeSuffix ".nix" (baseNameOf f);
-          inherit value;
-        }
-      ) allFiles
-    )
-    // {
-      inherit odin-ts-mode soy-ts-mode;
-    };
+  emacsPkgs = builtins.listToAttrs (
+    map (
+      f:
+      let
+        value = pkgs.emacsPackages.callPackage f { };
+      in
+      {
+        name = pkgs.lib.strings.removeSuffix ".nix" (baseNameOf f);
+        inherit value;
+      }
+    ) emacsFiles
+  );
+
+  allOtherPkgs = standardPkgs // emacsPkgs;
 
   updatableNames = builtins.attrNames (
     pkgs.lib.filterAttrs (_name: value: value ? updateScript) allOtherPkgs
