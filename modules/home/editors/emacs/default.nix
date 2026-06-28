@@ -143,6 +143,7 @@ in
             notmuch
             nyan-mode
             odin-ts-mode
+            soy-ts-mode
             olivetti
             orderless
             org-modern

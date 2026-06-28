@@ -322,6 +322,8 @@
   :mode "\\.odin\\'")
 (use-package rust-ts-mode
   :mode "\\.rs\\'")
+(use-package soy-ts-mode
+  :mode "\\.soy\\'")
 
 (with-eval-after-load 'eglot
   (dolist (el '((nix-ts-mode . ("nixd"))

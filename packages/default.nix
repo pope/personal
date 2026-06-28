@@ -7,11 +7,13 @@ let
     exclude = [
       ./default.nix
       ./emacs/odin-ts-mode.nix
+      ./emacs/soy-ts-mode.nix
       ./nixtools/update-my-packages.nix
     ];
   };
 
   odin-ts-mode = pkgs.emacsPackages.callPackage ./emacs/odin-ts-mode.nix { };
+  soy-ts-mode = pkgs.emacsPackages.callPackage ./emacs/soy-ts-mode.nix { };
 
   allOtherPkgs =
     builtins.listToAttrs (
@@ -27,7 +29,7 @@ let
       ) allFiles
     )
     // {
-      inherit odin-ts-mode;
+      inherit odin-ts-mode soy-ts-mode;
     };
 
   updatableNames = builtins.attrNames (

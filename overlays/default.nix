@@ -1,7 +1,7 @@
 { self }:
 
 (
-  _final: prev:
+  final: prev:
   let
     inherit ((import ../lib/umport.nix { inherit (prev) lib; })) umport;
 
@@ -54,6 +54,7 @@
       (prev.emacsPackagesFor emacs).overrideScope (
         efinal: _eprev: {
           odin-ts-mode = efinal.callPackage ../packages/emacs/odin-ts-mode.nix { };
+          soy-ts-mode = efinal.callPackage ../packages/emacs/soy-ts-mode.nix { };
         }
       );
 
@@ -92,6 +93,14 @@
         inherit releasePath;
       }
     );
+
+    tree-sitter-grammars = prev.tree-sitter-grammars // {
+      inherit (final) tree-sitter-soy;
+    };
+
+    tree-sitter = prev.tree-sitter // {
+      allGrammars = prev.tree-sitter.allGrammars ++ [ final.tree-sitter-soy ];
+    };
   }
   // prev.lib.optionalAttrs prev.stdenv.isDarwin {
 

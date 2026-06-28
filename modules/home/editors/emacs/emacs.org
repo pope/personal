@@ -597,6 +597,8 @@ Next up, there are some treesit modes that are available, but they do not autolo
     :mode "\\.odin\\'")
   (use-package rust-ts-mode
     :mode "\\.rs\\'")
+  (use-package soy-ts-mode
+    :mode "\\.soy\\'")
 #+end_src
 
 ** LSP support with Eglot
