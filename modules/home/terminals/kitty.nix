@@ -7,6 +7,13 @@ in
 {
   options.my.home.terminals.kitty = {
     enable = lib.mkEnableOption "Kitty terminal home options";
+    fontSize = lib.mkOption {
+      type = lib.types.number;
+      default = 12.0;
+      description = lib.mkDoc ''
+        The font size to use
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -14,9 +21,10 @@ in
       enable = true;
       font = {
         name = "monospace";
-        size = lib.mkDefault 12.0;
+        size = cfg.fontSize;
       };
       settings = {
+        enable_audio_bell = false;
         bold_font = "auto";
         italic_font = "auto";
         bold_italic_font = "auto";
@@ -39,19 +47,13 @@ in
         "kitty_mod+equal" = "change_font_size all +1.0";
         "kitty_mod+plus" = "change_font_size all +1.0";
         "kitty_mod+kp_add" = "change_font_size all +1.0";
-        "cmd+equal" = "change_font_size all +1.0";
-        "cmd+plus" = "change_font_size all +1.0";
-        "shift+cmd+equal" = "change_font_size all +1.0";
 
         #: Decrease font size
         "kitty_mod+minus" = "change_font_size all -1.0";
         "kitty_mod+kp_subtract" = "change_font_size all -1.0";
-        "cmd+minus" = "change_font_size all -1.0";
-        "shift+cmd+minus" = "change_font_size all -1.0";
 
         #: Reset font size
         "kitty_mod+backspace" = "change_font_size all 0";
-        "map cmd+0" = "change_font_size all 0";
       };
       themeFile =
         if colorScheme == "rose-pine" then

@@ -107,7 +107,10 @@
         enable = true;
         fontSize = 10;
       };
-      kitty.enable = false;
+      kitty = {
+        enable = true;
+        fontSize = 10;
+      };
       foot = {
         enable = true;
         fontSize = 10;
