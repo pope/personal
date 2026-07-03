@@ -111,12 +111,15 @@
     ssh.enable = true;
     terminals = {
       crt.enable = true;
+      foot.enable = true;
       ghostty = {
         enable = true;
         fontSize = 10;
       };
-      foot.enable = true;
-      kitty.enable = true;
+      kitty = {
+        enable = true;
+        fontSize = 10;
+      };
       wezterm.enable = true;
     };
     theme.colorScheme = "tokyonight";
