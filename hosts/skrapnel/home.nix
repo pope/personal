@@ -30,7 +30,10 @@ _:
     shell.zsh.enable = true;
     sops.enable = true;
     ssh.enable = true;
-    terminals.ghostty.enable = true;
+    terminals = {
+      ghostty.enable = true;
+      kitty.enable = true;
+    };
     tmux.enable = true;
     xdg.enable = true;
     yazi.enable = true;
