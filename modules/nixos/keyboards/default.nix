@@ -26,9 +26,12 @@ in
       vial
     ];
 
-    hardware.keyboard = {
-      qmk.enable = true;
-      zsa.enable = true;
+    hardware = {
+      keyboard = {
+        qmk.enable = true;
+        zsa.enable = true;
+      };
+      wooting.enable = true;
     };
 
     services.udev.packages = with pkgs; [ via ];
