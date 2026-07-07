@@ -27,7 +27,7 @@ in
         enable = true;
         exports =
           let
-            opts = "rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1000,anongid=100";
+            opts = "rw,nohide,insecure,no_subtree_check,root_squash";
           in
           ''
             /mnt/Cyberia 192.168.86.0/24(${opts}) 100.0.0.0/8(${opts})
