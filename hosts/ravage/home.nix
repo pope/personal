@@ -93,9 +93,10 @@
     sops.enable = true;
     ssh.enable = true;
     terminals = {
-      ghostty.enable = true;
-      wezterm.enable = true;
       foot.enable = true;
+      ghostty.enable = true;
+      kitty.enable = true;
+      wezterm.enable = true;
     };
     theme.colorScheme = "catppuccin";
     tmux.enable = true;
