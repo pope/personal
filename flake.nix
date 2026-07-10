@@ -40,7 +40,8 @@
     };
     nixgl = {
       url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # TODO(pope): Re-sync these once the vulkan-validation-layers are fixed.
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
