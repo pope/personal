@@ -144,6 +144,15 @@
     SuspendState = "mem";
   };
 
+  users.users.evan = {
+    isNormalUser = true;
+    description = "Evan Christensen";
+    hashedPassword = "$6$9/rrylF2Xuj.Y8Qq$SbqFF9p4abv.ROjHWF3IsaHwDiJZKFTFjsccucYZmilVzqZuIsemwZttyDwQVjE4ZyVOLWPVcWfd.SSI1.q0T0";
+    packages = with pkgs; [
+      prismlauncher
+    ];
+  };
+
   my.nixos = {
     mainUser = "pope";
 
