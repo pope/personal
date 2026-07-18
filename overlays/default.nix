@@ -54,7 +54,7 @@
     inherit stable skylake znver4;
 
     # TODO(pope): Remove when fixed
-    inherit (stable) handbrake streamlink;
+    inherit (stable) handbrake;
 
     # TODO(pope): Remove when fixed
     vulkan-validation-layers = prev.vulkan-validation-layers.overrideAttrs (old: {
