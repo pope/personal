@@ -53,8 +53,8 @@
   // {
     inherit stable skylake znver4;
 
-    # TODO(pope): Remove when fixed
-    inherit (stable) handbrake;
+    # # TODO(pope): Remove when fixed (the dependency Cheetah)
+    inherit (stable) sabnzbd;
 
     # TODO(pope): Remove when fixed
     vulkan-validation-layers = prev.vulkan-validation-layers.overrideAttrs (old: {
