@@ -13,6 +13,7 @@
 
     packages = with pkgs; [
       amdgpu_top
+      deskflow
       discord
       godot_4
       handbrake
@@ -21,6 +22,15 @@
     ];
 
     stateVersion = "24.05";
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      kdePackages.xdg-desktop-portal-kde
+      xdg-desktop-portal-gtk
+    ];
+    config.common.default = [ "kde" ];
   };
 
   wayland.windowManager.hyprland.settings.monitor = [
