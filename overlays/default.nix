@@ -53,11 +53,6 @@
   // {
     inherit stable skylake znver4;
 
-    # TODO(pope): Remove when fixed
-    vulkan-validation-layers = prev.vulkan-validation-layers.overrideAttrs (old: {
-      cmakeFlags = [ "-DUPDATE_DEPS=OFF" ] ++ old.cmakeFlags;
-    });
-
     emacsPackagesFor =
       emacs:
       (prev.emacsPackagesFor emacs).overrideScope (
