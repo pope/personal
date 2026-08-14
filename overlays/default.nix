@@ -53,6 +53,9 @@
   // {
     inherit stable skylake znver4;
 
+    # TODO(pope): Remove when working at unstable
+    inherit (stable) aseprite wf-recorder;
+
     emacsPackagesFor =
       emacs:
       (prev.emacsPackagesFor emacs).overrideScope (
@@ -109,7 +112,7 @@
       allGrammars = prev.tree-sitter.allGrammars ++ [ final.tree-sitter-soy ];
     };
   }
-  // prev.lib.optionalAttrs prev.stdenv.isDarwin {
+  // prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
 
     ctpv =
       (prev.ctpv.override {

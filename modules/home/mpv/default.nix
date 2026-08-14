@@ -23,7 +23,7 @@ in
     enable = lib.mkEnableOption "mpv options";
     enableHqSettings = lib.mkEnableOption "use the HQ settings and shaders";
     enableVulkan = lib.mkOption {
-      default = pkgs.stdenv.isLinux;
+      default = pkgs.stdenv.hostPlatform.isLinux;
       example = true;
       description = "Whether to enable Vulkan GPU API.";
       type = lib.types.bool;
@@ -172,7 +172,7 @@ in
           thumbfast
           visualizer
         ])
-        ++ lib.optionals pkgs.stdenv.isLinux [
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
           pkgs.mpvScripts.mpris
         ];
 

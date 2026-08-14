@@ -25,10 +25,11 @@ in
   config = lib.mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then pkgs.ghostty-bin else config.lib.nixGL.wrap pkgs.ghostty;
+      package =
+        if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else config.lib.nixGL.wrap pkgs.ghostty;
       enableFishIntegration = config.my.home.shell.fish.enable;
       enableZshIntegration = config.my.home.shell.zsh.enable;
-      installBatSyntax = !pkgs.stdenv.isDarwin;
+      installBatSyntax = !pkgs.stdenv.hostPlatform.isDarwin;
       settings =
         let
           theme =

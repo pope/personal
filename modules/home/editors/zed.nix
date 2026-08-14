@@ -16,7 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zed-editor = {
       enable = true;
-      package = if pkgs.stdenv.isLinux then pkgs.zed-editor-fhs else pkgs.zed-editor;
+      package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.zed-editor-fhs else pkgs.zed-editor;
       extraPackages = with pkgs; [
         cargo
         clang

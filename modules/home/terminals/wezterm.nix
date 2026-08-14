@@ -31,7 +31,7 @@ in
       extraConfig =
         let
           opacity = 0.94;
-          line_height = if pkgs.stdenv.isDarwin then 1.6 else 1.25;
+          line_height = if pkgs.stdenv.hostPlatform.isDarwin then 1.6 else 1.25;
           shell = if config.my.home.shell.zsh.enable then "${pkgs.zsh}/bin/zsh" else "${pkgs.fish}/bin/fish";
           cs =
             if colorScheme == "rose-pine" then

@@ -56,7 +56,7 @@ in
         timg
         tldr
       ]
-      ++ lib.optionals stdenv.isLinux [
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
         dysk
         man-pages
         man-pages-posix
@@ -100,7 +100,7 @@ in
 
       zoxide.enable = true;
     }
-    // lib.optionalAttrs pkgs.stdenv.isLinux {
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       cava = {
         enable = true;
         settings = {
@@ -139,10 +139,10 @@ in
       };
     };
 
-    xdg.configFile = lib.optionalAttrs pkgs.stdenv.isLinux {
+    xdg.configFile = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
       "glow/glow.yml".text = glowConfig;
     };
-    home.file = lib.optionalAttrs pkgs.stdenv.isDarwin {
+    home.file = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       "/Library/Preferences/glow/glow.yml".text = glowConfig;
     };
   };

@@ -174,7 +174,7 @@
         })
       ];
       nixosModules.default = _: { imports = [ ./modules/nixos ]; };
-      homeManagerModules.default = _: { imports = [ ./modules/home ]; };
+      homeModules.default = _: { imports = [ ./modules/home ]; };
       packages = eachSystem (
         system:
         let

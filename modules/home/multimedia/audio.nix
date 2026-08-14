@@ -20,7 +20,7 @@ in
         convert-48khz
         convert-to-opus
       ]
-      ++ lib.optionals stdenv.isLinux [
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
         amigo-sampler
         bitwig-studio
         chow-tape-model
@@ -36,7 +36,7 @@ in
         zenity # For VCV Rack plugins
       ];
 
-    home.sessionVariables = lib.mkIf pkgs.stdenv.isLinux {
+    home.sessionVariables = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       RACK_SYSTEM_DIR = "${pkgs.vcv-rack-pro}/opt/VCV";
     };
   };
