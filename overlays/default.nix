@@ -53,9 +53,6 @@
   // {
     inherit stable skylake znver4;
 
-    # TODO(pope): Remove when working at unstable
-    inherit (stable) aseprite wf-recorder;
-
     emacsPackagesFor =
       emacs:
       (prev.emacsPackagesFor emacs).overrideScope (
