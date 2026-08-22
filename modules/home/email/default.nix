@@ -15,8 +15,8 @@ let
       user,
       domain,
       passwordPath,
+      limitStorage,
       primary ? false,
-      patterns ? [ "*" ],
     }:
     {
       inherit primary realName;
@@ -33,9 +33,7 @@ let
       aerc = {
         enable = true;
         extraAccounts = {
-          source = "notmuch://${config.accounts.email.maildirBasePath}";
-          maildir-store = config.accounts.email.maildirBasePath;
-          maildir-account-path = name;
+          source = "notmuch://";
         };
       };
       imapnotify = {
@@ -51,7 +49,16 @@ let
         enable = true;
         create = "maildir";
         expunge = "both";
-        inherit patterns;
+        patterns =
+          if limitStorage then
+            [
+              "INBOX"
+              "[Gmail]/Drafts"
+              "[Gmail]/Sent Mail"
+              "[Gmail]/Trash"
+            ]
+          else
+            [ "*" ];
       };
       msmtp.enable = true;
       notmuch.enable = true;
@@ -60,6 +67,7 @@ in
 {
   options.my.home.email = {
     enable = lib.mkEnableOption "Email home options";
+    limitStorage = lib.mkEnableOption "Just save the inbox and necessary folders";
   };
 
   config = lib.mkIf cfg.enable {
@@ -77,12 +85,7 @@ in
         domain = "gmail.com";
         passwordPath = config.sops.secrets.personal-email-password.path;
         primary = true;
-        patterns = [
-          "INBOX"
-          "[Gmail]/Drafts"
-          "[Gmail]/Sent Mail"
-          "[Gmail]/Trash"
-        ];
+        limitStorage = true; # force this
       };
 
       shifteleven-admin = mkGmailAccount {
@@ -90,6 +93,7 @@ in
         user = "admin";
         domain = "shifteleven.com";
         passwordPath = config.sops.secrets.shifteleven-email-password.path;
+        inherit (cfg) limitStorage;
       };
 
       shifteleven-pope = mkGmailAccount {
@@ -97,6 +101,7 @@ in
         user = "pope";
         domain = "shifteleven.com";
         passwordPath = config.sops.secrets.pope-shifteleven-email-password.path;
+        inherit (cfg) limitStorage;
       };
     };
 

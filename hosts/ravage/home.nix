@@ -52,7 +52,10 @@
       vscode.enable = false;
       zed.enable = true;
     };
-    email.enable = true;
+    email = {
+      enable = true;
+      limitStorage = true;
+    };
     dunst = {
       enable = true;
       font = "Sans 11";
