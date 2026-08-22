@@ -108,6 +108,7 @@
     enableIPv6 = false;
 
     firewall.enable = true;
+    firewall.allowedTCPPorts = [ 24800 ];
 
     interfaces.eno1.wakeOnLan.enable = true;
   };
