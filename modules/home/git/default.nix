@@ -118,13 +118,13 @@ in
           };
           git = {
             commit.signOff = true;
-            parseEmoji = true;
-            pagers = [
+            diffRenderers = [
               {
                 color = "always";
-                pager = "diff-so-fancy";
+                command = "diff-so-fancy";
               }
             ];
+            parseEmoji = true;
           };
         };
       };
