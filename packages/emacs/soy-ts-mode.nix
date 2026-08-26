@@ -11,12 +11,12 @@
 
 melpaBuild {
   pname = "soy-ts-mode";
-  version = "0-unstable-2026-06-29";
+  version = "0-unstable-2026-08-25";
 
   src = fetchgit {
     url = "https://p0.pe/my-git-repos/tree-sitter-soy.git";
-    rev = "1f38f60f4288f9ce69549ead731bbbf798d9537d";
-    hash = "sha256-Kw148XfmhE5+kHpCKxQhhJZpwkmSF1Lb1U175tQQ7q8=";
+    rev = "a8a7d39be4e5d1aa92e115d7db7f1b10cd9af9d1";
+    hash = "sha256-fQfacG9Tui/E/aq9etrOR+Mb0R5ou6Wya6OMyeyFTVo=";
   };
 
   recipe = ''
