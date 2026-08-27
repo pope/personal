@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
+let
+  soy-treesitter = inputs.tree-sitter-soy.packages.${pkgs.stdenv.hostPlatform.system}.nvim;
+in
 {
   config.plugins.lazy.plugins = with pkgs.vimPlugins; [
     {
@@ -248,7 +251,12 @@
           # That vim needs to search for as opposed to just doing one gammar at a time.
           parsersPath = pkgs.symlinkJoin {
             name = "treesitter-parsers";
-            paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+            paths =
+              pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies
+              ++ (builtins.attrValues pkgs.vimPlugins.nvim-treesitter.queries)
+              ++ [
+                soy-treesitter
+              ];
             # # Taken from https://github.com/nvim-treesitter/nvim-treesitter/issues/6870#issuecomment-2296220844
             # postBuild = "rm -r $out/queries";
           };

@@ -193,6 +193,7 @@
           nixvimModule = {
             inherit pkgs;
             module = import ./modules/nixvim;
+            extraSpecialArgs = { inherit inputs; };
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;
           mypkgs = import ./packages { inherit pkgs; } // {
@@ -250,6 +251,7 @@
           nixvimModule = {
             inherit pkgs;
             module = import ./modules/nixvim;
+            extraSpecialArgs = { inherit inputs; };
           };
         in
         {

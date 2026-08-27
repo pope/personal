@@ -22,6 +22,7 @@ in
     home.sessionVariables.MANPAGER = "nvim +Man!";
 
     programs.nixvim = _: {
+      _module.args.inputs = inputs;
       imports = [
         ../../nixvim
         { config.my.nixvim.theme.colorScheme = colorScheme; }
