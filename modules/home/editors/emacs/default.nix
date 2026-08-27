@@ -2,12 +2,15 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
 let
   cfg = config.my.home.editors.emacs;
   cpuArch = config.my.home.cpu.arch;
+
+  soy-ts-mode = inputs.tree-sitter-soy.packages.${pkgs.stdenv.hostPlatform.system}.emacs;
 in
 {
   options.my.home.editors.emacs = {

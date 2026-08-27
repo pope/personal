@@ -7,6 +7,9 @@
 
     mypkgs = self.packages.${prev.stdenv.hostPlatform.system};
 
+    tree-sitter-soy =
+      self.inputs.tree-sitter-soy.packages.${final.stdenv.hostPlatform.system}.tree-sitter-soy;
+
     stable = import self.inputs.nixpkgs-stable {
       inherit (prev.stdenv.hostPlatform) system;
       config.allowUnfree = true;
@@ -101,12 +104,13 @@
       }
     );
 
-    tree-sitter-grammars = prev.tree-sitter-grammars // {
-      inherit (final) tree-sitter-soy;
-    };
-
+    tree-sitter-grammars = prev.tree-sitter-grammars.overrideScope (
+      _gfinal: _gprev: {
+        inherit tree-sitter-soy;
+      }
+    );
     tree-sitter = prev.tree-sitter // {
-      allGrammars = prev.tree-sitter.allGrammars ++ [ final.tree-sitter-soy ];
+      inherit (final.tree-sitter-grammars) allGrammars withPlugins;
     };
   }
   // prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {

@@ -23,6 +23,13 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tree-sitter-soy = {
+      url = "git+https://p0.pe/my-git-repos/tree-sitter-soy.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     mac-app-util = {
       url = "github:hraban/mac-app-util";
       inputs = {

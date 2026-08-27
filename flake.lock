@@ -483,6 +483,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixvim": "nixvim",
         "sops-nix": "sops-nix",
+        "tree-sitter-soy": "tree-sitter-soy",
         "treefmt-nix": "treefmt-nix_2"
       }
     },
@@ -566,6 +567,29 @@
         "ref": "future-26.11",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "tree-sitter-soy": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787782019,
+        "narHash": "sha256-cQ6XEzC3JKGZ9Wdw+md04SEMoOofNUIy63fdSPx5Z7U=",
+        "ref": "refs/heads/main",
+        "rev": "b2847d863d251266cc46f016e4946cc37f900dda",
+        "revCount": 76,
+        "type": "git",
+        "url": "https://p0.pe/my-git-repos/tree-sitter-soy.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://p0.pe/my-git-repos/tree-sitter-soy.git"
       }
     },
     "treefmt-nix": {
