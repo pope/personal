@@ -56,6 +56,8 @@
   // {
     inherit stable skylake znver4;
 
+    inherit (stable) font-manager;
+
     emacsPackagesFor =
       emacs:
       (prev.emacsPackagesFor emacs).overrideScope (
