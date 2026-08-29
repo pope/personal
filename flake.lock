@@ -579,11 +579,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787840046,
-        "narHash": "sha256-/LJPDyn2nzez3U3DZW51nTE0f4rZrx6479pmMUCnk8A=",
+        "lastModified": 1787978331,
+        "narHash": "sha256-cGBjGTass1C9bXcsJGAbqm5PBHabVeLcFTB3zJgBGP0=",
         "ref": "refs/heads/main",
-        "rev": "04357804d892b77a7c6b1d92121fb5b09854e38d",
-        "revCount": 78,
+        "rev": "2b43268dea5d9c8001aab3cf5b8a0ba8ae9fab97",
+        "revCount": 79,
         "type": "git",
         "url": "https://p0.pe/my-git-repos/tree-sitter-soy.git"
       },
