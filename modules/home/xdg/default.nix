@@ -46,6 +46,8 @@ in
       mimeApps.associations.added = mimetypes;
       mimeApps.defaultApplications = mimetypes;
 
+      configFile."mimeapps.list".force = true;
+
       userDirs = {
         enable = true;
         createDirectories = true;
