@@ -56,7 +56,8 @@
   // {
     inherit stable skylake znver4;
 
-    inherit (stable) font-manager;
+    # TODO(pope): Remove when not broken
+    inherit (stable) puddletag asymptote;
 
     emacsPackagesFor =
       emacs:
@@ -69,17 +70,6 @@
           }) emacsFiles
         )
       );
-
-    # TODO(pope): Remove after nixpkgs PR #557594 is merged
-    bitwig-studio6 = prev.bitwig-studio6.overrideAttrs (_oldAttrs: rec {
-      version = "6.1";
-      src = prev.fetchurl {
-        name = "bitwig-studio-${version}.deb";
-        url = "https://www.bitwig.com/dl/Bitwig%20Studio/${version}/installer_linux";
-        hash = "sha256-dJbwn8JNHuSZ/lKQV4zoSbbthDdHl4J7hhmOZ5AdA2M=";
-      };
-    });
-    bitwig-studio = final.bitwig-studio6;
 
     darktable = prev.darktable.override { withAi = true; };
 
