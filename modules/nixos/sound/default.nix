@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.my.nixos.sound;
@@ -32,6 +37,10 @@ in
 
       # Disable for pipewire
       pulseaudio.enable = false;
+
+      udev.packages = with pkgs; [
+        bitwig-connect-control-panel
+      ];
     };
 
     # Enabled for pipewire

@@ -23,6 +23,7 @@ in
       ++ lib.optionals stdenv.hostPlatform.isLinux [
         amigo-sampler
         bitwig-studio
+        bitwig-connect-control-panel
         chow-tape-model
         distrho-ports
         lsp-plugins
