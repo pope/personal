@@ -113,7 +113,6 @@ in
             clipetty
             consult
             corfu
-            corfu-terminal
             diff-hl
             direnv
             doom-modeline

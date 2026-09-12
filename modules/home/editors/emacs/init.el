@@ -171,11 +171,6 @@
   (tab-always-indent 'complete)
   (text-mode-ispell-word-completion nil))
 
-(use-package corfu-terminal
-  :if (not (display-graphic-p))
-  :after corfu
-  :custom (corfu-terminal-mode t))
-
 (use-package emacs
   :custom
   (display-line-numbers-grow-only t)
@@ -262,10 +257,6 @@
   (scroll-bar-mode nil)
   :config
   (ultra-scroll-mode 1))
-
-(use-package emacs
-  :if (not (display-graphic-p))
-  :config (xterm-mouse-mode 1))
 
 (use-package indent-bars
   :commands (indent-bars-mode)
