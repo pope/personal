@@ -56,9 +56,6 @@
   // {
     inherit stable skylake znver4;
 
-    # TODO(pope): Remove when not broken
-    inherit (stable) puddletag asymptote;
-
     emacsPackagesFor =
       emacs:
       (prev.emacsPackagesFor emacs).overrideScope (

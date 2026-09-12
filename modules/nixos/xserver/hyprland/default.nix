@@ -11,7 +11,7 @@ in
 {
   config = lib.mkIf (cfg.enable && cfg.hyprland.enable) {
     services = {
-      dbus.packages = with pkgs; [ gcr ];
+      dbus.packages = with pkgs; [ gcr_4 ];
       gnome.gnome-keyring.enable = true;
       gvfs.enable = true;
       tumbler.enable = true;
