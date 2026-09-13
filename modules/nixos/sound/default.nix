@@ -38,9 +38,15 @@ in
       # Disable for pipewire
       pulseaudio.enable = false;
 
-      udev.packages = with pkgs; [
-        bitwig-connect-control-panel
-      ];
+      udev = {
+        # Roto-Control
+        extraRules = ''
+          SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="0003", GROUP="plugdev"
+        '';
+        packages = with pkgs; [
+          bitwig-connect-control-panel
+        ];
+      };
     };
 
     # Enabled for pipewire
