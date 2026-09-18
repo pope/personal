@@ -67,6 +67,8 @@
     };
   };
 
+  programs.gphoto2.enable = true;
+
   security = {
     polkit.enable = true;
     pam.services = {

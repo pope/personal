@@ -60,6 +60,7 @@ in
       description = "K. Adam Christensen";
       extraGroups = [
         "audio"
+        "camera"
         "dialout"
         "input"
         "networkmanager"
