@@ -164,7 +164,7 @@
     };
     gaming = {
       enable = true;
-      enableSteam = true;
+      enableSteam = false;
     };
     gpu = {
       amd.enable = true; # eGPU
