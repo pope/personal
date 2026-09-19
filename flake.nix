@@ -188,6 +188,7 @@
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
+            overlays = [ self.overlays.default ];
           };
           nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
@@ -245,6 +246,7 @@
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
+            overlays = [ self.overlays.default ];
           };
           inherit (pkgs) lib;
           nixvimLib = nixvim.lib.${system};
