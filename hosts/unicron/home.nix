@@ -106,7 +106,10 @@
       audio.enable = true;
       graphics.enable = true;
       music.enable = true;
-      photography.enable = true;
+      photography = {
+        enable = true;
+        opencl.enable = true;
+      };
       threed = {
         enable = true;
         hip.enable = true;
