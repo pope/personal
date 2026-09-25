@@ -105,14 +105,8 @@
     );
 
     tree-sitter-grammars = prev.tree-sitter-grammars.overrideScope (
-      _gfinal: gprev: {
+      _gfinal: _gprev: {
         inherit tree-sitter-soy;
-        # TODO(pope): Remove once fix is in.
-        tree-sitter-cuda = gprev.tree-sitter-cuda.overrideAttrs (oldAttrs: {
-          src = oldAttrs.src.overrideAttrs (_: {
-            outputHash = "sha256-s2qrZx5fEu/I6xE2paX/Nlmgvo6T27qqvy1cI8iznAA=";
-          });
-        });
       }
     );
     tree-sitter = prev.tree-sitter // {

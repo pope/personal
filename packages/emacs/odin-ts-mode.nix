@@ -6,13 +6,13 @@
 
 melpaBuild {
   pname = "odin-ts-mode";
-  version = "0-unstable-2026-06-17";
+  version = "0-unstable-2026-09-21";
 
   src = fetchFromGitHub {
     owner = "Sampie159";
     repo = "odin-ts-mode";
-    rev = "138bf6871b5e703ba5ad3f1c3464e2b4ce0fa846";
-    hash = "sha256-JaNwVpNhAUmq3mv/44ryvR7hrZywwEqXpRjFqVpfIKo=";
+    rev = "6a28b1c35f99b879d288056ce0fcaa15d222ba58";
+    hash = "sha256-/Zh1Xn5VknOqeKs7HTkMXS8sCq9NjZ56CtfKVWC8nyc=";
   };
 
   passthru.updateScript = nix-update-script {
