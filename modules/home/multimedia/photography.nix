@@ -26,6 +26,20 @@ let
       }
     else
       pkgs.digikam;
+
+  darktablePkg = pkgs.darktable.overrideAttrs (
+    oldAttrs:
+    {
+      postPatch = (oldAttrs.postPatch or "") + ''
+        substituteInPlace data/noiseprofiles.json \
+          --replace-fail '"model": "M11"' '"model": "M11-D"'
+      '';
+    }
+    // (lib.optionalAttrs (cpuArch == "znver4") {
+      CMAKE_C_FLAGS = "-march=znver4 -mtune=znver4";
+      CMAKE_CXX_FLAGS = "-march=znver4 -mtune=znver4";
+    })
+  );
 in
 {
   options.my.home.multimedia.photography = {
@@ -45,22 +59,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      with pkgs;
-      [
-        digikamPkg
-        dnglab
-        geeqie
-        rawtherapee
-      ]
-      ++ (lib.optionals (cpuArch == "unspecified") [
-        darktable
-      ])
-      ++ (lib.optionals (cpuArch == "znver4") [
-        (darktable.overrideAttrs (_oldAttrs: {
-          CMAKE_C_FLAGS = "-march=znver4 -mtune=znver4";
-          CMAKE_CXX_FLAGS = "-march=znver4 -mtune=znver4";
-        }))
-      ]);
+    home.packages = with pkgs; [
+      darktablePkg
+      digikamPkg
+      dnglab
+      geeqie
+      rawtherapee
+    ];
   };
 }
