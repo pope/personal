@@ -30,9 +30,12 @@ let
   darktablePkg = pkgs.darktable.overrideAttrs (
     oldAttrs:
     {
+      nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
+
       postPatch = (oldAttrs.postPatch or "") + ''
-        substituteInPlace data/noiseprofiles.json \
-          --replace-fail '"model": "M11"' '"model": "M11-D"'
+        jq '(.noiseprofiles[].models) |= . + [ .[] | select(.model == "M11") | .model = "M11-D" ]' \
+          data/noiseprofiles.json > data/noiseprofiles.json.tmp
+        mv data/noiseprofiles.json.tmp data/noiseprofiles.json
       '';
     }
     // (lib.optionalAttrs (cpuArch == "znver4") {
