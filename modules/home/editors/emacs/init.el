@@ -190,6 +190,16 @@
   :custom
   (treesit-font-lock-level 4))
 
+(use-package desktop
+  :init
+  (desktop-save-mode 1)
+  :custom
+  (desktop-save t)
+  (desktop-load-locked-desktop t)
+  (desktop-path (list user-emacs-directory))
+  (desktop-dirname user-emacs-directory)
+  (desktop-base-file-name "emacs.desktop"))
+
 (use-package diff-hl
   :defer t
   :custom

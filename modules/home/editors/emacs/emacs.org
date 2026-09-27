@@ -382,6 +382,24 @@ And let's highlight all the things
     (treesit-font-lock-level 4))
 #+end_src
 
+And finally, a little session management. This should automatically save and restore sessions (including frame size/position).
+
+Some custom options added are there to store the desktop file in the Emacs
+directory, to avoid cluttering projects. This also loads the desktop even if a
+previous lockfile exists, like after a crash.
+
+#+begin_src emacs-lisp
+  (use-package desktop
+    :init
+    (desktop-save-mode 1)
+    :custom
+    (desktop-save t)
+    (desktop-load-locked-desktop t)
+    (desktop-path (list user-emacs-directory))
+    (desktop-dirname user-emacs-directory)
+    (desktop-base-file-name "emacs.desktop"))
+#+end_src
+
 ** Diffs
 
 =diff-hl= provides a way to see changes to the file in the gutter/fringe of the file, and not just Git. It does require =vc-handled-backends= to be set - which is by default for my Emacs installation. Through the use of the margin-mode variant, the diff changes can be highlighted from the terminal as well.
