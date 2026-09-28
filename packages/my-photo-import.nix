@@ -14,7 +14,7 @@ writeShellApplication {
     ''
       show_help() {
         cat <<'EOF'
-      Usage: my-photo-import <source> <destination>
+      Usage: my-photo-import [options] <source> <destination>
              my-photo-import -h|--help
 
       Import and organize photos using exiftool based on camera make/model and date.
@@ -24,34 +24,63 @@ writeShellApplication {
         <destination>  Destination directory where organized photos will be saved
 
       Options:
+        -n, --dry-run  Simulate import without copying or creating files
         -h, --help     Show this help message and exit
       EOF
       }
 
-      for arg in "$@"; do
-        case "$arg" in
+      dry_run=0
+      positional=()
+
+      while [ "$#" -gt 0 ]; do
+        case "$1" in
           -h|--help)
             show_help
             exit 0
             ;;
+          -n|--dry-run)
+            dry_run=1
+            shift
+            ;;
+          -*)
+            echo "Error: Unknown option $1" >&2
+            show_help >&2
+            exit 1
+            ;;
+          *)
+            positional+=("$1")
+            shift
+            ;;
         esac
       done
 
-      if [ "$#" -ne 2 ]; then
-        echo "Error: Exactly 2 arguments required, got $#." >&2
+      if [ "''${#positional[@]}" -ne 2 ]; then
+        echo "Error: Exactly 2 arguments required, got ''${#positional[@]}." >&2
         echo >&2
         show_help >&2
         exit 1
       fi
 
+      src="''${positional[0]}"
+      dst="''${positional[1]}"
+
+      extra_opts=("-progress")
+      if [ "$dry_run" -eq 1 ]; then
+        echo "=== DRY RUN (No files will be copied) ==="
+        target_tag="TestName"
+      else
+        target_tag="FileName"
+        extra_opts+=("-o" "dummy")
+      fi
+
       exiftool \
-          "-filename=$2/UNKNOWN_CAMERA_MFG-UNKNOWN_CAMERA_MODEL/1979-12-31/1979-12-31-%f.%e" \
-          "-filename<$2/UNKNOWN_CAMERA_MFG-UNKNOWN_CAMERA_MODEL/\''${FileModifyDate}/\''${FileModifyDate}-%f.%e" \
-          "-filename<$2/UNKNOWN_CAMERA_MFG-UNKNOWN_CAMERA_MODEL/\''${CreateDate}/\''${CreateDate}-%f.%e" \
-          "-filename<$2/\''${Make}-\''${Model}/\''${CreateDate}/\''${CreateDate}-%f.%e" \
-          "-filename<$2/\''${Make}-\''${Model}/\''${DateTimeOriginal}/\''${DateTimeOriginal}-%f.%e" \
+          "-$target_tag=$dst/UNKNOWN_CAMERA_MFG-UNKNOWN_CAMERA_MODEL/1979-12-31/1979-12-31-%f.%e" \
+          "-$target_tag<$dst/UNKNOWN_CAMERA_MFG-UNKNOWN_CAMERA_MODEL/\''${FileModifyDate}/\''${FileModifyDate}-%f.%e" \
+          "-$target_tag<$dst/UNKNOWN_CAMERA_MFG-UNKNOWN_CAMERA_MODEL/\''${CreateDate}/\''${CreateDate}-%f.%e" \
+          "-$target_tag<$dst/\''${Make}-\''${Model}/\''${CreateDate}/\''${CreateDate}-%f.%e" \
+          "-$target_tag<$dst/\''${Make}-\''${Model}/\''${DateTimeOriginal}/\''${DateTimeOriginal}-%f.%e" \
           -d '%Y-%m-%d' \
-          -o dummy \
-          -r "$1"
+          "''${extra_opts[@]}" \
+          -r "$src"
     '';
 }
