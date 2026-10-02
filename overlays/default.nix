@@ -51,10 +51,37 @@
     emacsFiles = umport {
       path = ../packages/emacs;
     };
+
+    fixLazarus =
+      pkg:
+      pkg.overrideAttrs (oldAttrs: {
+        postInstall =
+          builtins.replaceStrings
+            [ "sed -re 's/-rpath [^ ]+//g'" ]
+            [ "sed -re 's/-rpath [^ ]+//g' | sed -re 's/(^ *| *$)//g;'" ]
+            oldAttrs.postInstall;
+      });
   in
   packages
   // {
     inherit stable skylake znver4;
+
+    # TODO(pope): Remove after PR #568713 lands in nixpkgs/nixos-unstable
+    # Fixes GCC build error with -Werror=sfinae-incomplete=
+    intel-compute-runtime-legacy1 = prev.intel-compute-runtime-legacy1.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or [ ]) ++ [
+        (prev.fetchpatch {
+          url = "https://github.com/intel/compute-runtime/commit/c1eb6c1a183c2f69e0d6e9ed5aa042fac2201217.patch";
+          hash = "sha256-O8ZJaxIr4TF73T+fyEbNjEYFbgwLxIUWoYnorxh8ZTo=";
+        })
+      ];
+    });
+
+    # TODO(pope): Remove after PR #568901 lands in nixpkgs/nixos-unstable
+    # Fixes lazarus wrapper build failure due to empty PATH-like segments in NIX_LDFLAGS
+    lazarus = fixLazarus prev.lazarus;
+    lazarus-qt5 = fixLazarus prev.lazarus-qt5;
+    lazarus-qt6 = fixLazarus prev.lazarus-qt6;
 
     emacsPackagesFor =
       emacs:
