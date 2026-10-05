@@ -1,0 +1,44 @@
+--- a/core/libs/threadimageio/fileio/loadingcache.cpp
++++ b/core/libs/threadimageio/fileio/loadingcache.cpp
+@@ -19,6 +19,7 @@
+ 
+ #include <QCache>
+ #include <QHash>
++#include <QSet>
+ 
+ // KDE includes
+ 
+@@ -104,7 +105,8 @@
+ {
+     // Remove all entries from hash whose value is no longer a key in the cache
+ 
+-    QList<QString> keys = imageCache.keys();
++    const QList<QString> keyList = imageCache.keys();
++    const QSet<QString> keys(keyList.cbegin(), keyList.cend());
+     QMultiHash<QString, QString>::iterator it;
+ 
+     for (it = imageFilePathHash.begin() ; it != imageFilePathHash.end() ; )
+@@ -123,10 +125,20 @@
+ 
+ void LoadingCache::Private::cleanUpThumbnailFilePathHash()
+ {
+-    QList<QString> keys;
+-
+-    keys += thumbnailImageCache.keys();
+-    keys += thumbnailPixmapCache.keys();
++    const QList<QString> imgKeys = thumbnailImageCache.keys();
++    const QList<QString> pixKeys = thumbnailPixmapCache.keys();
++    QSet<QString> keys;
++    keys.reserve(imgKeys.size() + pixKeys.size());
++
++    for (const QString& key : imgKeys)
++    {
++        keys.insert(key);
++    }
++
++    for (const QString& key : pixKeys)
++    {
++        keys.insert(key);
++    }
+ 
+     QMultiHash<QString, QString>::iterator it;

@@ -97,6 +97,12 @@
 
     darktable = prev.darktable.override { withAi = true; };
 
+    digikam = prev.digikam.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or [ ]) ++ [
+        ./patches/digikam-loadingcache-lookup-perf.patch
+      ];
+    });
+
     # TODO(pope): Remove this override after the NDI updater script runs
     obs-studio-plugins = prev.obs-studio-plugins // {
       distroav = prev.obs-studio-plugins.distroav.override {
