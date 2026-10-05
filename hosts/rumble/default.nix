@@ -154,6 +154,41 @@
       musnix.enable = true;
       system.nixos.tags = [ "music" ];
     };
+
+    passthrough.configuration = {
+      system.nixos.tags = [ "passthrough" ];
+
+      boot = {
+        kernelParams = [
+          "amd_iommu=on"
+          "iommu=pt"
+          "vfio-pci.ids=1002:73df,1002:ab28,8086:15b6"
+        ];
+        initrd.kernelModules = [
+          "vfio_pci"
+          "vfio"
+          "vfio_iommu_type1"
+        ];
+        extraModprobeConfig = ''
+          options vfio-pci ids=1002:73df,1002:ab28,8086:15b6
+        '';
+      };
+
+      virtualisation.libvirtd.qemu = {
+        swtpm.enable = true;
+        runAsRoot = true;
+      };
+
+      environment.systemPackages = with pkgs; [
+        pciutils
+        usbutils
+        virtio-win
+      ];
+
+      systemd.tmpfiles.rules = [
+        "L+ /var/lib/libvirt/images/virtio-win.iso - - - - ${pkgs.virtio-win.src}"
+      ];
+    };
   };
 
   # This value determines the NixOS release from which the default
