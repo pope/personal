@@ -13,6 +13,7 @@
 
     packages = with pkgs; [
       amdgpu_top
+      bottles
       discord
       godot_4
       nvtopPackages.amd
