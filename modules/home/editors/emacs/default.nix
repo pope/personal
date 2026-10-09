@@ -94,7 +94,7 @@ in
               env = oldAttrs.env // {
                 BYTE_COMPILE_EXTRA_FLAGS = ''
                   --eval '(setq native-comp-speed 3)' \
-                  --eval '(setq native-comp-compiler-options '("-march=${cpuArch}" "-mtune=${cpuArch}" "-O3"))'
+                  --eval '(setq native-comp-driver-options '("-march=${cpuArch}" "-mtune=${cpuArch}" "-O3"))'
                 '';
               };
             }));

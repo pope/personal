@@ -208,13 +208,13 @@
   :config
   (global-diff-hl-mode)
   :hook
-  (magit-pre-refresh . diff-hl-magit-pre-refresh)
   (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package nerd-icons
-  :if (display-graphic-p)
-  :defer t
-  :config (nerd-icons-set-font))
+  :demand t
+  :config
+  (when (display-graphic-p)
+    (nerd-icons-set-font)))
 
 (use-package nerd-icons-dired
   :after (dired nerd-icons)
@@ -232,7 +232,7 @@
 (use-package nerd-icons-completion
   :demand t  ;; nerd-icons-completion-mode needs to run before hooks
   :after (marginalia nerd-icons)
-  :hook (marginalia-mode-hook . nerd-icons-completion-marginalia-setup)
+  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
   :config (nerd-icons-completion-mode))
 
 (use-package ligature
@@ -257,14 +257,14 @@
 
 (use-package emacs
   :custom
-  (fast-but-imprecise-scrolling t))
+  (fast-but-imprecise-scrolling t)
+  (scroll-conservatively 3)
+  (scroll-bar-mode nil))
 
 (use-package ultra-scroll
-  :if (string-match "darwin" (prin1-to-string system-type))
+  :if (eq system-type 'darwin)
   :custom
-  (scroll-conservatively 3)
   (scroll-margin 0) ;; Required for smooth scrolling
-  (scroll-bar-mode nil)
   :config
   (ultra-scroll-mode 1))
 
@@ -293,11 +293,11 @@
   :custom
   (dired-dwim-target t)
   :hook
-  (dired-mode-hook . dired-hide-details-mode))
+  (dired-mode . dired-hide-details-mode))
 
 (setq major-mode-remap-alist
       '(
-        (bash-mode        . bash-ts-mode)
+        (sh-mode          . bash-ts-mode)
         (c-mode           . c-ts-mode)
         (c++-mode         . c++-ts-mode)
         (c-or-c++-mode    . c-or-c++-ts-mode)
@@ -305,6 +305,7 @@
         (js-mode          . js-ts-mode)
         (js2-mode         . js-ts-mode)
         (java-mode        . java-ts-mode)
+        (js-json-mode     . json-ts-mode)
         (json-mode        . json-ts-mode)
         (ruby-mode        . ruby-ts-mode)
         (nix-mode         . nix-ts-mode)
@@ -341,12 +342,19 @@
          (rust-ts-mode  . eglot-ensure)
          (zig-ts-mode   . eglot-ensure)))
 
-(with-eval-after-load 'eglot
-  (defun pope--eglot-ensure-formatting ()
-    (if (eglot-managed-p)
-        (add-hook 'before-save-hook #'eglot-format-buffer nil t)
-      (remove-hook 'before-save-hook #'eglot-format-buffer t)))
+(defun pope--eglot-format-buffer-on-save ()
+  "Format buffer before saving if supported by the language server."
+  (when (and (bound-and-true-p eglot--managed-mode)
+             (eglot-managed-p)
+             (eglot-server-capable :documentFormattingProvider))
+    (ignore-errors (eglot-format-buffer))))
 
+(defun pope--eglot-ensure-formatting ()
+  (if (eglot-managed-p)
+      (add-hook 'before-save-hook #'pope--eglot-format-buffer-on-save nil t)
+    (remove-hook 'before-save-hook #'pope--eglot-format-buffer-on-save t)))
+
+(with-eval-after-load 'eglot
   (add-hook 'eglot-managed-mode-hook #'pope--eglot-ensure-formatting))
 
 (use-package direnv
@@ -358,10 +366,10 @@
 (use-package vterm
   :commands (vterm)
   :hook
-  (vterm-mode-hook . (lambda ()
-                       (display-line-numbers-mode -1)
-                       (visual-line-mode -1)
-                       (toggle-truncate-lines 1))))
+  (vterm-mode . (lambda ()
+                  (display-line-numbers-mode -1)
+                  (visual-line-mode -1)
+                  (toggle-truncate-lines 1))))
 
 (use-package emacs
   :custom-face
@@ -369,7 +377,7 @@
   (fixed-pitch (nil (:font "Monospace")))
   (variable-pitch (nil (:family "Sans Serif") (:height 1.2))))
 
-(defun pope-set-document-faces (&optional theme)
+(defun pope-set-document-faces (&optional _theme)
   (interactive)
   ;; Ensure line numbers have fixed pitchs so that left alignment
   ;; isn't wonky
@@ -392,6 +400,7 @@
     (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
     (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
     (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
     (set-face-attribute 'org-special-keyword nil
                         :inherit '(font-lock-comment-face fixed-pitch))
     (set-face-attribute 'org-meta-line nil
@@ -407,7 +416,8 @@
                     (markdown-header-face-5 . 1.1)
                     (markdown-header-face-6 . 1.1)))
       (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
-    (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)))
+    (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)
+    (set-face-attribute 'markdown-table-face nil :inherit 'fixed-pitch)))
 
 (add-hook 'enable-theme-functions #'pope-set-document-faces)
 

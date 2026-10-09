@@ -2,7 +2,7 @@
 #+title: My Emacs Config
 #+author: K. Adam Christensen
 #+language: en
-#+property: header-args :emacs-lisp :tangle ./init.el :mkdirp yes
+#+property: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 
 * Goal
 
@@ -413,7 +413,6 @@ previous lockfile exists, like after a crash.
     :config
     (global-diff-hl-mode)
     :hook
-    (magit-pre-refresh . diff-hl-magit-pre-refresh)
     (magit-post-refresh . diff-hl-magit-post-refresh))
 #+end_src
 
@@ -423,9 +422,10 @@ This package is nice if I want to enter in some =nerd-icons-insert=. It also has
 
 #+begin_src emacs-lisp
   (use-package nerd-icons
-    :if (display-graphic-p)
-    :defer t
-    :config (nerd-icons-set-font))
+    :demand t
+    :config
+    (when (display-graphic-p)
+      (nerd-icons-set-font)))
 #+end_src
 
 There are some packages that make nerd fonts work with other packages or core emacs components.
@@ -447,7 +447,7 @@ There are some packages that make nerd fonts work with other packages or core em
   (use-package nerd-icons-completion
     :demand t  ;; nerd-icons-completion-mode needs to run before hooks
     :after (marginalia nerd-icons)
-    :hook (marginalia-mode-hook . nerd-icons-completion-marginalia-setup)
+    :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
     :config (nerd-icons-completion-mode))
 #+end_src
 
@@ -484,14 +484,14 @@ We could rely on the scrollbars provided by Emacs, but for whatever reason, I wa
 #+begin_src emacs-lisp
   (use-package emacs
     :custom
-    (fast-but-imprecise-scrolling t))
+    (fast-but-imprecise-scrolling t)
+    (scroll-conservatively 3)
+    (scroll-bar-mode nil))
 
   (use-package ultra-scroll
-    :if (string-match "darwin" (prin1-to-string system-type))
+    :if (eq system-type 'darwin)
     :custom
-    (scroll-conservatively 3)
     (scroll-margin 0) ;; Required for smooth scrolling
-    (scroll-bar-mode nil)
     :config
     (ultra-scroll-mode 1))
 #+end_src
@@ -550,7 +550,7 @@ On the UI side, I use =dired-hide-details-mode= so that I'm just looking at the 
     :custom
     (dired-dwim-target t)
     :hook
-    (dired-mode-hook . dired-hide-details-mode))
+    (dired-mode . dired-hide-details-mode))
 #+end_src
 
 [[https://protesilaos.com/codelog/2023-06-26-emacs-file-dired-basics/][Emacs: file and Dired basics]] has a nice video and other options.
@@ -564,7 +564,7 @@ Speaking of treesit and treesitter, I do want Emacs to use the =-ts-mode= versio
 #+begin_src emacs-lisp
   (setq major-mode-remap-alist
         '(
-          (bash-mode        . bash-ts-mode)
+          (sh-mode          . bash-ts-mode)
           (c-mode           . c-ts-mode)
           (c++-mode         . c++-ts-mode)
           (c-or-c++-mode    . c-or-c++-ts-mode)
@@ -572,6 +572,7 @@ Speaking of treesit and treesitter, I do want Emacs to use the =-ts-mode= versio
           (js-mode          . js-ts-mode)
           (js2-mode         . js-ts-mode)
           (java-mode        . java-ts-mode)
+          (js-json-mode     . json-ts-mode)
           (json-mode        . json-ts-mode)
           (ruby-mode        . ruby-ts-mode)
           (nix-mode         . nix-ts-mode)
@@ -631,12 +632,19 @@ Lastly, let's format the buffer before we save to keep things nice and tidy.
 
 #+begin_src emacs-lisp
 
-  (with-eval-after-load 'eglot
-    (defun pope--eglot-ensure-formatting ()
-      (if (eglot-managed-p)
-          (add-hook 'before-save-hook #'eglot-format-buffer nil t)
-        (remove-hook 'before-save-hook #'eglot-format-buffer t)))
+  (defun pope--eglot-format-buffer-on-save ()
+    "Format buffer before saving if supported by the language server."
+    (when (and (bound-and-true-p eglot--managed-mode)
+               (eglot-managed-p)
+               (eglot-server-capable :documentFormattingProvider))
+      (ignore-errors (eglot-format-buffer))))
 
+  (defun pope--eglot-ensure-formatting ()
+    (if (eglot-managed-p)
+        (add-hook 'before-save-hook #'pope--eglot-format-buffer-on-save nil t)
+      (remove-hook 'before-save-hook #'pope--eglot-format-buffer-on-save t)))
+
+  (with-eval-after-load 'eglot
     (add-hook 'eglot-managed-mode-hook #'pope--eglot-ensure-formatting))
 
 #+end_src
@@ -667,10 +675,10 @@ I have a complex terminal setup - it's where I tend to do most of my work, and s
   (use-package vterm
     :commands (vterm)
     :hook
-    (vterm-mode-hook . (lambda ()
-                         (display-line-numbers-mode -1)
-                         (visual-line-mode -1)
-                         (toggle-truncate-lines 1))))
+    (vterm-mode . (lambda ()
+                    (display-line-numbers-mode -1)
+                    (visual-line-mode -1)
+                    (toggle-truncate-lines 1))))
 #+end_src
 
 * Documents
@@ -694,7 +702,7 @@ I did try to set =fixed-pitch= to inherit from =default=, but that didn't seem t
 For any =set-face-attribute= calls that we add below, we are going to capture those in a new function. This is because there are times when I try loading a theme that the theme overwrites what I have. By keeping them in a function we recall those settings.
 
 #+begin_src emacs-lisp :noweb yes
-  (defun pope-set-document-faces (&optional theme)
+  (defun pope-set-document-faces (&optional _theme)
     (interactive)
     ;; Ensure line numbers have fixed pitchs so that left alignment
     ;; isn't wonky
@@ -764,6 +772,7 @@ Next up, let's make code blocks fixed pitched
   (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
   (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-special-keyword nil
                       :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-meta-line nil
@@ -827,6 +836,7 @@ And then for the Markdown files, it's much the same thing, so details will be li
                   (markdown-header-face-6 . 1.1)))
     (set-face-attribute (car face) nil :weight 'bold :height (cdr face)))
   (set-face-attribute 'markdown-code-face nil :inherit 'fixed-pitch)
+  (set-face-attribute 'markdown-table-face nil :inherit 'fixed-pitch)
 #+end_src
 
 #+begin_src emacs-lisp
