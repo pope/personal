@@ -329,9 +329,10 @@ Then we can join embark and consult together
     ;; Fixes a bug for me where the first item is wonky
     (corfu-preselect 'prompt)
     :init
-    (global-corfu-mode t)
-    (corfu-history-mode)
-    (corfu-popupinfo-mode))
+    (global-corfu-mode 1)
+    :config
+    (corfu-history-mode 1)
+    (corfu-popupinfo-mode 1))
 #+end_src
 
 In the regular Emacs config, we can make the =<TAB>= key trigger an autocomplete.
@@ -394,7 +395,7 @@ previous lockfile exists, like after a crash.
     (desktop-save-mode 1)
     :custom
     (desktop-save t)
-    (desktop-load-locked-desktop t)
+    (desktop-load-locked-desktop 'check-pid)
     (desktop-path (list user-emacs-directory))
     (desktop-dirname user-emacs-directory)
     (desktop-base-file-name "emacs.desktop"))
@@ -581,7 +582,8 @@ Speaking of treesit and treesitter, I do want Emacs to use the =-ts-mode= versio
           (typescript-mode  . typescript-ts-mode)
           (yaml-mode        . yaml-ts-mode)
           (zig-mode         . zig-ts-mode)))
-  (add-to-list 'treesit-extra-load-path "~/.emacs.d/tree-sitter")
+  (add-to-list 'treesit-extra-load-path
+               (expand-file-name "tree-sitter" user-emacs-directory))
 #+end_src
 
 :NOTE:
@@ -607,31 +609,9 @@ Next up, there are some treesit modes that are available, but they do not autolo
 
 For better code complete and code searching, we can use an LSP. =Eglot= gives us that library for doing the integration, and most things work right out of the box - especially for the =-mode= languages. But because I'm doing with the =-ts-mode= versions, there is some tweaking I need to do to properly map the ts-mode version to an LSP.
 
-#+begin_src emacs-lisp
-  (with-eval-after-load 'eglot
-    (dolist (el '((nix-ts-mode . ("nixd"))
-                  (odin-ts-mode . ("ols"))
-                  (zig-ts-mode . ("zls"))))
-      (add-to-list 'eglot-server-programs el)))
-#+end_src
-
-And we can auto-start =eglot= when some modes activate
+First, let's create a helper to format the buffer before saving if supported by the language server.
 
 #+begin_src emacs-lisp
-  (use-package eglot
-    :hook ((c-ts-mode     . eglot-ensure)
-           (c++-ts-mode   . eglot-ensure)
-           (go-ts-mode    . eglot-ensure)
-           (nix-ts-mode   . eglot-ensure)
-           (odin-ts-mode  . eglot-ensure)
-           (rust-ts-mode  . eglot-ensure)
-           (zig-ts-mode   . eglot-ensure)))
-#+end_src
-
-Lastly, let's format the buffer before we save to keep things nice and tidy.
-
-#+begin_src emacs-lisp
-
   (defun pope--eglot-format-buffer-on-save ()
     "Format buffer before saving if supported by the language server."
     (when (and (bound-and-true-p eglot--managed-mode)
@@ -643,10 +623,25 @@ Lastly, let's format the buffer before we save to keep things nice and tidy.
     (if (eglot-managed-p)
         (add-hook 'before-save-hook #'pope--eglot-format-buffer-on-save nil t)
       (remove-hook 'before-save-hook #'pope--eglot-format-buffer-on-save t)))
+#+end_src
 
-  (with-eval-after-load 'eglot
+Now we can configure =eglot=, register our custom tree-sitter language servers, and auto-start =eglot= when modes activate.
+
+#+begin_src emacs-lisp
+  (use-package eglot
+    :hook ((c-ts-mode     . eglot-ensure)
+           (c++-ts-mode   . eglot-ensure)
+           (go-ts-mode    . eglot-ensure)
+           (nix-ts-mode   . eglot-ensure)
+           (odin-ts-mode  . eglot-ensure)
+           (rust-ts-mode  . eglot-ensure)
+           (zig-ts-mode   . eglot-ensure))
+    :config
+    (dolist (el '((nix-ts-mode . ("nixd"))
+                  (odin-ts-mode . ("ols"))
+                  (zig-ts-mode . ("zls"))))
+      (add-to-list 'eglot-server-programs el))
     (add-hook 'eglot-managed-mode-hook #'pope--eglot-ensure-formatting))
-
 #+end_src
 
 ** Direnv support

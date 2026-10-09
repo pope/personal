@@ -162,9 +162,10 @@
   ;; Fixes a bug for me where the first item is wonky
   (corfu-preselect 'prompt)
   :init
-  (global-corfu-mode t)
-  (corfu-history-mode)
-  (corfu-popupinfo-mode))
+  (global-corfu-mode 1)
+  :config
+  (corfu-history-mode 1)
+  (corfu-popupinfo-mode 1))
 
 (use-package emacs
   :custom
@@ -195,7 +196,7 @@
   (desktop-save-mode 1)
   :custom
   (desktop-save t)
-  (desktop-load-locked-desktop t)
+  (desktop-load-locked-desktop 'check-pid)
   (desktop-path (list user-emacs-directory))
   (desktop-dirname user-emacs-directory)
   (desktop-base-file-name "emacs.desktop"))
@@ -314,7 +315,8 @@
         (typescript-mode  . typescript-ts-mode)
         (yaml-mode        . yaml-ts-mode)
         (zig-mode         . zig-ts-mode)))
-(add-to-list 'treesit-extra-load-path "~/.emacs.d/tree-sitter")
+(add-to-list 'treesit-extra-load-path
+             (expand-file-name "tree-sitter" user-emacs-directory))
 
 (use-package cmake-ts-mode
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
@@ -326,21 +328,6 @@
   :mode "\\.rs\\'")
 (use-package soy-ts-mode
   :mode "\\.soy\\'")
-
-(with-eval-after-load 'eglot
-  (dolist (el '((nix-ts-mode . ("nixd"))
-                (odin-ts-mode . ("ols"))
-                (zig-ts-mode . ("zls"))))
-    (add-to-list 'eglot-server-programs el)))
-
-(use-package eglot
-  :hook ((c-ts-mode     . eglot-ensure)
-         (c++-ts-mode   . eglot-ensure)
-         (go-ts-mode    . eglot-ensure)
-         (nix-ts-mode   . eglot-ensure)
-         (odin-ts-mode  . eglot-ensure)
-         (rust-ts-mode  . eglot-ensure)
-         (zig-ts-mode   . eglot-ensure)))
 
 (defun pope--eglot-format-buffer-on-save ()
   "Format buffer before saving if supported by the language server."
@@ -354,7 +341,19 @@
       (add-hook 'before-save-hook #'pope--eglot-format-buffer-on-save nil t)
     (remove-hook 'before-save-hook #'pope--eglot-format-buffer-on-save t)))
 
-(with-eval-after-load 'eglot
+(use-package eglot
+  :hook ((c-ts-mode     . eglot-ensure)
+         (c++-ts-mode   . eglot-ensure)
+         (go-ts-mode    . eglot-ensure)
+         (nix-ts-mode   . eglot-ensure)
+         (odin-ts-mode  . eglot-ensure)
+         (rust-ts-mode  . eglot-ensure)
+         (zig-ts-mode   . eglot-ensure))
+  :config
+  (dolist (el '((nix-ts-mode . ("nixd"))
+                (odin-ts-mode . ("ols"))
+                (zig-ts-mode . ("zls"))))
+    (add-to-list 'eglot-server-programs el))
   (add-hook 'eglot-managed-mode-hook #'pope--eglot-ensure-formatting))
 
 (use-package direnv
