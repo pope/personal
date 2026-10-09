@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "ia-writer";
-  version = "0-unstable-2023-06-16";
+  version = "0-unstable-2026-10-02";
 
   src = fetchFromGitHub {
     owner = "iaolo";
     repo = "iA-Fonts";
-    rev = "f32c04c3058a75d7ce28919ce70fe8800817491b";
-    hash = "sha256-2T165nFfCzO65/PIHauJA//S+zug5nUwPcg8NUEydfc=";
+    rev = "c6588670c71e9ac628acc27b72cde4bf12726b7f";
+    hash = "sha256-E/PA5cqZmRbaBYKJ/99YYhF/lgN6Stl/QoqTNLRI9bw=";
   };
 
   dontConfigure = true;

@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "fish-rose-pine";
-  version = "0-unstable-2026-09-23";
+  version = "0-unstable-2026-10-07";
 
   src = fetchFromGitHub {
     owner = "rose-pine";
     repo = "fish";
-    rev = "7d3b517adc0eb52b43c4b22bdc774b062271f969";
-    hash = "sha256-V+MKT2YqkuIqvWtbuB2/Sdn2siZwBKcZSewRe62DBp0=";
+    rev = "b4ccaddaafc91d3c991d542830fdf2fb61128ba0";
+    hash = "sha256-nTMaJ2sKa/EyvH5iOndS6Q0mdjFOqIiSh/gnLmdb5t8=";
   };
 
   dontUnpack = true;
