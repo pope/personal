@@ -27,7 +27,7 @@ let
     else
       pkgs.digikam;
 
-  darktablePkg = pkgs.darktable.overrideAttrs (
+  darktableBase = pkgs.darktable.overrideAttrs (
     oldAttrs:
     {
       nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
@@ -43,6 +43,30 @@ let
       CMAKE_CXX_FLAGS = "-march=znver4 -mtune=znver4";
     })
   );
+
+  darktablePkg = pkgs.symlinkJoin {
+    name = "darktable-${darktableBase.version}";
+    paths = [ darktableBase ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      for bin in darktable darktable-cli; do
+        if [ -e "$out/bin/$bin" ]; then
+          wrapProgram "$out/bin/$bin" \
+            --add-flags "--conf plugins/ai/ort_library_path=${pkgs.onnxruntime}/lib/libonnxruntime.so"
+        fi
+      done
+
+      for desktopFile in "$out/share/applications"/*.desktop; do
+        if [ -f "$desktopFile" ]; then
+          target=$(readlink -f "$desktopFile")
+          rm "$desktopFile"
+          sed \
+            -e "s|${darktableBase}/bin/darktable|$out/bin/darktable|g" \
+            "$target" > "$desktopFile"
+        fi
+      done
+    '';
+  };
 in
 {
   options.my.home.multimedia.photography = {

@@ -50,6 +50,7 @@
   stdenv,
   fetchFromGitHub,
   darktable,
+  onnxruntime,
   makeDesktopItem,
   writeShellApplication,
   curl,
@@ -173,6 +174,7 @@ stdenv.mkDerivation {
     exec "${darktable-unwrapped}/bin/darktable" \
       --configdir "$CONFIG_DIR" \
       --cachedir "$CACHE_DIR" \
+      --conf plugins/ai/ort_library_path="${onnxruntime}/lib/libonnxruntime.so" \
       "$@"
     EOF
     chmod +x $out/bin/darktable-nightly
@@ -185,6 +187,7 @@ stdenv.mkDerivation {
     exec "${darktable-unwrapped}/bin/darktable-cli" \
       --configdir "$CONFIG_DIR" \
       --cachedir "$CACHE_DIR" \
+      --conf plugins/ai/ort_library_path="${onnxruntime}/lib/libonnxruntime.so" \
       "$@"
     EOF
     chmod +x $out/bin/darktable-cli-nightly
