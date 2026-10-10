@@ -64,6 +64,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       darktablePkg
+      darktable-nightly
       digikamPkg
       dnglab
       geeqie
