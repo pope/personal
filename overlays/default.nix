@@ -113,15 +113,4 @@
       inherit (final.tree-sitter-grammars) allGrammars withPlugins;
     };
   }
-  // prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
-
-    ctpv =
-      (prev.ctpv.override {
-        inherit (prev.llvmPackages_16) stdenv;
-      }).overrideAttrs
-        (oldAttrs: {
-          meta.platforms = oldAttrs.meta.platforms ++ [ "aarch64-darwin" ];
-        });
-
-  }
 )

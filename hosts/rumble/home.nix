@@ -78,7 +78,6 @@
       javascript.enable = true;
       python.enable = true;
     };
-    lf.enable = true;
     mpv = {
       enable = true;
       defaultProfile = "fsr";

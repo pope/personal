@@ -58,7 +58,6 @@
       python.enable = true;
       rust.enable = true;
     };
-    lf.enable = true;
     mpv = {
       enable = true;
       enableHqSettings = true;
