@@ -1,10 +1,6 @@
 _:
 
 {
-  imports = [
-    ../../modules/home
-  ];
-
   home = {
     username = "pope";
     homeDirectory = "/home/pope";

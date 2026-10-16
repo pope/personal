@@ -6,9 +6,9 @@
 
 These are NixOS specific modules. Including it sets up a main user and can include subsets of common things I use with a `my.nixos.system.<module>.enable`. Some modules are also configurable.
 
-### `home/`
+### `modules/home/`
 
-These are home-manager modules. Right now, each home module must be imported. But soon it will behave just like `modules/nixos`.
+These are home-manager modules.
 
 ### `hosts/`
 

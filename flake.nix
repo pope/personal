@@ -106,6 +106,7 @@
                   backupFileExtension = "hm-backup";
                   extraSpecialArgs = { inherit inputs self; };
                   sharedModules = [
+                    self.homeModules.default
                     sops-nix.homeManagerModules.sops
                   ];
                   useGlobalPkgs = true;
@@ -143,6 +144,7 @@
             };
             extraSpecialArgs = { inherit inputs self; };
             modules = [
+              self.homeModules.default
               { imports = [ sops-nix.homeManagerModules.sops ]; }
               (./hosts + "/${hostname}/home.nix")
             ]

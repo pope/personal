@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ../../modules/home
-  ];
-
   nix = {
     gc = {
       automatic = true;
