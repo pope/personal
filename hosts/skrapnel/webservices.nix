@@ -262,11 +262,11 @@ in
     syncthing = {
       enable = true;
       guiAddress = "0.0.0.0:8384";
+      guiPasswordFile = config.sops.secrets.syncthing-password.path;
       openDefaultPorts = true;
       settings = {
         gui = {
           user = "pope";
-          password = config.sops.secrets.syncthing-password;
         };
         folders = {
           "Sync" = {
@@ -284,7 +284,9 @@ in
     };
   };
 
-  sops.secrets.syncthing-password = { };
+  sops.secrets.syncthing-password = {
+    owner = config.services.syncthing.user;
+  };
   sops.secrets.cache-priv-key = { };
 
   systemd.services.tailscaled.environment.TS_PERMIT_CERT_UID = config.services.caddy.user;
