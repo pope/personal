@@ -29,7 +29,6 @@ in
         persist-tun
         persist-remote-ip
         verify-x509-name ca1.vyprvpn.com name
-        auth-user-pass
         comp-lzo
         keepalive 10 60
         verb 3
@@ -105,5 +104,7 @@ in
         auth-user-pass ${config.sops.secrets.vyprvpn-auth-user-pass.path}
       '';
     };
+
+    sops.secrets.vyprvpn-auth-user-pass = { };
   };
 }

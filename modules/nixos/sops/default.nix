@@ -15,9 +15,6 @@ in
       defaultSopsFormat = "yaml";
 
       age.keyFile = "/home/${mainUser}/.config/sops/age/keys.txt";
-
-      secrets.test-key = { };
-      secrets.vyprvpn-auth-user-pass = { };
     };
   };
 }
