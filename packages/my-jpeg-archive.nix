@@ -28,7 +28,7 @@ writeShellApplication {
         | parallel --no-notice "jpeg-recompress --quality veryhigh --no-copy {} $(printf %q "$tmpdir")/{}"
       if find "$tmpdir" -mindepth 1 -maxdepth 1 | read -r
       then
-        mv "$(printf %q "$tmpdir")"/* .
+        mv "$tmpdir"/* .
       fi
     '';
 }

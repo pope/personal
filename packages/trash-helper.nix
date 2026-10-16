@@ -1,22 +1,18 @@
 {
-  coreutils,
   findutils,
   fzf,
-  gawk,
+  gnused,
   trashy,
-  util-linux,
   writeShellApplication,
 }:
 
 writeShellApplication {
   name = "trash-helper";
   runtimeInputs = [
-    coreutils
     findutils
     fzf
-    gawk
+    gnused
     trashy
-    util-linux
   ];
   text = # sh
     ''
@@ -29,10 +25,7 @@ writeShellApplication {
             --border --border-label="Trashy Helper" \
             --header="Select trash to $ACTION" \
             --list-border --list-label="Paths" \
-        | awk '{$1=$1;print}' \
-        | rev \
-        | cut -d ' ' -f1 \
-        | rev \
-        | xargs trash "$ACTION" --match=exact --force
+        | sed -E 's|^[^/]*||; s| +$||' \
+        | xargs -d '\n' --no-run-if-empty trash "$ACTION" --match=exact --force
     '';
 }

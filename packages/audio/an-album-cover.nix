@@ -51,6 +51,6 @@ writeShellApplication {
       }
       export -f processDir
 
-      find ~/Music -type d -print0 | parallel -0 processDir
+      find "''${1:-$HOME/Music}" -type d -print0 | parallel -0 processDir
     '';
 }

@@ -18,13 +18,10 @@ writeShellApplication {
   ];
   text = # sh
     ''
+      # Transcode each file, preserve its timestamp, and only remove the
+      # original if conversion succeeds.
       fd --hidden -e mp3 -e flac \
         | parallel --max-args 1 \
-          'sox {} --rate 48k --type flac - | opusenc --bitrate 128 --vbr - {.}.opus'
-
-      # Set the same time properties for the converted file as the original. Then
-      # remove the original
-      fd --hidden -e mp3 -e flac \
-        | parallel --max-args 1 'touch -r {} {.}.opus && rm {}'
+          'set -o pipefail; sox {} --rate 48k --type flac - | opusenc --bitrate 128 --vbr - {.}.opus && touch -r {} {.}.opus && rm {}'
     '';
 }
