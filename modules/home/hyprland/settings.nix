@@ -196,6 +196,7 @@ with colors;
         anyrun
         ghostty
         wezterm
+        foot
         kitty
         ;
 
@@ -206,16 +207,22 @@ with colors;
       runner =
         if config.my.home.rofi.enable then
           "${launcher} ${getExe rofi.finalPackage} -show drun -run-command \"${launcher} {cmd}\""
+        else if config.my.home.anyrun.enable then
+          "${launcher} ${getExe anyrun.package}"
         else
-          "${launcher} ${getExe anyrun.package}";
+          throw "Hyprland requires a runner (rofi or anyrun) to be enabled";
       screenshot = "${launcher} wayland-screenshot";
       terminal =
         if config.my.home.terminals.ghostty.enable then
           "${launcher} ${getExe ghostty.package}"
         else if config.my.home.terminals.wezterm.enable then
           "${launcher} ${getExe wezterm.package}"
+        else if config.my.home.terminals.foot.enable then
+          "${launcher} ${getExe foot.package}"
+        else if config.my.home.terminals.kitty.enable then
+          "${launcher} ${getExe kitty.package}"
         else
-          "${launcher} ${getExe kitty.package}";
+          throw "Hyprland requires a terminal (ghostty, wezterm, foot, or kitty) to be enabled";
       thunar = "${launcher} ${getExe pkgs.thunar}";
       wlogout = "${launcher} ${getExe pkgs.wlogout}";
       wpctl = "${pkgs.wireplumber}/bin/wpctl";
