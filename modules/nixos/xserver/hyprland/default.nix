@@ -34,12 +34,5 @@ in
         ];
       };
     };
-
-    environment = {
-      systemPackages = with pkgs; [
-        ristretto
-        thunar
-      ];
-    };
   };
 }
