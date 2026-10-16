@@ -27,7 +27,6 @@
       marksman
       moonlight-qt
       my-jpeg-archive
-      nix
       obsidian
       tut
       vale

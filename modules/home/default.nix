@@ -3,6 +3,7 @@
   config,
   pkgs,
   lib,
+  osConfig ? null,
   ...
 }:
 
@@ -12,12 +13,9 @@ let
   );
 in
 {
-  imports = [
-    inputs.nix-colors.homeManagerModules.default
-  ]
-  ++ imports;
+  inherit imports;
 
-  config.nix = {
+  config.nix = lib.mkIf (osConfig == null) {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     package = lib.mkDefault pkgs.nix;
     registry = {
@@ -33,11 +31,9 @@ in
       ];
       extra-substituters = [
         "https://nix-community.cachix.org"
-        "https://nixpkgs-wayland.cachix.org"
       ];
       extra-trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       ];
       trusted-users = [ config.home.username ];
     };

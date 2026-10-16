@@ -1,22 +1,11 @@
 { pkgs, ... }:
 
 {
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-    package = pkgs.nix;
-    settings = {
-      # Add trusted-users to /etc/nix/nix.conf to make the warnings go away
-      auto-optimise-store = false;
-      builders-use-substitutes = true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-    };
+  # Add trusted-users to /etc/nix/nix.conf to make the warnings go away
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
 
   home = {
