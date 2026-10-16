@@ -20,7 +20,6 @@ in
       gcc
       gnumake
       ninja
-      stdenv
     ];
   };
 }
