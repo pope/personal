@@ -35,7 +35,7 @@ in
         "generic"
       ];
       default = "generic";
-      description = lib.mkDoc ''
+      description = ''
         The starting default profile to use
       '';
     };
@@ -43,7 +43,7 @@ in
       type = lib.types.number;
       default = 1.5;
       example = 1;
-      description = lib.mkDoc "Scaling to apply to controls.";
+      description = "Scaling to apply to controls.";
     };
   };
 

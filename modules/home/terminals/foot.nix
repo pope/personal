@@ -15,7 +15,7 @@ in
     fontSize = lib.mkOption {
       type = lib.types.number;
       default = 12;
-      description = lib.mkDoc ''
+      description = ''
         The font size to use
       '';
     };

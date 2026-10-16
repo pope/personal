@@ -18,7 +18,7 @@ in
         "tokyonight"
       ];
       default = "rose-pine";
-      description = lib.mkDoc ''
+      description = ''
         Which theme to use with UI elements.
       '';
     };

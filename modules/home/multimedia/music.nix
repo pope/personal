@@ -16,7 +16,7 @@ in
       default = config.xdg.userDirs.music;
       defaultText = "\${config.xdg.userDirs.music}";
       apply = toString; # Prevent copies to Nix store.
-      description = lib.mkDoc ''
+      description = ''
         The music directory for songs and lyrics.
 
         If [](#opt-xdg.userDirs.enable) is

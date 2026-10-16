@@ -13,7 +13,7 @@ in
     enable = lib.mkEnableOption "font system options";
     resolution = lib.mkOption {
       default = "default";
-      description = lib.mkDoc ''
+      description = ''
         Specifies the type of monitor resolution.
 
         With smaller monitor resolutions, font hinting values will be increased

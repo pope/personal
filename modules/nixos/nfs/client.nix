@@ -8,7 +8,7 @@ in
     enable = lib.mkEnableOption "NFS client system options";
     host = lib.mkOption {
       default = "skrapnel.lan";
-      description = lib.mkDoc ''
+      description = ''
         Specifies the NFS server host.
       '';
       example = "skrapnel";

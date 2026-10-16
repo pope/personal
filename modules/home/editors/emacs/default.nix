@@ -39,7 +39,7 @@ in
       example = ''
         (setq standard-indent 2)
       '';
-      description = lib.mkDoc ''
+      description = ''
         Extra code to add to the end of init.el
       '';
     };

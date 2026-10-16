@@ -31,7 +31,7 @@ in
     dpiScale = lib.mkOption {
       type = lib.types.int;
       default = 1;
-      description = lib.mkDoc ''
+      description = ''
         The default DPI scale to use.
       '';
     };

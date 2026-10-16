@@ -31,7 +31,7 @@ in
         "breeze"
       ];
       default = config.my.home.theme.colorScheme;
-      description = lib.mkDoc ''
+      description = ''
         Which theme to use with GTK.
       '';
     };

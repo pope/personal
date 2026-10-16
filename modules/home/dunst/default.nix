@@ -15,7 +15,7 @@ in
       type = lib.types.str;
       default = "Sans 8";
       example = "monospace 10";
-      description = lib.mkDoc ''
+      description = ''
         The font config to use.
       '';
     };

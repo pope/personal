@@ -10,7 +10,7 @@ in
     opIdentityAgent = lib.mkOption {
       type = lib.types.str;
       default = "~/.1password/agent.sock";
-      description = lib.mkDoc ''
+      description = ''
         The location of the 1Password agent socket used for SSH.
       '';
     };

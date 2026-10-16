@@ -10,7 +10,7 @@ let
 in
 {
   options.my.nixos.fah = {
-    enable = lib.mkEnableOption (lib.mdDoc "Folding@Home");
+    enable = lib.mkEnableOption "Folding@Home";
   };
 
   config = lib.mkIf cfg.enable {

@@ -20,7 +20,7 @@ in
         "hyprland"
       ];
       default = "hyprland";
-      description = lib.mkDoc ''
+      description = ''
         Which waybar theme to use.
       '';
     };
@@ -28,7 +28,7 @@ in
       type = lib.types.number;
       default = 1;
       example = 0.8;
-      description = lib.mkDoc ''
+      description = ''
         Scaling to apply to the Waybar sizing.
       '';
     };

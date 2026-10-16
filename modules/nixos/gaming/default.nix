@@ -17,7 +17,7 @@ in
     preferredOutput = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
-      description = lib.mkDoc ''
+      description = ''
         If specified, sets the preferred output for gamescope.
       '';
     };

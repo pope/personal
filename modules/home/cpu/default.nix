@@ -9,7 +9,7 @@
         "znver4"
       ];
       default = "unspecified";
-      description = lib.mkDoc ''
+      description = ''
         The type of CPU architecture on the machine
       '';
     };

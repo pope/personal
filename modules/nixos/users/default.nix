@@ -14,7 +14,7 @@ in
     uid = lib.mkOption {
       type = with lib.types; nullOr int;
       default = null;
-      description = lib.mdDoc ''
+      description = ''
         The account UID. If the UID is null, a free UID is picked on
         activation.
       '';
@@ -22,7 +22,7 @@ in
     initialPassword = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
-      description = lib.mdDoc ''
+      description = ''
         Specifies the initial password for the user, i.e. the
         password assigned if the user does not already exist. If
         {option}`users.mutableUsers` is true, the password
