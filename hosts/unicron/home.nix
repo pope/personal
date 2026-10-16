@@ -110,10 +110,7 @@
         enable = true;
         opencl.enable = true;
       };
-      threed = {
-        enable = true;
-        hip.enable = true;
-      };
+      threed.enable = true;
       video.enable = false;
     };
     obs.enable = true;

@@ -11,7 +11,6 @@ in
 {
   options.my.home.multimedia.threed = {
     enable = lib.mkEnableOption "3d multimedia home options";
-    hip.enable = lib.mkEnableOption "enable AMD HIP";
   };
 
   config = lib.mkIf cfg.enable {
