@@ -26,6 +26,7 @@ in
       mouse = true;
       newSession = true;
       prefix = "C-z";
+      shell = config.my.home.shell.defaultShell;
       terminal = "tmux-256color";
       plugins = with pkgs.tmuxPlugins; [
         {

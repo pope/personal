@@ -2,6 +2,7 @@
 
 let
   cfg = config.my.home.terminals.kitty;
+  inherit (config.my.home.shell) loginShell;
   inherit (config.my.home.theme) colorScheme;
 in
 {
@@ -33,7 +34,7 @@ in
         background_blur = 64;
         clipboard_control = "write-clipboard write-primary read-clipboard-ask read-primary-ask";
         dynamic_background_opacity = "yes";
-        # shell = "${pkgs.fish}/bin/fish --login";
+        shell = lib.mkIf (loginShell != null) loginShell;
         tab_bar_edge = "top";
         tab_bar_style = "powerline";
         tab_powerline_style = "round";

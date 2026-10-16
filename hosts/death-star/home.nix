@@ -58,7 +58,10 @@
     };
     languages.python.enable = true;
     packages.enable = true;
-    shell.zsh.enable = true;
+    shell = {
+      overrideDefaultShell = true;
+      zsh.enable = true;
+    };
     ssh.enable = true;
     yazi.enable = true;
   };

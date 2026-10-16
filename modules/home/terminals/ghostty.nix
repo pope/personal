@@ -8,6 +8,7 @@
 let
   cfg = config.my.home.terminals.ghostty;
 
+  inherit (config.my.home.shell) loginShell;
   inherit (config.my.home.theme) colorScheme;
 in
 {
@@ -50,6 +51,7 @@ in
           gtk-toolbar-style = "flat";
           background-opacity = 0.95;
           background-blur-radius = 20;
+          command = lib.mkIf (loginShell != null) loginShell;
           config-file = [ "?overrides" ];
           font-family = [
             ""

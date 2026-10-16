@@ -7,6 +7,7 @@
 
 let
   cfg = config.my.home.terminals.foot;
+  inherit (config.my.home.shell) loginShell;
   inherit (config.my.home.theme) colorScheme;
 in
 {
@@ -50,6 +51,7 @@ in
             "Liga SFMono Nerd Font:size=${fontSize}, monospace:size=${fontSize}";
           font-size-adjustment = 0.5;
           pad = "4x10";
+          shell = lib.mkIf (loginShell != null) loginShell;
         };
         colors-dark = {
           alpha = 0.96;

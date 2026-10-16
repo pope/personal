@@ -7,6 +7,7 @@
 
 let
   cfg = config.my.home.terminals.wezterm;
+  inherit (config.my.home.shell) defaultShell;
   inherit (config.my.home.theme) colorScheme;
 in
 {
@@ -32,7 +33,6 @@ in
         let
           opacity = 0.94;
           line_height = if pkgs.stdenv.hostPlatform.isDarwin then 1.6 else 1.25;
-          shell = if config.my.home.shell.zsh.enable then "${pkgs.zsh}/bin/zsh" else "${pkgs.fish}/bin/fish";
           cs =
             if colorScheme == "rose-pine" then
               "rose-pine"
@@ -51,7 +51,11 @@ in
 
           config.color_scheme = '${cs}'
           config.default_cursor_style = "SteadyBar"
-          config.default_prog = { '${shell}', '-l'}
+        ''
+        + lib.optionalString (defaultShell != null) ''
+          config.default_prog = { '${defaultShell}', '--login' }
+        ''
+        + ''
 
           config.font = wezterm.font_with_fallback {
             { family = 'monospace' },

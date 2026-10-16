@@ -22,7 +22,10 @@
     editors.neovim.enable = true;
     git.enable = true;
     packages.enable = true;
-    shell.zsh.enable = true;
+    shell = {
+      overrideDefaultShell = true;
+      zsh.enable = true;
+    };
     ssh.enable = true;
     terminals.ghostty.enable = true;
     tmux.enable = true;
