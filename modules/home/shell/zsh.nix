@@ -89,7 +89,5 @@ in
       enable = true;
       enableZshIntegration = true;
     };
-
-    programs.yazi.enableZshIntegration = true;
   };
 }

@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.my.home.packages;
+  cfg = config.my.home.yazi;
 
   mkDefaultAttrs = lib.mapAttrsRecursive (_: v: lib.mkDefault v);
   keymap = mkDefaultAttrs (fromTOML (builtins.readFile ./keymap-default.toml));
