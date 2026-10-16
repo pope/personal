@@ -41,7 +41,7 @@ in
       udev = {
         # Roto-Control
         extraRules = ''
-          SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="0003", GROUP="plugdev"
+          SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="0003", GROUP="plugdev", MODE="0660", TAG+="uaccess"
         '';
         packages = with pkgs; [
           bitwig-connect-control-panel
