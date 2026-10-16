@@ -16,20 +16,12 @@ in
     boot = {
       # I don't believe this is needed if we enable modesetting below.
       # kernelParams = [ "nvidia_drm.modeset=1" ];
-      initrd = {
-        kernelModules = [
-          "nvidia"
-          "nvidia_drm"
-          "nvidia_uvm"
-          "nvidia_modeset"
-        ];
-        availableKernelModules = [
-          "nvidia"
-          "nvidia_modeset"
-          "nvidia_uvm"
-          "nvidia_drm"
-        ];
-      };
+      initrd.kernelModules = [
+        "nvidia"
+        "nvidia_drm"
+        "nvidia_uvm"
+        "nvidia_modeset"
+      ];
     };
 
     nixpkgs.config.cudaSupport = true;
