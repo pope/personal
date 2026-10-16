@@ -76,17 +76,11 @@
       ];
     });
 
-    # TODO(pope): Remove this override after the NDI updater script runs
-    obs-studio-plugins = prev.obs-studio-plugins // {
-      distroav = prev.obs-studio-plugins.distroav.override {
-        ndi-6 = prev.ndi-6.overrideAttrs (_: {
-          src = prev.fetchurl {
-            url = "https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz";
-            hash = "sha256-8DFPJFRG3vxIi2POtGiazxqWWu79ray3BXG7IWqMwYM=";
-          };
-        });
-      };
-    };
+    # TODO(pope): Remove after PR #573942 lands in nixpkgs/nixos-unstable
+    # Fixes lix 2.95.4 meson configure error with unknown option "mimalloc"
+    lix = prev.lix.overrideAttrs (oldAttrs: {
+      mesonFlags = prev.lib.remove (prev.lib.mesonEnable "mimalloc" false) (oldAttrs.mesonFlags or [ ]);
+    });
 
     renoise-mine = prev.renoise.override (
       let
