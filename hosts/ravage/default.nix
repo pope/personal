@@ -128,7 +128,7 @@
         START_CHARGE_THRESH_BAT1 = 85;
         STOP_CHARGE_THRESH_BAT1 = 95;
 
-        MEM_SLEEPON_AC = "s2idle";
+        MEM_SLEEP_ON_AC = "s2idle";
         MEM_SLEEP_ON_BAT = "deep";
       };
     };
