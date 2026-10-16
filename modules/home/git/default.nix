@@ -28,14 +28,6 @@ in
       '';
     };
 
-    opIdentityAgent = lib.mkOption {
-      type = lib.types.str;
-      default = "~/.1password/agent.sock";
-      description = ''
-        The location of the 1Password agent socket used for SSH.
-      '';
-    };
-
     sshCommand = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
