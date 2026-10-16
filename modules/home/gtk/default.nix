@@ -13,7 +13,6 @@ in
     ./breeze.nix
     ./catppuccin.nix
     ./dracula.nix
-    ./rose-pine.nix
     ./tokyonight.nix
   ];
 
@@ -24,13 +23,12 @@ in
     darkTheme = lib.mkEnableOption "dark theme settings";
     theme = lib.mkOption {
       type = lib.types.enum [
-        "rose-pine"
         "catppuccin"
         "dracula"
         "tokyonight"
         "breeze"
       ];
-      default = config.my.home.theme.colorScheme;
+      default = "breeze";
       description = ''
         Which theme to use with GTK.
       '';
@@ -38,6 +36,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      adwaita-icon-theme
+      gnome-themes-extra
+    ];
+
+    dconf.settings."org/gnome/desktop/interface" = {
+      color-scheme = if cfg.darkTheme then "prefer-dark" else "prefer-light";
+    };
+
     gtk = {
       enable = true;
 

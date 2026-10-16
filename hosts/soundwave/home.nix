@@ -38,7 +38,6 @@
     };
     gaming.enable = true;
     git.enable = true;
-    gnome.enable = true;
     gtk = {
       enable = true;
       disableQt = true;

@@ -61,10 +61,6 @@
       font = "Sans 11";
     };
     git.enable = true;
-    gnome = {
-      enable = true;
-      disableGnomeShellExtensions = true;
-    };
     gtk = {
       enable = true;
       disableQt = true;
