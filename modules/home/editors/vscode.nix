@@ -16,7 +16,11 @@ in
   config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib ]);
+      package =
+        if pkgs.stdenv.hostPlatform.isLinux then
+          (pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib ]))
+        else
+          pkgs.vscode;
       mutableExtensionsDir = false;
       profiles.default.extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
