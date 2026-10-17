@@ -63,8 +63,8 @@
 
 let
   version = "0-unstable-2026-10-16";
-  rev = "404cb81db53029b6bd3b31c6ff3b7172a2c6ec5e";
-  hash = "sha256-L0GhO/UOAZzOsc7HrfjGzNmyL0Mb40CCLpxErLEINCs=";
+  rev = "35c83fba7f1b7ae4c4678c30594a5dc99f6ae8cd";
+  hash = "sha256-tQgaJuET5KjVvQAXod2pzmeh5o79bdlx7MoRXRUSlqA=";
 
   darktable-base = darktable.override { inherit withAi; };
 
@@ -124,7 +124,7 @@ let
     ];
     text = ''
       REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-      TARGET_FILE="$REPO_ROOT/packages/darktable-nightly.nix"
+      TARGET_FILE="$REPO_ROOT/packages/photography/darktable-nightly.nix"
 
       echo "Checking latest commit for darktable master..."
       latest_commit_info=$(curl -s https://api.github.com/repos/darktable-org/darktable/commits/master)
