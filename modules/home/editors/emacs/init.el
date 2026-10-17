@@ -344,13 +344,15 @@
 (use-package eglot
   :hook ((c-ts-mode     . eglot-ensure)
          (c++-ts-mode   . eglot-ensure)
+         (cmake-ts-mode . eglot-ensure)
          (go-ts-mode    . eglot-ensure)
          (nix-ts-mode   . eglot-ensure)
          (odin-ts-mode  . eglot-ensure)
          (rust-ts-mode  . eglot-ensure)
          (zig-ts-mode   . eglot-ensure))
   :config
-  (dolist (el '((nix-ts-mode . ("nixd"))
+  (dolist (el '((cmake-ts-mode . ("neocmakelsp" "stdio"))
+                (nix-ts-mode . ("nixd"))
                 (odin-ts-mode . ("ols"))
                 (zig-ts-mode . ("zls"))))
     (add-to-list 'eglot-server-programs el))

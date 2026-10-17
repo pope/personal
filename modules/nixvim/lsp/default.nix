@@ -101,13 +101,10 @@
               end, { desc = "Show symbol info" })
             end,
           },
-          cmake = {
-            cmd = { "cmake-language-server" },
+          neocmake = {
+            cmd = { "neocmakelsp", "stdio" },
             filetypes = { "cmake" },
             root_markers = { "CMakePresets.json", "CTestConfig.cmake", ".git", "build", "cmake" },
-            init_options = {
-              buildDirectory = "build",
-            },
           },
           dart = {
             cmd = { "dart", "language-server", "--protocol=lsp" },

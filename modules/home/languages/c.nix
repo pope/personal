@@ -19,7 +19,6 @@ in
       [
         clang-tools
         cmake
-        cmake-language-server
         gnumake
         lldb
         neocmakelsp
