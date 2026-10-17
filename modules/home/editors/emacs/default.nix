@@ -76,10 +76,8 @@ in
       };
 
       packages = with pkgs; [
-        fd
         nixd
         nixfmt
-        ripgrep
         sops
       ];
     };
