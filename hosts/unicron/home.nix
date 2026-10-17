@@ -89,8 +89,14 @@
     };
     kde.enable = true;
     languages = {
+      c.enable = true;
+      go.enable = true;
+      java.enable = true;
       javascript.enable = true;
+      protobuf.enable = true;
       python.enable = true;
+      rust.enable = true;
+      zig.enable = true;
     };
     mpv = {
       enable = true;
