@@ -31,16 +31,11 @@
 
   networking = {
     hostName = "skrapnel"; # Define your hostname.
-    enableIPv6 = false;
     firewall = {
       enable = true;
       allowPing = true;
     };
-    networkmanager.enable = true;
   };
-
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
 
   fileSystems = {
     "/mnt/Cyberia" = {
@@ -57,8 +52,6 @@
   services.fwupd.enable = true;
 
   my.nixos = {
-    mainUser = "pope";
-
     gpu.intel.enable = true;
     nfs.host.enable = true;
     nix.enable = true;
@@ -74,7 +67,6 @@
       enable = true;
       exitNode.enable = true;
     };
-    users.shell = "zsh";
     vyprvpn.enable = true;
   };
 

@@ -28,13 +28,7 @@
     # kernelParams = [ "nvidia_drm.modeset=1" ];
   };
 
-  networking = {
-    hostName = "nixos-testing"; # Define your hostname.
-    networkmanager.enable = true;
-  };
-
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  networking.hostName = "nixos-testing";
 
   services.xserver.videoDrivers = [
     "qxl"
@@ -47,8 +41,6 @@
   };
 
   my.nixos = {
-    mainUser = "pope";
-
     bluetooth.enable = true;
     desktop = {
       enable = true;
@@ -63,10 +55,7 @@
     printing.enable = true;
     sound.enable = true;
     system.enable = true;
-    users = {
-      shell = "zsh";
-      initialPassword = "changeme";
-    };
+    users.initialPassword = "changeme";
     v4l2loopback.enable = true;
     virtualization = {
       enable = true;

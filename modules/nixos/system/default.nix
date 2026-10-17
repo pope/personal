@@ -22,7 +22,6 @@ in
       config = {
         # Allow unfree packages
         allowUnfree = true;
-        allowUnfreePredicate = _: true;
         firefox.speechSynthesisSupport = true;
         # Accept the joypixels license
         joypixels.acceptLicense = true;
@@ -48,11 +47,17 @@ in
       };
     };
 
+    networking = {
+      enableIPv6 = false;
+      networkmanager.enable = true;
+    };
+
+    time.timeZone = "America/Los_Angeles";
+
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
       git
-      gparted
       nixos-diff
       ntfs3g
       wget

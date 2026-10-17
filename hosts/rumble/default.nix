@@ -48,17 +48,11 @@
     # networking.proxy.default = "http://user:password@proxy:port/";
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-    # Enable networking
-    networkmanager.enable = true;
-
-    enableIPv6 = false;
     nameservers = [
       "1.1.1.1"
       "8.8.8.8"
     ];
   };
-
-  time.timeZone = "America/Los_Angeles";
 
   hardware = {
     framework = {
@@ -102,8 +96,6 @@
   ];
 
   my.nixos = {
-    mainUser = "pope";
-
     bluetooth.enable = true;
     desktop = {
       enable = true;
@@ -139,7 +131,6 @@
     sound.enable = true;
     system.enable = true;
     tailscale.enable = true;
-    users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
     vyprvpn.enable = true;

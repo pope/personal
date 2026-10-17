@@ -68,19 +68,10 @@
   networking = {
     hostName = "ravage"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-    # Enable networking
-    networkmanager.enable = true;
-
-    enableIPv6 = false;
     firewall.allowedTCPPorts = [ 8001 ];
   };
 
-  # Set your time zone.
-  time = {
-    timeZone = "America/Los_Angeles";
-    hardwareClockInLocalTime = true;
-  };
+  time.hardwareClockInLocalTime = true;
 
   environment.systemPackages = with pkgs; [
     libva-utils
@@ -155,8 +146,6 @@
   };
 
   my.nixos = {
-    mainUser = "pope";
-
     bluetooth.enable = true;
     desktop = {
       enable = true;
@@ -193,7 +182,6 @@
     sound.enable = true;
     system.enable = true;
     tailscale.enable = true;
-    users.shell = "zsh";
     vyprvpn.enable = true;
   };
 

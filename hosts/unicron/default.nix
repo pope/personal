@@ -102,30 +102,19 @@
     #   noProxy = "127.0.0.1,localhost,internal.domain";
     # };
 
-    # Enable networking
-    networkmanager.enable = true;
-
-    enableIPv6 = false;
-
     firewall.enable = true;
     firewall.allowedTCPPorts = [ 24800 ];
 
     interfaces.eno1.wakeOnLan.enable = true;
   };
 
-  # Set your time zone.
-  time = {
-    timeZone = "America/Los_Angeles";
-    hardwareClockInLocalTime = true;
-  };
+  time.hardwareClockInLocalTime = true;
 
   virtualisation.docker.enable = true;
   users.users.pope.extraGroups = [ "docker" ];
 
   musnix.enable = true;
   my.nixos = {
-    mainUser = "pope";
-
     bluetooth.enable = true;
     desktop = {
       enable = true;
@@ -161,7 +150,6 @@
     sound.enable = true;
     system.enable = true;
     tailscale.enable = true;
-    users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
     yabridge.enable = true;

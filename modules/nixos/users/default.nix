@@ -39,9 +39,9 @@ in
       '';
     };
     shell = lib.mkOption {
-      default = "fish";
+      default = "zsh";
       description = "Which shell to use";
-      example = "zsh";
+      example = "fish";
       type = lib.types.enum [
         "fish"
         "zsh"
@@ -73,13 +73,7 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGg+9LMpvJUBVCndjopRX7Jm6veGyHkf1ZBI/434K2a4"
       ];
       packages = [ ];
-      shell =
-        if cfg.shell == "fish" then
-          pkgs.fish
-        else if cfg.shell == "zsh" then
-          pkgs.zsh
-        else
-          abort "shell is invalid";
+      shell = pkgs.${cfg.shell};
     };
 
     users.groups.plugdev = { };

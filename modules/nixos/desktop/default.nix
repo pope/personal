@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.my.nixos.desktop;
@@ -33,17 +38,23 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.sessionVariables = {
-      # Hint electron apps to use wayland. Otherwise Discord will be janky.
-      NIXOS_OZONE_WL = "1";
+    environment = {
+      sessionVariables = {
+        # Hint electron apps to use wayland. Otherwise Discord will be janky.
+        NIXOS_OZONE_WL = "1";
 
-      # Trying this out to see if Plasma requires less power
-      KWIN_USE_OVERLAYS = "1";
+        # Trying this out to see if Plasma requires less power
+        KWIN_USE_OVERLAYS = "1";
 
-      CLUTTER_BACKEND = "wayland";
-      GDK_BACKEND = "wayland";
-      QT_QPA_PLATFORM = "wayland";
-      SDL_VIDEODRIVER = "wayland";
+        CLUTTER_BACKEND = "wayland";
+        GDK_BACKEND = "wayland";
+        QT_QPA_PLATFORM = "wayland";
+        SDL_VIDEODRIVER = "wayland";
+      };
+
+      systemPackages = with pkgs; [
+        gparted
+      ];
     };
 
     programs = lib.mkIf cfg.kde.enable {

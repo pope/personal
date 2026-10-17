@@ -81,11 +81,6 @@
     #   noProxy = "127.0.0.1,localhost,internal.domain";
     # };
 
-    # Enable networking
-    networkmanager.enable = true;
-
-    enableIPv6 = false;
-
     firewall = {
       enable = true;
       # Open ports in the firewall.
@@ -101,16 +96,10 @@
       ForceCommand systemd-inhibit --who="SSH session" --why="Active user" --what=idle --mode=block ${lib.getExe pkgs.zsh}
   '';
 
-  # Set your time zone.
-  time = {
-    timeZone = "America/Los_Angeles";
-    hardwareClockInLocalTime = true;
-  };
+  time.hardwareClockInLocalTime = true;
 
   musnix.enable = false;
   my.nixos = {
-    mainUser = "pope";
-
     arrs.enable = false;
     bluetooth.enable = true;
     desktop = {
@@ -140,7 +129,6 @@
     sound.enable = true;
     system.enable = true;
     tailscale.enable = true;
-    users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
   };
