@@ -105,6 +105,14 @@
     mainUser = "pope";
 
     bluetooth.enable = true;
+    desktop = {
+      enable = true;
+      autoLogin.enable = false;
+      displayManager = "sddm";
+      gnome.enable = false;
+      hyprland.enable = true;
+      kde.enable = true;
+    };
     flatpak.enable = true;
     fonts = {
       enable = true;
@@ -134,14 +142,6 @@
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
-    xserver = {
-      enable = true;
-      autoLogin.enable = false;
-      displayManager = "sddm";
-      gnome.enable = false;
-      hyprland.enable = true;
-      kde.enable = true;
-    };
     vyprvpn.enable = true;
     yabridge.enable = true;
   };

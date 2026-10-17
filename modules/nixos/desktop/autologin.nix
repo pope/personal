@@ -2,7 +2,7 @@
 
 let
   inherit (config.my.nixos) mainUser;
-  cfg = config.my.nixos.xserver;
+  cfg = config.my.nixos.desktop;
 in
 {
   config = lib.mkIf (cfg.enable && cfg.autoLogin.enable) {

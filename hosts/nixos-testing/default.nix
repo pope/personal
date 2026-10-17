@@ -50,6 +50,12 @@
     mainUser = "pope";
 
     bluetooth.enable = true;
+    desktop = {
+      enable = true;
+      autoLogin.enable = false;
+      displayManager = "sddm";
+      kde.enable = true;
+    };
     flatpak.enable = true;
     fonts.enable = true;
     nix.enable = true;
@@ -57,20 +63,14 @@
     printing.enable = true;
     sound.enable = true;
     system.enable = true;
+    users = {
+      shell = "zsh";
+      initialPassword = "changeme";
+    };
     v4l2loopback.enable = true;
     virtualization = {
       enable = true;
       kind = "guest";
-    };
-    xserver = {
-      enable = true;
-      autoLogin.enable = false;
-      displayManager = "sddm";
-      kde.enable = true;
-    };
-    users = {
-      shell = "zsh";
-      initialPassword = "changeme";
     };
   };
 

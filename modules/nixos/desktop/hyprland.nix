@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.my.nixos.xserver;
+  cfg = config.my.nixos.desktop;
 in
 {
   config = lib.mkIf (cfg.enable && cfg.hyprland.enable) {

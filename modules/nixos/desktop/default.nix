@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  cfg = config.my.nixos.xserver;
+  cfg = config.my.nixos.desktop;
 in
 {
   imports = [
@@ -9,8 +9,8 @@ in
     ./hyprland.nix
   ];
 
-  options.my.nixos.xserver = {
-    enable = lib.mkEnableOption "xserver system options";
+  options.my.nixos.desktop = {
+    enable = lib.mkEnableOption "desktop system options";
 
     displayManager = lib.mkOption {
       default = "gdm";

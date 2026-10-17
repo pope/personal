@@ -158,6 +158,14 @@
     mainUser = "pope";
 
     bluetooth.enable = true;
+    desktop = {
+      enable = true;
+      autoLogin.enable = false;
+      displayManager = "sddm";
+      gnome.enable = false;
+      hyprland.enable = true;
+      kde.enable = true;
+    };
     flatpak.enable = true;
     fonts = {
       enable = true;
@@ -187,14 +195,6 @@
     tailscale.enable = true;
     users.shell = "zsh";
     vyprvpn.enable = true;
-    xserver = {
-      enable = true;
-      autoLogin.enable = false;
-      displayManager = "sddm";
-      gnome.enable = false;
-      hyprland.enable = true;
-      kde.enable = true;
-    };
   };
 
   # This value determines the NixOS release from which the default

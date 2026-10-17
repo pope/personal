@@ -113,6 +113,14 @@
 
     arrs.enable = false;
     bluetooth.enable = true;
+    desktop = {
+      enable = true;
+      autoLogin.enable = false;
+      displayManager = "none";
+      kde.enable = true;
+      gnome.enable = false;
+      hyprland.enable = false;
+    };
     flatpak.enable = true;
     foldingathome.enable = false;
     fonts.enable = true;
@@ -135,14 +143,6 @@
     users.shell = "zsh";
     v4l2loopback.enable = true;
     virtualization.enable = true;
-    xserver = {
-      enable = true;
-      autoLogin.enable = false;
-      displayManager = "none";
-      kde.enable = true;
-      gnome.enable = false;
-      hyprland.enable = false;
-    };
   };
 
   # This value determines the NixOS release from which the default
