@@ -3,6 +3,7 @@
   fzf,
   fzf-preview,
   kitty,
+  lib,
   awww,
   writeShellApplication,
 }:
@@ -28,4 +29,5 @@ writeShellApplication {
         fzf --preview='fzf-preview {}' --margin=2 --layout=reverse --border | \
         xargs --no-run-if-empty awww img
     '';
+  meta.platforms = lib.platforms.linux;
 }

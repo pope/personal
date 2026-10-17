@@ -96,5 +96,8 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  meta.mainProgram = "Rack";
+  meta = {
+    mainProgram = "Rack";
+    platforms = [ "x86_64-linux" ];
+  };
 })

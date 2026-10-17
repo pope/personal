@@ -1,5 +1,6 @@
 {
   fetchFromGitHub,
+  lib,
   stdenvNoCC,
   nix-update-script,
 }:
@@ -25,4 +26,6 @@ stdenvNoCC.mkDerivation rec {
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--flake" ];
   };
+
+  meta.platforms = lib.platforms.linux;
 }

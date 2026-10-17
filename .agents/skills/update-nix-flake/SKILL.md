@@ -32,21 +32,21 @@ If the user has not already run the update commands in the current session, run 
 
 Inspect [overlays/default.nix](../../../overlays/default.nix) and [flake.nix](../../../flake.nix) for temporary workarounds marked with `# TODO(pope):` (for example, `# TODO(pope): Remove after PR #... lands in nixpkgs/nixos-unstable`).
 
-- Check the updated `nixpkgs` input (e.g., via `nix eval --impure --raw .#nixosConfigurations.soundwave.pkgs.<pkg>.meta.position`) to see if the upstream fix or version bump has landed in `nixos-unstable`.
+- Check the updated `nixpkgs` input (e.g., via `nix eval --raw .#nixosConfigurations.soundwave.pkgs.<pkg>.meta.position`) to see if the upstream fix or version bump has landed in `nixos-unstable`.
 - If an override is now redundant, report it to the user and ask for confirmation before removing it.
 
 ## 3. Run Flake Checks & Audit Warnings/Deprecations
 
 1. Run the full flake check suite:
    ```bash
-   NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 NIXPKGS_ALLOW_UNFREE=1 nix flake check --impure
+   nix flake check
    ```
 1. Explicitly verify that `config.warnings` is empty across all NixOS and Home Manager configurations, and verify that the `aarch64-darwin` Home Manager configuration evaluates cleanly (since `nix flake check` on `x86_64-linux` omits `aarch64-darwin` by default):
    ```bash
-   nix eval --impure --json .#nixosConfigurations --apply 'builtins.mapAttrs (n: v: v.config.warnings)'
-   nix eval --impure --json .#nixosConfigurations --apply 'builtins.mapAttrs (n: v: v.config.home-manager.users.pope.warnings)'
-   nix eval --impure --json .#homeConfigurations --apply 'builtins.mapAttrs (n: v: v.config.warnings)'
-   NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 NIXPKGS_ALLOW_UNFREE=1 nix eval --impure .#homeConfigurations.\"pope@galvatron\".activationPackage.drvPath
+   nix eval --json .#nixosConfigurations --apply 'builtins.mapAttrs (n: v: v.config.warnings)'
+   nix eval --json .#nixosConfigurations --apply 'builtins.mapAttrs (n: v: v.config.home-manager.users.pope.warnings)'
+   nix eval --json .#homeConfigurations --apply 'builtins.mapAttrs (n: v: v.config.warnings)'
+   nix eval .#homeConfigurations.\"pope@galvatron\".activationPackage.drvPath
    ```
 1. **Interpreting Warnings & Confirming Fixes**:
    - `warning: file 'nar/...' does not exist in binary cache 'http://skrapnel:5000'` is expected for newly updated paths not yet populated on `skrapnel` (Nix automatically falls back to `https://cache.nixos.org`).

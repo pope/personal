@@ -198,9 +198,13 @@
             extraSpecialArgs = { inherit inputs; };
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;
-          mypkgs = import ./packages { inherit pkgs; } // {
-            inherit nvim;
-          };
+          mypkgs =
+            pkgs.lib.filterAttrs (_: pkg: pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform pkg) (
+              import ./packages { inherit pkgs; }
+            )
+            // {
+              inherit nvim;
+            };
         in
         mypkgs
       );

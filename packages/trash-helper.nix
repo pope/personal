@@ -2,6 +2,7 @@
   findutils,
   fzf,
   gnused,
+  lib,
   trashy,
   writeShellApplication,
 }:
@@ -28,4 +29,5 @@ writeShellApplication {
         | sed -E 's|^[^/]*||; s| +$||' \
         | xargs -d '\n' --no-run-if-empty trash "$ACTION" --match=exact --force
     '';
+  meta.platforms = lib.platforms.linux;
 }

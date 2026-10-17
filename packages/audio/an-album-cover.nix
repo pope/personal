@@ -1,6 +1,7 @@
 {
   findutils,
   imagemagick,
+  lib,
   opustags,
   parallel,
   writeShellApplication,
@@ -53,4 +54,5 @@ writeShellApplication {
 
       find "''${1:-$HOME/Music}" -type d -print0 | parallel -0 processDir
     '';
+  meta.platforms = lib.platforms.linux;
 }

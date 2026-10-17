@@ -50,4 +50,6 @@ stdenv.mkDerivation {
     cp -r linux/Amigo.vst3 $out/lib/vst3
     runHook postInstall
   '';
+
+  meta.platforms = [ "x86_64-linux" ];
 }
