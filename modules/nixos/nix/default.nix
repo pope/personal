@@ -11,7 +11,7 @@ in
 {
   options.my.nixos.nix = {
     enable = lib.mkEnableOption "nix config options";
-    enableBinaryCacheSubstitutor = lib.mkEnableOption "my binary cache server";
+    binaryCacheSubstitutor.enable = lib.mkEnableOption "my binary cache server";
   };
 
   config = lib.mkIf cfg.enable {
@@ -35,14 +35,14 @@ in
         ];
         nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
         substituters =
-          lib.optionals cfg.enableBinaryCacheSubstitutor [
+          lib.optionals cfg.binaryCacheSubstitutor.enable [
             "http://skrapnel:5000"
           ]
           ++ [
             "https://nix-community.cachix.org"
           ];
         trusted-public-keys =
-          lib.optionals cfg.enableBinaryCacheSubstitutor [
+          lib.optionals cfg.binaryCacheSubstitutor.enable [
             "skrapnel:vM+AMNsRUqjN3EYBHiUvy384DZfQr57Y9drFFGmPLiM="
           ]
           ++ [

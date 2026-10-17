@@ -6,10 +6,10 @@
 }:
 
 let
-  cfg = config.my.nixos.fah;
+  cfg = config.my.nixos.foldingathome;
 in
 {
-  options.my.nixos.fah = {
+  options.my.nixos.foldingathome = {
     enable = lib.mkEnableOption "Folding@Home";
   };
 

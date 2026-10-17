@@ -55,7 +55,7 @@
     };
     mpv = {
       enable = true;
-      enableHqSettings = true;
+      hqSettings.enable = true;
       defaultProfile = "fsr";
     };
     multimedia = {

@@ -5,7 +5,7 @@ let
 in
 {
   options.my.nixos.vyprvpn = {
-    enable = lib.mkEnableOption "Whether to enable VyprVPN settings";
+    enable = lib.mkEnableOption "VyprVPN settings";
   };
 
   config = lib.mkIf cfg.enable {

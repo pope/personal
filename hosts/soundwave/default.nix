@@ -113,13 +113,13 @@
 
     arrs.enable = false;
     bluetooth.enable = true;
-    fah.enable = false;
     flatpak.enable = true;
+    foldingathome.enable = false;
     fonts.enable = true;
     gaming = {
       enable = true;
-      enableSteam = true;
-      ntsync = true;
+      steam.enable = true;
+      ntsync.enable = true;
     };
     gpu.nvidia.enable = true;
     keyboards.enable = true;
@@ -137,7 +137,7 @@
     virtualization.enable = true;
     xserver = {
       enable = true;
-      enableAutoLogin = false;
+      autoLogin.enable = false;
       displayManager = "none";
       kde.enable = true;
       gnome.enable = false;

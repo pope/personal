@@ -80,7 +80,7 @@
     };
     hyprland = {
       enable = true;
-      enableVrr = false;
+      vrr.enable = false;
     };
     hypridle = {
       enable = true;
@@ -94,7 +94,7 @@
     };
     mpv = {
       enable = true;
-      enableHqSettings = true;
+      hqSettings.enable = true;
       defaultProfile = "fsr";
     };
     multimedia = {

@@ -12,8 +12,8 @@ in
 {
   options.my.nixos.gaming = {
     enable = lib.mkEnableOption "gaming system options";
-    enableSteam = lib.mkEnableOption "whether or not to enable Steam";
-    ntsync = lib.mkEnableOption "whether or not to enable ntsync";
+    steam.enable = lib.mkEnableOption "Steam";
+    ntsync.enable = lib.mkEnableOption "ntsync";
     preferredOutput = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
@@ -26,12 +26,13 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.ntsync -> lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.14";
+        assertion =
+          cfg.ntsync.enable -> lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.14";
         message = "ntsync requires Linux 6.14+.";
       }
     ];
 
-    boot.kernelModules = lib.mkIf cfg.ntsync [ "ntsync" ];
+    boot.kernelModules = lib.mkIf cfg.ntsync.enable [ "ntsync" ];
 
     # Hardware support from Steam
     hardware = {
@@ -57,8 +58,8 @@ in
       gamemode.enable = true;
 
       steam = {
-        enable = cfg.enableSteam;
-        package = lib.mkIf cfg.ntsync (
+        enable = cfg.steam.enable;
+        package = lib.mkIf cfg.ntsync.enable (
           pkgs.steam.override {
             extraEnv = {
               MANGOHUD = false;
@@ -68,7 +69,7 @@ in
           }
         );
         dedicatedServer.openFirewall = true;
-        extraCompatPackages = lib.mkIf cfg.ntsync (
+        extraCompatPackages = lib.mkIf cfg.ntsync.enable (
           with pkgs;
           [
             proton-ge-bin
@@ -95,7 +96,7 @@ in
     services = {
       scx.enable = true;
 
-      udev.packages = lib.mkIf cfg.ntsync [
+      udev.packages = lib.mkIf cfg.ntsync.enable [
         (pkgs.writeTextFile {
           name = "ntsync-udev-rules";
           text = ''KERNEL=="ntsync", MODE="0660", TAG+="uaccess"'';

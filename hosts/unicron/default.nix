@@ -128,16 +128,16 @@
 
     bluetooth.enable = true;
     displaycal.enable = true;
-    fah.enable = false;
     flatpak.enable = true;
+    foldingathome.enable = false;
     fonts = {
       enable = true;
       resolution = "high";
     };
     gaming = {
       enable = true;
-      enableSteam = true;
-      ntsync = true;
+      steam.enable = true;
+      ntsync.enable = true;
       preferredOutput = "HDMI-A-2";
     };
     gpu.amd.enable = true;
@@ -145,7 +145,7 @@
     nfs.client.enable = true;
     nix = {
       enable = true;
-      enableBinaryCacheSubstitutor = true;
+      binaryCacheSubstitutor.enable = true;
     };
     onepassword.enable = true;
     printing.enable = true;
@@ -158,7 +158,7 @@
     virtualization.enable = true;
     xserver = {
       enable = true;
-      enableAutoLogin = false;
+      autoLogin.enable = false;
       displayManager = "sddm";
       gnome.enable = false;
       kde.enable = true;

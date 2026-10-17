@@ -12,17 +12,17 @@
 # - https://kohana.fi/article/mpv-for-anime
 
 let
+  cfg = config.my.home.mpv;
   defs = import ./defs.nix {
     inherit pkgs;
-    inherit (config.my.home.mpv) enableHqSettings;
+    enableHqSettings = cfg.hqSettings.enable;
   };
-  cfg = config.my.home.mpv;
 in
 {
   options.my.home.mpv = {
     enable = lib.mkEnableOption "mpv options";
-    enableHqSettings = lib.mkEnableOption "use the HQ settings and shaders";
-    enableVulkan = lib.mkOption {
+    hqSettings.enable = lib.mkEnableOption "the HQ settings and shaders";
+    vulkan.enable = lib.mkOption {
       default = pkgs.stdenv.hostPlatform.isLinux;
       example = true;
       description = "Whether to enable Vulkan GPU API.";
@@ -79,8 +79,8 @@ in
         deband-threshold = 35;
 
         # Dithering
-        dither-depth = if cfg.enableHqSettings then 10 else "auto";
-        dither = if cfg.enableHqSettings then "error-diffusion" else "fruit";
+        dither-depth = if cfg.hqSettings.enable then 10 else "auto";
+        dither = if cfg.hqSettings.enable then "error-diffusion" else "fruit";
         error-diffusion = "sierra-lite";
 
         # Track Selection
@@ -97,7 +97,7 @@ in
           else
             abort "defaultProfile is invalid";
       }
-      // lib.optionalAttrs cfg.enableVulkan {
+      // lib.optionalAttrs cfg.vulkan.enable {
         gpu-api = "vulkan";
         gpu-context = "waylandvk";
       };
@@ -118,21 +118,21 @@ in
           (mkBinding defs.crtGuestAdvancedNtsc)
           (mkBinding defs.crtLottes)
 
-          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kAHq))
-          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kBHq))
-          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kCHq))
-          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kAAHq))
-          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kBBHq))
-          (lib.mkIf cfg.enableHqSettings (mkBinding defs.anime4kCAHq))
-          (lib.mkIf cfg.enableHqSettings (mkBinding defs.artcnnHq))
+          (lib.mkIf cfg.hqSettings.enable (mkBinding defs.anime4kAHq))
+          (lib.mkIf cfg.hqSettings.enable (mkBinding defs.anime4kBHq))
+          (lib.mkIf cfg.hqSettings.enable (mkBinding defs.anime4kCHq))
+          (lib.mkIf cfg.hqSettings.enable (mkBinding defs.anime4kAAHq))
+          (lib.mkIf cfg.hqSettings.enable (mkBinding defs.anime4kBBHq))
+          (lib.mkIf cfg.hqSettings.enable (mkBinding defs.anime4kCAHq))
+          (lib.mkIf cfg.hqSettings.enable (mkBinding defs.artcnnHq))
 
-          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kAFast))
-          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kBFast))
-          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kCFast))
-          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kAAFast))
-          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kBBFast))
-          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.anime4kCAFast))
-          (lib.mkIf (!cfg.enableHqSettings) (mkBinding defs.artcnn))
+          (lib.mkIf (!cfg.hqSettings.enable) (mkBinding defs.anime4kAFast))
+          (lib.mkIf (!cfg.hqSettings.enable) (mkBinding defs.anime4kBFast))
+          (lib.mkIf (!cfg.hqSettings.enable) (mkBinding defs.anime4kCFast))
+          (lib.mkIf (!cfg.hqSettings.enable) (mkBinding defs.anime4kAAFast))
+          (lib.mkIf (!cfg.hqSettings.enable) (mkBinding defs.anime4kBBFast))
+          (lib.mkIf (!cfg.hqSettings.enable) (mkBinding defs.anime4kCAFast))
+          (lib.mkIf (!cfg.hqSettings.enable) (mkBinding defs.artcnn))
         ];
 
       profiles =

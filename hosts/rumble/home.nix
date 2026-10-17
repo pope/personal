@@ -65,8 +65,8 @@
     hyprland = {
       enable = true;
       # dpiScale = 2;
-      enableBatterySaverMode = false;
-      enableVrr = true;
+      batterySaverMode.enable = false;
+      vrr.enable = true;
     };
     kde.enable = true;
     languages = {

@@ -16,7 +16,7 @@ in
     displayManager = lib.mkOption {
       default = "gdm";
       description = "Which display manager to use";
-      example = "kde";
+      example = "sddm";
       type = lib.types.enum [
         "gdm"
         "sddm"
@@ -25,7 +25,7 @@ in
       ];
     };
 
-    enableAutoLogin = lib.mkEnableOption "auto login of display manager";
+    autoLogin.enable = lib.mkEnableOption "auto login of display manager";
 
     hyprland.enable = lib.mkEnableOption "Hyprland";
     gnome.enable = lib.mkEnableOption "GNOME";

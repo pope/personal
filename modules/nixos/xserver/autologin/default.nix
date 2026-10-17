@@ -5,7 +5,7 @@ let
   cfg = config.my.nixos.xserver;
 in
 {
-  config = lib.mkIf (cfg.enable && cfg.enableAutoLogin) {
+  config = lib.mkIf (cfg.enable && cfg.autoLogin.enable) {
     services.displayManager.autoLogin = {
       enable = true;
       user = mainUser;

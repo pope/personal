@@ -5,7 +5,7 @@
 }:
 
 let
-  inherit (config.my.home.hyprland) enableBatterySaverMode enableVrr;
+  inherit (config.my.home.hyprland) batterySaverMode vrr;
 
   inherit (lib.generators) mkLuaInline;
   inherit (lib) getExe;
@@ -50,7 +50,7 @@ with colors;
       inactive_opacity = 0.8;
 
       shadow = {
-        enabled = !enableBatterySaverMode;
+        enabled = !batterySaverMode.enable;
         range = 4;
         render_power = 3;
         color = "rgba(${base00}99)";
@@ -59,12 +59,12 @@ with colors;
 
       blur = {
         enabled = true;
-        size = if enableBatterySaverMode then 8 else 3;
-        passes = if enableBatterySaverMode then 1 else 4;
+        size = if batterySaverMode.enable then 8 else 3;
+        passes = if batterySaverMode.enable then 1 else 4;
         vibrancy = 0.1696;
       };
     };
-    animations.enabled = !enableBatterySaverMode;
+    animations.enabled = !batterySaverMode.enable;
 
     # See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
     dwindle.preserve_split = true;
@@ -77,7 +77,7 @@ with colors;
     misc = {
       force_default_wallpaper = -1;
       disable_hyprland_logo = false;
-      vrr = enableVrr;
+      vrr = vrr.enable;
     };
 
     # Input

@@ -8,8 +8,8 @@ let
 in
 {
   options.my.nixos.tailscale = {
-    enable = lib.mkEnableOption "Whether to enable tailscale";
-    enableAsExitNode = lib.mkEnableOption "Whether to enable features that allow the system to be an exit node";
+    enable = lib.mkEnableOption "tailscale";
+    exitNode.enable = lib.mkEnableOption "features that allow the system to be an exit node";
   };
 
   config = lib.mkIf cfg.enable {
@@ -19,7 +19,7 @@ in
         message = "sops must be enabled to use tailscale";
       }
     ];
-    boot.kernel.sysctl = lib.mkIf cfg.enableAsExitNode {
+    boot.kernel.sysctl = lib.mkIf cfg.exitNode.enable {
       "net.ipv4.ip_forward" = 1;
       "net.ipv6.conf.all.forwarding" = 1;
     };

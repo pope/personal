@@ -72,7 +72,7 @@
     system.enable = true;
     tailscale = {
       enable = true;
-      enableAsExitNode = true;
+      exitNode.enable = true;
     };
     users.shell = "zsh";
     vyprvpn.enable = true;

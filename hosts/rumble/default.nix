@@ -114,7 +114,7 @@
     };
     gaming = {
       enable = true;
-      enableSteam = true;
+      steam.enable = true;
     };
     gpu.amd.enable = true;
     keyboards.enable = true;
@@ -125,7 +125,7 @@
     };
     nix = {
       enable = true;
-      enableBinaryCacheSubstitutor = true;
+      binaryCacheSubstitutor.enable = true;
     };
     onepassword.enable = true;
     printing.enable = true;
@@ -138,7 +138,7 @@
     virtualization.enable = true;
     xserver = {
       enable = true;
-      enableAutoLogin = false;
+      autoLogin.enable = false;
       displayManager = "sddm";
       gnome.enable = false;
       hyprland.enable = true;

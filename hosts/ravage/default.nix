@@ -164,7 +164,7 @@
     };
     gaming = {
       enable = true;
-      enableSteam = false;
+      steam.enable = false;
     };
     gpu = {
       amd.enable = true; # eGPU
@@ -177,7 +177,7 @@
     };
     nix = {
       enable = true;
-      enableBinaryCacheSubstitutor = true;
+      binaryCacheSubstitutor.enable = true;
     };
     onepassword.enable = true;
     sops.enable = true;
@@ -188,7 +188,7 @@
     vyprvpn.enable = true;
     xserver = {
       enable = true;
-      enableAutoLogin = false;
+      autoLogin.enable = false;
       displayManager = "sddm";
       gnome.enable = false;
       hyprland.enable = true;

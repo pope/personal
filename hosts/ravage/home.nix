@@ -65,7 +65,7 @@
     hypridle.enable = true;
     hyprland = {
       enable = true;
-      enableBatterySaverMode = true;
+      batterySaverMode.enable = true;
     };
     kde.enable = true;
     languages.python.enable = true;

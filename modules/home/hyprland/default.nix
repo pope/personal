@@ -26,8 +26,8 @@ in
 {
   options.my.home.hyprland = {
     enable = lib.mkEnableOption "hyprland home options";
-    enableBatterySaverMode = lib.mkEnableOption "battery saving options";
-    enableVrr = lib.mkEnableOption "variable refresh rate";
+    batterySaverMode.enable = lib.mkEnableOption "battery saving options";
+    vrr.enable = lib.mkEnableOption "variable refresh rate";
     dpiScale = lib.mkOption {
       type = lib.types.int;
       default = 1;

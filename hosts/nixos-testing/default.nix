@@ -64,7 +64,7 @@
     };
     xserver = {
       enable = true;
-      enableAutoLogin = false;
+      autoLogin.enable = false;
       displayManager = "sddm";
       kde.enable = true;
     };
