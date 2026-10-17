@@ -34,6 +34,7 @@ in
         tytools
         vcv-rack-pro
         vital-latest
+        wiremix
         zenity # For VCV Rack plugins
       ];
 

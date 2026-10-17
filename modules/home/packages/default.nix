@@ -60,7 +60,6 @@ in
         systemctl-tui
         trash-helper
         trashy
-        wiremix
       ];
 
     programs = {
@@ -96,44 +95,6 @@ in
       };
 
       zoxide.enable = true;
-    }
-    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-      cava = {
-        enable = true;
-        settings = {
-          color =
-            with config.my.home.theme.colors.withHash;
-            let
-              toStr = color: "\"${color}\"";
-            in
-            {
-              background = "default";
-              foreground = "default";
-              gradient = 1;
-              gradient_count = 6;
-              gradient_color_1 = toStr base0B;
-              gradient_color_2 = toStr base0C;
-              gradient_color_3 = toStr base0D;
-              gradient_color_4 = toStr base08;
-              gradient_color_5 = toStr base0E;
-              gradient_color_6 = toStr base0A;
-            };
-          general = {
-            framerate = 60;
-            lower_cutoff_freq = 20;
-            higher_cutoff_freq = 20000;
-          };
-          input = {
-            method = "pipewire";
-            source = "auto";
-          };
-          output = {
-            method = "noncurses";
-            channels = "mono";
-            mono_option = "average";
-          };
-        };
-      };
     };
 
     xdg.configFile = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
