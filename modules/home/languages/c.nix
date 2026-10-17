@@ -14,13 +14,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      clang-tools
-      cmake
-      cmake-language-server
-      gcc
-      gnumake
-      ninja
-    ];
+    home.packages =
+      with pkgs;
+      [
+        clang-tools
+        cmake
+        cmake-language-server
+        gnumake
+        lldb
+        neocmakelsp
+        ninja
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        gcc
+        gdb
+      ];
   };
 }
