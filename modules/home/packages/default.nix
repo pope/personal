@@ -17,9 +17,6 @@ in
 {
   options.my.home.packages = {
     enable = lib.mkEnableOption "Common packages/app home options";
-    enableBashIntegration = lib.hm.shell.mkBashIntegrationOption { inherit config; };
-    enableFishIntegration = lib.hm.shell.mkFishIntegrationOption { inherit config; };
-    enableZshIntegration = lib.hm.shell.mkZshIntegrationOption { inherit config; };
   };
 
   imports = [
