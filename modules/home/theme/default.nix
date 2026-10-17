@@ -32,18 +32,13 @@ in
   # allowed as a type), this check works for lazy eval.
   config = lib.mkIf (cfg.colorScheme != null) (
     let
-      colorScheme =
-        if cfg.colorScheme == "rose-pine" then
-          inputs.nix-colors.colorSchemes.rose-pine
-        else if cfg.colorScheme == "catppuccin" then
-          inputs.nix-colors.colorSchemes.catppuccin-mocha
-        else if cfg.colorScheme == "dracula" then
-          inputs.nix-colors.colorSchemes.dracula
-        else if cfg.colorScheme == "tokyonight" then
-          inputs.nix-colors.colorSchemes.tokyo-night-storm
-        else
-          abort "colorScheme is invalid";
-      inherit (colorScheme) palette;
+      colorSchemes = {
+        rose-pine = inputs.nix-colors.colorSchemes.rose-pine;
+        catppuccin = inputs.nix-colors.colorSchemes.catppuccin-mocha;
+        dracula = inputs.nix-colors.colorSchemes.dracula;
+        tokyonight = inputs.nix-colors.colorSchemes.tokyo-night-storm;
+      };
+      inherit (colorSchemes.${cfg.colorScheme}) palette;
       colors = palette // {
         withHash = builtins.mapAttrs (_k: v: "#${v}") palette;
         withHex = builtins.mapAttrs (_k: v: "0x${v}") palette;

@@ -29,19 +29,14 @@ in
         main = {
           include =
             let
-              cs =
-                if colorScheme == "rose-pine" then
-                  "rose-pine"
-                else if colorScheme == "catppuccin" then
-                  "catppuccin-mocha"
-                else if colorScheme == "dracula" then
-                  "dracula"
-                else if colorScheme == "tokyonight" then
-                  "tokyonight-storm"
-                else
-                  abort "invalid theme";
+              themes = {
+                rose-pine = "rose-pine";
+                catppuccin = "catppuccin-mocha";
+                dracula = "dracula";
+                tokyonight = "tokyonight-storm";
+              };
             in
-            [ "${pkgs.foot.themes}/share/foot/themes/${cs}" ];
+            [ "${pkgs.foot.themes}/share/foot/themes/${themes.${colorScheme}}" ];
           box-drawings-uses-font-glyphs = true;
           dpi-aware = false;
           font =

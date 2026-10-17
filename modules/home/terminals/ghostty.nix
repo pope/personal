@@ -33,20 +33,15 @@ in
       installBatSyntax = !pkgs.stdenv.hostPlatform.isDarwin;
       settings =
         let
-          theme =
-            if colorScheme == "rose-pine" then
-              "Rose Pine"
-            else if colorScheme == "catppuccin" then
-              "Catppuccin Mocha"
-            else if colorScheme == "dracula" then
-              "Dracula"
-            else if colorScheme == "tokyonight" then
-              "TokyoNight"
-            else
-              abort "invalid colorScheme";
+          themes = {
+            rose-pine = "Rose Pine";
+            catppuccin = "Catppuccin Mocha";
+            dracula = "Dracula";
+            tokyonight = "TokyoNight Storm";
+          };
         in
         {
-          inherit theme;
+          theme = themes.${colorScheme};
           adjust-cell-height = "40%";
           gtk-toolbar-style = "flat";
           background-opacity = 0.95;

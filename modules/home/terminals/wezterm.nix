@@ -33,23 +33,18 @@ in
         let
           opacity = 0.94;
           line_height = if pkgs.stdenv.hostPlatform.isDarwin then 1.6 else 1.25;
-          cs =
-            if colorScheme == "rose-pine" then
-              "rose-pine"
-            else if colorScheme == "catppuccin" then
-              "catppuccin-mocha"
-            else if colorScheme == "dracula" then
-              "Dracula (Official)"
-            else if colorScheme == "tokyonight" then
-              "Tokyo Night"
-            else
-              abort "invalid colorScheme";
+          themes = {
+            rose-pine = "rose-pine";
+            catppuccin = "catppuccin-mocha";
+            dracula = "Dracula (Official)";
+            tokyonight = "Tokyo Night Storm";
+          };
         in
         # lua
         ''
           local config = wezterm.config_builder()
 
-          config.color_scheme = '${cs}'
+          config.color_scheme = '${themes.${colorScheme}}'
           config.default_cursor_style = "SteadyBar"
         ''
         + lib.optionalString (defaultShell != null) ''

@@ -57,16 +57,15 @@ in
         "kitty_mod+backspace" = "change_font_size all 0";
       };
       themeFile =
-        if colorScheme == "rose-pine" then
-          "rose-pine"
-        else if colorScheme == "catppuccin" then
-          "Catppuccin-Mocha"
-        else if colorScheme == "dracula" then
-          "Dracula"
-        else if colorScheme == "tokyonight" then
-          "tokyo_night_night"
-        else
-          abort "invalid theme";
+        let
+          themes = {
+            rose-pine = "rose-pine";
+            catppuccin = "Catppuccin-Mocha";
+            dracula = "Dracula";
+            tokyonight = "tokyo_night_storm";
+          };
+        in
+        themes.${colorScheme};
     };
   };
 }
