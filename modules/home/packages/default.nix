@@ -44,6 +44,8 @@ in
         jq
         nh
         nix-output-monitor
+        nixd
+        nixfmt
         nvd
         ouch # compress/decompress
         parallel

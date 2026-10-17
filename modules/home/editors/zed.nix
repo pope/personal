@@ -17,9 +17,6 @@ in
     programs.zed-editor = {
       enable = true;
       package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.zed-editor-fhs else pkgs.zed-editor;
-      extraPackages = with pkgs; [
-        nixd
-      ];
       mutableUserDebug = true;
       mutableUserKeymaps = true;
       mutableUserSettings = true;

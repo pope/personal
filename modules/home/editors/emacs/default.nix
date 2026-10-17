@@ -76,8 +76,6 @@ in
       };
 
       packages = with pkgs; [
-        nixd
-        nixfmt
         sops
       ];
     };
