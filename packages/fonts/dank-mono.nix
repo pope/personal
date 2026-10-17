@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation {
   src = fetchurl rec {
     name = "dank-mono.tar.gz";
     url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/fonts/${name}";
-    sha256 = "1jjhp76s0n924vr2jg6ab0h4skcasxgklb6p50b3qps8wrdw2gkw";
+    hash = "sha256-fD7BW+ZIXzwWKNcsOl/Xik1NIFjKPCnyJiJZoM25UMo=";
   };
 
   dontPatch = true;

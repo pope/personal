@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation {
   src = fetchurl rec {
     name = "lucida-grande.tar.gz";
     url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/fonts/${name}";
-    sha256 = "0l0ba8cz4cm00d0z8qrxq1p141v4vf9ybqm34mznf2n9ya09jav7";
+    hash = "sha256-ZyuZgPLJCmd/JaPi5ZPbZAcSbsA9Y/RBA6Ay8hlSC1A=";
   };
 
   dontPatch = true;

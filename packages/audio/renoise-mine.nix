@@ -20,6 +20,9 @@ let
         hash = "sha256-ylykdTTW65+SCExuLBhT0gW0BfgqEuhaz3c+krWzbwc=";
       };
 in
-renoise.override {
+(renoise.override {
   inherit releasePath;
-}
+}).overrideAttrs
+  (oldAttrs: {
+    passthru = builtins.removeAttrs (oldAttrs.passthru or { }) [ "updateScript" ];
+  })

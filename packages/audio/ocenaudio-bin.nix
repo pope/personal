@@ -5,8 +5,9 @@
   fetchurl,
   writeShellApplication,
   curl,
+  git,
   gnused,
-  python3,
+  jq,
   nix,
 }:
 
@@ -42,18 +43,22 @@ stdenvNoCC.mkDerivation rec {
     name = "update-ocenaudio-bin";
     runtimeInputs = [
       curl
+      git
       gnused
-      python3
+      jq
       nix
     ];
     text = ''
-      latest_version=$(curl --silent https://www.ocenaudio.com/changelog | sed -n "s%.*href=\"/download?version=v\\([^\"]*\\).*%\\1%p" | head -1)
-      if [ "$latest_version" != "${version}" ]; then
-        url="https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v$latest_version"
-        new_hash=$(nix store prefetch-file --json "$url" | python3 -c "import sys, json; print(json.load(sys.stdin)['hash'])")
+      REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+      TARGET_FILE="$REPO_ROOT/packages/audio/ocenaudio-bin.nix"
 
-        sed -i "s/version = \"[^\"]*\";/version = \"$latest_version\";/" packages/audio/ocenaudio-bin.nix
-        sed -i "s|hash = \"[^\"]*\";|hash = \"$new_hash\";|" packages/audio/ocenaudio-bin.nix
+      latest_version=$(curl --silent https://www.ocenaudio.com/changelog | sed -n "s%.*href=\"/download?version=v\\([^\"]*\\).*%\\1%p" | head -1)
+      if [ -n "$latest_version" ] && [ "$latest_version" != "${version}" ]; then
+        url="https://www.ocenaudio.com/downloads/index.php/ocenaudio_universal.dmg?version=v$latest_version"
+        new_hash=$(nix store prefetch-file --json "$url" | jq -r .hash)
+
+        sed -i "s/version = \"[^\"]*\";/version = \"$latest_version\";/" "$TARGET_FILE"
+        sed -i "s|hash = \"[^\"]*\";|hash = \"$new_hash\";|" "$TARGET_FILE"
       fi
     '';
   });

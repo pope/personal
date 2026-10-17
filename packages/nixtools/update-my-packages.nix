@@ -3,7 +3,7 @@
   nix-update,
   common-updater-scripts,
   writeShellApplication,
-  packageNames ? [ ],
+  updatablePkgs ? { },
 }:
 
 writeShellApplication {
@@ -12,16 +12,31 @@ writeShellApplication {
     nix-update
     common-updater-scripts
   ];
-  runtimeEnv = {
-    NIXPKGS_ALLOW_UNFREE = 1;
-    NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM = 1;
-  };
   text = ''
-    packages=(${lib.escapeShellArgs packageNames})
+    failed=()
 
-    for pkg in "''${packages[@]}"; do
-      echo "Updating $pkg..."
-      nix-update --flake --use-update-script "$pkg" || true
-    done
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (
+        name: pkg:
+        let
+          cmd =
+            if builtins.isString pkg.updateScript then
+              lib.escapeShellArg pkg.updateScript
+            else
+              "nix-update --flake --use-update-script ${lib.escapeShellArg name}";
+        in
+        ''
+          echo "Updating ${name}..."
+          if ! ${cmd}; then
+            failed+=("${name}")
+          fi
+        ''
+      ) updatablePkgs
+    )}
+
+    if (( ''${#failed[@]} > 0 )); then
+      >&2 echo "Failed to update packages: ''${failed[*]}"
+      exit 1
+    fi
   '';
 }

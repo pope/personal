@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation {
   src = fetchurl rec {
     name = "comic-code-ligatures.tar.gz";
     url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/fonts/${name}";
-    sha256 = "11qg419qkw8k3klqdxx9ipj6g1kl20wzdd0hi4zqv8m3wrc7l7x2";
+    hash = "sha256-oh96WOajoo0/iRC09jkQdIZn5I2p94bpHBPxiVMgD4c=";
   };
 
   dontPatch = true;

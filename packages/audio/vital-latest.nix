@@ -35,7 +35,7 @@ stdenv.mkDerivation (_finalAttrs: {
   src = fetchurl {
     name = zipName;
     url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${zipName}";
-    sha256 = "0jbcladqdgnycvj7j81kc1kx36fkf567k91ar58jfmwk57y4q829";
+    hash = "sha256-SSBM/CmTVydRySqkeUxx05nRZ2AzIHnkZt6+hpuibEk=";
   };
 
   desktopItems = [

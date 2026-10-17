@@ -226,6 +226,7 @@
                 backup-git-repos
                 deadnix
                 nixfmt
+                nixos-build-to-cache
                 nixos-rebuild-remote
                 nix-update
                 statix

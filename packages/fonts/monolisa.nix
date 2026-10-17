@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation rec {
   src = fetchurl rec {
     name = "monolisa-${version}.tar.gz";
     url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/fonts/${name}";
-    sha256 = "02a8d8hnqv72fjczi3vxpvb8vdwv9wix02xylg1nnlvk1f7rk4ky";
+    hash = "sha256-fpKZjwtzU2vDo74L0CNPm7eN1r59j/iZdOJsbCFqSAk=";
   };
 
   dontPatch = true;

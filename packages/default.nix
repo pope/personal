@@ -53,12 +53,10 @@ let
 
   allOtherPkgs = standardPkgs // emacsPkgs;
 
-  updatableNames = builtins.attrNames (
-    lib.filterAttrs (_name: value: value ? updateScript) allOtherPkgs
-  );
+  updatablePkgs = lib.filterAttrs (_name: value: value ? updateScript) allOtherPkgs;
 
   update-my-packages = pkgs.callPackage ./nixtools/update-my-packages.nix {
-    packageNames = updatableNames;
+    inherit updatablePkgs;
   };
 in
 standardPkgs

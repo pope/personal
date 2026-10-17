@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchurl {
     name = zipName;
     url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/software/${zipName}";
-    sha256 = "0ixbwsx4pfbcg40qnmsjdq87nx99svjh4igv15x15avx4vxp1cc8";
+    hash = "sha256-iLFw+yZ9qxJ6CftFAuXWKXV7EG5SV4sBeWy5S7rmq0c=";
   };
 
   nativeBuildInputs = [

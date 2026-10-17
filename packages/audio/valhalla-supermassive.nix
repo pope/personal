@@ -4,8 +4,9 @@
   stdenvNoCC,
   writeShellApplication,
   curl,
+  git,
   gnused,
-  python3,
+  jq,
   nix,
   unzip,
 }:
@@ -34,18 +35,22 @@ stdenvNoCC.mkDerivation rec {
     name = "update-valhalla-supermassive";
     runtimeInputs = [
       curl
+      git
       gnused
-      python3
+      jq
       nix
     ];
     text = ''
+      REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+      TARGET_FILE="$REPO_ROOT/packages/audio/valhalla-supermassive.nix"
+
       latest_version=$(curl -s https://valhalladsp.com/demos-downloads/ | sed -n -E 's/.*ValhallaSupermassiveWin_V([0-9_]+)\.zip.*/\1/p' | head -n1)
       if [ -n "$latest_version" ] && [ "$latest_version" != "${version}" ]; then
         url="https://valhallaproduction.s3.us-west-2.amazonaws.com/supermassive/ValhallaSupermassiveWin_V$latest_version.zip"
-        new_hash=$(nix store prefetch-file --json "$url" | python3 -c "import sys, json; print(json.load(sys.stdin)['hash'])")
+        new_hash=$(nix store prefetch-file --json "$url" | jq -r .hash)
 
-        sed -i "s/version = \"[^\"]*\";/version = \"$latest_version\";/" packages/audio/valhalla-supermassive.nix
-        sed -i "s|hash = \"[^\"]*\";|hash = \"$new_hash\";|" packages/audio/valhalla-supermassive.nix
+        sed -i "s/version = \"[^\"]*\";/version = \"$latest_version\";/" "$TARGET_FILE"
+        sed -i "s|hash = \"[^\"]*\";|hash = \"$new_hash\";|" "$TARGET_FILE"
       fi
     '';
   });

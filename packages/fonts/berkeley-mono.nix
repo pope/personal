@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation {
   src = fetchurl rec {
     name = "berkeley-mono.tar.xz";
     url = "https://skrapnel.gumiho-matrix.ts.net/nix-files/fonts/${name}";
-    sha256 = "1hphd75n23d80v13306qmaqklwkbqi2g7f4rxrmwj7i3pbs6v3h9";
+    hash = "sha256-CY5t9LojHslr7pm480TEa3I6sarYgDHCBqgNYctp8MI=";
   };
 
   dontPatch = true;
