@@ -106,6 +106,7 @@
       PowerKey = "hibernate";
       PowerKeyLongPress = "poweroff";
     };
+    power-profiles-daemon.enable = false;
     thermald.enable = true;
     tlp = {
       enable = true;

@@ -86,8 +86,6 @@
       extraRemotes = [ "lvfs-testing" ]; # Some framework firmware is still in testing
     };
 
-    # Must be explicitly false otherwise there's infinite recursion going on.
-    tlp.enable = false;
     auto-epp.enable = true;
     power-profiles-daemon.enable = true;
 

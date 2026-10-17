@@ -36,7 +36,7 @@ in
       };
       geoclue2.enable = true;
       graphical-desktop.enable = true;
-      power-profiles-daemon.enable = !config.services.tlp.enable;
+      power-profiles-daemon.enable = lib.mkDefault true;
       udev.packages = with pkgs; [
         gnome-settings-daemon
       ];
