@@ -323,6 +323,28 @@
               },
             },
           },
+          golangci_lint_ls = {
+            cmd = { "golangci-lint-langserver" },
+            filetypes = { "go", "gomod" },
+            init_options = {
+              command = {
+                "golangci-lint",
+                "run",
+                "--output.json.path=stdout",
+                "--show-stats=false",
+                "--issues-exit-code=1",
+              },
+            },
+            root_markers = {
+              ".golangci.yml",
+              ".golangci.yaml",
+              ".golangci.toml",
+              ".golangci.json",
+              "go.work",
+              "go.mod",
+              ".git",
+            },
+          },
           gopls = {
             cmd = { "gopls" },
             root_markers = { "go.work", "go.mod", ".git" },
@@ -335,6 +357,7 @@
                   unusedparams = true,
                   unusewrites = true,
                 },
+                gofumpt = true,
                 hints = {
                   assignVariableTypes = true,
                   compositeLiteralFields = true,

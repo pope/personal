@@ -15,8 +15,13 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      delve
       go
+      golangci-lint
+      golangci-lint-langserver
       gopls
+      gotools
+      govulncheck
     ];
   };
 }
