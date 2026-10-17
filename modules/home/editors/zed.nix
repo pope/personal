@@ -18,30 +18,7 @@ in
       enable = true;
       package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.zed-editor-fhs else pkgs.zed-editor;
       extraPackages = with pkgs; [
-        cargo
-        clang
-        clang-tools
-        cmake
-        cmake-language-server
-        gcc
-        gdb
-        gnumake
-        go
-        gopls
-        jdk
-        lldb
-        neocmakelsp
-        ninja
         nixd
-        nodejs
-        protobuf
-        python3
-        rust-analyzer
-        rustc
-        rustfmt
-        typescript-language-server
-        zig
-        zls
       ];
       mutableUserDebug = true;
       mutableUserKeymaps = true;
