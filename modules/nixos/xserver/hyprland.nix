@@ -21,22 +21,46 @@ in
 
     programs = {
       dconf.enable = true;
+
+      hyprland = {
+        enable = true;
+        withUWSM = true;
+      };
+
+      thunar = {
+        enable = true;
+        plugins = with pkgs; [
+          thunar-archive-plugin
+          thunar-media-tags-plugin
+          thunar-volman
+        ];
+      };
+
       xwayland.enable = true;
     };
 
     security = {
-      pam.services.hyprlock = { };
+      pam.services = {
+        greetd.enableGnomeKeyring = true;
+        hyprlock = { };
+      };
       polkit.enable = true;
     };
 
     services = {
       dbus = {
         enable = true;
-        packages = with pkgs; [ dconf ];
+        packages = with pkgs; [
+          dconf
+          gcr_4
+        ];
       };
       geoclue2.enable = true;
+      gnome.gnome-keyring.enable = true;
       graphical-desktop.enable = true;
+      gvfs.enable = true;
       power-profiles-daemon.enable = lib.mkDefault true;
+      tumbler.enable = true;
       udev.packages = with pkgs; [
         gnome-settings-daemon
       ];
@@ -45,16 +69,6 @@ in
       xserver.desktopManager.runXdgAutostartIfNone = true;
     };
 
-    systemd.user = {
-      targets.tile-manager-session = {
-        documentation = [ "man:systemd.special(7)" ];
-        bindsTo = [ "graphical-session.target" ];
-        wants = [ "graphical-session-pre.target" ];
-        after = [ "graphical-session-pre.target" ];
-      };
-    };
-
     xdg.portal.enable = true;
   };
-
 }

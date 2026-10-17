@@ -5,9 +5,8 @@ let
 in
 {
   imports = [
-    ./autologin
-    ./hyprland
-    ./tile-manager-common
+    ./autologin.nix
+    ./hyprland.nix
   ];
 
   options.my.nixos.xserver = {

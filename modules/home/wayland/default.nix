@@ -150,6 +150,13 @@ in
       };
     };
 
+    systemd.user.targets.tile-manager-session.Unit = {
+      Documentation = [ "man:systemd.special(7)" ];
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
+
     xdg.configFile = {
       "swappy/config".text = # ini
         ''
