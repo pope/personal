@@ -15,7 +15,7 @@ in
 
     group = lib.mkOption {
       type = lib.types.str;
-      default = "wheel";
+      default = "users";
       description = "The user group to use for the servers";
     };
   };
@@ -52,5 +52,25 @@ in
         openFirewall = true; # 6969
       };
     };
+
+    # Harden privileges and isolate home directory access since the services run as mainUser.
+    systemd.services =
+      lib.genAttrs
+        (builtins.filter (name: config.services.${name}.enable) [
+          "lidarr"
+          "prowlarr"
+          "radarr"
+          "readarr"
+          "sonarr"
+          "whisparr"
+        ])
+        (_: {
+          serviceConfig = {
+            NoNewPrivileges = true;
+            PrivateTmp = true;
+            ProtectHome = true;
+            RestrictSUIDSGID = true;
+          };
+        });
   };
 }

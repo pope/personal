@@ -484,5 +484,13 @@ in
       settings = publicSettings;
       secretFiles = [ config.sops.templates."sabnzbd-secrets.ini".path ];
     };
+
+    # Harden privileges and isolate home directory access since sabnzbd runs as mainUser.
+    systemd.services.sabnzbd.serviceConfig = {
+      NoNewPrivileges = true;
+      PrivateTmp = true;
+      ProtectHome = true;
+      RestrictSUIDSGID = true;
+    };
   };
 }

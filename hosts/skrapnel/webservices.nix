@@ -244,7 +244,7 @@ in
     jellyfin = {
       enable = true;
       openFirewall = true;
-      group = "wheel";
+      group = "users";
     };
     seerr = {
       enable = false;
