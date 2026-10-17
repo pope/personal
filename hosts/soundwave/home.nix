@@ -29,6 +29,7 @@
     };
     dunst.enable = false;
     editors = {
+      android-studio.enable = true;
       vscode.enable = true;
       neovim.enable = true;
     };
