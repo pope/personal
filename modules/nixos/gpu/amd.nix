@@ -17,12 +17,21 @@ in
 
     nixpkgs.config.rocmSupport = true;
 
-    environment.systemPackages = with pkgs; [
-      clinfo
-      libva-utils
-      rocmPackages.rocm-smi
-      rocmPackages.rocminfo
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        clinfo
+        libva-utils
+        rocmPackages.rocm-smi
+        rocmPackages.rocminfo
+      ];
+
+      variables = {
+        # Suppress RADV's "not a conformant Vulkan implementation" stderr warning
+        # on newer GPU architectures (e.g., RDNA 4 / GFX12) where upstream Mesa has
+        # not yet flipped the Khronos CTS conformance flag.
+        MESA_VK_IGNORE_CONFORMANCE_WARNING = "1";
+      };
+    };
 
     hardware = {
       amdgpu.opencl.enable = true;
