@@ -49,12 +49,6 @@
       ];
     });
 
-    # TODO(pope): Remove after PR #573942 lands in nixpkgs/nixos-unstable
-    # Fixes lix 2.95.4 meson configure error with unknown option "mimalloc"
-    lix = prev.lix.overrideAttrs (oldAttrs: {
-      mesonFlags = prev.lib.remove (prev.lib.mesonEnable "mimalloc" false) (oldAttrs.mesonFlags or [ ]);
-    });
-
     tree-sitter-grammars = prev.tree-sitter-grammars.overrideScope (
       _gfinal: _gprev: {
         inherit tree-sitter-soy;
