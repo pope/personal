@@ -26,6 +26,13 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
+    peng = {
+      url = "git+https://p0.pe/my-git-repos/peng.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     mac-app-util = {
       url = "github:hraban/mac-app-util";
       inputs = {

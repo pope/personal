@@ -27,6 +27,7 @@ in
         grim
         libnotify
         pamixer
+        peng
         slurp
         swappy
         wayland-screenshot
@@ -41,14 +42,6 @@ in
     fonts.fontconfig.enable = true;
 
     programs = {
-      imv = {
-        enable = true;
-        settings.options = {
-          overlay_font = "Monospace:16";
-          scaling_mode = "shrink";
-        };
-      };
-
       wlogout = {
         enable = true;
         layout =

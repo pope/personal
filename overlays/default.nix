@@ -26,6 +26,7 @@
     };
   in
   packages
+  // (self.inputs.peng.overlays.default final prev)
   // {
     inherit stable;
 
