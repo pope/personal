@@ -523,11 +523,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792464657,
-        "narHash": "sha256-1zYaPjkkZgentEyL1s8njUGdLDUeSxT1Dizpzt9i7w0=",
+        "lastModified": 1792532392,
+        "narHash": "sha256-yt6+Nr4sBm5VrZrDjBv4n2PFQ+NNpU1Swe5JQICXE9s=",
         "ref": "refs/heads/main",
-        "rev": "0967ecb4f7171b9ce7eed459433f403554072c99",
-        "revCount": 378,
+        "rev": "b04fb935ec705ffc837138cefdd1ade7317dc797",
+        "revCount": 388,
         "type": "git",
         "url": "https://p0.pe/my-git-repos/peng.git"
       },
