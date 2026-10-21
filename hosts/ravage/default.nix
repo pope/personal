@@ -29,6 +29,7 @@
       efi.canTouchEfiVariables = true;
       grub = rec {
         enable = true;
+        configurationLimit = 5;
         device = "nodev";
         efiSupport = true;
         extraEntries = ''
