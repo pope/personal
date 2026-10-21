@@ -1,19 +1,7 @@
---- Zero-subprocess Camera RAW previewer/preloader (ported from peng)
---- + on-demand MediaInfo Spotter (<Tab>) for images, RAWs, audio, and video.
+--- Zero-subprocess Camera RAW previewer/preloader (ported from peng).
+--- Extracts embedded JPEG previews from .RAF and TIFF-based RAW containers
+--- (.DNG, .ARW, .CR2, .NEF, .ORF, .RW2, .PEF) into Yazi's preview cache.
 local M = {}
-
-local SKIP_KEYS = {
-	["Complete name"] = true,
-	["CompleteName_Last"] = true,
-	["Unique ID"] = true,
-	["ImageUniqueID"] = true,
-	["Format/Info"] = true,
-	["Codec ID/Info"] = true,
-	["MD5 of the unencoded content"] = true,
-	["Conformance errors"] = true,
-	["0xFFE1"] = true,
-	["General compliance"] = true,
-}
 
 local VALID_TIFF_VERSIONS = {
 	[42] = true, -- Standard TIFF (.DNG, .ARW, .CR2, .NEF, .PEF)
@@ -22,10 +10,8 @@ local VALID_TIFF_VERSIONS = {
 	[0x0055] = true, -- Panasonic .RW2
 }
 
-local function trim(s)
-	return s and s:match("^%s*(.-)%s*$") or ""
-end
-
+-- NOTE: `read_u16` and `read_u32` are also in `exif-spotter.yazi/main.lua`
+-- (and `read_u32` in `freedesktop-thumb.yazi/main.lua`). If modified here, update those as well.
 local function read_u16(buf, pos, is_le)
 	local b1, b2 = buf:byte(pos, pos + 1)
 	if not b2 then
@@ -225,7 +211,7 @@ local function parse_tiff_ifd(ctx, ifd_off, depth, collect_subs)
 end
 
 --- Picks the largest valid JPEG preview first, then prefers a medium-high-res preview
---- (>= 1200px or >= 350KB) if multiple large previews exist (e.g. Leica DNG 2112x1408 vs 5248x3472).
+--- (>= 1024px or >= 350KB) if multiple large previews exist (e.g. Leica DNG 2112x1408 vs 5248x3472).
 local function select_best_candidate(valid)
 	local best = valid[1]
 	for _, c in ipairs(valid) do
@@ -233,7 +219,7 @@ local function select_best_candidate(valid)
 			best = c
 		end
 	end
-	local target_dim = math.max(rt.preview.max_width or 1200, rt.preview.max_height or 1200)
+	local target_dim = math.max(rt.preview.max_width or 1024, rt.preview.max_height or 1024)
 	for _, c in ipairs(valid) do
 		local max_dim = math.max(c.w, c.h)
 		local is_large_enough = (max_dim >= target_dim or (max_dim == 0 and c.len >= 350000))
@@ -329,58 +315,9 @@ local function extract_raw_preview(path)
 	return jpg, extract_err
 end
 
-local function read_raf_meta_block(path)
-	local f = io.open(path, "rb")
-	if not f then
-		return nil
-	end
-	local hdr = f:read(128)
-	if not hdr or #hdr < 100 or hdr:sub(1, 8) ~= "FUJIFILM" then
-		f:close()
-		return nil
-	end
-	local meta_off = read_u32(hdr, 93, false)
-	local meta_len = read_u32(hdr, 97, false)
-	if not meta_off or not meta_len or meta_off == 0 or meta_len == 0 or meta_len > 65536 then
-		f:close()
-		return nil
-	end
-	local meta = f:seek("set", meta_off) and f:read(meta_len) or nil
-	f:close()
-	return meta
-end
+local IS_LINUX = (ya.target_os() == "linux")
 
-local function parse_fuji_raf_sensor_dims(path)
-	local meta = read_raf_meta_block(path)
-	if not meta or #meta < 4 then
-		return nil
-	end
-	local count = read_u32(meta, 1, false) or 0
-	local pos = 5
-	local dims = {}
-	for _ = 1, count do
-		if pos + 4 > #meta then
-			break
-		end
-		local tag_id = read_u16(meta, pos, false)
-		local tag_len = read_u16(meta, pos + 2, false)
-		pos = pos + 4
-		if not tag_len or pos + tag_len - 1 > #meta then
-			break
-		end
-		if tag_len >= 4 and (tag_id == 0x0111 or tag_id == 0x0121 or tag_id == 0x0100) then
-			local h = read_u16(meta, pos, false)
-			local w = read_u16(meta, pos + 2, false)
-			if w and h and w > 0 and h > 0 then
-				dims[tag_id] = { w = w, h = h }
-			end
-		end
-		pos = pos + tag_len
-	end
-	return dims[0x0111] or dims[0x0121] or dims[0x0100]
-end
-
-local function is_valid_jpeg_cache(cache_url)
+function M.is_valid_jpeg_cache(cache_url)
 	local cha = fs.cha(cache_url)
 	if not cha or cha.len < 4 then
 		return false
@@ -407,16 +344,60 @@ local function write_atomic(target_str, data)
 	return true
 end
 
-function M:peek(job)
-	local start, cache = os.clock(), ya.file_cache(job)
+--- Ensures the unstripped embedded JPEG is extracted into `ya.file_cache(job)` (used for
+--- instant first-hover previews, `.RAF` `<Tab>` EXIF spotting, and as input for downscaling).
+function M.ensure_extracted_jpeg(job)
+	local cache = ya.file_cache(job)
 	if not cache then
-		return
+		return nil, Err("Preview cache disabled")
 	end
+	local raw_jpg_url = Url(tostring(cache) .. ".raw.jpg")
+	if M.is_valid_jpeg_cache(raw_jpg_url) then
+		return raw_jpg_url, nil
+	end
+
+	local jpg, err = extract_raw_preview(tostring(job.file.path))
+	if not jpg then
+		return nil, Err("RAW preview extraction failed: %s", err or "unknown error")
+	end
+
+	if not write_atomic(tostring(raw_jpg_url), jpg) then
+		return nil, Err("Failed to write RAW preview cache")
+	end
+	return raw_jpg_url, nil
+end
+
+function M:peek(job)
+	local start = os.clock()
 
 	-- Debounce before performing synchronous NFS I/O so rapid scrolling cancels the coroutine early
 	ya.sleep(math.max(0, rt.preview.image_delay / 1000 + start - os.clock()))
 
-	if not is_valid_jpeg_cache(cache) then
+	if IS_LINUX then
+		local fd = require("freedesktop-thumb")
+		local info = fd.thumb_info(job)
+		local thumb = fd.find_valid_thumb(info)
+		if thumb then
+			local _, show_err = ya.image_show(thumb, job.area)
+			return ya.preview_widget(job, show_err)
+		end
+
+		-- Cache miss: extract and show the embedded JPEG immediately, then write the 1024px Freedesktop PNG
+		local raw_jpg_url, err = M.ensure_extracted_jpeg(job)
+		if not raw_jpg_url then
+			return ya.preview_widget(job, err)
+		end
+		local _, show_err = ya.image_show(raw_jpg_url, job.area)
+		ya.preview_widget(job, show_err)
+		fd.write_png_via_magick(tostring(raw_jpg_url), info)
+		return
+	end
+
+	local cache = ya.file_cache(job)
+	if not cache then
+		return
+	end
+	if not M.is_valid_jpeg_cache(cache) then
 		local ok, err = self:preload(job)
 		if not ok or err then
 			return ya.preview_widget(job, err or Err("Failed to write RAW preview cache"))
@@ -430,161 +411,37 @@ end
 function M:seek() end
 
 function M:preload(job)
-	local cache = ya.file_cache(job)
-	if not cache or is_valid_jpeg_cache(cache) then
+	if IS_LINUX then
+		local fd = require("freedesktop-thumb")
+		local info = fd.thumb_info(job)
+		if fd.find_valid_thumb(info) then
+			return true
+		end
+		local raw_jpg_url, err = M.ensure_extracted_jpeg(job)
+		if not raw_jpg_url then
+			return true, err
+		end
+		local thumb, png_err = fd.write_png_via_magick(tostring(raw_jpg_url), info)
+		if not thumb then
+			return true, png_err
+		end
 		return true
 	end
 
-	local jpg, err = extract_raw_preview(tostring(job.file.path))
-	if not jpg then
-		return true, Err("RAW preview extraction failed: %s", err or "unknown error")
+	local cache = ya.file_cache(job)
+	if not cache or M.is_valid_jpeg_cache(cache) then
+		return true
 	end
 
-	if not write_atomic(tostring(cache), jpg) then
-		return false, Err("Failed to write RAW preview cache")
+	local raw_jpg_url, err = M.ensure_extracted_jpeg(job)
+	if not raw_jpg_url then
+		return true, err
 	end
-	return true
+	return ya.image_precache(raw_jpg_url, cache)
 end
 
 function M:spot(job)
-	local rows = self:spot_base(job)
-	if #rows > 0 then
-		rows[#rows + 1] = ui.Row({})
-	end
-
-	ya.spot_table(
-		job,
-		ui.Table(ya.list_merge(rows, require("file"):spot_base(job)))
-			:area(ui.Pos({ "center", w = 74, h = 26 }))
-			:row(job.skip)
-			:col(1)
-			:col_style(th.spot.tbl_col)
-			:cell_style(th.spot.tbl_cell)
-			:widths({ ui.Constraint.Length(24), ui.Constraint.Fill(1) })
-	)
-end
-
-local function append_mediainfo_kv(cur_sec, raw_k, raw_v)
-	if not cur_sec then
-		return
-	end
-	local k, v = trim(raw_k), trim(raw_v)
-	if SKIP_KEYS[k] or v == "" then
-		return
-	end
-	if k == "Type" and v == "Thumbnail" then
-		cur_sec.is_thumb = true
-	end
-	if k == "Stream size" and v:find("^2%.00 Bytes") then
-		return
-	end
-	cur_sec.rows[#cur_sec.rows + 1] = { k, v }
-end
-
-local function parse_mediainfo_sections(stdout)
-	local sections = {}
-	local cur_sec = nil
-	for line in stdout:gmatch("[^\r\n]+") do
-		local k, v = line:match("^(.-)%s+:%s+(.+)$")
-		if k and v then
-			append_mediainfo_kv(cur_sec, k, v)
-		else
-			local sec_name = trim(line)
-			if sec_name ~= "" then
-				cur_sec = { name = sec_name, rows = {}, is_thumb = false }
-				sections[#sections + 1] = cur_sec
-			end
-		end
-	end
-	return sections
-end
-
-local function append_section_rows(rows, sec, is_raf, raf_dims, raf_lens, file_len)
-	if sec.is_thumb or #sec.rows == 0 then
-		return
-	end
-	if #rows > 0 then
-		rows[#rows + 1] = ui.Row({})
-	end
-	local title = sec.name:gsub("^Image #1$", "Image")
-	if is_raf and title == "Image" then
-		title = "Embedded Preview"
-	end
-	rows[#rows + 1] = ui.Row({ title }):style(ui.Style():fg("green"))
-
-	if is_raf and sec.name == "General" then
-		rows[#rows + 1] = ui.Row({ "  Format:", "Fujifilm RAF" })
-		if file_len then
-			rows[#rows + 1] = ui.Row({ "  File size:", ya.readable_size(file_len) })
-		end
-		if raf_dims then
-			rows[#rows + 1] = ui.Row({
-				"  Sensor size:",
-				string.format("%d x %d pixels", raf_dims.w, raf_dims.h),
-			})
-		end
-		if raf_lens ~= "" then
-			rows[#rows + 1] = ui.Row({ "  LensModel:", raf_lens })
-		end
-	end
-
-	for _, kv in ipairs(sec.rows) do
-		local k, v = kv[1], kv[2]
-		local skip_raf_general = (is_raf and sec.name == "General" and (k == "File size" or k == "Format"))
-		if not skip_raf_general then
-			rows[#rows + 1] = ui.Row({ "  " .. k .. ":", v })
-		end
-	end
-end
-
-function M:spot_base(job)
-	local path = tostring(job.file.path)
-	local ext = (job.file.url.ext or ""):lower()
-	local is_raf = (ext == "raf")
-
-	local target_path = path
-	local raf_dims = nil
-	local raf_lens = ""
-
-	-- MediaInfo does not parse the outer 148-byte FUJIFILMCCD-RAW header of .RAF files,
-	-- so we feed MediaInfo and exiv2 the cached embedded JPEG preview (which contains the full Fuji EXIF)
-	-- and read the raw sensor dimensions directly from the RAF metadata block.
-	if is_raf then
-		raf_dims = parse_fuji_raf_sensor_dims(path)
-		self:preload(job)
-		local cache = ya.file_cache(job)
-		if cache and is_valid_jpeg_cache(cache) then
-			target_path = tostring(cache)
-		end
-		local lens_out = Command("exiv2")
-			:arg({ "-q", "-K", "Exif.Photo.LensModel", "-Pt", target_path })
-			:output()
-		raf_lens = lens_out and trim(lens_out.stdout:match("^[^\r\n]+")) or ""
-	end
-
-	local out = Command("mediainfo"):arg({ target_path }):output()
-	local sections = out and out.stdout and parse_mediainfo_sections(out.stdout) or {}
-	local file_len = job.file.cha and job.file.cha.len or nil
-
-	local rows = {}
-	for _, sec in ipairs(sections) do
-		append_section_rows(rows, sec, is_raf, raf_dims, raf_lens, file_len)
-	end
-
-	-- Fallback to ya.image_info if mediainfo returned nothing
-	if #rows == 0 then
-		local cache = ya.file_cache(job)
-		local info = (cache and is_valid_jpeg_cache(cache) and ya.image_info(cache))
-			or ya.image_info(job.file.url)
-		if info then
-			rows[#rows + 1] = ui.Row({ "Image" }):style(ui.Style():fg("green"))
-			rows[#rows + 1] = ui.Row({ "  Format:", tostring(info.format) })
-			rows[#rows + 1] = ui.Row({ "  Size:", string.format("%dx%d", info.w, info.h) })
-			rows[#rows + 1] = ui.Row({ "  Color:", tostring(info.color) })
-		end
-	end
-
-	return rows
+	return require("exif-spotter"):spot(job)
 end
 
 return M

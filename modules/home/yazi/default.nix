@@ -20,11 +20,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      exiftool
-      exiv2
-      mediainfo
-    ];
+    home.packages =
+      with pkgs;
+      [
+        exiftool
+        exiv2
+        mediainfo
+      ]
+      ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+        allmytoes
+        ffmpegthumbnailer
+      ];
 
     programs.yazi = {
       enable = true;
@@ -62,7 +68,11 @@ in
       ];
       plugins = {
         inherit (pkgs.yaziPlugins) mime-ext toggle-pane;
-        exif-image = ./exif-image.yazi;
+        raw-image = ./raw-image.yazi;
+        exif-spotter = ./exif-spotter.yazi;
+      }
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+        freedesktop-thumb = ./freedesktop-thumb.yazi;
       };
       settings = lib.mkMerge [
         settings
@@ -76,45 +86,81 @@ in
             prepend_spotters = [
               {
                 url = rawUrl;
-                run = "exif-image";
+                run = "exif-spotter";
               }
               {
                 mime = "{image,audio,video}/*";
-                run = "exif-image";
+                run = "exif-spotter";
               }
               {
                 mime = "application/{subrip,postscript}";
-                run = "exif-image";
+                run = "exif-spotter";
               }
             ];
             prepend_preloaders = [
               {
-                mime = rawMime;
-                run = "exif-image";
+                url = rawUrl;
+                run = "raw-image";
               }
               {
-                mime = "image/tiff";
-                run = "magick";
+                mime = rawMime;
+                run = "raw-image";
               }
-            ];
+            ]
+            ++ (
+              if pkgs.stdenv.hostPlatform.isLinux then
+                [
+                  {
+                    mime = "image/svg+xml";
+                    run = "svg";
+                  }
+                  {
+                    mime = "{image,video}/*";
+                    run = "freedesktop-thumb";
+                  }
+                ]
+              else
+                [
+                  {
+                    mime = "image/tiff";
+                    run = "magick";
+                  }
+                ]
+            );
             prepend_previewers = [
               {
                 url = rawUrl;
-                run = "exif-image";
+                run = "raw-image";
               }
               {
                 mime = rawMime;
-                run = "exif-image";
+                run = "raw-image";
               }
-              {
-                mime = "image/tiff";
-                run = "magick";
-              }
-            ];
+            ]
+            ++ (
+              if pkgs.stdenv.hostPlatform.isLinux then
+                [
+                  {
+                    mime = "image/svg+xml";
+                    run = "svg";
+                  }
+                  {
+                    mime = "{image,video}/*";
+                    run = "freedesktop-thumb";
+                  }
+                ]
+              else
+                [
+                  {
+                    mime = "image/tiff";
+                    run = "magick";
+                  }
+                ]
+            );
           };
           preview = {
-            max_width = 1200;
-            max_height = 1200;
+            max_width = 1024;
+            max_height = 1024;
             image_delay = 10;
             image_quality = 65;
           };
