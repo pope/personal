@@ -33,11 +33,6 @@
     # TODO(pope): Remove after PR #576407 lands in nixpkgs/nixos-unstable.
     inherit (stable) handbrake;
 
-    # TODO(pope): Remove once peng is updated for Zig 0.17.
-    peng = (self.inputs.peng.overlays.default final prev).peng.override {
-      zig = final.zig_0_16;
-    };
-
     emacsPackagesFor =
       emacs:
       (prev.emacsPackagesFor emacs).overrideScope (
