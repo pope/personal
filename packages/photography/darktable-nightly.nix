@@ -62,9 +62,9 @@
 }:
 
 let
-  version = "0-unstable-2026-10-17";
-  rev = "c24afcc4a9097014e0f8e6b0c8c0fb90dc2c19a9";
-  hash = "sha256-bsMv5Q8kSyvs+iZSdNcSYWuVzAFhu1hQ660t1O3BCKU=";
+  version = "0-unstable-2026-10-22";
+  rev = "6556cd7dbb0e69f95d165dda8b69e7270c327f6d";
+  hash = "sha256-tH1UeI/goObYrClRfR6hvg2C5TeTtlXZNjDmL67jXUc=";
 
   darktable-base = darktable.override { inherit withAi; };
 

@@ -4,6 +4,7 @@
 
 {
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -89,6 +90,19 @@
     autoStart = false;
     capSysAdmin = true;
     openFirewall = true;
+  };
+
+  # TODO(pope): Remove after PR #576824 lands in nixpkgs/nixos-unstable.
+  services.avahi = {
+    publish = {
+      enable = lib.mkForce null;
+      userServices = lib.mkForce null;
+    };
+    settings.publish = {
+      disable-publishing = false;
+      disable-user-service-publishing = false;
+      publish-addresses = true;
+    };
   };
 
   networking = {
