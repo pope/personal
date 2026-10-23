@@ -34,7 +34,10 @@ in
         options = [
           "x-systemd.automount"
           "noauto"
-          "x-systemd.idle-timeout=300"
+          "x-systemd.idle-timeout=1800"
+          "x-systemd.mount-timeout=5s"
+          "noatime"
+          "softreval"
         ]
         ++ lib.optionals (cfg.host == "skrapnel") [
           "x-systemd.after=tailscaled.service"
