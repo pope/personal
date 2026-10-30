@@ -30,9 +30,6 @@
   // {
     inherit stable;
 
-    # TODO(pope): Remove after PR #576407 lands in nixpkgs/nixos-unstable.
-    inherit (stable) handbrake;
-
     emacsPackagesFor =
       emacs:
       (prev.emacsPackagesFor emacs).overrideScope (
@@ -52,40 +49,6 @@
         ./patches/digikam-loadingcache-lookup-perf.patch
       ];
     });
-
-    # TODO(pope): Remove after PRs #575818, #576469, and #577221 land in nixpkgs/nixos-unstable.
-    linuxPackages_latest = prev.linuxPackages_latest.extend (
-      _lfinal: lprev: {
-        framework-laptop-kmod = lprev.framework-laptop-kmod.overrideAttrs (oldAttrs: {
-          makeFlags = oldAttrs.makeFlags ++ [
-            "INSTALL_MOD_PATH=${placeholder "out"}"
-            "INSTALL_MOD_DIR=extra"
-            "DEPMOD=true"
-          ];
-          installPhase = null;
-          installTargets = [ "modules_install" ];
-        });
-        v4l2loopback = lprev.v4l2loopback.overrideAttrs (oldAttrs: {
-          nativeBuildInputs = prev.lib.remove prev.kmod oldAttrs.nativeBuildInputs;
-        });
-        xpad-noone = lprev.xpad-noone.overrideAttrs (oldAttrs: {
-          makeFlags = oldAttrs.makeFlags ++ [
-            "KERNEL_SRC=${lprev.kernel.dev}/lib/modules/${lprev.kernel.modDirVersion}/build"
-            "INSTALL_MOD_PATH=${placeholder "out"}"
-            "INSTALL_MOD_DIR=kernel/drivers/xpad-noone"
-          ];
-          installPhase = null;
-          installTargets = [ "modules_install" ];
-          installFlags = [
-            "-C"
-            "${lprev.kernel.dev}/lib/modules/${lprev.kernel.modDirVersion}/build"
-            "M=$(PWD)"
-          ];
-          strictDeps = true;
-          __structuredAttrs = true;
-        });
-      }
-    );
 
     tree-sitter-grammars = prev.tree-sitter-grammars.overrideScope (
       _gfinal: _gprev: {
