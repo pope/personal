@@ -258,8 +258,14 @@
 
 (use-package emacs
   :custom
+  (mouse-wheel-scroll-amount
+   '(3
+     ((shift) . hscroll)
+     ((meta))
+     ((control meta) . global-text-scale)
+     ((control) . text-scale)))
   (fast-but-imprecise-scrolling t)
-  (scroll-conservatively 3)
+  (scroll-conservatively 101)
   (scroll-bar-mode nil))
 
 (use-package ultra-scroll
