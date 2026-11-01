@@ -26,6 +26,13 @@
         treefmt-nix.follows = "treefmt-nix";
       };
     };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     peng = {
       url = "git+https://p0.pe/my-git-repos/peng.git";
       inputs = {

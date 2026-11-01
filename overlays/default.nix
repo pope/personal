@@ -59,4 +59,17 @@
       inherit (final.tree-sitter-grammars) allGrammars withPlugins;
     };
   }
+  // prev.lib.optionalAttrs prev.stdenv.hostPlatform.isLinux {
+    ghostty =
+      (self.inputs.ghostty.packages.${prev.stdenv.hostPlatform.system}.default.override {
+        enableX11 = false;
+      }).overrideAttrs
+        (oldAttrs: {
+          zigBuildFlags =
+            (prev.lib.filter (flag: !(prev.lib.hasPrefix "-Dcpu=" flag)) oldAttrs.zigBuildFlags)
+            ++ [
+              "-Dcpu=x86_64_v3"
+            ];
+        });
+  }
 )

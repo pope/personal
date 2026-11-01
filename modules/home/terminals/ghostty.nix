@@ -44,8 +44,8 @@ in
           theme = themes.${colorScheme};
           adjust-cell-height = "40%";
           gtk-toolbar-style = "flat";
-          background-opacity = 0.95;
-          background-blur-radius = 20;
+          background-blur = true;
+          background-opacity = 0.85;
           command = lib.mkIf (loginShell != null) loginShell;
           config-file = [ "?overrides" ];
           font-family = [
