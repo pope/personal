@@ -116,6 +116,7 @@
     };
     obs.enable = true;
     packages.enable = true;
+    peng.enable = true;
     rofi.enable = true;
     shell.zsh.enable = true;
     sops.enable = true;

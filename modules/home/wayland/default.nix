@@ -27,7 +27,6 @@ in
         grim
         libnotify
         pamixer
-        peng
         slurp
         swappy
         wayland-screenshot

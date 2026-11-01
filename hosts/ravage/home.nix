@@ -80,6 +80,7 @@
       threed.enable = true;
     };
     packages.enable = true;
+    peng.enable = true;
     rofi = {
       enable = true;
       fontSize = 12;

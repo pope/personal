@@ -70,6 +70,7 @@
     };
     obs.enable = true;
     packages.enable = true;
+    peng.enable = true;
     shell = {
       fish.enable = true;
       zsh.enable = true;
