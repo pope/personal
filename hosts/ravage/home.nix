@@ -37,7 +37,6 @@
       chromium.enable = true;
       firefox.enable = true;
     };
-    cpu.arch = "skylake";
     editors = {
       emacs = {
         enable = true;

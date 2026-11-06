@@ -23,12 +23,6 @@
 
   nixpkgs.config.rocmTargets = [ "gfx1201" ];
 
-  nix.settings.system-features = [
-    "gccarch-skylake"
-    "gccarch-znver5"
-    "gccarch-znver4"
-  ];
-
   boot = {
     # Bootloader.
     loader = {

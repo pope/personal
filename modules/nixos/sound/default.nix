@@ -17,6 +17,7 @@ in
     services = {
       pipewire = {
         enable = true;
+        package = pkgs.withV3 pkgs.pipewire;
         alsa.enable = true;
         alsa.support32Bit = true;
         extraConfig.pipewire.noresample = {

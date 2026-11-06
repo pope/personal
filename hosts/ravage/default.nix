@@ -16,10 +16,6 @@
     ./hardware-configuration.nix
   ];
 
-  nix.settings.system-features = [
-    "gccarch-skylake"
-  ];
-
   boot = {
     kernelParams = [ "mem_sleep_default=deep" ];
 

@@ -8,7 +8,6 @@
 
 let
   cfg = config.my.home.editors.emacs;
-  cpuArch = config.my.home.cpu.arch;
 
   soy-ts-mode = inputs.tree-sitter-soy.packages.${pkgs.stdenv.hostPlatform.system}.emacs;
 in
@@ -82,18 +81,18 @@ in
     programs.emacs =
       let
         package =
-          if cpuArch == "unspecified" then
-            cfg.package
-          else
+          if pkgs.stdenv.hostPlatform.isx86_64 && pkgs.stdenv.hostPlatform.isLinux then
             (cfg.package.overrideAttrs (oldAttrs: {
-              NIX_CFLAGS_COMPILE = "-march=${cpuArch} -mtune=${cpuArch} -O3";
+              NIX_CFLAGS_COMPILE = "-march=x86-64-v3 -mtune=generic -O3";
               env = oldAttrs.env // {
                 BYTE_COMPILE_EXTRA_FLAGS = ''
                   --eval '(setq native-comp-speed 3)' \
-                  --eval '(setq native-comp-driver-options '("-march=${cpuArch}" "-mtune=${cpuArch}" "-O3"))'
+                  --eval '(setq native-comp-driver-options '("-march=x86-64-v3" "-mtune=generic" "-O3"))'
                 '';
               };
-            }));
+            }))
+          else
+            cfg.package;
       in
       {
         inherit (cfg) extraConfig;

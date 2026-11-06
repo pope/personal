@@ -40,7 +40,6 @@
       librewolf.enable = true;
       chromium.enable = true;
     };
-    cpu.arch = "znver4";
     editors = {
       emacs = {
         enable = true;

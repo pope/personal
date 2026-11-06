@@ -7,7 +7,6 @@
 
 let
   cfg = config.my.home.multimedia.photography;
-  cpuArch = config.my.home.cpu.arch;
 
   digikamPkg =
     if cfg.opencl.enable then
@@ -27,22 +26,15 @@ let
     else
       pkgs.digikam;
 
-  darktableBase = pkgs.darktable.overrideAttrs (
-    oldAttrs:
-    {
-      nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
+  darktableBase = pkgs.darktable.overrideAttrs (oldAttrs: {
+    nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
 
-      postPatch = (oldAttrs.postPatch or "") + ''
-        jq '(.noiseprofiles[].models) |= . + [ .[] | select(.model == "M11") | .model = "M11-D" ]' \
-          data/noiseprofiles.json > data/noiseprofiles.json.tmp
-        mv data/noiseprofiles.json.tmp data/noiseprofiles.json
-      '';
-    }
-    // (lib.optionalAttrs (cpuArch == "znver4") {
-      CMAKE_C_FLAGS = "-march=znver4 -mtune=znver4";
-      CMAKE_CXX_FLAGS = "-march=znver4 -mtune=znver4";
-    })
-  );
+    postPatch = (oldAttrs.postPatch or "") + ''
+      jq '(.noiseprofiles[].models) |= . + [ .[] | select(.model == "M11") | .model = "M11-D" ]' \
+        data/noiseprofiles.json > data/noiseprofiles.json.tmp
+      mv data/noiseprofiles.json.tmp data/noiseprofiles.json
+    '';
+  });
 
   darktablePkg = pkgs.symlinkJoin {
     name = "darktable-${darktableBase.version}";

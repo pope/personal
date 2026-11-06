@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }:
 
@@ -41,6 +42,9 @@ in
           ++ [
             "https://nix-community.cachix.org"
           ];
+        system-features = lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [
+          "gccarch-x86-64-v3"
+        ];
         trusted-public-keys =
           lib.optionals cfg.binaryCacheSubstitutor.enable [
             "skrapnel:vM+AMNsRUqjN3EYBHiUvy384DZfQr57Y9drFFGmPLiM="
