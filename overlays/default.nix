@@ -1,5 +1,18 @@
 { self }:
 
+# Where overrides go:
+# - Overlay (`overlays/default.nix`): Global patches, build flags, and wrapper
+#   fixes that should always apply everywhere (e.g., darktable, digikam,
+#   gamescope).
+# - Modules (`modules/`): Overrides that depend on module `cfg` options (e.g.,
+#   steam, digikam OpenCL), theme/font variants, or `withCpuTuning` on core
+#   packages like `mesa`, `pipewire`, and `emacs`. Overriding those in the
+#   overlay would force a rebuild of everything in Nixpkgs that depends on them,
+#   so we only tune the final `.package` in the module.
+# - Packages (`packages/`): Custom scripts/fonts, side-by-side builds
+#   (`darktable-nightly`), or packages where I manage the src/hash directly
+#   (`renoise-mine`).
+
 (
   final: prev:
   let
@@ -25,7 +38,9 @@
       path = ../packages/emacs;
     };
 
-    withV3 =
+    # Exported so modules can tune `.package` options (like `mesa` or `pipewire`)
+    # without overriding them in the overlay and rebuilding the world.
+    withCpuTuning =
       pkg:
       if prev.stdenv.hostPlatform.isx86 && prev.stdenv.hostPlatform.isLinux then
         pkg.overrideAttrs (
@@ -46,11 +61,26 @@
         )
       else
         pkg;
+
+    withEmacsCpuTuning =
+      pkg:
+      if prev.stdenv.hostPlatform.isx86_64 && prev.stdenv.hostPlatform.isLinux then
+        pkg.overrideAttrs (oldAttrs: {
+          NIX_CFLAGS_COMPILE = "-march=x86-64-v3 -mtune=generic -O3";
+          env = (oldAttrs.env or { }) // {
+            BYTE_COMPILE_EXTRA_FLAGS = ''
+              --eval '(setq native-comp-speed 3)' \
+              --eval '(setq native-comp-driver-options '("-march=x86-64-v3" "-mtune=generic" "-O3"))'
+            '';
+          };
+        })
+      else
+        pkg;
   in
   packages
   // (self.inputs.peng.overlays.default final prev)
   // {
-    inherit stable withV3;
+    inherit stable withCpuTuning withEmacsCpuTuning;
 
     emacsPackagesFor =
       emacs:
@@ -62,20 +92,62 @@
             value = efinal.callPackage f { };
           }) emacsFiles
         )
+        // {
+          soy-ts-mode = self.inputs.tree-sitter-soy.packages.${final.stdenv.hostPlatform.system}.emacs;
+        }
       );
 
-    darktable = (withV3 (prev.darktable.override { withAi = true; })).overrideAttrs (
-      oldAttrs:
-      prev.lib.optionalAttrs (prev.stdenv.hostPlatform.isx86_64 && prev.stdenv.hostPlatform.isLinux) {
-        cmakeFlags =
-          (prev.lib.filter (flag: !(prev.lib.hasPrefix "-DRAWSPEED_MARCH=" flag)) (
-            oldAttrs.cmakeFlags or [ ]
-          ))
-          ++ [ "-DRAWSPEED_MARCH=-march=x86-64-v3" ];
-      }
-    );
+    darktable =
+      let
+        darktableBase = (withCpuTuning (prev.darktable.override { withAi = true; })).overrideAttrs (
+          oldAttrs:
+          {
+            nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ final.jq ];
 
-    digikam = withV3 (
+            postPatch = (oldAttrs.postPatch or "") + ''
+              jq '(.noiseprofiles[].models) |= . + [ .[] | select(.model == "M11") | .model = "M11-D" ]' \
+                data/noiseprofiles.json > data/noiseprofiles.json.tmp
+              mv data/noiseprofiles.json.tmp data/noiseprofiles.json
+            '';
+          }
+          // prev.lib.optionalAttrs (prev.stdenv.hostPlatform.isx86_64 && prev.stdenv.hostPlatform.isLinux) {
+            cmakeFlags =
+              (prev.lib.filter (flag: !(prev.lib.hasPrefix "-DRAWSPEED_MARCH=" flag)) (
+                oldAttrs.cmakeFlags or [ ]
+              ))
+              ++ [ "-DRAWSPEED_MARCH=-march=x86-64-v3" ];
+          }
+        );
+      in
+      final.symlinkJoin {
+        name = "darktable-${darktableBase.version}";
+        paths = [ darktableBase ];
+        buildInputs = [ final.makeWrapper ];
+        postBuild = ''
+          for bin in darktable darktable-cli; do
+            if [ -e "$out/bin/$bin" ]; then
+              wrapProgram "$out/bin/$bin" \
+                --add-flags "--conf plugins/ai/ort_library_path=${final.onnxruntime}/lib/libonnxruntime.so"
+            fi
+          done
+
+          for desktopFile in "$out/share/applications"/*.desktop; do
+            if [ -f "$desktopFile" ]; then
+              target=$(readlink -f "$desktopFile")
+              rm "$desktopFile"
+              sed \
+                -e "s|${darktableBase}/bin/darktable|$out/bin/darktable|g" \
+                "$target" > "$desktopFile"
+            fi
+          done
+        '';
+        passthru = (darktableBase.passthru or { }) // {
+          inherit (darktableBase) meta pname version;
+          unwrapped = darktableBase;
+        };
+      };
+
+    digikam = withCpuTuning (
       prev.digikam.overrideAttrs (oldAttrs: {
         patches = (oldAttrs.patches or [ ]) ++ [
           ./patches/digikam-loadingcache-lookup-perf.patch
@@ -83,9 +155,9 @@
       })
     );
 
-    jpeg-archive = withV3 prev.jpeg-archive;
+    jpeg-archive = withCpuTuning prev.jpeg-archive;
 
-    mozjpeg = withV3 prev.mozjpeg;
+    mozjpeg = withCpuTuning prev.mozjpeg;
 
     tree-sitter-grammars = prev.tree-sitter-grammars.overrideScope (
       _gfinal: _gprev: {
@@ -97,7 +169,7 @@
     };
   }
   // prev.lib.optionalAttrs prev.stdenv.hostPlatform.isLinux {
-    gamescope = withV3 prev.gamescope;
+    gamescope = withCpuTuning prev.gamescope;
 
     ghostty =
       (self.inputs.ghostty.packages.${prev.stdenv.hostPlatform.system}.default.override {

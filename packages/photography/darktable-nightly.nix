@@ -66,7 +66,7 @@ let
   rev = "205f9a55ca345a842ff350bc1b361ad3ac53f2e0";
   hash = "sha256-HIoguXVY4tGNcSA739QAAPa1lr/aITlnizI/8hkVOUI=";
 
-  darktable-base = darktable.override { inherit withAi; };
+  darktable-base = darktable.unwrapped.override { inherit withAi; };
 
   darktable-unwrapped = darktable-base.overrideAttrs (oldAttrs: {
     pname = "darktable-unwrapped-nightly";
@@ -79,17 +79,11 @@ let
       fetchSubmodules = true;
     };
 
-    nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ jq ];
-
     postPatch = (oldAttrs.postPatch or "") + ''
       patchShebangs tools/
       echo '#!/bin/sh' > tools/get_git_version_string.sh
       echo 'echo "${version}"' >> tools/get_git_version_string.sh
       chmod +x tools/get_git_version_string.sh
-
-      jq '(.noiseprofiles[].models) |= . + [ .[] | select(.model == "M11") | .model = "M11-D" ]' \
-        data/noiseprofiles.json > data/noiseprofiles.json.tmp
-      mv data/noiseprofiles.json.tmp data/noiseprofiles.json
     '';
 
     doInstallCheck = false;

@@ -25,40 +25,6 @@ let
       }
     else
       pkgs.digikam;
-
-  darktableBase = pkgs.darktable.overrideAttrs (oldAttrs: {
-    nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
-
-    postPatch = (oldAttrs.postPatch or "") + ''
-      jq '(.noiseprofiles[].models) |= . + [ .[] | select(.model == "M11") | .model = "M11-D" ]' \
-        data/noiseprofiles.json > data/noiseprofiles.json.tmp
-      mv data/noiseprofiles.json.tmp data/noiseprofiles.json
-    '';
-  });
-
-  darktablePkg = pkgs.symlinkJoin {
-    name = "darktable-${darktableBase.version}";
-    paths = [ darktableBase ];
-    buildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      for bin in darktable darktable-cli; do
-        if [ -e "$out/bin/$bin" ]; then
-          wrapProgram "$out/bin/$bin" \
-            --add-flags "--conf plugins/ai/ort_library_path=${pkgs.onnxruntime}/lib/libonnxruntime.so"
-        fi
-      done
-
-      for desktopFile in "$out/share/applications"/*.desktop; do
-        if [ -f "$desktopFile" ]; then
-          target=$(readlink -f "$desktopFile")
-          rm "$desktopFile"
-          sed \
-            -e "s|${darktableBase}/bin/darktable|$out/bin/darktable|g" \
-            "$target" > "$desktopFile"
-        fi
-      done
-    '';
-  };
 in
 {
   options.my.home.multimedia.photography = {
@@ -79,7 +45,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      darktablePkg
+      darktable
       darktable-nightly
       digikamPkg
       dnglab

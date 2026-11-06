@@ -14,8 +14,12 @@
 
   config = lib.mkIf config.hardware.graphics.enable {
     hardware.graphics = {
-      package = pkgs.withV3 pkgs.mesa;
-      package32 = lib.mkIf config.hardware.graphics.enable32Bit (pkgs.withV3 pkgs.pkgsi686Linux.mesa);
+      # Tune here instead of in the overlay so we don't rebuild everything that
+      # depends on mesa.
+      package = pkgs.withCpuTuning pkgs.mesa;
+      package32 = lib.mkIf config.hardware.graphics.enable32Bit (
+        pkgs.withCpuTuning pkgs.pkgsi686Linux.mesa
+      );
     };
   };
 }

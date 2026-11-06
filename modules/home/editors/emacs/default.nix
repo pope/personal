@@ -2,14 +2,11 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 
 let
   cfg = config.my.home.editors.emacs;
-
-  soy-ts-mode = inputs.tree-sitter-soy.packages.${pkgs.stdenv.hostPlatform.system}.emacs;
 in
 {
   options.my.home.editors.emacs = {
@@ -78,89 +75,75 @@ in
         sops
       ];
     };
-    programs.emacs =
-      let
-        package =
-          if pkgs.stdenv.hostPlatform.isx86_64 && pkgs.stdenv.hostPlatform.isLinux then
-            (cfg.package.overrideAttrs (oldAttrs: {
-              NIX_CFLAGS_COMPILE = "-march=x86-64-v3 -mtune=generic -O3";
-              env = oldAttrs.env // {
-                BYTE_COMPILE_EXTRA_FLAGS = ''
-                  --eval '(setq native-comp-speed 3)' \
-                  --eval '(setq native-comp-driver-options '("-march=x86-64-v3" "-mtune=generic" "-O3"))'
-                '';
-              };
-            }))
-          else
-            cfg.package;
-      in
-      {
-        inherit (cfg) extraConfig;
+    programs.emacs = {
+      inherit (cfg) extraConfig;
 
-        enable = true;
-        inherit package;
-        extraPackages =
-          epkgs:
-          (with epkgs; [
-            agent-shell
-            cape
-            catppuccin-theme
-            clipetty
-            consult
-            corfu
-            diff-hl
-            direnv
-            doom-modeline
-            doom-themes
-            eat
-            editorconfig
-            embark
-            embark-consult
-            evil
-            expand-region
-            fzf
-            goto-chg
-            indent-bars
-            kanagawa-themes
-            ligature
-            magit
-            marginalia
-            markdown-mode
-            minimap
-            minions
-            multiple-cursors
-            nerd-icons
-            nerd-icons-completion
-            nerd-icons-corfu
-            nerd-icons-dired
-            nerd-icons-ibuffer
-            nix-mode
-            nix-ts-mode
-            nixfmt
-            notmuch
-            nyan-mode
-            odin-ts-mode
-            soy-ts-mode
-            olivetti
-            orderless
-            org-modern
-            org-superstar
-            pink-bliss-uwu-theme
-            protobuf-mode
-            protobuf-ts-mode
-            rg
-            sakura-theme
-            sops
-            treesit-grammars.with-all-grammars
-            ultra-scroll
-            uwu-theme
-            vertico
-            vterm
-            web-mode
-            xclip
-            zig-mode
-            zig-ts-mode
-          ]);
-      };
+      enable = true;
+      # Tune here instead of in the overlay so packages like notmuch/aerc don't
+      # rebuild against a custom emacs.
+      package = pkgs.withEmacsCpuTuning cfg.package;
+      extraPackages =
+        epkgs:
+        (with epkgs; [
+          agent-shell
+          cape
+          catppuccin-theme
+          clipetty
+          consult
+          corfu
+          diff-hl
+          direnv
+          doom-modeline
+          doom-themes
+          eat
+          editorconfig
+          embark
+          embark-consult
+          evil
+          expand-region
+          fzf
+          goto-chg
+          indent-bars
+          kanagawa-themes
+          ligature
+          magit
+          marginalia
+          markdown-mode
+          minimap
+          minions
+          multiple-cursors
+          nerd-icons
+          nerd-icons-completion
+          nerd-icons-corfu
+          nerd-icons-dired
+          nerd-icons-ibuffer
+          nix-mode
+          nix-ts-mode
+          nixfmt
+          notmuch
+          nyan-mode
+          odin-ts-mode
+          soy-ts-mode
+          olivetti
+          orderless
+          org-modern
+          org-superstar
+          pink-bliss-uwu-theme
+          protobuf-mode
+          protobuf-ts-mode
+          rg
+          sakura-theme
+          sops
+          treesit-grammars.with-all-grammars
+          ultra-scroll
+          uwu-theme
+          vertico
+          vterm
+          web-mode
+          xclip
+          zig-mode
+          zig-ts-mode
+        ]);
+    };
   };
 }

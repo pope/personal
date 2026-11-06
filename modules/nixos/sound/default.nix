@@ -17,7 +17,9 @@ in
     services = {
       pipewire = {
         enable = true;
-        package = pkgs.withV3 pkgs.pipewire;
+        # Tune here instead of in the overlay so we don't rebuild everything
+        # that depends on pipewire.
+        package = pkgs.withCpuTuning pkgs.pipewire;
         alsa.enable = true;
         alsa.support32Bit = true;
         extraConfig.pipewire.noresample = {
