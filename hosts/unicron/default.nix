@@ -143,6 +143,7 @@
       enable = true;
       steam.enable = true;
       ntsync.enable = true;
+      scx.enable = true;
       preferredOutput = "HDMI-A-2";
     };
     gpu.amd.enable = true;

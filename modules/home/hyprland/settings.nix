@@ -7,6 +7,16 @@
 let
   inherit (config.my.home.hyprland) batterySaverMode vrr;
 
+  vrrValue =
+    if vrr == "off" then
+      0
+    else if vrr == "always" then
+      1
+    else if vrr == "fullscreen" then
+      2
+    else
+      abort "vrr is invalid";
+
   inherit (lib.generators) mkLuaInline;
   inherit (lib) getExe;
   toLua' = lib.generators.toLua { };
@@ -77,7 +87,7 @@ with colors;
     misc = {
       force_default_wallpaper = -1;
       disable_hyprland_logo = false;
-      vrr = vrr.enable;
+      vrr = vrrValue;
     };
 
     # Input

@@ -4,6 +4,8 @@
 }:
 
 {
+  boot.resumeDevice = "/dev/disk/by-uuid/e598815b-331d-468f-b44a-222bd4ae238a";
+
   services = {
     logind.settings.Login = {
       HandleLidSwitch = "suspend-then-hibernate";
@@ -17,7 +19,7 @@
       AllowHybridSleep = "yes";
       AllowSuspend = "yes";
       AllowSuspendThenHibernate = "yes";
-      HibernateDelaySec = "4h";
+      HibernateDelaySec = "2h";
       MemorySleepMode = "s2idle";
     };
 
@@ -36,8 +38,10 @@
         description = "Disable wifi and bluetooth before suspend to reduce battery draw in sleep";
         wantedBy = [ "sleep.target" ];
         before = [ "sleep.target" ];
+        stopIfChanged = false;
         serviceConfig = {
           Type = "oneshot";
+          RemainAfterExit = true;
           ExecStart = "${pkgs.util-linux}/bin/rfkill block all";
           ExecStop = "${pkgs.util-linux}/bin/rfkill unblock all";
         };

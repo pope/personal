@@ -79,7 +79,7 @@
     };
     hyprland = {
       enable = true;
-      vrr.enable = false;
+      vrr = "off";
     };
     hypridle = {
       enable = true;

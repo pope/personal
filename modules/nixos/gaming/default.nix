@@ -14,6 +14,7 @@ in
     enable = lib.mkEnableOption "gaming system options";
     steam.enable = lib.mkEnableOption "Steam";
     ntsync.enable = lib.mkEnableOption "ntsync";
+    scx.enable = lib.mkEnableOption "scx scheduler";
     preferredOutput = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
@@ -94,7 +95,7 @@ in
 
     # make ntsync device accessible
     services = {
-      scx.enable = true;
+      scx.enable = cfg.scx.enable;
 
       udev.packages = lib.mkIf cfg.ntsync.enable [
         (pkgs.writeTextFile {

@@ -73,7 +73,6 @@
       extraRemotes = [ "lvfs-testing" ]; # Some framework firmware is still in testing
     };
 
-    auto-epp.enable = true;
     power-profiles-daemon.enable = true;
 
     hardware.bolt.enable = true;
@@ -81,7 +80,6 @@
 
   powerManagement = {
     enable = true;
-    powertop.enable = true; # Run powertop on boot
   };
 
   environment.systemPackages = with pkgs; [

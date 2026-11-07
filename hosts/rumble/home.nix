@@ -25,7 +25,7 @@
       mode = "preferred";
       position = "auto";
       icc = ./BOE0CB4.icm;
-      vrr = true;
+      vrr = 2;
       scale = 1.6666666666666;
     }
   ];
@@ -60,12 +60,15 @@
       disableQt = true;
       theme = "breeze";
     };
-    hypridle.enable = true;
+    hypridle = {
+      enable = true;
+      withPowerProfiles = true;
+    };
     hyprland = {
       enable = true;
       # dpiScale = 2;
       batterySaverMode.enable = false;
-      vrr.enable = true;
+      vrr = "fullscreen";
     };
     kde.enable = true;
     languages = {

@@ -117,6 +117,7 @@
       enable = true;
       steam.enable = true;
       ntsync.enable = true;
+      scx.enable = true;
     };
     gpu.nvidia.enable = true;
     keyboards.enable = true;

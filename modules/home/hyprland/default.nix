@@ -27,7 +27,17 @@ in
   options.my.home.hyprland = {
     enable = lib.mkEnableOption "hyprland home options";
     batterySaverMode.enable = lib.mkEnableOption "battery saving options";
-    vrr.enable = lib.mkEnableOption "variable refresh rate";
+    vrr = lib.mkOption {
+      type = lib.types.enum [
+        "off"
+        "always"
+        "fullscreen"
+      ];
+      default = "off";
+      description = ''
+        Controls the VRR (Adaptive Sync) of monitors.
+      '';
+    };
     dpiScale = lib.mkOption {
       type = lib.types.int;
       default = 1;
