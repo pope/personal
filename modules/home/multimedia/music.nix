@@ -152,5 +152,14 @@ in
       };
       mpd-mpris.enable = true;
     };
+
+    systemd.user.services.mpd-mpris = {
+      Unit = {
+        After = [ "mpd.service" ];
+        BindsTo = [ "mpd.service" ];
+      };
+      # Replace Home Manager's default.target so mpd-mpris doesn't wake mpd on login.
+      Install.WantedBy = lib.mkForce [ "mpd.service" ];
+    };
   };
 }

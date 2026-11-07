@@ -38,16 +38,28 @@ in
           "x-systemd.mount-timeout=5s"
           "noatime"
           "softreval"
+          "x-systemd.after=network-online.target"
+          "x-systemd.requires=network-online.target"
         ]
         ++ lib.optionals (cfg.host == "skrapnel") [
           "x-systemd.after=tailscaled.service"
           "x-systemd.requires=tailscaled.service"
-        ]
-        ++ lib.optionals (cfg.host == "skrapnel.lan") [
-          "x-systemd.after=network-online.target"
-          "x-systemd.requires=network-online.target"
+          "x-systemd.after=tailscaled-autoconnect.service"
+          "x-systemd.wants=tailscaled-autoconnect.service"
         ];
       };
+    };
+
+    # Prevent repeated mount failures (e.g. while offline) from hitting systemd's
+    # start limit and permanently killing media-cyberia.automount.
+    # Note: if a process polls /media/cyberia in a tight loop while offline, it
+    # will repeatedly spawn mount.nfs (check `journalctl -u media-cyberia.mount`).
+    systemd.units."media-cyberia.mount" = {
+      overrideStrategy = "asDropin";
+      text = ''
+        [Unit]
+        StartLimitIntervalSec=0
+      '';
     };
   };
 }
