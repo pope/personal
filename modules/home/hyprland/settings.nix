@@ -57,7 +57,7 @@ with colors;
       rounding_power = 2;
 
       active_opacity = 1.0;
-      inactive_opacity = 0.8;
+      inactive_opacity = if batterySaverMode.enable then 1.0 else 0.8;
 
       shadow = {
         enabled = !batterySaverMode.enable;
@@ -68,7 +68,7 @@ with colors;
       };
 
       blur = {
-        enabled = true;
+        enabled = !batterySaverMode.enable;
         size = if batterySaverMode.enable then 8 else 3;
         passes = if batterySaverMode.enable then 1 else 4;
         vibrancy = 0.1696;

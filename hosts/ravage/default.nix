@@ -65,8 +65,12 @@
   networking = {
     hostName = "ravage"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    modemmanager.enable = false; # No WWAN modem; save battery
     firewall.allowedTCPPorts = [ 8001 ];
   };
+
+  # Load amdgpu on-demand when eGPU is plugged in rather than in initrd
+  hardware.amdgpu.initrd.enable = false;
 
   time.hardwareClockInLocalTime = true;
 
@@ -91,22 +95,33 @@
     # Power management
     logind.settings.Login = {
       HandleLidSwitch = "suspend-then-hibernate";
+      HandleLidSwitchExternalPower = "suspend-then-hibernate";
       PowerKey = "hibernate";
       PowerKeyLongPress = "poweroff";
     };
     power-profiles-daemon.enable = false;
     thermald.enable = true;
+    throttled.enable = false;
     tlp = {
       enable = true;
       settings = {
-        PLATFORM_PROFILE_ON_AC = "performance";
-        PLATFORM_PROFILE_ON_BAT = "balanced";
-
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
+        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
         CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 0;
+
+        CPU_HWP_DYN_BOOST_ON_AC = 1;
+        CPU_HWP_DYN_BOOST_ON_BAT = 0;
+
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 80;
+
+        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth";
+        DEVICES_TO_ENABLE_ON_AC = "bluetooth";
 
         DISK_IDLE_SECS_ON_AC = 0;
         DISK_IDLE_SECS_ON_BAT = 2;
@@ -122,7 +137,6 @@
       };
     };
   };
-  powerManagement.powertop.enable = true;
   systemd.sleep.settings.Sleep = {
     AllowHibernation = "yes";
     AllowHybridSleep = "yes";
@@ -130,7 +144,6 @@
     AllowSuspendThenHibernate = "yes";
     HibernateDelaySec = "1h";
     SuspendEstimationSec = "1h";
-    SuspendState = "mem";
   };
 
   users.users.evan = {
