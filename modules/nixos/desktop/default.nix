@@ -33,7 +33,11 @@ in
 
     hyprland.enable = lib.mkEnableOption "Hyprland";
     gnome.enable = lib.mkEnableOption "GNOME";
-    kde.enable = lib.mkEnableOption "KDE";
+    kde = {
+      enable = lib.mkEnableOption "KDE";
+      kdeconnect.enable = lib.mkEnableOption "KDE Connect";
+      pim.enable = lib.mkEnableOption "KDE PIM";
+    };
     pantheon.enable = lib.mkEnableOption "Pantheon";
   };
 
@@ -58,7 +62,8 @@ in
     };
 
     programs = lib.mkIf cfg.kde.enable {
-      kdeconnect.enable = true;
+      kde-pim.enable = cfg.kde.pim.enable;
+      kdeconnect.enable = cfg.kde.kdeconnect.enable;
       partition-manager.enable = true;
     };
 

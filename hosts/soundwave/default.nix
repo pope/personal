@@ -106,7 +106,10 @@
       enable = true;
       autoLogin.enable = false;
       displayManager = "none";
-      kde.enable = true;
+      kde = {
+        enable = true;
+        kdeconnect.enable = true;
+      };
       gnome.enable = false;
       hyprland.enable = false;
     };

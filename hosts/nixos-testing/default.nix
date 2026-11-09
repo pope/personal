@@ -46,7 +46,10 @@
       enable = true;
       autoLogin.enable = false;
       displayManager = "sddm";
-      kde.enable = true;
+      kde = {
+        enable = true;
+        kdeconnect.enable = true;
+      };
     };
     flatpak.enable = true;
     fonts.enable = true;

@@ -94,7 +94,10 @@
       displayManager = "sddm";
       gnome.enable = false;
       hyprland.enable = true;
-      kde.enable = true;
+      kde = {
+        enable = true;
+        kdeconnect.enable = true;
+      };
     };
     flatpak.enable = true;
     fonts = {

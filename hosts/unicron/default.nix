@@ -129,7 +129,11 @@
       autoLogin.enable = false;
       displayManager = "sddm";
       gnome.enable = false;
-      kde.enable = true;
+      kde = {
+        enable = true;
+        kdeconnect.enable = true;
+        pim.enable = true;
+      };
       hyprland.enable = true;
     };
     displaycal.enable = true;
