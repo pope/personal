@@ -1,20 +1,14 @@
 {
-  pkgs,
+  config,
   ...
 }:
 
 {
-  boot.resumeDevice = "/dev/disk/by-uuid/e598815b-331d-468f-b44a-222bd4ae238a";
+  boot.resumeDevice = (builtins.head config.swapDevices).device;
 
-  # https://boilingsteam.com/a-quick-fix-to-improve-the-battery-life-of-the-amd-framework-13/
-  powerManagement = {
-    powerDownCommands = ''
-      ${pkgs.util-linux}/bin/rfkill block all
-    '';
-    resumeCommands = ''
-      ${pkgs.util-linux}/bin/rfkill unblock all
-    '';
-  };
+  # Avoid loading amdgpu in initrd so it doesn't modeset /dev/tty1 mid-LUKS
+  # password entry or conflict with the hibernated kernel's amdgpu S4 restore.
+  hardware.amdgpu.initrd.enable = false;
 
   services = {
     logind.settings.Login = {
