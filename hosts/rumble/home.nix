@@ -25,7 +25,7 @@
       mode = "preferred";
       position = "auto";
       icc = ./BOE0CB4.icm;
-      vrr = 2;
+      vrr = true;
       scale = 1.6666666666666;
     }
   ];
@@ -68,7 +68,7 @@
       enable = true;
       # dpiScale = 2;
       batterySaverMode.enable = false;
-      vrr = "fullscreen";
+      vrr = "always";
     };
     kde.enable = true;
     languages = {
