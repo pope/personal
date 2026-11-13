@@ -4,7 +4,7 @@
   nix-update-script,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "ia-writer";
   version = "0-unstable-2026-10-02";
 

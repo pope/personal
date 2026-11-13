@@ -4,7 +4,7 @@
   nix-update-script,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "sf-pro";
   version = "0-unstable-2022-09-02";
 

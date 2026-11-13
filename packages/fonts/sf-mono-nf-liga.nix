@@ -4,7 +4,7 @@
   nix-update-script,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "sf-mono-nf-liga";
   version = "0-unstable-2023-07-02";
 

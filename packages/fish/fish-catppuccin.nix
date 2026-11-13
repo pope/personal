@@ -4,7 +4,7 @@
   nix-update-script,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "fish-catppuccin";
   version = "0-unstable-2026-03-13";
 

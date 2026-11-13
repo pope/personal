@@ -24,5 +24,5 @@ in
   inherit releasePath;
 }).overrideAttrs
   (oldAttrs: {
-    passthru = builtins.removeAttrs (oldAttrs.passthru or { }) [ "updateScript" ];
+    passthru = removeAttrs (oldAttrs.passthru or { }) [ "updateScript" ];
   })

@@ -5,7 +5,7 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "iqm";
   version = "0-unstable-2026-08-15";
 

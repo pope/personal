@@ -4,7 +4,7 @@
   nix-update-script,
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "sf-mono-font";
   version = "0-unstable-2018-06-07";
 
