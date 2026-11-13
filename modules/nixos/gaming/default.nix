@@ -95,7 +95,10 @@ in
 
     # make ntsync device accessible
     services = {
-      scx.enable = cfg.scx.enable;
+      scx-loader = {
+        enable = cfg.scx.enable;
+        config.default_sched = "scx_lavd";
+      };
 
       udev.packages = lib.mkIf cfg.ntsync.enable [
         (pkgs.writeTextFile {

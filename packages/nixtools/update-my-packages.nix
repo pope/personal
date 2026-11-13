@@ -27,6 +27,8 @@ writeShellApplication {
         in
         ''
           echo "Updating ${name}..."
+          # TODO(pope): Remove after https://github.com/Mic92/nix-update/issues/687 is fixed
+          nix flake prefetch >/dev/null
           if ! ${cmd}; then
             failed+=("${name}")
           fi

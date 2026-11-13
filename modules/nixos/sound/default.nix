@@ -14,6 +14,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [
+      config.services.pipewire.package.jack
+    ];
+
     services = {
       pipewire = {
         enable = true;
@@ -33,7 +37,6 @@ in
             ];
           };
         };
-        jack.enable = true;
         pulse.enable = true;
         wireplumber.enable = true;
       };

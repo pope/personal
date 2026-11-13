@@ -62,6 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r Rack2Pro/* $out/opt/VCV
 
     mkdir -p $out/bin
+    # TODO(pope): Consider wrapping with pw-jack (or pipewire.jack instead of libjack2) if JACK is preferred over ALSA/PulseAudio.
     makeWrapper ${lib.getExe steam-run-free} $out/bin/Rack \
       --chdir $out/opt/VCV \
       --prefix PATH : ${lib.makeBinPath runtimeBinaryInputs} \

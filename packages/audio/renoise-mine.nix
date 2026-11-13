@@ -20,6 +20,7 @@ let
         hash = "sha256-ylykdTTW65+SCExuLBhT0gW0BfgqEuhaz3c+krWzbwc=";
       };
 in
+# TODO(pope): Consider wrapping with pw-jack (or pipewire.jack) if JACK is preferred over ALSA.
 (renoise.override {
   inherit releasePath;
 }).overrideAttrs

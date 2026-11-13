@@ -92,6 +92,7 @@ stdenv.mkDerivation (_finalAttrs: {
       cp -r VitalInstaller/$f $out/$f
     done
 
+    # TODO(pope): Consider wrapping with pw-jack (or pipewire.jack instead of libjack2) if JACK is preferred over ALSA.
     wrapProgram $out/bin/Vital \
       --prefix LD_LIBRARY_PATH : "${
         lib.makeLibraryPath [

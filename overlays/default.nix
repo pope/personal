@@ -155,6 +155,23 @@
       })
     );
 
+    # TODO(pope): Remove after PR #587533 lands in nixpkgs/nixos-unstable
+    glances = prev.glances.overridePythonAttrs (oldAttrs: rec {
+      version = "4.5.9";
+      src = prev.fetchFromGitHub {
+        owner = "nicolargo";
+        repo = "glances";
+        tag = "v${version}";
+        hash = "sha256-CvT9GQ29xXTVxC7V2nGmfDhHLsAtF61+XMMLG8cmHww=";
+      };
+      dependencies = (prev.lib.filter (p: (p.pname or "") != "python-jose") oldAttrs.dependencies) ++ [
+        prev.python3Packages.pyjwt
+      ];
+      nativeCheckInputs = (oldAttrs.nativeCheckInputs or [ ]) ++ [
+        prev.python3Packages.pysmart
+      ];
+    });
+
     jpeg-archive = withCpuTuning prev.jpeg-archive;
 
     mozjpeg = withCpuTuning prev.mozjpeg;
