@@ -109,5 +109,10 @@ in
         "Net/ThemeName" = "${config.gtk.theme.name}";
       };
     };
+
+    # Only run standalone xsettingsd in Hyprland; KDE manages its own via kded6.
+    systemd.user.services.xsettingsd.Service.ExecCondition = ''
+      ${pkgs.systemd}/lib/systemd/systemd-xdg-autostart-condition "wlroots:Hyprland" ""
+    '';
   };
 }

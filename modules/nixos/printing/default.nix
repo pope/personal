@@ -23,7 +23,11 @@ in
       };
 
       # Enable CUPS to print documents.
-      printing.enable = true;
+      printing = {
+        enable = true;
+        # Avoid binding [::1]:631 when IPv6 is disabled.
+        listenAddresses = lib.mkIf (!config.networking.enableIPv6) [ "127.0.0.1:631" ];
+      };
     };
 
     environment.systemPackages = with pkgs; [

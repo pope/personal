@@ -33,7 +33,8 @@ in
     hardware.bluetooth = {
       enable = true;
       settings = {
-        General.Enable = "Source,Sink,Media,Socket";
+        # Enables BlueZ experimental features like battery reporting.
+        General.Experimental = true;
       };
     };
   };

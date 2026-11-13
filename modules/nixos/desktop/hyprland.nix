@@ -7,6 +7,8 @@
 
 let
   cfg = config.my.nixos.desktop;
+  # Defer to KWallet when KDE is also enabled.
+  enableGnomeKeyring = !cfg.kde.enable;
 in
 {
   config = lib.mkIf (cfg.enable && cfg.hyprland.enable) {
@@ -41,7 +43,9 @@ in
 
     security = {
       pam.services = {
-        greetd.enableGnomeKeyring = true;
+        greetd = {
+          inherit enableGnomeKeyring;
+        };
         hyprlock = { };
       };
       polkit.enable = true;
@@ -56,7 +60,7 @@ in
         ];
       };
       geoclue2.enable = true;
-      gnome.gnome-keyring.enable = true;
+      gnome.gnome-keyring.enable = enableGnomeKeyring;
       graphical-desktop.enable = true;
       gvfs.enable = true;
       power-profiles-daemon.enable = lib.mkDefault true;
