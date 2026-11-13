@@ -34,8 +34,8 @@ in
     ];
 
     boot = {
-      # Prevent 10ms split-lock throttling ("misery mode") and log spam in Steam/Proton.
-      kernel.sysctl."kernel.split_lock_mitigate" = 0;
+      # Disable split-lock/bus-lock #DB traps and log spam from Steam/Proton.
+      kernelParams = [ "split_lock_detect=off" ];
       kernelModules = lib.mkIf cfg.ntsync.enable [ "ntsync" ];
     };
 
