@@ -25,7 +25,6 @@
       hey
       jpeg-archive
       marksman
-      moonlight-qt
       my-jpeg-archive
       obsidian
       tut
@@ -53,6 +52,7 @@
     editors = {
       emacs.enable = true;
       neovim.enable = true;
+      zed.enable = true;
     };
     git = {
       enable = true;
