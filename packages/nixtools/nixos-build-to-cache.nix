@@ -10,7 +10,11 @@ writeShellApplication {
   ];
   text = # sh
     ''
-      nix copy --to ssh://skrapnel.lan \
-          .#nixosConfigurations.{unicron,rumble,skrapnel,ravage}.config.system.build.toplevel
+      nix copy \
+        --no-check-sigs \
+        --option post-build-hook "" \
+        --substitute-on-destination \
+        --to ssh-ng://skrapnel.lan \
+        .#nixosConfigurations.{unicron,rumble,skrapnel,ravage}.config.system.build.toplevel
     '';
 }

@@ -3,7 +3,10 @@
 # Where overrides go:
 # - Overlay (`overlays/default.nix`): Global patches, build flags, and wrapper
 #   fixes that should always apply everywhere (e.g., darktable, digikam,
-#   gamescope).
+#   gamescope), plus temporary `# TODO(pope):` workarounds. If a workaround
+#   would trigger mass rebuilds when overriding the original attribute name,
+#   expose it under a distinct name here (e.g., `foo-patched`) so all temporary
+#   overrides stay centralized and easy to audit.
 # - Modules (`modules/`): Overrides that depend on module `cfg` options (e.g.,
 #   steam, digikam OpenCL), theme/font variants, or `withCpuTuning` on core
 #   packages like `mesa`, `pipewire`, and `emacs`. Overriding those in the
@@ -155,24 +158,19 @@
       })
     );
 
-    # TODO(pope): Remove after PR #587533 lands in nixpkgs/nixos-unstable
-    glances = prev.glances.overridePythonAttrs (oldAttrs: rec {
-      version = "4.5.9";
-      src = prev.fetchFromGitHub {
-        owner = "nicolargo";
-        repo = "glances";
-        tag = "v${version}";
-        hash = "sha256-CvT9GQ29xXTVxC7V2nGmfDhHLsAtF61+XMMLG8cmHww=";
-      };
-      dependencies = (prev.lib.filter (p: (p.pname or "") != "python-jose") oldAttrs.dependencies) ++ [
-        prev.python3Packages.pyjwt
-      ];
-      nativeCheckInputs = (oldAttrs.nativeCheckInputs or [ ]) ++ [
-        prev.python3Packages.pysmart
-      ];
-    });
-
     jpeg-archive = withCpuTuning prev.jpeg-archive;
+
+    # TODO(pope): Remove once upstream oxygen-icons removes 'go-first copy.svg'
+    # (filenames with spaces break gtk-update-icon-cache in user-environment).
+    kdePackages = prev.kdePackages.overrideScope (
+      _kfinal: kprev: {
+        oxygen-icons = kprev.oxygen-icons.overrideAttrs (oldAttrs: {
+          postInstall = (oldAttrs.postInstall or "") + ''
+            find "$out/share/icons/oxygen" -name '* *' -delete
+          '';
+        });
+      }
+    );
 
     mozjpeg = withCpuTuning prev.mozjpeg;
 

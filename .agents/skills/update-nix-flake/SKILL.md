@@ -59,13 +59,13 @@ Inspect [overlays/default.nix](../../../overlays/default.nix) and [flake.nix](..
    ```bash
    nix fmt
    ```
-1. Build and copy the NixOS host configurations (`unicron`, `rumble`, `skrapnel`, `ravage`) to `ssh://skrapnel.lan`:
+1. Build and copy the NixOS host configurations (`unicron`, `rumble`, `skrapnel`, `ravage`) to `ssh-ng://skrapnel.lan`:
    ```bash
    nix run .#nixos-build-to-cache
    ```
 1. **Handling Upstream Build Regressions**:
    - If a package fails to build due to an upstream `nixos-unstable` regression, search `NixOS/nixpkgs` issues and PRs for the root cause and fix.
    - Present the options to the user and ask how they want to proceed—for example:
-     - **Option A**: Apply the upstream PR/patch in [overlays/default.nix](../../../overlays/default.nix) annotated with `# TODO(pope): Remove after PR #<number> lands in nixpkgs/nixos-unstable` (noting if it requires compiling from source locally).
+     - **Option A**: Apply the upstream PR/patch in [overlays/default.nix](../../../overlays/default.nix) annotated with `# TODO(pope): Remove after PR #<number> lands in nixpkgs/nixos-unstable` (noting if it requires compiling from source locally). If overriding the original attribute name would trigger mass rebuilds, expose the patched package under a distinct name in [overlays/default.nix](../../../overlays/default.nix) (e.g., `foo-patched`) and reference it from the relevant module so all temporary overrides stay centralized and easy to audit.
      - **Option B**: Temporarily fall back to `final.stable.<pkg>` (or another version) in [overlays/default.nix](../../../overlays/default.nix) if prebuilt binaries are available in `cache.nixos.org`.
    - Once the user confirms their preferred approach, apply the change, run `nix fmt`, and re-run `nix run .#nixos-build-to-cache` to confirm all hosts build and copy cleanly.
