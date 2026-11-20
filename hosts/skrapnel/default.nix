@@ -54,7 +54,12 @@
   my.nixos = {
     gpu.intel.enable = true;
     nfs.host.enable = true;
-    nix.enable = true;
+    nix = {
+      enable = true;
+      # Managed by services.harmonia.gc in webservices.nix so recently uploaded
+      # cache paths are retained via keepRecent.
+      gc.enable = false;
+    };
     samba = {
       enable = true;
       shares = {

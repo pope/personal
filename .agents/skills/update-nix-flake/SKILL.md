@@ -49,7 +49,7 @@ Inspect [overlays/default.nix](../../../overlays/default.nix) and [flake.nix](..
    nix eval .#homeConfigurations.\"pope@galvatron\".activationPackage.drvPath
    ```
 1. **Interpreting Warnings & Confirming Fixes**:
-   - `warning: file 'nar/...' does not exist in binary cache 'http://skrapnel:5000'` is expected for newly updated paths not yet populated on `skrapnel` (Nix automatically falls back to `https://cache.nixos.org`).
+   - `warning: file 'nar/...' does not exist in binary cache 'https://skrapnel.gumiho-matrix.ts.net/nix-cache'` is expected for newly updated paths not yet populated on `skrapnel` (Nix automatically falls back to `https://cache.nixos.org`).
    - `warning: The check omitted these incompatible systems: aarch64-darwin` is expected when running on `x86_64-linux`.
    - For any NixOS, Home Manager, or Nixvim option deprecations, warnings, or evaluation errors, identify the affected files under `hosts/`, `modules/`, `packages/`, or `overlays/`, explain the root cause, present your proposed fix (along with any relevant alternatives), and wait for user confirmation before applying changes.
 

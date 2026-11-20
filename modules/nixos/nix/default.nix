@@ -8,16 +8,26 @@
 
 let
   cfg = config.my.nixos.nix;
+  tailscaleCacheHost = "skrapnel.gumiho-matrix.ts.net";
 in
 {
+  imports = [
+    ./binary-cache-uploader.nix
+  ];
+
   options.my.nixos.nix = {
     enable = lib.mkEnableOption "nix config options";
     binaryCacheSubstitutor.enable = lib.mkEnableOption "my binary cache server";
+    gc.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable automatic Nix garbage collection via nix.gc.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     nix = {
-      gc = {
+      gc = lib.mkIf cfg.gc.enable {
         automatic = true;
         dates = "weekly";
         options = "--delete-older-than 7d";
@@ -37,7 +47,7 @@ in
         nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
         substituters =
           lib.optionals cfg.binaryCacheSubstitutor.enable [
-            "http://skrapnel:5000"
+            "https://${tailscaleCacheHost}/nix-cache"
           ]
           ++ [
             "https://nix-community.cachix.org"

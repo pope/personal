@@ -156,6 +156,11 @@
     nix = {
       enable = true;
       binaryCacheSubstitutor.enable = true;
+      binaryCacheUploader = {
+        enable = true;
+        automatic = true;
+        host = "skrapnel.lan";
+      };
     };
     onepassword.enable = true;
     printing.enable = true;

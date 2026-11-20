@@ -126,7 +126,14 @@
     keyboards.enable = true;
     ndi.enable = true;
     nfs.client.enable = true;
-    nix.enable = true;
+    nix = {
+      enable = true;
+      binaryCacheSubstitutor.enable = true;
+      binaryCacheUploader = {
+        enable = true;
+        host = "skrapnel.lan";
+      };
+    };
     onepassword.enable = true;
     printing.enable = true;
     sops.enable = true;

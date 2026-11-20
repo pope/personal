@@ -91,6 +91,10 @@ in
           root * /mnt/Cyberia/nix-files
           file_server browse
         }
+
+        handle_path /nix-cache/* {
+          reverse_proxy 127.0.0.1:5000
+        }
       '';
     };
 
@@ -276,11 +280,36 @@ in
       };
     };
 
-    nix-serve = {
-      enable = true;
-      package = pkgs.nix-serve-ng;
-      openFirewall = true;
-      secretKeyFile = config.sops.secrets.cache-priv-key.path;
+    harmonia = {
+      cache = {
+        enable = true;
+        signKeyPaths = [ config.sops.secrets.cache-priv-key.path ];
+        settings = {
+          bind = "127.0.0.1:5000";
+        };
+      };
+      gc = {
+        enable = true;
+        automatic = true;
+        dates = "weekly";
+        deleteOlderThan = "30d";
+        keepRecent = "30d";
+      };
+    };
+  };
+
+  nix.settings.trusted-users = [ "nix-cache-upload" ];
+
+  users = {
+    groups.nix-cache-upload = { };
+    users.nix-cache-upload = {
+      isSystemUser = true;
+      group = "nix-cache-upload";
+      shell = pkgs.bash;
+      openssh.authorizedKeys.keys = [
+        # Public key matching sops.secrets.nix-cache-upload-key in secrets/default.yaml.
+        ''restrict,command="${lib.getExe' config.nix.package "nix-daemon"} --stdio" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMePz3ESgwR93QdA2su1RL5g+fPmKCX0+6Gnw3GCOUPN nix-cache-upload''
+      ];
     };
   };
 

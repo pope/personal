@@ -186,6 +186,7 @@
     nix = {
       enable = true;
       binaryCacheSubstitutor.enable = true;
+      binaryCacheUploader.enable = true;
     };
     onepassword.enable = true;
     sops.enable = true;
