@@ -96,8 +96,8 @@
     logind.settings.Login = {
       HandleLidSwitch = "suspend-then-hibernate";
       HandleLidSwitchExternalPower = "suspend-then-hibernate";
-      PowerKey = "hibernate";
-      PowerKeyLongPress = "poweroff";
+      HandlePowerKey = "hibernate";
+      HandlePowerKeyLongPress = "poweroff";
     };
     power-profiles-daemon.enable = false;
     thermald.enable = true;
