@@ -41,6 +41,7 @@ in
         htop
         hyperfine # benchmark util
         imagemagick
+        imv-tui
         jq
         nh
         nix-output-monitor

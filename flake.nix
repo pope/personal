@@ -33,8 +33,15 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    imv-tui = {
+      url = "github:pope/imv-tui";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     peng = {
-      url = "git+https://p0.pe/my-git-repos/peng.git";
+      url = "github:pope/peng";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";

@@ -1,28 +1,5 @@
 {
   "nodes": {
-    "antigravity-nix": {
-      "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": [
-          "peng",
-          "jailed-antigravity",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1792135046,
-        "narHash": "sha256-fCvSHOvMEKBnz9srUMdWUBeyCr3+mdClNmkjxVcaE/E=",
-        "owner": "jacopone",
-        "repo": "antigravity-nix",
-        "rev": "9ef62b6440b1a33476498b97f9ba57bb28aff846",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jacopone",
-        "repo": "antigravity-nix",
-        "type": "github"
-      }
-    },
     "base16-schemes": {
       "flake": false,
       "locked": {
@@ -170,24 +147,6 @@
         "type": "github"
       }
     },
-    "flake-utils_3": {
-      "inputs": {
-        "systems": "systems_6"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "ghostty": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -235,42 +194,27 @@
         "type": "github"
       }
     },
-    "jail-nix": {
-      "locked": {
-        "lastModified": 1788928033,
-        "narHash": "sha256-UQRytK4SsshV1CeX6aKF+P855Sbcqg9aA731eYTakNg=",
-        "owner": "~alexdavid",
-        "repo": "jail.nix",
-        "rev": "7cd53acef3ad51b9c775be759f5643f8d3bcf6eb",
-        "type": "sourcehut"
-      },
-      "original": {
-        "owner": "~alexdavid",
-        "repo": "jail.nix",
-        "type": "sourcehut"
-      }
-    },
-    "jailed-antigravity": {
+    "imv-tui": {
       "inputs": {
-        "antigravity-nix": "antigravity-nix",
-        "jail-nix": "jail-nix",
         "nixpkgs": [
-          "peng",
           "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
         ]
       },
       "locked": {
-        "lastModified": 1792251664,
-        "narHash": "sha256-4ETf3VdHcCFdlv7GbTToDG28dAZXAbGTbKLiYXeg0pI=",
-        "ref": "refs/heads/main",
-        "rev": "6faeb361785647e8c1f97dc33b9db3926672f273",
-        "revCount": 9,
-        "type": "git",
-        "url": "https://p0.pe/my-git-repos/jailed-antigravity.git"
+        "lastModified": 1795282725,
+        "narHash": "sha256-tTBHfOeEZ68hcZVVUxXGfcUxZRrevM0sAIbcUeBxn6U=",
+        "owner": "pope",
+        "repo": "imv-tui",
+        "rev": "be691dbb059137e66ead1a463a206eb78b205c49",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://p0.pe/my-git-repos/jailed-antigravity.git"
+        "owner": "pope",
+        "repo": "imv-tui",
+        "type": "github"
       }
     },
     "mac-app-util": {
@@ -543,7 +487,6 @@
     },
     "peng": {
       "inputs": {
-        "jailed-antigravity": "jailed-antigravity",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -552,23 +495,24 @@
         ]
       },
       "locked": {
-        "lastModified": 1795118848,
-        "narHash": "sha256-aZW8QEO5wE7qo7ghy4WAEQcpf10wPiCh4ZQJcHKZdnk=",
-        "ref": "refs/heads/main",
-        "rev": "4b02e23c0707bdf6c7ca9f50f265084eb3aad64c",
-        "revCount": 490,
-        "type": "git",
-        "url": "https://p0.pe/my-git-repos/peng.git"
+        "lastModified": 1795283281,
+        "narHash": "sha256-MEZvsKVfUbN9oGeWsZswaE/c61brdxqbMN7NCkF3sQE=",
+        "owner": "pope",
+        "repo": "peng",
+        "rev": "c2494b1d9291985c5649467e79edf0abbf851b7a",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://p0.pe/my-git-repos/peng.git"
+        "owner": "pope",
+        "repo": "peng",
+        "type": "github"
       }
     },
     "root": {
       "inputs": {
         "ghostty": "ghostty",
         "home-manager": "home-manager",
+        "imv-tui": "imv-tui",
         "mac-app-util": "mac-app-util",
         "musnix": "musnix",
         "nix-automatic-windows-vsts": "nix-automatic-windows-vsts",
@@ -678,21 +622,6 @@
       "original": {
         "owner": "nix-systems",
         "ref": "future-26.11",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_6": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
         "repo": "default",
         "type": "github"
       }
