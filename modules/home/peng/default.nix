@@ -42,22 +42,9 @@ in
 {
   options.my.home.peng = {
     enable = lib.mkEnableOption "Peng image viewer";
-    service.enable = lib.mkOption {
-      default = pkgs.stdenv.hostPlatform.isLinux;
-      example = true;
-      description = "Whether to enable the Peng resident server systemd user service.";
-      type = lib.types.bool;
-    };
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = !cfg.service.enable || pkgs.stdenv.hostPlatform.isLinux;
-        message = "my.home.peng.service.enable is only supported on Linux.";
-      }
-    ];
-
     home.packages = [
       pkgs.peng
     ];
@@ -65,25 +52,6 @@ in
     xdg.mimeApps = lib.mkIf config.my.home.xdg.enable {
       associations.added = mimetypes;
       defaultApplications = mimetypes;
-    };
-
-    systemd.user.services.peng = lib.mkIf cfg.service.enable {
-      Unit = {
-        Description = "Peng resident image viewer server";
-        After = [ "graphical-session.target" ];
-        PartOf = [ "graphical-session.target" ];
-        ConditionEnvironment = [ "WAYLAND_DISPLAY" ];
-      };
-
-      Install.WantedBy = [ "graphical-session.target" ];
-
-      Service = {
-        ExecStart = "${lib.getExe pkgs.peng} --server";
-        ExecStop = "-${lib.getExe' pkgs.peng "peng-msg"} quit";
-        Restart = "on-failure";
-        RestartSec = 2;
-        TimeoutStopSec = 5;
-      };
     };
   };
 }

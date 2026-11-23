@@ -204,11 +204,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795282725,
-        "narHash": "sha256-tTBHfOeEZ68hcZVVUxXGfcUxZRrevM0sAIbcUeBxn6U=",
+        "lastModified": 1795404138,
+        "narHash": "sha256-T3H9T18+6pqEMcsmGXX0mKWtyadYww1HsjUUWcldUI0=",
         "owner": "pope",
         "repo": "imv-tui",
-        "rev": "be691dbb059137e66ead1a463a206eb78b205c49",
+        "rev": "b613b7988973c7d5e931b28b685e6c9544c512a8",
         "type": "github"
       },
       "original": {
@@ -495,11 +495,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795283281,
-        "narHash": "sha256-MEZvsKVfUbN9oGeWsZswaE/c61brdxqbMN7NCkF3sQE=",
+        "lastModified": 1795406027,
+        "narHash": "sha256-GqhqM0157CXWxKvZVCjyd/VdkILICpJqX2t3gNsKQO4=",
         "owner": "pope",
         "repo": "peng",
-        "rev": "c2494b1d9291985c5649467e79edf0abbf851b7a",
+        "rev": "3f7dd6e842367ea91583da7619463aa618ac5b60",
         "type": "github"
       },
       "original": {
