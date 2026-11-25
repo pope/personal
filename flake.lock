@@ -495,11 +495,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795477471,
-        "narHash": "sha256-CEKZKlFRzog7Xiap+YtCJF5aJGLFZctg4mbsBmyHtnY=",
+        "lastModified": 1795578092,
+        "narHash": "sha256-eV+uDrEmloejuC6fOb/j6QIrmdrq2KdO/RMInjJn+hY=",
         "owner": "pope",
         "repo": "peng",
-        "rev": "32f92d22499a1ca4ba8fa5928c475a388fd539db",
+        "rev": "08e4b1b95ce3a73c30bd01355b0663ebe2a68573",
         "type": "github"
       },
       "original": {

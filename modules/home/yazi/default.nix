@@ -7,12 +7,14 @@
 
 let
   cfg = config.my.home.yazi;
+  pengEnabled = config.my.home.peng.enable;
 
   mkDefaultAttrs = lib.mapAttrsRecursive (_: v: lib.mkDefault v);
   keymap = mkDefaultAttrs (fromTOML (builtins.readFile ./keymap-default.toml));
   settings = mkDefaultAttrs (fromTOML (builtins.readFile ./yazi-default.toml));
   rawUrl = "*.{arw,ARW,raf,RAF,cr2,CR2,cr3,CR3,nef,NEF,dng,DNG,orf,ORF,rw2,RW2,pef,PEF}";
   rawMime = "image/x-{sony-arw,fuji-raf,canon-cr2,canon-cr3,nikon-nef,adobe-dng,olympus-orf,panasonic-rw2,pentax-pef}";
+  cbzUrl = "*.{cbz,CBZ}";
 in
 {
   options.my.home.yazi = {
@@ -20,22 +22,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      with pkgs;
-      [
-        exiftool
-        exiv2
-        mediainfo
-      ]
-      ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-        allmytoes
-        ffmpegthumbnailer
-      ];
+    home.packages = with pkgs; [
+      exiftool
+      exiv2
+      mediainfo
+    ];
 
     programs.yazi = {
       enable = true;
       initLua = ''
-        require("mime-ext"):setup()
         require("mime-ext.local"):setup {
           with_exts = {
             arw = "image/x-sony-arw",
@@ -47,9 +42,11 @@ in
             orf = "image/x-olympus-orf",
             rw2 = "image/x-panasonic-rw2",
             pef = "image/x-pentax-pef",
+            cbz = "${if pengEnabled then "application/vnd.comicbook+zip" else "application/zip"}",
             heic = "image/heic",
             heif = "image/heif",
             xmp = "text/xml",
+            zig = "text/zig",
           },
           fallback_file1 = true,
         }
@@ -68,11 +65,10 @@ in
       ];
       plugins = {
         inherit (pkgs.yaziPlugins) mime-ext toggle-pane;
-        raw-image = ./raw-image.yazi;
         exif-spotter = ./exif-spotter.yazi;
       }
-      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-        freedesktop-thumb = ./freedesktop-thumb.yazi;
+      // lib.optionalAttrs pengEnabled {
+        peng-preview = ./peng-preview.yazi;
       };
       settings = lib.mkMerge [
         settings
@@ -83,6 +79,20 @@ in
             3
           ];
           plugin = {
+            prepend_fetchers = [
+              {
+                group = "mime";
+                url = "*/";
+                run = "mime.dir";
+                prio = "high";
+              }
+              {
+                group = "mime";
+                url = "local://*";
+                run = "mime-ext.local";
+                prio = "high";
+              }
+            ];
             prepend_spotters = [
               {
                 url = rawUrl;
@@ -97,66 +107,30 @@ in
                 run = "exif-spotter";
               }
             ];
-            prepend_preloaders = [
+            prepend_preloaders = lib.optionals pengEnabled [
               {
                 url = rawUrl;
-                run = "raw-image";
+                run = "peng-preview";
               }
               {
                 mime = rawMime;
-                run = "raw-image";
+                run = "peng-preview";
               }
-            ]
-            ++ (
-              if pkgs.stdenv.hostPlatform.isLinux then
-                [
-                  {
-                    mime = "image/svg+xml";
-                    run = "svg";
-                  }
-                  {
-                    mime = "{image,video}/*";
-                    run = "freedesktop-thumb";
-                  }
-                ]
-              else
-                [
-                  {
-                    mime = "image/tiff";
-                    run = "magick";
-                  }
-                ]
-            );
-            prepend_previewers = [
+            ];
+            prepend_previewers = lib.optionals pengEnabled [
               {
                 url = rawUrl;
-                run = "raw-image";
+                run = "peng-preview";
               }
               {
                 mime = rawMime;
-                run = "raw-image";
+                run = "peng-preview";
               }
-            ]
-            ++ (
-              if pkgs.stdenv.hostPlatform.isLinux then
-                [
-                  {
-                    mime = "image/svg+xml";
-                    run = "svg";
-                  }
-                  {
-                    mime = "{image,video}/*";
-                    run = "freedesktop-thumb";
-                  }
-                ]
-              else
-                [
-                  {
-                    mime = "image/tiff";
-                    run = "magick";
-                  }
-                ]
-            );
+              {
+                url = cbzUrl;
+                run = "peng-preview";
+              }
+            ];
           };
           preview = {
             max_width = 1024;

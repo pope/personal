@@ -1,5 +1,5 @@
 --- On-demand MediaInfo + exiv2 Spotter (<Tab>) for images, Camera RAWs, audio, and video.
---- Uses `raw-image` to extract embedded JPEG previews for Fujifilm .RAF files.
+--- Self-contained: extracts embedded JPEG previews from Fujifilm .RAF files directly.
 local M = {}
 
 local SKIP_KEYS = {
@@ -19,8 +19,6 @@ local function trim(s)
 	return s and s:match("^%s*(.-)%s*$") or ""
 end
 
--- NOTE: `read_u16` and `read_u32` are also in `raw-image.yazi/main.lua`
--- (and `read_u32` in `freedesktop-thumb.yazi/main.lua`). If modified here, update those as well.
 local function read_u16(buf, pos, is_le)
 	local b1, b2 = buf:byte(pos, pos + 1)
 	if not b2 then
@@ -180,24 +178,71 @@ function M:spot(job)
 	)
 end
 
+local MAX_RAF_PREVIEW_BYTES = 64 * 1024 * 1024
+
+local function ensure_raf_jpeg_cache(job, path)
+	local cache = ya.file_cache(job)
+	if not cache then
+		return nil
+	end
+	local raw_jpg_str = tostring(cache) .. ".raf.jpg"
+	local raw_jpg_url = Url(raw_jpg_str)
+	local cha = fs.cha(raw_jpg_url)
+	if cha and cha.len >= 4 then
+		return raw_jpg_str
+	end
+
+	local f = io.open(path, "rb")
+	if not f then
+		return nil
+	end
+	local hdr = f:read(128)
+	if not hdr or #hdr < 92 or hdr:sub(1, 8) ~= "FUJIFILM" then
+		f:close()
+		return nil
+	end
+	local prev_off = read_u32(hdr, 85, false)
+	local prev_len = read_u32(hdr, 89, false)
+	if not prev_off or not prev_len or prev_off == 0 or prev_len == 0 or prev_len > MAX_RAF_PREVIEW_BYTES then
+		f:close()
+		return nil
+	end
+	local jpg = f:seek("set", prev_off) and f:read(prev_len) or nil
+	f:close()
+	if not jpg or #jpg ~= prev_len or #jpg < 4 or jpg:byte(1) ~= 0xFF or jpg:byte(2) ~= 0xD8 then
+		return nil
+	end
+
+	local nonce = math.random(100000, 999999) + math.floor((os.clock() * 1e6) % 1000000)
+	local tmp_str = string.format("%s.%d.tmp", raw_jpg_str, nonce)
+	if not fs.write(Url(tmp_str), jpg) then
+		os.remove(tmp_str)
+		return nil
+	end
+	if not os.rename(tmp_str, raw_jpg_str) then
+		os.remove(tmp_str)
+		return nil
+	end
+	return raw_jpg_str
+end
+
 function M:spot_base(job)
-	local path = tostring(job.file.path)
+	local path = tostring(job.file.path or job.file.url)
 	local ext = (job.file.url.ext or ""):lower()
 	local is_raf = (ext == "raf")
 
 	local target_path = path
 	local raf_dims = nil
 	local raf_lens = ""
-	local raw_image = require("raw-image")
 
 	-- MediaInfo does not parse the outer 148-byte FUJIFILMCCD-RAW header of .RAF files,
 	-- so we feed MediaInfo and exiv2 the cached embedded JPEG preview (which contains the full Fuji EXIF)
 	-- and read the raw sensor dimensions directly from the RAF metadata block.
 	if is_raf then
 		raf_dims = parse_fuji_raf_sensor_dims(path)
-		local raw_jpg_url = raw_image.ensure_extracted_jpeg(job)
-		if raw_jpg_url then
-			target_path = tostring(raw_jpg_url)
+		local raf_jpg = ensure_raf_jpeg_cache(job, path)
+		if raf_jpg then
+			target_path = raf_jpg
 		end
 		local lens_out = Command("exiv2")
 			:arg({ "-q", "-K", "Exif.Photo.LensModel", "-Pt", target_path })
@@ -217,8 +262,9 @@ function M:spot_base(job)
 	-- Fallback to ya.image_info if mediainfo returned nothing
 	if #rows == 0 then
 		local cache = ya.file_cache(job)
-		local info = (cache and raw_image.is_valid_jpeg_cache(cache) and ya.image_info(cache))
-			or ya.image_info(job.file.url)
+		local cache_cha = cache and fs.cha(cache) or nil
+		local info = ya.image_info(job.file.url)
+			or (cache_cha and cache_cha.len > 0 and ya.image_info(cache))
 		if info then
 			rows[#rows + 1] = ui.Row({ "Image" }):style(ui.Style():fg("green"))
 			rows[#rows + 1] = ui.Row({ "  Format:", tostring(info.format) })
