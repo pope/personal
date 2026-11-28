@@ -161,8 +161,9 @@
 
     jpeg-archive = withCpuTuning prev.jpeg-archive;
 
-    # TODO(pope): Remove once upstream oxygen-icons removes 'go-first copy.svg'
-    # (filenames with spaces break gtk-update-icon-cache in user-environment).
+    # TODO(pope): Remove once oxygen-icons >= 6.33.0 lands in nixpkgs/nixos-unstable
+    # (fixed upstream in frameworks/oxygen-icons@5bfe4322, KDE bug 528955; filenames
+    # with spaces break gtk-update-icon-cache in user-environment).
     kdePackages = prev.kdePackages.overrideScope (
       _kfinal: kprev: {
         oxygen-icons = kprev.oxygen-icons.overrideAttrs (oldAttrs: {
